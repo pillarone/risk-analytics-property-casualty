@@ -1,0 +1,31 @@
+package org.pillarone.riskanalytics.domain.pc.constraints
+
+import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
+import org.pillarone.riskanalytics.core.parameterization.IMultiDimensionalConstraints
+
+/**
+ * @author fouad.jaada@intuitive-collaboration.com
+ */
+class PerilPortion implements IMultiDimensionalConstraints {
+
+    public static final String IDENTIFIER = "PERIL_PORTION"
+
+    boolean matches(int row, int column, Object value) {
+        if (column == 0) {
+            return value instanceof String
+        }
+        else {
+            return value instanceof Double || value instanceof BigDecimal
+        }
+    }
+
+    String getName() {
+        return IDENTIFIER
+    }
+
+    Class getColumnType(int column) {
+        return column == 0 ? PerilMarker : BigDecimal
+    }
+
+
+}
