@@ -63,7 +63,7 @@
         <exec executable="${grails}" failonerror="true" resolveexecutable="true">
             <arg value="test-app"/>
             <!--<arg value="-coverage"/>-->
-            <arg value="-echoOut"/>
+            <!--<arg value="-echoOut"/>-->
             <env key="GRAILS_HOME" value="${GRAILS_HOME}"/>
             <env key="JAVA_OPTS"
                  value="-Xmx1024m -XX:MaxPermSize=512m -Duser.language='en'"/>
