@@ -14,10 +14,4 @@ class FiniteReModelTests extends ModelTest {
     String getResultConfigurationDisplayName() {
         "EAB, Claims (aggregated)"
     }
-
-    int getIterationCount() {
-        100
-    }
-
-
 }
