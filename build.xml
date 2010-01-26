@@ -6,7 +6,8 @@
 
     <property file="application.properties"/>
 
-    <property name="build.prod.dir" value="${user.home}/.grails/${app.grails.version}/projects/${app.name}/"/>
+    <property name="build.prod.dir" value="${user.home}/.grails/${app.grails.version}/projects/${app.name}"/>
+    <property name="plugin.dir" value="${build.prod.dir}/plugins"/>
     <property name="classes.prod.dir" value="${build.prod.dir}/classes"/>
     <property name="resources.prod.dir" value="src/java"/>
 
@@ -45,6 +46,13 @@
             <fileset dir="." includes="**Db.properties"/>
             <fileset dir="." includes="*.tsl"/>
             <fileset dir="." includes="*.log"/>
+        </delete>
+    </target>
+
+    <target name="clean-plugins"
+            description="Removes all plugins files from the plugin dir. Useful for build servers to avoid grails trying to uninstall an old plugin after an upgrade.">
+        <delete includeemptydirs="true">
+            <fileset dir="${plugin.dir}" includes="**/*"/>
         </delete>
     </target>
 

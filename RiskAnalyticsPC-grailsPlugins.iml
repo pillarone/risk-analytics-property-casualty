@@ -25,11 +25,11 @@
       <sourceFolder url="file://$USER_HOME$/.grails/1.2.0/projects/RiskAnalyticsPC/plugins/quartz-0.4.1/src/groovy" isTestSource="false" />
       <sourceFolder url="file://$USER_HOME$/.grails/1.2.0/projects/RiskAnalyticsPC/plugins/quartz-0.4.1/grails-app/services" isTestSource="false" />
     </content>
-    <content url="file://$USER_HOME$/.grails/1.2.0/projects/RiskAnalyticsPC/plugins/risk-analytics-core-0.4.5.2">
-      <sourceFolder url="file://$USER_HOME$/.grails/1.2.0/projects/RiskAnalyticsPC/plugins/risk-analytics-core-0.4.5.2/src/java" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME$/.grails/1.2.0/projects/RiskAnalyticsPC/plugins/risk-analytics-core-0.4.5.2/src/groovy" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME$/.grails/1.2.0/projects/RiskAnalyticsPC/plugins/risk-analytics-core-0.4.5.2/grails-app/domain" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME$/.grails/1.2.0/projects/RiskAnalyticsPC/plugins/risk-analytics-core-0.4.5.2/grails-app/services" isTestSource="false" />
+    <content url="file://$USER_HOME$/.grails/1.2.0/projects/RiskAnalyticsPC/plugins/risk-analytics-core-0.4.6">
+      <sourceFolder url="file://$USER_HOME$/.grails/1.2.0/projects/RiskAnalyticsPC/plugins/risk-analytics-core-0.4.6/src/java" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/1.2.0/projects/RiskAnalyticsPC/plugins/risk-analytics-core-0.4.6/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/1.2.0/projects/RiskAnalyticsPC/plugins/risk-analytics-core-0.4.6/grails-app/domain" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/1.2.0/projects/RiskAnalyticsPC/plugins/risk-analytics-core-0.4.6/grails-app/services" isTestSource="false" />
     </content>
     <content url="file://$USER_HOME$/.grails/1.2.0/projects/RiskAnalyticsPC/plugins/tomcat-1.2.0">
       <sourceFolder url="file://$USER_HOME$/.grails/1.2.0/projects/RiskAnalyticsPC/plugins/tomcat-1.2.0/src/groovy" isTestSource="false" />
@@ -43,13 +43,13 @@
           <root url="file://$USER_HOME$/.grails/1.2.0/projects/RiskAnalyticsPC/plugins/tomcat-1.2.0/lib" />
           <root url="file://$USER_HOME$/.grails/1.2.0/projects/RiskAnalyticsPC/plugins/quartz-0.4.1/lib" />
           <root url="file://$USER_HOME$/.grails/1.2.0/projects/RiskAnalyticsPC/plugins/joda-time-0.5/lib" />
-          <root url="file://$USER_HOME$/.grails/1.2.0/projects/RiskAnalyticsPC/plugins/risk-analytics-core-0.4.5.2/lib" />
+          <root url="file://$USER_HOME$/.grails/1.2.0/projects/RiskAnalyticsPC/plugins/risk-analytics-core-0.4.6/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
         <jarDirectory url="file://$USER_HOME$/.grails/1.2.0/projects/RiskAnalyticsPC/plugins/joda-time-0.5/lib" recursive="false" />
         <jarDirectory url="file://$USER_HOME$/.grails/1.2.0/projects/RiskAnalyticsPC/plugins/quartz-0.4.1/lib" recursive="false" />
-        <jarDirectory url="file://$USER_HOME$/.grails/1.2.0/projects/RiskAnalyticsPC/plugins/risk-analytics-core-0.4.5.2/lib" recursive="false" />
+        <jarDirectory url="file://$USER_HOME$/.grails/1.2.0/projects/RiskAnalyticsPC/plugins/risk-analytics-core-0.4.6/lib" recursive="false" />
         <jarDirectory url="file://$USER_HOME$/.grails/1.2.0/projects/RiskAnalyticsPC/plugins/tomcat-1.2.0/lib" recursive="false" />
       </library>
     </orderEntry>
