@@ -19,6 +19,9 @@ import org.pillarone.riskanalytics.domain.pc.generators.claims.ClaimsGeneratorTy
 import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
 import org.pillarone.riskanalytics.domain.pc.constants.Exposure
 import org.pillarone.riskanalytics.domain.pc.constants.FrequencySeverityClaimType
+import org.pillarone.riskanalytics.domain.utils.DistributionModifier
+import org.pillarone.riskanalytics.domain.utils.DistributionModifierFactory
+import org.pillarone.riskanalytics.domain.utils.DistributionType
 
 model=models.podra.PodraModel
 periodCount=1

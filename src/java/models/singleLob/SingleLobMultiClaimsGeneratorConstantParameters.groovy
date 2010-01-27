@@ -10,6 +10,8 @@ import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionModifierFactory
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
+import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocatorType
 
 model = models.singleLob.SingleLobMultiClaimsGeneratorModel
 periodCount = 1

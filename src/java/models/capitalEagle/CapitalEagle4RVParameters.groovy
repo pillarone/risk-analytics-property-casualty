@@ -1,17 +1,18 @@
 package models.capitalEagle
 
-import org.pillarone.riskanalytics.domain.pc.constants.FrequencyBase
-import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
-import org.pillarone.riskanalytics.domain.utils.DistributionType
-import org.pillarone.riskanalytics.domain.pc.constants.Exposure
-import org.pillarone.riskanalytics.domain.utils.DistributionModifierFactory
-import org.pillarone.riskanalytics.domain.utils.DistributionModifier
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractStrategyFactory
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
-import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
-import org.pillarone.riskanalytics.domain.pc.constants.RiskBandAllocationBase
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocatorStrategyFactory
+import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocatorType
+import org.pillarone.riskanalytics.domain.pc.constants.Exposure
+import org.pillarone.riskanalytics.domain.pc.constants.FrequencyBase
+import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
+import org.pillarone.riskanalytics.domain.pc.constants.RiskBandAllocationBase
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractStrategyFactory
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
+import org.pillarone.riskanalytics.domain.utils.DistributionModifier
+import org.pillarone.riskanalytics.domain.utils.DistributionModifierFactory
+import org.pillarone.riskanalytics.domain.utils.DistributionType
+import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
 
 model = models.capitalEagle.CapitalEagleModel
 periodCount = 4

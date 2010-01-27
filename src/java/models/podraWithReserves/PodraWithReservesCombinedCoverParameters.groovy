@@ -17,6 +17,14 @@ import org.pillarone.riskanalytics.domain.pc.constants.FrequencySeverityClaimTyp
 import org.pillarone.riskanalytics.domain.pc.underwriting.IUnderwritingInfoMarker
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxMatrixMultiDimensionalParameter
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
+import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
+import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
+import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractStrategyFactory
+import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
+import org.pillarone.riskanalytics.domain.pc.generators.copulas.CopulaStrategyFactory
+import org.pillarone.riskanalytics.domain.pc.generators.copulas.PerilCopulaType
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com

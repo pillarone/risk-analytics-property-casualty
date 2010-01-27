@@ -6,8 +6,8 @@ import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimen
 import org.pillarone.riskanalytics.domain.pc.constants.Exposure
 import org.pillarone.riskanalytics.domain.pc.generators.claims.ClaimsGeneratorType
 import org.pillarone.riskanalytics.domain.pc.generators.claims.ClaimsGeneratorStrategyFactory
-import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocatorType
-import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocatorStrategyFactory
+import org.pillarone.riskanalytics.domain.pc.claims.RiskAllocatorType
+import org.pillarone.riskanalytics.domain.pc.claims.RiskAllocatorStrategyFactory
 import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier

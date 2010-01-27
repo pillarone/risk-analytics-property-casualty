@@ -18,6 +18,8 @@ import org.pillarone.riskanalytics.domain.utils.DistributionModifierFactory
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
 import org.pillarone.riskanalytics.core.parameterization.*
+import org.pillarone.riskanalytics.domain.pc.generators.copulas.PerilCopulaType
+import org.pillarone.riskanalytics.domain.pc.generators.copulas.CopulaStrategyFactory
 
 model = models.podra.PodraModel
 periodCount = 1

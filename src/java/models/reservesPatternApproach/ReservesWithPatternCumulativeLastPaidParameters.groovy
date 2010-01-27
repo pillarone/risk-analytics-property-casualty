@@ -15,6 +15,7 @@ import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.pc.claims.RiskAllocatorStrategyFactory
 import org.pillarone.riskanalytics.domain.pc.claims.RiskAllocatorType
 import org.pillarone.riskanalytics.domain.pc.constants.FrequencyBase
+import org.pillarone.riskanalytics.domain.pc.constants.FrequencySeverityClaimType
 
 model=models.reservesPatternApproach.ReservesWithPatternModel
 periodCount=4

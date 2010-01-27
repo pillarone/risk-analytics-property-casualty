@@ -26,6 +26,7 @@ import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalPa
 import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
 import org.pillarone.riskanalytics.domain.pc.reinsurance.IReinsurerMarker
+import org.pillarone.riskanalytics.domain.assets.constants.Rating
 
 model = models.dynamicCapitalEagle.DynamicCapitalEagleModel
 periodCount = 1
