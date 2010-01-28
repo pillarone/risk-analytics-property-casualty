@@ -12,6 +12,9 @@ import java.util.List;
  */
 public class DependenceStream extends Packet {
     // todo (sku): convert to a map; new name for marginals: target
+    public DependenceStream(){
+
+    }
 
     public DependenceStream(List<Number> probabilities, List<String> marginals) {
         this.probabilities = probabilities;
