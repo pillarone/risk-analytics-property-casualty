@@ -1,3 +1,11 @@
+import org.pillarone.riskanalytics.domain.pc.constraints.ReservePortion
+import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
+import org.pillarone.riskanalytics.domain.pc.constraints.UnderwritingPortion
+import org.pillarone.riskanalytics.domain.pc.constraints.PerilPortion
+import org.pillarone.riskanalytics.core.parameterization.SimpleConstraint
+import org.pillarone.riskanalytics.domain.pc.output.AggregatedDrillDownCollectingModeStrategy
+import org.pillarone.riskanalytics.core.output.CollectingModeFactory
+
 class RiskAnalyticsPCGrailsPlugin {
     // the plugin version
     def version = "0.4.6"
@@ -5,7 +13,7 @@ class RiskAnalyticsPCGrailsPlugin {
     def grailsVersion = "1.2.0 > *"
     // the other plugins this plugin depends on
     def dependsOn = [
-            "riskAnalyticsCore": "0.4.6"
+            "riskAnalyticsCore": "0.4.6 > *"
     ]
     // resources that are excluded from plugin packaging
     def pluginExcludes = [
@@ -36,7 +44,12 @@ class RiskAnalyticsPCGrailsPlugin {
     }
 
     def doWithApplicationContext = {applicationContext ->
-        // TODO Implement post initialization spring config (optional)
+        CollectingModeFactory.registerStrategy(new AggregatedDrillDownCollectingModeStrategy())
+
+        ConstraintsFactory.registerConstraint(new SimpleConstraint())
+        ConstraintsFactory.registerConstraint(new PerilPortion())
+        ConstraintsFactory.registerConstraint(new UnderwritingPortion())
+        ConstraintsFactory.registerConstraint(new ReservePortion())
     }
 
     def onChange = {event ->
