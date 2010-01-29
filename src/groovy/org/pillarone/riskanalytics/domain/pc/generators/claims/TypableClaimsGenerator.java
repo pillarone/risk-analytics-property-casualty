@@ -92,8 +92,8 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
                 if (this.isReceiverWired(inProbabilities)) {
                     List<Double> probabilities = filterProbabilities();
                     if (probabilities.size() > 1) {
-                        throw new IllegalArgumentException("An attritional claims model accepts not more than one probability.\n" +
-                            "There is currently more than one correlation components sending a probability for " +
+                        throw new IllegalArgumentException("An attritional claims model accepts at most one probability.\n" +
+                            "There is currently more than one correlation component sending a probability for " +
                             "the claims generator " + this.getNormalizedName() + ".");
                     } else {
                         claimValues = calculateClaimsValues(
@@ -120,11 +120,11 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
                     claimValues = generateClaimsValues(1,
                         parmClaimsModel.getClaimsSizeDistribution(),
                         parmClaimsModel.getClaimsSizeModification());
-                } else if (parmClaimsModel instanceof FrequencySeverityClaimsGeneratorStrategy) {
-                    if (((FrequencySeverityClaimsGeneratorStrategy) parmClaimsModel).getProduceClaim().equals(FrequencySeverityClaimType.AGGREGATED_EVENT)) {
+                } else if (parmClaimsModel instanceof IFrequencySingleClaimsGeneratorStrategy) {
+                    if (((IFrequencySingleClaimsGeneratorStrategy) parmClaimsModel).getProduceClaim().equals(FrequencySeverityClaimType.AGGREGATED_EVENT)) {
                         claimType = ClaimType.AGGREGATED_EVENT;
                         events = generateEvents((int) frequency);
-                    } else if (((FrequencySeverityClaimsGeneratorStrategy) parmClaimsModel).getProduceClaim().equals(FrequencySeverityClaimType.SINGLE)) {
+                    } else if (((IFrequencySingleClaimsGeneratorStrategy) parmClaimsModel).getProduceClaim().equals(FrequencySeverityClaimType.SINGLE)) {
                         claimType = ClaimType.SINGLE;
                     }
                     claimValues = generateClaimsValues((int) frequency,
@@ -137,7 +137,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
                     claimValues = calculateEventClaimsValues(filteredEventSeverities, parmClaimsModel.getClaimsSizeDistribution());
                     events = extractEvents(filteredEventSeverities);
                 } else {
-                    throw new IllegalArgumentException("As inProbabilities is not wired the selected claims model is not supported");
+                    throw new IllegalArgumentException("As inProbabilities is not wired, the selected claims model is not supported");
                 }
             } else {
                 throw new NotImplementedException(parmClaimsModel.toString());
@@ -152,12 +152,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
                     claim.setPeril(this);
                     claim.setClaimType(claimType);
                     claim.setUltimate(claimValue * scalingFactor);
-                    if (claimType.equals(ClaimType.ATTRITIONAL)) {
-                        claim.setFractionOfPeriod(0.5d);
-                    }
-                    else {
-                        claim.setFractionOfPeriod((Double) dateGenerator.nextValue());
-                    }
+                    setFractionOfPeriod(claimType, claim);
                     claims.add(claim);
                 }
             } else {
@@ -176,10 +171,29 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
         outClaims.addAll(parmAssociateExposureInfo.getAllocatedClaims(claims, outUnderwritingInfo));
     }
 
+    protected void setFractionOfPeriod(ClaimType claimType, Claim claim) {
+        if (parmClaimsModel instanceof IOccurrenceClaimsGeneratorStrategy) {
+            IRandomNumberGenerator generator = getCachedGenerator(((IOccurrenceClaimsGeneratorStrategy) parmClaimsModel).getOccurrenceDistribution(), parmClaimsModel.getClaimsSizeModification());
+            claim.setFractionOfPeriod((Double) generator.nextValue());
+        }
+        else {
+            if (claimType.equals(ClaimType.ATTRITIONAL)) {
+                claim.setFractionOfPeriod(0.5d);
+            }
+            else {
+                claim.setFractionOfPeriod((Double) dateGenerator.nextValue());
+            }
+        }
+    }
+
     private Model getModel() {
         return simulationScope.getModel();
     }
 
+    /**
+     * Filter the claims generator's inProbabilites: only inProbabilites with corresponding
+     * marginals string matching the claims generator's name are used.
+     */
     private List<Double> filterProbabilities() {
         List<Double> probabilities = new ArrayList<Double>();
         for (DependenceStream stream : inProbabilities) {

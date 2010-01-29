@@ -23,6 +23,13 @@ public class ClaimsGeneratorStrategyFactory {
                         claimsSizeDistribution: (RandomDistribution) parameters.get("claimsSizeDistribution"),
                         claimsSizeModification: (DistributionModified) parameters.get("claimsSizeModification"))
                 break;
+            case ClaimsGeneratorType.ATTRITIONAL_WITH_DATE:
+                claimsGenerator = new OccurrenceAttritionalClaimsGeneratorStrategy(
+                        claimsSizeBase: (Exposure) parameters.get("claimsSizeBase"),
+                        claimsSizeDistribution: (RandomDistribution) parameters.get("claimsSizeDistribution"),
+                        occurrenceDistribution: (RandomDistribution) parameters.get("occurrenceDistribution"),
+                        claimsSizeModification: (DistributionModified) parameters.get("claimsSizeModification"))
+                break;
             case ClaimsGeneratorType.FREQUENCY_AVERAGE_ATTRITIONAL:
                 claimsGenerator = new FrequencyAverageAttritionalClaimsGeneratorStrategy(
                         frequencyBase: (FrequencyBase) parameters.get("frequencyBase"),
@@ -39,6 +46,17 @@ public class ClaimsGeneratorStrategyFactory {
                         frequencyModification: (DistributionModified) parameters.get("frequencyModification"),
                         claimsSizeBase: (Exposure) parameters.get("claimsSizeBase"),
                         claimsSizeDistribution: (RandomDistribution) parameters.get("claimsSizeDistribution"),
+                        claimsSizeModification: (DistributionModified) parameters.get("claimsSizeModification"),
+                        produceClaim: (FrequencySeverityClaimType) parameters.get("produceClaim"))
+                break;
+            case ClaimsGeneratorType.OCCURRENCE_AND_SEVERITY:
+                claimsGenerator = new OccurrenceFrequencySeverityClaimsGeneratorStrategy(
+                        frequencyBase: (FrequencyBase) parameters.get("frequencyBase"),
+                        frequencyDistribution: (RandomDistribution) parameters.get("frequencyDistribution"),
+                        frequencyModification: (DistributionModified) parameters.get("frequencyModification"),
+                        claimsSizeBase: (Exposure) parameters.get("claimsSizeBase"),
+                        claimsSizeDistribution: (RandomDistribution) parameters.get("claimsSizeDistribution"),
+                        occurrenceDistribution: (RandomDistribution) parameters.get("occurrenceDistribution"),
                         claimsSizeModification: (DistributionModified) parameters.get("claimsSizeModification"),
                         produceClaim: (FrequencySeverityClaimType) parameters.get("produceClaim"))
                 break;

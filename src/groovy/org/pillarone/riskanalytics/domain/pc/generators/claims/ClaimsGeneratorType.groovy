@@ -21,6 +21,11 @@ public class ClaimsGeneratorType extends AbstractParameterObjectClassifier {
             claimsSizeBase: Exposure.ABSOLUTE,
             claimsSizeDistribution: RandomDistributionFactory.getDistribution(DistributionType.CONSTANT, ["constant": 0d]),
             claimsSizeModification: DistributionModifierFactory.getModifier(DistributionModifier.NONE, [:])])
+    public static final ClaimsGeneratorType ATTRITIONAL_WITH_DATE = new ClaimsGeneratorType("attritional with date", "ATTRITIONAL_WITH_DATE", [
+            claimsSizeBase: Exposure.ABSOLUTE,
+            claimsSizeDistribution: RandomDistributionFactory.getDistribution(DistributionType.CONSTANT, ["constant": 0d]),
+            occurrenceDistribution: RandomDistributionFactory.getDistribution(DistributionType.CONSTANT, ["constant": 0.5d]),
+            claimsSizeModification: DistributionModifierFactory.getModifier(DistributionModifier.NONE, [:])])
     public static final ClaimsGeneratorType EXTERNAL_SEVERITY = new ClaimsGeneratorType("external severity", "EXTERNAL_SEVERITY", [
             claimsSizeBase: Exposure.ABSOLUTE,
             claimsSizeDistribution: RandomDistributionFactory.getDistribution(DistributionType.CONSTANT, ["constant": 0d]),
@@ -40,9 +45,18 @@ public class ClaimsGeneratorType extends AbstractParameterObjectClassifier {
             claimsSizeDistribution: RandomDistributionFactory.getDistribution(DistributionType.CONSTANT, ["constant": 0d]),
             claimsSizeModification: DistributionModifierFactory.getModifier(DistributionModifier.NONE, [:]),
             produceClaim: FrequencySeverityClaimType.SINGLE])
+    public static final ClaimsGeneratorType OCCURRENCE_AND_SEVERITY = new ClaimsGeneratorType("occurrence and severity", "OCCURRENCE_AND_SEVERITY", [
+            frequencyBase: FrequencyBase.ABSOLUTE,
+            frequencyDistribution: RandomDistributionFactory.getDistribution(DistributionType.CONSTANT, ["constant": 0d]),
+            frequencyModification: DistributionModifierFactory.getModifier(DistributionModifier.NONE, [:]),
+            claimsSizeBase: Exposure.ABSOLUTE,
+            claimsSizeDistribution: RandomDistributionFactory.getDistribution(DistributionType.CONSTANT, ["constant": 0d]),
+            occurrenceDistribution: RandomDistributionFactory.getDistribution(DistributionType.UNIFORM, ["a": 0d, "b": 1d]),
+            claimsSizeModification: DistributionModifierFactory.getModifier(DistributionModifier.NONE, [:]),
+            produceClaim: FrequencySeverityClaimType.SINGLE])
 
 
-    public static final all = [NONE, ATTRITIONAL, FREQUENCY_AVERAGE_ATTRITIONAL, FREQUENCY_SEVERITY, EXTERNAL_SEVERITY]
+    public static final all = [NONE, ATTRITIONAL, ATTRITIONAL_WITH_DATE, FREQUENCY_AVERAGE_ATTRITIONAL, FREQUENCY_SEVERITY, OCCURRENCE_AND_SEVERITY, EXTERNAL_SEVERITY]
 
     protected static Map types = [:]
     static {
