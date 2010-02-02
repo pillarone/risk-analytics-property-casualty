@@ -6,7 +6,7 @@ import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensi
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory;
 import org.pillarone.riskanalytics.core.util.GroovyUtils;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
-import org.pillarone.riskanalytics.domain.pc.claims.SortClaimsByDate;
+import org.pillarone.riskanalytics.domain.pc.claims.SortClaimsByFractionOfPeriod;
 import org.pillarone.riskanalytics.domain.pc.constraints.ReservePortion;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
@@ -52,7 +52,7 @@ public class LineOfBusinessReserves extends Component {
                     outClaimsDevelopmentLean.add((ClaimDevelopmentLeanPacket) lobClaim);
                 }
             }
-            Collections.sort(lobClaims, SortClaimsByDate.getInstance());
+            Collections.sort(lobClaims, SortClaimsByFractionOfPeriod.getInstance());
             outClaims.addAll(lobClaims);
         }
     }

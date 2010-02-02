@@ -20,7 +20,7 @@ class DynamicClaimDevelopment extends DynamicComposedComponent {
 
     public ClaimDevelopment createDefaultSubComponent() {
         ClaimDevelopment newComponent = new ClaimDevelopment(
-                parmCoveredPerils : new ComboBoxTableMultiDimensionalParameter([], ['peril'], PerilMarker),
+                parmCoveredPerils : new ComboBoxTableMultiDimensionalParameter([''], ['peril'], PerilMarker),
                 parmPayoutPattern : PatternStrategyType.getStrategy(PatternStrategyType.NONE, [:]),
                 parmReportedPattern : PatternStrategyType.getStrategy(PatternStrategyType.NONE, [:]),
                 parmHistoricClaims : HistoricClaimsStrategyType.getStrategy(HistoricClaimsStrategyType.NONE, Collections.emptyMap()))

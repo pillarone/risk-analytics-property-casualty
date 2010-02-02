@@ -155,6 +155,7 @@ public class ClaimDevelopmentPacket extends Claim {
         if (getLineOfBusiness() != null) result.append(getLineOfBusiness().getName()).append(separator);
         if (getPeril() != null) result.append(getPeril().getName()).append(separator);
         if (getReinsuranceContract() != null) result.append(getReinsuranceContract().getName()).append(separator);
+        result.append(", original period: ").append(originalPeriod);
         return result.toString();
     }
 

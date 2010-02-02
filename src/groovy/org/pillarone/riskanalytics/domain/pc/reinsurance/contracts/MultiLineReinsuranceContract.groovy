@@ -5,7 +5,7 @@ import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimen
 import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimFilterUtilities
-import org.pillarone.riskanalytics.domain.pc.claims.SortClaimsByDate
+import org.pillarone.riskanalytics.domain.pc.claims.SortClaimsByFractionOfPeriod
 import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
@@ -46,7 +46,7 @@ class MultiLineReinsuranceContract extends ReinsuranceContract {
         // initialize contract details
         parmContractStrategy.initBookKeepingFigures(outFilteredClaims, outFilteredUnderwritingInfo)
 
-        Collections.sort(outFilteredClaims, SortClaimsByDate.getInstance())
+        Collections.sort(outFilteredClaims, SortClaimsByFractionOfPeriod.getInstance())
         if (isSenderWired(outUncoveredClaims) || isSenderWired(outClaimsDevelopmentLeanNet)) {
             calculateClaims(outFilteredClaims, outCoveredClaims, outUncoveredClaims, this)
         }

@@ -9,16 +9,16 @@ import java.util.Comparator;
  *
  *  @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-public class SortClaimsByDate implements Comparator<Claim> {
+public class SortClaimsByFractionOfPeriod implements Comparator<Claim> {
 
-    private static SortClaimsByDate instance = null;
+    private static SortClaimsByFractionOfPeriod instance = null;
 
-    private SortClaimsByDate() {
+    private SortClaimsByFractionOfPeriod() {
     }
 
-    public static SortClaimsByDate getInstance() {
+    public static SortClaimsByFractionOfPeriod getInstance() {
         if (instance == null) {
-            instance = new SortClaimsByDate();
+            instance = new SortClaimsByFractionOfPeriod();
         }
         return instance;
     }

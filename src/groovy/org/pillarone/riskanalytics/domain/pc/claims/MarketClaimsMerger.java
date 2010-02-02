@@ -2,6 +2,7 @@ package org.pillarone.riskanalytics.domain.pc.claims;
 
 import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.core.packets.PacketList;
+import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
 
 import java.util.LinkedHashMap;
@@ -36,6 +37,9 @@ public class MarketClaimsMerger extends Component {
     private PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanNet = new PacketList<ClaimDevelopmentLeanPacket>(ClaimDevelopmentLeanPacket.class);
     private PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanGross = new PacketList<ClaimDevelopmentLeanPacket>(ClaimDevelopmentLeanPacket.class);
     private PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanCeded = new PacketList<ClaimDevelopmentLeanPacket>(ClaimDevelopmentLeanPacket.class);
+    private PacketList<ClaimDevelopmentPacket> outClaimsDevelopmentNet = new PacketList<ClaimDevelopmentPacket>(ClaimDevelopmentPacket.class);
+    private PacketList<ClaimDevelopmentPacket> outClaimsDevelopmentGross = new PacketList<ClaimDevelopmentPacket>(ClaimDevelopmentPacket.class);
+    private PacketList<ClaimDevelopmentPacket> outClaimsDevelopmentCeded = new PacketList<ClaimDevelopmentPacket>(ClaimDevelopmentPacket.class);
 
     public void doCalculation() {
         if (inClaimsGross.isEmpty() && !inClaimsCeded.isEmpty()) {
@@ -98,6 +102,17 @@ public class MarketClaimsMerger extends Component {
             }
             for (Claim claim : outClaimsNet) {
                 outClaimsDevelopmentLeanNet.add((ClaimDevelopmentLeanPacket) claim);
+            }
+        }
+        if (inClaimsGross.size() > 0 && inClaimsGross.get(0) instanceof ClaimDevelopmentPacket) {
+            for (Claim claim : outClaimsGross) {
+                outClaimsDevelopmentGross.add((ClaimDevelopmentPacket) claim);
+            }
+            for (Claim claim : outClaimsCeded) {
+                outClaimsDevelopmentCeded.add((ClaimDevelopmentPacket) claim);
+            }
+            for (Claim claim : outClaimsNet) {
+                outClaimsDevelopmentNet.add((ClaimDevelopmentPacket) claim);
             }
         }
     }
@@ -170,5 +185,29 @@ public class MarketClaimsMerger extends Component {
 
     public void setOutClaimsDevelopmentLeanCeded(PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanCeded) {
         this.outClaimsDevelopmentLeanCeded = outClaimsDevelopmentLeanCeded;
+    }
+
+    public PacketList<ClaimDevelopmentPacket> getOutClaimsDevelopmentNet() {
+        return outClaimsDevelopmentNet;
+    }
+
+    public void setOutClaimsDevelopmentNet(PacketList<ClaimDevelopmentPacket> outClaimsDevelopmentNet) {
+        this.outClaimsDevelopmentNet = outClaimsDevelopmentNet;
+    }
+
+    public PacketList<ClaimDevelopmentPacket> getOutClaimsDevelopmentGross() {
+        return outClaimsDevelopmentGross;
+    }
+
+    public void setOutClaimsDevelopmentGross(PacketList<ClaimDevelopmentPacket> outClaimsDevelopmentGross) {
+        this.outClaimsDevelopmentGross = outClaimsDevelopmentGross;
+    }
+
+    public PacketList<ClaimDevelopmentPacket> getOutClaimsDevelopmentCeded() {
+        return outClaimsDevelopmentCeded;
+    }
+
+    public void setOutClaimsDevelopmentCeded(PacketList<ClaimDevelopmentPacket> outClaimsDevelopmentCeded) {
+        this.outClaimsDevelopmentCeded = outClaimsDevelopmentCeded;
     }
 }

@@ -163,7 +163,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
                     claim.setClaimType(claimType);
                     claim.setUltimate(claimValues.get(i) * scalingFactor);
                     claim.setEvent(events.get(i));
-                    claim.setFractionOfPeriod(claim.getEvent().date);
+                    claim.setFractionOfPeriod(claim.getEvent().getDate());
                     claims.add(claim);
                 }
             }
@@ -258,7 +258,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
         List<Event> events = new ArrayList<Event>(number);
         for (Double date : dates) {
             Event event = new Event();
-            event.date = date;
+            event.setDate(date);
             events.add(event);
         }
         return events;

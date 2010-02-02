@@ -32,7 +32,7 @@ public class ClaimFilterUtilities {
                 }
             }
         }
-        Collections.sort(filteredClaims, SortClaimsByDate.getInstance());
+        Collections.sort(filteredClaims, SortClaimsByFractionOfPeriod.getInstance());
         return filteredClaims;
     }
 
@@ -51,7 +51,7 @@ public class ClaimFilterUtilities {
                 }
             }
         }
-        Collections.sort(filteredClaims, SortClaimsByDate.getInstance());
+        Collections.sort(filteredClaims, SortClaimsByFractionOfPeriod.getInstance());
         return filteredClaims;
     }
 
@@ -141,7 +141,7 @@ public class ClaimFilterUtilities {
                 filteredClaims.add(claim);
             }
         }
-        Collections.sort(filteredClaims, SortClaimsByDate.getInstance());
+        Collections.sort(filteredClaims, SortClaimsByFractionOfPeriod.getInstance());
         return filteredClaims;
     }
 

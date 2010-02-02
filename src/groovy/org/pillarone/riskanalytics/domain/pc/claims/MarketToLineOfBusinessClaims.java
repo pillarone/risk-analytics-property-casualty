@@ -52,7 +52,7 @@ public class MarketToLineOfBusinessClaims extends Component {
                     }
                 }
             }
-            Collections.sort(lobClaims, SortClaimsByDate.getInstance());
+            Collections.sort(lobClaims, SortClaimsByFractionOfPeriod.getInstance());
             outClaims.addAll(lobClaims);
         }
     }

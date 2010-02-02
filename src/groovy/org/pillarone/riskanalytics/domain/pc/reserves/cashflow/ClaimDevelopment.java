@@ -35,7 +35,7 @@ public class ClaimDevelopment extends Component implements IReserveMarker {
     private PacketList<ClaimDevelopmentWithIBNRPacket> outClaimsDevelopmentWithIBNR = new PacketList<ClaimDevelopmentWithIBNRPacket>(ClaimDevelopmentWithIBNRPacket.class);     // todo(sku): remove as soon as PMO-648 is resolved
 
     private ComboBoxTableMultiDimensionalParameter parmCoveredPerils = new ComboBoxTableMultiDimensionalParameter(
-        Collections.emptyList(), Arrays.asList("peril"), PerilMarker.class);
+        Arrays.asList(""), Arrays.asList("peril"), PerilMarker.class);
     private IPatternStrategy parmPayoutPattern = PatternStrategyType.getStrategy(PatternStrategyType.NONE, Collections.emptyMap());
     private IPatternStrategy parmReportedPattern = PatternStrategyType.getStrategy(PatternStrategyType.NONE, Collections.emptyMap());
     private IHistoricClaimsStrategy parmHistoricClaims = HistoricClaimsStrategyType.getStrategy(HistoricClaimsStrategyType.NONE, Collections.emptyMap());
@@ -238,6 +238,7 @@ public class ClaimDevelopment extends Component implements IReserveMarker {
             claimDeveloped.set(claim);
             claimDeveloped.setPaid(claim.getUltimate());
             claimDeveloped.setChangeInReserves(claim.getUltimate());
+            claimDeveloped.setOriginalPeriod(currentPeriod);
             claims.add(claimDeveloped);
         }
         else {

@@ -3,7 +3,7 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts;
 import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
-import org.pillarone.riskanalytics.domain.pc.claims.SortClaimsByDate;
+import org.pillarone.riskanalytics.domain.pc.claims.SortClaimsByFractionOfPeriod;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities;
 
@@ -41,7 +41,7 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
 
         parmContractStrategy.initBookKeepingFigures(inClaims, inUnderwritingInfo);
 
-        Collections.sort(inClaims, SortClaimsByDate.getInstance());
+        Collections.sort(inClaims, SortClaimsByFractionOfPeriod.getInstance());
         if (isSenderWired(outUncoveredClaims)) {
             calculateClaims(inClaims, outCoveredClaims, outUncoveredClaims, this);
         } else {
