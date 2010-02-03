@@ -1,0 +1,22 @@
+<plugin name='risk-analytics-pc' version='0.4.9' grailsVersion='1.2.0 &gt; *'>
+  <author>Intuitive Collaboration</author>
+  <authorEmail>info (at) intuitive-collaboration (dot) com</authorEmail>
+  <title>Property Casualty Library and Example Models</title>
+  <description>\
+
+</description>
+  <documentation>http://www.pillarone.org</documentation>
+  <resources>
+    <resource>BuildConfig</resource>
+    <resource>Config</resource>
+    <resource>DataSource</resource>
+    <resource>UrlMappings</resource>
+  </resources>
+  <dependencies>
+    <plugin name='riskAnalyticsCore' version='0.4.9.1 &gt; *' />
+    <resolvers>
+      <resolver type='grailsPlugins' name='grailsPlugins' />
+    </resolvers>
+  </dependencies>
+  <behavior />
+</plugin>
