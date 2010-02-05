@@ -21,7 +21,7 @@ public class ClaimDevelopmentPacket extends Claim {
 
     private Pattern payoutPattern;
     /**
-     * negative values correspond to the development period of reserved claims;
+     * negative values correspond to the development period of reserved claims;     // todo(sku): think of using a common definition for pos and neg based on incurred period
      * positive values correspond to the incurred period according to the simulation context
      */
     private int originalPeriod; // according to simulation period
@@ -42,7 +42,7 @@ public class ClaimDevelopmentPacket extends Claim {
 
     /**
      *  This function is not secure in the sense that it does not check if the object itself and
-     *  the obejct received as argument are of equal type.
+     *  the object received as argument are of equal type.
      */
     @Override
     public Claim getNetClaim(Claim cededClaim) {
