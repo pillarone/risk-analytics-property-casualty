@@ -10,6 +10,9 @@ public class ReinsurerDefault extends Packet {
     private String reinsurer;
     private boolean defaultOccurred = false;
 
+    public ReinsurerDefault() {
+    }
+
     public ReinsurerDefault(String reinsurer, boolean defaultOccurred) {
         this.reinsurer = reinsurer;
         this.defaultOccurred = defaultOccurred;

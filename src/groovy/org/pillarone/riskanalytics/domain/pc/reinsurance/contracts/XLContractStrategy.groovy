@@ -66,8 +66,15 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
         availableAggregateLimit = aggregateLimit
         reinstatements = availableAggregateLimit / limit - 1
         double totalPremium = coverUnderwritingInfo.premiumWritten.sum()
-        for (UnderwritingInfo underwritingInfo: coverUnderwritingInfo) {
-            grossPremiumSharesPerBand.put(underwritingInfo, underwritingInfo.premiumWritten / totalPremium)
+        if (totalPremium == 0) {
+            for (UnderwritingInfo underwritingInfo: coverUnderwritingInfo) {
+                grossPremiumSharesPerBand.put(underwritingInfo, 0)
+            }
+        }
+        else {
+            for (UnderwritingInfo underwritingInfo: coverUnderwritingInfo) {
+                grossPremiumSharesPerBand.put(underwritingInfo, underwritingInfo.premiumWritten / totalPremium)
+            }
         }
     }
 

@@ -16,7 +16,7 @@ import java.util.List;
 public class ReinsuranceContract extends Component implements IReinsuranceContractMarker {
 
     /** Defines the kind of contract and parameterization      */
-    private IReinsuranceContractStrategy parmContractStrategy = ReinsuranceContractStrategyFactory.getTrivial();
+    protected IReinsuranceContractStrategy parmContractStrategy = ReinsuranceContractStrategyFactory.getTrivial();
 
     /**
      *  Defines the claim and underwriting info the contract will receive.
@@ -25,16 +25,16 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
      *  Cave: Setting the inuring priority is not trivial. Make sure you have a
      *  correct understanding before 'playing around' with it.
      */
-    private int parmInuringPriority = 0;
+    protected int parmInuringPriority = 0;
 
-    private PacketList<Claim> inClaims = new PacketList<Claim>(Claim.class);
-    private PacketList<UnderwritingInfo> inUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
+    protected PacketList<Claim> inClaims = new PacketList<Claim>(Claim.class);
+    protected PacketList<UnderwritingInfo> inUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
 
-    private PacketList<Claim> outUncoveredClaims = new PacketList<Claim>(Claim.class);
-    private PacketList<Claim> outCoveredClaims = new PacketList<Claim>(Claim.class);
+    protected PacketList<Claim> outUncoveredClaims = new PacketList<Claim>(Claim.class);
+    protected PacketList<Claim> outCoveredClaims = new PacketList<Claim>(Claim.class);
 
-    private PacketList<UnderwritingInfo> outNetAfterCoverUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
-    private PacketList<UnderwritingInfo> outCoverUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
+    protected PacketList<UnderwritingInfo> outNetAfterCoverUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
+    protected PacketList<UnderwritingInfo> outCoverUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
 
     public void doCalculation() {
         if (parmContractStrategy == null) throw new IllegalStateException("A contract strategy must be set");

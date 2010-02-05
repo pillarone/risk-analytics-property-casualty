@@ -25,6 +25,7 @@ class ReinsuranceProgram3SerialContractsTests extends GroovyTestCase {
         program.subContract3.parmContractStrategy = StopLossContractStrategyTests.getContractSL0().parmContractStrategy
 
         program.inClaims << attrClaim100 << largeClaim60
+        program.inUnderwritingInfo << new UnderwritingInfo(premiumWritten: 0)
 
         assertTrue program.outClaimsCeded.isEmpty()
         assertTrue program.outClaimsNet.isEmpty()
@@ -67,6 +68,7 @@ class ReinsuranceProgram3SerialContractsTests extends GroovyTestCase {
         program.subContract3.parmContractStrategy = StopLossContractStrategyTests.getContractSL0().parmContractStrategy
 
         program.inClaims << attrClaim100 << largeClaim60
+        program.inUnderwritingInfo << new UnderwritingInfo(premiumWritten: 0)
 
         def probeClaimsCeded = new TestProbe(program, "outClaimsCeded")
         List claimsCeded = probeClaimsCeded.result

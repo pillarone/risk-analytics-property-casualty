@@ -2,15 +2,13 @@ package org.pillarone.riskanalytics.domain.pc.aggregators;
 
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimPacketFactory;
+import org.pillarone.riskanalytics.domain.pc.claims.ClaimUtilities;
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType;
 import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingResult;
-import org.pillarone.riskanalytics.domain.utils.PacketUtilities;
-
-import java.util.List;
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -22,8 +20,8 @@ public class UnderwritingResultCalculator extends Component {
     private PacketList<UnderwritingResult> outUnderwritingResult = new PacketList<UnderwritingResult>(UnderwritingResult.class);
 
     public void validateWiring() {
-        if (!(isSenderWired(inClaims) && isSenderWired(inUnderwritingInfo))) {
-            throw new IllegalStateException("Wiring error: inClaims and inUnderwritingInfo have to be wired!");
+        if (!(isReceiverWired(inClaims) && isReceiverWired(inUnderwritingInfo))) {
+            throw new IllegalStateException("[UnderwritingResultCalculator] Wiring error: inClaims and inUnderwritingInfo have to be wired!");
         }
         super.validateWiring();
     }
@@ -33,17 +31,9 @@ public class UnderwritingResultCalculator extends Component {
         UnderwritingResult uwResult = new UnderwritingResult();
         uwResult.premium = underwritingInfo.premiumWritten;
         uwResult.commission = underwritingInfo.commission;
-        uwResult.claim = aggregateClaims(inClaims).getUltimate();
+        uwResult.claim = ClaimUtilities.aggregateClaims(inClaims, this).getUltimate();
         uwResult.underwritingResult = uwResult.premium + uwResult.commission - uwResult.claim;
         outUnderwritingResult.add(uwResult);
-    }
-
-    private Claim aggregateClaims(List<Claim> claims) {
-        Claim aggregateClaim = ClaimPacketFactory.createPacket();
-        aggregateClaim.origin = this;
-        aggregateClaim.setClaimType(ClaimType.AGGREGATED);
-        aggregateClaim.setUltimate(PacketUtilities.sumClaims(claims));
-        return aggregateClaim;
     }
 
     public PacketList<Claim> getInClaims() {

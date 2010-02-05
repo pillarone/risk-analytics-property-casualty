@@ -94,25 +94,37 @@ public class MarketClaimsMerger extends Component {
             }
         }
         if (inClaimsGross.size() > 0 && inClaimsGross.get(0) instanceof ClaimDevelopmentLeanPacket) {
-            for (Claim claim : outClaimsGross) {
-                outClaimsDevelopmentLeanGross.add((ClaimDevelopmentLeanPacket) claim);
+            if (isSenderWired(outClaimsDevelopmentLeanGross)) {
+                for (Claim claim : outClaimsGross) {
+                    outClaimsDevelopmentLeanGross.add((ClaimDevelopmentLeanPacket) claim);
+                }
             }
-            for (Claim claim : outClaimsCeded) {
-                outClaimsDevelopmentLeanCeded.add((ClaimDevelopmentLeanPacket) claim);
+            if (isSenderWired(outClaimsDevelopmentLeanCeded)) {
+                for (Claim claim : outClaimsCeded) {
+                    outClaimsDevelopmentLeanCeded.add((ClaimDevelopmentLeanPacket) claim);
+                }
             }
-            for (Claim claim : outClaimsNet) {
-                outClaimsDevelopmentLeanNet.add((ClaimDevelopmentLeanPacket) claim);
+            if (isSenderWired(outClaimsDevelopmentLeanNet)) {
+                for (Claim claim : outClaimsNet) {
+                    outClaimsDevelopmentLeanNet.add((ClaimDevelopmentLeanPacket) claim);
+                }
             }
         }
         if (inClaimsGross.size() > 0 && inClaimsGross.get(0) instanceof ClaimDevelopmentPacket) {
-            for (Claim claim : outClaimsGross) {
-                outClaimsDevelopmentGross.add((ClaimDevelopmentPacket) claim);
+            if (isSenderWired(outClaimsDevelopmentGross)) {
+                for (Claim claim : outClaimsGross) {
+                    outClaimsDevelopmentGross.add((ClaimDevelopmentPacket) claim);
+                }
             }
-            for (Claim claim : outClaimsCeded) {
-                outClaimsDevelopmentCeded.add((ClaimDevelopmentPacket) claim);
+            if (isSenderWired(outClaimsDevelopmentCeded)) {
+                for (Claim claim : outClaimsCeded) {
+                    outClaimsDevelopmentCeded.add((ClaimDevelopmentPacket) claim);
+                }
             }
-            for (Claim claim : outClaimsNet) {
-                outClaimsDevelopmentNet.add((ClaimDevelopmentPacket) claim);
+            if (isSenderWired(outClaimsDevelopmentNet)) {
+                for (Claim claim : outClaimsNet) {
+                    outClaimsDevelopmentNet.add((ClaimDevelopmentPacket) claim);
+                }
             }
         }
     }
