@@ -2,7 +2,6 @@ package org.pillarone.riskanalytics.domain.pc.aggregators;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.Logger;
 import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.parameterization.IStructureInformation;

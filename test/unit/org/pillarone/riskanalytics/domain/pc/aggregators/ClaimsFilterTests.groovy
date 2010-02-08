@@ -1,6 +1,5 @@
 package org.pillarone.riskanalytics.domain.pc.aggregators
 
-import groovy.mock.interceptor.StubFor
 import models.test.StructureTestModel
 import org.pillarone.riskanalytics.core.components.Component
 import org.pillarone.riskanalytics.core.example.component.TestComponent
@@ -32,51 +31,39 @@ class ClaimsFilterTests extends GroovyTestCase {
 
         claimsFilter.inClaims << grossClaim1 << grossClaim2 << grossClaim3 << cededClaim1 << cededClaim3
 
-        StubFor simulationScopeStube = new StubFor(SimulationScope)
-        // 5 = number of claims * number doCalculation() calls
-        simulationScopeStube.demand.getStructureInformation(10..10) {
-            StructureInformation info = new StructureInformation(new ConfigObject(), new StructureTestModel())
-            info.componentsOfLine[component1] = "fire"
-            info.componentsOfLine[component2] = "hull"
-            info.componentsOfLine[component3] = "legal"
-            info.componentsOfLine[claimsFilter] = "fire"
-            return info
-        }
-        simulationScopeStube.use {
-            SimulationScope scope = new SimulationScope()
-            claimsFilter.simulationScope = scope
+        StructureInformation info = new StructureInformation(new ConfigObject(), new StructureTestModel())
+        info.componentsOfLine[component1] = "fire"
+        info.componentsOfLine[component2] = "hull"
+        info.componentsOfLine[component3] = "legal"
+        info.componentsOfLine[claimsFilter] = "fire"
+        SimulationScope scope = new SimulationScope()
+        scope.structureInformation = info
+        claimsFilter.simulationScope = scope
 
-            claimsFilter.doCalculation()
-            assertTrue "#fire claims", 3 == claimsFilter.outClaims.size()
+        claimsFilter.doCalculation()
+        assertTrue "#fire claims", 3 == claimsFilter.outClaims.size()
 
-            assertEquals "fire gross claim incurred id1", 30, claimsFilter.outClaims[0].ultimate
-            assertEquals "fire gross claim incurred id2", 20, claimsFilter.outClaims[1].ultimate
-            assertEquals "fire ceded claim incurred id1", 20, claimsFilter.outClaims[2].ultimate
-        }
+        assertEquals "fire gross claim incurred id1", 30, claimsFilter.outClaims[0].ultimate
+        assertEquals "fire gross claim incurred id2", 20, claimsFilter.outClaims[1].ultimate
+        assertEquals "fire ceded claim incurred id1", 20, claimsFilter.outClaims[2].ultimate
 
         claimsFilter.reset()
 
         claimsFilter.inClaims << grossClaim1 << grossClaim2 << grossClaim3 << cededClaim1 << cededClaim3
 
-        simulationScopeStube = new StubFor(SimulationScope)
-        // 5 = number of claims * number doCalculation() calls
-        simulationScopeStube.demand.getStructureInformation(10..10) {
-            StructureInformation info = new StructureInformation(new ConfigObject(), new StructureTestModel())
-            info.componentsOfLine[component1] = "fire"
-            info.componentsOfLine[component2] = "hull"
-            info.componentsOfLine[component3] = "legal"
-            info.componentsOfLine[claimsFilter] = "hull"
-            return info
-        }
-        simulationScopeStube.use {
-            SimulationScope scope = new SimulationScope()
-            claimsFilter.simulationScope = scope
+        info = new StructureInformation(new ConfigObject(), new StructureTestModel())
+        info.componentsOfLine[component1] = "fire"
+        info.componentsOfLine[component2] = "hull"
+        info.componentsOfLine[component3] = "legal"
+        info.componentsOfLine[claimsFilter] = "hull"
+        scope = new SimulationScope()
+        scope.structureInformation = info
+        claimsFilter.simulationScope = scope
 
-            claimsFilter.doCalculation()
-            assertTrue "#hull claims", 2 == claimsFilter.outClaims.size()
+        claimsFilter.doCalculation()
+        assertTrue "#hull claims", 2 == claimsFilter.outClaims.size()
 
-            assertEquals "hull claim incurred id1", 20, claimsFilter.outClaims[0].ultimate
-            assertEquals "hull claim incurred id2", 5, claimsFilter.outClaims[1].ultimate
-        }
+        assertEquals "hull claim incurred id1", 20, claimsFilter.outClaims[0].ultimate
+        assertEquals "hull claim incurred id2", 5, claimsFilter.outClaims[1].ultimate
     }
 }

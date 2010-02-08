@@ -41,58 +41,47 @@ public class ClaimsFilterAggregatorTests extends GroovyTestCase {
         claimsFilterAggregator.inClaimsGross << grossClaim1 << grossClaim2 << grossClaim3
         claimsFilterAggregator.inClaimsCeded << cededClaim1 << cededClaim3
 
-        StubFor simulationScopeStube = new StubFor(SimulationScope)
-        // 10 = number of claims * number doCalculation() calls
-        simulationScopeStube.demand.getStructureInformation(10..10) {
-            StructureInformation info = new StructureInformation(new ConfigObject(), new StructureTestModel())
-            info.componentsOfLine[component1] = "fire"
-            info.componentsOfLine[component2] = "hull"
-            info.componentsOfLine[component3] = "legal"
-            info.componentsOfLine[claimsFilterAggregator.subClaimsGrossFilter] = "fire"
-            info.componentsOfLine[claimsFilterAggregator.subClaimsCededFilter] = "fire"
-            return info
-        }
-        simulationScopeStube.use {
-            SimulationScope scope = new SimulationScope()
-            claimsFilterAggregator.subClaimsGrossFilter.simulationScope = scope
-            claimsFilterAggregator.subClaimsCededFilter.simulationScope = scope
+        StructureInformation info = new StructureInformation(new ConfigObject(), new StructureTestModel())
+        info.componentsOfLine[component1] = "fire"
+        info.componentsOfLine[component2] = "hull"
+        info.componentsOfLine[component3] = "legal"
+        info.componentsOfLine[claimsFilterAggregator.subClaimsGrossFilter] = "fire"
+        info.componentsOfLine[claimsFilterAggregator.subClaimsCededFilter] = "fire"
+        SimulationScope scope = new SimulationScope()
+        scope.structureInformation = info
+        claimsFilterAggregator.subClaimsGrossFilter.simulationScope = scope
+        claimsFilterAggregator.subClaimsCededFilter.simulationScope = scope
 
-            claimsFilterAggregator.doCalculation()
-            assertTrue "#fire gross claims", 1 == claimsFilterAggregator.outClaimsGross.size()
-            assertTrue "#fire ceded claims", 1 == claimsFilterAggregator.outClaimsCeded.size()
-            assertTrue "#fire net claims", 1 == claimsFilterAggregator.outClaimsNet.size()
+        claimsFilterAggregator.doCalculation()
+        assertTrue "#fire gross claims", 1 == claimsFilterAggregator.outClaimsGross.size()
+        assertTrue "#fire ceded claims", 1 == claimsFilterAggregator.outClaimsCeded.size()
+        assertTrue "#fire net claims", 1 == claimsFilterAggregator.outClaimsNet.size()
 
-            assertEquals "fire gross claim incurred id1", 50, claimsFilterAggregator.outClaimsGross[0].ultimate
-            assertEquals "fire ceded claim incurred id1", 20, claimsFilterAggregator.outClaimsCeded[0].ultimate
-            assertEquals "fire net claim incurred id1", 30, claimsFilterAggregator.outClaimsNet[0].ultimate
-        }
+        assertEquals "fire gross claim incurred id1", 50, claimsFilterAggregator.outClaimsGross[0].ultimate
+        assertEquals "fire ceded claim incurred id1", 20, claimsFilterAggregator.outClaimsCeded[0].ultimate
+        assertEquals "fire net claim incurred id1", 30, claimsFilterAggregator.outClaimsNet[0].ultimate
 
         claimsFilterAggregator.reset()
 
         claimsFilterAggregator.inClaimsGross << grossClaim1 << grossClaim2 << grossClaim3
         claimsFilterAggregator.inClaimsCeded << cededClaim1 << cededClaim3
 
-        simulationScopeStube = new StubFor(SimulationScope)
-        // 10 = number of claims * number doCalculation() calls
-        simulationScopeStube.demand.getStructureInformation(10..10) {
-            StructureInformation info = new StructureInformation(new ConfigObject(), new StructureTestModel())
-            info.componentsOfLine[component1] = "fire"
-            info.componentsOfLine[component2] = "hull"
-            info.componentsOfLine[component3] = "legal"
-            info.componentsOfLine[claimsFilterAggregator.subClaimsGrossFilter] = "hull"
-            info.componentsOfLine[claimsFilterAggregator.subClaimsCededFilter] = "hull"
-            return info
-        }
-        simulationScopeStube.use {
-            SimulationScope scope = new SimulationScope()
-            claimsFilterAggregator.subClaimsGrossFilter.simulationScope = scope
-            claimsFilterAggregator.subClaimsCededFilter.simulationScope = scope
+        info = new StructureInformation(new ConfigObject(), new StructureTestModel())
+        info.componentsOfLine[component1] = "fire"
+        info.componentsOfLine[component2] = "hull"
+        info.componentsOfLine[component3] = "legal"
+        info.componentsOfLine[claimsFilterAggregator.subClaimsGrossFilter] = "hull"
+        info.componentsOfLine[claimsFilterAggregator.subClaimsCededFilter] = "hull"
 
-            claimsFilterAggregator.doCalculation()
-            assertTrue "#hull claims", 1 == claimsFilterAggregator.outClaimsGross.size()
+        scope = new SimulationScope()
+        scope.structureInformation = info
+        claimsFilterAggregator.subClaimsGrossFilter.simulationScope = scope
+        claimsFilterAggregator.subClaimsCededFilter.simulationScope = scope
 
-            assertEquals "hull gross claim incurred", 20, claimsFilterAggregator.outClaimsGross[0].ultimate
-            assertEquals "hull ceded claim incurred", 5, claimsFilterAggregator.outClaimsCeded[0].ultimate
-        }
+        claimsFilterAggregator.doCalculation()
+        assertTrue "#hull claims", 1 == claimsFilterAggregator.outClaimsGross.size()
+
+        assertEquals "hull gross claim incurred", 20, claimsFilterAggregator.outClaimsGross[0].ultimate
+        assertEquals "hull ceded claim incurred", 5, claimsFilterAggregator.outClaimsCeded[0].ultimate
     }
 }

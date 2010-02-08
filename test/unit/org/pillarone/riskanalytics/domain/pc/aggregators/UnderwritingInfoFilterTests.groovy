@@ -1,6 +1,5 @@
 package org.pillarone.riskanalytics.domain.pc.aggregators
 
-import groovy.mock.interceptor.StubFor
 import models.test.StructureTestModel
 import org.pillarone.riskanalytics.core.components.Component
 import org.pillarone.riskanalytics.core.parameterization.StructureInformation
@@ -39,49 +38,38 @@ class UnderwritingInfoFilterTests extends GroovyTestCase {
 
         underwritingInfoFilter.inUnderwritingInfo << grossUnderwritingInfo0 << grossUnderwritingInfo1 << grossUnderwritingInfo2 << cededUnderwritingInfo0 << cededUnderwritingInfo2
 
-        StubFor simulationContextStub = new StubFor(SimulationScope)
-        // 5 = number of uwInfo * number doCalculation() calls
-        simulationContextStub.demand.getStructureInformation(10..10) {
-            StructureInformation info = new StructureInformation(new ConfigObject(), new StructureTestModel())
-            info.componentsOfLine[component0] = "fire"
-            info.componentsOfLine[component1] = "hull"
-            info.componentsOfLine[component2] = "legal"
-            info.componentsOfLine[underwritingInfoFilter] = "fire"
-            return info
-        }
-        simulationContextStub.use {
-            SimulationScope ctx = new SimulationScope()
-            underwritingInfoFilter.simulationScope = ctx
+        StructureInformation info = new StructureInformation(new ConfigObject(), new StructureTestModel())
+        info.componentsOfLine[component0] = "fire"
+        info.componentsOfLine[component1] = "hull"
+        info.componentsOfLine[component2] = "legal"
+        info.componentsOfLine[underwritingInfoFilter] = "fire"
 
-            underwritingInfoFilter.doCalculation()
-            assertEquals "#fire underwriting info", 2, underwritingInfoFilter.outUnderwritingInfo.size()
+        SimulationScope scope = new SimulationScope()
+        scope.structureInformation = info
+        underwritingInfoFilter.simulationScope = scope
 
-            assertEquals "fire gross premium 0", 2000, underwritingInfoFilter.outUnderwritingInfo[0].premiumWritten
-            assertEquals "fire ceded premium 0", 2000, underwritingInfoFilter.outUnderwritingInfo[1].premiumWritten
-        }
+        underwritingInfoFilter.doCalculation()
+        assertEquals "#fire underwriting info", 2, underwritingInfoFilter.outUnderwritingInfo.size()
+
+        assertEquals "fire gross premium 0", 2000, underwritingInfoFilter.outUnderwritingInfo[0].premiumWritten
+        assertEquals "fire ceded premium 0", 2000, underwritingInfoFilter.outUnderwritingInfo[1].premiumWritten
 
         underwritingInfoFilter.reset()
 
         underwritingInfoFilter.inUnderwritingInfo << grossUnderwritingInfo0 << grossUnderwritingInfo1 << grossUnderwritingInfo2 << cededUnderwritingInfo0 << cededUnderwritingInfo2
 
-        simulationContextStub = new StubFor(SimulationScope)
-        // 5 = number of uwInfo * number doCalculation() calls
-        simulationContextStub.demand.getStructureInformation(10..10) {
-            StructureInformation info = new StructureInformation(new ConfigObject(), new StructureTestModel())
-            info.componentsOfLine[component0] = "fire"
-            info.componentsOfLine[component1] = "hull"
-            info.componentsOfLine[component2] = "legal"
-            info.componentsOfLine[underwritingInfoFilter] = "hull"
-            return info
-        }
-        simulationContextStub.use {
-            SimulationScope ctx = new SimulationScope()
-            underwritingInfoFilter.simulationScope = ctx
+        info = new StructureInformation(new ConfigObject(), new StructureTestModel())
+        info.componentsOfLine[component0] = "fire"
+        info.componentsOfLine[component1] = "hull"
+        info.componentsOfLine[component2] = "legal"
+        info.componentsOfLine[underwritingInfoFilter] = "hull"
+        scope = new SimulationScope()
+        scope.structureInformation = info
+        underwritingInfoFilter.simulationScope = scope
 
-            underwritingInfoFilter.doCalculation()
-            assertEquals "#hull underwriting info", 1, underwritingInfoFilter.outUnderwritingInfo.size()
+        underwritingInfoFilter.doCalculation()
+        assertEquals "#hull underwriting info", 1, underwritingInfoFilter.outUnderwritingInfo.size()
 
-            assertEquals "hull gross premium 1", 500, underwritingInfoFilter.outUnderwritingInfo[0].premiumWritten
-        }
+        assertEquals "hull gross premium 1", 500, underwritingInfoFilter.outUnderwritingInfo[0].premiumWritten
     }
 }
