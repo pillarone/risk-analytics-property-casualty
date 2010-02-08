@@ -6,10 +6,10 @@ import org.pillarone.riskanalytics.core.packets.MultiValuePacket;
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 public class UnderwritingResult extends MultiValuePacket {
-    public double result;
-    public double premium;
-    public double claim;
-    public double commission;
+    private double result;
+    private double premium;
+    private double claim;
+    private double commission;
 
     public double getResult() {
         return result;
@@ -39,7 +39,7 @@ public class UnderwritingResult extends MultiValuePacket {
         return commission;
     }
 
-    public void setNetCommission(double commission) {
+    public void setCommission(double commission) {
         this.commission = commission;
     }
 }

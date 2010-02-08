@@ -27,10 +27,10 @@ public class UnderwritingResultCalculator extends Component {
     protected void doCalculation() {
         UnderwritingInfo underwritingInfo = UnderwritingInfoUtilities.aggregate(inUnderwritingInfo);
         UnderwritingResult uwResult = new UnderwritingResult();
-        uwResult.premium = underwritingInfo.premiumWritten;
-        uwResult.commission = underwritingInfo.commission;
-        uwResult.claim = ClaimUtilities.aggregateClaims(inClaims, this).getUltimate();
-        uwResult.result = uwResult.premium + uwResult.commission - uwResult.claim;
+        uwResult.setPremium(underwritingInfo.premiumWritten);
+        uwResult.setCommission(underwritingInfo.commission);
+        uwResult.setClaim(ClaimUtilities.aggregateClaims(inClaims, this).getUltimate());
+        uwResult.setResult(uwResult.getPremium() + uwResult.getCommission() - uwResult.getClaim());
         outUnderwritingResult.add(uwResult);
     }
 
