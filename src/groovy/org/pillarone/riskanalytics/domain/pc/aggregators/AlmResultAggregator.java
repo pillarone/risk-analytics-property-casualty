@@ -2,13 +2,12 @@ package org.pillarone.riskanalytics.domain.pc.aggregators;
 
 import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.core.packets.PacketList;
-import org.pillarone.riskanalytics.core.packets.SingleValuePacket;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
-import org.pillarone.riskanalytics.domain.pc.claims.ClaimPacketFactory;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimUtilities;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingResult;
+import org.pillarone.riskanalytics.domain.utils.ResultPacket;
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -19,9 +18,9 @@ public class AlmResultAggregator extends Component {
     private PacketList<UnderwritingInfo> inUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
     private PacketList<Claim> inAlm = new PacketList<Claim>(Claim.class);
 
-    private PacketList<SingleValuePacket> outResult = new PacketList<SingleValuePacket>(SingleValuePacket.class);
-    private PacketList<UnderwritingResult> outUnderwritingResult = new PacketList<UnderwritingResult>(UnderwritingResult.class);
-    private PacketList<Claim> outAlm = new PacketList<Claim>(Claim.class);
+    private PacketList<ResultPacket> outTotal = new PacketList<ResultPacket>(ResultPacket.class);
+    private PacketList<UnderwritingResult> outUnderwriting = new PacketList<UnderwritingResult>(UnderwritingResult.class);
+    private PacketList<ResultPacket> outAlm = new PacketList<ResultPacket>(ResultPacket.class);
 
     @Override
     protected void doCalculation() {
@@ -36,21 +35,22 @@ public class AlmResultAggregator extends Component {
             uwResult.claim = aggregateClaim.getUltimate();
         }
         if (underwritingInfo != null && aggregateClaim != null) {
-            uwResult.underwritingResult = uwResult.premium + uwResult.commission - uwResult.claim;
-            outUnderwritingResult.add(uwResult);
+            uwResult.result = uwResult.premium + uwResult.commission - uwResult.claim;
+            outUnderwriting.add(uwResult);
         }
 
         Claim alm = ClaimUtilities.aggregateClaims(inAlm, this);
-        SingleValuePacket result = new SingleValuePacket();
+        ResultPacket result = new ResultPacket();
         if (alm != null) {
-            outAlm.add(alm);
-            result.setValue(uwResult.getUnderwritingResult() - alm.getUltimate());
+            result.setValue(alm.getUltimate());
+            outAlm.add(result);
+            result.setValue(uwResult.getResult() - alm.getUltimate());
         }
         else {
-            result.setValue(uwResult.getUnderwritingResult());
+            result.setValue(uwResult.getResult());
         }
         if (underwritingInfo != null && aggregateClaim != null && alm != null) {
-            outResult.add(result);
+            outTotal.add(result);
         }
     }
 
@@ -78,27 +78,27 @@ public class AlmResultAggregator extends Component {
         this.inAlm = inAlm;
     }
 
-    public PacketList<SingleValuePacket> getOutResult() {
-        return outResult;
+    public PacketList<UnderwritingResult> getOutUnderwriting() {
+        return outUnderwriting;
     }
 
-    public void setOutResult(PacketList<SingleValuePacket> outResult) {
-        this.outResult = outResult;
+    public void setOutUnderwriting(PacketList<UnderwritingResult> outUnderwriting) {
+        this.outUnderwriting = outUnderwriting;
     }
 
-    public PacketList<UnderwritingResult> getOutUnderwritingResult() {
-        return outUnderwritingResult;
+    public PacketList<ResultPacket> getOutTotal() {
+        return outTotal;
     }
 
-    public void setOutUnderwritingResult(PacketList<UnderwritingResult> outUnderwritingResult) {
-        this.outUnderwritingResult = outUnderwritingResult;
+    public void setOutTotal(PacketList<ResultPacket> outTotal) {
+        this.outTotal = outTotal;
     }
 
-    public PacketList<Claim> getOutAlm() {
+    public PacketList<ResultPacket> getOutAlm() {
         return outAlm;
     }
 
-    public void setOutAlm(PacketList<Claim> outAlm) {
+    public void setOutAlm(PacketList<ResultPacket> outAlm) {
         this.outAlm = outAlm;
     }
 }

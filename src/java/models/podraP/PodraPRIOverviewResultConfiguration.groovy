@@ -1,26 +1,21 @@
-package models.podra
+package models.podraP
 
 import org.pillarone.riskanalytics.core.output.AggregatedCollectingModeStrategy
 
-model = models.podra.PodraModel
-displayName = "Reinsurance Contracts Details"
-
-components.underwritingSegments.subunderwritingSegments.outUnderwritingInfo = AggregatedCollectingModeStrategy.IDENTIFIER
-components.underwritingSegments.outUnderwritingInfo = AggregatedCollectingModeStrategy.IDENTIFIER
+displayName = 'Lines of Business, Claims, R/I'
+model = PodraPModel
 components.claimsGenerators.outClaims = AggregatedCollectingModeStrategy.IDENTIFIER
 components.claimsGenerators.subsubcomponents.outClaims = AggregatedCollectingModeStrategy.IDENTIFIER
 components.reinsurance.outClaimsCeded = AggregatedCollectingModeStrategy.IDENTIFIER
 components.reinsurance.outClaimsGross = AggregatedCollectingModeStrategy.IDENTIFIER
 components.reinsurance.outClaimsNet = AggregatedCollectingModeStrategy.IDENTIFIER
+components.reinsurance.outCoverUnderwritingInfo = AggregatedCollectingModeStrategy.IDENTIFIER
+components.reinsurance.outNetAfterCoverUnderwritingInfo = AggregatedCollectingModeStrategy.IDENTIFIER
+components.reinsurance.outUnderwritingInfo = AggregatedCollectingModeStrategy.IDENTIFIER
 components.reinsurance.subcontracts.outCoveredClaims = AggregatedCollectingModeStrategy.IDENTIFIER
 components.reinsurance.subcontracts.outFilteredClaims = AggregatedCollectingModeStrategy.IDENTIFIER
 components.reinsurance.subcontracts.outUncoveredClaims = AggregatedCollectingModeStrategy.IDENTIFIER
 components.reinsurance.subcontracts.outCoverUnderwritingInfo = AggregatedCollectingModeStrategy.IDENTIFIER
-components.reinsurance.subcontracts.outFilteredUnderwritingInfo = AggregatedCollectingModeStrategy.IDENTIFIER
-components.reinsurance.subcontracts.outNetAfterCoverUnderwritingInfo = AggregatedCollectingModeStrategy.IDENTIFIER
-components.reinsurance.outCoverUnderwritingInfo = AggregatedCollectingModeStrategy.IDENTIFIER
-components.reinsurance.outNetAfterCoverUnderwritingInfo = AggregatedCollectingModeStrategy.IDENTIFIER
-components.reinsurance.outUnderwritingInfo = AggregatedCollectingModeStrategy.IDENTIFIER
 components.linesOfBusiness.outClaimsCeded = AggregatedCollectingModeStrategy.IDENTIFIER
 components.linesOfBusiness.outClaimsGross = AggregatedCollectingModeStrategy.IDENTIFIER
 components.linesOfBusiness.outClaimsNet = AggregatedCollectingModeStrategy.IDENTIFIER

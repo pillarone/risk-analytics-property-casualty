@@ -10,7 +10,7 @@ import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassif
 
 public class AssetLiabilityMismatchGeneratorStrategyType extends AbstractParameterObjectClassifier{
 
-        public static final AssetLiabilityMismatchGeneratorStrategyType ABSOLUTE =
+    public static final AssetLiabilityMismatchGeneratorStrategyType ABSOLUTE =
         new AssetLiabilityMismatchGeneratorStrategyType("absolute", "ABSOLUTE", [:])
 
     public static final all = [ABSOLUTE]
@@ -44,8 +44,9 @@ public class AssetLiabilityMismatchGeneratorStrategyType extends AbstractParamet
         IAssetLiabilityMismatchGeneratorStrategy almGenerator;
         switch (type) {
             case AssetLiabilityMismatchGeneratorStrategyType.ABSOLUTE:
-              almGenerator = new AbsoluteAssetLiabilityMismatchGeneratorStrategy([:])
-                break;
+//              almGenerator = new AbsoluteAssetLiabilityMismatchGeneratorStrategy(type: AssetLiabilityMismatchGeneratorStrategyType.ABSOLUTE, parameters: [:])
+              almGenerator = new AbsoluteAssetLiabilityMismatchGeneratorStrategy()
+              break;
         }
         return almGenerator;
     }

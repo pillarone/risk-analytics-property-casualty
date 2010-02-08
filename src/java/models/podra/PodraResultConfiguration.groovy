@@ -1,27 +1,36 @@
 package models.podra
 
-import models.podra.PodraModel
-import org.pillarone.riskanalytics.core.output.AggregatedCollectingModeStrategy
-
 model = models.podra.PodraModel
-displayName = "newResultDescriptor"
-components.claimsGenerators.outClaims = AggregatedCollectingModeStrategy.IDENTIFIER
-components.claimsGenerators.subsubcomponents.outClaims = AggregatedCollectingModeStrategy.IDENTIFIER
-components.reinsurance.outClaimsCeded = AggregatedCollectingModeStrategy.IDENTIFIER
-components.reinsurance.outClaimsGross = AggregatedCollectingModeStrategy.IDENTIFIER
-components.reinsurance.outClaimsNet = AggregatedCollectingModeStrategy.IDENTIFIER
-components.reinsurance.outCoverUnderwritingInfo = AggregatedCollectingModeStrategy.IDENTIFIER
-components.reinsurance.outNetAfterCoverUnderwritingInfo = AggregatedCollectingModeStrategy.IDENTIFIER
-components.reinsurance.outUnderwritingInfo = AggregatedCollectingModeStrategy.IDENTIFIER
-components.linesOfBusiness.outClaimsCeded = AggregatedCollectingModeStrategy.IDENTIFIER
-components.linesOfBusiness.outClaimsGross = AggregatedCollectingModeStrategy.IDENTIFIER
-components.linesOfBusiness.outClaimsNet = AggregatedCollectingModeStrategy.IDENTIFIER
-components.linesOfBusiness.outUnderwritingInfoCeded = AggregatedCollectingModeStrategy.IDENTIFIER
-components.linesOfBusiness.outUnderwritingInfoGross = AggregatedCollectingModeStrategy.IDENTIFIER
-components.linesOfBusiness.outUnderwritingInfoNet = AggregatedCollectingModeStrategy.IDENTIFIER
-components.linesOfBusiness.sublineOfBusiness.outClaimsCeded = AggregatedCollectingModeStrategy.IDENTIFIER
-components.linesOfBusiness.sublineOfBusiness.outClaimsGross = AggregatedCollectingModeStrategy.IDENTIFIER
-components.linesOfBusiness.sublineOfBusiness.outClaimsNet = AggregatedCollectingModeStrategy.IDENTIFIER
-components.linesOfBusiness.sublineOfBusiness.outUnderwritingInfoCeded = AggregatedCollectingModeStrategy.IDENTIFIER
-components.linesOfBusiness.sublineOfBusiness.outUnderwritingInfoGross = AggregatedCollectingModeStrategy.IDENTIFIER
-components.linesOfBusiness.sublineOfBusiness.outUnderwritingInfoNet = AggregatedCollectingModeStrategy.IDENTIFIER
+displayName = "Aggregated Overview 2"
+components {
+	claimsGenerators {
+		outClaimsLeanDevelopment = "AGGREGATED"
+		subsubcomponents {
+			outClaimsLeanDevelopment = "AGGREGATED"
+		}
+	}
+	linesOfBusiness {
+		outClaimsDevelopmentLeanCeded = "AGGREGATED"
+		outClaimsDevelopmentLeanGross = "AGGREGATED"
+		outClaimsDevelopmentLeanNet = "AGGREGATED"
+		outUnderwritingInfoCeded = "AGGREGATED"
+		outUnderwritingInfoGross = "AGGREGATED"
+		outUnderwritingInfoNet = "AGGREGATED"
+		sublineOfBusiness {
+			outClaimsDevelopmentLeanCeded = "AGGREGATED"
+			outClaimsDevelopmentLeanGross = "AGGREGATED"
+			outClaimsDevelopmentLeanNet = "AGGREGATED"
+			outUnderwritingInfoCeded = "AGGREGATED"
+			outUnderwritingInfoGross = "AGGREGATED"
+			outUnderwritingInfoNet = "AGGREGATED"
+		}
+	}
+	reserveGenerators {
+		outClaimsLeanDevelopment = "AGGREGATED"
+		outInitialReserves = "AGGREGATED"
+		subsubcomponents {
+			outClaimsLeanDevelopment = "AGGREGATED"
+			outInitialReserves = "AGGREGATED"
+		}
+	}
+}

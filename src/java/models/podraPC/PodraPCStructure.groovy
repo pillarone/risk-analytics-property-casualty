@@ -1,9 +1,9 @@
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-package models.podra
+package models.podraPC
 
-model = PodraModel
+model = PodraPCModel
 periodCount = 1
 
 company {

@@ -10,6 +10,9 @@ import java.util.Map;
  */
 public class AbsoluteAssetLiabilityMismatchGeneratorStrategy  implements IParameterObject, IAssetLiabilityMismatchGeneratorStrategy {
 
+    public AbsoluteAssetLiabilityMismatchGeneratorStrategy() {
+    }
+
     public Object getType() {
         return AssetLiabilityMismatchGeneratorStrategyType.ABSOLUTE;
     }

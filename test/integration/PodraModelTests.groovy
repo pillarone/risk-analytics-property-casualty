@@ -8,16 +8,10 @@ class PodraModelTests extends ModelTest {
     }
 
     String getResultConfigurationDisplayName() {
-        "newResultDescriptor"
+        "Aggregated Overview 2"
     }
 
     String getParameterDisplayName() {
-        "No Reinsurance Contracts"
+        "One Line Example"
     }
-
-//    int getIterationCount() {
-//        1000
-//    }
-
-
 }

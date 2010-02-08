@@ -1,9 +1,9 @@
-package models.podra
+package models.podraP
 
 import org.pillarone.riskanalytics.core.output.AggregatedCollectingModeStrategy
 
-displayName = 'Lines of Business, Claims, R/I'
-model = PodraModel
+model = models.podraP.PodraPModel
+displayName = "newResultDescriptor"
 components.claimsGenerators.outClaims = AggregatedCollectingModeStrategy.IDENTIFIER
 components.claimsGenerators.subsubcomponents.outClaims = AggregatedCollectingModeStrategy.IDENTIFIER
 components.reinsurance.outClaimsCeded = AggregatedCollectingModeStrategy.IDENTIFIER
@@ -12,10 +12,6 @@ components.reinsurance.outClaimsNet = AggregatedCollectingModeStrategy.IDENTIFIE
 components.reinsurance.outCoverUnderwritingInfo = AggregatedCollectingModeStrategy.IDENTIFIER
 components.reinsurance.outNetAfterCoverUnderwritingInfo = AggregatedCollectingModeStrategy.IDENTIFIER
 components.reinsurance.outUnderwritingInfo = AggregatedCollectingModeStrategy.IDENTIFIER
-components.reinsurance.subcontracts.outCoveredClaims = AggregatedCollectingModeStrategy.IDENTIFIER
-components.reinsurance.subcontracts.outFilteredClaims = AggregatedCollectingModeStrategy.IDENTIFIER
-components.reinsurance.subcontracts.outUncoveredClaims = AggregatedCollectingModeStrategy.IDENTIFIER
-components.reinsurance.subcontracts.outCoverUnderwritingInfo = AggregatedCollectingModeStrategy.IDENTIFIER
 components.linesOfBusiness.outClaimsCeded = AggregatedCollectingModeStrategy.IDENTIFIER
 components.linesOfBusiness.outClaimsGross = AggregatedCollectingModeStrategy.IDENTIFIER
 components.linesOfBusiness.outClaimsNet = AggregatedCollectingModeStrategy.IDENTIFIER

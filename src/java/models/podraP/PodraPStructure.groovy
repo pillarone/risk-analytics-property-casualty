@@ -1,9 +1,9 @@
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-package models.podraWithReservesAndAlm
+package models.podraP
 
-model = PodraWithReservesAndAlmModel
+model = PodraPModel
 periodCount = 1
 
 company {

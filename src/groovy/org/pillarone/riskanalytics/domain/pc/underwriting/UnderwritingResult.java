@@ -6,17 +6,17 @@ import org.pillarone.riskanalytics.core.packets.MultiValuePacket;
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 public class UnderwritingResult extends MultiValuePacket {
-    public double underwritingResult;
+    public double result;
     public double premium;
     public double claim;
     public double commission;
 
-    public double getUnderwritingResult() {
-        return underwritingResult;
+    public double getResult() {
+        return result;
     }
 
-    public void setUnderwritingResult(double underwritingResult) {
-        this.underwritingResult = underwritingResult;
+    public void setResult(double result) {
+        this.result = result;
     }
 
     public double getPremium() {

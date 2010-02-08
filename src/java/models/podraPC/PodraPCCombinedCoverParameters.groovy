@@ -1,35 +1,30 @@
-package models.podraWithReserves
+package models.podraPC
 
-import models.podra.PodraModel
 import org.pillarone.riskanalytics.domain.pc.claims.RiskAllocatorStrategyFactory
-import org.pillarone.riskanalytics.domain.pc.generators.claims.ClaimsGeneratorStrategyFactory
 import org.pillarone.riskanalytics.domain.pc.claims.RiskAllocatorType
-import org.pillarone.riskanalytics.domain.pc.generators.claims.ClaimsGeneratorType
-import org.pillarone.riskanalytics.domain.pc.constants.FrequencyBase
-import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
-import org.pillarone.riskanalytics.domain.utils.DistributionType
-import org.pillarone.riskanalytics.domain.utils.DistributionModifierFactory
-import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.pc.constants.Exposure
-import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
-import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
+import org.pillarone.riskanalytics.domain.pc.constants.FrequencyBase
 import org.pillarone.riskanalytics.domain.pc.constants.FrequencySeverityClaimType
-import org.pillarone.riskanalytics.domain.pc.underwriting.IUnderwritingInfoMarker
-import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
-import org.pillarone.riskanalytics.core.parameterization.ComboBoxMatrixMultiDimensionalParameter
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
 import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
+import org.pillarone.riskanalytics.domain.pc.generators.claims.ClaimsGeneratorStrategyFactory
+import org.pillarone.riskanalytics.domain.pc.generators.claims.ClaimsGeneratorType
 import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractStrategyFactory
-import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.CopulaStrategyFactory
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.PerilCopulaType
+import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractStrategyFactory
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
+import org.pillarone.riskanalytics.domain.pc.underwriting.IUnderwritingInfoMarker
+import org.pillarone.riskanalytics.domain.utils.DistributionModifier
+import org.pillarone.riskanalytics.domain.utils.DistributionModifierFactory
+import org.pillarone.riskanalytics.domain.utils.DistributionType
+import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
+import org.pillarone.riskanalytics.core.parameterization.*
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-model = models.podraWithReserves.PodraWithReservesModel
+model = models.podraPC.PodraPCModel
 periodCount = 1
 displayName = 'Reinsurance Program Combined Cover'
 components {

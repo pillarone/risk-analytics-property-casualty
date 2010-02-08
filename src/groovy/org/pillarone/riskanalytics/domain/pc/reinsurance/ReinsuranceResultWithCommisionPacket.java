@@ -6,7 +6,7 @@ import org.pillarone.riskanalytics.core.packets.MultiValuePacket;
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 public class ReinsuranceResultWithCommisionPacket extends MultiValuePacket {
-    private double resultingCosts;
+    private double result;
     private double cededPremium;
     private double cededClaim;
     private double cededCommission;
@@ -29,16 +29,16 @@ public class ReinsuranceResultWithCommisionPacket extends MultiValuePacket {
         setResultingCosts();
     }
 
-    public double getResultingCosts() {
-        resultingCosts = -cededPremium + cededClaim + cededCommission;
-        return resultingCosts;
+    public double getResult() {
+        result = cededPremium + cededClaim + cededCommission;
+        return result;
     }
 
     private void setResultingCosts() {
-        resultingCosts = -cededPremium + cededClaim + cededCommission;
+        result = cededPremium + cededClaim + cededCommission;
     }
-    public void setResultingCosts(double resultingCosts) {
-        this.resultingCosts = resultingCosts;
+    public void setResult(double result) {
+        this.result = result;
     }
 
     public double getCededCommission() {

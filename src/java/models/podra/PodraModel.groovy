@@ -1,58 +1,63 @@
 package models.podra
 
-
 import org.pillarone.riskanalytics.core.model.StochasticModel
-import org.pillarone.riskanalytics.domain.pc.underwriting.DynamicUnderwritingSegments
-import org.pillarone.riskanalytics.domain.pc.generators.claims.DynamicClaimsGenerators
+import org.pillarone.riskanalytics.domain.pc.aggregators.AlmResultAggregator
+import org.pillarone.riskanalytics.domain.pc.assetLiabilityMismatch.DynamicAssetLiabilityMismatchGenerator
+import org.pillarone.riskanalytics.domain.pc.generators.claims.DynamicDevelopedClaimsGenerators
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.DynamicDependencies
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.DynamicMultipleDependencies
-import org.pillarone.riskanalytics.domain.pc.lob.DynamicConfigurableLobs
+import org.pillarone.riskanalytics.domain.pc.lob.DynamicConfigurableLobsWithReserves
 import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.MultiLineDynamicReinsuranceProgram
+import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.DynamicReservesGeneratorLean
+import org.pillarone.riskanalytics.domain.pc.underwriting.DynamicUnderwritingSegments
 
 /**
- * @author stefan.kunz (at) intuitive-collaboration (dot) com
+ * @author shartmann (at) munichre (dot) com
  */
 class PodraModel extends StochasticModel {
 
-// Anlegen der Komponenten des Podra Modells
-// als "Dynamische Komponenten" (Elemente können im UI hinzugefügt und gelöscht werden
-// Underwriting Kennzahlen: Risikobänder
     DynamicUnderwritingSegments underwritingSegments
-// Schadengeneratoren: Typen Attritional Loss, Frequency Severity
-    DynamicClaimsGenerators claimsGenerators
-// Abhängigkeitsstrukturen: Copulae auf Attritional Loss Verteilungen
+    DynamicDevelopedClaimsGenerators claimsGenerators
+    DynamicReservesGeneratorLean reserveGenerators
     DynamicDependencies dependencies
-// Ereignisgeneratoren für Frequency Severity Generatoren
     DynamicMultipleDependencies eventGenerators
-// Zusammenfassung der Schadengeneratoren zu Branchen
-    DynamicConfigurableLobs linesOfBusiness
-// Rückversicherung auf Branchen oder SG-Level
+    DynamicConfigurableLobsWithReserves linesOfBusiness
     MultiLineDynamicReinsuranceProgram reinsurance
+    DynamicAssetLiabilityMismatchGenerator almGenerators
+    AlmResultAggregator aggregateFinancials
+
 
     void initComponents() {
-// Komponenten anlegen
         underwritingSegments = new DynamicUnderwritingSegments()
-        claimsGenerators = new DynamicClaimsGenerators()
+        claimsGenerators = new DynamicDevelopedClaimsGenerators()
+        reserveGenerators = new DynamicReservesGeneratorLean()
         dependencies = new DynamicDependencies()
         eventGenerators = new DynamicMultipleDependencies()
-        linesOfBusiness = new DynamicConfigurableLobs()
+        linesOfBusiness = new DynamicConfigurableLobsWithReserves()
         reinsurance = new MultiLineDynamicReinsuranceProgram()
-// Aufbau des Modells als Baumstruktur: Wurzeln festlegen
+        almGenerators = new DynamicAssetLiabilityMismatchGenerator()
+        aggregateFinancials = new AlmResultAggregator()
+
         addStartComponent underwritingSegments
         addStartComponent dependencies
         addStartComponent eventGenerators
+        addStartComponent almGenerators
     }
 
     void wireComponents() {
-// Zusammenbinden der Komponenten: Übergabe von Ausgabegrößen an Eingabekanäle
         claimsGenerators.inUnderwritingInfo = underwritingSegments.outUnderwritingInfo
         claimsGenerators.inProbabilities = dependencies.outProbabilities
         claimsGenerators.inEventSeverities = eventGenerators.outEventSeverities
         linesOfBusiness.inUnderwritingInfoGross = underwritingSegments.outUnderwritingInfo
+        reserveGenerators.inClaims = claimsGenerators.outClaims
         linesOfBusiness.inClaimsGross = claimsGenerators.outClaims
+        linesOfBusiness.inClaimsGross = reserveGenerators.outClaimsDevelopment
         reinsurance.inUnderwritingInfo = linesOfBusiness.outUnderwritingInfoGross
         reinsurance.inClaims = linesOfBusiness.outClaimsGross
         linesOfBusiness.inUnderwritingInfoCeded = reinsurance.outCoverUnderwritingInfo
         linesOfBusiness.inClaimsCeded = reinsurance.outClaimsCeded
+        aggregateFinancials.inClaims = reinsurance.outClaimsNet
+        aggregateFinancials.inUnderwritingInfo = reinsurance.outNetAfterCoverUnderwritingInfo
+        aggregateFinancials.inAlm = almGenerators.outAlmResult
     }
 }

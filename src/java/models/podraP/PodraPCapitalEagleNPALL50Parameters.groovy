@@ -1,4 +1,4 @@
-package models.podra
+package models.podraP
 
 import org.pillarone.riskanalytics.domain.pc.claims.RiskAllocatorStrategyFactory
 import org.pillarone.riskanalytics.domain.pc.claims.RiskAllocatorType
@@ -12,7 +12,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceCo
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractStrategyFactory
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
-import org.pillarone.riskanalytics.core.parameterization.ComboBoxMatrixMultiDimensionalParameter
+
 import org.pillarone.riskanalytics.domain.pc.underwriting.IUnderwritingInfoMarker
 import org.pillarone.riskanalytics.domain.pc.constants.FrequencyBase
 import org.pillarone.riskanalytics.domain.pc.generators.claims.ClaimsGeneratorType
@@ -23,7 +23,7 @@ import org.pillarone.riskanalytics.domain.utils.DistributionModifierFactory
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 
-model=models.podra.PodraModel
+model=models.podraP.PodraPModel
 periodCount=1
 displayName='CapitalEagle Reinsurance Program NP+ALL50'
 components {

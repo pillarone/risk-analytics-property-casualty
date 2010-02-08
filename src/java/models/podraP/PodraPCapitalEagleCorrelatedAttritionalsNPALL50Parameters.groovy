@@ -1,4 +1,4 @@
-package models.podra
+package models.podraP
 
 import org.pillarone.riskanalytics.domain.pc.claims.RiskAllocatorStrategyFactory
 import org.pillarone.riskanalytics.domain.pc.claims.RiskAllocatorType
@@ -25,7 +25,7 @@ import org.pillarone.riskanalytics.domain.utils.DistributionModifierFactory
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.PerilCopulaType
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.CopulaStrategyFactory
 
-model=models.podra.PodraModel
+model=models.podraP.PodraPModel
 periodCount=1
 displayName='CapitalEagle CorrelatedAttritionals Reinsurance Program NP+ALL50'
 components {

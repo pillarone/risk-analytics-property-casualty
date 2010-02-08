@@ -1,10 +1,10 @@
 import org.pillarone.riskanalytics.core.simulation.engine.ModelTest
-import models.podraWithReserves.PodraWithReservesModel
+import models.podraPC.PodraPCModel
 
-class PodraWithReservesModelTests extends ModelTest {
+class PodraPCModelTests extends ModelTest {
 
     Class getModelClass() {
-        PodraWithReservesModel
+        PodraPCModel
     }
 
     String getResultConfigurationDisplayName() {

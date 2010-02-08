@@ -1,49 +1,54 @@
-package models.podraWithReserves
+package models.podraP
 
 import org.pillarone.riskanalytics.core.model.StochasticModel
 import org.pillarone.riskanalytics.domain.pc.underwriting.DynamicUnderwritingSegments
-import org.pillarone.riskanalytics.domain.pc.generators.claims.DynamicDevelopedClaimsGenerators
-import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.DynamicReservesGeneratorLean
+import org.pillarone.riskanalytics.domain.pc.generators.claims.DynamicClaimsGenerators
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.DynamicDependencies
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.DynamicMultipleDependencies
-import org.pillarone.riskanalytics.domain.pc.lob.DynamicConfigurableLobsWithReserves
+import org.pillarone.riskanalytics.domain.pc.lob.DynamicConfigurableLobs
 import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.MultiLineDynamicReinsuranceProgram
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-class PodraWithReservesModel extends StochasticModel {
+class PodraPModel extends StochasticModel {
 
+// Anlegen der Komponenten des Podra Modells
+// als "Dynamische Komponenten" (Elemente können im UI hinzugefügt und gelöscht werden
+// Underwriting Kennzahlen: Risikobänder
     DynamicUnderwritingSegments underwritingSegments
-    DynamicDevelopedClaimsGenerators claimsGenerators
-    DynamicReservesGeneratorLean reserveGenerators
+// Schadengeneratoren: Typen Attritional Loss, Frequency Severity
+    DynamicClaimsGenerators claimsGenerators
+// Abhängigkeitsstrukturen: Copulae auf Attritional Loss Verteilungen
     DynamicDependencies dependencies
+// Ereignisgeneratoren für Frequency Severity Generatoren
     DynamicMultipleDependencies eventGenerators
-    DynamicConfigurableLobsWithReserves linesOfBusiness
+// Zusammenfassung der Schadengeneratoren zu Branchen
+    DynamicConfigurableLobs linesOfBusiness
+// Rückversicherung auf Branchen oder SG-Level
     MultiLineDynamicReinsuranceProgram reinsurance
 
     void initComponents() {
+// Komponenten anlegen
         underwritingSegments = new DynamicUnderwritingSegments()
-        claimsGenerators = new DynamicDevelopedClaimsGenerators()
-        reserveGenerators = new DynamicReservesGeneratorLean()
+        claimsGenerators = new DynamicClaimsGenerators()
         dependencies = new DynamicDependencies()
         eventGenerators = new DynamicMultipleDependencies()
-        linesOfBusiness = new DynamicConfigurableLobsWithReserves()
+        linesOfBusiness = new DynamicConfigurableLobs()
         reinsurance = new MultiLineDynamicReinsuranceProgram()
-
+// Aufbau des Modells als Baumstruktur: Wurzeln festlegen
         addStartComponent underwritingSegments
         addStartComponent dependencies
         addStartComponent eventGenerators
     }
 
     void wireComponents() {
+// Zusammenbinden der Komponenten: Übergabe von Ausgabegrößen an Eingabekanäle
         claimsGenerators.inUnderwritingInfo = underwritingSegments.outUnderwritingInfo
         claimsGenerators.inProbabilities = dependencies.outProbabilities
         claimsGenerators.inEventSeverities = eventGenerators.outEventSeverities
         linesOfBusiness.inUnderwritingInfoGross = underwritingSegments.outUnderwritingInfo
-        reserveGenerators.inClaims = claimsGenerators.outClaims
         linesOfBusiness.inClaimsGross = claimsGenerators.outClaims
-        linesOfBusiness.inClaimsGross = reserveGenerators.outClaimsDevelopment
         reinsurance.inUnderwritingInfo = linesOfBusiness.outUnderwritingInfoGross
         reinsurance.inClaims = linesOfBusiness.outClaimsGross
         linesOfBusiness.inUnderwritingInfoCeded = reinsurance.outCoverUnderwritingInfo

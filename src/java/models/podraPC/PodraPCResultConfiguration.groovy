@@ -1,6 +1,6 @@
-package models.podraWithReserves
+package models.podraPC
 
-model = models.podraWithReserves.PodraWithReservesModel
+model = models.podraPC.PodraPCModel
 displayName = "Aggregated Overview"
 components {
 	claimsGenerators {

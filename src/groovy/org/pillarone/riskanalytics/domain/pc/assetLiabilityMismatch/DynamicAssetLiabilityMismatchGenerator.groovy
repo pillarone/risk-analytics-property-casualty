@@ -33,7 +33,7 @@ public class DynamicAssetLiabilityMismatchGenerator extends DynamicComposedCompo
                 parmModification : DistributionModifierFactory.getModifier(DistributionModifier.NONE, new HashMap()),
                 parmAssetLiabilityMismatchModel : AssetLiabilityMismatchGeneratorStrategyType.getStrategy(
                                     AssetLiabilityMismatchGeneratorStrategyType.ABSOLUTE,
-                                    null,
+                                    [:],
                 ));
     }
 

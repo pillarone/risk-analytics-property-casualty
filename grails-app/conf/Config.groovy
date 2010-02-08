@@ -105,11 +105,11 @@ environments {
     mysql {
         batchInsert = MysqlBulkInsert
         ExceptionSafeOut = System.out
-//        models = ["PodraModel"]
+//        models = ["PodraPModel"]
 //        models << "CapitalEagleModel"
 //        models << "DynamicCapitalEagleModel"
         models = ["MultiProductStatutoryLifeModel"]
-//        models << "PodraModel"
+//        models << "PodraPModel"
 //        models << "ReservesWithPatternModel"
 //        models << "FiniteReModel"
         log4j = {
@@ -165,7 +165,7 @@ environments {
         batchInsert = MysqlBulkInsert
         userLogin = true
         maxIterations = 10000
-        models = ["CapitalEagleModel", "DependencyModel", "DynamicCapitalEagleModel", "MultiLineReinsuranceModel", "TwoLobDependencyModel", "PodraModel"]
+        models = ["CapitalEagleModel", "DependencyModel", "DynamicCapitalEagleModel", "MultiLineReinsuranceModel", "TwoLobDependencyModel", "PodraPModel"]
         keyFiguresToCalculate = [
                 'stdev': true,
                 'percentile': [0.0, 10.0, 20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 80.0, 90.0, 100.0],
@@ -179,7 +179,7 @@ environments {
         batchInsert = DerbyBulkInsert
         ExceptionSafeOut = System.err
         maxIterations = 10000
-        models = ["CapitalEagleModel", "DependencyModel", "DynamicCapitalEagleModel", "MultiLineReinsuranceModel", "TwoLobDependencyModel", "PodraModel"]
+        models = ["CapitalEagleModel", "DependencyModel", "DynamicCapitalEagleModel", "MultiLineReinsuranceModel", "TwoLobDependencyModel", "PodraPModel"]
         keyFiguresToCalculate = [
                 'stdev': true,
                 'percentile': [0.0, 10.0, 20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 80.0, 90.0, 100.0],

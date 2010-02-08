@@ -1,9 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.aggregators;
 
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
-import org.pillarone.riskanalytics.domain.pc.claims.ClaimPacketFactory;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimUtilities;
-import org.pillarone.riskanalytics.domain.pc.constants.ClaimType;
 import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
@@ -32,7 +30,7 @@ public class UnderwritingResultCalculator extends Component {
         uwResult.premium = underwritingInfo.premiumWritten;
         uwResult.commission = underwritingInfo.commission;
         uwResult.claim = ClaimUtilities.aggregateClaims(inClaims, this).getUltimate();
-        uwResult.underwritingResult = uwResult.premium + uwResult.commission - uwResult.claim;
+        uwResult.result = uwResult.premium + uwResult.commission - uwResult.claim;
         outUnderwritingResult.add(uwResult);
     }
 

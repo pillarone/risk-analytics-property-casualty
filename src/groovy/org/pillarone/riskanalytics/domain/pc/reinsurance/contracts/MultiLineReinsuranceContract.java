@@ -44,7 +44,7 @@ public class MultiLineReinsuranceContract extends ReinsuranceContract {
     private PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanGross = new PacketList<ClaimDevelopmentLeanPacket>(ClaimDevelopmentLeanPacket.class);
     private PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanCeded = new PacketList<ClaimDevelopmentLeanPacket>(ClaimDevelopmentLeanPacket.class);
 
-    private PacketList<ReinsuranceResultWithCommisionPacket> outContractResult = new PacketList<ReinsuranceResultWithCommisionPacket>(ReinsuranceResultWithCommisionPacket.class);
+    private PacketList<ReinsuranceResultWithCommisionPacket> outContractFinancials = new PacketList<ReinsuranceResultWithCommisionPacket>(ReinsuranceResultWithCommisionPacket.class);
 
     private PacketList<UnderwritingInfo> outFilteredUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
 
@@ -67,7 +67,7 @@ public class MultiLineReinsuranceContract extends ReinsuranceContract {
         if (isSenderWired(outNetAfterCoverUnderwritingInfo)) {
             calculateUnderwritingInfos(outFilteredUnderwritingInfo, outCoverUnderwritingInfo, outNetAfterCoverUnderwritingInfo);
         }
-        else if (isSenderWired(outCoverUnderwritingInfo) || isSenderWired(outContractResult)) {
+        else if (isSenderWired(outCoverUnderwritingInfo) || isSenderWired(outContractFinancials)) {
             calculateCededUnderwritingInfos(outFilteredUnderwritingInfo, outCoverUnderwritingInfo);
         }
         if (inClaims.size() > 0 && inClaims.get(0) instanceof ClaimDevelopmentLeanPacket) {
@@ -83,15 +83,15 @@ public class MultiLineReinsuranceContract extends ReinsuranceContract {
                 outClaimsDevelopmentLeanCeded.add((ClaimDevelopmentLeanPacket) claim);
             }
         }
-        if (isSenderWired(outContractResult)) {
+        if (isSenderWired(outContractFinancials)) {
             ReinsuranceResultWithCommisionPacket result = new ReinsuranceResultWithCommisionPacket();
             UnderwritingInfo underwritingInfo = UnderwritingInfoUtilities.aggregate(outCoverUnderwritingInfo);
             if (underwritingInfo != null) {
-                result.setCededPremium(underwritingInfo.getPremiumWritten());
+                result.setCededPremium(-underwritingInfo.getPremiumWritten());
                 result.setCededCommission(underwritingInfo.getCommission());
             }
             result.setCededClaim(ClaimUtilities.aggregateClaims(outCoveredClaims, this).getUltimate());
-            outContractResult.add(result);
+            outContractFinancials.add(result);
         }
     }
 
@@ -161,12 +161,12 @@ public class MultiLineReinsuranceContract extends ReinsuranceContract {
         this.outClaimsDevelopmentLeanCeded = outClaimsDevelopmentLeanCeded;
     }
 
-    public PacketList<ReinsuranceResultWithCommisionPacket> getOutContractResult() {
-        return outContractResult;
+    public PacketList<ReinsuranceResultWithCommisionPacket> getOutContractFinancials() {
+        return outContractFinancials;
     }
 
-    public void setOutContractResult(PacketList<ReinsuranceResultWithCommisionPacket> outContractResult) {
-        this.outContractResult = outContractResult;
+    public void setOutContractFinancials(PacketList<ReinsuranceResultWithCommisionPacket> outContractFinancials) {
+        this.outContractFinancials = outContractFinancials;
     }
 
     public PacketList<UnderwritingInfo> getOutFilteredUnderwritingInfo() {

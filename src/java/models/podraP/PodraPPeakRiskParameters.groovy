@@ -1,4 +1,4 @@
-package models.podra
+package models.podraP
 
 import org.pillarone.riskanalytics.domain.pc.claims.RiskAllocatorStrategyFactory
 import org.pillarone.riskanalytics.domain.pc.claims.RiskAllocatorType
@@ -21,7 +21,7 @@ import org.pillarone.riskanalytics.core.parameterization.*
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.CopulaStrategyFactory
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.PerilCopulaType
 
-model = models.podra.PodraModel
+model = models.podraP.PodraPModel
 periodCount = 1
 displayName = 'Peak Risk Reinsured'
 components {

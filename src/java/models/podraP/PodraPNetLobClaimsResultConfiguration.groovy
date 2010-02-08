@@ -1,8 +1,8 @@
-package models.podra
+package models.podraP
 
 import org.pillarone.riskanalytics.core.output.AggregatedCollectingModeStrategy
 
-model = models.podra.PodraModel
+model = models.podraP.PodraPModel
 displayName = 'Lines of Business Net Claims'
 
 components.linesOfBusiness.outClaimsNet = AggregatedCollectingModeStrategy.IDENTIFIER

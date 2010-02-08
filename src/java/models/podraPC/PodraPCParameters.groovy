@@ -1,4 +1,4 @@
-package models.podraWithReserves
+package models.podraPC
 
 import org.pillarone.riskanalytics.domain.pc.claims.RiskAllocatorStrategyFactory
 import org.pillarone.riskanalytics.domain.pc.claims.RiskAllocatorType
@@ -21,7 +21,7 @@ import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
 import org.pillarone.riskanalytics.core.parameterization.*
 
-model=models.podraWithReserves.PodraWithReservesModel
+model=models.podraPC.PodraPCModel
 periodCount=1
 displayName='One Line Example'
 applicationVersion='0.4.2'

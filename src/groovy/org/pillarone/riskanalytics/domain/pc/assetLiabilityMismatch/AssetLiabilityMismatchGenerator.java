@@ -9,6 +9,7 @@ import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.generators.GeneratorCachingComponent;
 import org.pillarone.riskanalytics.domain.utils.*;
 
+import java.util.Collections;
 import java.util.HashMap;
 
 /**
@@ -26,22 +27,28 @@ public class AssetLiabilityMismatchGenerator extends GeneratorCachingComponent i
 
     private RandomDistribution parmDistribution = RandomDistributionFactory.getDistribution(DistributionType.CONSTANT,
             ArrayUtils.toMap(new Object[][]{{"constant", 0d}}));
-    private DistributionModified parmModification = DistributionModifierFactory.getModifier(DistributionModifier.NONE, new HashMap());
+    private DistributionModified parmModification = DistributionModifierFactory.getModifier(DistributionModifier.NONE, Collections.emptyMap());
     private double parmInitialVolume = 0d;
     private IAssetLiabilityMismatchGeneratorStrategy parmAssetLiabilityMismatchModel =
             AssetLiabilityMismatchGeneratorStrategyType.getStrategy(
-            AssetLiabilityMismatchGeneratorStrategyType.ABSOLUTE, new HashMap() //ArrayUtils.toMap(new Object[][]{})
-//            ArrayUtils.toMap(new Object[][]{{"basedOnClaimsGenerators", new ComboBoxTableMultiDimensionalParameter(
-//                    Collections.emptyList(),
-//                    Arrays.asList("Claims Generators"), PerilMarker.class)}})
-            );
+                AssetLiabilityMismatchGeneratorStrategyType.ABSOLUTE, Collections.emptyMap());
 
     protected void doCalculation() {
         Claim claim = new Claim();
-        claim.setUltimate(999);
         claim.setOrigin(this);
-
+        setIncurred(claim);
         outAlmResult.add(claim);
+    }
+
+
+    private void setIncurred(Claim claim) {
+        IRandomNumberGenerator generator = getCachedGenerator(getParmDistribution(), getParmModification());
+        Double randomFactor = (Double) generator.nextValue();
+
+        claim.setUltimate(randomFactor * parmInitialVolume);
+        SingleValuePacket initialVolume = new SingleValuePacket();
+        initialVolume.setValue(parmInitialVolume);
+        outInitialVolume.add(initialVolume);
     }
 
     public double getParmInitialVolume() {
