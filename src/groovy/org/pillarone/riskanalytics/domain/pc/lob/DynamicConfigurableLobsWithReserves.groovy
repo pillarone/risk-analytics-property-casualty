@@ -30,6 +30,9 @@ public class DynamicConfigurableLobsWithReserves extends MultiPhaseDynamicCompos
     PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanCeded = new PacketList(ClaimDevelopmentLeanPacket)
 
     public void wire() {
+        if (componentList.size() == 0) {
+            throw new IllegalArgumentException("At least one line of business is required for a valid parameterization!")
+        }
         replicateInChannels this, 'inUnderwritingInfoGross'
         replicateInChannels this, 'inUnderwritingInfoCeded'
         replicateInChannels this, 'inClaimsGross'

@@ -24,6 +24,9 @@ public class DynamicConfigurableLobs extends MultiPhaseDynamicComposedComponent 
     PacketList<Claim> outClaimsCeded = new PacketList(Claim.class);
 
     public void wire() {
+        if (componentList.size() == 0) {
+            throw new IllegalArgumentException("At least one line of business is required for a valid parameterization!")
+        }
         replicateInChannels this, 'inUnderwritingInfoGross'
         replicateInChannels this, 'inUnderwritingInfoCeded'
         replicateInChannels this, 'inClaimsGross'
