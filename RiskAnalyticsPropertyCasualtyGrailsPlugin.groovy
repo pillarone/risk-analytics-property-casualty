@@ -6,9 +6,9 @@ import org.pillarone.riskanalytics.core.parameterization.SimpleConstraint
 import org.pillarone.riskanalytics.domain.pc.output.AggregatedDrillDownCollectingModeStrategy
 import org.pillarone.riskanalytics.core.output.CollectingModeFactory
 
-class RiskAnalyticsPCGrailsPlugin {
+class RiskAnalyticsPropertyCasualtyGrailsPlugin {
     // the plugin version
-    def version = "0.4.9"
+    def version = "0.4.9.1"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.2.0 > *"
     // the other plugins this plugin depends on
