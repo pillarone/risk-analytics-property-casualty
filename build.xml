@@ -51,7 +51,7 @@
 
     <target name="clean-plugins"
             description="Removes all plugins files from the plugin dir. Useful for build servers to avoid grails trying to uninstall an old plugin after an upgrade.">
-        <delete includeemptydirs="true">
+        <delete includeemptydirs="true" failonerror="false">
             <fileset dir="${plugin.dir}" includes="**/*"/>
         </delete>
     </target>
