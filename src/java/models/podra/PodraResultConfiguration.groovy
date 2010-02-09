@@ -20,9 +20,6 @@ components {
 			outClaimsDevelopmentLeanCeded = "AGGREGATED"
 			outClaimsDevelopmentLeanGross = "AGGREGATED"
 			outClaimsDevelopmentLeanNet = "AGGREGATED"
-			outUnderwritingInfoCeded = "AGGREGATED"
-			outUnderwritingInfoGross = "AGGREGATED"
-			outUnderwritingInfoNet = "AGGREGATED"
 		}
 	}
 	reserveGenerators {
