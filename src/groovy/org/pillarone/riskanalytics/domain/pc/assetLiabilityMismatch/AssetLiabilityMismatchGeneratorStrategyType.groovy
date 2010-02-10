@@ -68,6 +68,6 @@ public class AssetLiabilityMismatchGeneratorStrategyType extends AbstractParamet
             parameterString << ':'
         }
         parameterString << ']'
-        return "org.pillarone.modelling.domain.pc.assetLiabilityMismatch.AssetLiabilityMismatchGeneratorStrategyType.getStrategy(${this.class.name}.${typeName.toUpperCase()}, ${parameterString})"
+        return "org.pillarone.riskanalytics.domain.pc.assetLiabilityMismatch.AssetLiabilityMismatchGeneratorStrategyType.getStrategy(${this.class.name}.${typeName.toUpperCase()}, ${parameterString})"
     }
 }
