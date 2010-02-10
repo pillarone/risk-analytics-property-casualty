@@ -24,9 +24,9 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
     public static final DistributionType NORMAL = new DistributionType(
             "normal", "NORMAL", ["mean": 0d, "stDev": 1d])
     public static final DistributionType LOGNORMAL = new DistributionType(
-            "log normal (mean, stdev)", "LOGNORMAL", ["mean": 0d, "stDev": 1d])
+            "log normal (mean, stdev)", "LOGNORMAL", ["mean": 1d, "stDev": 1d])
     public static final DistributionType LOGNORMAL_MU_SIGMA = new DistributionType(
-            "log normal (mu, sigma)", "LOGNORMAL_MU_SIGMA", ["mu": 0d, "sigma": 1d])
+            "log normal (mu, sigma)", "LOGNORMAL_MU_SIGMA", ["mu": 1d, "sigma": 1d])
     public static final DistributionType PARETO = new DistributionType(
             "pareto", "PARETO", ["alpha": 1d, "beta": 1d])
     public static final DistributionType UNIFORM = new DistributionType(
