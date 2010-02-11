@@ -19,7 +19,7 @@ public class ClaimDevelopmentTests extends GroovyTestCase {
                 parmPayoutPattern : PatternStrategyType.getStrategy(PatternStrategyType.INCREMENTAL,
                         ["incrementalPattern":new TableMultiDimensionalParameter([0.7d, 0.3d],["Increments"]),]),
                 parmReportedPattern : PatternStrategyType.getStrategy(PatternStrategyType.NONE, [:]),
-                parmCoveredPerils : new ComboBoxTableMultiDimensionalParameter(
+                parmAppliedOnPerils : new ComboBoxTableMultiDimensionalParameter(
                         Collections.emptyList(), Arrays.asList("peril"), PerilMarker)
         )
         claimDevelopment.simulationScope = new SimulationScope(model: new VoidTestModel())
@@ -62,7 +62,7 @@ public class ClaimDevelopmentTests extends GroovyTestCase {
                 parmPayoutPattern : PatternStrategyType.getStrategy(PatternStrategyType.CUMULATIVE,
                         ["cumulativePattern":new TableMultiDimensionalParameter([0.7d, 1d],["Cumulative"]),]),
                 parmReportedPattern : PatternStrategyType.getStrategy(PatternStrategyType.NONE, [:]),
-                parmCoveredPerils : new ComboBoxTableMultiDimensionalParameter(
+                parmAppliedOnPerils : new ComboBoxTableMultiDimensionalParameter(
                         Collections.emptyList(), Arrays.asList("peril"), PerilMarker)
         )
         claimDevelopment.simulationScope = new SimulationScope(model: new VoidTestModel())
@@ -104,7 +104,7 @@ public class ClaimDevelopmentTests extends GroovyTestCase {
         ClaimDevelopment claimDevelopment = new ClaimDevelopment(
                 parmPayoutPattern : PatternStrategyType.getStrategy(PatternStrategyType.NONE, [:]),
                 parmReportedPattern : PatternStrategyType.getStrategy(PatternStrategyType.NONE, [:]),
-                parmCoveredPerils : new ComboBoxTableMultiDimensionalParameter(
+                parmAppliedOnPerils : new ComboBoxTableMultiDimensionalParameter(
                         Collections.emptyList(), Arrays.asList("peril"), PerilMarker)
         )
         claimDevelopment.simulationScope = new SimulationScope(model: new VoidTestModel())
@@ -138,7 +138,7 @@ public class ClaimDevelopmentTests extends GroovyTestCase {
         ClaimDevelopment claimDevelopment = new ClaimDevelopment(
                 parmPayoutPattern : PatternStrategyType.getStrategy(PatternStrategyType.CUMULATIVE, ["cumulativePattern":new TableMultiDimensionalParameter([0.4d, 0.7d, 0.9d, 1d],["Cumulative"]),]),
                 parmReportedPattern : PatternStrategyType.getStrategy(PatternStrategyType.CUMULATIVE, ["cumulativePattern":new TableMultiDimensionalParameter([0.8d, 0.9d, 0.95d, 1d],["Cumulative"]),]),
-                parmCoveredPerils : new ComboBoxTableMultiDimensionalParameter(
+                parmAppliedOnPerils : new ComboBoxTableMultiDimensionalParameter(
                         Collections.emptyList(), Arrays.asList("peril"), PerilMarker)
         )
         claimDevelopment.simulationScope = new SimulationScope(model: new VoidTestModel())
@@ -228,7 +228,7 @@ public class ClaimDevelopmentTests extends GroovyTestCase {
                 parmReportedPattern : PatternStrategyType.getStrategy(PatternStrategyType.CUMULATIVE, ["cumulativePattern":new TableMultiDimensionalParameter([0.8d, 0.9d, 0.95d, 1d],["Cumulative"]),]),
                 parmHistoricClaims : HistoricClaimsStrategyType.getStrategy(HistoricClaimsStrategyType.LAST_PAID,
                     [paidByDevelopmentPeriod :  new TableMultiDimensionalParameter([[320d, 62d],[1, 2]], ['Paid', 'Development Periods']),]),
-                parmCoveredPerils : new ComboBoxTableMultiDimensionalParameter(
+                parmAppliedOnPerils : new ComboBoxTableMultiDimensionalParameter(
                         Collections.emptyList(), Arrays.asList("peril"), PerilMarker)
         )
         claimDevelopment.simulationScope = new SimulationScope(model: new VoidTestModel())
@@ -290,7 +290,7 @@ public class ClaimDevelopmentTests extends GroovyTestCase {
                 parmReportedPattern : PatternStrategyType.getStrategy(PatternStrategyType.CUMULATIVE, ["cumulativePattern":new TableMultiDimensionalParameter([0.8d, 0.9d, 0.95d, 1d],["Cumulative"]),]),
                 parmHistoricClaims : HistoricClaimsStrategyType.getStrategy(HistoricClaimsStrategyType.LAST_REPORTED,
                     [reportedByDevelopmentPeriod :  new TableMultiDimensionalParameter([[800d, 180d],[1, 2]], ['Paid', 'Development Periods']),]),
-                parmCoveredPerils : new ComboBoxTableMultiDimensionalParameter(
+                parmAppliedOnPerils : new ComboBoxTableMultiDimensionalParameter(
                         Collections.emptyList(), Arrays.asList("peril"), PerilMarker)
         )
         claimDevelopment.simulationScope = new SimulationScope(model: new VoidTestModel())

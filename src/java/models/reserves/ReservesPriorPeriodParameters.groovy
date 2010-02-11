@@ -61,9 +61,9 @@ components {
             parmCoveredLines[0]=new ComboBoxTableMultiDimensionalParameter([""],["Covered Lines"], LobMarker)
             parmCoveredLines[2]=new ComboBoxTableMultiDimensionalParameter([""],["Covered Lines"], LobMarker)
             parmCoveredLines[1]=new ComboBoxTableMultiDimensionalParameter([""],["Covered Lines"], LobMarker)
-            parmCoveredPerils[1]=new ComboBoxTableMultiDimensionalParameter([""],["perils"], PerilMarker)
-            parmCoveredPerils[2]=new ComboBoxTableMultiDimensionalParameter([""],["perils"], PerilMarker)
-            parmCoveredPerils[0]=new ComboBoxTableMultiDimensionalParameter([""],["perils"], PerilMarker)
+            getParmAppliedOnPerils[1]=new ComboBoxTableMultiDimensionalParameter([""],["perils"], PerilMarker)
+            getParmAppliedOnPerils[2]=new ComboBoxTableMultiDimensionalParameter([""],["perils"], PerilMarker)
+            getParmAppliedOnPerils[0]=new ComboBoxTableMultiDimensionalParameter([""],["perils"], PerilMarker)
             parmInuringPriority[0]=0
             parmInuringPriority[2]=0
             parmInuringPriority[1]=0

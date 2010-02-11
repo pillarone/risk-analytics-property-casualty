@@ -34,7 +34,7 @@ public class ClaimDevelopment extends Component implements IReserveMarker {
     private PacketList<ClaimDevelopmentPacket> outClaimsDevelopment = new PacketList<ClaimDevelopmentPacket>(ClaimDevelopmentPacket.class);                             // todo(sku): remove as soon as PMO-648 is resolved
     private PacketList<ClaimDevelopmentWithIBNRPacket> outClaimsDevelopmentWithIBNR = new PacketList<ClaimDevelopmentWithIBNRPacket>(ClaimDevelopmentWithIBNRPacket.class);     // todo(sku): remove as soon as PMO-648 is resolved
 
-    private ComboBoxTableMultiDimensionalParameter parmCoveredPerils = new ComboBoxTableMultiDimensionalParameter(
+    private ComboBoxTableMultiDimensionalParameter parmAppliedOnPerils = new ComboBoxTableMultiDimensionalParameter(
         Arrays.asList(""), Arrays.asList("peril"), PerilMarker.class);
     private IPatternStrategy parmPayoutPattern = PatternStrategyType.getStrategy(PatternStrategyType.NONE, Collections.emptyMap());
     private IPatternStrategy parmReportedPattern = PatternStrategyType.getStrategy(PatternStrategyType.NONE, Collections.emptyMap());
@@ -276,7 +276,7 @@ public class ClaimDevelopment extends Component implements IReserveMarker {
      * @return claims produced by covered perils
      */
     private List<Claim> filteredClaims() {
-        List<PerilMarker> coveredPerils = parmCoveredPerils.getValuesAsObjects(simulationScope.getModel());
+        List<PerilMarker> coveredPerils = parmAppliedOnPerils.getValuesAsObjects(simulationScope.getModel());
         return ClaimFilterUtilities.filterClaimsByPeril(inClaims, coveredPerils);
     }
 
@@ -352,12 +352,12 @@ public class ClaimDevelopment extends Component implements IReserveMarker {
         this.parmHistoricClaims = parmHistoricClaims;
     }
 
-    public ComboBoxTableMultiDimensionalParameter getParmCoveredPerils() {
-        return parmCoveredPerils;
+    public ComboBoxTableMultiDimensionalParameter getParmAppliedOnPerils() {
+        return parmAppliedOnPerils;
     }
 
-    public void setParmCoveredPerils(ComboBoxTableMultiDimensionalParameter parmCoveredPerils) {
-        this.parmCoveredPerils = parmCoveredPerils;
+    public void setParmAppliedOnPerils(ComboBoxTableMultiDimensionalParameter parmAppliedOnPerils) {
+        this.parmAppliedOnPerils = parmAppliedOnPerils;
     }
 
     public SimulationScope getSimulationScope() {

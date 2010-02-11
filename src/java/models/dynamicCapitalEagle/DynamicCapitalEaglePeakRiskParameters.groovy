@@ -1,6 +1,5 @@
 package models.dynamicCapitalEagle
 
-import models.dynamicCapitalEagle.DynamicCapitalEagleModel
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractStrategyFactory
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
 import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
