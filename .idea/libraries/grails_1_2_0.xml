@@ -94,12 +94,7 @@
       <root url="file://$PILLARONE_GRAILS$/doc/api" />
     </JAVADOC>
     <SOURCES>
-      <root url="file://$PILLARONE_GRAILS$/src/commons" />
-      <root url="file://$PILLARONE_GRAILS$/src/groovy" />
-      <root url="file://$PILLARONE_GRAILS$/src/persistence" />
-      <root url="file://$PILLARONE_GRAILS$/src/scaffolding" />
-      <root url="file://$PILLARONE_GRAILS$/src/tiger" />
-      <root url="file://$PILLARONE_GRAILS$/src/web" />
+      <root url="file://$PILLARONE_GRAILS$/src/java" />
     </SOURCES>
   </library>
 </component>
