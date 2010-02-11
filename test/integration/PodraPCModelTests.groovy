@@ -12,6 +12,6 @@ class PodraPCModelTests extends ModelTest {
     }
 
     String getParameterDisplayName() {
-        "One Line Example"
+        "One Line Example P&C"
     }
 }

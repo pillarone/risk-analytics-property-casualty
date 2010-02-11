@@ -23,7 +23,7 @@ import org.pillarone.riskanalytics.core.parameterization.*
 
 model=models.podraPC.PodraPCModel
 periodCount=1
-displayName='One Line Example'
+displayName='One Line Example P&C'
 applicationVersion='0.4.2'
 components {
 	claimsGenerators {
