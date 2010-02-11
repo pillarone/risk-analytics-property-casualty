@@ -70,7 +70,7 @@ class ReinsuranceContractTests extends GroovyTestCase {
         assertEquals "quotaShare2, large ceded claim", 5, qs2ClaimsCeded[1].ultimate
     }
 
-    void testNoConstractSet() {
+    void testNoContractSet() {
         ReinsuranceContract quotaShare1 = new ReinsuranceContract(parmContractStrategy: null)
         shouldFail(IllegalStateException, {quotaShare1.doCalculation()})
     }

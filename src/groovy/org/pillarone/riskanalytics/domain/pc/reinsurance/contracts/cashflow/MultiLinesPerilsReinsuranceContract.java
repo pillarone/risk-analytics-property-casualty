@@ -142,11 +142,13 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
         coverPerPeriod.add(parmCoverPeriod.getCoverDuration(
                 periodScope.getCurrentPeriodStartDate(),
                 periodScope.getNextPeriodStartDate()));
-        if (contract == null && !(parmContractStrategy instanceof TrivialContractStrategy)) {
-            contract = parmContractStrategy.copy();
-            coveredByReinsurer = parmCoveredByReinsurer;
-        } else if ((contract != null) && !(parmContractStrategy instanceof TrivialContractStrategy)) {
-            throw new IllegalArgumentException("Only one none trivial strategy per contract allowed");
+        if (!(parmContractStrategy instanceof TrivialContractStrategy)) {
+            if (contract == null) {
+                contract = parmContractStrategy.copy();
+                coveredByReinsurer = parmCoveredByReinsurer;
+            } else {
+                throw new IllegalArgumentException("Only one nontrivial strategy per contract is allowed");
+            }
         }
     }
 
@@ -166,14 +168,14 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
 
     private void filterClaimsInCoveredPeriod(int currentPeriod, CoverDuration coverOfCurrentPeriod) {
         for (Claim claim : outFilteredClaims) {
-            if (claim instanceof ClaimDevelopmentPacket) {
+            if (claim.getClass().equals(ClaimDevelopmentPacket.class)) {
                 int originalPeriod = ((ClaimDevelopmentPacket) claim).getOriginalPeriod();
                 double fractionOfPeriod = ((ClaimDevelopmentPacket) claim).getFractionOfPeriod();
                 if (originalPeriod == currentPeriod && coverOfCurrentPeriod.isCovered(fractionOfPeriod)) {  // todo(sku): currentPeriod or 0?
                     outClaimsGrossInCoveredPeriod.add(claim);
                 }
             }
-            else if (claim instanceof Claim) {
+            else if (claim.getClass().equals(Claim.class)) {
                 double fractionOfPeriod = claim.getFractionOfPeriod();
                 if (coverOfCurrentPeriod.isCovered(fractionOfPeriod)) {
                     outClaimsGrossInCoveredPeriod.add(claim);

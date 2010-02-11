@@ -1,14 +1,18 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cashflow
 
+import org.apache.commons.lang.NotImplementedException
 import org.joda.time.DateTime
 import org.joda.time.Period
 import org.pillarone.riskanalytics.core.simulation.ContinuousPeriodCounter
 import org.pillarone.riskanalytics.core.simulation.engine.IterationScope
 import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope
-import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket
-import org.pillarone.riskanalytics.core.util.TestProbe
 import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope
+import org.pillarone.riskanalytics.core.util.TestProbe
 import org.pillarone.riskanalytics.domain.assets.VoidTestModel
+import org.pillarone.riskanalytics.domain.pc.claims.ClaimWithExposure
+import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket
+import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentWithIBNRPacket
+import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -19,6 +23,21 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         MultiLinesPerilsReinsuranceContract contract = new MultiLinesPerilsReinsuranceContract(
                 parmContractStrategy : ReinsuranceContractType.getContractStrategy(
                         ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.25, "commission": 0.0, "coveredByReinsurer": 1d]),
+                parmCoverPeriod : new FullPeriodCoveredStrategy(),
+                parmCoveredByReinsurer : 1d,
+                parmInuringPriority : 0d)
+        SimulationScope simulationScope= new SimulationScope()
+        simulationScope.model = new VoidTestModel()
+        simulationScope.iterationScope = getIterationScope(new DateTime(2010,1,1,0,0,0,0), Period.years(1))
+        contract.simulationScope = simulationScope
+
+        return contract
+    }
+
+    static MultiLinesPerilsReinsuranceContract getQuotaShare50FullCoverAllLinesPerils() {
+        MultiLinesPerilsReinsuranceContract contract = new MultiLinesPerilsReinsuranceContract(
+                parmContractStrategy : ReinsuranceContractType.getContractStrategy(
+                        ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.50, "commission": 0.0, "coveredByReinsurer": 1d]),
                 parmCoverPeriod : new FullPeriodCoveredStrategy(),
                 parmCoveredByReinsurer : 1d,
                 parmInuringPriority : 0d)
@@ -58,6 +77,22 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         SimulationScope simulationScope= new SimulationScope()
         simulationScope.model = new VoidTestModel()
         simulationScope.iterationScope = getIterationScope(new DateTime(2010,1,1,0,0,0,0), Period.years(1))
+        contract.simulationScope = simulationScope
+        return contract
+    }
+
+    static MultiLinesPerilsReinsuranceContract getAllLinesPerilsQuotaShareContract(int iterationStart, int contractStart, int contractDuration = 1, double quotaShare = 0.5, double inuringPriority = 0) {
+        MultiLinesPerilsReinsuranceContract contract = new MultiLinesPerilsReinsuranceContract(
+                parmContractStrategy : ReinsuranceContractType.getContractStrategy(
+                        ReinsuranceContractType.QUOTASHARE, ["quotaShare": quotaShare, "commission": 0.0, "coveredByReinsurer": 1d]),
+                parmCoverPeriod : CoverPeriodType.getCoverPeriod(
+                        CoverPeriodType.PERIOD,
+                        ['start': new DateTime(contractStart,1,1,0,0,0,0), 'end': new DateTime(contractStart+contractDuration-1,12,31,0,0,0,0)]),
+                parmCoveredByReinsurer : 1d,
+                parmInuringPriority : 0d)
+        SimulationScope simulationScope= new SimulationScope()
+        simulationScope.model = new VoidTestModel()
+        simulationScope.iterationScope = getIterationScope(new DateTime(iterationStart,1,1,0,0,0,0), Period.years(1))
         contract.simulationScope = simulationScope
         return contract
     }
@@ -116,7 +151,6 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         simulationScope.model = new VoidTestModel()
         simulationScope.iterationScope = getIterationScope(new DateTime(2010,1,1,0,0,0,0), Period.years(1))
         contract.simulationScope = simulationScope
-//        simulationScope.iterationScope.prepareNextIteration()
 
         def netClaims = new TestProbe(contract, 'outUncoveredClaims')
 
@@ -235,5 +269,66 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         assertEquals 'year 2014 # gross covered', 0, contract.outClaimsGrossInCoveredPeriod.size()
         assertEquals 'year 2014 # ceded', 0, contract.outCoveredClaims.size()
         assertEquals 'year 2014 # net', 0, contract.outUncoveredClaims.size()
+    }
+
+    void testNoContractSet() {
+        MultiLinesPerilsReinsuranceContract contract = getContractFullCoverAllLinesPerils()
+        contract.parmContractStrategy = null
+
+        ClaimDevelopmentPacket claim1000 = new ClaimDevelopmentPacket(incurred: 1000, paid: 500, reserved: 500, changeInReserves: 500)
+        ClaimDevelopmentPacket claim800 = new ClaimDevelopmentPacket(incurred: 800, paid: 480, reserved: 320, changeInReserves: 480)
+        contract.inClaims << claim1000 << claim800
+
+        shouldFail IllegalArgumentException, {contract.doCalculation()}
+    }
+
+    /**
+     * Each contract may not have more than one nontrivial contract strategy instance over the scope of a simulation.
+     */
+    void testTwoContractSet() {
+        // set up a contract (25% quota share) for 4 years (1.1.2010--31.12.2013)
+        // with inuring priority 0 and iteration scope starting 1.1.2010
+        MultiLinesPerilsReinsuranceContract contract = getAllLinesPerilsQuotaShareContract(2010, 2010, 4, 0.25, 0)
+
+        // define some claims
+        ClaimDevelopmentPacket claim1000 = new ClaimDevelopmentPacket(incurred: 1000, paid: 500, reserved: 500, changeInReserves: 500)
+        ClaimDevelopmentPacket claim800 = new ClaimDevelopmentPacket(incurred: 800, paid: 480, reserved: 320, changeInReserves: 480)
+
+        // simulate the first period of the first iteration
+        contract.inClaims << claim1000 << claim800
+        contract.doCalculation()
+
+        // simulate the second period, but with another nontrivial contract strategy (instance)
+        contract.reset()
+        contract.parmContractStrategy = ReinsuranceContractType.getContractStrategy(
+                ReinsuranceContractType.QUOTASHARE, ['quotaShare': 0.25, 'commission':0])
+        contract.inClaims << claim1000 << claim800
+        contract.simulationScope.iterationScope.periodScope.prepareNextPeriod()
+        shouldFail IllegalArgumentException, {contract.doCalculation()}
+    }
+
+    /**
+     * Make sure that filterClaimsInCoveredPeriod rejects processing all subclasses of Claim other than
+     * ClaimDevelopmentPacket, i.e. (currently) it should throw a NotImplementedException if any claim
+     * in inClaims is an instance of one of these classes:
+     * <ul><li>ClaimDevelopmentLeanPacket</li>
+     * <li>ClaimDevelopmentWithIBNRPacket</li>
+     * <li>ClaimExposure</li></ul>
+     */
+    void testUnimplementedClaim() {
+        MultiLinesPerilsReinsuranceContract contract = getAllLinesPerilsQuotaShareContract(2011, 2011, 1, 0.5, 0)
+
+        contract.inClaims << new ClaimDevelopmentLeanPacket()
+        shouldFail NotImplementedException, {contract.doCalculation()}
+
+        contract.reset()
+        contract.parmContractStrategy = ReinsuranceContractType.getTrivial()
+        contract.inClaims << new ClaimDevelopmentWithIBNRPacket()
+        shouldFail NotImplementedException, {contract.doCalculation()}
+
+        contract.reset()
+        contract.parmContractStrategy = ReinsuranceContractType.getTrivial()
+        contract.inClaims << new ClaimWithExposure()
+        shouldFail NotImplementedException, {contract.doCalculation()}
     }
 }
