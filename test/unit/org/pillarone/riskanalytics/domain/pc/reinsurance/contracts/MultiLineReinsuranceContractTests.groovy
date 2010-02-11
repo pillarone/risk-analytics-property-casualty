@@ -12,6 +12,7 @@ import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.generators.severities.Event
 import org.pillarone.riskanalytics.core.example.component.TestComponent
+import org.pillarone.riskanalytics.domain.pc.generators.claims.TypableClaimsGenerator
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -58,18 +59,21 @@ public class MultiLineReinsuranceContractTests extends GroovyTestCase {
         simulationScope.model = new VoidTestModel()
         contract.simulationScope = simulationScope
         TestComponent origin = new TestComponent()
+        TypableClaimsGenerator generator = new TypableClaimsGenerator()
         Event event1 = new Event()
         Event event2 = new Event()
         Claim originalClaim1 = new Claim(
                 value: 10000,
                 event: event1,
                 fractionOfPeriod: 0.5,
+                peril: generator,
                 claimType: ClaimType.ATTRITIONAL,
         )
         Claim originalClaim2 = new Claim(
                 value: 500,
                 event: event2,
                 fractionOfPeriod: 0.5,
+                peril: generator,
                 claimType: ClaimType.ATTRITIONAL,
         )
         ClaimDevelopmentLeanPacket claimDevelopment1 = new ClaimDevelopmentLeanPacket(
@@ -78,6 +82,7 @@ public class MultiLineReinsuranceContractTests extends GroovyTestCase {
                         origin: origin,
                         originalClaim: originalClaim1,
                         event: event1,
+                        peril: generator,
                         fractionOfPeriod: 0.5)
         ClaimDevelopmentLeanPacket claimDevelopment2 = new ClaimDevelopmentLeanPacket(
                         ultimate:12,
@@ -85,6 +90,7 @@ public class MultiLineReinsuranceContractTests extends GroovyTestCase {
                         origin: origin,
                         originalClaim: originalClaim2,
                         event: event1,
+                        peril: generator,
                         fractionOfPeriod: 0.5)
         contract.inClaims << claimDevelopment1 << claimDevelopment2
 

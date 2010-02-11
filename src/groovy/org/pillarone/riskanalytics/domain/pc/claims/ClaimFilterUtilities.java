@@ -134,6 +134,17 @@ public class ClaimFilterUtilities {
         }
     }
 
+    /** returns claims with a none null peril property */
+    public static List<Claim> filterPerilClaims(List<Claim> claims) {
+        List<Claim> filteredClaims = new ArrayList<Claim>(claims.size());
+        for (Claim claim : claims) {
+            if (claim.getPeril() != null) {
+                filteredClaims.add(claim);
+            }
+        }
+        return filteredClaims;
+    }
+
     public static List<Claim> filterClaimsByOrigin(List<Claim> claims, Component origin) {
         List<Claim> filteredClaims = new ArrayList<Claim>(claims.size());
         for (Claim claim : claims) {
