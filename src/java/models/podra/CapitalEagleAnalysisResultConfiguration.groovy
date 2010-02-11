@@ -17,10 +17,8 @@ components {
 		}
 	}
 	claimsGenerators {
-		outClaims = "AGGREGATED"
 		outClaimsLeanDevelopment = "AGGREGATED"
 		subsubcomponents {
-			outClaims = "AGGREGATED"
 			outClaimsLeanDevelopment = "AGGREGATED"
 		}
 	}
