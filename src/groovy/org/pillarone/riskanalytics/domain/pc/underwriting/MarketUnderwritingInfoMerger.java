@@ -30,7 +30,7 @@ public class MarketUnderwritingInfoMerger extends Component {
             for (UnderwritingInfo grossUnderwritingInfo : inUnderwritingInfoGross) {
                 GrossCededUnderwritingInfoPair underwritingInfoPair = new GrossCededUnderwritingInfoPair(grossUnderwritingInfo);
                 if (grossMergedCededPairs.containsKey(grossUnderwritingInfo.originalUnderwritingInfo)) {
-                    throw new IllegalArgumentException("MarketUnderwritingInfoMerger.inUnderwritingInfoGross contains twice the same claim!");
+                    throw new IllegalArgumentException("MarketUnderwritingInfoMerger.inUnderwritingInfoGross contains twice the same underwriting info!");
                 }
                 grossMergedCededPairs.put(grossUnderwritingInfo.originalUnderwritingInfo, underwritingInfoPair);
                 outUnderwritingInfoGross.add(grossUnderwritingInfo);

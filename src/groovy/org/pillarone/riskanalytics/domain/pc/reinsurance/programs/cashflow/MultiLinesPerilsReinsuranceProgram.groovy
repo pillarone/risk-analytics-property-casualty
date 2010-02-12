@@ -33,7 +33,7 @@ class MultiLinesPerilsReinsuranceProgram extends DynamicComposedComponent {
         }
     }
 
-    /* following code is copied form DRP */
+    /* following code is copied from DRP */
 
     PacketList<Claim> inClaims = new PacketList(Claim)
 

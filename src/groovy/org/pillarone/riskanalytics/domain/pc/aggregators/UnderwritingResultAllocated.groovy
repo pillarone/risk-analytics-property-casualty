@@ -12,6 +12,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingResult
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@Deprecated
 public class UnderwritingResultAllocated extends ComposedComponent {
 
     PacketList<Claim> inClaims = new PacketList(Claim)

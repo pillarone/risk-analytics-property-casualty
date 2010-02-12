@@ -81,10 +81,10 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         return contract
     }
 
-    static MultiLinesPerilsReinsuranceContract getAllLinesPerilsQuotaShareContract(int iterationStart, int contractStart, int contractDuration = 1, double quotaShare = 0.5, double inuringPriority = 0) {
+    static MultiLinesPerilsReinsuranceContract getAllLinesPerilsQuotaShareContract(int iterationStart, int contractStart, int contractDuration = 1, double quotaShare = 0.5, double inuringPriority = 0, double commission = 0) {
         MultiLinesPerilsReinsuranceContract contract = new MultiLinesPerilsReinsuranceContract(
                 parmContractStrategy : ReinsuranceContractType.getContractStrategy(
-                        ReinsuranceContractType.QUOTASHARE, ["quotaShare": quotaShare, "commission": 0.0, "coveredByReinsurer": 1d]),
+                        ReinsuranceContractType.QUOTASHARE, ["quotaShare": quotaShare, "commission": commission, "coveredByReinsurer": 1d]),
                 parmCoverPeriod : CoverPeriodType.getCoverPeriod(
                         CoverPeriodType.PERIOD,
                         ['start': new DateTime(contractStart,1,1,0,0,0,0), 'end': new DateTime(contractStart+contractDuration-1,12,31,0,0,0,0)]),
