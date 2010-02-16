@@ -3,6 +3,7 @@ package org.pillarone.riskanalytics.domain.pc.claims;
 import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.core.components.Component;
+import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker;
 
 import java.util.*;
 
@@ -119,6 +120,62 @@ public class ClaimFilterUtilities {
         return filteredClaims;
     }
 
+    /**
+     * @param claims the list of claims to filter
+     * @param coveredPerils the peril markers to filter by, if any; must be null if coveredReserves is given
+     * @param coveredLinesOfBusiness the LOB markers to filter by
+     * @param coveredReserves the reserve markers to filter by, if any; must be null if coveredPerils is given
+     * @return the list of claims that passed through the filter
+     */
+    public static List<Claim> filterClaimsByPerilLobReserve(List<Claim> claims, List<PerilMarker> coveredPerils,
+                                                            List<LobMarker> coveredLinesOfBusiness, List<IReserveMarker> coveredReserves) {
+        List<Claim> filteredClaims = new ArrayList<Claim>();
+        if ((coveredPerils == null || coveredPerils.size() == 0) &&
+            (coveredReserves == null || coveredReserves.size() == 0) &&
+            (coveredLinesOfBusiness == null || coveredLinesOfBusiness.size() == 0)) {
+            filteredClaims.addAll(claims);
+        }
+        else if (coveredPerils.size() > 0 && coveredReserves.size() > 0) {
+            throw new IllegalArgumentException("cannot filter simultaneously by perils and reserves");
+        }
+        else if (coveredPerils.size() > 0 && coveredLinesOfBusiness.size() > 0) {
+            for (Claim claim : claims) {
+                if (coveredPerils.contains(claim.getPeril()) && coveredLinesOfBusiness.contains(claim.getLineOfBusiness())) {
+                    filteredClaims.add(claim);
+                }
+            }
+        }
+        else if (coveredReserves.size() > 0 && coveredLinesOfBusiness.size() > 0) {
+            for (Claim claim : claims) {
+                if (coveredReserves.contains(claim.getPeril()) && coveredLinesOfBusiness.contains(claim.getLineOfBusiness())) {
+                    filteredClaims.add(claim);
+                }
+            }
+        }
+        else if (coveredPerils.size() > 0) {
+            for (Claim claim : claims) {
+                if (coveredPerils.contains(claim.getPeril())) {
+                    filteredClaims.add(claim);
+                }
+            }
+        }
+        else if (coveredReserves.size() > 0) {
+            for (Claim claim : claims) {
+                if (coveredReserves.contains(claim.getPeril())) {
+                    filteredClaims.add(claim);
+                }
+            }
+        }
+        else if (coveredLinesOfBusiness.size() > 0) {
+            for (Claim claim : claims) {
+                if (coveredLinesOfBusiness.contains(claim.getLineOfBusiness())) {
+                    filteredClaims.add(claim);
+                }
+            }
+        }
+        return filteredClaims;
+    }
+
     public static List<Claim> filterClaimsByPeril(List<Claim> claims, List<PerilMarker> coveredPerils) {
         if (coveredPerils == null || coveredPerils.size() == 0) {
             return claims;
@@ -132,17 +189,6 @@ public class ClaimFilterUtilities {
             }
             return filteredClaims;
         }
-    }
-
-    /** returns claims with a none null peril property */
-    public static List<Claim> filterPerilClaims(List<Claim> claims) {
-        List<Claim> filteredClaims = new ArrayList<Claim>(claims.size());
-        for (Claim claim : claims) {
-            if (claim.getPeril() != null) {
-                filteredClaims.add(claim);
-            }
-        }
-        return filteredClaims;
     }
 
     public static List<Claim> filterClaimsByOrigin(List<Claim> claims, Component origin) {

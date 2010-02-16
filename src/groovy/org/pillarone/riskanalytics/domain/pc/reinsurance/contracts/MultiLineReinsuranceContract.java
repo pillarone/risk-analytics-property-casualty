@@ -22,9 +22,9 @@ import java.util.List;
 
 /**
  *  This component filters from the incoming claims and underwriting information
- *  the packets which line is listed in parameter parmCoveredLines and provides
+ *  the packets whose line is listed in parameter parmCoveredLines and provides
  *  them in the corresponding out Packetlists.
- *  If the parameter contains no line at all, all packets are sent as-is to the
+ *  If the parameter contains no line at all, all packets are sent as is to the
  *  next component. Packets are not modified.
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -40,7 +40,7 @@ public class MultiLineReinsuranceContract extends ReinsuranceContract {
     private ComboBoxTableMultiDimensionalParameter parmCoveredReserves = new ComboBoxTableMultiDimensionalParameter(
             Collections.emptyList(), Arrays.asList("reserves"), IReserveMarker.class);
 
-    /** claims which source is a covered line         */
+    /** claims whose source is a covered line         */
     private PacketList<Claim> outFilteredClaims = new PacketList<Claim>(Claim.class);
     // todo(sku): remove the following and related lines as soon as PMO-648 is resolved
     private PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanNet = new PacketList<ClaimDevelopmentLeanPacket>(ClaimDevelopmentLeanPacket.class);
@@ -101,9 +101,8 @@ public class MultiLineReinsuranceContract extends ReinsuranceContract {
     protected void filterInChannels() {
         List<LobMarker> coveredLines = parmCoveredLines.getValuesAsObjects(simulationScope.getModel());
         List<PerilMarker> coveredPerils = parmCoveredPerils.getValuesAsObjects(simulationScope.getModel());
-        List<PerilMarker> coveredReserves = parmCoveredReserves.getValuesAsObjects(simulationScope.getModel());
-        // todo(bgi): extend following lines for reserves
-        outFilteredClaims.addAll(ClaimFilterUtilities.filterPerilClaims(ClaimFilterUtilities.filterClaimsByPerilAndLob(inClaims, coveredPerils, coveredLines)));
+        List<IReserveMarker> coveredReserves = parmCoveredReserves.getValuesAsObjects(simulationScope.getModel());
+        outFilteredClaims.addAll(ClaimFilterUtilities.filterClaimsByPerilLobReserve(inClaims, coveredPerils, coveredLines, coveredReserves));
         if (coveredLines.size() == 0) {
             coveredLines = ClaimFilterUtilities.getLineOfBusiness(outFilteredClaims);
         }
