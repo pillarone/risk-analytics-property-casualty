@@ -66,7 +66,7 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
     private PacketList<Claim> inClaims = new PacketList<Claim>(Claim.class);
     private PacketList<UnderwritingInfo> inUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
 
-    /** claims which source is a covered line         */
+    /** claims whose source is a covered line         */
     private PacketList<Claim> outFilteredClaims = new PacketList<Claim>(Claim.class);
     private PacketList<UnderwritingInfo> outFilteredUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
 
@@ -96,7 +96,7 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
         filterInChannels();
 
         CoverDuration coverOfCurrentPeriod = coverPerPeriod.get(periodScope.getCurrentPeriod());
-        if (coverOfCurrentPeriod.isCovered()) {
+        if (contract != null && coverOfCurrentPeriod.isCovered()) {
 //            if (!contract.exhausted()) {  // todo(sku): think if all following lines are really not necessary if a contract is exhausted
                 filterClaimsInCoveredPeriod(periodScope.getCurrentPeriod(), coverOfCurrentPeriod);
 
@@ -146,14 +146,17 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
             if (contract == null) {
                 contract = parmContractStrategy.copy();
                 coveredByReinsurer = parmCoveredByReinsurer;
-            } else {
+            }
+            else {
                 throw new IllegalArgumentException("Only one nontrivial strategy per contract is allowed");
             }
         }
     }
 
     protected void initIteration() {
-        contract.resetMemberInstances();
+        if (contract != null) {
+            contract.resetMemberInstances();
+        }
     }
 
     protected void filterInChannels() {

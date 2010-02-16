@@ -24,8 +24,6 @@ class PeriodCoveredStrategy implements ICoverPeriod, IParameterObject {
         params.put("start", start);
         params.put("end", end);
         return params;
-//        ['start': start,
-//         'end': end]
     }
 
     public double getStartAsFractionOfPeriod(DateTime beginOfPeriod, DateTime endOfPeriod) {

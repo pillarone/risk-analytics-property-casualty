@@ -9,10 +9,12 @@ import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope
 import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope
 import org.pillarone.riskanalytics.core.util.TestProbe
 import org.pillarone.riskanalytics.domain.assets.VoidTestModel
+import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimWithExposure
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentWithIBNRPacket
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -330,5 +332,135 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         contract.parmContractStrategy = ReinsuranceContractType.getTrivial()
         contract.inClaims << new ClaimWithExposure()
         shouldFail NotImplementedException, {contract.doCalculation()}
+    }
+
+    /**
+     * Make sure that filterClaimsInCoveredPeriod processes a claim of class Claim (code coverage)
+     */
+    void testClaimNotFromSubclass() {
+        MultiLinesPerilsReinsuranceContract contract = getAllLinesPerilsQuotaShareContract(2011, 2011, 1, 0.5, 0)
+        Claim claimInTime = new Claim()
+        claimInTime.setFractionOfPeriod 0.9
+        contract.inClaims << claimInTime
+        contract.doCalculation()
+        assertEquals '# claims covered in period', 1, contract.outClaimsGrossInCoveredPeriod.size()
+
+        contract = getAllLinesPerilsQuotaShareContract(2011, 2011, 1, 0.5, 0)
+        Claim claimTooLate = new Claim()
+        claimTooLate.setFractionOfPeriod 1
+        contract.inClaims << claimTooLate
+        contract.doCalculation()
+        assertEquals '# claims covered in period', 0, contract.outClaimsGrossInCoveredPeriod.size()
+    }
+
+
+
+    /**
+    * Make sure that Net UnderwritingInfo is not calculated when not wired in a contract (code/branch coverage test)
+    */
+    void testUnderwritingInfoCededButNotNetWired() {
+        MultiLinesPerilsReinsuranceContract contract = MultiLinesPerilsReinsuranceContractTests.getAllLinesPerilsQuotaShareContract(2010, 2010, 4, 0.25, 0, 0.1)
+        contract.name = 'Quota Share 25%'
+
+        ClaimDevelopmentPacket claim1000 = new ClaimDevelopmentPacket(incurred: 1000, paid: 500, reserved: 500, changeInReserves: 500, originalClaim: new Claim())
+        ClaimDevelopmentPacket claim800 = new ClaimDevelopmentPacket(incurred: 800, paid: 480, reserved: 320, changeInReserves: 480, originalClaim: new Claim())
+        contract.inClaims << claim1000 << claim800
+
+        UnderwritingInfo originalUnderwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: 50)
+        UnderwritingInfo originalUnderwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: 5)
+        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: 50, originalUnderwritingInfo: originalUnderwritingInfo200)
+        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: 5, originalUnderwritingInfo: originalUnderwritingInfo100)
+        contract.inUnderwritingInfo << underwritingInfo200 << underwritingInfo100
+
+        def wiredUWInfoFiltered = new TestProbe(contract, 'outFilteredUnderwritingInfo')
+        def wiredUWInfoCeded = new TestProbe(contract, 'outCoverUnderwritingInfo')
+
+        contract.doCalculation()
+
+        assertEquals 'number of UnderwritingInfo packets ceded after contract', 2, contract.outFilteredUnderwritingInfo.size()
+        assertEquals 'number of UnderwritingInfo packets ceded after contract', 2, contract.outCoverUnderwritingInfo.size()
+        assertEquals 'number of UnderwritingInfo packets net after contract', 0, contract.outNetAfterCoverUnderwritingInfo.size()
+
+        assertEquals 'underwritinginfo200 ceded premium written after contract', 50, contract.outCoverUnderwritingInfo[0].premiumWritten
+        assertEquals 'underwritinginfo200 ceded commission after contract', 5, contract.outCoverUnderwritingInfo[0].commission
+
+        assertEquals 'underwritinginfo100 ceded premium written after contract', 25, contract.outCoverUnderwritingInfo[1].premiumWritten
+        assertEquals 'underwritinginfo100 ceded commission after contract', 2.5, contract.outCoverUnderwritingInfo[1].commission
+    }
+
+    /**
+     * This test, testUnderwritingInfoNetButNotCededWired, complements the
+     * one above, testUnderwritingInfoCededButNotNetWired, but should
+     * not be necessary for code coverage.
+     */
+    void testUnderwritingInfoNetButNotCededWired() {
+        MultiLinesPerilsReinsuranceContract contract = MultiLinesPerilsReinsuranceContractTests.getAllLinesPerilsQuotaShareContract(2010, 2010, 4, 0.25, 0, 0.1)
+        contract.name = 'Quota Share 25%'
+
+        ClaimDevelopmentPacket claim1000 = new ClaimDevelopmentPacket(incurred: 1000, paid: 500, reserved: 500, changeInReserves: 500, originalClaim: new Claim())
+        ClaimDevelopmentPacket claim800 = new ClaimDevelopmentPacket(incurred: 800, paid: 480, reserved: 320, changeInReserves: 480, originalClaim: new Claim())
+        contract.inClaims << claim1000 << claim800
+
+        UnderwritingInfo originalUnderwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: 50)
+        UnderwritingInfo originalUnderwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: 5)
+        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: 50, originalUnderwritingInfo: originalUnderwritingInfo200)
+        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: 5, originalUnderwritingInfo: originalUnderwritingInfo100)
+        contract.inUnderwritingInfo << underwritingInfo200 << underwritingInfo100
+
+        def wiredUWInfoFiltered = new TestProbe(contract, 'outFilteredUnderwritingInfo')
+        def wiredUWInfoNet = new TestProbe(contract, 'outNetAfterCoverUnderwritingInfo')
+
+        contract.doCalculation()
+
+        assertEquals 'number of UnderwritingInfo packets ceded after contract', 2, contract.outFilteredUnderwritingInfo.size()
+        assertEquals 'number of UnderwritingInfo packets ceded after contract', 2, contract.outCoverUnderwritingInfo.size()
+        assertEquals 'number of UnderwritingInfo packets net after contract', 2, contract.outNetAfterCoverUnderwritingInfo.size()
+
+        // these values were not present in testUnderwritingInfoCededButNotNetWired (since Net was not wired, only Ceded)
+        assertEquals 'underwritinginfo200 net premium written after contract', 150, contract.outNetAfterCoverUnderwritingInfo[0].premiumWritten
+        assertEquals 'underwritinginfo200 net commission after contract', 5, contract.outNetAfterCoverUnderwritingInfo[0].commission
+        assertEquals 'underwritinginfo100 net premium written after contract', 75, contract.outNetAfterCoverUnderwritingInfo[1].premiumWritten
+        assertEquals 'underwritinginfo100 net commission after contract', 2.5, contract.outNetAfterCoverUnderwritingInfo[1].commission
+
+        // these values should be the same as in testUnderwritingInfoCededButNotNetWired (because when Net is wired, Ceded is also calculated)
+        assertEquals 'underwritinginfo200 ceded premium written after contract', 50, contract.outCoverUnderwritingInfo[0].premiumWritten
+        assertEquals 'underwritinginfo200 ceded commission after contract', 5, contract.outCoverUnderwritingInfo[0].commission
+        assertEquals 'underwritinginfo100 ceded premium written after contract', 25, contract.outCoverUnderwritingInfo[1].premiumWritten
+        assertEquals 'underwritinginfo100 ceded commission after contract', 2.5, contract.outCoverUnderwritingInfo[1].commission
+    }
+
+    void testTrivialContractStrategy() {
+        MultiLinesPerilsReinsuranceContract contract = new MultiLinesPerilsReinsuranceContract(
+                parmContractStrategy: ReinsuranceContractType.getContractStrategy(ReinsuranceContractType.TRIVIAL, [:])
+        )
+        SimulationScope simulationScope= new SimulationScope()
+        simulationScope.model = new VoidTestModel()
+        simulationScope.iterationScope = getIterationScope(new DateTime(2010,1,1,0,0,0,0), Period.years(1))
+        contract.simulationScope = simulationScope
+
+        ClaimDevelopmentPacket claim1000 = new ClaimDevelopmentPacket(incurred: 1000, paid: 500, reserved: 500, changeInReserves: 500, originalClaim: new Claim())
+        ClaimDevelopmentPacket claim800 = new ClaimDevelopmentPacket(incurred: 800, paid: 480, reserved: 320, changeInReserves: 480, originalClaim: new Claim())
+        contract.inClaims << claim1000 << claim800
+
+        UnderwritingInfo originalUnderwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: 50)
+        UnderwritingInfo originalUnderwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: 5)
+        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: 50, originalUnderwritingInfo: originalUnderwritingInfo200)
+        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: 5, originalUnderwritingInfo: originalUnderwritingInfo100)
+        contract.inUnderwritingInfo << underwritingInfo200 << underwritingInfo100
+
+        def netClaims = new TestProbe(contract, 'outUncoveredClaims')
+        def cededClaims = new TestProbe(contract, 'outCoveredClaims')
+
+        def wiredUWInfoFiltered = new TestProbe(contract, 'outFilteredUnderwritingInfo')
+        def wiredUWInfoNet = new TestProbe(contract, 'outNetAfterCoverUnderwritingInfo')
+
+        contract.doCalculation()
+
+        assertEquals 'number of claim packets net after contract', 0, contract.outUncoveredClaims.size()
+        assertEquals 'number of claim packets ceded after contract', 0, contract.outCoveredClaims.size()
+
+        assertEquals 'number of UnderwritingInfo packets filtered', 2, contract.outFilteredUnderwritingInfo.size()  // todo(bgi): should be 0.
+        assertEquals 'number of UnderwritingInfo packets ceded after contract', 0, contract.outCoverUnderwritingInfo.size()
+        assertEquals 'number of UnderwritingInfo packets net after contract', 0, contract.outNetAfterCoverUnderwritingInfo.size()
     }
 }

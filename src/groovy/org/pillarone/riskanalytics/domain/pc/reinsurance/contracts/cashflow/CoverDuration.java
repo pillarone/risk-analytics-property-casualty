@@ -20,16 +20,6 @@ public class CoverDuration {
         this.covered = covered;
     }
 
-    @Deprecated
-    public double getStart() {
-        return start;
-    }
-
-    @Deprecated
-    public double getEnd() {
-        return end;
-    }
-
     public boolean isCovered() {
         return covered;
     }

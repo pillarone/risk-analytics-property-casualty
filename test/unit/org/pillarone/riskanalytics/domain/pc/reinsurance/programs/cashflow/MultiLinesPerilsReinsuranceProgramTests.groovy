@@ -312,7 +312,6 @@ class MultiLinesPerilsReinsuranceProgramTests extends GroovyTestCase {
         TestPretendInChannelWired inUnderwritingInfoWired = new TestPretendInChannelWired(program, "inUnderwritingInfo")
         program.wire()
 
-        // todo-bgi: wire out UI into a TP & check the output values
         List qs1UWInfoNet = new TestProbe(qs1, 'outNetAfterCoverUnderwritingInfo').result
         List qs1UWInfoCeded = new TestProbe(qs1, 'outCoverUnderwritingInfo').result
         List qs1UWInfoAll = new TestProbe(program, 'outUnderwritingInfo').result
