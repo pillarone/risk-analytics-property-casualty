@@ -100,6 +100,10 @@ class ReinsuranceContractStrategyFactory {
             premiumBase: premiumBase, premium: premium, reinstatementPremiums: reinstatementPremiums,
             coveredByReinsurer: coveredByReinsurer)
     }
+  private static IReinsuranceContractStrategy getLossPortfolioTransfer(double quotaShare, double commission, double coveredByReinsurer) {
+      return new LossPortfolioTransferContractStrategy(quotaShare: quotaShare, commission: commission, coveredByReinsurer: coveredByReinsurer)
+  }
+
 
 
     public static IReinsuranceContractStrategy getTrivial() {
@@ -169,6 +173,9 @@ class ReinsuranceContractStrategyFactory {
                 break
             case ReinsuranceContractType.TRIVIAL:
                 contract = getTrivial()
+                break
+           case ReinsuranceContractType.LOSSPORTFOLIOTRANSFER:
+                contract = getLossPortfolioTransfer(parameters["quotaShare"], parameters["commission"], parameters["coveredByReinsurer"])
                 break
         }
         return contract
