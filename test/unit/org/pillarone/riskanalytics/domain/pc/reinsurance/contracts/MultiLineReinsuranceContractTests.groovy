@@ -13,6 +13,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.generators.severities.Event
 import org.pillarone.riskanalytics.core.example.component.TestComponent
 import org.pillarone.riskanalytics.domain.pc.generators.claims.TypableClaimsGenerator
+import org.pillarone.riskanalytics.domain.pc.claims.TestLobComponent
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -106,5 +107,69 @@ public class MultiLineReinsuranceContractTests extends GroovyTestCase {
         assertEquals 'ceded paid 1', 1.6, coveredClaims[1].paid, 1E-10
         assertEquals 'ceded reserved 0', 0.8, coveredClaims[0].reserved, 1E-10
         assertEquals 'ceded reserved 1', 0.8, coveredClaims[1].reserved, 1E-10
+    }
+
+    void testCoverLines() {
+        MultiLineReinsuranceContract contract = MultiLineReinsuranceContractTests.getQSContract20Percent()
+        SimulationScope simulationScope= new SimulationScope()
+        simulationScope.model = new VoidTestModel()
+        contract.simulationScope = simulationScope
+        TestComponent origin = new TestComponent()
+        TypableClaimsGenerator generator = new TypableClaimsGenerator()
+        TestLobComponent lobFire = new TestLobComponent(name: 'fire')
+        TestLobComponent lobMotor = new TestLobComponent(name: 'motor')
+        simulationScope.model.allComponents << lobFire << lobMotor
+        Event event1 = new Event()
+        Event event2 = new Event()
+        Claim originalClaim1 = new Claim(
+                value: 10000,
+                event: event1,
+                fractionOfPeriod: 0.5,
+                peril: generator,
+                claimType: ClaimType.ATTRITIONAL,
+        )
+        Claim originalClaim2 = new Claim(
+                value: 500,
+                event: event2,
+                fractionOfPeriod: 0.5,
+                peril: generator,
+                claimType: ClaimType.ATTRITIONAL,
+        )
+        ClaimDevelopmentLeanPacket claimDevelopment1 = new ClaimDevelopmentLeanPacket(
+                        ultimate:10,
+                        paid: 6,
+                        origin: origin,
+                        originalClaim: originalClaim1,
+                        event: event1,
+                        peril: generator,
+                        lineOfBusiness: lobFire,
+                        fractionOfPeriod: 0.5)
+        ClaimDevelopmentLeanPacket claimDevelopment2 = new ClaimDevelopmentLeanPacket(
+                        ultimate:12,
+                        paid: 8,
+                        origin: origin,
+                        originalClaim: originalClaim2,
+                        event: event1,
+                        peril: generator,
+                        lineOfBusiness: lobMotor,
+                        fractionOfPeriod: 0.5)
+        contract.inClaims << claimDevelopment1 << claimDevelopment2
+
+        contract.doCalculation()
+        assertEquals '# ceded claims packets', 1, contract.outCoveredClaims.size()
+        assertEquals 'ceded incurred 0', 2d, contract.outCoveredClaims[0].incurred
+        assertEquals 'ceded paid 0', 1.2, contract.outCoveredClaims[0].paid, 1E-10
+        assertEquals 'ceded reserved 0', 0.8, contract.outCoveredClaims[0].reserved, 1E-10
+        contract.reset()
+
+
+        contract.inClaims << claimDevelopment1 << claimDevelopment2
+        contract.parmCoveredLines = new ComboBoxTableMultiDimensionalParameter(['motor'], ['Covered Lines'], LobMarker)
+        contract.doCalculation()
+        assertEquals '# ceded claims packets', 1, contract.outCoveredClaims.size()
+        assertEquals 'ceded incurred 0', 2.4d, contract.outCoveredClaims[0].incurred, 1E-10
+        assertEquals 'ceded paid 0', 1.6, contract.outCoveredClaims[0].paid, 1E-10
+        assertEquals 'ceded reserved 0', 0.8, contract.outCoveredClaims[0].reserved, 1E-10
+        contract.reset()
     }
 }
