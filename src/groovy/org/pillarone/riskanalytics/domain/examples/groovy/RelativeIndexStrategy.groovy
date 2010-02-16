@@ -4,7 +4,7 @@ package org.pillarone.riskanalytics.domain.examples.groovy
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 
-class RelativeIndex implements IIndex {
+class RelativeIndexStrategy implements IIndex {
 
     double changeIndex
 
@@ -12,7 +12,7 @@ class RelativeIndex implements IIndex {
         IndexType.RELATIVEPRIORPERIOD
     }
 
-    def Map getParameters() {
+    Map getParameters() {
         return ['changeIndex': changeIndex]
     }
 

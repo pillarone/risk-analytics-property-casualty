@@ -14,7 +14,7 @@ class FlexibleIndexProvider extends Component {
     IIndex parmIndex = IndexType.getStrategy(IndexType.ABSOLUTE, ['index': 1d])
     PacketList<IndexPacket> outIndex = new PacketList<IndexPacket>(IndexPacket)
 
-    double priorIndex = 1d;
+    double priorIndex = 1d
 
     protected void doCalculation() {
         if (periodScope.getCurrentPeriod() == 0) {
@@ -30,6 +30,6 @@ class FlexibleIndexProvider extends Component {
     }
 
     private void initIteration() {
-        priorIndex = 1d;
+        priorIndex = 1d
     }
 }

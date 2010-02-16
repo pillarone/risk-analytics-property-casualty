@@ -43,10 +43,10 @@ class IndexType extends AbstractParameterObjectClassifier {
         IIndex index
         switch (type) {
             case IndexType.ABSOLUTE:
-                index = new AbsoluteIndex(index: parameters['index'])
+                index = new AbsoluteIndexStrategy(index: parameters['index'])
                 break
             case IndexType.RELATIVEPRIORPERIOD:
-                index = new RelativeIndex(changeIndex: parameters['changeIndex'])
+                index = new RelativeIndexStrategy(changeIndex: parameters['changeIndex'])
                 break
         }
         return index

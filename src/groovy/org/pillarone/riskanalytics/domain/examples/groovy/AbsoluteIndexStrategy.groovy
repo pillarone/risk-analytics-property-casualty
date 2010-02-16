@@ -3,7 +3,7 @@ package org.pillarone.riskanalytics.domain.examples.groovy
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-class AbsoluteIndex implements IIndex {
+class AbsoluteIndexStrategy implements IIndex {
 
     double index = 1d
 
@@ -11,7 +11,7 @@ class AbsoluteIndex implements IIndex {
         IndexType.ABSOLUTE
     }
 
-    def Map getParameters() {
+    Map getParameters() {
         return ['index': index]
     }
 }
