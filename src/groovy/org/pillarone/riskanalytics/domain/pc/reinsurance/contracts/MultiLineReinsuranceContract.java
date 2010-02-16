@@ -8,6 +8,7 @@ import org.pillarone.riskanalytics.domain.pc.claims.ClaimFilterUtilities;
 import org.pillarone.riskanalytics.domain.pc.claims.SortClaimsByFractionOfPeriod;
 import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
+import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingFilterUtilities;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
@@ -36,6 +37,8 @@ public class MultiLineReinsuranceContract extends ReinsuranceContract {
             Collections.emptyList(), Arrays.asList("Covered Lines"), LobMarker.class);
     private ComboBoxTableMultiDimensionalParameter parmCoveredPerils = new ComboBoxTableMultiDimensionalParameter(
             Collections.emptyList(), Arrays.asList("perils"), PerilMarker.class);
+    private ComboBoxTableMultiDimensionalParameter parmCoveredReserves = new ComboBoxTableMultiDimensionalParameter(
+            Collections.emptyList(), Arrays.asList("reserves"), IReserveMarker.class);
 
     /** claims which source is a covered line         */
     private PacketList<Claim> outFilteredClaims = new PacketList<Claim>(Claim.class);
@@ -98,6 +101,8 @@ public class MultiLineReinsuranceContract extends ReinsuranceContract {
     protected void filterInChannels() {
         List<LobMarker> coveredLines = parmCoveredLines.getValuesAsObjects(simulationScope.getModel());
         List<PerilMarker> coveredPerils = parmCoveredPerils.getValuesAsObjects(simulationScope.getModel());
+        List<PerilMarker> coveredReserves = parmCoveredReserves.getValuesAsObjects(simulationScope.getModel());
+        // todo(bgi): extend following lines for reserves
         outFilteredClaims.addAll(ClaimFilterUtilities.filterPerilClaims(ClaimFilterUtilities.filterClaimsByPerilAndLob(inClaims, coveredPerils, coveredLines)));
         if (coveredLines.size() == 0) {
             coveredLines = ClaimFilterUtilities.getLineOfBusiness(outFilteredClaims);
@@ -175,5 +180,13 @@ public class MultiLineReinsuranceContract extends ReinsuranceContract {
 
     public void setOutFilteredUnderwritingInfo(PacketList<UnderwritingInfo> outFilteredUnderwritingInfo) {
         this.outFilteredUnderwritingInfo = outFilteredUnderwritingInfo;
+    }
+
+    public ComboBoxTableMultiDimensionalParameter getParmCoveredReserves() {
+        return parmCoveredReserves;
+    }
+
+    public void setParmCoveredReserves(ComboBoxTableMultiDimensionalParameter parmCoveredReserves) {
+        this.parmCoveredReserves = parmCoveredReserves;
     }
 }

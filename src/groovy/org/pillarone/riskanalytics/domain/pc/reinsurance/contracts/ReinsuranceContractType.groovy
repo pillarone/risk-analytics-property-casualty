@@ -49,8 +49,14 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
     public static final ReinsuranceContractType AGGREGATEXL = new ReinsuranceContractType("aggregate xl", "AggregateXL",
         ["attachmentPoint": 0d, "limit": 0d, "premiumBase": PremiumBase.ABSOLUTE, "premium": 0d, "coveredByReinsurer": 1d, "claimClass": ClaimType.AGGREGATED_EVENT])
 
-    public static final all = [QUOTASHARE, QUOTASHAREPROFITCOMMISSION, QUOTASHARESLIDINGSCALE, QUOTASHAREMULTISLIDINGSCALE, QUOTASHAREEVENTLIMIT, QUOTASHAREEVENTLIMITAAL, QUOTASHAREAAL, QUOTASHAREAAD,
-        QUOTASHAREAADAAL, SURPLUS, WXL, CXL, WCXL, STOPLOSS, TRIVIAL, AGGREGATEXL]
+    public static final ReinsuranceContractType LOSSPORTFOLIOTRANSFER = new ReinsuranceContractType("loss portfolio transfer", "LOSSPORTFOLIOTRANSFER",
+        ["quotaShare": 0d, "commission": 0d, "coveredByReinsurer": 1d])
+    public static final ReinsuranceContractType ADVERSEDEVELOPMENTCOVER = new ReinsuranceContractType("adverse development cover", "ADVERSEDEVELOPMENTCOVER",
+        ["attachmentPoint": 0d, "limit": 0d, "premiumBase": PremiumBase.ABSOLUTE, "premium": 0d, "coveredByReinsurer": 1d])
+
+    public static final all = [QUOTASHARE, QUOTASHAREPROFITCOMMISSION, QUOTASHARESLIDINGSCALE, QUOTASHAREMULTISLIDINGSCALE,
+        QUOTASHAREEVENTLIMIT, QUOTASHAREEVENTLIMITAAL, QUOTASHAREAAL, QUOTASHAREAAD, QUOTASHAREAADAAL, SURPLUS, WXL, CXL,
+        WCXL, STOPLOSS, TRIVIAL, AGGREGATEXL, LOSSPORTFOLIOTRANSFER, ADVERSEDEVELOPMENTCOVER]
 
     protected static Map types = [:]
     static {

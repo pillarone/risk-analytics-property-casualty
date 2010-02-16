@@ -1,5 +1,6 @@
 package org.pillarone.riskanalytics.domain.pc.claims;
 
+import org.pillarone.riskanalytics.core.components.IComponentMarker;
 import org.pillarone.riskanalytics.core.packets.MultiValuePacket;
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType;
 import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
@@ -19,7 +20,8 @@ public class Claim extends MultiValuePacket {
     private Event event;
     private Double fractionOfPeriod = 0d;
     private ClaimType claimType;
-    private PerilMarker peril;
+    /** contains the claims or reserve generator in which the claim object was instantiated */
+    private IComponentMarker peril;
     private LobMarker lineOfBusiness;
     private IReinsuranceContractMarker reinsuranceContract;
 
@@ -122,11 +124,11 @@ public class Claim extends MultiValuePacket {
         this.event = event;
     }
 
-    public PerilMarker getPeril() {
+    public IComponentMarker getPeril() {
         return peril;
     }
 
-    public void setPeril(PerilMarker peril) {
+    public void setPeril(IComponentMarker peril) {
         this.peril = peril;
     }
 
