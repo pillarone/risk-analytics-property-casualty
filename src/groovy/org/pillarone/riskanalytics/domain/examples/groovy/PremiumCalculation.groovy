@@ -8,13 +8,14 @@ import org.pillarone.riskanalytics.core.packets.PacketList
  */
 class PremiumCalculation extends Component {
 
-  double parmNumberOfPolicy
-  double parmPricePerPolicy
+    double parmNumberOfPolicy
+    double parmPricePerPolicy
 
-  PacketList<PremiumPacket> outPremium = new PacketList<PremiumPacket>(PremiumPacket)
+    PacketList<IndexPacket> inIndex = new PacketList<IndexPacket>(IndexPacket)
+    PacketList<PremiumPacket> outPremium = new PacketList<PremiumPacket>(PremiumPacket)
 
-  void doCalculation() {
-      double premium = parmNumberOfPolicy * parmPricePerPolicy
-      outPremium << new PremiumPacket(value: premium)
+    void doCalculation() {
+        double premium = parmNumberOfPolicy * parmPricePerPolicy
+        outPremium << new PremiumPacket(value: premium)
     }
 }
