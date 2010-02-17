@@ -36,7 +36,7 @@ public class CommissionStrategyType extends AbstractParameterObjectClassifier {
         }
     }
 
-    private ReservesGeneratorStrategyType(String displayName, String typeName, Map parameters) {
+    private CommissionStrategyType(String displayName, String typeName, Map parameters) {
         super(displayName, typeName, parameters)
     }
 
@@ -53,7 +53,7 @@ public class CommissionStrategyType extends AbstractParameterObjectClassifier {
         return getStrategy(this, parameters)
     }
 
-    static ICommissionStrategy getStrategy(CommissionStrategyType type, Map parameters) {
+    public static ICommissionStrategy getStrategy(CommissionStrategyType type, Map parameters) {
         ICommissionStrategy commissionStrategy ;
         switch (type) {
             case CommissionStrategyType.FIXEDCOMMISSION:

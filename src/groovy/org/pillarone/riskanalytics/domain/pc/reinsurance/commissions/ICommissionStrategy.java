@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author ben.ginsberg (at) intuitive-collaboration (dot) com
  */
-interface ICommissionStrategy extends IParameterObject {
+public interface ICommissionStrategy extends IParameterObject {
 
     void calculateCommission(List<Claim> claims, List<UnderwritingInfo> underwritingInfos);
 }
