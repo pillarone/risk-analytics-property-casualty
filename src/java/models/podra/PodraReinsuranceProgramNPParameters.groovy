@@ -140,7 +140,7 @@ components {
 		subPersonalAccidentReserves {
 			parmPeriodPaymentPortion[0]=0.5498
 			parmInitialReserves[0]=2.4399809E7
-			parmDistribution[0]=org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory.getDistribution(org.pillarone.riskanalytics.domain.utils.DistributionType.LOGNORMAL, [mean:1.0, stDev:0.551])
+			parmDistribution[0]=org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory.getDistribution(org.pillarone.riskanalytics.domain.utils.DistributionType.LOGNORMAL, [mean:1.0, stDev:0.0551])
 			parmModification[0]=org.pillarone.riskanalytics.domain.utils.DistributionModifierFactory.getModifier(org.pillarone.riskanalytics.domain.utils.DistributionModifier.NONE, [:])
 			parmReservesModel[0]=org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ReservesGeneratorStrategyType.getStrategy(org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ReservesGeneratorStrategyType.INITIAL_RESERVES, ["basedOnClaimsGenerators":new org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter(org.pillarone.riskanalytics.core.util.GroovyUtils.toList([["personal accident attritional", "personal accident single"]]),["Claims Generators"], org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker),])
 		}
