@@ -11,6 +11,9 @@ import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.InitialReservesG
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.PriorPeriodReservesGeneratorStrategy
 import org.pillarone.riskanalytics.core.parameter.MultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
+import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
+import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
+import org.pillarone.riskanalytics.domain.utils.constraints.DoubleConstraints
 
 /**
  * @author shartmann (at) munichre (dot) com
@@ -19,7 +22,10 @@ public class CommissionStrategyType extends AbstractParameterObjectClassifier {
 
     public static final CommissionStrategyType FIXEDCOMMISSION = new CommissionStrategyType("fixed commission", "FIXEDCOMMISSION", ['commission':0d])
     public static final CommissionStrategyType SLIDINGCOMMISSION = new CommissionStrategyType("sliding commission", "SLIDINGCOMMISSION",
-            ['bandCommission':new TableMultiDimensionalParameter([[0d], [0d]],['claim level (from)', 'commission rate'])])
+           ['bandCommission': new ConstrainedMultiDimensionalParameter(
+                        [[0d], [0d]],
+                        [SlidingCommissionStrategy.LOSS_RATIO, SlidingCommissionStrategy.COMMISSION],
+                        ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))])
     public static final CommissionStrategyType PROFITCOMMISSION = new CommissionStrategyType("profit commission", "PROFITCOMMISSION",
             ['profitCommissionRatio':0d,
              'costRatio':0d,
@@ -58,6 +64,9 @@ public class CommissionStrategyType extends AbstractParameterObjectClassifier {
         switch (type) {
             case CommissionStrategyType.FIXEDCOMMISSION:
                 commissionStrategy = new FixedCommissionStrategy(commission : (Double) parameters['commission'])
+                break;
+            case CommissionStrategyType.SLIDINGCOMMISSION:
+                commissionStrategy = new SlidingCommissionStrategy(commissionBands: (ConstrainedMultiDimensionalParameter) parameters['commissionBands'])
                 break;
         }
         return commissionStrategy;
