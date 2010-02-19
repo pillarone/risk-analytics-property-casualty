@@ -20,7 +20,7 @@ class ReinsuranceProgram3SerialContractsTests extends GroovyTestCase {
         ReinsuranceProgram3SerialContracts program = new ReinsuranceProgram3SerialContracts()
         program.wire()
 
-        program.subContract1.parmContractStrategy = QuotaShareContractStrategyTests.getContract0().parmContractStrategy
+        program.subContract1.parmContractStrategy = QuotaShareContractStrategyTests.getContract(0.5).parmContractStrategy
         program.subContract2.parmContractStrategy = WXLContractStrategyTests.getContract0().parmContractStrategy
         program.subContract3.parmContractStrategy = StopLossContractStrategyTests.getContractSL0().parmContractStrategy
 
@@ -63,7 +63,7 @@ class ReinsuranceProgram3SerialContractsTests extends GroovyTestCase {
         ReinsuranceProgram3SerialContracts program = new ReinsuranceProgram3SerialContracts()
         program.wire()
 
-        program.subContract1.parmContractStrategy = QuotaShareContractStrategyTests.getContract0().parmContractStrategy
+        program.subContract1.parmContractStrategy = QuotaShareContractStrategyTests.getContract(0.5).parmContractStrategy
         program.subContract2.parmContractStrategy = WXLContractStrategyTests.getContract0().parmContractStrategy
         program.subContract3.parmContractStrategy = StopLossContractStrategyTests.getContractSL0().parmContractStrategy
 
@@ -93,7 +93,7 @@ class ReinsuranceProgram3SerialContractsTests extends GroovyTestCase {
         ReinsuranceProgram3SerialContracts program = new ReinsuranceProgram3SerialContracts()
         program.wire()
 
-        program.subContract1.parmContractStrategy = QuotaShareContractStrategyTests.getContract0().parmContractStrategy
+        program.subContract1.parmContractStrategy = QuotaShareContractStrategyTests.getContract(0.5).parmContractStrategy
         program.subContract2.parmContractStrategy = WXLContractStrategyTests.getContract0().parmContractStrategy
         program.subContract3.parmContractStrategy = StopLossContractStrategyTests.getContractSL0().parmContractStrategy
 

@@ -19,4 +19,6 @@ public class AadLimitStrategy implements ILimitStrategy {
         parameters.put("aad", aad);
         return parameters;
     }
+
+    public double getAAD() { return aad; }
 }

@@ -19,4 +19,6 @@ public class EventLimitStrategy implements ILimitStrategy {
         parameters.put("eventLimit", eventLimit);
         return parameters;
     }
+
+    public double getEventLimit() { return eventLimit; }
 }

@@ -21,4 +21,7 @@ public class EventAalLimitStrategy implements ILimitStrategy {
         parameters.put("aal", aal);
         return parameters;
     }
+
+    public double getEventLimit() { return eventLimit; }
+    public double getAAL() { return aal; }
 }

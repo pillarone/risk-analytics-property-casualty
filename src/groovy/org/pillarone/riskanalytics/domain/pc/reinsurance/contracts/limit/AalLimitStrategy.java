@@ -19,4 +19,6 @@ public class AalLimitStrategy implements ILimitStrategy {
         parameters.put("aal", aal);
         return parameters;
     }
+
+    public double getAAL() { return aal; }
 }

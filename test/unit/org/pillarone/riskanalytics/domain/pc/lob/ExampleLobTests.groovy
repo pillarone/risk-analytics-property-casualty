@@ -31,7 +31,7 @@ class ExampleLobTests extends GroovyTestCase {
         lob.subClaimsGenerator.subAttritionalClaimsGenerator.parmDistribution = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.CONSTANT, ["constant": attritionalClaim])
         lob.subClaimsGenerator.subSingleClaimsGenerator.subFrequencyGenerator.parmDistribution = RandomDistributionFactory.getDistribution(DistributionType.CONSTANT, ["constant": numberOfLargeClaims])
         lob.subClaimsGenerator.subSingleClaimsGenerator.subClaimsGenerator.parmDistribution = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.CONSTANT, ["constant": largeClaim])
-        lob.subRiProgram.subContract1.parmContractStrategy = QuotaShareContractStrategyTests.getContract0().parmContractStrategy
+        lob.subRiProgram.subContract1.parmContractStrategy = QuotaShareContractStrategyTests.getContract(0.5).parmContractStrategy
         lob.subRiProgram.subContract2.parmContractStrategy = WXLContractStrategyTests.getContract0().parmContractStrategy
         lob.subRiProgram.subContract3.parmContractStrategy = StopLossContractStrategyTests.getContractSL0().parmContractStrategy
         lob.subAllocator.parmRiskAllocatorStrategy=RiskAllocatorStrategyFactory.getAllocatorStrategy(RiskAllocatorType.SUMINSUREDGENERATOR, [
