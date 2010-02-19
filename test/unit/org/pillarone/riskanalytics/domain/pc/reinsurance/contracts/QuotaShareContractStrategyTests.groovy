@@ -11,7 +11,7 @@ class QuotaShareContractStrategyTests extends GroovyTestCase {
     static ReinsuranceContract getContract0() {
         return new ReinsuranceContract(
                 parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
-                        ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.5, "commission": 0.0, "coveredByReinsurer": 1d]))
+                        ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.5, "coveredByReinsurer": 1d]))
     }
 
     void testCalculateCededClaimsOnly() {

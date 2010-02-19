@@ -4,6 +4,8 @@ import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.SortClaimsByFractionOfPeriod;
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType;
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.ICommissionStrategy;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities;
 
@@ -17,6 +19,8 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
 
     /** Defines the kind of contract and parameterization      */
     protected IReinsuranceContractStrategy parmContractStrategy = ReinsuranceContractStrategyFactory.getTrivial();
+
+    private ICommissionStrategy parmCommissionStrategy = CommissionStrategyType.getNoCommission();
 
     /**
      *  Defines the claim and underwriting info the contract will receive.
@@ -53,6 +57,8 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
         } else if (isSenderWired(outCoverUnderwritingInfo)) {
             calculateCededUnderwritingInfos(inUnderwritingInfo, outCoverUnderwritingInfo);
         }
+
+        parmCommissionStrategy.calculateCommission(outCoveredClaims, outCoverUnderwritingInfo , false);
         parmContractStrategy.resetMemberInstances();
     }
 
@@ -185,5 +191,13 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
 
     public void setOutCoverUnderwritingInfo(PacketList<UnderwritingInfo> outCoverUnderwritingInfo) {
         this.outCoverUnderwritingInfo = outCoverUnderwritingInfo;
+    }
+
+    public ICommissionStrategy getParmCommissionStrategy() {
+        return parmCommissionStrategy;
+    }
+
+    public void setParmCommissionStrategy(ICommissionStrategy parmCommissionStrategy) {
+        this.parmCommissionStrategy = parmCommissionStrategy;
     }
 }

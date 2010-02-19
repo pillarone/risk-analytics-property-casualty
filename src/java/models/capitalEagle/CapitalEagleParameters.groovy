@@ -14,6 +14,7 @@ import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocatorStra
 import org.pillarone.riskanalytics.domain.pc.constants.Exposure
 import org.pillarone.riskanalytics.domain.pc.constants.FrequencyBase
 import org.pillarone.riskanalytics.domain.pc.constants.RiskBandAllocationBase
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
 
 model = models.capitalEagle.CapitalEagleModel
 periodCount = 1
@@ -44,7 +45,8 @@ components {
         }
         subRiProgram {
             subContract1 {
-                parmContractStrategy[0] = ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.5, "commission": 0.189, "coveredByReinsurer": 1.0,])
+                parmContractStrategy[0] = ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.5, "coveredByReinsurer": 1.0,])
+                parmCommissionStrategy[0] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0.189])
                 parmInuringPriority[0] = 0
             }
             subContract2 {
@@ -94,7 +96,8 @@ components {
         }
         subRiProgram {
             subContract1 {
-                parmContractStrategy[0] = ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.5, "commission": 0.167, "coveredByReinsurer": 1.0,])
+                parmContractStrategy[0] = ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.5, "coveredByReinsurer": 1.0,])
+                parmCommissionStrategy[0] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0.167])
                 parmInuringPriority[0] = 0
             }
             subContract2 {
@@ -144,7 +147,8 @@ components {
         }
         subRiProgram {
             subContract1 {
-                parmContractStrategy[0] = ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.5, "commission": 0.4, "coveredByReinsurer": 1.0,])
+                parmContractStrategy[0] = ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.5, "coveredByReinsurer": 1.0,])
+                parmCommissionStrategy[0] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0.4])
                 parmInuringPriority[0] = 0
             }
             subContract2 {
@@ -244,7 +248,8 @@ components {
                 parmInuringPriority[0] = 0
             }
             subContract2 {
-                parmContractStrategy[0] = ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.5, "commission": 0.284, "coveredByReinsurer": 1.0,])
+                parmContractStrategy[0] = ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.5, "coveredByReinsurer": 1.0,])
+                parmCommissionStrategy[0] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0.284])
                 parmInuringPriority[0] = 0
             }
             subContract3 {

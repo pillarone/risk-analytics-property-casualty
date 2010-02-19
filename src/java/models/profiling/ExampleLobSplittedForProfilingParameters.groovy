@@ -11,6 +11,7 @@ import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalPa
 import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
 import org.pillarone.riskanalytics.domain.pc.constants.Exposure
 import org.pillarone.riskanalytics.domain.pc.constants.FrequencyBase
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
 
 
 model=models.profiling.ExampleLobSplittedForProfilingModel
@@ -40,7 +41,8 @@ components {
         parmBase[0]=Exposure.ABSOLUTE
     }
     contract1 {
-        parmContractStrategy[0]=ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.QUOTASHARE, ["commission":0.0,"quotaShare":0.5, "coveredByReinsurer": 1d])
+        parmContractStrategy[0]=ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.QUOTASHARE, ["quotaShare":0.5, "coveredByReinsurer": 1d])
+        parmCommissionStrategy[0] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0d])
         parmInuringPriority[0]=0
     }
     contract2 {

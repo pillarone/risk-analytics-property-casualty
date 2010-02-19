@@ -31,7 +31,7 @@ class QS_XL_SL_Model extends StochasticModel {
         attritionalClaimsGenerator = new AttritionalClaimsGenerator()
         //parmGenerator: RandomNumberGeneratorFactory.getGenerator(ContinuousRandomDistributionType.LOGNORMAL, ["mean": 50, "stDev": 100]))
         quotaShare = new ReinsuranceContract(parmContractStrategy: new QuotaShareContractStrategy(
-            "quotaShare": 0.2, "commission": 0d))
+            "quotaShare": 0.2))
         wxl = new ReinsuranceContract(parmContractStrategy: new WXLContractStrategy(
             "attachmentPoint": 100,
             "limit": 10,

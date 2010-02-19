@@ -9,6 +9,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceCo
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
 
 model = models.riProgram.RiProgramModel
 periodCount = 2
@@ -38,8 +39,10 @@ components {
     }
     reinsuranceProgram {
         subContract0 {
-            parmContractStrategy[0] = ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.QUOTASHARE, ["commission": 0.0, "quotaShare": 0.3, "coveredByReinsurer": 1d])
-            parmContractStrategy[1] = ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.QUOTASHARE, ["commission": 0.0, "quotaShare": 0.3, "coveredByReinsurer": 1d])
+            parmContractStrategy[0] = ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.3, "coveredByReinsurer": 1d])
+            parmContractStrategy[1] = ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.3, "coveredByReinsurer": 1d])
+            parmCommissionStrategy[0] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0d])
+            parmCommissionStrategy[1] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0d])
             parmInuringPriority[0] = 1
             parmInuringPriority[1] = 1
         }

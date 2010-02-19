@@ -11,26 +11,9 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
 
 
     public static final ReinsuranceContractType QUOTASHARE = new ReinsuranceContractType("quota share", "QUOTASHARE",
-        ["quotaShare": 0d, "commission": 0d, "coveredByReinsurer": 1d])
-    public static final ReinsuranceContractType QUOTASHAREPROFITCOMMISSION = new ReinsuranceContractType("quota share profit commission", "QUOTASHAREPROFITCOMMISSION",
-        ["quotaShare": 0d, "commission": 0d, "coveredByReinsurer": 1d, "expensesOfReinsurer": 0d, "profitCommission": 0d])
-    public static final ReinsuranceContractType QUOTASHARESLIDINGSCALE = new ReinsuranceContractType("quota share sliding scale", "QUOTASHARESLIDINGSCALE",
-        ["quotaShare": 0d, "commission": 0d, "coveredByReinsurer": 1d, "claimLevel1": 0d, "claimLevel2": 0d,
-            "rateLevel1": 0d, "rateLevel2": 0d, "rateLevel3": 0d])
-    public static final ReinsuranceContractType QUOTASHAREMULTISLIDINGSCALE = new ReinsuranceContractType("quota share multi sliding scale", "QUOTASHAREMULTISLIDINGSCALE",
-        ["quotaShare": 0d, "commission": 0d, "coveredByReinsurer": 1d, "levels": [[0d, 0d, 0d], [0d, 0d, 0d]]])
-    public static final ReinsuranceContractType QUOTASHAREEVENTLIMIT = new ReinsuranceContractType("quota share event limit", "QUOTASHAREEVENTLIMIT",
-        ["quotaShare": 0d, "eventLimit": 1E100, "commission": 0d, "coveredByReinsurer": 1d])
-    public static final ReinsuranceContractType QUOTASHAREEVENTLIMITAAL = new ReinsuranceContractType("quota share event limit, AAL", "QUOTASHAREEVENTLIMIT",
-        ["quotaShare": 0d, "eventLimit": 1E100, "annualAggregateLimit": 0d, "commission": 0d, "coveredByReinsurer": 1d])
-    public static final ReinsuranceContractType QUOTASHAREAAL = new ReinsuranceContractType("quota share aal", "QUOTASHAREAAL", [
-        "quotaShare": 0d, "annualAggregateLimit": 0d, "commission": 0d, "coveredByReinsurer": 1d])
-    public static final ReinsuranceContractType QUOTASHAREAAD = new ReinsuranceContractType("quota share aad", "QUOTASHAREAAD", [
-        "quotaShare": 0d, "annualAggregateDeductible": 0d, "commission": 0d, "coveredByReinsurer": 1d])
-    public static final ReinsuranceContractType QUOTASHAREAADAAL = new ReinsuranceContractType("quota share aad aal", "QUOTASHAREAADAAL", [
-        "quotaShare": 0d, "annualAggregateDeductible": 0d, "annualAggregateLimit": 0d, "commission": 0d, "coveredByReinsurer": 1d])
+        ["quotaShare": 0d, "limit": 0d, "coveredByReinsurer": 1d])
     public static final ReinsuranceContractType SURPLUS = new ReinsuranceContractType("surplus", "SURPLUS", ["retention": 0d,
-        "lines": 0d, "commission": 0d, "defaultCededLossShare": 0d, "coveredByReinsurer": 1d])
+        "lines": 0d, "defaultCededLossShare": 0d, "coveredByReinsurer": 1d])
     public static final ReinsuranceContractType SURPLUS2 = new ReinsuranceContractType("surplus 2", "SURPLUS2",
         ["retention": 0d, "lines": 0, "commission": 0d, "alpha": 0d, "beta": 0d, "coveredByReinsurer": 1d])
     public static final ReinsuranceContractType WXL = new ReinsuranceContractType("wxl", "WXL", ["attachmentPoint": 0d, "limit": 0d,
@@ -54,8 +37,7 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
     public static final ReinsuranceContractType ADVERSEDEVELOPMENTCOVER = new ReinsuranceContractType("adverse development cover", "ADVERSEDEVELOPMENTCOVER",
         ["attachmentPoint": 0d, "limit": 0d, "premiumBase": PremiumBase.ABSOLUTE, "premium": 0d, "coveredByReinsurer": 1d])
 
-    public static final all = [QUOTASHARE, QUOTASHAREPROFITCOMMISSION, QUOTASHARESLIDINGSCALE, QUOTASHAREMULTISLIDINGSCALE,
-        QUOTASHAREEVENTLIMIT, QUOTASHAREEVENTLIMITAAL, QUOTASHAREAAL, QUOTASHAREAAD, QUOTASHAREAADAAL, SURPLUS, WXL, CXL,
+    public static final all = [QUOTASHARE, SURPLUS, WXL, CXL,
         WCXL, STOPLOSS, TRIVIAL, AGGREGATEXL, LOSSPORTFOLIOTRANSFER, ADVERSEDEVELOPMENTCOVER]
 
     protected static Map types = [:]

@@ -26,7 +26,8 @@ components {
         parmBase[allPeriods] = Exposure.ABSOLUTE
     }
     quotaShare {
-        parmContractStrategy[allPeriods] = new QuotaShareContractStrategy("quotaShare": 0.2, "commission": 0d, "coveredByReinsurer": 1d)
+        parmContractStrategy[allPeriods] = new QuotaShareContractStrategy("quotaShare": 0.2, "coveredByReinsurer": 1d)
+//        parmCommissionStrategy[allPeriods] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0d])
     }
     wxl {
         parmContractStrategy[allPeriods] = new WXLContractStrategy(

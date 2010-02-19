@@ -1,6 +1,7 @@
 package models.podra
 
 import org.pillarone.riskanalytics.domain.pc.assetLiabilityMismatch.AssetLiabilityMismatchGeneratorStrategyType
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
 
 model=models.podra.PodraModel
 periodCount=1
@@ -48,7 +49,8 @@ components {
 			parmCoveredLines[0]=new org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter(org.pillarone.riskanalytics.core.util.GroovyUtils.toList([[""]]),["Covered Lines"], org.pillarone.riskanalytics.domain.pc.lob.LobMarker)
 			parmInuringPriority[0]=0
 			parmCoveredPerils[0]=new org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter(org.pillarone.riskanalytics.core.util.GroovyUtils.toList([["motor hull attritional", "motor hull single"]]),["perils"], org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker)
-			parmContractStrategy[0]=org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractStrategyFactory.getContractStrategy(org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType.QUOTASHARE, ["quotaShare":0.5,"commission":0.0,"coveredByReinsurer":1.0,])
+			parmContractStrategy[0]=org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractStrategyFactory.getContractStrategy(org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType.QUOTASHARE, ["quotaShare":0.5,"coveredByReinsurer":1.0,])
+            parmCommissionStrategy[0] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0d])
 		}
 	}
 	almGenerators {

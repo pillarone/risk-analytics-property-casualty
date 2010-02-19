@@ -14,6 +14,7 @@ import org.pillarone.riskanalytics.domain.pc.constants.FrequencyBase
 import org.pillarone.riskanalytics.domain.utils.FrequencyDistributionType
 import org.pillarone.riskanalytics.domain.pc.constants.RiskBandAllocationBase
 import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
 
 
 
@@ -55,7 +56,8 @@ components {
         }
         subRiProgram {
 			subContract1 {
-				parmContractStrategy[0]=ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.QUOTASHARE, ["commission":0.0,"quotaShare":0.5, "coveredByReinsurer": 1d])
+				parmContractStrategy[0]=ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.QUOTASHARE, ["quotaShare":0.5, "coveredByReinsurer": 1d])
+                parmCommissionStrategy[0] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0d])
 				parmInuringPriority[0]=0
 			}
 			subContract2 {

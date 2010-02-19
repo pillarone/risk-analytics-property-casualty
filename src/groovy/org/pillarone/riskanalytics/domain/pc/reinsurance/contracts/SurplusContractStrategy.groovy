@@ -14,7 +14,6 @@ class SurplusContractStrategy extends AbstractContractStrategy implements IReins
 
     static final ReinsuranceContractType type = ReinsuranceContractType.SURPLUS
 
-    double commission
     /* Line/Maximum $L$ */
     double retention
     /* number of lines $#L$ */
@@ -29,7 +28,6 @@ class SurplusContractStrategy extends AbstractContractStrategy implements IReins
     public Map getParameters() {
         return ["retention": retention,
             "lines": lines,
-            "commission": commission,
             "defaultCededLossShare": defaultCededLossShare,
             "coveredByReinsurer": coveredByReinsurer]
     }
@@ -64,7 +62,7 @@ class SurplusContractStrategy extends AbstractContractStrategy implements IReins
         cededUnderwritingInfo.premiumWrittenAsIf *= fractionCeded * coveredByReinsurer
         cededUnderwritingInfo.sumInsured *= fractionCeded * coveredByReinsurer
         cededUnderwritingInfo.maxSumInsured *= fractionCeded * coveredByReinsurer
-        cededUnderwritingInfo.commission = cededUnderwritingInfo.premiumWritten * commission * coveredByReinsurer
+        cededUnderwritingInfo.commission = 0
         cededUnderwritingInfo
     }
 }

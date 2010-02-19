@@ -13,6 +13,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.WXLContractSt
 import org.pillarone.riskanalytics.domain.utils.ClaimSizeDistributionType
 import org.pillarone.riskanalytics.domain.utils.FrequencyDistributionType
 import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
 
 model = OneLobSurplusModel
 periodCount = 2
@@ -44,13 +45,13 @@ components {
         parmRiskAllocatorStrategy[allPeriods] = RiskAllocatorStrategyFactory.getAllocatorStrategy(RiskAllocatorType.RISKTOBAND, [:])
     }
     quotaShare {
-		parmContractStrategy[allPeriods]= new QuotaShareContractStrategy("commission":0.0,"quotaShare":0.2, "coveredByReinsurer": 1d)
+		parmContractStrategy[allPeriods]= new QuotaShareContractStrategy("quotaShare":0.2, "coveredByReinsurer": 1d)
+        parmCommissionStrategy[allPeriods] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0d])
 	}
     surplus {
         parmContractStrategy[allPeriods] = new SurplusContractStrategy(
                 'retention': 2000d,
                 'lines': 4,
-                'commission': 0d,
                 'defaultCededLossShare':0.0,
                 'coveredByReinsurer': 1d)
     }

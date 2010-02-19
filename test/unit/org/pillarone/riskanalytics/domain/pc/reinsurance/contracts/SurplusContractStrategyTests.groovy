@@ -18,7 +18,6 @@ class SurplusContractStrategyTests extends GroovyTestCase {
                         ReinsuranceContractType.SURPLUS,
                         ["retention": 100,
                          "lines": 5,
-                         "commission": 0.25,
                          "defaultCededLossShare": 0d,
                          "coveredByReinsurer": 1d]))
     }
@@ -29,7 +28,6 @@ class SurplusContractStrategyTests extends GroovyTestCase {
                     ReinsuranceContractType.SURPLUS,
                     ["retention": 100,
                      "lines": 5,
-                     "commission": 0.25,
                      "coveredByReinsurer": 1d,
                      "defaultCededLossShare": 0.5]))
     }

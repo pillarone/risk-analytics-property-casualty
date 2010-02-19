@@ -1,13 +1,14 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.commissions
 
-import org.pillarone.riskanalytics.domain.utils.constraints.DoubleConstraints
 import org.pillarone.riskanalytics.core.parameterization.*
+import org.pillarone.riskanalytics.domain.utils.constraints.DoubleConstraints
 
 /**
  * @author shartmann (at) munichre (dot) com
  */
 public class CommissionStrategyType extends AbstractParameterObjectClassifier {
 
+    public static final CommissionStrategyType NOCOMMISSION = new CommissionStrategyType("no commission", "NOCOMMISSION", [:])
     public static final CommissionStrategyType FIXEDCOMMISSION = new CommissionStrategyType("fixed commission", "FIXEDCOMMISSION", ['commission':0d])
     public static final CommissionStrategyType SLIDINGCOMMISSION = new CommissionStrategyType("sliding commission", "SLIDINGCOMMISSION",
            ['bandCommission': new ConstrainedMultiDimensionalParameter(
@@ -17,7 +18,7 @@ public class CommissionStrategyType extends AbstractParameterObjectClassifier {
     public static final CommissionStrategyType PROFITCOMMISSION = new CommissionStrategyType("profit commission", "PROFITCOMMISSION",
             ['profitCommissionRatio':0d, 'costRatio':0d, 'lossCarriedForwardEnabled':true, 'initialLossCarriedForward':0d])
 
-    public static final all = [FIXEDCOMMISSION, SLIDINGCOMMISSION, PROFITCOMMISSION]
+    public static final all = [NOCOMMISSION, FIXEDCOMMISSION, SLIDINGCOMMISSION, PROFITCOMMISSION]
 
     protected static Map types = [:]
     static {
@@ -36,29 +37,36 @@ public class CommissionStrategyType extends AbstractParameterObjectClassifier {
     }
 
     public List<IParameterObjectClassifier> getClassifiers() {
-        return all
+        all
     }
 
     public IParameterObject getParameterObject(Map parameters) {
-        return getStrategy(this, parameters)
+        getStrategy(this, parameters)
+    }
+
+    public static ICommissionStrategy getNoCommission() {
+        getStrategy(CommissionStrategyType.NOCOMMISSION, [:])
     }
 
     public static ICommissionStrategy getStrategy(CommissionStrategyType type, Map parameters) {
         ICommissionStrategy commissionStrategy ;
         switch (type) {
+            case CommissionStrategyType.NOCOMMISSION:
+                commissionStrategy = new FixedCommissionStrategy()
+                break;
             case CommissionStrategyType.FIXEDCOMMISSION:
                 commissionStrategy = new FixedCommissionStrategy(commission : (Double) parameters['commission'])
                 break;
             case CommissionStrategyType.PROFITCOMMISSION:
-                commissionStrategy = new ProfitCommissionStrategy(
-                        profitCommissionRatio : (Double) parameters['profitCommissionRatio'],
-                        costRatio : (Double) parameters['costRatio'],
-                        lossCarriedForwardEnabled : (Boolean) parameters['lossCarriedForwardEnabled'],
-                        initialLossCarriedForward : (Double) parameters['initialLossCarriedForward'])
-                break;
-            case CommissionStrategyType.SLIDINGCOMMISSION:
-                commissionStrategy = new SlidingCommissionStrategy(commissionBands: (ConstrainedMultiDimensionalParameter) parameters['commissionBands'])
-                break;
+                  commissionStrategy = new ProfitCommissionStrategy(
+                          profitCommissionRatio : (Double) parameters['profitCommissionRatio'],
+                          costRatio : (Double) parameters['costRatio'],
+                          lossCarriedForwardEnabled : (Boolean) parameters['lossCarriedForwardEnabled'],
+                          initialLossCarriedForward : (Double) parameters['initialLossCarriedForward'])
+                  break;
+              case CommissionStrategyType.SLIDINGCOMMISSION:
+                  commissionStrategy = new SlidingCommissionStrategy(commissionBands: (ConstrainedMultiDimensionalParameter) parameters['commissionBands'])
+                  break;
         }
         return commissionStrategy;
     }

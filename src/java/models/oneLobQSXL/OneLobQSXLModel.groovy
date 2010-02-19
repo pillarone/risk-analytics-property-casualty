@@ -26,8 +26,7 @@ class OneLobQSXLModel extends StochasticModel {
         claimsGenerator = new SingleClaimsGenerator()
         //parmGenerator: RandomNumberGeneratorFactory.getGenerator(ContinuousRandomDistributionType.CONSTANT, ["constant": 0]),
         //parmBase: Exposure.ABSOLUTE)
-        quotaShare = new ReinsuranceContract(parmContractStrategy: new QuotaShareContractStrategy(
-            "quotaShare": 0.2, "commission": 0d))
+        quotaShare = new ReinsuranceContract(parmContractStrategy: new QuotaShareContractStrategy("quotaShare": 0.2))
         wxl = new ReinsuranceContract(parmContractStrategy: new WXLContractStrategy(
             "attachmentPoint": 100,
             "limit": 10,

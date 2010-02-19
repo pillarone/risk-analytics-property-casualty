@@ -4,6 +4,8 @@ import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit.ILimitStrategy
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit.LimitStrategyType
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -13,7 +15,7 @@ class QuotaShareContractStrategy extends AbstractContractStrategy implements IRe
     static final ReinsuranceContractType type = ReinsuranceContractType.QUOTASHARE
 
     double quotaShare
-    double commission
+    ILimitStrategy limit = LimitStrategyType.getStrategy(LimitStrategyType.NONE, Collections.emptyMap());
 
     ReinsuranceContractType getType() {
         type
@@ -21,11 +23,12 @@ class QuotaShareContractStrategy extends AbstractContractStrategy implements IRe
 
     Map getParameters() {
         ["quotaShare": quotaShare,
-            "commission": commission,
+            "limit": limit,
             "coveredByReinsurer": coveredByReinsurer]
     }
 
     double calculateCoveredLoss(Claim inClaim) {
+        //todo(sku): apply selected limit strategy
         inClaim.ultimate * quotaShare * coveredByReinsurer
     }
 
@@ -36,7 +39,7 @@ class QuotaShareContractStrategy extends AbstractContractStrategy implements IRe
         cededUnderwritingInfo.premiumWrittenAsIf *= quotaShare * coveredByReinsurer
         cededUnderwritingInfo.sumInsured *= quotaShare * coveredByReinsurer
         cededUnderwritingInfo.maxSumInsured *= quotaShare * coveredByReinsurer
-        cededUnderwritingInfo.commission = cededUnderwritingInfo.premiumWritten * commission * coveredByReinsurer
+        cededUnderwritingInfo.commission = 0
         cededUnderwritingInfo
     }
 }

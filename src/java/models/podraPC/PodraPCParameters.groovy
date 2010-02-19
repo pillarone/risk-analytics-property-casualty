@@ -20,6 +20,7 @@ import org.pillarone.riskanalytics.domain.utils.DistributionModifierFactory
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
 import org.pillarone.riskanalytics.core.parameterization.*
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
 
 model=models.podraPC.PodraPCModel
 periodCount=1
@@ -79,7 +80,8 @@ components {
 	}
 	reinsurance {
 		subQuotaShareMotorHull {
-			parmContractStrategy[0]=ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.QUOTASHARE, ["quotaShare":0.5,"commission":0.0,"coveredByReinsurer":1.0,])
+			parmContractStrategy[0]=ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.QUOTASHARE, ["quotaShare":0.5,"coveredByReinsurer":1.0,])
+            parmCommissionStrategy[0] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0d])
 			parmInuringPriority[0]=0
 			parmCoveredLines[0]=new ComboBoxTableMultiDimensionalParameter([""],["Covered Lines"], LobMarker)
 			parmCoveredPerils[0]=new ComboBoxTableMultiDimensionalParameter(["motor hull attritional","motor hull single"],["perils"], PerilMarker)

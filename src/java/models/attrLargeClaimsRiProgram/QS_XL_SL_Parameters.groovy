@@ -10,6 +10,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.WXLContractSt
 import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.StopLossContractStrategy
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
 
 model = QS_XL_SL_Model
 periodCount = 4
@@ -28,7 +29,8 @@ components {
         parmDistribution[allPeriods] = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.NORMAL, ["mean": 300, "stDev": 20])
     }
     quotaShare {
-        parmContractStrategy[allPeriods] = new QuotaShareContractStrategy("quotaShare": 0.3, "commission": 0d, "coveredByReinsurer": 1d)
+        parmContractStrategy[allPeriods] = new QuotaShareContractStrategy("quotaShare": 0.3, "coveredByReinsurer": 1d)
+//        parmCommissionStrategy[allPeriods] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0d])
     }
     wxl {
         parmContractStrategy[allPeriods] = new WXLContractStrategy(
