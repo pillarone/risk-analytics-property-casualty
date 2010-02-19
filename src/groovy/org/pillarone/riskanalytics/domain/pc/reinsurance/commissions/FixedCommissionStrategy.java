@@ -24,7 +24,7 @@ public class FixedCommissionStrategy implements ICommissionStrategy {
         return map;
     }
 
-    public void calculateCommission(List<Claim> claims, List<UnderwritingInfo> underwritingInfos) {
+    public void calculateCommission(List<Claim> claims, List<UnderwritingInfo> underwritingInfos, boolean firstPeriod) {
         for (UnderwritingInfo underwritingInfo : underwritingInfos) {
             underwritingInfo.setCommission(underwritingInfo.getCommission() + underwritingInfo.getPremiumWritten() * commission);
         }

@@ -3,15 +3,16 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.commissions;
 import org.apache.commons.lang.ArrayUtils;
 import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.core.packets.PacketList;
+import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
-import org.pillarone.riskanalytics.domain.pc.generators.GeneratorCachingComponent;
-import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 
 /**
  * @author shartmann (at) munichre (dot) com
  */
 public class Commission extends Component {
+
+    private PeriodScope periodScope;
 
     private PacketList<Claim> inClaims = new PacketList<Claim>(Claim.class);
     private PacketList<UnderwritingInfo> inUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
@@ -22,7 +23,7 @@ public class Commission extends Component {
             CommissionStrategyType.FIXEDCOMMISSION, ArrayUtils.toMap(new Object[][]{{"commission", 0d}}));
 
     protected void doCalculation() {
-        parmCommissionStrategy.calculateCommission(inClaims, inUnderwritingInfo);
+        parmCommissionStrategy.calculateCommission(inClaims, inUnderwritingInfo, getPeriodScope().getCurrentPeriod() == 0);
         outUnderwritingInfo.addAll(inUnderwritingInfo);
     }
 
@@ -56,5 +57,13 @@ public class Commission extends Component {
 
     public void setParmCommissionStrategy(ICommissionStrategy parmCommissionStrategy) {
         this.parmCommissionStrategy = parmCommissionStrategy;
+    }
+
+    public PeriodScope getPeriodScope() {
+        return periodScope;
+    }
+
+    public void setPeriodScope(PeriodScope periodScope) {
+        this.periodScope = periodScope;
     }
 }

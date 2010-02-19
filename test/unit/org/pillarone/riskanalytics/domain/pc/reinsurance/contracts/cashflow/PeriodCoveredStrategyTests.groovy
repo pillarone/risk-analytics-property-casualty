@@ -19,6 +19,11 @@ class PeriodCoveredStrategyTests extends GroovyTestCase {
         assertTrue 'Full year is covered by range of year', periodCoveredStrategy.isCovered(date20100101, date20110101)
         assertFalse 'End date before start of cover period', periodCoveredStrategy.isCovered(date20100101, date20100101)
         assertFalse 'Start date after end of cover period', periodCoveredStrategy.isCovered(date20110101, date20110101)
+        assertEquals 'getType returns correct type', CoverPeriodType.PERIOD, periodCoveredStrategy.getType()
+        Map<String, DateTime> params = periodCoveredStrategy.getParameters()
+//        assertTrue 'getParameters returns a correct object',  params!=null
+//            && params.get('start')!=null && params.get('end')!=null
+//            && params.get('start').toString()
     }
 
     void testGetStartAsFractionOfPeriod() {

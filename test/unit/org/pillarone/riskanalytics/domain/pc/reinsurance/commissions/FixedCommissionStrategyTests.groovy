@@ -21,7 +21,7 @@ class FixedCommissionStrategyTests extends GroovyTestCase {
         UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: 5)
         List underwritingInfos = [underwritingInfo200, underwritingInfo100]
 
-        commissionStrategy.calculateCommission null, underwritingInfos
+        commissionStrategy.calculateCommission null, underwritingInfos, false
 
         assertEquals '# outUnderwritingInfo packets', 2, underwritingInfos.size()
         assertEquals 'underwritingInfo200', 50+200*0.3, underwritingInfos[0].commission

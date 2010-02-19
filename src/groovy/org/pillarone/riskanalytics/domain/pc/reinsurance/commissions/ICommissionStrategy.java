@@ -11,5 +11,5 @@ import java.util.List;
  */
 public interface ICommissionStrategy extends IParameterObject {
 
-    void calculateCommission(List<Claim> claims, List<UnderwritingInfo> underwritingInfos);
+    void calculateCommission(List<Claim> claims, List<UnderwritingInfo> underwritingInfos, boolean firstPeriod);
 }

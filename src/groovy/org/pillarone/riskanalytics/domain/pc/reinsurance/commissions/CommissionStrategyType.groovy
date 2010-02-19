@@ -1,19 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.commissions
 
-import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObjectClassifier
-import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
-import org.pillarone.riskanalytics.core.parameterization.IParameterObject
-import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
-import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.AbsoluteReservesGeneratorStrategy
-import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.IReservesGeneratorStrategy
-import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.InitialReservesGeneratorStrategy
-import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.PriorPeriodReservesGeneratorStrategy
-import org.pillarone.riskanalytics.core.parameter.MultiDimensionalParameter
-import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
-import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
-import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
 import org.pillarone.riskanalytics.domain.utils.constraints.DoubleConstraints
+import org.pillarone.riskanalytics.core.parameterization.*
 
 /**
  * @author shartmann (at) munichre (dot) com
@@ -27,11 +15,7 @@ public class CommissionStrategyType extends AbstractParameterObjectClassifier {
                         [SlidingCommissionStrategy.LOSS_RATIO, SlidingCommissionStrategy.COMMISSION],
                         ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))])
     public static final CommissionStrategyType PROFITCOMMISSION = new CommissionStrategyType("profit commission", "PROFITCOMMISSION",
-            ['profitCommissionRatio':0d,
-             'costRatio':0d,
-             'cededIncurredClaims':0d,
-             'lossCarriedForward':0d
-            ])
+            ['profitCommissionRatio':0d, 'costRatio':0d, 'lossCarriedForwardEnabled':true, 'initialLossCarriedForward':0d])
 
     public static final all = [FIXEDCOMMISSION, SLIDINGCOMMISSION, PROFITCOMMISSION]
 
@@ -64,6 +48,13 @@ public class CommissionStrategyType extends AbstractParameterObjectClassifier {
         switch (type) {
             case CommissionStrategyType.FIXEDCOMMISSION:
                 commissionStrategy = new FixedCommissionStrategy(commission : (Double) parameters['commission'])
+                break;
+            case CommissionStrategyType.PROFITCOMMISSION:
+                commissionStrategy = new ProfitCommissionStrategy(
+                        profitCommissionRatio : (Double) parameters['profitCommissionRatio'],
+                        costRatio : (Double) parameters['costRatio'],
+                        lossCarriedForwardEnabled : (Boolean) parameters['lossCarriedForwardEnabled'],
+                        initialLossCarriedForward : (Double) parameters['initialLossCarriedForward'])
                 break;
             case CommissionStrategyType.SLIDINGCOMMISSION:
                 commissionStrategy = new SlidingCommissionStrategy(commissionBands: (ConstrainedMultiDimensionalParameter) parameters['commissionBands'])

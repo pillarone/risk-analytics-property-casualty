@@ -32,7 +32,7 @@ public class SlidingCommissionStrategy implements ICommissionStrategy {
         return map;
     }
 
-    public void calculateCommission(List<Claim> claims, List<UnderwritingInfo> underwritingInfos) {
+    public void calculateCommission(List<Claim> claims, List<UnderwritingInfo> underwritingInfos, boolean firstPeriod) {
         double totalClaims = 0d;
         double totalPremium = 0d;
         for (Claim claim : claims) {
