@@ -4,18 +4,24 @@ import org.apache.commons.lang.ArrayUtils;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
+import org.pillarone.riskanalytics.domain.pc.claims.ClaimFilterUtilities;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimUtilities;
 import org.pillarone.riskanalytics.domain.pc.claims.SortClaimsByFractionOfPeriod;
 import org.pillarone.riskanalytics.domain.pc.constants.IncludeType;
+import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments;
+import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
+import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.ReinsuranceResultWithCommisionPacket;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContract;
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.CoverAttributeStrategyType;
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.ICoverAttributeStrategy;
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.*;
+import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingFilterUtilities;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities;
 
 import java.util.Collections;
+import java.util.List;
 
 /**
  *  This component filters from the incoming claims and underwriting information
@@ -92,14 +98,29 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
     }
 
     protected void filterInChannels() {
-//        List<LobMarker> coveredLines = parmCoveredLines.getValuesAsObjects(simulationScope.getModel());
-//        List<PerilMarker> coveredPerils = parmCoveredPerils.getValuesAsObjects(simulationScope.getModel());
-//        List<IReserveMarker> coveredReserves = parmCoveredReserves.getValuesAsObjects(simulationScope.getModel());
-//        outFilteredClaims.addAll(ClaimFilterUtilities.filterClaimsByPerilLobReserve(inClaims, coveredPerils, coveredLines, coveredReserves));
-//        if (coveredLines.size() == 0) {
-//            coveredLines = ClaimFilterUtilities.getLineOfBusiness(outFilteredClaims);
-//        }
-        outFilteredUnderwritingInfo.addAll(inUnderwritingInfo);
+        if (parmCover instanceof NoneCoverAttributeStrategy) {
+            // leave outFiltered* lists void
+        }
+        else if (parmCover instanceof AllCoverAttributeStrategy) {
+            outFilteredClaims.addAll(inClaims);
+            outFilteredUnderwritingInfo.addAll(inUnderwritingInfo);
+        }
+        else {
+            List<LobMarker> coveredLines = parmCover instanceof ILinesOfBusinessCoverAttributeStrategy
+                    ? ((ILinesOfBusinessCoverAttributeStrategy) parmCover).getLines().getValuesAsObjects() : null;
+            List<PerilMarker> coveredPerils = parmCover instanceof IPerilCoverAttributeStrategy
+                    ? ((IPerilCoverAttributeStrategy) parmCover).getPerils().getValuesAsObjects() : null;
+            List<IReserveMarker> coveredReserves = parmCover instanceof IReserveMarker
+                    ? ((IReservesCoverAttributeStrategy) parmCover).getReserves().getValuesAsObjects() : null;
+            // todo(bgi): include connection argument in ClaimFilterUtilities.filterClaimsByPerilLobReserve()
+            LogicArguments connection = parmCover instanceof ICombinedCoverAttributeStrategy
+                    ? ((ICombinedCoverAttributeStrategy) parmCover).getConnection() : null;
+            outFilteredClaims.addAll(ClaimFilterUtilities.filterClaimsByPerilLobReserve(inClaims, coveredPerils, coveredLines, coveredReserves));
+            if (coveredLines == null || coveredLines.size() == 0) {
+               coveredLines = ClaimFilterUtilities.getLineOfBusiness(outFilteredClaims);
+            }
+            outFilteredUnderwritingInfo.addAll(UnderwritingFilterUtilities.filterUnderwritingInfoByLob(inUnderwritingInfo, coveredLines));
+        }
     }
 
     public SimulationScope getSimulationScope() {

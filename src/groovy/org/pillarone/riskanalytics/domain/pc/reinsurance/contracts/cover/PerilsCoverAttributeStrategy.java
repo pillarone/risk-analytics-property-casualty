@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-public class PerilsCoverAttributeStrategy implements ICoverAttributeStrategy {
+public class PerilsCoverAttributeStrategy implements IPerilCoverAttributeStrategy {
 
     private ComboBoxTableMultiDimensionalParameter perils
             = new ComboBoxTableMultiDimensionalParameter(Collections.emptyList(), Arrays.asList("Covered Perils"), PerilMarker.class);
@@ -24,5 +24,9 @@ public class PerilsCoverAttributeStrategy implements ICoverAttributeStrategy {
         Map<String, ComboBoxTableMultiDimensionalParameter> parameters = new HashMap<String, ComboBoxTableMultiDimensionalParameter>(1);
         parameters.put("perils", perils);
         return parameters;
+    }
+
+    public ComboBoxTableMultiDimensionalParameter getPerils() {
+        return perils;
     }
 }

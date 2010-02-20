@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-public class ReservesCoverAttributeStrategy implements ICoverAttributeStrategy {
+public class ReservesCoverAttributeStrategy implements IReservesCoverAttributeStrategy {
 
     private ComboBoxTableMultiDimensionalParameter reserves
             = new ComboBoxTableMultiDimensionalParameter(Collections.emptyList(), Arrays.asList("Covered Reserves"), IReserveMarker.class);
@@ -24,5 +24,9 @@ public class ReservesCoverAttributeStrategy implements ICoverAttributeStrategy {
         Map<String, ComboBoxTableMultiDimensionalParameter> parameters = new HashMap<String, ComboBoxTableMultiDimensionalParameter>(1);
         parameters.put("reserves", reserves);
         return parameters;
+    }
+
+    public ComboBoxTableMultiDimensionalParameter getReserves() {
+        return reserves;
     }
 }

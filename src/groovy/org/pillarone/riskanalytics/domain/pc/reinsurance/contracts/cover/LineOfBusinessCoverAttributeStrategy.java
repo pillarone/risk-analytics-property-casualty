@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-public class LineOfBusinessCoverAttributeStrategy implements ICoverAttributeStrategy {
+public class LineOfBusinessCoverAttributeStrategy implements ILinesOfBusinessCoverAttributeStrategy {
 
     private ComboBoxTableMultiDimensionalParameter lines
             = new ComboBoxTableMultiDimensionalParameter(Collections.emptyList(), Arrays.asList("Covered Lines"), LobMarker.class);
@@ -24,5 +24,9 @@ public class LineOfBusinessCoverAttributeStrategy implements ICoverAttributeStra
         Map<String, ComboBoxTableMultiDimensionalParameter> parameters = new HashMap<String, ComboBoxTableMultiDimensionalParameter>(1);
         parameters.put("lines", lines);
         return parameters;
+    }
+
+    public ComboBoxTableMultiDimensionalParameter getLines() {
+        return lines;
     }
 }

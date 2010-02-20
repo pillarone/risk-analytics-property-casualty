@@ -28,7 +28,9 @@ import java.util.List;
  *  next component. Packets are not modified.
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
+ * @deprecated use MultiCoverAttributeReinsuranceContract instead
  */
+@Deprecated
 public class MultiLineReinsuranceContract extends ReinsuranceContract {
 
     private SimulationScope simulationScope;

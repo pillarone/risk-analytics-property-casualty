@@ -13,7 +13,8 @@ import java.util.Map;
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-public class LineOfBusinessPerilsCoverAttributeStrategy implements ICoverAttributeStrategy {
+public class LineOfBusinessPerilsCoverAttributeStrategy
+        implements ILinesOfBusinessCoverAttributeStrategy, IPerilCoverAttributeStrategy, ICombinedCoverAttributeStrategy {
 
     private ComboBoxTableMultiDimensionalParameter lines
             = new ComboBoxTableMultiDimensionalParameter(Collections.emptyList(), Arrays.asList("Covered Lines"), LobMarker.class);
@@ -31,5 +32,17 @@ public class LineOfBusinessPerilsCoverAttributeStrategy implements ICoverAttribu
         parameters.put("lines", lines);
         parameters.put("perils", perils);
         return parameters;
+    }
+
+    public ComboBoxTableMultiDimensionalParameter getLines() {
+        return lines;
+    }
+
+    public ComboBoxTableMultiDimensionalParameter getPerils() {
+        return perils;
+    }
+
+    public LogicArguments getConnection() {
+        return connection;
     }
 }
