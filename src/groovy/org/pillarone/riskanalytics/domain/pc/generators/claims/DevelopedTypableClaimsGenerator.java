@@ -17,7 +17,7 @@ public class DevelopedTypableClaimsGenerator extends TypableClaimsGenerator impl
         super.doCalculation();
         for (Claim claim : getOutClaims()) {
             ClaimDevelopmentLeanPacket claimDevelopment = new ClaimDevelopmentLeanPacket(claim);
-            claimDevelopment.setUltimate(claim.getUltimate());
+            claimDevelopment.setIncurred(claim.getUltimate());
             claimDevelopment.setPaid(claim.getUltimate() * parmPeriodPaymentPortion);
             claimDevelopment.setOrigin(this);
             outClaimsLeanDevelopment.add(claimDevelopment);
