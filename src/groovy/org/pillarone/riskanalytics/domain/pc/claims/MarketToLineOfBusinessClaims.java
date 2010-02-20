@@ -36,13 +36,16 @@ public class MarketToLineOfBusinessClaims extends Component {
         if (inClaims.size() > 0) {
             List<Claim> lobClaims = new ArrayList<Claim>();
             int portionColumn = parmPortions.getColumnIndex(PORTION);
-            Component lineOfBusiness = inClaims.get(0).sender; // works only if this component is part of a component implementing LobMarker
+            Component lineOfBusiness = inClaims.get(0).sender;
+            if (!(lineOfBusiness instanceof LobMarker)) {
+                throw new IllegalArgumentException("MarketToLineOfBusinessClaims compoment may be used only within a line of business component");
+            }
             for (Claim marketClaim : inClaims) {
                 String originName = marketClaim.origin.getNormalizedName();
                 int row = parmPortions.getColumnByName(PERIL).indexOf(originName);
                 if (row > -1) {
                     Claim lobClaim = marketClaim.copy();
-                    lobClaim.setOriginalClaim(marketClaim);
+                    lobClaim.setOriginalClaim(marketClaim); // should be null see PMO-750
                     lobClaim.origin = lineOfBusiness;
                     lobClaim.setLineOfBusiness((LobMarker) lineOfBusiness);
                     lobClaim.scale((Double) parmPortions.getValueAt(row + 1, portionColumn));

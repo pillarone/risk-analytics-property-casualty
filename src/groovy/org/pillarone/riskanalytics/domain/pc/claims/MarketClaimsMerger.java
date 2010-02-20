@@ -2,6 +2,7 @@ package org.pillarone.riskanalytics.domain.pc.claims;
 
 import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.core.packets.PacketList;
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
 
@@ -12,7 +13,9 @@ import java.util.Map;
  * The claims merger calculates merged ceded claims using the property original
  * claim. All ceded claims having the same reference for originalClaim will
  * be merged in one claim object by aggregating the values and setting the
- * origin to the ClaimsMerger (<code>this</code>).<br/>
+ * origin to the ClaimsMerger (<code>this</code>). If the reinsuranceContract
+ * or lineOfBusiness property of the ceded claims having the same originalClaim
+ * differs, these properties are set to null in the merged claim.<br/>
  * If the outClaimsNet channel is connected  net claim object are constructed
  * too. For every gross claim a net claim is constructed subtracting
  * the ultimate of the merged ceded claim with the same originalClaim.<br/>
@@ -63,13 +66,15 @@ public class MarketClaimsMerger extends Component {
                     || isSenderWired(outClaimsDevelopmentLeanCeded) || isSenderWired(outClaimsDevelopmentLeanNet)) {
                 for (Claim cededClaim : inClaimsCeded) {
                     if (grossMergedCededPairs.containsKey(cededClaim.getOriginalClaim())) {
-                        GrossCededClaimsPair aggregateCededClaim = grossMergedCededPairs.get(cededClaim.getOriginalClaim());
-                        if (aggregateCededClaim.getClaimCeded() == null) {
-                            aggregateCededClaim.setClaimCeded(cededClaim.copy());
+                        GrossCededClaimsPair aggregateGrossCededClaim = grossMergedCededPairs.get(cededClaim.getOriginalClaim());
+                        if (aggregateGrossCededClaim.getClaimCeded() == null) {
+                            aggregateGrossCededClaim.setClaimCeded(cededClaim.copy());
                         }
                         else {
-                            aggregateCededClaim.getClaimCeded().plus(cededClaim);
-                            aggregateCededClaim.getClaimCeded().origin = this;
+                            Claim aggregateCededClaim = aggregateGrossCededClaim.getClaimCeded();
+                            aggregateCededClaim.plus(cededClaim);
+                            aggregateCededClaim.origin = this;
+                            aggregateCededClaim.setReinsuranceContract(correctReinsuranceContract(aggregateCededClaim, cededClaim));
                         }
                     }
                 }
@@ -126,6 +131,16 @@ public class MarketClaimsMerger extends Component {
                     outClaimsDevelopmentNet.add((ClaimDevelopmentPacket) claim);
                 }
             }
+        }
+    }
+
+    private IReinsuranceContractMarker correctReinsuranceContract(Claim aggregateClaim, Claim claim) {
+        if (aggregateClaim.getReinsuranceContract() != null
+            && aggregateClaim.getReinsuranceContract().equals(claim.getReinsuranceContract())) {
+            return aggregateClaim.getReinsuranceContract();
+        }
+        else {
+            return null;
         }
     }
 
