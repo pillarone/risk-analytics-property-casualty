@@ -27,6 +27,8 @@ import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
 import org.pillarone.riskanalytics.domain.pc.reinsurance.IReinsurerMarker
 import org.pillarone.riskanalytics.domain.assets.constants.Rating
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit.LimitStrategyType
 
 model = models.dynamicCapitalEagle.DynamicCapitalEagleModel
 periodCount = 1
@@ -111,7 +113,8 @@ components {
         subQuotaShareProperty {
             parmReinsurer[0] = new ConstrainedString(IReinsurerMarker, '')
             parmCoveredPerils[0] = new ComboBoxTableMultiDimensionalParameter([""], ["perils"], PerilMarker)
-            parmContractStrategy[0] = ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.5, "commission": 0.284, "coveredByReinsurer": 1.0,])
+            parmContractStrategy[0] = ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.5, "coveredByReinsurer": 1.0, "limit": LimitStrategyType.noLimit])
+                parmCommissionStrategy[0] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0.284])
             parmInuringPriority[0] = 1
             parmCoveredLines[0] = new ComboBoxTableMultiDimensionalParameter(["property"], ["Covered Lines"], LobMarker)
         }
@@ -119,7 +122,8 @@ components {
             parmReinsurer[0] = new ConstrainedString(IReinsurerMarker, '')
             parmCoveredPerils[0] = new ComboBoxTableMultiDimensionalParameter([""], ["perils"], PerilMarker)
             parmCoveredLines[0] = new ComboBoxTableMultiDimensionalParameter(["personal accident"], ["Covered Lines"], LobMarker)
-            parmContractStrategy[0] = ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.5, "commission": 0.4, "coveredByReinsurer": 1.0,])
+            parmContractStrategy[0] = ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.5, "coveredByReinsurer": 1.0, "limit": LimitStrategyType.noLimit])
+            parmCommissionStrategy[0] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0.4])
             parmInuringPriority[0] = 0
         }
         subWXLMotorThirdPartyLiability {
@@ -131,7 +135,8 @@ components {
         }
         subQuotaShareMotorThirdPartyLiability {
             parmCoveredPerils[0] = new ComboBoxTableMultiDimensionalParameter([""], ["perils"], PerilMarker)
-            parmContractStrategy[0] = ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.5, "commission": 0.167, "coveredByReinsurer": 1.0,])
+            parmContractStrategy[0] = ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.5, "coveredByReinsurer": 1.0, "limit": LimitStrategyType.noLimit])
+            parmCommissionStrategy[0] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0.167])
             parmCoveredLines[0] = new ComboBoxTableMultiDimensionalParameter(["motor third party liability"], ["Covered Lines"], LobMarker)
             parmInuringPriority[0] = 0
             parmReinsurer[0] = new ConstrainedString(IReinsurerMarker, '')
@@ -146,7 +151,8 @@ components {
         subQuotaShareMotorHull {
             parmCoveredPerils[0] = new ComboBoxTableMultiDimensionalParameter([""], ["perils"], PerilMarker)
             parmReinsurer[0] = new ConstrainedString(IReinsurerMarker, '')
-            parmContractStrategy[0] = ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.5, "commission": 0.189, "coveredByReinsurer": 1.0,])
+            parmContractStrategy[0] = ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.5, "coveredByReinsurer": 1.0, "limit": LimitStrategyType.noLimit])
+            parmCommissionStrategy[0] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0.189])
             parmCoveredLines[0] = new ComboBoxTableMultiDimensionalParameter(["motor hull"], ["Covered Lines"], LobMarker)
             parmInuringPriority[0] = 0
         }

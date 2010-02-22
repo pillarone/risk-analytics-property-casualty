@@ -1,5 +1,7 @@
 package models.podra
 
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
+
 model=models.podra.PodraModel
 periodCount=1
 displayName='CapitalEagle Reinsurance Program NP+ALL50'
@@ -167,7 +169,8 @@ components {
         subPersonalAccidentQuotaShare {
             parmCoveredPerils[0]=new org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter(org.pillarone.riskanalytics.core.util.GroovyUtils.toList([[""]]),["perils"], org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker)
             parmInuringPriority[0]=0
-            parmContractStrategy[0]=org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractStrategyFactory.getContractStrategy(org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType.QUOTASHARE, ["quotaShare":0.0,"commission":0.0,"coveredByReinsurer":1.0,])
+            parmContractStrategy[0]=org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractStrategyFactory.getContractStrategy(org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType.QUOTASHARE, ["quotaShare":0.0,"coveredByReinsurer":1.0,])
+            parmCommissionStrategy[0] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0.0])
             parmCoveredLines[0]=new org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter(org.pillarone.riskanalytics.core.util.GroovyUtils.toList([["personal accident"]]),["Covered Lines"], org.pillarone.riskanalytics.domain.pc.lob.LobMarker)
         }
         subPropertySl {
@@ -186,7 +189,8 @@ components {
             parmCoveredPerils[0]=new org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter(org.pillarone.riskanalytics.core.util.GroovyUtils.toList([[""]]),["perils"], org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker)
             parmCoveredLines[0]=new org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter(org.pillarone.riskanalytics.core.util.GroovyUtils.toList([["motor third party liability"]]),["Covered Lines"], org.pillarone.riskanalytics.domain.pc.lob.LobMarker)
             parmInuringPriority[0]=0
-            parmContractStrategy[0]=org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractStrategyFactory.getContractStrategy(org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType.QUOTASHARE, ["quotaShare":0.5,"commission":0.167,"coveredByReinsurer":1.0,])
+            parmContractStrategy[0]=org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractStrategyFactory.getContractStrategy(org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType.QUOTASHARE, ["quotaShare":0.5,"coveredByReinsurer":1.0,])
+            parmCommissionStrategy[0] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0.167])
         }
         subMotorHullWxl {
             parmCoveredLines[0]=new org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter(org.pillarone.riskanalytics.core.util.GroovyUtils.toList([["motor hull"]]),["Covered Lines"], org.pillarone.riskanalytics.domain.pc.lob.LobMarker)
@@ -196,7 +200,8 @@ components {
         }
         subMotorHullQuotaShare {
             parmInuringPriority[0]=0
-            parmContractStrategy[0]=org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractStrategyFactory.getContractStrategy(org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType.QUOTASHARE, ["quotaShare":0.0,"commission":0.0,"coveredByReinsurer":1.0,])
+            parmContractStrategy[0]=org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractStrategyFactory.getContractStrategy(org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType.QUOTASHARE, ["quotaShare":0.0,"coveredByReinsurer":1.0,])
+            parmCommissionStrategy[0] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0.0])
             parmCoveredLines[0]=new org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter(org.pillarone.riskanalytics.core.util.GroovyUtils.toList([["motor hull"]]),["Covered Lines"], org.pillarone.riskanalytics.domain.pc.lob.LobMarker)
             parmCoveredPerils[0]=new org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter(org.pillarone.riskanalytics.core.util.GroovyUtils.toList([[""]]),["perils"], org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker)
         }
@@ -214,7 +219,8 @@ components {
         }
         subPropertyQuotaShare {
             parmInuringPriority[0]=1
-            parmContractStrategy[0]=org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractStrategyFactory.getContractStrategy(org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType.QUOTASHARE, ["quotaShare":0.0,"commission":0.0,"coveredByReinsurer":1.0,])
+            parmContractStrategy[0]=org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractStrategyFactory.getContractStrategy(org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType.QUOTASHARE, ["quotaShare":0.0,"coveredByReinsurer":1.0,])
+            parmCommissionStrategy[0] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0.0])
             parmCoveredPerils[0]=new org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter(org.pillarone.riskanalytics.core.util.GroovyUtils.toList([[""]]),["perils"], org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker)
             parmCoveredLines[0]=new org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter(org.pillarone.riskanalytics.core.util.GroovyUtils.toList([["property"]]),["Covered Lines"], org.pillarone.riskanalytics.domain.pc.lob.LobMarker)
         }

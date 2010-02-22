@@ -18,6 +18,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceCo
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
 import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ReservesGeneratorStrategyType
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
 
 model=models.reserves.ReservesModel
 periodCount=3
@@ -55,15 +56,19 @@ components {
 	}
     reinsurance {
         subQuotaShare {
-            parmContractStrategy[0]=ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.QUOTASHARE, ["quotaShare":0.4,"commission":0.0,"coveredByReinsurer":1.0,])
-            parmContractStrategy[2]=ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.QUOTASHARE, ["quotaShare":0.2,"commission":0.0,"coveredByReinsurer":1.0,])
-            parmContractStrategy[1]=ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.QUOTASHARE, ["quotaShare":0.6,"commission":0.0,"coveredByReinsurer":1.0,])
-            parmCoveredLines[0]=new ComboBoxTableMultiDimensionalParameter([""],["Covered Lines"], LobMarker)
-            parmCoveredLines[2]=new ComboBoxTableMultiDimensionalParameter([""],["Covered Lines"], LobMarker)
-            parmCoveredLines[1]=new ComboBoxTableMultiDimensionalParameter([""],["Covered Lines"], LobMarker)
-            getParmAppliedOnPerils[1]=new ComboBoxTableMultiDimensionalParameter([""],["perils"], PerilMarker)
-            getParmAppliedOnPerils[2]=new ComboBoxTableMultiDimensionalParameter([""],["perils"], PerilMarker)
-            getParmAppliedOnPerils[0]=new ComboBoxTableMultiDimensionalParameter([""],["perils"], PerilMarker)
+            parmContractStrategy[0]=ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.QUOTASHARE, ["quotaShare":0.4,"coveredByReinsurer":1.0,])
+            parmCommissionStrategy[0] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0.0])
+            parmContractStrategy[2]=ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.QUOTASHARE, ["quotaShare":0.2,"coveredByReinsurer":1.0,])
+            parmCommissionStrategy[2] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0.0])
+            parmContractStrategy[1]=ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.QUOTASHARE, ["quotaShare":0.6,"coveredByReinsurer":1.0,])
+            parmCommissionStrategy[1] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0.0])
+            //todo (sha) the following lines need to be corrected by sku
+//            parmCoveredLines[0]=new ComboBoxTableMultiDimensionalParameter([""],["Covered Lines"], LobMarker)
+//            parmCoveredLines[2]=new ComboBoxTableMultiDimensionalParameter([""],["Covered Lines"], LobMarker)
+//            parmCoveredLines[1]=new ComboBoxTableMultiDimensionalParameter([""],["Covered Lines"], LobMarker)
+//            parmAppliedOnPerils[1]=new ComboBoxTableMultiDimensionalParameter([""],["perils"], PerilMarker)
+//            parmAppliedOnPerils[2]=new ComboBoxTableMultiDimensionalParameter([""],["perils"], PerilMarker)
+//            parmAppliedOnPerils[0]=new ComboBoxTableMultiDimensionalParameter([""],["perils"], PerilMarker)
             parmInuringPriority[0]=0
             parmInuringPriority[2]=0
             parmInuringPriority[1]=0

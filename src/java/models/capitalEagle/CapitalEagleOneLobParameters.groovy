@@ -14,6 +14,8 @@ import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocatorStra
 import org.pillarone.riskanalytics.domain.pc.constants.Exposure
 import org.pillarone.riskanalytics.domain.pc.constants.FrequencyBase
 import org.pillarone.riskanalytics.domain.pc.constants.RiskBandAllocationBase
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit.LimitStrategyType
 
 model = models.capitalEagle.CapitalEagleOneLobModel
 displayName = 'QS and NP Cover'
@@ -54,7 +56,8 @@ components {
         }
         subRiProgram {
             subContract1 {
-                parmContractStrategy[allPeriods] = ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.5, "commission": 0.167, "coveredByReinsurer": 1d])
+                parmContractStrategy[allPeriods] = ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.5, "coveredByReinsurer": 1.0, "limit": LimitStrategyType.noLimit])
+                parmCommissionStrategy[allPeriods] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0.167])
                 parmInuringPriority[allPeriods] = 0
             }
             subContract2 {

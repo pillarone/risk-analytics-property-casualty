@@ -14,6 +14,7 @@ import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionModifierFactory
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
 
 model=models.onelobsurplus.OneLobSurplusModel
 periodCount=2
@@ -60,11 +61,14 @@ components {
                 bandMean: 1d/3d])
 	}
     quotaShare {
-		parmContractStrategy[allPeriods]= new QuotaShareContractStrategy("commission":0.0,"quotaShare":0.2, "coveredByReinsurer": 1d)
+		parmContractStrategy[allPeriods]= new QuotaShareContractStrategy("quotaShare":0.2, "coveredByReinsurer": 1d)
+        parmCommissionStrategy[allPeriods] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0d])
 	}
     surplus {
-		parmContractStrategy[0]=ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.SURPLUS, ["retention":2000.0,"lines":4,"commission":0.0,"defaultCededLossShare":0.0,"coveredByReinsurer":1.0,])
-		parmContractStrategy[1]=ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.SURPLUS, ["retention":2000.0,"lines":4,"commission":0.0,"defaultCededLossShare":0.0,"coveredByReinsurer":1.0,])
+		parmContractStrategy[0]=ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.SURPLUS, ["retention":2000.0,"lines":4,"defaultCededLossShare":0.0,"coveredByReinsurer":1.0,])
+        parmCommissionStrategy[0] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0d])
+		parmContractStrategy[1]=ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.SURPLUS, ["retention":2000.0,"lines":4,"defaultCededLossShare":0.0,"coveredByReinsurer":1.0,])
+        parmCommissionStrategy[1] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0d])
 		parmInuringPriority[0]=0
 		parmInuringPriority[1]=0
 	}
