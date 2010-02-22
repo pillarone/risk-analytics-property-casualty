@@ -3,6 +3,7 @@ package org.pillarone.riskanalytics.domain.pc.claims;
 import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.core.components.Component;
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
 import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker;
 
 import java.util.*;
@@ -12,10 +13,10 @@ import java.util.*;
  */
 public class ClaimFilterUtilities {
     /**
-     * @param claims        to be filtered
+     * @param claims list of claims to be filtered
      * @param coverCriteria components such as claims generators, lines of business
-     * @return a claim is added to the list of filtered claims it the originalClaim references an element of the
-     *         cover criteria or if the originalClaim property is null the origin property is evaluated.
+     * @return a claim is added to the list of filtered claims it the originalClaim references an element of
+     *         the cover criteria or if the originalClaim property is null the origin property is evaluated.
      */
     public static List<Claim> filterClaims(List<Claim> claims, List coverCriteria) {
         List<Claim> filteredClaims = new ArrayList<Claim>(claims.size());
@@ -230,5 +231,25 @@ public class ClaimFilterUtilities {
             linesOfBusiness.add(claim.getLineOfBusiness());
         }
         return new ArrayList<LobMarker>(linesOfBusiness);
+    }
+
+    /**
+     * @param claims the list of claims to filter
+     * @param contracts the contract markers to filter by, if any; null means no filtering (all are returned)
+     * @return the list of claims that passed through the filter (i.e. whose reinsurance contract is listed in contracts)
+     */
+    public static List<Claim> filterClaimsByContract(List<Claim> claims, List<IReinsuranceContractMarker> contracts) {
+        List<Claim> filteredClaims = new ArrayList<Claim>();
+        if (contracts == null || contracts.size() == 0) {
+            filteredClaims.addAll(claims);
+        }
+        else {
+            for (Claim claim : claims) {
+                if (contracts.contains(claim.getReinsuranceContract())) {
+                    filteredClaims.add(claim);
+                }
+            }
+        }
+        return filteredClaims;
     }
 }

@@ -90,7 +90,7 @@ public class MultiLineReinsuranceContractTests extends GroovyTestCase {
                         paid: 8,
                         origin: origin,
                         originalClaim: originalClaim2,
-                        event: event1,
+                        event: event2,
                         peril: generator,
                         fractionOfPeriod: 0.5)
         contract.inClaims << claimDevelopment1 << claimDevelopment2
@@ -149,7 +149,7 @@ public class MultiLineReinsuranceContractTests extends GroovyTestCase {
                         paid: 8,
                         origin: origin,
                         originalClaim: originalClaim2,
-                        event: event1,
+                        event: event2,
                         peril: generator,
                         lineOfBusiness: lobMotor,
                         fractionOfPeriod: 0.5)
@@ -160,6 +160,7 @@ public class MultiLineReinsuranceContractTests extends GroovyTestCase {
         assertEquals 'ceded incurred 0', 2d, contract.outCoveredClaims[0].incurred
         assertEquals 'ceded paid 0', 1.2, contract.outCoveredClaims[0].paid, 1E-10
         assertEquals 'ceded reserved 0', 0.8, contract.outCoveredClaims[0].reserved, 1E-10
+        assertEquals 'origin of fire claim', originalClaim1, contract.outCoveredClaims[0].originalClaim
         contract.reset()
 
 
@@ -170,6 +171,7 @@ public class MultiLineReinsuranceContractTests extends GroovyTestCase {
         assertEquals 'ceded incurred 0', 2.4d, contract.outCoveredClaims[0].incurred, 1E-10
         assertEquals 'ceded paid 0', 1.6, contract.outCoveredClaims[0].paid, 1E-10
         assertEquals 'ceded reserved 0', 0.8, contract.outCoveredClaims[0].reserved, 1E-10
+        assertEquals 'origin of motor claim', originalClaim2, contract.outCoveredClaims[0].originalClaim
         contract.reset()
     }
 }
