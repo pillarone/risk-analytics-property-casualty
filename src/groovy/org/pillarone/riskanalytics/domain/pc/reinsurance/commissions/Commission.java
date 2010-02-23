@@ -1,18 +1,17 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.commissions;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.NotImplementedException;
 import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.core.packets.PacketList;
-import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter;
-import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope;
 import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimFilterUtilities;
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.applicable.*;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -43,28 +42,37 @@ public class Commission extends Component {
     private ICommissionStrategy parmCommissionStrategy = CommissionStrategyType.getStrategy(
             CommissionStrategyType.FIXEDCOMMISSION, ArrayUtils.toMap(new Object[][]{{"commission", 0d}}));
 
-    private ComboBoxTableMultiDimensionalParameter parmApplicableContracts = new ComboBoxTableMultiDimensionalParameter(
-            Collections.emptyList(), Arrays.asList("Applicable Contracts"), IReinsuranceContractMarker.class);
+    private IApplicableStrategy parmApplicableStrategy = ApplicableStrategyType.getStrategy(
+            ApplicableStrategyType.NONE, Collections.emptyMap());
 
     protected void doCalculation() {
-        PacketList<Claim> filteredClaims = new PacketList<Claim>(Claim.class);
-        PacketList<UnderwritingInfo> filteredUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
-        PacketList<UnderwritingInfo> bypassedUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
+        if (parmApplicableStrategy instanceof NoneApplicableStrategy) {
+            outUnderwritingInfo.addAll(inUnderwritingInfo);
+        } else {
+            boolean isFirstPeriod = simulationScope.getIterationScope().getPeriodScope().getCurrentPeriod() == 0;
 
-        if (parmApplicableContracts != null) {
-            List<IReinsuranceContractMarker> applicableContracts = parmApplicableContracts.getValuesAsObjects(getSimulationScope().getModel());
-            filteredClaims.addAll(ClaimFilterUtilities.filterClaimsByContract(inClaims, applicableContracts));
-            UnderwritingInfoUtilities.segregateUnderwritingInfoByContract(inUnderwritingInfo, applicableContracts, filteredUnderwritingInfo, bypassedUnderwritingInfo);
+            if (parmApplicableStrategy instanceof ContractApplicableStrategy) {
+                List<IReinsuranceContractMarker> applicableContracts = ((IContractApplicableStrategy) parmApplicableStrategy)
+                                             .getApplicableContracts().getValuesAsObjects(getSimulationScope().getModel());
+                PacketList<Claim> filteredClaims = new PacketList<Claim>(Claim.class);
+                filteredClaims.addAll(ClaimFilterUtilities.filterClaimsByContract(inClaims, applicableContracts));
+
+                PacketList<UnderwritingInfo> bypassedUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
+                PacketList<UnderwritingInfo> filteredUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
+
+                UnderwritingInfoUtilities.segregateUnderwritingInfoByContract(inUnderwritingInfo, applicableContracts, filteredUnderwritingInfo, bypassedUnderwritingInfo);
+                parmCommissionStrategy.calculateCommission(filteredClaims, filteredUnderwritingInfo, isFirstPeriod);
+                outUnderwritingInfo.addAll(filteredUnderwritingInfo);
+                outUnderwritingInfo.addAll(bypassedUnderwritingInfo);
+            }
+            else if (parmApplicableStrategy instanceof AllApplicableStrategy) {
+                parmCommissionStrategy.calculateCommission(inClaims, inUnderwritingInfo, isFirstPeriod);
+                outUnderwritingInfo.addAll(inUnderwritingInfo);
+            }
+            else {
+                throw new NotImplementedException(parmApplicableStrategy.toString() + " type is not yet implemented.");
+            }
         }
-        else {
-            // if parameter is null, use all Claims and all UnderwritingInfo packets
-            filteredClaims.addAll(inClaims);
-            filteredUnderwritingInfo.addAll(inUnderwritingInfo);
-        }
-        boolean isFirstPeriod = simulationScope.getIterationScope().getPeriodScope().getCurrentPeriod() == 0;
-        parmCommissionStrategy.calculateCommission(filteredClaims, filteredUnderwritingInfo, isFirstPeriod);
-        outUnderwritingInfo.addAll(filteredUnderwritingInfo);
-        outUnderwritingInfo.addAll(bypassedUnderwritingInfo);
     }
 
     public PacketList<Claim> getInClaims() {
@@ -99,19 +107,19 @@ public class Commission extends Component {
         this.parmCommissionStrategy = parmCommissionStrategy;
     }
 
-    public ComboBoxTableMultiDimensionalParameter getParmApplicableContracts() {
-        return parmApplicableContracts;
-    }
-
-    public void setParmApplicableContracts(ComboBoxTableMultiDimensionalParameter parmApplicableContracts) {
-        this.parmApplicableContracts = parmApplicableContracts;
-    }
-
     public SimulationScope getSimulationScope() {
         return simulationScope;
     }
 
     public void setSimulationScope(SimulationScope simulationScope) {
         this.simulationScope = simulationScope;
+    }
+
+    public IApplicableStrategy getParmApplicableStrategy() {
+        return parmApplicableStrategy;
+    }
+
+    public void setParmApplicableStrategy(IApplicableStrategy parmApplicableStrategy) {
+        this.parmApplicableStrategy = parmApplicableStrategy;
     }
 }
