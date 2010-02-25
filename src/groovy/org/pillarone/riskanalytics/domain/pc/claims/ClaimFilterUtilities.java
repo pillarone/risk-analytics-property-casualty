@@ -1,5 +1,6 @@
 package org.pillarone.riskanalytics.domain.pc.claims;
 
+import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments;
 import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.core.components.Component;
@@ -122,52 +123,72 @@ public class ClaimFilterUtilities {
     }
 
     /**
-     * @param claims the list of claims to filter
-     * @param coveredPerils the peril markers to filter by, if any; must be null if coveredReserves is given
+     * @param claims                 the list of claims to filter
+     * @param coveredPerils          the peril markers to filter by, if any; must be null if coveredReserves is given
      * @param coveredLinesOfBusiness the LOB markers to filter by
-     * @param coveredReserves the reserve markers to filter by, if any; must be null if coveredPerils is given
-     * @return the list of claims that passed through the filter
+     * @param coveredReserves        the reserve markers to filter by, if any; must be null if coveredPerils is given
+     * @param connection             logical junction type (AND or OR), required for combined filter strategies
+     * @return                       the list of claims that passed through the filter
      */
     public static List<Claim> filterClaimsByPerilLobReserve(List<Claim> claims, List<PerilMarker> coveredPerils,
-                                                            List<LobMarker> coveredLinesOfBusiness, List<IReserveMarker> coveredReserves) {
+                                                            List<LobMarker> coveredLinesOfBusiness, List<IReserveMarker> coveredReserves,
+                                                            LogicArguments connection) {
         List<Claim> filteredClaims = new ArrayList<Claim>();
-        if ((coveredPerils == null || coveredPerils.size() == 0) &&
-            (coveredReserves == null || coveredReserves.size() == 0) &&
-            (coveredLinesOfBusiness == null || coveredLinesOfBusiness.size() == 0)) {
+        boolean hasPerils = coveredPerils != null && coveredPerils.size() > 0;
+        boolean hasReserves = coveredReserves != null && coveredReserves.size() > 0;
+        boolean hasLinesOfBusiness = coveredLinesOfBusiness != null && coveredLinesOfBusiness.size() > 0;
+        if (!(hasPerils || hasReserves || hasLinesOfBusiness)) {
             filteredClaims.addAll(claims);
         }
-        else if (coveredPerils.size() > 0 && coveredReserves.size() > 0) {
+        else if (hasPerils && hasReserves) {
             throw new IllegalArgumentException("cannot filter simultaneously by perils and reserves");
         }
-        else if (coveredPerils.size() > 0 && coveredLinesOfBusiness.size() > 0) {
+        else if (hasPerils && hasLinesOfBusiness && connection == LogicArguments.OR) {
+            for (Claim claim : claims) {
+                if (coveredPerils.contains(claim.getPeril()) || coveredLinesOfBusiness.contains(claim.getLineOfBusiness())) {
+                    filteredClaims.add(claim);
+                }
+            }
+        }
+        else if (hasPerils && hasLinesOfBusiness && connection == LogicArguments.AND) {
             for (Claim claim : claims) {
                 if (coveredPerils.contains(claim.getPeril()) && coveredLinesOfBusiness.contains(claim.getLineOfBusiness())) {
                     filteredClaims.add(claim);
                 }
             }
         }
-        else if (coveredReserves.size() > 0 && coveredLinesOfBusiness.size() > 0) {
+        else if (hasReserves && hasLinesOfBusiness && connection == LogicArguments.OR) {
+            for (Claim claim : claims) {
+                if (coveredReserves.contains(claim.getPeril()) || coveredLinesOfBusiness.contains(claim.getLineOfBusiness())) {
+                    filteredClaims.add(claim);
+                }
+            }
+        }
+        else if (hasReserves && hasLinesOfBusiness && connection == LogicArguments.AND) {
             for (Claim claim : claims) {
                 if (coveredReserves.contains(claim.getPeril()) && coveredLinesOfBusiness.contains(claim.getLineOfBusiness())) {
                     filteredClaims.add(claim);
                 }
             }
         }
-        else if (coveredPerils.size() > 0) {
+        else if (hasLinesOfBusiness && (hasPerils || hasReserves)) {
+            throw new IllegalArgumentException("cannot combine filter criteria without specifying the logical connection type");
+        }
+        else if (hasPerils) {
             for (Claim claim : claims) {
                 if (coveredPerils.contains(claim.getPeril())) {
                     filteredClaims.add(claim);
                 }
             }
         }
-        else if (coveredReserves.size() > 0) {
+        else if (hasReserves) {
             for (Claim claim : claims) {
                 if (coveredReserves.contains(claim.getPeril())) {
                     filteredClaims.add(claim);
                 }
             }
         }
-        else if (coveredLinesOfBusiness.size() > 0) {
+        else if (hasLinesOfBusiness) {
             for (Claim claim : claims) {
                 if (coveredLinesOfBusiness.contains(claim.getLineOfBusiness())) {
                     filteredClaims.add(claim);

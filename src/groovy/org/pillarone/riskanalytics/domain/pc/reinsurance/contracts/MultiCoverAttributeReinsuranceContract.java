@@ -12,7 +12,6 @@ import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments;
 import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.ReinsuranceResultWithCommisionPacket;
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContract;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.*;
 import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
@@ -53,6 +52,9 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
     public void doCalculation() {
         if (parmContractStrategy == null) {
             throw new IllegalStateException("A contract strategy must be set");
+        }
+        if (parmCover == null) {
+            throw new IllegalStateException("A cover attribute strategy must be set");
         }
         filterInChannels();
         // initialize contract details
@@ -110,12 +112,11 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
                     ? ((ILinesOfBusinessCoverAttributeStrategy) parmCover).getLines().getValuesAsObjects() : null;
             List<PerilMarker> coveredPerils = parmCover instanceof IPerilCoverAttributeStrategy
                     ? ((IPerilCoverAttributeStrategy) parmCover).getPerils().getValuesAsObjects() : null;
-            List<IReserveMarker> coveredReserves = parmCover instanceof IReserveMarker
+            List<IReserveMarker> coveredReserves = parmCover instanceof IReservesCoverAttributeStrategy
                     ? ((IReservesCoverAttributeStrategy) parmCover).getReserves().getValuesAsObjects() : null;
-            // todo(bgi): include connection argument in ClaimFilterUtilities.filterClaimsByPerilLobReserve()
             LogicArguments connection = parmCover instanceof ICombinedCoverAttributeStrategy
                     ? ((ICombinedCoverAttributeStrategy) parmCover).getConnection() : null;
-            outFilteredClaims.addAll(ClaimFilterUtilities.filterClaimsByPerilLobReserve(inClaims, coveredPerils, coveredLines, coveredReserves));
+            outFilteredClaims.addAll(ClaimFilterUtilities.filterClaimsByPerilLobReserve(inClaims, coveredPerils, coveredLines, coveredReserves, connection));
             if (coveredLines == null || coveredLines.size() == 0) {
                coveredLines = ClaimFilterUtilities.getLineOfBusiness(outFilteredClaims);
             }

@@ -6,6 +6,7 @@ import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimFilterUtilities;
 import org.pillarone.riskanalytics.domain.pc.claims.SortClaimsByFractionOfPeriod;
+import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments;
 import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker;
@@ -104,7 +105,7 @@ public class MultiLineReinsuranceContract extends ReinsuranceContract {
         List<LobMarker> coveredLines = parmCoveredLines.getValuesAsObjects(simulationScope.getModel());
         List<PerilMarker> coveredPerils = parmCoveredPerils.getValuesAsObjects(simulationScope.getModel());
         List<IReserveMarker> coveredReserves = parmCoveredReserves.getValuesAsObjects(simulationScope.getModel());
-        outFilteredClaims.addAll(ClaimFilterUtilities.filterClaimsByPerilLobReserve(inClaims, coveredPerils, coveredLines, coveredReserves));
+        outFilteredClaims.addAll(ClaimFilterUtilities.filterClaimsByPerilLobReserve(inClaims, coveredPerils, coveredLines, coveredReserves, LogicArguments.AND));
         if (coveredLines.size() == 0) {
             coveredLines = ClaimFilterUtilities.getLineOfBusiness(outFilteredClaims);
         }
