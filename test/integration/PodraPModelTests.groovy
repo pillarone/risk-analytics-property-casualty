@@ -14,4 +14,8 @@ class PodraPModelTests extends ModelTest {
     String getParameterDisplayName() {
         "No Reinsurance Contracts"
     }
+
+    protected boolean shouldCompareResults() {
+        true
+    }
 }

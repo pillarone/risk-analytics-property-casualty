@@ -14,4 +14,8 @@ class PodraModelTests extends ModelTest {
     String getParameterDisplayName() {
         "One Line Example"
     }
+    
+    protected boolean shouldCompareResults() {
+        true
+    }
 }

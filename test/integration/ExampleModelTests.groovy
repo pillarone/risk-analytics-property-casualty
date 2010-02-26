@@ -20,4 +20,8 @@ class ExampleModelTests extends ModelTest {
     String getResultConfigurationDisplayName() {
         'All Aggregated'        
     }
+
+    protected boolean shouldCompareResults() {
+        true
+    }
 }
