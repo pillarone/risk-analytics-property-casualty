@@ -11,7 +11,7 @@ import org.pillarone.riskanalytics.domain.pc.constants.IncludeType;
 import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments;
 import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
-import org.pillarone.riskanalytics.domain.pc.reinsurance.ReinsuranceResultWithCommisionPacket;
+import org.pillarone.riskanalytics.domain.pc.reinsurance.ReinsuranceResultWithCommissionPacket;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.*;
 import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
@@ -44,8 +44,6 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
     private PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanNet = new PacketList<ClaimDevelopmentLeanPacket>(ClaimDevelopmentLeanPacket.class);
     private PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanGross = new PacketList<ClaimDevelopmentLeanPacket>(ClaimDevelopmentLeanPacket.class);
     private PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanCeded = new PacketList<ClaimDevelopmentLeanPacket>(ClaimDevelopmentLeanPacket.class);
-
-    private PacketList<ReinsuranceResultWithCommisionPacket> outContractFinancials = new PacketList<ReinsuranceResultWithCommisionPacket>(ReinsuranceResultWithCommisionPacket.class);
 
     private PacketList<UnderwritingInfo> outFilteredUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
 
@@ -88,7 +86,7 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
             }
         }
         if (isSenderWired(outContractFinancials)) {
-            ReinsuranceResultWithCommisionPacket result = new ReinsuranceResultWithCommisionPacket();
+            ReinsuranceResultWithCommissionPacket result = new ReinsuranceResultWithCommissionPacket();
             UnderwritingInfo underwritingInfo = UnderwritingInfoUtilities.aggregate(outCoverUnderwritingInfo);
             if (underwritingInfo != null) {
                 result.setCededPremium(-underwritingInfo.getPremiumWritten());
@@ -164,11 +162,11 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
         this.outClaimsDevelopmentLeanCeded = outClaimsDevelopmentLeanCeded;
     }
 
-    public PacketList<ReinsuranceResultWithCommisionPacket> getOutContractFinancials() {
+    public PacketList<ReinsuranceResultWithCommissionPacket> getOutContractFinancials() {
         return outContractFinancials;
     }
 
-    public void setOutContractFinancials(PacketList<ReinsuranceResultWithCommisionPacket> outContractFinancials) {
+    public void setOutContractFinancials(PacketList<ReinsuranceResultWithCommissionPacket> outContractFinancials) {
         this.outContractFinancials = outContractFinancials;
     }
 

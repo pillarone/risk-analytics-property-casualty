@@ -9,11 +9,11 @@ import org.pillarone.riskanalytics.domain.pc.claims.SortClaimsByFractionOfPeriod
 import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments;
 import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
+import org.pillarone.riskanalytics.domain.pc.reinsurance.ReinsuranceResultWithCommissionPacket;
 import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingFilterUtilities;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
-import org.pillarone.riskanalytics.domain.pc.reinsurance.ReinsuranceResultWithCommisionPacket;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimUtilities;
 
@@ -49,8 +49,6 @@ public class MultiLineReinsuranceContract extends ReinsuranceContract {
     private PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanNet = new PacketList<ClaimDevelopmentLeanPacket>(ClaimDevelopmentLeanPacket.class);
     private PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanGross = new PacketList<ClaimDevelopmentLeanPacket>(ClaimDevelopmentLeanPacket.class);
     private PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanCeded = new PacketList<ClaimDevelopmentLeanPacket>(ClaimDevelopmentLeanPacket.class);
-
-    private PacketList<ReinsuranceResultWithCommisionPacket> outContractFinancials = new PacketList<ReinsuranceResultWithCommisionPacket>(ReinsuranceResultWithCommisionPacket.class);
 
     private PacketList<UnderwritingInfo> outFilteredUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
 
@@ -90,7 +88,7 @@ public class MultiLineReinsuranceContract extends ReinsuranceContract {
             }
         }
         if (isSenderWired(outContractFinancials)) {
-            ReinsuranceResultWithCommisionPacket result = new ReinsuranceResultWithCommisionPacket();
+            ReinsuranceResultWithCommissionPacket result = new ReinsuranceResultWithCommissionPacket();
             UnderwritingInfo underwritingInfo = UnderwritingInfoUtilities.aggregate(outCoverUnderwritingInfo);
             if (underwritingInfo != null) {
                 result.setCededPremium(-underwritingInfo.getPremiumWritten());
@@ -166,14 +164,6 @@ public class MultiLineReinsuranceContract extends ReinsuranceContract {
 
     public void setOutClaimsDevelopmentLeanCeded(PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanCeded) {
         this.outClaimsDevelopmentLeanCeded = outClaimsDevelopmentLeanCeded;
-    }
-
-    public PacketList<ReinsuranceResultWithCommisionPacket> getOutContractFinancials() {
-        return outContractFinancials;
-    }
-
-    public void setOutContractFinancials(PacketList<ReinsuranceResultWithCommisionPacket> outContractFinancials) {
-        this.outContractFinancials = outContractFinancials;
     }
 
     public PacketList<UnderwritingInfo> getOutFilteredUnderwritingInfo() {
