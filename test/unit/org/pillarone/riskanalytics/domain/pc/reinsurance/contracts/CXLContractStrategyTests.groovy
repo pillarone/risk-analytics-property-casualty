@@ -119,7 +119,7 @@ class CXLContractStrategyTests extends GroovyTestCase {
         UnderwritingInfo grossUnderwritingInfo = UnderwritingInfoTests.getUnderwritingInfo()
 
         cxl.parmContractStrategy.premiumBase = PremiumBase.GNPI
-        UnderwritingInfo cededUnderwritingInfo = cxl.parmContractStrategy.calculateCoverUnderwritingInfo(grossUnderwritingInfo)
+        UnderwritingInfo cededUnderwritingInfo = cxl.parmContractStrategy.calculateCoverUnderwritingInfo(grossUnderwritingInfo, 0)
 
         assertEquals "premium written", cxl.parmContractStrategy.premium * grossUnderwritingInfo.premiumWritten, cededUnderwritingInfo.premiumWritten
         assertEquals "premium written as if", cxl.parmContractStrategy.premium * grossUnderwritingInfo.premiumWrittenAsIf, cededUnderwritingInfo.premiumWrittenAsIf
@@ -129,7 +129,7 @@ class CXLContractStrategyTests extends GroovyTestCase {
         ReinsuranceContract cxl = getContract1()
         UnderwritingInfo grossUnderwritingInfo = UnderwritingInfoTests.getUnderwritingInfo()
         cxl.parmContractStrategy.premiumBase = PremiumBase.RATE_ON_LINE
-        UnderwritingInfo cededUnderwritingInfo = cxl.parmContractStrategy.calculateCoverUnderwritingInfo(grossUnderwritingInfo)
+        UnderwritingInfo cededUnderwritingInfo = cxl.parmContractStrategy.calculateCoverUnderwritingInfo(grossUnderwritingInfo, 0d)
 
         assertEquals "premium written", cxl.parmContractStrategy.premium * cxl.parmContractStrategy.limit, cededUnderwritingInfo.premiumWritten
         assertEquals "premium written as if", cxl.parmContractStrategy.premium * cxl.parmContractStrategy.limit, cededUnderwritingInfo.premiumWrittenAsIf
@@ -137,10 +137,10 @@ class CXLContractStrategyTests extends GroovyTestCase {
 
     void testGetCededUnderwritingInfoIAE() {
         ReinsuranceContract cxl = getContract1()
-        List<UnderwritingInfo> underwritingInfo = [UnderwritingInfoTests.getUnderwritingInfo()]
+        UnderwritingInfo underwritingInfo = UnderwritingInfoTests.getUnderwritingInfo()
         cxl.parmContractStrategy.premiumBase = PremiumBase.NUMBER_OF_POLICIES
         shouldFail(IllegalArgumentException) {
-            cxl.parmContractStrategy.calculateCoverUnderwritingInfo underwritingInfo
+            cxl.parmContractStrategy.calculateCoverUnderwritingInfo(underwritingInfo, 0d)
         }
     }
 

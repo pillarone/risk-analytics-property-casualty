@@ -6,6 +6,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceCo
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractStrategyFactory
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
+import org.pillarone.riskanalytics.domain.pc.constants.LPTPremiumBase
 
 /**
  * @author shartmann (at) munichre (dot) com
@@ -15,7 +16,7 @@ class LossPortfolioTransferContractStrategyTests extends GroovyTestCase {
     static ReinsuranceContract getContract0() {
         return new ReinsuranceContract(
                 parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
-                        ReinsuranceContractType.LOSSPORTFOLIOTRANSFER, ["quotaShare": 0.3, "commission": 0.0, "coveredByReinsurer": 1d]))
+                        ReinsuranceContractType.LOSSPORTFOLIOTRANSFER, ["quotaShare": 0.3d, "premiumBase": LPTPremiumBase.ABSOLUTE, "premium": 0d, "coveredByReinsurer": 1d]))
     }
 
     void testCalculateCoveredLoss() {

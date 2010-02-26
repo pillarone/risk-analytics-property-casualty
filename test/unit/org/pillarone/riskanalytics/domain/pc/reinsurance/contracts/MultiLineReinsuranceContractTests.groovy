@@ -25,7 +25,6 @@ public class MultiLineReinsuranceContractTests extends GroovyTestCase {
                 parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
                         ReinsuranceContractType.QUOTASHARE,
                         ["quotaShare": 0.2,
-                         "commission": 0.0,
                          "coveredByReinsurer": 1d]),
                 parmInuringPriority: 10,
                 parmCoveredLines: new ComboBoxTableMultiDimensionalParameter(['fire'], ['Covered Lines'], LobMarker)

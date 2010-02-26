@@ -5,7 +5,7 @@ import org.pillarone.riskanalytics.core.packets.MultiValuePacket;
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-public class ReinsuranceResultWithCommisionPacket extends MultiValuePacket {
+public class ReinsuranceResultWithCommissionPacket extends MultiValuePacket {
     private double result;
     private double cededPremium;
     private double cededClaim;

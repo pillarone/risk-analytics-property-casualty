@@ -48,7 +48,7 @@ class DynamicReinsuranceProgramTests extends GroovyTestCase {
                 parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
                         ReinsuranceContractType.QUOTASHARE,
                         ["quotaShare": 0.15,
-                                "annualAggregateLimit": 20,
+       //                         "annualAggregateLimit": 20,
                                 "coveredByReinsurer": 1d]),
                 parmInuringPriority: 5
         )
@@ -109,7 +109,6 @@ class DynamicReinsuranceProgramTests extends GroovyTestCase {
                 parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
                         ReinsuranceContractType.QUOTASHARE,
                         ["quotaShare": 0.2,
-                                "commission": 0.0,
                                 "coveredByReinsurer": 1d]),
                 parmInuringPriority: 0)
         ReinsuranceContract wxl20xs10 = new ReinsuranceContract(
@@ -220,7 +219,6 @@ class DynamicReinsuranceProgramTests extends GroovyTestCase {
                 parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
                         ReinsuranceContractType.QUOTASHARE,
                         ["quotaShare": 0.2,
-                                "commission": 0.0,
                                 "coveredByReinsurer": 1d]),
                 parmInuringPriority: 0)
         ReinsuranceContract wxl20xs10 = new ReinsuranceContract(

@@ -31,7 +31,7 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
         return new MultiCoverAttributeReinsuranceContract(
             parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
                 ReinsuranceContractType.QUOTASHARE,
-                ["quotaShare": 0.2, "commission": 0.0, "coveredByReinsurer": 1d]),
+                ["quotaShare": 0.2, "coveredByReinsurer": 1d]),
             parmInuringPriority: 10,
             parmCover: CoverAttributeStrategyType.getStrategy(
                 CoverAttributeStrategyType.LINESOFBUSINESS,
@@ -50,11 +50,10 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
     }
 
     static IReinsuranceContractStrategy getQuotaShareRIContractStrategy(double quotaShare = 0.2,
-                                                                        double commission = 0d,
                                                                         double coveredByReinsurer = 1d) {
         ReinsuranceContractStrategyFactory.getContractStrategy(
             ReinsuranceContractType.QUOTASHARE,
-            ["quotaShare": quotaShare, "commission": commission, "coveredByReinsurer": coveredByReinsurer]
+            ["quotaShare": quotaShare, "coveredByReinsurer": coveredByReinsurer]
         )
     }
 

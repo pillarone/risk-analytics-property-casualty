@@ -48,7 +48,6 @@ class PropertyLobTests extends GroovyTestCase {
         lob.subRiProgram.subContract1.parmContractStrategy = ReinsuranceContractStrategyFactory.getContractStrategy(
             ReinsuranceContractType.QUOTASHARE,
             ["quotaShare": quotaShare,
-                "commission": 0.0,
                 "coveredByReinsurer": 1d])
         lob.subRiProgram.subContract2.parmContractStrategy = ReinsuranceContractStrategyFactory.getContractStrategy(
             ReinsuranceContractType.WXL,
