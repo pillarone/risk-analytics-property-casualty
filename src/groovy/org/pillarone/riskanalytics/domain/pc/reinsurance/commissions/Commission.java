@@ -17,16 +17,11 @@ import java.util.List;
 
 /**
  *  This component calculates commission on a specified set of contracts, which are defined in the
- *  parameter parmApplicableContracts.
+ *  parameter parmApplicableContracts using the commission type specified in parameter parmCommissionStrategy.
  *
  *  Implementation Note: the incoming packets are first filtered to determine which are applicable
- *  to the commission calculation. The outUnderwritingInfo packet stream contains the same packets,
- *  but potentially in a different order.
- *
- *  Cave: the outUnderwritingInfo packet sequence will differ from the corresponding inUnderwritingInfo
- *  sequence whenever the incoming sequence is actually filtered, because packets that are used (which
- *  can affect the commission calculation) are placed on the out- packet list before the packets that
- *  got filtered out (which cannot affect the commission calculation).
+ *  to the commission calculation. The outUnderwritingInfo packet stream contains COPIES of all filtered packets
+ *  (which also might have been altered), but potentially in a different order.
  *
  *  @author shartmann (at) munichre (dot) com, ben.ginsberg (at) intuitive-collaboration (dot) com
  */
@@ -57,13 +52,11 @@ public class Commission extends Component {
                 PacketList<Claim> filteredClaims = new PacketList<Claim>(Claim.class);
                 filteredClaims.addAll(ClaimFilterUtilities.filterClaimsByContract(inClaims, applicableContracts));
 
-                PacketList<UnderwritingInfo> bypassedUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
                 PacketList<UnderwritingInfo> filteredUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
 
-                UnderwritingInfoUtilities.segregateUnderwritingInfoByContract(inUnderwritingInfo, applicableContracts, filteredUnderwritingInfo, bypassedUnderwritingInfo);
+                UnderwritingInfoUtilities.segregateUnderwritingInfoByContract(inUnderwritingInfo, applicableContracts, filteredUnderwritingInfo);
                 parmCommissionStrategy.calculateCommission(filteredClaims, filteredUnderwritingInfo, isFirstPeriod);
                 outUnderwritingInfo.addAll(filteredUnderwritingInfo);
-                outUnderwritingInfo.addAll(bypassedUnderwritingInfo);
             }
             else if (parmApplicableStrategy instanceof AllApplicableStrategy) {
                 parmCommissionStrategy.calculateCommission(inClaims, inUnderwritingInfo, isFirstPeriod);

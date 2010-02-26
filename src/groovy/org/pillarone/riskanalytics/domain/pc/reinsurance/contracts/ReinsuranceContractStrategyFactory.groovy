@@ -4,6 +4,7 @@ import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
 import org.pillarone.riskanalytics.core.parameterization.AbstractMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit.ILimitStrategy
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit.LimitStrategyType
+import org.pillarone.riskanalytics.domain.pc.constants.LPTPremiumBase
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -53,8 +54,9 @@ class ReinsuranceContractStrategyFactory {
                 coveredByReinsurer: coveredByReinsurer)
     }
 
-    private static IReinsuranceContractStrategy getLossPortfolioTransfer(double quotaShare, double commission, double coveredByReinsurer) {
-        return new LossPortfolioTransferContractStrategy(quotaShare: quotaShare, commission: commission, coveredByReinsurer: coveredByReinsurer)
+    private static IReinsuranceContractStrategy getLossPortfolioTransferContractStrategy(double quotaShare, LPTPremiumBase premiumBase,
+                        double premium, double coveredByReinsurer) {
+        return new LossPortfolioTransferContractStrategy(quotaShare: quotaShare, premiumBase: premiumBase, premium: premium, coveredByReinsurer: coveredByReinsurer)
     }
 
     public static IReinsuranceContractStrategy getTrivial() {
@@ -99,7 +101,8 @@ class ReinsuranceContractStrategyFactory {
                 contract = getTrivial()
                 break
             case ReinsuranceContractType.LOSSPORTFOLIOTRANSFER:
-                contract = getLossPortfolioTransfer(parameters["quotaShare"], parameters["commission"], parameters["coveredByReinsurer"])
+                contract = getLossPortfolioTransferContractStrategy(parameters["quotaShare"], parameters["premiumBase"],
+                        parameters["premium"], parameters["coveredByReinsurer"])
                 break
         }
         return contract
