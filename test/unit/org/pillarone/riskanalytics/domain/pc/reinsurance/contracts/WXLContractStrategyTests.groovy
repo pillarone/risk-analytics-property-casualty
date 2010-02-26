@@ -109,7 +109,7 @@ class WXLContractStrategyTests extends GroovyTestCase {
         ReinsuranceContract wxl = getContract1()
         UnderwritingInfo grossUnderwritingInfo = UnderwritingInfoTests.getUnderwritingInfo()
         wxl.parmContractStrategy.premiumBase = PremiumBase.GNPI
-        UnderwritingInfo cededUnderwritingInfo = wxl.parmContractStrategy.calculateCoverUnderwritingInfo(grossUnderwritingInfo)
+        UnderwritingInfo cededUnderwritingInfo = wxl.parmContractStrategy.calculateCoverUnderwritingInfo(grossUnderwritingInfo, 0)
 
         assertEquals "premium written", wxl.parmContractStrategy.premium * grossUnderwritingInfo.premiumWritten, cededUnderwritingInfo.premiumWritten
         assertEquals "premium written as if", wxl.parmContractStrategy.premium * grossUnderwritingInfo.premiumWrittenAsIf, cededUnderwritingInfo.premiumWrittenAsIf
@@ -119,7 +119,7 @@ class WXLContractStrategyTests extends GroovyTestCase {
         ReinsuranceContract wxl = getContract1()
         UnderwritingInfo grossUnderwritingInfo = UnderwritingInfoTests.getUnderwritingInfo()
         wxl.parmContractStrategy.premiumBase = PremiumBase.RATE_ON_LINE
-        UnderwritingInfo cededUnderwritingInfo = wxl.parmContractStrategy.calculateCoverUnderwritingInfo(grossUnderwritingInfo)
+        UnderwritingInfo cededUnderwritingInfo = wxl.parmContractStrategy.calculateCoverUnderwritingInfo(grossUnderwritingInfo, 0)
 
         assertEquals "premium written", wxl.parmContractStrategy.premium * wxl.parmContractStrategy.limit, cededUnderwritingInfo.premiumWritten
         assertEquals "premium written as if", wxl.parmContractStrategy.premium * wxl.parmContractStrategy.limit, cededUnderwritingInfo.premiumWrittenAsIf
@@ -131,7 +131,7 @@ class WXLContractStrategyTests extends GroovyTestCase {
         UnderwritingInfo underwritingInfo = UnderwritingInfoTests.getUnderwritingInfo()
         wxl.parmContractStrategy.premiumBase = PremiumBase.NUMBER_OF_POLICIES
         shouldFail(IllegalArgumentException) {
-            wxl.parmContractStrategy.calculateCoverUnderwritingInfo underwritingInfo
+            wxl.parmContractStrategy.calculateCoverUnderwritingInfo(underwritingInfo, 0)
         }
     }
 

@@ -80,7 +80,7 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
 
     // todo: Are the definition for the as-if premium reasonable?
     // todo(sku): try to move it in an upper class
-    UnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo) {
+    UnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double initialReserves) {
         UnderwritingInfo cededUnderwritingInfo = UnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
         cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo?.originalUnderwritingInfo ? grossUnderwritingInfo.originalUnderwritingInfo : grossUnderwritingInfo
         cededUnderwritingInfo.commission = 0d

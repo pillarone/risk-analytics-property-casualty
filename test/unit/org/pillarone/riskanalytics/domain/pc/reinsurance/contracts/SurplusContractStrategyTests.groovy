@@ -164,7 +164,9 @@ class SurplusContractStrategyTests extends GroovyTestCase {
         ReinsuranceContract contract = getContract1()
         List<UnderwritingInfo> inUnderwritingInfos = getMockUnderwritingInfo()
         List<UnderwritingInfo> coverUnderwritingInfo = []
-        contract.parmContractStrategy.calculateCoverUnderwritingInfo inUnderwritingInfos, coverUnderwritingInfo
+        for(UnderwritingInfo underwritingInfo : inUnderwritingInfos) {
+            coverUnderwritingInfo << contract.parmContractStrategy.calculateCoverUnderwritingInfo(underwritingInfo, 0).copy()
+        }
 
         assertEquals "coverUnderwritingInfo.size", inUnderwritingInfos.size(), coverUnderwritingInfo.size()
         assertEquals "premium written 0", 0d * inUnderwritingInfos[0].premiumWritten, coverUnderwritingInfo[0].premiumWritten
@@ -176,7 +178,9 @@ class SurplusContractStrategyTests extends GroovyTestCase {
         ReinsuranceContract contract = getContract1()
         List<UnderwritingInfo> inUnderwritingInfos = getMockUnderwritingInfo()
         List<UnderwritingInfo> coverUnderwritingInfo = []
-        contract.parmContractStrategy.calculateCoverUnderwritingInfo inUnderwritingInfos, coverUnderwritingInfo
+        for(UnderwritingInfo underwritingInfo : inUnderwritingInfos) {
+            coverUnderwritingInfo << contract.parmContractStrategy.calculateCoverUnderwritingInfo(underwritingInfo, 0).copy()
+        }
 
         assertEquals "coverUnderwritingInfo.size", inUnderwritingInfos.size(), coverUnderwritingInfo.size()
         assertEquals "premium written 0", 0d * inUnderwritingInfos[0].premiumWritten, coverUnderwritingInfo[0].premiumWritten

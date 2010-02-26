@@ -118,6 +118,7 @@ public class ReservesGeneratorLean extends GeneratorCachingComponent implements 
             claimDevelopmentLeanPacket.setUltimate(randomFactor * parmInitialReserves);
             SingleValuePacket initialReserves = new SingleValuePacket();
             initialReserves.setValue(parmInitialReserves);
+            initialReserves.setOrigin(this);
             outInitialReserves.add(initialReserves);
             return;
         }

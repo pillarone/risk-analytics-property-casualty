@@ -21,7 +21,7 @@ interface IReinsuranceContractStrategy {
     // todo(sku): replace with a new function double calculateCededShare(Claim grossClaim)
     double calculateCoveredLoss(Claim grossClaim);
 
-    UnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossInfo);
+    UnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossInfo, double initialReserves);
 
     void resetMemberInstances();
 }

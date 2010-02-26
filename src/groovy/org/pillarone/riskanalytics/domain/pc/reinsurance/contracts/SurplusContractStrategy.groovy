@@ -54,7 +54,7 @@ class SurplusContractStrategy extends AbstractContractStrategy implements IReins
     }
 
     // todo: Are the definition for the as-if premium reasonable?
-    UnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo) {
+    UnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double initialReserves) {
         UnderwritingInfo cededUnderwritingInfo = UnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
         cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo?.originalUnderwritingInfo ? grossUnderwritingInfo.originalUnderwritingInfo : grossUnderwritingInfo
         double fractionCeded = getFractionCeded(cededUnderwritingInfo.sumInsured)

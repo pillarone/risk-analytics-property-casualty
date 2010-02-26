@@ -100,7 +100,7 @@ class StopLossContractStrategyTests extends GroovyTestCase {
         stopLoss.parmContractStrategy.initBookKeepingFigures claims, [grossUnderwritingInfo]
         assertEquals "factor", 0.2, stopLoss.parmContractStrategy.factor                           //pay 800 out of 4000
         //============================================================ testGetCededUnderwriting
-        UnderwritingInfo cededUnderwritingInfo = stopLoss.parmContractStrategy.calculateCoverUnderwritingInfo(grossUnderwritingInfo)
+        UnderwritingInfo cededUnderwritingInfo = stopLoss.parmContractStrategy.calculateCoverUnderwritingInfo(grossUnderwritingInfo, 0)
 
         assertEquals "premium written", stopLoss.parmContractStrategy.premium * grossUnderwritingInfo.premiumWritten, cededUnderwritingInfo.premiumWritten
         assertEquals "premium written as if", stopLoss.parmContractStrategy.premium * grossUnderwritingInfo.premiumWrittenAsIf, cededUnderwritingInfo.premiumWrittenAsIf
@@ -111,20 +111,20 @@ class StopLossContractStrategyTests extends GroovyTestCase {
 
     void testGetCededUnderwritingInfoROE_IAE() {
         ReinsuranceContract stopLoss = getContractSL1()
-        List<UnderwritingInfo> underwritingInfo = [UnderwritingInfoTests.getUnderwritingInfo()]
+        UnderwritingInfo underwritingInfo = UnderwritingInfoTests.getUnderwritingInfo()
         stopLoss.parmContractStrategy.premiumBase = PremiumBase.RATE_ON_LINE
         shouldFail(IllegalArgumentException) {
-            stopLoss.parmContractStrategy.calculateCoverUnderwritingInfo(underwritingInfo)
+            stopLoss.parmContractStrategy.calculateCoverUnderwritingInfo(underwritingInfo, 0)
         }
     }
 
 
     void testGetCededUnderwritingInfoNOP_IAE() {
         ReinsuranceContract stopLoss = getContractSL1()
-        List<UnderwritingInfo> underwritingInfo = [UnderwritingInfoTests.getUnderwritingInfo()]
+        UnderwritingInfo underwritingInfo = UnderwritingInfoTests.getUnderwritingInfo()
         stopLoss.parmContractStrategy.premiumBase = PremiumBase.NUMBER_OF_POLICIES
         shouldFail(IllegalArgumentException) {
-            stopLoss.parmContractStrategy.calculateCoverUnderwritingInfo underwritingInfo
+            stopLoss.parmContractStrategy.calculateCoverUnderwritingInfo(underwritingInfo, 0)
         }
     }
 }

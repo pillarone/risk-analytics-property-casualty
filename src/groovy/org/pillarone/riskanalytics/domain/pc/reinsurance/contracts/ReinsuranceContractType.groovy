@@ -6,6 +6,7 @@ import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObjectClassifier
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
+import org.pillarone.riskanalytics.domain.pc.constants.LPTPremiumBase
 
 class ReinsuranceContractType extends AbstractParameterObjectClassifier {
 
@@ -33,7 +34,7 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
         ["attachmentPoint": 0d, "limit": 0d, "premiumBase": PremiumBase.ABSOLUTE, "premium": 0d, "coveredByReinsurer": 1d, "claimClass": ClaimType.AGGREGATED_EVENT])
 
     public static final ReinsuranceContractType LOSSPORTFOLIOTRANSFER = new ReinsuranceContractType("loss portfolio transfer", "LOSSPORTFOLIOTRANSFER",
-        ["quotaShare": 0d, "commission": 0d, "coveredByReinsurer": 1d])
+        ["quotaShare": 0d, "premiumBase": LPTPremiumBase.ABSOLUTE, "premium": 0d, "coveredByReinsurer": 1d])
     public static final ReinsuranceContractType ADVERSEDEVELOPMENTCOVER = new ReinsuranceContractType("adverse development cover", "ADVERSEDEVELOPMENTCOVER",
         ["attachmentPoint": 0d, "limit": 0d, "premiumBase": PremiumBase.ABSOLUTE, "premium": 0d, "coveredByReinsurer": 1d])
 
