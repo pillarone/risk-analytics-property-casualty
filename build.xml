@@ -15,6 +15,7 @@
     <property name="target.dir" value="target"/>
     <property name="webapp.lib.dir" value="web-app/lib"/>
     <property name="ulcPlugIn.webapp.lib.dir" value="${build.prod.dir}/plugins/ulc-2008-u1/web-app/lib"/>
+    <property name="doc.dir" value="docs/gapi"/>
 
     <condition property="grails" value="${GRAILS_HOME}/bin/grails.bat">
         <os family="windows"/>
@@ -89,6 +90,12 @@
             <arg value="-skipDocs"/>
             <env key="GRAILS_HOME" value="${GRAILS_HOME}"/>
         </exec>
+    </target>
+
+    <target name="doc" depends="init" description=" combined groovy and javadoc">
+        <grails command="doc"/>
+        <copy todir="${doc.dir}"><fileset dir="${doc.dir}/src/java"/></copy>
+        <copy todir="${doc.dir}"><fileset dir="${doc.dir}/src/groovy"/></copy>
     </target>
 
 
