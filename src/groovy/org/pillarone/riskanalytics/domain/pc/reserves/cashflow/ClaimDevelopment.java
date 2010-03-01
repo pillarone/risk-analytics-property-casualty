@@ -181,7 +181,7 @@ public class ClaimDevelopment extends Component implements IReserveMarker {
 
     private List<ClaimDevelopmentWithIBNRPacket> applyPatternOnNewClaims(Claim claim, Pattern payoutPattern, Pattern reportedPattern, int currentPeriod) {
         List<ClaimDevelopmentWithIBNRPacket> claims = new ArrayList<ClaimDevelopmentWithIBNRPacket>(payoutPattern.size());
-        if (payoutPattern.size() == 0 || payoutPattern.cumulativeValues.get(0) == 1) {
+        if (payoutPattern.size() == 0 || payoutPattern.getCumulativeValues().get(0) == 1) {
             ClaimDevelopmentWithIBNRPacket claimDeveloped = ClaimDevelopmentWithIBNRPacketFactory.createPacket();
             claimDeveloped.set(claim);
             claimDeveloped.setOrigin(this);
@@ -233,7 +233,7 @@ public class ClaimDevelopment extends Component implements IReserveMarker {
 
     private List<ClaimDevelopmentPacket> applyPatternOnNewClaims(Claim claim, Pattern payoutPattern, int currentPeriod) {
         List<ClaimDevelopmentPacket> claims = new ArrayList<ClaimDevelopmentPacket>(payoutPattern.size());
-        if (payoutPattern.size() == 0 || payoutPattern.cumulativeValues.get(0) == 1) {
+        if (payoutPattern.size() == 0 || payoutPattern.getCumulativeValues().get(0) == 1) {
             ClaimDevelopmentPacket claimDeveloped = ClaimDevelopmentPacketFactory.createPacket();
             claimDeveloped.set(claim);
             claimDeveloped.setPaid(claim.getUltimate());

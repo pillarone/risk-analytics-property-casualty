@@ -4,7 +4,7 @@ import org.pillarone.riskanalytics.domain.utils.DateTimeUtilities
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
 import java.text.SimpleDateFormat
-import org.joda.time.IllegalFieldValueException
+import org.joda.time.Period
 
 /**
  * We expect mapDateToPeriod(date, startDate) to "rasterize" dates to signed
@@ -149,5 +149,50 @@ class DateTimeUtilitiesTests extends GroovyTestCase {
         assertEquals 'second of leap year = 1/366',         1d/366,                           DateTimeUtilities.mapDateToFractionOfPeriod(new DateTime(2012, 1, 2,0,0,0,0))
         assertEquals 'last day of normal year = 1-1/<365>',    365, 0.001*Math.round(1000/(1d-DateTimeUtilities.mapDateToFractionOfPeriod(new DateTime(2010,12,31,0,0,0,0))))
         assertEquals 'last day of leap year = 1-1/<366>',      366, 0.001*Math.round(1000/(1d-DateTimeUtilities.mapDateToFractionOfPeriod(new DateTime(2012,12,31,0,0,0,0))))
+    }
+
+    DateTime date20100101 = new DateTime(2010,1,1,0,0,0,0)
+    DateTime date20100201 = new DateTime(2010,2,1,0,0,0,0)
+    DateTime date20100401 = new DateTime(2010,4,1,0,0,0,0)
+    DateTime date20100501 = new DateTime(2010,5,1,0,0,0,0)
+    DateTime date20100701 = new DateTime(2010,7,1,0,0,0,0)
+    DateTime date20101001 = new DateTime(2010,10,1,0,0,0,0)
+    DateTime date20110101 = new DateTime(2011,1,1,0,0,0,0)
+    DateTime date20110201 = new DateTime(2011,2,1,0,0,0,0)
+    DateTime date20110401 = new DateTime(2011,4,1,0,0,0,0)
+    DateTime date20110701 = new DateTime(2011,7,1,0,0,0,0)
+    DateTime date20120101 = new DateTime(2012,1,1,0,0,0,0)
+
+    void simulationPeriodLength() {
+        assertEquals "3 months", 3, DateTimeUtilities.simulationPeriodLength(date20100101, date20100401).getMonths()
+        assertEquals "3 months", -3, DateTimeUtilities.simulationPeriodLength(date20100401, date20100101).getMonths()
+        assertEquals "6 months", 6, DateTimeUtilities.simulationPeriodLength(date20100101, date20100701).getMonths()
+        assertEquals "9 months", 9, DateTimeUtilities.simulationPeriodLength(date20100101, date20101001).getMonths()
+        assertEquals "12 months -> 0 months", 0, DateTimeUtilities.simulationPeriodLength(date20100101, date20110101).getMonths()
+        assertEquals "12 months -> 1 year", 1, DateTimeUtilities.simulationPeriodLength(date20100101, date20110101).getYears()
+        assertEquals "13 months -> 1", 1, DateTimeUtilities.simulationPeriodLength(date20100101, date20110201).getMonths()
+    }
+
+    void testSimulationPeriod() {
+        Period month1 = new Period(0, 1, 0, 0,0,0,0,0)
+        Period month3 = new Period(0, 3, 0, 0,0,0,0,0)
+        Period month6 = new Period(0, 6, 0, 0,0,0,0,0)
+        Period month12 = new Period(0, 12, 0, 0,0,0,0,0)
+
+        assertEquals "date20110201, -12/1", -12, DateTimeUtilities.simulationPeriod(date20120101, month1, date20110101)
+        assertEquals "date20110201, -12/3", -4, DateTimeUtilities.simulationPeriod(date20120101, month3, date20110101)
+        assertEquals "date20110201, -12/6", -2, DateTimeUtilities.simulationPeriod(date20120101, month6, date20110101)
+        assertEquals "date20110201, -12/12", -1, DateTimeUtilities.simulationPeriod(date20120101, month12, date20110101)
+
+        assertEquals "date20110201, -9/1", -9, DateTimeUtilities.simulationPeriod(date20120101, month1, date20110401)
+        assertEquals "date20110201, -9/3", -3, DateTimeUtilities.simulationPeriod(date20120101, month3, date20110401)
+        assertEquals "date20110201, -9/3", -2, DateTimeUtilities.simulationPeriod(date20120101, month3, date20110701)
+        assertEquals "date20110201, -6/6", -1, DateTimeUtilities.simulationPeriod(date20120101, month6, date20110701)
+
+        assertEquals "date2010201, date20110101, -4", -4, DateTimeUtilities.simulationPeriod(date20110101, month3, date20100201)
+        assertEquals "date2010501, date20110101, -3", -3, DateTimeUtilities.simulationPeriod(date20110101, month3, date20100501)
+
+        assertEquals "date20110101, date20110201, 0", 0, DateTimeUtilities.simulationPeriod(date20110101, month3, date20110201)
+        assertEquals "date20110101, date20110401, 1", 1, DateTimeUtilities.simulationPeriod(date20110101, month3, date20110401)
     }
 }

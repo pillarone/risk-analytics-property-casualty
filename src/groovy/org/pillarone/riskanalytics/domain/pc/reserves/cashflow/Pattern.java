@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * @author shartmann (at) munichre (dot) com
  */
 public class Pattern {
-    List<Double> cumulativeValues;
+    private List<Double> cumulativeValues;
 
     public Pattern() {
     }
@@ -55,5 +55,9 @@ public class Pattern {
 
     public double cumulativeFactorHistoric(int developmentPeriod) {
         return cumulativeValues.get(developmentPeriod - 1);
+    }
+
+    public List<Double> getCumulativeValues() {
+        return cumulativeValues;
     }
 }

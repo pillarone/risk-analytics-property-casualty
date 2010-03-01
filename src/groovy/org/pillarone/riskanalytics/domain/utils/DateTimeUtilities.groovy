@@ -4,6 +4,8 @@ import org.joda.time.DateTime
 import org.joda.time.Years
 import org.joda.time.MutableDateTime
 import java.text.SimpleDateFormat
+import org.joda.time.Period
+import org.joda.time.PeriodType
 //import java.text.SimpleDateFormat
 
 /**
@@ -84,6 +86,23 @@ class DateTimeUtilities {
      */
     public static double mapDateToFractionOfPeriod(DateTime date) {
         return ((date.dayOfYear().get() - 1) / (date.year().isLeap() ? 366d : 365d));
+    }
+
+
+    public static Period simulationPeriodLength(DateTime beginOfPeriod, DateTime endOfPeriod) {
+        return new Period(beginOfPeriod, endOfPeriod);
+    }
+
+    public static int simulationPeriod(DateTime simulationStart, Period periodLength, DateTime date) {
+        if (periodLength.getMonths() > 0) {
+            println new Period(simulationStart, date, PeriodType.months()).getMonths() / (double) periodLength.getMonths()
+            double months = new Period(simulationStart, date, PeriodType.months()).getMonths() / (double) periodLength.getMonths();
+            return months < 0 ? Math.floor(months) : months;
+        }
+        else if (periodLength.getMonths() == 0 && periodLength.getYears() > 0) {
+            return new Period(simulationStart, date).getYears();
+        }
+        throw new IllegalArgumentException("No rule implemented for " + simulationStart + ", " + periodLength + ", " + date);
     }
 
 }

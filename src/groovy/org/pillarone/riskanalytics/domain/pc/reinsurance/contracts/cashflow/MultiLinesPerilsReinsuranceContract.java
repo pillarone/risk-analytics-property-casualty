@@ -42,6 +42,8 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
     /** initialized during first iteration */
     private List<CoverDuration> coverPerPeriod = new ArrayList<CoverDuration>();
 
+    private int lastPeriodYear;
+
     private ComboBoxTableMultiDimensionalParameter parmCoveredLines = new ComboBoxTableMultiDimensionalParameter(
         Collections.emptyList(), Arrays.asList("Covered Lines"), LobMarker.class);
     private ComboBoxTableMultiDimensionalParameter parmCoveredPerils = new ComboBoxTableMultiDimensionalParameter(
@@ -98,26 +100,29 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
         CoverDuration coverOfCurrentPeriod = coverPerPeriod.get(periodScope.getCurrentPeriod());
         if (contract != null && coverOfCurrentPeriod.isCovered()) {
 //            if (!contract.exhausted()) {  // todo(sku): think if all following lines are really not necessary if a contract is exhausted
-                filterClaimsInCoveredPeriod(periodScope.getCurrentPeriod(), coverOfCurrentPeriod);
+            filterClaimsInCoveredPeriod(periodScope.getCurrentPeriod(), coverOfCurrentPeriod);
 
-                if (periodScope.getCurrentPeriod() == 0) {
-                    contract.initBookKeepingFiguresForIteration(outClaimsGrossInCoveredPeriod, outFilteredUnderwritingInfo);
-                }
-                contract.initBookKeepingFigures(outClaimsGrossInCoveredPeriod, outFilteredUnderwritingInfo);
+            if (periodScope.getCurrentPeriod() == 0) {
+                contract.initBookKeepingFiguresForIteration(outClaimsGrossInCoveredPeriod, outFilteredUnderwritingInfo);
+            }
+            contract.initBookKeepingFigures(outClaimsGrossInCoveredPeriod, outFilteredUnderwritingInfo);
+            if (periodScope.getCurrentPeriodStartDate().getYear() != lastPeriodYear) {
                 contract.initBookKeepingFiguresOfPeriod(outClaimsGrossInCoveredPeriod, outFilteredUnderwritingInfo, parmCoveredByReinsurer);
+                lastPeriodYear = periodScope.getCurrentPeriodStartDate().getYear();
+            }
 
-                Collections.sort(outClaimsGrossInCoveredPeriod, SortClaimsByFractionOfPeriod.getInstance());
-                if (isSenderWired(outUncoveredClaims)) {
-                    calculateClaims(outClaimsGrossInCoveredPeriod, outCoveredClaims, outUncoveredClaims, this);
-                } else {
-                    calculateCededClaims(outClaimsGrossInCoveredPeriod, outCoveredClaims, this);
-                }
+            Collections.sort(outClaimsGrossInCoveredPeriod, SortClaimsByFractionOfPeriod.getInstance());
+            if (isSenderWired(outUncoveredClaims)) {
+                calculateClaims(outClaimsGrossInCoveredPeriod, outCoveredClaims, outUncoveredClaims, this);
+            } else {
+                calculateCededClaims(outClaimsGrossInCoveredPeriod, outCoveredClaims, this);
+            }
 
-                if (isSenderWired(outNetAfterCoverUnderwritingInfo)) {
-                    calculateUnderwritingInfos(outFilteredUnderwritingInfo, outCoverUnderwritingInfo, outNetAfterCoverUnderwritingInfo);
-                } else if (isSenderWired(outCoverUnderwritingInfo)) {
-                    calculateCededUnderwritingInfos(outFilteredUnderwritingInfo, outCoverUnderwritingInfo);
-                }
+            if (isSenderWired(outNetAfterCoverUnderwritingInfo)) {
+                calculateUnderwritingInfos(outFilteredUnderwritingInfo, outCoverUnderwritingInfo, outNetAfterCoverUnderwritingInfo);
+            } else if (isSenderWired(outCoverUnderwritingInfo)) {
+                calculateCededUnderwritingInfos(outFilteredUnderwritingInfo, outCoverUnderwritingInfo);
+            }
 //            }
         }
         if (isSenderWired(outClaimsDevelopmentGross)) {
@@ -139,6 +144,7 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
 
     protected void initDuringFirstIteration() {
         PeriodScope periodScope = simulationScope.getIterationScope().getPeriodScope();
+        lastPeriodYear = periodScope.getCurrentPeriodStartDate().getYear() - 1;  // force mismatch in first doCalculation run
         coverPerPeriod.add(parmCoverPeriod.getCoverDuration(
                 periodScope.getCurrentPeriodStartDate(),
                 periodScope.getNextPeriodStartDate()));
