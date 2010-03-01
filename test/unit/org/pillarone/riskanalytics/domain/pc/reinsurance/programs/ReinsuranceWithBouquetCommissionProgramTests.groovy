@@ -21,6 +21,7 @@ import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimen
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker
 import org.pillarone.riskanalytics.domain.assets.VoidTestModel
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiCoverAttributeReinsuranceContract
 
 /**
  * @author shartmann (at) munichre (dot) com
@@ -42,8 +43,8 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
         assertSame ReinsuranceContractType.TRIVIAL, contract.parmContractStrategy.type
     }
 
-    private ReinsuranceContract getQuotaShare20(int priority) {
-        new ReinsuranceContract(
+    private MultiCoverAttributeReinsuranceContract getQuotaShare20(int priority) {
+        new MultiCoverAttributeReinsuranceContract(
                 parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
                         ReinsuranceContractType.QUOTASHARE,
                         ["quotaShare": 0.2,
@@ -52,8 +53,8 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
                 parmInuringPriority: priority)
     }
 
-    private ReinsuranceContract getQuotaShare10(int priority) {
-        new ReinsuranceContract(
+    private MultiCoverAttributeReinsuranceContract getQuotaShare10(int priority) {
+        new MultiCoverAttributeReinsuranceContract(
                 parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
                         ReinsuranceContractType.QUOTASHARE,
                         ["quotaShare": 0.1,
@@ -62,8 +63,8 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
                 parmInuringPriority: priority)
     }
 
-    private ReinsuranceContract getWXL(double attachment){
-        new ReinsuranceContract(
+    private MultiCoverAttributeReinsuranceContract getWXL(double attachment){
+        new MultiCoverAttributeReinsuranceContract(
                 parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
                         ReinsuranceContractType.WXL,
                         ["attachmentPoint": attachment,
@@ -79,10 +80,10 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
     void testUsageSerialContractOrder() {
         program = new ReinsuranceWithBouquetCommissionProgram()
 
-        ReinsuranceContract quotaShare1 = getQuotaShare20(10)
-        ReinsuranceContract quotaShare2 = getQuotaShare10(1)
+        MultiCoverAttributeReinsuranceContract quotaShare1 = getQuotaShare20(10)
+        MultiCoverAttributeReinsuranceContract quotaShare2 = getQuotaShare10(1)
         // todo(sku): was an AAL
-        ReinsuranceContract quotaShare3 = new ReinsuranceContract(
+        MultiCoverAttributeReinsuranceContract quotaShare3 = new MultiCoverAttributeReinsuranceContract(
                 parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
                         ReinsuranceContractType.QUOTASHARE,
                         ["quotaShare": 0.15,
@@ -144,9 +145,9 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
     void testUsageMixedContractOrder() {
         program = new ReinsuranceWithBouquetCommissionProgram()
 
-        ReinsuranceContract quotaShare = getQuotaShare20(0)
-        ReinsuranceContract wxl20xs10 = getWXL(10)
-        ReinsuranceContract wxl20xs30 = getWXL(30)
+        MultiCoverAttributeReinsuranceContract quotaShare = getQuotaShare20(0)
+        MultiCoverAttributeReinsuranceContract wxl20xs10 = getWXL(10)
+        MultiCoverAttributeReinsuranceContract wxl20xs30 = getWXL(30)
 
         wxl20xs10.name = "subContract0"
         quotaShare.name = "subContract1"
@@ -229,10 +230,10 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
 
         program = new ReinsuranceWithBouquetCommissionProgram()
 
-        ReinsuranceContract quotaShare = getQuotaShare20(0)
-        ReinsuranceContract wxl20xs10 = getWXL(10)
-        ReinsuranceContract wxl20xs30 = getWXL(30)
-        ReinsuranceContract wxl20xs50 = getWXL(50)
+        MultiCoverAttributeReinsuranceContract quotaShare = getQuotaShare20(0)
+        MultiCoverAttributeReinsuranceContract wxl20xs10 = getWXL(10)
+        MultiCoverAttributeReinsuranceContract wxl20xs30 = getWXL(30)
+        MultiCoverAttributeReinsuranceContract wxl20xs50 = getWXL(50)
 
         wxl20xs50.name = "subContract0"
         wxl20xs10.name = "subContract1"

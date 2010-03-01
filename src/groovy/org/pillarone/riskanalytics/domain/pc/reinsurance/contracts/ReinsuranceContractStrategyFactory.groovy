@@ -104,6 +104,10 @@ class ReinsuranceContractStrategyFactory {
                 contract = getLossPortfolioTransferContractStrategy(parameters["quotaShare"], parameters["premiumBase"],
                         parameters["premium"], parameters["coveredByReinsurer"])
                 break
+            case ReinsuranceContractType.ADVERSEDEVELOPMENTCOVER:
+                contract = getStopLoss(parameters["attachmentPoint"], parameters["limit"], parameters["premiumBase"],
+                    parameters["premium"], parameters["coveredByReinsurer"])
+                break
         }
         return contract
     }
