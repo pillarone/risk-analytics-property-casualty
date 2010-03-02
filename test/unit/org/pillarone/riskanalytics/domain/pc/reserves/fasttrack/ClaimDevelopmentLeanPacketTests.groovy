@@ -46,11 +46,11 @@ public class ClaimDevelopmentLeanPacketTests extends GroovyTestCase {
     void testSet() {
         ClaimDevelopmentLeanPacket claim1 = getClaimDevelopmentLeanPacket1000()
         ClaimDevelopmentLeanPacket claim2 = new ClaimDevelopmentLeanPacket()
-        claim2.set (claim1.getClaimPacket())
+        claim2.set (claim1)
 
         assertEquals 'incurred 1000', 1000, claim2.incurred
-        assertEquals 'paid 0', 0, claim2.paid
-        assertEquals 'reserved 1000', 1000, claim2.reserved
+        assertEquals 'paid 600', 600, claim2.paid
+        assertEquals 'reserved 400', 400, claim2.reserved
         assertEquals 'fraction of period 0.4', 0.4, claim2.fractionOfPeriod
     }
 

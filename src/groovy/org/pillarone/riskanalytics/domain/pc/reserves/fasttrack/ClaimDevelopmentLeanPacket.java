@@ -11,14 +11,11 @@ import java.util.Arrays;
 /**
  * @author shartmann (at) munichre (dot) com
  */
-
-//todo convert to java class, groovy used to problems during compilation
-
 public class ClaimDevelopmentLeanPacket extends Claim {
 
     private double paid;
     private double reserved;
-    private Claim claim;
+    private Claim convertedClaim;
 
     private static final String INCURRED = "incurred";
     private static final String PAID = "paid";
@@ -28,7 +25,7 @@ public class ClaimDevelopmentLeanPacket extends Claim {
     }
 
     public ClaimDevelopmentLeanPacket(Claim claim){
-        set(claim);
+        super.set(claim);
     }
 
     @Override
@@ -80,31 +77,24 @@ public class ClaimDevelopmentLeanPacket extends Claim {
      *  Converts the current packet into a Claim packet setting its value to incurred
      */
     public Claim getClaimPacket() {
-        if (claim == null) {
-            claim = ClaimPacketFactory.createPacket();
-            claim.setOrigin(origin);
-            claim.setOriginalClaim(getOriginalClaim());
-            claim.setEvent(getEvent());
-            claim.setFractionOfPeriod(getFractionOfPeriod());
-            claim.setClaimType(getClaimType());
-            claim.setPeril(getPeril());
-            claim.setLineOfBusiness(getLineOfBusiness());
+        if (convertedClaim == null) {
+            convertedClaim = ClaimPacketFactory.createPacket();
+            convertedClaim.setOrigin(origin);
+            convertedClaim.setOriginalClaim(getOriginalClaim());
+            convertedClaim.setEvent(getEvent());
+            convertedClaim.setFractionOfPeriod(getFractionOfPeriod());
+            convertedClaim.setClaimType(getClaimType());
+            convertedClaim.setPeril(getPeril());
+            convertedClaim.setLineOfBusiness(getLineOfBusiness());
         }
-        claim.setUltimate(getUltimate());
-        return claim;
+        convertedClaim.setUltimate(getUltimate());
+        return convertedClaim;
     }
 
-    public void set(ClaimDevelopmentLeanPacket claim) {
-        setOrigin(claim.getOrigin());
-        setUltimate(claim.getUltimate());
-        setPaid(claim.getPaid());
-        setOriginalClaim(claim.getOriginalClaim());
-        setEvent(claim.getEvent());
-        setFractionOfPeriod(claim.getFractionOfPeriod());
-        setClaimType(claim.getClaimType());
-        setPeril(claim.getPeril());
-        setLineOfBusiness(getLineOfBusiness());
-        setReinsuranceContract(claim.getReinsuranceContract());
+    @Override
+    public void set(Claim claim) {
+        super.set(claim);
+        setPaid(((ClaimDevelopmentLeanPacket) claim).getPaid());
     }
 
     @Override
