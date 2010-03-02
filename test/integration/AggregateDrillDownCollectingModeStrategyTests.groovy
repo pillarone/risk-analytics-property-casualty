@@ -37,7 +37,7 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
     }
 
     void postSimulationEvaluation() {
-        correctPaths()
+//        correctPaths()
         correctFields()
         correctResults()
     }
