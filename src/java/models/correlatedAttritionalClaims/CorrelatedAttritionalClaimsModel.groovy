@@ -23,8 +23,8 @@ class CorrelatedAttritionalClaimsModel extends StochasticModel {
 
     void initComponents() {
         copula = new LobCopula()
-        extractorFire = new ProbabilityExtractor()
-        extractorHull = new ProbabilityExtractor()
+        extractorFire = new ProbabilityExtractor(name: 'fire')
+        extractorHull = new ProbabilityExtractor(name: 'hull')
         //   extractorMTPL = new ProbabilityExtractor()
         fireClaims = new AttritionalClaimsGenerator()
         hullClaims = new AttritionalClaimsGenerator()

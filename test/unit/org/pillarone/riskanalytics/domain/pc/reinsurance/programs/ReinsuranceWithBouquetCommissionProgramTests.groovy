@@ -11,15 +11,6 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceCo
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoTests
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingSegment
 import org.pillarone.riskanalytics.domain.pc.constants.LPTPremiumBase
-import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.Commission
-import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
-import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.applicable.ApplicableStrategyType
-import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope
-import org.pillarone.riskanalytics.core.simulation.engine.IterationScope
-import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope
-import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker
-import org.pillarone.riskanalytics.domain.assets.VoidTestModel
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiCoverAttributeReinsuranceContract
 
@@ -193,7 +184,7 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
         assertTrue 2 == wxl20xs10Net.size()
         assertTrue 2 == wxl20xs30Net.size()
         assertEquals "#program gross claims program", 2, programGross.size()
-        assertEquals "#program ceded claims program", 2, programCeded.size()
+        assertEquals "#program ceded claims program", 6, programCeded.size()
         assertEquals "#program net claims program", 2, programNet.size()
 
         assertEquals "quotaShare, attritional net claim", 80, qsClaimsNet[0].ultimate
@@ -212,12 +203,17 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
         assertEquals "wxl20xs30, large ceded claim", 18, wxl20xs30Ceded[1].ultimate
 
         assertEquals "program, attritional gross claim", 100, programGross[0].ultimate
-        assertEquals "program, attritional ceded claim", 20, programCeded[0].ultimate
         assertEquals "program, attritional net claim", 80, programNet[0].ultimate
 
         assertEquals "program, large gross claim", 60, programGross[1].ultimate
-        assertEquals "program, large ceded claim", 50, programCeded[1].ultimate
         assertEquals "program, large net claim", 10, programNet[1].ultimate
+
+        assertEquals "program, attritional ceded claim, attritional contract1", 20, programCeded[0].ultimate
+        assertEquals "program, large ceded claim, single contract1", 12, programCeded[1].ultimate
+        assertEquals "program, large ceded claim, attritional contract0", 0, programCeded[2].ultimate
+        assertEquals "program, large ceded claim, single contract0", 20, programCeded[3].ultimate
+        assertEquals "program, large ceded claim, attritional contract2", 0, programCeded[4].ultimate
+        assertEquals "program, large ceded claim, single contract2", 18, programCeded[5].ultimate
     }
 
     void testUsageQS_3WXL() {
@@ -284,7 +280,7 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
         assertTrue 3 == wxl20xs30Net.size()
         assertTrue 3 == wxl20xs50Net.size()
         assertEquals "#program gross claims program", 3, programGross.size()
-        assertEquals "#program ceded claims program", 3, programCeded.size()
+        assertEquals "#program ceded claims program", 12, programCeded.size()
         assertEquals "#program net claims program", 3, programNet.size()
 
         assertEquals "quotaShare, attritional net claim", 80, qsClaimsNet[0].ultimate
@@ -315,16 +311,26 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
         assertEquals "wxl20xs50, large ceded claim 3", 20, wxl20xs50Ceded[2].ultimate
 
         assertEquals "program, attritional gross claim", 100, programGross[0].ultimate
-        assertEquals "program, attritional ceded claim", 20, programCeded[0].ultimate
         assertEquals "program, attritional net claim", 80, programNet[0].ultimate
 
         assertEquals "program, large gross claim 2", 60, programGross[1].ultimate
-        assertEquals "program, large ceded claim 2", 50, programCeded[1].ultimate
         assertEquals "program, large net claim 2", 10, programNet[1].ultimate
 
         assertEquals "program, large gross claim 3", 90, programGross[2].ultimate
-        assertEquals "program, large ceded claim 3", 40, programCeded[2].ultimate
         assertEquals "program, large net claim 3", 50, programNet[2].ultimate
+
+        assertEquals "program, attritional ceded claim, contract2", 20, programCeded[0].ultimate
+        assertEquals "program, large ceded claim 2, contract2", 12, programCeded[1].ultimate
+        assertEquals "program, large ceded claim 3, contract2", 18, programCeded[2].ultimate
+        assertEquals "program, attritional ceded claim, contract0", 0, programCeded[3].ultimate
+        assertEquals "program, large ceded claim 2, contract0", 0, programCeded[4].ultimate
+        assertEquals "program, large ceded claim 3, contract0", 20, programCeded[5].ultimate
+        assertEquals "program, attritional ceded claim, contract1", 0, programCeded[6].ultimate
+        assertEquals "program, large ceded claim 2, contract1", 20, programCeded[7].ultimate
+        assertEquals "program, large ceded claim 3, contract1", 0, programCeded[8].ultimate
+        assertEquals "program, attritional ceded claim, contract3", 0, programCeded[9].ultimate
+        assertEquals "program, large ceded claim 2, contract3", 18, programCeded[10].ultimate
+        assertEquals "program, large ceded claim 3, contract3", 2, programCeded[11].ultimate
     }
 //todo(sku): fix
 //    void testBouquetCommissionProgram() {

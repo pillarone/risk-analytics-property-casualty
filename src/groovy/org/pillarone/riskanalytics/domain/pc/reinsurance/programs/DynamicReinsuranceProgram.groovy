@@ -116,6 +116,8 @@ class DynamicReinsuranceProgram extends DynamicComposedComponent {
                 wireContractInClaims(getContract(i), (MarketClaimsMerger) claimsMergers[currentMerger - 1])
             }
             doWire WC, claimsMergers[currentMerger], 'inClaimsCeded', getContract(i), 'outCoveredClaims'
+            doWire PRC, this, 'outClaimsCeded', getContract(i), 'outCoveredClaims'
+            doWire PRC, this, 'outClaimsDevelopmentLeanCeded', getContract(i), 'outClaimsDevelopmentLeanCeded'
         }
     }
 
@@ -152,11 +154,11 @@ class DynamicReinsuranceProgram extends DynamicComposedComponent {
      */
     private void wireReplicatingOutChannels() {
         if (componentList.size() > 0) {
-            doWire PRC, this, 'outClaimsCeded', claimsMergers[-1], 'outClaimsCeded'
+//            doWire PRC, this, 'outClaimsCeded', claimsMergers[-1], 'outClaimsCeded'
             doWire PRC, this, 'outClaimsGross', claimsMergers[-1], 'outClaimsGross'
             doWire PRC, this, 'outClaimsNet', claimsMergers[-1], 'outClaimsNet'
             doWire PRC, this, 'outClaimsDevelopmentLeanGross', claimsMergers[-1], 'outClaimsDevelopmentLeanGross'
-            doWire PRC, this, 'outClaimsDevelopmentLeanCeded', claimsMergers[-1], 'outClaimsDevelopmentLeanCeded'
+//            doWire PRC, this, 'outClaimsDevelopmentLeanCeded', claimsMergers[-1], 'outClaimsDevelopmentLeanCeded'
             doWire PRC, this, 'outClaimsDevelopmentLeanNet', claimsMergers[-1], 'outClaimsDevelopmentLeanNet'
             if (isReceiverWired(inUnderwritingInfo)) {
                 doWire PRC, this, 'outCoverUnderwritingInfo', underwritingInfoMergers[-1], 'outUnderwritingInfoCeded'

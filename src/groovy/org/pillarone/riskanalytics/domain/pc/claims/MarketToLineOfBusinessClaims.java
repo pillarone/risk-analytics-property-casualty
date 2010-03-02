@@ -38,14 +38,15 @@ public class MarketToLineOfBusinessClaims extends Component {
             int portionColumn = parmPortions.getColumnIndex(PORTION);
             Component lineOfBusiness = inClaims.get(0).sender;
             if (!(lineOfBusiness instanceof LobMarker)) {
-                throw new IllegalArgumentException("MarketToLineOfBusinessClaims compoment may be used only within a line of business component");
+                throw new IllegalArgumentException("MarketToLineOfBusinessClaims component may be used only within a line of business component");
             }
             for (Claim marketClaim : inClaims) {
                 String originName = marketClaim.origin.getNormalizedName();
                 int row = parmPortions.getColumnByName(PERIL).indexOf(originName);
                 if (row > -1) {
                     Claim lobClaim = marketClaim.copy();
-                    lobClaim.setOriginalClaim(marketClaim); // should be null see PMO-750
+                    // PMO-750: claim mergers in reinsurance program won't work with reference to market claims
+                    lobClaim.setOriginalClaim(lobClaim);
                     lobClaim.origin = lineOfBusiness;
                     lobClaim.setLineOfBusiness((LobMarker) lineOfBusiness);
                     lobClaim.scale((Double) parmPortions.getValueAt(row + 1, portionColumn));
