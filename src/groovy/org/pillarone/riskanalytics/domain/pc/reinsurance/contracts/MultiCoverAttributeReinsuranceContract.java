@@ -40,10 +40,6 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
 
     /** claims whose source is a covered line         */
     private PacketList<Claim> outFilteredClaims = new PacketList<Claim>(Claim.class);
-    // todo(sku): remove the following and related lines as soon as PMO-648 is resolved
-    private PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanNet = new PacketList<ClaimDevelopmentLeanPacket>(ClaimDevelopmentLeanPacket.class);
-    private PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanGross = new PacketList<ClaimDevelopmentLeanPacket>(ClaimDevelopmentLeanPacket.class);
-    private PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanCeded = new PacketList<ClaimDevelopmentLeanPacket>(ClaimDevelopmentLeanPacket.class);
 
     private PacketList<UnderwritingInfo> outFilteredUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
 
@@ -59,7 +55,7 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
         parmContractStrategy.initBookKeepingFigures(outFilteredClaims, outFilteredUnderwritingInfo);
 
         Collections.sort(outFilteredClaims, SortClaimsByFractionOfPeriod.getInstance());
-        if (isSenderWired(getOutUncoveredClaims()) || isSenderWired(outClaimsDevelopmentLeanNet)) {
+        if (isSenderWired(getOutUncoveredClaims()) || isSenderWired(getOutClaimsDevelopmentLeanNet())) {
             calculateClaims(outFilteredClaims, outCoveredClaims, outUncoveredClaims, this);
         }
         else {
@@ -74,15 +70,15 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
         }
         if (inClaims.size() > 0 && inClaims.get(0) instanceof ClaimDevelopmentLeanPacket) {
             for (Claim claim : outFilteredClaims) {
-                outClaimsDevelopmentLeanGross.add((ClaimDevelopmentLeanPacket) claim);
+                getOutClaimsDevelopmentLeanGross().add((ClaimDevelopmentLeanPacket) claim);
             }
         }
         if (outCoveredClaims.size() > 0 && outCoveredClaims.get(0) instanceof ClaimDevelopmentLeanPacket) {
             for (Claim claim : outUncoveredClaims) {
-                outClaimsDevelopmentLeanNet.add((ClaimDevelopmentLeanPacket) claim);
+                getOutClaimsDevelopmentLeanNet().add((ClaimDevelopmentLeanPacket) claim);
             }
             for (Claim claim : outCoveredClaims) {
-                outClaimsDevelopmentLeanCeded.add((ClaimDevelopmentLeanPacket) claim);
+                getOutClaimsDevelopmentLeanCeded().add((ClaimDevelopmentLeanPacket) claim);
             }
         }
         if (isSenderWired(outContractFinancials)) {
@@ -136,30 +132,6 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
 
     public void setOutFilteredClaims(PacketList<Claim> outFilteredClaims) {
         this.outFilteredClaims = outFilteredClaims;
-    }
-
-    public PacketList<ClaimDevelopmentLeanPacket> getOutClaimsDevelopmentLeanNet() {
-        return outClaimsDevelopmentLeanNet;
-    }
-
-    public void setOutClaimsDevelopmentLeanNet(PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanNet) {
-        this.outClaimsDevelopmentLeanNet = outClaimsDevelopmentLeanNet;
-    }
-
-    public PacketList<ClaimDevelopmentLeanPacket> getOutClaimsDevelopmentLeanGross() {
-        return outClaimsDevelopmentLeanGross;
-    }
-
-    public void setOutClaimsDevelopmentLeanGross(PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanGross) {
-        this.outClaimsDevelopmentLeanGross = outClaimsDevelopmentLeanGross;
-    }
-
-    public PacketList<ClaimDevelopmentLeanPacket> getOutClaimsDevelopmentLeanCeded() {
-        return outClaimsDevelopmentLeanCeded;
-    }
-
-    public void setOutClaimsDevelopmentLeanCeded(PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanCeded) {
-        this.outClaimsDevelopmentLeanCeded = outClaimsDevelopmentLeanCeded;
     }
 
     public PacketList<ReinsuranceResultWithCommissionPacket> getOutContractFinancials() {

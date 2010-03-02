@@ -38,11 +38,11 @@ class EventSeverityGenerator extends GeneratorCachingComponent {
         if (parmDistribution == null) {
             throw new IllegalStateException("A distribution must be set");
         }
-        generator = getCachedGenerator(parmDistribution, parmModification);
         super.validateParameterization();
     }
 
     public void doCalculation() {
+        generator = getCachedGenerator(parmDistribution, parmModification);
         int numberOfEvents = inSeverityCount.value.sum()
         List<Double> dates = UniformDoubleList.getDoubles(numberOfEvents, true)
         dates.sort()

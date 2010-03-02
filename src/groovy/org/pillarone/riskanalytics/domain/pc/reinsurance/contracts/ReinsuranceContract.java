@@ -9,6 +9,7 @@ import org.pillarone.riskanalytics.domain.pc.claims.SortClaimsByFractionOfPeriod
 import org.pillarone.riskanalytics.domain.pc.reinsurance.ReinsuranceResultWithCommissionPacket;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.ICommissionStrategy;
+import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities;
 
@@ -36,10 +37,15 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
 
     protected PacketList<Claim> inClaims = new PacketList<Claim>(Claim.class);
     protected PacketList<UnderwritingInfo> inUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
-    protected PacketList<SingleValuePacket> inInitialReserves = new PacketList<SingleValuePacket>(SingleValuePacket.class);
+    private PacketList<SingleValuePacket> inInitialReserves = new PacketList<SingleValuePacket>(SingleValuePacket.class);
 
     protected PacketList<Claim> outUncoveredClaims = new PacketList<Claim>(Claim.class);
     protected PacketList<Claim> outCoveredClaims = new PacketList<Claim>(Claim.class);
+
+    // todo(sku): remove the following and related lines as soon as PMO-648 is resolved
+    private PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanNet = new PacketList<ClaimDevelopmentLeanPacket>(ClaimDevelopmentLeanPacket.class);
+    private PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanGross = new PacketList<ClaimDevelopmentLeanPacket>(ClaimDevelopmentLeanPacket.class);
+    private PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanCeded = new PacketList<ClaimDevelopmentLeanPacket>(ClaimDevelopmentLeanPacket.class);
 
     protected PacketList<UnderwritingInfo> outNetAfterCoverUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
     protected PacketList<UnderwritingInfo> outCoverUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
@@ -65,6 +71,7 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
         }
 
         parmCommissionStrategy.calculateCommission(outCoveredClaims, outCoverUnderwritingInfo , false);
+        fillDevelopedClaimsChannels();
         if (isSenderWired(getOutContractFinancials())) {
             ReinsuranceResultWithCommissionPacket result = new ReinsuranceResultWithCommissionPacket();
             UnderwritingInfo underwritingInfo = UnderwritingInfoUtilities.aggregate(outCoverUnderwritingInfo);
@@ -76,6 +83,22 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
             outContractFinancials.add(result);
         }
         parmContractStrategy.resetMemberInstances();
+    }
+
+    protected void fillDevelopedClaimsChannels() {
+        if (inClaims.size() > 0 && inClaims.get(0) instanceof ClaimDevelopmentLeanPacket) {
+            for (Claim claim : inClaims) {
+                outClaimsDevelopmentLeanGross.add((ClaimDevelopmentLeanPacket) claim);
+            }
+        }
+        if (outCoveredClaims.size() > 0 && outCoveredClaims.get(0) instanceof ClaimDevelopmentLeanPacket) {
+            for (Claim claim : outUncoveredClaims) {
+                outClaimsDevelopmentLeanNet.add((ClaimDevelopmentLeanPacket) claim);
+            }
+            for (Claim claim : outCoveredClaims) {
+                outClaimsDevelopmentLeanCeded.add((ClaimDevelopmentLeanPacket) claim);
+            }
+        }
     }
 
     public void calculateClaims(List<Claim> grossClaims, List<Claim> cededClaims, List<Claim> netClaims, Component origin) {
@@ -230,5 +253,37 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
 
     public void setOutContractFinancials(PacketList<ReinsuranceResultWithCommissionPacket> outContractFinancials) {
         this.outContractFinancials = outContractFinancials;
+    }
+
+    public PacketList<SingleValuePacket> getInInitialReserves() {
+        return inInitialReserves;
+    }
+
+    public void setInInitialReserves(PacketList<SingleValuePacket> inInitialReserves) {
+        this.inInitialReserves = inInitialReserves;
+    }
+
+    public PacketList<ClaimDevelopmentLeanPacket> getOutClaimsDevelopmentLeanNet() {
+        return outClaimsDevelopmentLeanNet;
+    }
+
+    public void setOutClaimsDevelopmentLeanNet(PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanNet) {
+        this.outClaimsDevelopmentLeanNet = outClaimsDevelopmentLeanNet;
+    }
+
+    public PacketList<ClaimDevelopmentLeanPacket> getOutClaimsDevelopmentLeanGross() {
+        return outClaimsDevelopmentLeanGross;
+    }
+
+    public void setOutClaimsDevelopmentLeanGross(PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanGross) {
+        this.outClaimsDevelopmentLeanGross = outClaimsDevelopmentLeanGross;
+    }
+
+    public PacketList<ClaimDevelopmentLeanPacket> getOutClaimsDevelopmentLeanCeded() {
+        return outClaimsDevelopmentLeanCeded;
+    }
+
+    public void setOutClaimsDevelopmentLeanCeded(PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanCeded) {
+        this.outClaimsDevelopmentLeanCeded = outClaimsDevelopmentLeanCeded;
     }
 }
