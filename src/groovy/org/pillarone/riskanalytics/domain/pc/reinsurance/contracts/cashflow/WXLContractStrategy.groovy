@@ -14,8 +14,8 @@ class WXLContractStrategy extends XLContractStrategy implements IReinsuranceCont
      *  The keys are the original gross claims sorting from claims development component. The value contains the
      *  corresponding cumulative ceded claims created within this contract. Only incurred and paid are updated!
      */
-    Map<ClaimDevelopmentPacket, ClaimDevelopmentPacket> originalClaimCumulativeCededClaim = new HashMap<ClaimDevelopmentPacket, ClaimDevelopmentPacket>();
-    Map<ClaimDevelopmentPacket, ClaimDevelopmentPacket> originalClaimCumulativeGrossClaim = new HashMap<ClaimDevelopmentPacket, ClaimDevelopmentPacket>();
+    Map<Claim, ClaimDevelopmentPacket> originalClaimCumulativeCededClaim = new HashMap<Claim, ClaimDevelopmentPacket>();
+    Map<Claim, ClaimDevelopmentPacket> originalClaimCumulativeGrossClaim = new HashMap<Claim, ClaimDevelopmentPacket>();
 
     ReinsuranceContractType getType() {
         ReinsuranceContractType.WXL;
@@ -42,8 +42,8 @@ class WXLContractStrategy extends XLContractStrategy implements IReinsuranceCont
                         originalClaimCumulativeGrossClaim.put(grossClaim, cumulativeGrossClaim)
                     }
                     else {
-                        originalClaimCumulativeCededClaim.put((ClaimDevelopmentPacket) grossClaim.originalClaim, cumulativeCededClaim)
-                        originalClaimCumulativeGrossClaim.put((ClaimDevelopmentPacket) grossClaim.originalClaim, cumulativeGrossClaim)
+                        originalClaimCumulativeCededClaim.put(grossClaim.originalClaim, cumulativeCededClaim)
+                        originalClaimCumulativeGrossClaim.put(grossClaim.originalClaim, cumulativeGrossClaim)
                     }
 
                 }
