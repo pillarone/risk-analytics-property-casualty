@@ -52,7 +52,7 @@ public class CommissionStrategyType extends AbstractParameterObjectClassifier {
         ICommissionStrategy commissionStrategy ;
         switch (type) {
             case CommissionStrategyType.NOCOMMISSION:
-                commissionStrategy = new FixedCommissionStrategy()
+                commissionStrategy = new NoCommissionStrategy()
                 break;
             case CommissionStrategyType.FIXEDCOMMISSION:
                 commissionStrategy = new FixedCommissionStrategy(commission : (Double) parameters['commission'])

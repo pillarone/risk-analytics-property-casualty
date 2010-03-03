@@ -90,7 +90,10 @@ public class MultiLineReinsuranceContract extends ReinsuranceContract {
                 result.setCededPremium(-underwritingInfo.getPremiumWritten());
                 result.setCededCommission(underwritingInfo.getCommission());
             }
-            result.setCededClaim(ClaimUtilities.aggregateClaims(outCoveredClaims, this).getUltimate());
+            Claim aggregateClaim = ClaimUtilities.aggregateClaims(outCoveredClaims, this);
+            if (aggregateClaim != null) {
+                result.setCededClaim(aggregateClaim.getUltimate());
+            }
             outContractFinancials.add(result);
         }
     }

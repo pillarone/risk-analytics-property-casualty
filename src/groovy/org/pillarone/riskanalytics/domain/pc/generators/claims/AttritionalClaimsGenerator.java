@@ -61,7 +61,6 @@ public class AttritionalClaimsGenerator extends ClaimsGenerator {
         if (!getParmBase().equals(Exposure.ABSOLUTE) && !isReceiverWired(getInUnderwritingInfo())) {
             throw new IllegalStateException("As no underwriting information is provided, only 'absolute' is allowed as base.");
         }
-        // todo dk: this looks like a side effect (not a validation) to me
         super.validateParameterization();
     }
 
