@@ -1,12 +1,14 @@
-package org.pillarone.riskanalytics.domain.utils
+package org.pillarone.riskanalytics.domain.utils;
 
-import org.joda.time.DateTime
-import org.joda.time.Years
-import org.joda.time.MutableDateTime
-import java.text.SimpleDateFormat
-import org.joda.time.Period
-import org.joda.time.PeriodType
-//import java.text.SimpleDateFormat
+import org.joda.time.DateTime;
+import org.joda.time.Years;
+import org.joda.time.MutableDateTime;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import org.joda.time.Period;
+import org.joda.time.PeriodType;
+import org.joda.time.Days;
 
 /**
  * Utility class for date, time and period calculations that are either
@@ -14,14 +16,21 @@ import org.joda.time.PeriodType
  *
  * ben (dot) ginsberg (at) intuitive-collaboration (dot) com
  */
-class DateTimeUtilities {
+public class DateTimeUtilities {
 
     /**
      * Converts a string of the form YYYY-MM-DD (an ISO-2014 date or ISO-8601 calendar date) to a Joda DateTime
+     * @param date
+     * @return
      */
     public static DateTime convertToDateTime(String date) {
-        if (date.length() == 0) return null;
-        return new DateTime((new SimpleDateFormat("yyyy-MM-dd")).parse(date));
+        try {
+            if (date.length() == 0) return null;
+            return new DateTime((new SimpleDateFormat("yyyy-MM-dd")).parse(date));
+        }
+        catch (ParseException ex) {
+            throw new RuntimeException(ex.getMessage(), ex);
+        }
     }
 
     /**
@@ -47,6 +56,9 @@ class DateTimeUtilities {
      *   period = DateTimeUtilities.mapDateToPeriod(lastPointInPrevPeriod, startOfThisPeriod) // -1
      *
      * // todo(bgi): treat non-year periods, e.g. quarterly, monthly (rename this method to mapDateToCalendarYear)
+     *  @param date
+     *  @param startDate
+     *  @return
      */
     public static int mapDateToPeriod(DateTime date, DateTime startDate) {
         Years years = Years.yearsBetween(startDate, date); // (today, yesterday) -> 'P0Y' (rounded integer!)
@@ -83,6 +95,8 @@ class DateTimeUtilities {
     /**
      * Maps a date $t$ to a fraction of period $f \in [0,1)$ representing elapsed time since start of period.
      * Currently only supports periods beginning at the beginning of a given year.
+     * @param date
+     * @return
      */
     public static double mapDateToFractionOfPeriod(DateTime date) {
         return ((date.dayOfYear().get() - 1) / (date.year().isLeap() ? 366d : 365d));
@@ -95,9 +109,8 @@ class DateTimeUtilities {
 
     public static int simulationPeriod(DateTime simulationStart, Period periodLength, DateTime date) {
         if (periodLength.getMonths() > 0) {
-            println new Period(simulationStart, date, PeriodType.months()).getMonths() / (double) periodLength.getMonths()
             double months = new Period(simulationStart, date, PeriodType.months()).getMonths() / (double) periodLength.getMonths();
-            return months < 0 ? Math.floor(months) : months;
+            return months < 0 ? (int) Math.floor(months) : (int) months;
         }
         else if (periodLength.getMonths() == 0 && periodLength.getYears() > 0) {
             return new Period(simulationStart, date).getYears();
@@ -105,4 +118,22 @@ class DateTimeUtilities {
         throw new IllegalArgumentException("No rule implemented for " + simulationStart + ", " + periodLength + ", " + date);
     }
 
+    public static DateTime getDate(DateTime beginOfPeriod, DateTime endOfPeriod, int periodOffset, double fractionOfPeriod) {
+        Period periodLength = simulationPeriodLength(beginOfPeriod, endOfPeriod);
+        DateTime shiftedDate = new DateTime(beginOfPeriod).plusDays((int) (fractionOfPeriod * Days.daysBetween(beginOfPeriod, endOfPeriod).getDays()));
+        int sign = periodOffset >= 0 ? 1 : -1;
+        periodOffset = sign * periodOffset;
+        Period shift = new Period();
+        while (periodOffset > 0) {
+            shift = shift.plus(periodLength);
+            periodOffset--;
+        }
+        if (sign == 1) {
+            shiftedDate = shiftedDate.plus(shift);
+        }
+        else {
+            shiftedDate = shiftedDate.minus(shift);
+        }
+        return shiftedDate;
+    }
 }

@@ -15,6 +15,25 @@ import org.joda.time.Period
  */
 class DateTimeUtilitiesTests extends GroovyTestCase {
 
+    DateTime date20081213 = new DateTime(2008,12,13,0,0,0,0)
+    DateTime date20090516 = new DateTime(2009,5,16,0,0,0,0)
+    DateTime date20090504 = new DateTime(2009,5,4,0,0,0,0)
+    DateTime date20090524 = new DateTime(2009,5,24,0,0,0,0)
+    DateTime date20091024 = new DateTime(2009,10,24,0,0,0,0)
+    DateTime date20091115= new DateTime(2009,11,15,0,0,0,0)
+    DateTime date20100101 = new DateTime(2010,1,1,0,0,0,0)
+    DateTime date20100201 = new DateTime(2010,2,1,0,0,0,0)
+    DateTime date20100401 = new DateTime(2010,4,1,0,0,0,0)
+    DateTime date20100501 = new DateTime(2010,5,1,0,0,0,0)
+    DateTime date20100701 = new DateTime(2010,7,1,0,0,0,0)
+    DateTime date20100704 = new DateTime(2010,7,4,0,0,0,0)
+    DateTime date20101001 = new DateTime(2010,10,1,0,0,0,0)
+    DateTime date20110101 = new DateTime(2011,1,1,0,0,0,0)
+    DateTime date20110201 = new DateTime(2011,2,1,0,0,0,0)
+    DateTime date20110401 = new DateTime(2011,4,1,0,0,0,0)
+    DateTime date20110701 = new DateTime(2011,7,1,0,0,0,0)
+    DateTime date20120101 = new DateTime(2012,1,1,0,0,0,0)
+
     void testConvertToDateTime() {
 
         List stableDates = [
@@ -84,12 +103,12 @@ class DateTimeUtilitiesTests extends GroovyTestCase {
         ]
         for (int i = 0; i < missingDateFields.size(); i++) {
             String inputString = missingDateFields[i]
-            shouldFail java.text.ParseException, { DateTimeUtilities.convertToDateTime(inputString) }
+            shouldFail RuntimeException, { DateTimeUtilities.convertToDateTime(inputString) }
         }
 
         assertTrue 'Empty string returns null DateTime', DateTimeUtilities.convertToDateTime('') == null
-        shouldFail java.text.ParseException, { DateTimeUtilities.convertToDateTime('2000') }
-        shouldFail java.text.ParseException, { DateTimeUtilities.convertToDateTime('a-b-c') }
+        shouldFail RuntimeException, { DateTimeUtilities.convertToDateTime('2000') }
+        shouldFail RuntimeException, { DateTimeUtilities.convertToDateTime('a-b-c') }
     }
 
     void testMapDateToPeriod() {
@@ -151,19 +170,7 @@ class DateTimeUtilitiesTests extends GroovyTestCase {
         assertEquals 'last day of leap year = 1-1/<366>',      366, 0.001*Math.round(1000/(1d-DateTimeUtilities.mapDateToFractionOfPeriod(new DateTime(2012,12,31,0,0,0,0))))
     }
 
-    DateTime date20100101 = new DateTime(2010,1,1,0,0,0,0)
-    DateTime date20100201 = new DateTime(2010,2,1,0,0,0,0)
-    DateTime date20100401 = new DateTime(2010,4,1,0,0,0,0)
-    DateTime date20100501 = new DateTime(2010,5,1,0,0,0,0)
-    DateTime date20100701 = new DateTime(2010,7,1,0,0,0,0)
-    DateTime date20101001 = new DateTime(2010,10,1,0,0,0,0)
-    DateTime date20110101 = new DateTime(2011,1,1,0,0,0,0)
-    DateTime date20110201 = new DateTime(2011,2,1,0,0,0,0)
-    DateTime date20110401 = new DateTime(2011,4,1,0,0,0,0)
-    DateTime date20110701 = new DateTime(2011,7,1,0,0,0,0)
-    DateTime date20120101 = new DateTime(2012,1,1,0,0,0,0)
-
-    void simulationPeriodLength() {
+    void testSimulationPeriodLength() {
         assertEquals "3 months", 3, DateTimeUtilities.simulationPeriodLength(date20100101, date20100401).getMonths()
         assertEquals "3 months", -3, DateTimeUtilities.simulationPeriodLength(date20100401, date20100101).getMonths()
         assertEquals "6 months", 6, DateTimeUtilities.simulationPeriodLength(date20100101, date20100701).getMonths()
@@ -194,5 +201,13 @@ class DateTimeUtilitiesTests extends GroovyTestCase {
 
         assertEquals "date20110101, date20110201, 0", 0, DateTimeUtilities.simulationPeriod(date20110101, month3, date20110201)
         assertEquals "date20110101, date20110401, 1", 1, DateTimeUtilities.simulationPeriod(date20110101, month3, date20110401)
+    }
+
+    void testGetDate() {
+        assertEquals "-8/0.5 -> date20090516", date20090516, DateTimeUtilities.getDate(date20100101, date20100201, -8, 0.5)
+        assertEquals "6/0.1 -> date20100704", date20100704, DateTimeUtilities.getDate(date20100101, date20100201, 6, 0.1)
+        assertEquals "-3/0.75 -> date20091024", date20091024, DateTimeUtilities.getDate(date20100101, date20100201, -3, 0.75)
+        assertEquals "-1/0.5 -> date20091115", date20091115, DateTimeUtilities.getDate(date20100101, date20100401, -1, 0.5)
+        assertEquals "-2/0.95 -> date20081213", date20081213, DateTimeUtilities.getDate(date20100101, date20110101, -2, 0.95)
     }
 }
