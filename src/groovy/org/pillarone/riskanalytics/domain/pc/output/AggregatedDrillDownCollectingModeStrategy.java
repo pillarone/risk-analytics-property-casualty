@@ -70,14 +70,12 @@ public class AggregatedDrillDownCollectingModeStrategy implements ICollectingMod
                     continue;
                 }
                 SingleValueResult result = new SingleValueResult();
+//                result.setSimulationRun(packetCollector.getSimulationScope().getSimulation().getSimulationRun());     // todo(sku): correct syntax for master branch
                 result.setSimulationRun(packetCollector.getSimulationScope().getSimulationRun());
                 result.setIteration(packetCollector.getSimulationScope().getIterationScope().getCurrentIteration());
                 result.setPeriod(packetCollector.getSimulationScope().getIterationScope().getPeriodScope().getCurrentPeriod());
-//                result.setPath(getPathMapping(path));
                 result.setPath(packetCollector.getSimulationScope().getMappingCache().lookupPath(path));
                 result.setCollector(packetCollector.getSimulationScope().getMappingCache().lookupCollector(AbstractBulkInsert.DEFAULT_COLLECTOR_NAME));
-                // todo(sku): ask msp how to integrate the fieldName in the lookup
-//                result.setField(packetCollector.getSimulationScope().getMappingCache().lookupField(path + PATH_SEPARATOR + fieldName));
                 result.setField(packetCollector.getSimulationScope().getMappingCache().lookupField(fieldName));
                 result.setValueIndex(0);
                 result.setValue(value);
