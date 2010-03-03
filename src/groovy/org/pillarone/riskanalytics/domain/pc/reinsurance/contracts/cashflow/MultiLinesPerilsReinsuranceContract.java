@@ -150,8 +150,11 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
                 periodScope.getNextPeriodStartDate()));
         if (!(parmContractStrategy instanceof TrivialContractStrategy)) {
             if (contract == null) {
-                contract = parmContractStrategy.copy();
+                contract = parmContractStrategy;
                 coveredByReinsurer = parmCoveredByReinsurer;
+            }
+            else if (contract.equals(parmContractStrategy)) {
+                // same instance: may occur if a one period parameterization is applied for several periods
             }
             else {
                 throw new IllegalArgumentException("Only one nontrivial strategy per contract is allowed");
