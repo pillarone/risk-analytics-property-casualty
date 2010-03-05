@@ -70,8 +70,10 @@ public class AggregatedDrillDownCollectingModeStrategy implements ICollectingMod
                     continue;
                 }
                 SingleValueResult result = new SingleValueResult();
-//                result.setSimulationRun(packetCollector.getSimulationScope().getSimulation().getSimulationRun());     // todo(sku): correct syntax for master branch
-                result.setSimulationRun(packetCollector.getSimulationScope().getSimulationRun());
+                // correct syntax for master branch (0.6)
+                result.setSimulationRun(packetCollector.getSimulationScope().getSimulation().getSimulationRun());
+                // correct syntax for 0.5.x branch
+//                result.setSimulationRun(packetCollector.getSimulationScope().getSimulationRun());
                 result.setIteration(packetCollector.getSimulationScope().getIterationScope().getCurrentIteration());
                 result.setPeriod(packetCollector.getSimulationScope().getIterationScope().getPeriodScope().getCurrentPeriod());
                 result.setPath(packetCollector.getSimulationScope().getMappingCache().lookupPath(path));

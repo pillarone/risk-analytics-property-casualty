@@ -11,7 +11,7 @@ import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope
 import org.pillarone.riskanalytics.domain.assets.constants.BondType
 import org.pillarone.riskanalytics.domain.assets.constants.Rating
 import org.pillarone.riskanalytics.domain.assets.constants.Seniority
-import org.pillarone.riskanalytics.core.output.SimulationRun
+import org.pillarone.riskanalytics.core.simulation.item.Simulation
 
 /**
  * @author cyril (dot) neyme (at) kpmg (dot) fr
@@ -62,8 +62,8 @@ public class AssetEngineTests extends GroovyTestCase {
         fees.bondTransactionCostsRate = 0.0005;
 
         AssetEngine assetEngine = new AssetEngine();
-        assetEngine.simulationScope = new SimulationScope(iterationScope: new IterationScope(periodScope: new PeriodScope()), simulationRun: new SimulationRun());
-        assetEngine.simulationScope.simulationRun.beginOfFirstPeriod = new DateTime(startDate)
+        assetEngine.simulationScope = new SimulationScope(iterationScope: new IterationScope(periodScope: new PeriodScope()), simulation: new Simulation());
+        assetEngine.simulationScope.simulation.beginOfFirstPeriod = new DateTime(startDate)
         assetEngine.simulationScope.model = new VoidTestModel()
         assetEngine.periodStore = new PeriodStore(assetEngine.simulationScope.iterationScope.periodScope)
         assetEngine.simulationScope.iterationScope.periodScope.periodCounter = new AssetModel().createPeriodCounter(new DateTime(startDate))
