@@ -54,7 +54,12 @@ public class ReinsuranceContractType extends AbstractParameterObjectClassifier {
         return new TrivialContractStrategy()
     }
 
+    @Deprecated
     static IReinsuranceContractStrategy getContractStrategy(ReinsuranceContractType type, Map parameters) {
+        getStrategy(type, parameters)
+    }
+
+    static IReinsuranceContractStrategy getStrategy(ReinsuranceContractType type, Map parameters) {
         switch (type) {
             case ReinsuranceContractType.TRIVIAL:
                 return new TrivialContractStrategy()
@@ -74,21 +79,5 @@ public class ReinsuranceContractType extends AbstractParameterObjectClassifier {
                 return new StopLossContractStrategy(attachmentPoint: parameters["attachmentPoint"], limit: parameters["limit"],
                         termLimit: parameters["termLimit"], premiumBase: parameters["premiumBase"], premium: parameters["premium"])
         }
-    }
-
-    public String getConstructionString(Map parameters) {
-        StringBuffer parameterString = new StringBuffer('[')
-        parameters.each {k, v ->
-            if (v.class.isEnum()) {
-                parameterString << "\"$k\":${v.class.name}.$v,"
-            } else {
-                parameterString << "\"$k\":$v,"
-            }
-        }
-        if (parameterString.size() == 1) {
-            parameterString << ':'
-        }
-        parameterString << ']'
-        "org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cashflow.ReinsuranceContractType.getContractStrategy(${this.class.name}.${typeName.toUpperCase()}, ${parameterString})"
     }
 }

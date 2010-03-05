@@ -68,24 +68,4 @@ public class PatternStrategyType extends AbstractParameterObjectClassifier {
         }
         return pattern;
     }
-
-//    public String getConstructionString(Map parameters) {
-//        StringBuffer parameterString = new StringBuffer('[')
-//        parameters.each {k, v ->
-//            if (v.class.isEnum()) {
-//                parameterString << "\"$k\":${v.class.name}.$v,"
-//            }
-//            else if (v instanceof IParameterObject) {
-//                parameterString << "\"$k\":${v.type.getConstructionString(v.parameters)},"
-//            }
-//            else {
-//                parameterString << "\"$k\":$v,"
-//            }
-//        }
-//        if (parameterString.size() == 1) {
-//            parameterString << ':'
-//        }
-//        parameterString << ']'
-//        return "org.pillarone.riskanalytics.domain.pc.reserves.cashflow.PatternStrategyType.getStrategy(${this.class.name}.${typeName.toUpperCase()}, ${parameterString})"
-//    }
 }

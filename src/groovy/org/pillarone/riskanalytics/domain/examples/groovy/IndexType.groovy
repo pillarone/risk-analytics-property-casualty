@@ -51,20 +51,4 @@ class IndexType extends AbstractParameterObjectClassifier {
         }
         return index
     }
-
-    public String getConstructionString(Map parameters) {
-        StringBuffer parameterString = new StringBuffer('[')
-        parameters.each {k, v ->
-            if (v.class.isEnum()) {
-                parameterString << "\"$k\":${v.class.name}.$v,"
-            } else {
-                parameterString << "\"$k\":$v,"
-            }
-        }
-        if (parameterString.size() == 1) {
-            parameterString << ':'
-        }
-        parameterString << ']'
-        "org.pillarone.riskanalytics.domain.examples.groovy.IndexType.getStrategy(${this.class.name}.${typeName.toUpperCase()}, ${parameterString})"
-    }
 }
