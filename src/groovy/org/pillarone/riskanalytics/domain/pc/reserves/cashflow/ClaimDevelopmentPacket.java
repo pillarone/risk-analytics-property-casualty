@@ -116,6 +116,7 @@ public class ClaimDevelopmentPacket extends Claim {
         super.set(claim);
         setPaid(claim.getPaid());
         setReserved(claim.getReserved());
+        setOriginalPeriod(claim.getOriginalPeriod());
         setChangeInReserves(claim.getChangeInReserves());
     }
 

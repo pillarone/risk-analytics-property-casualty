@@ -189,9 +189,9 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         def netClaims = new TestProbe(contract, 'outUncoveredClaims')
 
         contract.doCalculation()
-        assertEquals 'year 2010 # gross covered', 0, contract.outClaimsGrossInCoveredPeriod.size()
-        assertEquals 'year 2010 # ceded', 0, contract.outCoveredClaims.size()
-        assertEquals 'year 2010 # net', 0, contract.outUncoveredClaims.size()
+        assertEquals 'year 2010 # gross covered', 1, contract.outClaimsGrossInCoveredPeriod.size()
+        assertEquals 'year 2010 # ceded', 1, contract.outCoveredClaims.size()
+        assertEquals 'year 2010 # net', 1, contract.outUncoveredClaims.size()
         contract.reset()
 
         contract.inClaims << claim1000P0 << claim800P0 << claim1000P1 << claim800P1
@@ -228,9 +228,9 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         contract.parmContractStrategy = ReinsuranceContractType.getTrivial()
         contract.simulationScope.iterationScope.periodScope.prepareNextPeriod()
         contract.doCalculation()
-        assertEquals 'year 2012 # gross covered', 0, contract.outClaimsGrossInCoveredPeriod.size()
-        assertEquals 'year 2012 # ceded', 0, contract.outCoveredClaims.size()
-        assertEquals 'year 2012 # net', 0, contract.outUncoveredClaims.size()
+        assertEquals 'year 2012 # gross covered', 2, contract.outClaimsGrossInCoveredPeriod.size()      // todo(sku): investigate
+        assertEquals 'year 2012 # ceded', 2, contract.outCoveredClaims.size()
+        assertEquals 'year 2012 # net', 2, contract.outUncoveredClaims.size()
 
         contract.reset()
 
@@ -238,29 +238,31 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         contract.parmContractStrategy = ReinsuranceContractType.getTrivial()
         contract.simulationScope.iterationScope.periodScope.prepareNextPeriod()
         contract.doCalculation()
-        assertEquals 'year 2013, # gross covered', 2, contract.outClaimsGrossInCoveredPeriod.size()
-        assertEquals 'year 2013, claim1000 gross covered', claim1000P3, contract.outClaimsGrossInCoveredPeriod[0]
-        assertEquals 'year 2013, claim800 gross covered', claim800P3, contract.outClaimsGrossInCoveredPeriod[1]
+        assertEquals 'year 2013, # gross covered', 4, contract.outClaimsGrossInCoveredPeriod.size()
+        assertEquals 'year 2013, claim1000 gross covered', claim1000P1, contract.outClaimsGrossInCoveredPeriod[0]
+        assertEquals 'year 2013, claim1000 gross covered', claim1000P3, contract.outClaimsGrossInCoveredPeriod[1]
+        assertEquals 'year 2013, claim800 gross covered', claim800P1, contract.outClaimsGrossInCoveredPeriod[2]
+        assertEquals 'year 2013, claim800 gross covered', claim800P3, contract.outClaimsGrossInCoveredPeriod[3]
 
-        assertEquals 'year 2013, # ceded', 2, contract.outCoveredClaims.size()
-        assertEquals 'year 2013, claim1000 incurred ceded', 250, contract.outCoveredClaims[0].incurred
-        assertEquals 'year 2013, claim800 incurred ceded', 200, contract.outCoveredClaims[1].incurred
-        assertEquals 'year 2013, claim1000 paid ceded', 125, contract.outCoveredClaims[0].paid
-        assertEquals 'year 2013, claim800 paid ceded', 120, contract.outCoveredClaims[1].paid
-        assertEquals 'year 2013, claim1000 reserved ceded', 125, contract.outCoveredClaims[0].reserved
-        assertEquals 'year 2013, claim800 reserved ceded', 80, contract.outCoveredClaims[1].reserved
-        assertEquals 'year 2013, claim1000 change in reserves ceded', 125, contract.outCoveredClaims[0].changeInReserves
-        assertEquals 'year 2013, claim800 change in reserves ceded', 120, contract.outCoveredClaims[1].changeInReserves
+        assertEquals 'year 2013, # ceded', 4, contract.outCoveredClaims.size()
+        assertEquals 'year 2013, claim1000 incurred ceded', 250, contract.outCoveredClaims[1].incurred
+        assertEquals 'year 2013, claim800 incurred ceded', 200, contract.outCoveredClaims[2].incurred
+        assertEquals 'year 2013, claim1000 paid ceded', 125, contract.outCoveredClaims[1].paid
+        assertEquals 'year 2013, claim800 paid ceded', 120, contract.outCoveredClaims[2].paid
+        assertEquals 'year 2013, claim1000 reserved ceded', 125, contract.outCoveredClaims[1].reserved
+        assertEquals 'year 2013, claim800 reserved ceded', 80, contract.outCoveredClaims[2].reserved
+        assertEquals 'year 2013, claim1000 change in reserves ceded', 125, contract.outCoveredClaims[1].changeInReserves
+        assertEquals 'year 2013, claim800 change in reserves ceded', 120, contract.outCoveredClaims[2].changeInReserves
 
-        assertEquals 'year 2013, # net', 2, contract.outUncoveredClaims.size()
-        assertEquals 'year 2013, claim1000 incurred net', 750, contract.outUncoveredClaims[0].incurred
-        assertEquals 'year 2013, claim800 incurred net', 600, contract.outUncoveredClaims[1].incurred
-        assertEquals 'year 2013, claim1000 paid net', 375, contract.outUncoveredClaims[0].paid
-        assertEquals 'year 2013, claim800 paid net', 360, contract.outUncoveredClaims[1].paid
-        assertEquals 'year 2013, claim1000 reserved net', 375, contract.outUncoveredClaims[0].reserved
-        assertEquals 'year 2013, claim800 reserved net', 240, contract.outUncoveredClaims[1].reserved
-        assertEquals 'year 2013, claim1000 change in reserves net', 375, contract.outUncoveredClaims[0].changeInReserves
-        assertEquals 'year 2013, claim800 change in reserves net', 360, contract.outUncoveredClaims[1].changeInReserves
+        assertEquals 'year 2013, # net', 4, contract.outUncoveredClaims.size()
+        assertEquals 'year 2013, claim1000 incurred net', 750, contract.outUncoveredClaims[1].incurred
+        assertEquals 'year 2013, claim800 incurred net', 600, contract.outUncoveredClaims[2].incurred
+        assertEquals 'year 2013, claim1000 paid net', 375, contract.outUncoveredClaims[1].paid
+        assertEquals 'year 2013, claim800 paid net', 360, contract.outUncoveredClaims[2].paid
+        assertEquals 'year 2013, claim1000 reserved net', 375, contract.outUncoveredClaims[1].reserved
+        assertEquals 'year 2013, claim800 reserved net', 240, contract.outUncoveredClaims[2].reserved
+        assertEquals 'year 2013, claim1000 change in reserves net', 375, contract.outUncoveredClaims[1].changeInReserves
+        assertEquals 'year 2013, claim800 change in reserves net', 360, contract.outUncoveredClaims[2].changeInReserves
 
         contract.reset()
 
@@ -268,9 +270,9 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         contract.parmContractStrategy = ReinsuranceContractType.getTrivial()
         contract.simulationScope.iterationScope.periodScope.prepareNextPeriod()
         contract.doCalculation()
-        assertEquals 'year 2014 # gross covered', 0, contract.outClaimsGrossInCoveredPeriod.size()
-        assertEquals 'year 2014 # ceded', 0, contract.outCoveredClaims.size()
-        assertEquals 'year 2014 # net', 0, contract.outUncoveredClaims.size()
+        assertEquals 'year 2014 # gross covered', 2, contract.outClaimsGrossInCoveredPeriod.size()
+        assertEquals 'year 2014 # ceded', 2, contract.outCoveredClaims.size()
+        assertEquals 'year 2014 # net', 2, contract.outUncoveredClaims.size()
     }
 
     void testNoContractSet() {
@@ -350,7 +352,8 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         claimTooLate.setFractionOfPeriod 1
         contract.inClaims << claimTooLate
         contract.doCalculation()
-        assertEquals '# claims covered in period', 0, contract.outClaimsGrossInCoveredPeriod.size()
+        assertEquals '# claims covered in period', 1, contract.outClaimsGrossInCoveredPeriod.size()
+        assertEquals 'zero claim', 0, contract.outClaimsGrossInCoveredPeriod[0].ultimate
     }
 
 

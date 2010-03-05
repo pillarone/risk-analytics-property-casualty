@@ -9,12 +9,14 @@ import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope;
 import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimFilterUtilities;
+import org.pillarone.riskanalytics.domain.pc.claims.ClaimPacketFactory;
 import org.pillarone.riskanalytics.domain.pc.claims.SortClaimsByFractionOfPeriod;
 import org.pillarone.riskanalytics.domain.pc.constants.ReinsuranceContractBase;
 import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket;
+import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacketFactory;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingFilterUtilities;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities;
@@ -98,7 +100,7 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
         filterInChannels();
 
         CoverDuration coverOfCurrentPeriod = coverPerPeriod.get(periodScope.getCurrentPeriod());
-        if (contract != null && coverOfCurrentPeriod.isCovered()) {
+        if (contract != null) { // && coverOfCurrentPeriod.isCovered()) {
 //            if (!contract.exhausted()) {  // todo(sku): think if all following lines are really not necessary if a contract is exhausted
             filterClaimsInCoveredPeriod(periodScope.getCurrentPeriod(), coverOfCurrentPeriod);
 
@@ -113,8 +115,10 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
 
             Collections.sort(outClaimsGrossInCoveredPeriod, SortClaimsByFractionOfPeriod.getInstance());
             if (isSenderWired(outUncoveredClaims)) {
+                zeroPacket(outClaimsGrossInCoveredPeriod, inClaims.get(0).getClass());
                 calculateClaims(outClaimsGrossInCoveredPeriod, outCoveredClaims, outUncoveredClaims, this);
             } else {
+                zeroPacket(outClaimsGrossInCoveredPeriod, inClaims.get(0).getClass());
                 calculateCededClaims(outClaimsGrossInCoveredPeriod, outCoveredClaims, this);
             }
 
@@ -183,7 +187,9 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
             if (claim.getClass().equals(ClaimDevelopmentPacket.class)) {
                 int originalPeriod = ((ClaimDevelopmentPacket) claim).getOriginalPeriod();
                 double fractionOfPeriod = ((ClaimDevelopmentPacket) claim).getFractionOfPeriod();
-                if (originalPeriod == currentPeriod && coverOfCurrentPeriod.isCovered(fractionOfPeriod)) {  // todo(sku): currentPeriod or 0?
+                boolean originalPeriodCovered = originalPeriod < coverPerPeriod.size() && coverPerPeriod.get(originalPeriod).isCovered(fractionOfPeriod);
+                if (originalPeriod == currentPeriod && coverOfCurrentPeriod.isCovered(fractionOfPeriod)
+                        || originalPeriodCovered) {
                     outClaimsGrossInCoveredPeriod.add(claim);
                 }
             }
@@ -262,6 +268,28 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
             setOriginalUnderwritingInfo(underwritingInfo, cededUnderwritingInfo);
             cededUnderwritingInfos.add(cededUnderwritingInfo);
         }
+    }
+
+    /**
+     * zeroPackets are required to enable correct statistical keyfigure calculations. If no packet would be sent out
+     * for a wired channel in an iteration and period, the resulting statistical keyfigures would be wrong as the total
+     * number would not correspond to the number of iterations.
+     * @param outList
+     * @param clazz
+     * @return if an list contains no packet a zero packet is added
+     */
+    private void zeroPacket(PacketList outList, Class clazz) {
+        if (outList.size() > 0) return;
+        Claim claim;
+        if (clazz.equals(ClaimDevelopmentPacket.class)) {
+            claim = ClaimDevelopmentPacketFactory.createPacket();
+        }
+        else {
+            claim = ClaimPacketFactory.createPacket();
+        }
+        claim.setOrigin(this);
+        claim.scale(0);
+        outList.add(claim);
     }
 
     public IReinsuranceContractStrategy getParmContractStrategy() {
