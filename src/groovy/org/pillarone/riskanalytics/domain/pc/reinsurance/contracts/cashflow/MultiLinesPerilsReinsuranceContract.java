@@ -79,9 +79,9 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
     private PacketList<Claim> outCoveredClaims = new PacketList<Claim>(Claim.class);
 
     // todo(sku): remove the following and related lines as soon as PMO-648 is resolved
-    private PacketList<ClaimDevelopmentPacket> outClaimsDevelopmentNet = new PacketList<ClaimDevelopmentPacket>(ClaimDevelopmentPacket.class);
     private PacketList<ClaimDevelopmentPacket> outClaimsDevelopmentGross = new PacketList<ClaimDevelopmentPacket>(ClaimDevelopmentPacket.class);
     private PacketList<ClaimDevelopmentPacket> outClaimsDevelopmentCeded = new PacketList<ClaimDevelopmentPacket>(ClaimDevelopmentPacket.class);
+    private PacketList<ClaimDevelopmentPacket> outClaimsDevelopmentNet = new PacketList<ClaimDevelopmentPacket>(ClaimDevelopmentPacket.class);
 
     private PacketList<UnderwritingInfo> outNetAfterCoverUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
     private PacketList<UnderwritingInfo> outCoverUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
@@ -388,14 +388,6 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
         this.parmBasedOn = parmBasedOn;
     }
 
-    public PacketList<ClaimDevelopmentPacket> getOutClaimsDevelopmentNet() {
-        return outClaimsDevelopmentNet;
-    }
-
-    public void setOutClaimsDevelopmentNet(PacketList<ClaimDevelopmentPacket> outClaimsDevelopmentNet) {
-        this.outClaimsDevelopmentNet = outClaimsDevelopmentNet;
-    }
-
     public PacketList<ClaimDevelopmentPacket> getOutClaimsDevelopmentGross() {
         return outClaimsDevelopmentGross;
     }
@@ -410,6 +402,14 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
 
     public void setOutClaimsDevelopmentCeded(PacketList<ClaimDevelopmentPacket> outClaimsDevelopmentCeded) {
         this.outClaimsDevelopmentCeded = outClaimsDevelopmentCeded;
+    }
+
+    public PacketList<ClaimDevelopmentPacket> getOutClaimsDevelopmentNet() {
+        return outClaimsDevelopmentNet;
+    }
+
+    public void setOutClaimsDevelopmentNet(PacketList<ClaimDevelopmentPacket> outClaimsDevelopmentNet) {
+        this.outClaimsDevelopmentNet = outClaimsDevelopmentNet;
     }
 
     public ComboBoxTableMultiDimensionalParameter getParmCoveredLines() {
