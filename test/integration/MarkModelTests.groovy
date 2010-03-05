@@ -7,7 +7,7 @@ class MarkModelTests extends ModelTest {
         MarkModel
     }
 
-    protected boolean shouldCompareResults() {
-        true
-    }
+//    protected boolean shouldCompareResults() {
+//        true
+//    }
 }

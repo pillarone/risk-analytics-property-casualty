@@ -7,7 +7,7 @@ class SparrowModelTests extends ModelTest {
         SparrowModel
     }
 
-    protected boolean shouldCompareResults() {
-        true
-    }
+//    protected boolean shouldCompareResults() {
+//        true
+//    }
 }

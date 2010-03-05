@@ -21,7 +21,7 @@ class ExampleModelTests extends ModelTest {
         'All Aggregated'        
     }
 
-    protected boolean shouldCompareResults() {
-        true
-    }
+//    protected boolean shouldCompareResults() {
+//        true
+//    }
 }

@@ -7,7 +7,7 @@ class OneLobQSXLModelTests extends ModelTest {
         OneLobQSXLModel
     }
 
-    protected boolean shouldCompareResults() {
-        true
-    }
+//    protected boolean shouldCompareResults() {
+//        true
+//    }
 }

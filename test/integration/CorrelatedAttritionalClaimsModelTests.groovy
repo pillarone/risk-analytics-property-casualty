@@ -7,7 +7,7 @@ class CorrelatedAttritionalClaimsModelTests extends ModelTest {
         return CorrelatedAttritionalClaimsModel
     }
 
-    protected boolean shouldCompareResults() {
-        true
-    }
+//    protected boolean shouldCompareResults() {
+//        true
+//    }
 }
