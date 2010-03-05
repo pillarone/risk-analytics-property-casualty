@@ -13,7 +13,7 @@ public class OccurrenceAttritionalClaimsGeneratorStrategy extends AttritionalCla
     RandomDistribution occurrenceDistribution = RandomDistributionFactory.getDistribution(DistributionType.CONSTANT, ['constant': 0.5d])
 
     public Object getType() {
-        return ClaimsGeneratorType.ATTRITIONAL
+        return ClaimsGeneratorType.ATTRITIONAL_WITH_DATE
     }
 
     public Map getParameters() {

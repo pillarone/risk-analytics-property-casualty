@@ -26,7 +26,7 @@ public class OccurrenceFrequencySeverityClaimsGeneratorStrategy implements IPara
     FrequencySeverityClaimType produceClaim = FrequencySeverityClaimType.SINGLE
 
     public Object getType() {
-        return ClaimsGeneratorType.FREQUENCY_SEVERITY
+        return ClaimsGeneratorType.OCCURRENCE_AND_SEVERITY
     }
 
     public Map getParameters() {
