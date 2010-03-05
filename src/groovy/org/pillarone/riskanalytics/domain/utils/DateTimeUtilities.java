@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
 import org.joda.time.Days;
+import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope;
 
 /**
  * Utility class for date, time and period calculations that are either
@@ -102,9 +103,17 @@ public class DateTimeUtilities {
         return ((date.dayOfYear().get() - 1) / (date.year().isLeap() ? 366d : 365d));
     }
 
+    public static Period simulationPeriodLength(PeriodScope periodScope) {
+        return simulationPeriodLength(periodScope.getCurrentPeriodStartDate(), periodScope.getNextPeriodStartDate());
+    }
 
     public static Period simulationPeriodLength(DateTime beginOfPeriod, DateTime endOfPeriod) {
         return new Period(beginOfPeriod, endOfPeriod);
+    }
+
+    public static int simulationPeriod(DateTime simulationStart, DateTime endOfFirstPeriod, DateTime date) {
+        Period periodLength = simulationPeriodLength(simulationStart, endOfFirstPeriod);
+        return simulationPeriod(simulationStart, periodLength, date);
     }
 
     public static int simulationPeriod(DateTime simulationStart, Period periodLength, DateTime date) {
