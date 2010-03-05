@@ -59,6 +59,7 @@ class RiskBands extends Component implements IUnderwritingInfoMarker {
             underwritingInfo.sumInsured = parmUnderwritingInformation.getValueAt(i, 1)
             underwritingInfo.numberOfPolicies = parmUnderwritingInformation.getValueAt(i, 3)
             underwritingInfo.origin = this
+            underwritingInfo.originalUnderwritingInfo = underwritingInfo
             outUnderwritingInfo << underwritingInfo
         }
 

@@ -136,17 +136,21 @@ public class UnderwritingInfoUtilities {
      * @param underwritingInfos the list of underwritingInfo packets to filter
      * @param contracts the contract markers to filter by, if any; null means no filtering (all are accepted)
      * @param acceptedUnderwritingInfo the list of underwritingInfo packets whose contract is listed in contracts
+     * @param rejectedUnderwritingInfo (if not null) the remaining underwritingInfo packets that were filtered out
      */
     public static void segregateUnderwritingInfoByContract(List<UnderwritingInfo> underwritingInfos, List<IReinsuranceContractMarker> contracts,
-                                                           List<UnderwritingInfo> acceptedUnderwritingInfo) {
+                                                           List<UnderwritingInfo> acceptedUnderwritingInfo,
+                                                           List<UnderwritingInfo> rejectedUnderwritingInfo) {
         if (contracts == null || contracts.size() == 0) {
             acceptedUnderwritingInfo.addAll(underwritingInfos);
         }
         else {
             for (UnderwritingInfo underwritingInfo : underwritingInfos) {
-                // todo(bgi): replace getOrigin() with getReinsuranceContract once PMO-750 is resolved
-                if (contracts.contains(underwritingInfo.getOrigin())) { // validity of this line pending PMO-750
-                    acceptedUnderwritingInfo.add(UnderwritingInfoPacketFactory.copy(underwritingInfo));
+                if (contracts.contains(underwritingInfo.getReinsuranceContract())) {
+                    acceptedUnderwritingInfo.add(underwritingInfo);
+                }
+                else if (rejectedUnderwritingInfo != null) {
+                    rejectedUnderwritingInfo.add(underwritingInfo);
                 }
             }
         }

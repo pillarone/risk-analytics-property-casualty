@@ -83,6 +83,10 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
             outContractFinancials.add(result);
         }
         parmContractStrategy.resetMemberInstances();
+
+        for (UnderwritingInfo outCoverUnderwritingInfoPacket : outCoverUnderwritingInfo) {
+            outCoverUnderwritingInfoPacket.setReinsuranceContract(this);
+        }
     }
 
     protected void fillDevelopedClaimsChannels() {
@@ -137,6 +141,11 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
         }
     }
 
+    /**
+     * the origin ceded values along a cascade of contracts should always point to the origin of the cascade
+     * @param underwritingInfo
+     * @param derivedUnderwritingInfo
+     */
     protected void setOriginalUnderwritingInfo(UnderwritingInfo underwritingInfo, UnderwritingInfo derivedUnderwritingInfo) {
         if (underwritingInfo != null && underwritingInfo.originalUnderwritingInfo != null) {
             derivedUnderwritingInfo.originalUnderwritingInfo = underwritingInfo.originalUnderwritingInfo;

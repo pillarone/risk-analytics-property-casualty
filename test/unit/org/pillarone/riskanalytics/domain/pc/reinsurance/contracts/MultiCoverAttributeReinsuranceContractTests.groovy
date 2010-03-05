@@ -39,9 +39,9 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
         )
     }
 
-    static MultiCoverAttributeReinsuranceContract getQuotaShareMCARC(IReinsuranceContractStrategy contractStrategy,
-                                                                     ICoverAttributeStrategy coverStrategy,
-                                                                     int inuringPriority = 10) {
+    static MultiCoverAttributeReinsuranceContract getMultiCoverAttributeReinsuranceContract(IReinsuranceContractStrategy contractStrategy,
+                                                                                            ICoverAttributeStrategy coverStrategy,
+                                                                                            int inuringPriority = 10) {
         new MultiCoverAttributeReinsuranceContract(
             parmContractStrategy: contractStrategy,
             parmInuringPriority: inuringPriority,
@@ -49,8 +49,8 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
         )
     }
 
-    static IReinsuranceContractStrategy getQuotaShareRIContractStrategy(double quotaShare = 0.2,
-                                                                        double coveredByReinsurer = 1d) {
+    static IReinsuranceContractStrategy getQuotaShareContractStrategy(double quotaShare = 0.2,
+                                                                      double coveredByReinsurer = 1d) {
         ReinsuranceContractStrategyFactory.getContractStrategy(
             ReinsuranceContractType.QUOTASHARE,
             ["quotaShare": quotaShare, "coveredByReinsurer": coveredByReinsurer]
@@ -82,6 +82,25 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
         new NoneCoverAttributeStrategy()
     }
 
+    /**
+     * Create TestLobComponents with names (given a list of LOB names);
+     * add them to a model (if specified);
+     * return them in a map with name as key.
+     */
+    Map<String, TestLobComponent> createLobs(List<String> lobNames, Model model = null) {
+        Map<String, TestLobComponent> lob = new HashMap()
+        for (String lobName : lobNames) {
+            lob.put(lobName, new TestLobComponent(name: lobName))
+            if (model != null) {
+                model.allComponents << lob[lobName]
+            }
+        }
+        return lob
+    }
+
+    void testUsage() {
+    }
+
     // code coverage
     void testGetStrategy() {
         ICoverAttributeStrategy coverStrategy = getCoverAttributeStrategy([:])
@@ -103,23 +122,11 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
         assertTrue "cover strategy is LobReserves", coverStrategy instanceof LineOfBusinessReservesCoverAttributeStrategy
     }
 
-    /**
-     * Create TestLobComponents with names (given a list of LOB names);
-     * add them to a model (if specified);
-     * return them in a map with name as key.
-     */
-    Map<String, TestLobComponent> createLobs(List<String> lobNames, Model model = null) {
-        Map<String, TestLobComponent> lob = new HashMap()
-        for (String lobName : lobNames) {
-            lob.put(lobName, new TestLobComponent(name: lobName))
-            if (model != null) {
-                model.allComponents << lob[lobName]
-            }
-        }
-        return lob
-    }
-
-    void testUsage() {
+    void testDefaultContract() {
+        MultiCoverAttributeReinsuranceContract contract = new MultiCoverAttributeReinsuranceContract()
+        assertNotNull contract
+        assertSame ReinsuranceContractType.TRIVIAL, contract.parmContractStrategy.type
+        assertSame CoverAttributeStrategyType.ALL, contract.parmCover.type
     }
 
     void testUsageWithFilteringByLob() {
@@ -142,8 +149,8 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
          *  already in the model when setSimulationModel is executed.
          *  (This trick is needed to simulate a user choice in the GUI.)
          */
-        MultiCoverAttributeReinsuranceContract contract = getQuotaShareMCARC(
-            getQuotaShareRIContractStrategy(),
+        MultiCoverAttributeReinsuranceContract contract = getMultiCoverAttributeReinsuranceContract(
+            getQuotaShareContractStrategy(),
             getCoverAttributeStrategy(['lines': ['fire', 'flood', 'lightning', 'wind']], simulationScope.model)
         )
 
@@ -208,8 +215,8 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
         Map<String, TestLobComponent> lob = createLobs(['fire', 'hull', 'legal', 'flood', 'lightning', 'wind'], simulationScope.model)
 
         // test LineOfBusinessCoverAttributeStrategy (filter should produce no results)
-        MultiCoverAttributeReinsuranceContract contract = getQuotaShareMCARC(
-            getQuotaShareRIContractStrategy(),
+        MultiCoverAttributeReinsuranceContract contract = getMultiCoverAttributeReinsuranceContract(
+            getQuotaShareContractStrategy(),
             getCoverAttributeStrategy(['lines': ['doomsday', 'supernova', 'blackhole', 'apocalypse']], simulationScope.model)
         )
 
@@ -254,8 +261,8 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
         Map<String, TestLobComponent> lob = createLobs(['fire', 'hull', 'legal', 'flood', 'wind'], simulationScope.model)
 
         // create contract; choose LineOfBusinessPerilsCoverAttributeStrategy
-        MultiCoverAttributeReinsuranceContract contract = getQuotaShareMCARC(
-            getQuotaShareRIContractStrategy(),
+        MultiCoverAttributeReinsuranceContract contract = getMultiCoverAttributeReinsuranceContract(
+            getQuotaShareContractStrategy(),
             getCoverAttributeStrategy(['lines': ['fire'], 'perils': ['peril b']], simulationScope.model)
         )
 
@@ -400,8 +407,8 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
                         fractionOfPeriod: 0.7)
 
         // create the contract (setting the simulation model in each cover attribute strategy to simulate GUI choice)
-        MultiCoverAttributeReinsuranceContract contract = getQuotaShareMCARC(
-            getQuotaShareRIContractStrategy(),
+        MultiCoverAttributeReinsuranceContract contract = getMultiCoverAttributeReinsuranceContract(
+            getQuotaShareContractStrategy(),
             getCoverAttributeStrategy(['lines': ['fire']], simulationScope.model)
         )
         contract.inClaims << claimDevelopment1 << claimDevelopment2

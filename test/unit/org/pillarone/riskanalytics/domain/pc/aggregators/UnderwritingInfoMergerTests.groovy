@@ -25,6 +25,7 @@ class UnderwritingInfoMergerTests extends GroovyTestCase {
         UnderwritingInfo underwritingInfo = UnderwritingInfoTests.getUnderwritingInfo()
         UnderwritingInfo underwritingInfoCeded = UnderwritingInfoTests.getUnderwritingInfo2()
         underwritingInfoCeded.originalUnderwritingInfo = underwritingInfo
+        underwritingInfo.originalUnderwritingInfo = underwritingInfo
 
         UnderwritingInfoMerger merger = new UnderwritingInfoMerger()
 
@@ -52,9 +53,9 @@ class UnderwritingInfoMergerTests extends GroovyTestCase {
         UnderwritingInfo underwritingInfo0 = UnderwritingInfoTests.getUnderwritingInfo()
         UnderwritingInfo underwritingInfo1 = underwritingInfo0.copy()
         UnderwritingInfo underwritingInfoCeded0 = UnderwritingInfoTests.getUnderwritingInfo2()
-        underwritingInfoCeded0.originalUnderwritingInfo = underwritingInfo0
         UnderwritingInfo underwritingInfoCeded1 = UnderwritingInfoTests.getUnderwritingInfo2()
-        underwritingInfoCeded1.originalUnderwritingInfo = underwritingInfo1
+        underwritingInfoCeded0.originalUnderwritingInfo = underwritingInfo0.originalUnderwritingInfo = underwritingInfo0
+        underwritingInfoCeded1.originalUnderwritingInfo = underwritingInfo1.originalUnderwritingInfo = underwritingInfo1
 
         UnderwritingInfoMerger merger = new UnderwritingInfoMerger()
 
@@ -71,9 +72,6 @@ class UnderwritingInfoMergerTests extends GroovyTestCase {
         assertTrue "# gross uw info", 2 == merger.outUnderwritingInfoGross.size()
         assertTrue "# ceded uw info", 2 == merger.outUnderwritingInfoCeded.size()
         assertTrue "# net uw info", 2 == merger.outUnderwritingInfoNet.size()
-
-        double grossPremiumWritten = underwritingInfo0.premiumWritten + underwritingInfo1.premiumWritten
-        double cededPremiumWritten = underwritingInfoCeded0.premiumWritten + underwritingInfoCeded1.premiumWritten
 
         assertTrue "gross premium written", UnderwritingInfoUtilities.sameContent(underwritingInfo0, merger.outUnderwritingInfoGross[0])
         assertTrue "ceded premium written", UnderwritingInfoUtilities.sameContent(underwritingInfoCeded0, merger.outUnderwritingInfoCeded[0])

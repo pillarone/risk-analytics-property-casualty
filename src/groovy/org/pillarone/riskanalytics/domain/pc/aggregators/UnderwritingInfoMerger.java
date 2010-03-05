@@ -27,14 +27,13 @@ public class UnderwritingInfoMerger extends Component {
 
         /* The map contains the gross claims as keys and the ceded as values */
         if (anyOutChannelWired()) {
-            // By using a LinkedHashMap, we can be sure, that all outClaims* lists will be sorted according
-            // to the inClaimsGross list.
+            // Using a LinkedHashMap ensures that all outUwInfo* lists will be sorted according to the inUwInfoGross list.
             Map<UnderwritingInfo, UnderwritingInfo> grossMergedCededPairs = new LinkedHashMap<UnderwritingInfo, UnderwritingInfo>(inUnderwritingInfoGross.size());
             for (UnderwritingInfo grossUnderwritingInfo : inUnderwritingInfoGross) {
-                if (grossMergedCededPairs.containsKey(grossUnderwritingInfo)) {
+                if (grossMergedCededPairs.containsKey(grossUnderwritingInfo.getOriginalUnderwritingInfo())) {
                     throw new IllegalArgumentException("UnderwritingInfosMerger.inUnderwritingInfoGross contains twice the same UnderwritingInfo!");
                 }
-                grossMergedCededPairs.put(grossUnderwritingInfo, null);
+                grossMergedCededPairs.put(grossUnderwritingInfo.getOriginalUnderwritingInfo(), null);
                 outUnderwritingInfoGross.add(grossUnderwritingInfo);
             }
             if (isSenderWired(outUnderwritingInfoCeded) || isSenderWired(outUnderwritingInfoNet)) {

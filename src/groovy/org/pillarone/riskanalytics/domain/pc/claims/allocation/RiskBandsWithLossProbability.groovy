@@ -56,6 +56,7 @@ class RiskBandsWithLossProbability extends RiskBands {
             underwritingInfoWLP.lossProbability = (Double) parmUnderwritingInformation.getValueAt(i, 4)
             underwritingInfoWLP.numberOfPolicies = (Double) parmUnderwritingInformation.getValueAt(i, 3)
             underwritingInfoWLP.origin = this
+            underwritingInfoWLP.originalUnderwritingInfo = underwritingInfoWLP
             outUnderwritingInfoWithLossProbability << underwritingInfoWLP
         }
 

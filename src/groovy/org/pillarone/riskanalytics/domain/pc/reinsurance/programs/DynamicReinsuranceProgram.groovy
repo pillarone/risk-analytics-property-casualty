@@ -142,6 +142,7 @@ class DynamicReinsuranceProgram extends DynamicComposedComponent {
                 wireContractInUnderwritingInfo(getContract(i), (MarketUnderwritingInfoMerger) underwritingInfoMergers[currentMerger - 1])
             }
             doWire WC, underwritingInfoMergers[currentMerger], 'inUnderwritingInfoCeded', getContract(i), 'outCoverUnderwritingInfo'
+            doWire PRC, this, 'outCoverUnderwritingInfo', getContract(i), 'outCoverUnderwritingInfo'
         }
     }
 
@@ -159,7 +160,6 @@ class DynamicReinsuranceProgram extends DynamicComposedComponent {
             doWire PRC, this, 'outClaimsDevelopmentLeanGross', claimsMergers[-1], 'outClaimsDevelopmentLeanGross'
             doWire PRC, this, 'outClaimsDevelopmentLeanNet', claimsMergers[-1], 'outClaimsDevelopmentLeanNet'
             if (isReceiverWired(inUnderwritingInfo)) {
-                doWire PRC, this, 'outCoverUnderwritingInfo', underwritingInfoMergers[-1], 'outUnderwritingInfoCeded'
                 doWire PRC, this, 'outNetAfterCoverUnderwritingInfo', underwritingInfoMergers[-1], 'outUnderwritingInfoNet'
                 doWire PRC, this, 'outUnderwritingInfo', underwritingInfoMergers[-1], 'outUnderwritingInfoGross'
             }

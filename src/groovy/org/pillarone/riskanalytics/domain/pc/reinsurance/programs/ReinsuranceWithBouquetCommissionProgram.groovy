@@ -46,14 +46,15 @@ class ReinsuranceWithBouquetCommissionProgram extends ComposedComponent {
         WiringUtils.use(WireCategory) {
             subCommissions.inClaims = subContracts.outClaimsCeded
             subCommissions.inUnderwritingInfo = subContracts.outCoverUnderwritingInfo
-            underwritingInfoMerger.inUnderwritingInfoGross = subContracts.outUnderwritingInfo
-            underwritingInfoMerger.inUnderwritingInfoCeded = subCommissions.outUnderwritingInfo
+            underwritingInfoMerger.inUnderwritingInfoCeded = subCommissions.outUnderwritingInfoModified
+            underwritingInfoMerger.inUnderwritingInfoCeded = subCommissions.outUnderwritingInfoUnmodified
             financialsAggregator.inClaimsCeded = subContracts.outClaimsCeded
-            financialsAggregator.inUnderwritingInfoCeded = subCommissions.outUnderwritingInfo
+            financialsAggregator.inUnderwritingInfoCeded = underwritingInfoMerger.outUnderwritingInfoCeded
         }
         WiringUtils.use(PortReplicatorCategory) {
             subContracts.inClaims = this.inClaims
             subContracts.inUnderwritingInfo = this.inUnderwritingInfo
+            underwritingInfoMerger.inUnderwritingInfoGross = this.inUnderwritingInfo
             this.outClaimsNet = subContracts.outClaimsNet
             this.outClaimsGross = subContracts.outClaimsGross
             this.outClaimsCeded = subContracts.outClaimsCeded

@@ -1,18 +1,23 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.programs
 
+import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
+import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope
 import org.pillarone.riskanalytics.core.util.TestProbe
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
+import org.pillarone.riskanalytics.domain.pc.constants.Exposure
 import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContract
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractStrategyFactory
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoTests
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingSegment
-import org.pillarone.riskanalytics.domain.pc.constants.LPTPremiumBase
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.Commission
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionTests
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.applicable.ApplicableStrategyType
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiCoverAttributeReinsuranceContract
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingSegment
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.*
+import org.pillarone.riskanalytics.core.components.Component
+import org.pillarone.riskanalytics.core.example.component.TestComponent
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
 
 /**
  * @author shartmann (at) munichre (dot) com
@@ -23,35 +28,18 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
     UnderwritingSegment underwritingSegment
 
     Claim attrMarketClaim1000 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 1000d, fractionOfPeriod: 0d)
-    Claim attrClaim100 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 100d, fractionOfPeriod: 0d, originalClaim: attrMarketClaim1000)
     Claim largeMarketClaim600 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 600d, fractionOfPeriod: 0d)
+    Claim attrClaim100 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 100d, fractionOfPeriod: 0d, originalClaim: attrMarketClaim1000)
     Claim largeClaim60 = new Claim(claimType: ClaimType.SINGLE, ultimate: 60d, fractionOfPeriod: 0.1d, originalClaim: largeMarketClaim600)
 
-    void testDefaultContracts() {
-        program = new ReinsuranceWithBouquetCommissionProgram()
-        ReinsuranceContract contract = program.subContracts.createDefaultSubComponent()
-        assertNotNull contract
-        assertSame ReinsuranceContractType.TRIVIAL, contract.parmContractStrategy.type
-    }
-
-    private MultiCoverAttributeReinsuranceContract getQuotaShare20(int priority) {
+    private MultiCoverAttributeReinsuranceContract getQuotaShare(int quotaShare, int priority) {
         new MultiCoverAttributeReinsuranceContract(
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
-                        ReinsuranceContractType.QUOTASHARE,
-                        ["quotaShare": 0.2,
-                                "limit": 0.0,
-                                "coveredByReinsurer": 1d]),
-                parmInuringPriority: priority)
-    }
-
-    private MultiCoverAttributeReinsuranceContract getQuotaShare10(int priority) {
-        new MultiCoverAttributeReinsuranceContract(
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
-                        ReinsuranceContractType.QUOTASHARE,
-                        ["quotaShare": 0.1,
-                                "limit": 0.0,
-                                "coveredByReinsurer": 1d]),
-                parmInuringPriority: priority)
+            parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+                ReinsuranceContractType.QUOTASHARE,
+                ["quotaShare": 0.01d*quotaShare, "limit": 0.0, "coveredByReinsurer": 1d]),
+            parmInuringPriority: priority,
+            // parmCover: default is ALL
+        )
     }
 
     private MultiCoverAttributeReinsuranceContract getWXL(double attachment){
@@ -68,21 +56,38 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
                  parmInuringPriority: 5)
     }
 
+    static double getListPropertySum (List list, String propertyName) {
+        double sum = 0
+        for (Iterator<Object> i = list.iterator(); i.hasNext();) {
+            sum += i.next().getProperties()[propertyName]
+        }
+        sum
+    }
+
+    void testDefaultContracts() {
+        program = new ReinsuranceWithBouquetCommissionProgram()
+        ReinsuranceContract contract = program.subContracts.createDefaultSubComponent()
+        assertNotNull contract
+        assertSame ReinsuranceContractType.TRIVIAL, contract.parmContractStrategy.type
+    }
+
     void testUsageSerialContractOrder() {
         program = new ReinsuranceWithBouquetCommissionProgram()
 
-        MultiCoverAttributeReinsuranceContract quotaShare1 = getQuotaShare20(10)
-        MultiCoverAttributeReinsuranceContract quotaShare2 = getQuotaShare10(1)
+        MultiCoverAttributeReinsuranceContract quotaShare1 = getQuotaShare(20,10)
+        MultiCoverAttributeReinsuranceContract quotaShare2 = getQuotaShare(10,1)
+        MultiCoverAttributeReinsuranceContract quotaShare3 = getQuotaShare(15,5)
         // todo(sku): was an AAL
-        MultiCoverAttributeReinsuranceContract quotaShare3 = new MultiCoverAttributeReinsuranceContract(
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
-                        ReinsuranceContractType.QUOTASHARE,
-                        ["quotaShare": 0.15,
-                                "limit": 0.0,
-//                                "annualAggregateLimit": 20,
-                                "coveredByReinsurer": 1d]),
-                parmInuringPriority: 5
-        )
+//        MultiCoverAttributeReinsuranceContract quotaShare3 = getQuotaShare(15,5)
+//            new MultiCoverAttributeReinsuranceContract(
+//                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+//                        ReinsuranceContractType.QUOTASHARE,
+//                        ["quotaShare": 0.15,
+//                                "limit": 0.0,
+////                                "annualAggregateLimit": 20,
+//                                "coveredByReinsurer": 1d]),
+//                parmInuringPriority: 5
+//        )
         quotaShare1.name = "subContract0"
         quotaShare2.name = "subContract1"
         quotaShare3.name = "subContract2"
@@ -90,33 +95,33 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
         program.subContracts.addSubComponent(quotaShare2)
         program.subContracts.addSubComponent(quotaShare3)
         program.inClaims << attrClaim100 << largeClaim60
-        program.inUnderwritingInfo << UnderwritingInfoTests.getUnderwritingInfo()
+        program.inUnderwritingInfo << CommissionTests.getUnderwritingInfoFromSelf(
+                                            premiumWritten: 2000, premiumWrittenAsIf: 2000,
+                                            numberOfPolicies: 100, exposureDefinition: Exposure.ABSOLUTE)
 
         program.internalWiring()
 
         def probeQS1net = new TestProbe(quotaShare1, "outUncoveredClaims")
-        List qs1ClaimsNet = probeQS1net.result
+        def probeQS2net = new TestProbe(quotaShare2, "outUncoveredClaims")
+        def probeQS3net = new TestProbe(quotaShare3, "outUncoveredClaims")
 
         def probeQS1ceded = new TestProbe(quotaShare1, "outCoveredClaims")
-        List qs1ClaimsCeded = probeQS1ceded.result
-
-        def probeQS2net = new TestProbe(quotaShare2, "outUncoveredClaims")
-        List qs2ClaimsNet = probeQS2net.result
-
         def probeQS2ceded = new TestProbe(quotaShare2, "outCoveredClaims")
-        List qs2ClaimsCeded = probeQS2ceded.result
+        def probeQS3ceded = new TestProbe(quotaShare3, "outCoveredClaims")
 
-        def probeQS3net = new TestProbe(quotaShare3, "outUncoveredClaims")
+        List qs1ClaimsNet = probeQS1net.result
+        List qs2ClaimsNet = probeQS2net.result
         List qs3ClaimsNet = probeQS3net.result
 
-        def probeQS3ceded = new TestProbe(quotaShare3, "outCoveredClaims")
+        List qs1ClaimsCeded = probeQS1ceded.result
+        List qs2ClaimsCeded = probeQS2ceded.result
         List qs3ClaimsCeded = probeQS3ceded.result
 
         program.start()
 
-        assertTrue "# quotaShare1 net claims", 2 == qs1ClaimsNet.size()
-        assertTrue "# quotaShare2 net claims", 2 == qs2ClaimsNet.size()
-        assertTrue "# quotaShare3 net claims", 2 == qs3ClaimsNet.size()
+        assertEquals "# quotaShare1 net claims", 2, qs1ClaimsNet.size()
+        assertEquals "# quotaShare2 net claims", 2, qs2ClaimsNet.size()
+        assertEquals "# quotaShare3 net claims", 2, qs3ClaimsNet.size()
 
         assertEquals "quotaShare1, attritional net claim", 61.2, qs1ClaimsNet[0].ultimate
         assertEquals "quotaShare1, attritional ceded claim", 15.3, qs1ClaimsCeded[0].ultimate
@@ -136,7 +141,7 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
     void testUsageMixedContractOrder() {
         program = new ReinsuranceWithBouquetCommissionProgram()
 
-        MultiCoverAttributeReinsuranceContract quotaShare = getQuotaShare20(0)
+        MultiCoverAttributeReinsuranceContract quotaShare = getQuotaShare(20,0)
         MultiCoverAttributeReinsuranceContract wxl20xs10 = getWXL(10)
         MultiCoverAttributeReinsuranceContract wxl20xs30 = getWXL(30)
 
@@ -147,7 +152,9 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
         program.subContracts.addSubComponent(quotaShare)
         program.subContracts.addSubComponent(wxl20xs30)
         program.inClaims << attrClaim100 << largeClaim60
-        program.inUnderwritingInfo << UnderwritingInfoTests.getUnderwritingInfo()
+        program.inUnderwritingInfo << CommissionTests.getUnderwritingInfoFromSelf(
+                                            premiumWritten: 2000, premiumWrittenAsIf: 2000,
+                                            numberOfPolicies: 100, exposureDefinition: Exposure.ABSOLUTE)
 
         program.internalWiring()
 
@@ -226,7 +233,7 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
 
         program = new ReinsuranceWithBouquetCommissionProgram()
 
-        MultiCoverAttributeReinsuranceContract quotaShare = getQuotaShare20(0)
+        MultiCoverAttributeReinsuranceContract quotaShare = getQuotaShare(20,0)
         MultiCoverAttributeReinsuranceContract wxl20xs10 = getWXL(10)
         MultiCoverAttributeReinsuranceContract wxl20xs30 = getWXL(30)
         MultiCoverAttributeReinsuranceContract wxl20xs50 = getWXL(50)
@@ -240,7 +247,9 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
         program.subContracts.addSubComponent(quotaShare)
         program.subContracts.addSubComponent(wxl20xs30)
         program.inClaims << attrClaim100 << largeClaim60 << largeClaim90
-        UnderwritingInfo underwritingInfo = UnderwritingInfoTests.getUnderwritingInfo()
+        UnderwritingInfo underwritingInfo = CommissionTests.getUnderwritingInfoFromSelf(
+                                            premiumWritten: 2000, premiumWrittenAsIf: 2000,
+                                            numberOfPolicies: 100, exposureDefinition: Exposure.ABSOLUTE)
         underwritingInfo.originalUnderwritingInfo = underwritingInfo
         program.inUnderwritingInfo << underwritingInfo
 
@@ -332,97 +341,184 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
         assertEquals "program, large ceded claim 2, contract3", 18, programCeded[10].ultimate
         assertEquals "program, large ceded claim 3, contract3", 2, programCeded[11].ultimate
     }
-//todo(sku): fix
-//    void testBouquetCommissionProgram() {
-//        ReinsuranceContract quotaShare1 = getQuotaShare10(1)
-//        ReinsuranceContract quotaShare2 = getQuotaShare20(10)
-//        ReinsuranceContract quotaShare3 = getQuotaShare10(15)
-//        ReinsuranceContract quotaShare4 = getQuotaShare20(20)
-//
-//        quotaShare1.name = "subContract0"
-//        quotaShare2.name = "subContract1"
-//        quotaShare3.name = "subContract2"
-//        quotaShare4.name = "subContract3"
-//
-//        VoidTestModel model = new VoidTestModel()
-//        SimulationScope simulationScope = new SimulationScope(iterationScope: new IterationScope(periodScope: new PeriodScope()), model: model);
-//        simulationScope.model.allComponents << quotaShare1 << quotaShare2 << quotaShare3 << quotaShare4 // << fixedCommission1 << fixedCommission2
-//
-//        ComboBoxTableMultiDimensionalParameter applicableContractsC1 = new ComboBoxTableMultiDimensionalParameter([quotaShare1, quotaShare2],['Applicable Contracts'], IReinsuranceContractMarker)
-//        applicableContractsC1.setSimulationModel model
-//
-//        Commission fixedCommission1 = new Commission(
-//                parmCommissionStrategy :
-//                CommissionStrategyType.getStrategy(
-//                        CommissionStrategyType.FIXEDCOMMISSION, [commission: 0.1d]),
-//                parmApplicableStrategy :
-//                ApplicableStrategyType.getStrategy(ApplicableStrategyType.CONTRACT, ["applicableContracts": applicableContractsC1])
-//        )
-//
-//
-//        ComboBoxTableMultiDimensionalParameter applicableContractsC2 = new ComboBoxTableMultiDimensionalParameter([quotaShare3, quotaShare4],['Applicable Contracts'], IReinsuranceContractMarker)
-//        applicableContractsC2.setSimulationModel model
-//
-//        Commission fixedCommission2 = new Commission(
-//                parmCommissionStrategy :
-//                CommissionStrategyType.getStrategy(
-//                        CommissionStrategyType.FIXEDCOMMISSION, [commission: 0.2d]),
-//                parmApplicableStrategy :
-//                ApplicableStrategyType.getStrategy(ApplicableStrategyType.CONTRACT, ["applicableContracts":applicableContractsC2])
-//        )
-//
-//        fixedCommission1.simulationScope = simulationScope
-//        fixedCommission2.simulationScope = simulationScope
-//
-//        fixedCommission1.name ="subCommision1"
-//        fixedCommission2.name ="subCommision2"
-//
-//        Claim attrMarketClaim1000 = new Claim(claimType: ClaimType.ATTRITIONAL, value: 1000d, fractionOfPeriod: 0d)
-//        Claim attrClaim100 = new Claim(claimType: ClaimType.ATTRITIONAL, value: 100d, fractionOfPeriod: 0d, originalClaim: attrMarketClaim1000)
-//        Claim largeMarketClaim600 = new Claim(claimType: ClaimType.ATTRITIONAL, value: 600d, fractionOfPeriod: 0d)
-//        Claim largeClaim60 = new Claim(claimType: ClaimType.SINGLE, value: 60d, fractionOfPeriod: 0.1d, originalClaim: largeMarketClaim600)
-//        Claim largeClaim900 = new Claim(claimType: ClaimType.SINGLE, value: 900d, fractionOfPeriod: 0.2d)
-//        Claim largeClaim90 = new Claim(claimType: ClaimType.SINGLE, value: 90d, fractionOfPeriod: 0.2d, originalClaim: largeClaim900)
-//
-//        program = new ReinsuranceWithBouquetCommissionProgram()
-//
-//        program.subContracts.addSubComponent(quotaShare1)
-//        program.subContracts.addSubComponent(quotaShare2)
-//        program.subContracts.addSubComponent(quotaShare3)
-//        program.subContracts.addSubComponent(quotaShare4)
-//        program.subCommissions.addSubComponent(fixedCommission1)
-//        program.subCommissions.addSubComponent(fixedCommission2)
-//        program.inClaims << attrClaim100 << largeClaim60 << largeClaim90
-//        UnderwritingInfo underwritingInfo = UnderwritingInfoTests.getUnderwritingInfo()
-//        underwritingInfo.originalUnderwritingInfo = underwritingInfo
-//        program.inUnderwritingInfo << underwritingInfo
-//
-//        program.internalWiring()
-//
-//        List programContractFinancials = new TestProbe(program, "outContractFinancials").result
-//        List programContractFinancialsSingle0 = new TestProbe(program.subContracts.getContract(0) , "outContractFinancials").result
-//        List programContractFinancialsSingle1 = new TestProbe(program.subContracts.getContract(1) , "outContractFinancials").result
-//        List programContractFinancialsSingle2 = new TestProbe(program.subContracts.getContract(2) , "outContractFinancials").result
-//        List programContractFinancialsSingle3 = new TestProbe(program.subContracts.getContract(3) , "outContractFinancials").result
-//        List programClaimsCeded = new TestProbe(program, "outClaimsCeded").result
-//        List programUnderwritingInfoCeded = new TestProbe(program, "outCoverUnderwritingInfo").result
-//        program.start()
-//
-//        assertEquals "programContractFinancials, ceded commission", (200+360)*0.1 + (144+259.2)*0.2, programContractFinancials[0].getCededCommission()
-//        assertEquals "programContractFinancials, ceded claim", 44.8, programContractFinancials[0].getCededClaim()
-//        assertEquals "programContractFinancials, ceded premium", 0, programContractFinancials[0].getCededPremium()
-//        assertEquals "programContractFinancials, ceded result", 44.8, programContractFinancials[0].getResult()
-//
-//        assertEquals "attrClaim100, ceded claim", 50, program.outClaimsCeded[0].value
-//        assertEquals "attrClaim100, ceded commission", 50, program.outClaimsGross[0].value
-//        assertEquals "attrClaim100, ceded premium", 50, program.outClaimsNet[0].value
-//
-//        assertEquals "largeClaim60, ceded claim", 50, program.outClaimsCeded[1].value
-//        assertEquals "largeClaim60, ceded commission", 50, program.outClaimsGross[1].value
-//        assertEquals "largeClaim60, ceded premium", 50, program.outClaimsNet[1].value
-//
-//        assertEquals "largeClaim90, ceded claim", 50, program.outClaimsCeded[2].value
-//        assertEquals "largeClaim90, ceded commission", 50, program.outClaimsGross[2].value
-//        assertEquals "largeClaim90, ceded premium", 50, program.outClaimsNet[2].value
-//    }
+
+    void testUsageSerialContractOrderWithCommissions() {
+        program = new ReinsuranceWithBouquetCommissionProgram()
+
+        MultiCoverAttributeReinsuranceContract quotaShare1 = getQuotaShare(20,9); quotaShare1.name = "qs1"
+        MultiCoverAttributeReinsuranceContract quotaShare2 = getQuotaShare(10,1); quotaShare2.name = "qs2"
+        MultiCoverAttributeReinsuranceContract quotaShare3 = getQuotaShare(15,5); quotaShare3.name = "qs3"
+
+        SimulationScope simulationScope = CommissionTests.getTestSimulationScope(2010)
+
+        Commission commission1 = new Commission(
+            parmCommissionStrategy:
+                CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION,
+                    [commission: 0.1d]),
+            parmApplicableStrategy:
+                ApplicableStrategyType.getStrategy(ApplicableStrategyType.CONTRACT,
+                    [applicableContracts: new ComboBoxTableMultiDimensionalParameter(
+                        ['qs1', 'qs2'], ['Applicable Contracts'], IReinsuranceContractMarker)]),
+            simulationScope: simulationScope,
+            name: 'commission 1'
+        )
+        Commission commission2 = new Commission(
+            parmCommissionStrategy:
+                CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION,
+                    [commission: 0.2d]),
+            parmApplicableStrategy:
+                ApplicableStrategyType.getStrategy(ApplicableStrategyType.CONTRACT,
+                    [applicableContracts: new ComboBoxTableMultiDimensionalParameter(
+                        ['qs3'], ['Applicable Contracts'], IReinsuranceContractMarker)]),
+            simulationScope: simulationScope,
+            name: 'commission 2'
+        )
+
+        // cf: CommissionTests.getUnderwritingInfoFromOrigin; here, we want the origin and its copy to have different fields (..AsIf, #ofPolicies, exposure).
+        Component origin1 = new TestComponent()
+        UnderwritingInfo uIOrigin1 = new UnderwritingInfo(origin: origin1,
+                                                          premiumWritten: 2000, premiumWrittenAsIf: 2000,
+                                                          numberOfPolicies: 100, exposureDefinition: Exposure.ABSOLUTE)
+        UnderwritingInfo uwInfo1 = UnderwritingInfoPacketFactory.copy(uIOrigin1)
+        uwInfo1.originalUnderwritingInfo = uIOrigin1
+        uwInfo1.origin = origin1
+
+        program.subContracts.addSubComponent quotaShare1
+        program.subContracts.addSubComponent quotaShare2
+        program.subContracts.addSubComponent quotaShare3
+        program.subCommissions.addSubComponent commission1
+        program.subCommissions.addSubComponent commission2
+        program.inClaims << attrClaim100 << largeClaim60
+        program.inUnderwritingInfo << uwInfo1
+        program.internalWiring()
+
+        for (Component component : program.subContracts.componentList) {
+            simulationScope.model.allComponents << component
+        }
+
+        def probeQS1net = new TestProbe(quotaShare1, "outUncoveredClaims")
+        def probeQS2net = new TestProbe(quotaShare2, "outUncoveredClaims")
+        def probeQS3net = new TestProbe(quotaShare3, "outUncoveredClaims")
+
+        def probeQS1ceded = new TestProbe(quotaShare1, "outCoveredClaims")
+        def probeQS2ceded = new TestProbe(quotaShare2, "outCoveredClaims")
+        def probeQS3ceded = new TestProbe(quotaShare3, "outCoveredClaims")
+
+        List qs1ClaimsNet = probeQS1net.result
+        List qs2ClaimsNet = probeQS2net.result
+        List qs3ClaimsNet = probeQS3net.result
+
+        List qs1ClaimsCeded = probeQS1ceded.result
+        List qs2ClaimsCeded = probeQS2ceded.result
+        List qs3ClaimsCeded = probeQS3ceded.result
+
+        def probeProgramClaimsNet = new TestProbe(program, "outClaimsNet")
+        List programClaimsNet = probeProgramClaimsNet.result
+
+        def probeProgramClaimsCeded = new TestProbe(program, "outClaimsCeded")
+        List programClaimsCeded = probeProgramClaimsCeded.result
+
+        def probeProgramUWInfoGross = new TestProbe(program, "outUnderwritingInfo")
+        List programPremiumGross = probeProgramUWInfoGross.result
+
+        def probeProgramUWInfoCeded = new TestProbe(program, "outCoverUnderwritingInfo")
+        List programPremiumCeded = probeProgramUWInfoCeded.result
+
+        def probeProgramUWInfoNet = new TestProbe(program, "outNetAfterCoverUnderwritingInfo")
+        List programPremiumNet = probeProgramUWInfoNet.result
+
+        Map<String, Map<String, Object>> results = [
+            'qs2.outCoveredClaims': ['component': quotaShare2, 'channel': 'outCoveredClaims', 'values': ['ultimate': [10, 6]], 'count': 2],
+            'qs3.outCoveredClaims': ['component': quotaShare3, 'channel': 'outCoveredClaims', 'values': ['ultimate': [13.5, 8.1]], 'count': 2],
+            'qs1.outCoveredClaims': ['component': quotaShare1, 'channel': 'outCoveredClaims', 'values': ['ultimate': [15.3, 9.18]], 'count': 2],
+            'qs2.outUncoveredClaims': ['component': quotaShare2, 'channel': 'outUncoveredClaims', 'values': ['ultimate': [90, 54]], 'count': 2],
+            'qs3.outUncoveredClaims': ['component': quotaShare3, 'channel': 'outUncoveredClaims', 'values': ['ultimate': [76.5, 45.9]], 'count': 2],
+            'qs1.outUncoveredClaims': ['component': quotaShare1, 'channel': 'outUncoveredClaims', 'values': ['ultimate': [61.2, 36.72]], 'count': 2],
+            'program.Contracts.outClaimsGross': ['component': program.subContracts, 'channel': 'outClaimsGross', 'count': 2],
+            'program.Contracts.outClaimsCeded': ['component': program.subContracts, 'channel': 'outClaimsCeded', 'count': 6],
+            'program.Contracts.outClaimsNet': ['component': program.subContracts, 'channel': 'outClaimsNet', 'count': 2],
+            'program.Contracts.outCoverUnderwritingInfo': ['component': program.subContracts, 'channel': 'outCoverUnderwritingInfo', 'values': ['premiumWritten': [200,270,306], 'commission': [20,54,30.6]], 'count': 3],
+            'program.Contracts.outNetAfterCoverUnderwritingInfo': ['component': program.subContracts, 'channel': 'outNetAfterCoverUnderwritingInfo', 'values': ['premiumWritten': [1224], 'commission': [0]], 'count': 1],
+            'program.uwInfoMerger.outUnderwritingInfoGross': ['component': program.underwritingInfoMerger, 'channel': 'outUnderwritingInfoGross', 'count': 1],
+            'program.uwInfoMerger.outUnderwritingInfoCeded': ['component': program.underwritingInfoMerger, 'channel': 'outUnderwritingInfoCeded', 'count': 1],
+            'program.uwInfoMerger.outUnderwritingInfoNet': ['component': program.underwritingInfoMerger, 'channel': 'outUnderwritingInfoNet', 'count': 1],
+            'program.Commissions.outUnderwritingInfoModified': ['component': program.subCommissions, 'channel': 'outUnderwritingInfoModified', 'values': ['premiumWritten': [270,200,306], 'commission': [54,20,30.6]], 'count': 3],
+            'program.Commissions.outUnderwritingInfoUnmodified': ['component': program.subCommissions, 'channel': 'outUnderwritingInfoUnmodified', 'count': 0],
+            'program.financialsAggregator.outContractFinancials': ['component': program.financialsAggregator, 'channel': 'outContractFinancials', 'count': 1],
+            'program.outCoverUnderwritingInfo': ['component': program, 'channel': 'outCoverUnderwritingInfo', 'values': ['premiumWritten': [776], 'commission': [104.6]], 'count': 1],
+            'program.outUnderwritingInfo': ['component': program, 'channel': 'outUnderwritingInfo', 'values': ['premiumWritten': [2000], 'commission': [0]], 'count': 1],
+            'program.outNetAfterCoverUnderwritingInfo': ['component': program, 'channel': 'outNetAfterCoverUnderwritingInfo', 'values': ['premiumWritten': [1224], 'commission': [104.6]], 'count': 1],
+        ]
+        for (Map.Entry<String, Map<String, Object>> entry : results.entrySet()) {
+            Map<Component, String> map = (Map<Component, String>) entry.getValue()
+            def testProbe = new TestProbe((Component) map.getAt('component'), (String) map.getAt('channel'))
+            map.putAt('list', testProbe.result)
+            map.remove('component')
+            map.remove('channel')
+        }
+
+        program.start()
+
+        // check expected packet counts
+        for (Map.Entry<String, Map<String, Object>> entry : results.entrySet()) {
+            String resultName = entry.getKey()
+            Map<Component, String> map = (Map<Component, String>) entry.getValue()
+            List resultList = (List) map.getAt('list')
+            if (map.containsKey('count')) {
+                assertEquals "# $resultName", map.getAt('count'), resultList.size()
+            }
+            if (map.containsKey('values')) {
+                for (Map.Entry<String, Object> values : map.getAt('values').entrySet()) {
+                    String propertyName = values.getKey()
+                    List valueList = (List) values.getValue()
+                    int valueCount = valueList.size()
+                    assertEquals "# $resultName (value count)", valueCount, resultList.size()
+                    for (int i=0; i<valueCount; i++) {
+                        double resultFound = (double) resultList[i].getProperties().getAt(propertyName)
+                        if (valueList[i] instanceof List) {
+                            List<Double> valueWithError = (List<Double>) valueList[i]
+                            assertEquals "$resultName[$i].$propertyName", valueWithError[0], resultFound, valueWithError[1]
+                        } else {
+                            assertEquals "$resultName[$i].$propertyName", valueList[i], resultFound
+                        }
+                    }
+                }
+            }
+        }
+
+        assertEquals "# quotaShare1 net claims", 2, qs1ClaimsNet.size()
+        assertEquals "# quotaShare2 net claims", 2, qs2ClaimsNet.size()
+        assertEquals "# quotaShare3 net claims", 2, qs3ClaimsNet.size()
+
+        // check in the same order in which they should have been processed
+        assertEquals "qs2, attritional ceded claim 1", 10, qs2ClaimsCeded[0].ultimate
+        assertEquals "qs2, attritional net claim 1", 90, qs2ClaimsNet[0].ultimate
+        assertEquals "qs3, attritional ceded claim 1", 13.5, qs3ClaimsCeded[0].ultimate
+        assertEquals "qs3, attritional net claim 1", 76.5, qs3ClaimsNet[0].ultimate
+        assertEquals "qs1, attritional ceded claim 1", 15.3, qs1ClaimsCeded[0].ultimate
+        assertEquals "qs1, attritional net claim 1", 61.2, qs1ClaimsNet[0].ultimate
+
+        assertEquals "qs2, attritional ceded claim 2", 6, qs2ClaimsCeded[1].ultimate
+        assertEquals "qs2, attritional net claim 2", 54, qs2ClaimsNet[1].ultimate
+        assertEquals "qs3, attritional ceded claim 2", 8.1, qs3ClaimsCeded[1].ultimate
+        assertEquals "qs3, attritional net claim 2", 45.9, qs3ClaimsNet[1].ultimate
+        assertEquals "qs1, attritional ceded claim 2", 9.18, qs1ClaimsCeded[1].ultimate
+        assertEquals "qs1, attritional net claim 2", 36.72, qs1ClaimsNet[1].ultimate
+
+        assertEquals "# program ceded claims", 2*3, programClaimsCeded.size()
+        assertEquals "# program net claims", 2, programClaimsNet.size()
+
+        assertEquals "program, total net claim", 61.2, programClaimsNet[0].ultimate
+        assertEquals "program, total net claim", 36.72, programClaimsNet[1].ultimate
+        assertEquals "program, total net claim", 61.2+36.72, getListPropertySum(programClaimsNet, 'ultimate')
+        assertEquals "program, total ceded claim", 38.8+23.28, getListPropertySum(programClaimsCeded, 'ultimate'), 1E-13
+
+        assertEquals "# program premium written gross", 1, programPremiumGross.size()
+        assertEquals "# program premium written ceded", 1, programPremiumCeded.size()
+        assertEquals "# program premium written net", 1, programPremiumNet.size()
+
+        assertEquals "program, commission on ceded premium", 104.6, programPremiumCeded[0].commission
+        assertEquals "program, commission on net premium", 104.6, programPremiumNet[0].commission
+    }
+
 }

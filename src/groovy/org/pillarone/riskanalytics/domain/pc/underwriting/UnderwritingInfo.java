@@ -2,6 +2,7 @@ package org.pillarone.riskanalytics.domain.pc.underwriting;
 
 import org.pillarone.riskanalytics.domain.pc.constants.Exposure;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -17,6 +18,7 @@ public class UnderwritingInfo extends ExposureInfo {
     public double premiumWritten;
     public double commission;
     private LobMarker lineOfBusiness;
+    private IReinsuranceContractMarker reinsuranceContract;
     
     private static final String PREMIUM = "premium";
     private static final String COMMISSION = "commission";
@@ -110,5 +112,13 @@ public class UnderwritingInfo extends ExposureInfo {
 
     public void setLineOfBusiness(LobMarker lineOfBusiness) {
         this.lineOfBusiness = lineOfBusiness;
+    }
+
+    public IReinsuranceContractMarker getReinsuranceContract() {
+        return reinsuranceContract;
+    }
+
+    public void setReinsuranceContract(IReinsuranceContractMarker reinsuranceContract) {
+        this.reinsuranceContract = reinsuranceContract;
     }
 }
