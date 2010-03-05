@@ -7,6 +7,10 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.CoverAt
 import org.pillarone.riskanalytics.domain.pc.constants.IncludeType
 import org.pillarone.riskanalytics.domain.pc.reinsurance.ReinsuranceResultWithCommissionPacket
 import org.pillarone.riskanalytics.core.packets.PacketList
+import org.pillarone.riskanalytics.domain.pc.constants.ReinsuranceContractBase
+import org.pillarone.riskanalytics.domain.pc.claims.MarketClaimsMerger
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContract
+import org.pillarone.riskanalytics.core.wiring.WireCategory
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -27,6 +31,15 @@ public class DynamicMultiCoverAttributeReinsuranceProgram extends DynamicReinsur
     void wire() {
         super.wire()
         replicateOutChannels this, 'outContractFinancials'
+    }
+
+    protected void wireContractInClaims(ReinsuranceContract contract, MarketClaimsMerger claimsMerger) {
+        if (((MultiCoverAttributeReinsuranceContract) contract).parmBasedOn.equals(ReinsuranceContractBase.NET)) {
+            doWire WireCategory, contract, 'inClaims', claimsMerger, 'outClaimsNet'
+        }
+        else if (((MultiCoverAttributeReinsuranceContract) contract).parmBasedOn.equals(ReinsuranceContractBase.CEDED)) {
+            doWire WireCategory, contract, 'inClaims', claimsMerger, 'outClaimsCeded'
+        }
     }
 
 }

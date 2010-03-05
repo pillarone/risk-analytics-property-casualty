@@ -9,6 +9,7 @@ import org.pillarone.riskanalytics.domain.pc.claims.ClaimUtilities;
 import org.pillarone.riskanalytics.domain.pc.claims.SortClaimsByFractionOfPeriod;
 import org.pillarone.riskanalytics.domain.pc.constants.IncludeType;
 import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments;
+import org.pillarone.riskanalytics.domain.pc.constants.ReinsuranceContractBase;
 import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.ReinsuranceResultWithCommissionPacket;
@@ -35,6 +36,7 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
 
     private SimulationScope simulationScope;
 
+    private ReinsuranceContractBase parmBasedOn = ReinsuranceContractBase.NET;
     private ICoverAttributeStrategy parmCover = CoverAttributeStrategyType.getStrategy(
             CoverAttributeStrategyType.ALL, ArrayUtils.toMap(new Object[][]{{"reserves", IncludeType.NOTINCLUDED}}));
 
@@ -90,6 +92,10 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
             }
             result.setCededClaim(ClaimUtilities.aggregateClaims(outCoveredClaims, this).getUltimate());
             outContractFinancials.add(result);
+        }
+
+        for (UnderwritingInfo outCoverUnderwritingInfoPacket : outCoverUnderwritingInfo) {
+            outCoverUnderwritingInfoPacket.setReinsuranceContract(this);
         }
     }
 
@@ -156,5 +162,13 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
 
     public void setParmCover(ICoverAttributeStrategy parmCover) {
         this.parmCover = parmCover;
+    }
+
+    public ReinsuranceContractBase getParmBasedOn() {
+        return parmBasedOn;
+    }
+
+    public void setParmBasedOn(ReinsuranceContractBase parmBasedOn) {
+        this.parmBasedOn = parmBasedOn;
     }
 }
