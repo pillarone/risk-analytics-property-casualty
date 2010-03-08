@@ -21,8 +21,8 @@ class QuotaShareContractStrategy extends AbstractContractStrategy implements IRe
 
     static final ReinsuranceContractType type = ReinsuranceContractType.QUOTASHARE
 
-    double quotaShare
-    ILimitStrategy limit = LimitStrategyType.getStrategy(LimitStrategyType.NONE, Collections.emptyMap());
+    double quotaShare = 0
+    ILimitStrategy limit = LimitStrategyType.getNoLimit()
 
     private double availableAnnualAggregateLimit
     private double remainingAnnualAggregateDeductible

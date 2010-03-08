@@ -7,12 +7,13 @@ import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObject
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 import org.pillarone.riskanalytics.domain.pc.constants.LPTPremiumBase
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit.LimitStrategyType
 
 class ReinsuranceContractType extends AbstractParameterObjectClassifier {
 
 
     public static final ReinsuranceContractType QUOTASHARE = new ReinsuranceContractType("quota share", "QUOTASHARE",
-        ["quotaShare": 0d, "limit": 0d, "coveredByReinsurer": 1d])
+        ["quotaShare": 0d, "limit": LimitStrategyType.noLimit, "coveredByReinsurer": 1d])
     public static final ReinsuranceContractType SURPLUS = new ReinsuranceContractType("surplus", "SURPLUS", ["retention": 0d,
         "lines": 0d, "defaultCededLossShare": 0d, "coveredByReinsurer": 1d])
     public static final ReinsuranceContractType SURPLUS2 = new ReinsuranceContractType("surplus 2", "SURPLUS2",
@@ -69,6 +70,8 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
         parameters.each {k, v ->
             if (v.class.isEnum()) {
                 parameterString << "\"$k\":${v.class.name}.$v,"
+            } else if (v instanceof IParameterObject) {
+                parameterString << "\"$k\":${v.type.getConstructionString(v.parameters)},"
             } else {
                 parameterString << "\"$k\":$v,"
             }
