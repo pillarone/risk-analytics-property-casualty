@@ -32,7 +32,7 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
     Claim attrClaim100 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 100d, fractionOfPeriod: 0d, originalClaim: attrMarketClaim1000)
     Claim largeClaim60 = new Claim(claimType: ClaimType.SINGLE, ultimate: 60d, fractionOfPeriod: 0.1d, originalClaim: largeMarketClaim600)
 
-    private MultiCoverAttributeReinsuranceContract getQuotaShare(int quotaShare, int priority) {
+    static MultiCoverAttributeReinsuranceContract getQuotaShare(int quotaShare, int priority) {
         new MultiCoverAttributeReinsuranceContract(
             parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
                 ReinsuranceContractType.QUOTASHARE,
@@ -42,7 +42,7 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
         )
     }
 
-    private MultiCoverAttributeReinsuranceContract getWXL(double attachment){
+    static MultiCoverAttributeReinsuranceContract getWXL(double attachment){
         new MultiCoverAttributeReinsuranceContract(
                 parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
                         ReinsuranceContractType.WXL,
@@ -490,7 +490,7 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
         assertEquals "# quotaShare2 net claims", 2, qs2ClaimsNet.size()
         assertEquals "# quotaShare3 net claims", 2, qs3ClaimsNet.size()
 
-        // check in the same order in which they should have been processed
+        // check each result array in the same order in which they should have been processed
         assertEquals "qs2, attritional ceded claim 1", 10, qs2ClaimsCeded[0].ultimate
         assertEquals "qs2, attritional net claim 1", 90, qs2ClaimsNet[0].ultimate
         assertEquals "qs3, attritional ceded claim 1", 13.5, qs3ClaimsCeded[0].ultimate

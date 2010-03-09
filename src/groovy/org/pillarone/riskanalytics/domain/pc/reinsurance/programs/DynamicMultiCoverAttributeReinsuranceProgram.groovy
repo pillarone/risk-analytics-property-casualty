@@ -11,6 +11,7 @@ import org.pillarone.riskanalytics.domain.pc.constants.ReinsuranceContractBase
 import org.pillarone.riskanalytics.domain.pc.claims.MarketClaimsMerger
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContract
 import org.pillarone.riskanalytics.core.wiring.WireCategory
+import org.pillarone.riskanalytics.domain.pc.underwriting.MarketUnderwritingInfoMerger
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -42,4 +43,12 @@ public class DynamicMultiCoverAttributeReinsuranceProgram extends DynamicReinsur
         }
     }
 
+    protected void wireContractInUnderwritingInfo(ReinsuranceContract contract, MarketUnderwritingInfoMerger underwritingInfoMerger) {
+        if (((MultiCoverAttributeReinsuranceContract) contract).parmBasedOn.equals(ReinsuranceContractBase.NET)) {
+            doWire WireCategory, contract, 'inUnderwritingInfo', underwritingInfoMerger, 'outUnderwritingInfoNet'
+        }
+        else if (((MultiCoverAttributeReinsuranceContract) contract).parmBasedOn.equals(ReinsuranceContractBase.CEDED)) {
+            doWire WireCategory, contract, 'inUnderwritingInfo', underwritingInfoMerger, 'outUnderwritingInfoCeded'
+        }
+    }
 }

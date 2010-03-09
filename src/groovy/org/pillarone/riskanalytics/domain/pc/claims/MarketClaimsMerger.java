@@ -10,14 +10,14 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * The claims merger calculates merged ceded claims using the property original
- * claim. All ceded claims having the same reference for originalClaim will
+ * The claims merger calculates merged ceded claims using the originalClaim
+ * property. All ceded claims having the same reference for originalClaim will
  * be merged in one claim object by aggregating the values and setting the
  * origin to the ClaimsMerger (<code>this</code>). If the reinsuranceContract
  * or lineOfBusiness property of the ceded claims having the same originalClaim
  * differs, these properties are set to null in the merged claim.<br/>
- * If the outClaimsNet channel is connected  net claim object are constructed
- * too. For every gross claim a net claim is constructed subtracting
+ * If the outClaimsNet channel is connected, net claim objects are constructed
+ * too. For every gross claim, a net claim is constructed subtracting
  * the ultimate of the merged ceded claim with the same originalClaim.<br/>
  * <p/>
  * <b>Usage:</b> If a gross claim has different ways through the network of a
