@@ -34,8 +34,8 @@ public class ProfitCommissionStrategy implements ICommissionStrategy {
         return map;
     }
 
-    public void calculateCommission(List<Claim> claims, List<UnderwritingInfo> underwritingInfos, boolean firstPeriod) {
-        if (lossCarriedForwardEnabled && firstPeriod) {
+    public void calculateCommission(List<Claim> claims, List<UnderwritingInfo> underwritingInfos, boolean isFirstPeriod, boolean isAdditive) {
+        if (lossCarriedForwardEnabled && isFirstPeriod) {
             lossCarriedForward = initialLossCarriedForward;
         }
         double incurredClaims = 0d;
@@ -48,10 +48,19 @@ public class ProfitCommissionStrategy implements ICommissionStrategy {
         }
         double nextLossCarriedForward = totalPremiumWritten * (1d - costRatio) - incurredClaims;
         double totalCommission =  profitCommissionRatio * Math.max(0d, nextLossCarriedForward - lossCarriedForward);
-        for (UnderwritingInfo underwritingInfo : underwritingInfos) {
-            underwritingInfo.setCommission(underwritingInfo.getCommission() +
-                totalCommission * underwritingInfo.getPremiumWritten() / totalPremiumWritten);
+
+        if (isAdditive) {
+            for (UnderwritingInfo underwritingInfo : underwritingInfos) {
+                underwritingInfo.setCommission(underwritingInfo.getPremiumWritten() * totalCommission / totalPremiumWritten +
+                                               underwritingInfo.getCommission());
+            }
         }
+        else {
+            for (UnderwritingInfo underwritingInfo : underwritingInfos) {
+                underwritingInfo.setCommission(underwritingInfo.getPremiumWritten() * totalCommission / totalPremiumWritten);
+            }
+        }
+
         lossCarriedForward = lossCarriedForwardEnabled ? Math.min(0d, nextLossCarriedForward) : 0d;
     }
 }

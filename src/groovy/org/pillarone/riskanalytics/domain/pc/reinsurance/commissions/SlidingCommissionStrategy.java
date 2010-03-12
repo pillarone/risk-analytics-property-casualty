@@ -32,7 +32,7 @@ public class SlidingCommissionStrategy implements ICommissionStrategy {
         return map;
     }
 
-    public void calculateCommission(List<Claim> claims, List<UnderwritingInfo> underwritingInfos, boolean firstPeriod) {
+    public void calculateCommission(List<Claim> claims, List<UnderwritingInfo> underwritingInfos, boolean isFirstPeriod, boolean isAdditive) {
         double totalClaims = 0d;
         double totalPremium = 0d;
         for (Claim claim : claims) {
@@ -55,9 +55,17 @@ public class SlidingCommissionStrategy implements ICommissionStrategy {
             }
             previousCommission = commission;
         }
-        for (UnderwritingInfo uwInfo : underwritingInfos) {
-            double shareOfTotalPremium = uwInfo.getPremiumWritten() / totalPremium;
-            uwInfo.setCommission(uwInfo.getCommission() + shareOfTotalPremium * totalCommission);
+        if (isAdditive) {
+            for (UnderwritingInfo uwInfo : underwritingInfos) {
+                double shareOfTotalPremium = uwInfo.getPremiumWritten() / totalPremium;
+                uwInfo.setCommission(uwInfo.getCommission() + shareOfTotalPremium * totalCommission);
+            }
+        }
+        else {
+            for (UnderwritingInfo uwInfo : underwritingInfos) {
+                double shareOfTotalPremium = uwInfo.getPremiumWritten() / totalPremium;
+                uwInfo.setCommission(shareOfTotalPremium * totalCommission);
+            }
         }
     }
 

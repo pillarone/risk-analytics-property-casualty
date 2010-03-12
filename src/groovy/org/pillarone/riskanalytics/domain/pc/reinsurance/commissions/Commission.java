@@ -62,12 +62,12 @@ public class Commission extends Component {
 
                 UnderwritingInfoUtilities.segregateUnderwritingInfoByContract(inUnderwritingInfo, applicableContracts,
                                                                       applicableUnderwritingInfo, irrelevantUnderwritingInfo);
-                parmCommissionStrategy.calculateCommission(filteredClaims, applicableUnderwritingInfo, isFirstPeriod);
+                parmCommissionStrategy.calculateCommission(filteredClaims, applicableUnderwritingInfo, isFirstPeriod, true);
                 outUnderwritingInfoModified.addAll(applicableUnderwritingInfo);
                 outUnderwritingInfoUnmodified.addAll(irrelevantUnderwritingInfo);
             }
             else if (parmApplicableStrategy instanceof AllApplicableStrategy) {
-                parmCommissionStrategy.calculateCommission(inClaims, inUnderwritingInfo, isFirstPeriod);
+                parmCommissionStrategy.calculateCommission(inClaims, inUnderwritingInfo, isFirstPeriod, true);
                 outUnderwritingInfoModified.addAll(inUnderwritingInfo);
             }
             else {

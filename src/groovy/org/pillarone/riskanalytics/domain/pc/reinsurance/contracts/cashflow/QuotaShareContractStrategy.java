@@ -15,9 +15,7 @@ public class QuotaShareContractStrategy extends AbstractContractStrategy {
     public static final ReinsuranceContractType type = ReinsuranceContractType.QUOTASHARE;
 
     private static final String QUOTASHARE = "quotaShare";
-    private static final String COMMISSION = "commission";
     private double quotaShare;
-    private double commission;
 
     public ReinsuranceContractType getType() {
         return type;
@@ -26,7 +24,6 @@ public class QuotaShareContractStrategy extends AbstractContractStrategy {
     public Map getParameters() {
         Map<String, Double> parameters = new HashMap<String, Double>(2);
         parameters.put(QUOTASHARE, quotaShare);
-        parameters.put(COMMISSION, commission);
         return parameters;
     }
 
@@ -48,7 +45,6 @@ public class QuotaShareContractStrategy extends AbstractContractStrategy {
         cededUnderwritingInfo.premiumWrittenAsIf *= quotaShare * coveredByReinsurer;
         cededUnderwritingInfo.sumInsured *= quotaShare * coveredByReinsurer;
         cededUnderwritingInfo.maxSumInsured *= quotaShare * coveredByReinsurer;
-        cededUnderwritingInfo.commission = cededUnderwritingInfo.premiumWritten * commission * coveredByReinsurer;
         return cededUnderwritingInfo;
     }
 

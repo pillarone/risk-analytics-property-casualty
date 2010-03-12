@@ -27,11 +27,11 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
         List underwritingInfos = [underwritingInfo200, underwritingInfo100]
         List claims = [claim05, claim15]
 
-        commissionStrategy.calculateCommission claims, underwritingInfos, false
+        commissionStrategy.calculateCommission claims, underwritingInfos, false, false
 
         assertEquals '# outUnderwritingInfo packets', 2, underwritingInfos.size()
-        assertEquals 'underwritingInfo200', 50+200*0.2, underwritingInfos[0].commission
-        assertEquals 'underwritingInfo100', 5+100*0.2, underwritingInfos[1].commission
+        assertEquals 'underwritingInfo200', 200*0.2, underwritingInfos[0].commission
+        assertEquals 'underwritingInfo100', 100*0.2, underwritingInfos[1].commission
     }
 
     void testUsage2() {
@@ -48,7 +48,7 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
         List underwritingInfos = [underwritingInfo200]
         List claims = [claim15]
 
-        commissionStrategy.calculateCommission claims, underwritingInfos, false
+        commissionStrategy.calculateCommission claims, underwritingInfos, false, true
 
         assertEquals '# outUnderwritingInfo packets', 1, underwritingInfos.size()
         assertEquals 'underwritingInfo200', 50+200*0.1, underwritingInfos[0].commission

@@ -64,7 +64,7 @@ public class ReinsuranceContractType extends AbstractParameterObjectClassifier {
             case ReinsuranceContractType.TRIVIAL:
                 return new TrivialContractStrategy()
             case ReinsuranceContractType.QUOTASHARE:
-                return new QuotaShareContractStrategy(quotaShare: parameters["quotaShare"], commission: parameters["commission"])
+                return new QuotaShareContractStrategy(quotaShare: parameters["quotaShare"])
             case ReinsuranceContractType.WXL:
                 return new WXLContractStrategy(attachmentPoint: parameters["attachmentPoint"], limit: parameters["limit"],
                         annualLimit: parameters["annualLimit"], termLimit: parameters["termLimit"],
