@@ -12,7 +12,7 @@ import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentP
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-abstract class XLContractStrategy extends AbstractContractStrategy implements IReinsuranceContractStrategy, IParameterObject {
+abstract class XLContractStrategy extends AbstractContractStrategy implements IReinsuranceContractStrategy {
 
     /** Premium can be expressed as a fraction of a base quantity.                 */
     PremiumBase premiumBase = PremiumBase.ABSOLUTE
@@ -83,6 +83,9 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
         priorPeriodUsedReinstatements = calculateUsedReinstatements()
         double usedAnnualLimitInPriorPeriod = annualLimit - availableAnnualLimit
         availableTermLimit -= usedAnnualLimitInPriorPeriod
+    }
+
+    void applyAnnualLimits() {
         availableAnnualLimit = Math.min(annualLimit, availableTermLimit)
     }
 

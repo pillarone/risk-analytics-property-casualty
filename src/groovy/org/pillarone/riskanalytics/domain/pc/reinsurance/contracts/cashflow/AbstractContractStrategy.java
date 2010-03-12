@@ -18,6 +18,9 @@ public abstract class AbstractContractStrategy implements IReinsuranceContractSt
     public void initBookKeepingFiguresOfPeriod(List<Claim> grossClaims, List<UnderwritingInfo> grossUnderwritingInfos, double coveredByReinsurer) {
     }
 
+    public void applyAnnualLimits() {
+    }
+
     public void resetMemberInstances() {
     }
 

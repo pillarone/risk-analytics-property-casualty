@@ -38,6 +38,7 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
     private double scaledAttachmentPointPaid
     private double scaledLimit
     private double scaledTermLimit
+    private double gnpi
     /**
      *  The keys are the original gross claims sorting from claims development component.
      *  These maps are necessary for a correct calculation of the reserves.
@@ -68,7 +69,7 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
         scaledLimit = limit
         scaledTermLimit = termLimit
         if (premiumBase == PremiumBase.GNPI) {
-            double gnpi = UnderwritingInfoUtilities.aggregate(grossUnderwritingInfos).premiumWritten
+            gnpi = UnderwritingInfoUtilities.aggregate(grossUnderwritingInfos).premiumWritten
             scaledAttachmentPointIncurred *= gnpi
             scaledLimit *= gnpi
             scaledTermLimit *= gnpi
@@ -105,16 +106,24 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
         scaledAttachmentPointIncurred = Math.max(scaledAttachmentPointIncurred - aggregateGrossIncurred, 0)
         factorIncurred = (aggregateGrossIncurred != 0) ? aggregateCededIncurred / aggregateGrossIncurred : 0d
         availableScaledIncurredTermLimit -= aggregateCededIncurred
-        availableScaledIncurredLimit = Math.min(scaledLimit, availableScaledIncurredTermLimit)
+//        availableScaledIncurredLimit = Math.min(scaledLimit, availableScaledIncurredTermLimit)
 
         double aggregateCededPaid = Math.min(Math.max(aggregateGrossPaid - scaledAttachmentPointPaid, 0), availableScaledPaidLimit)
         scaledAttachmentPointPaid = Math.max(scaledAttachmentPointPaid - aggregateGrossPaid, 0)
         factorPaid = (aggregateGrossPaid != 0) ? aggregateCededPaid / aggregateGrossPaid : 0d
         availableScaledPaidTermLimit -= aggregateCededPaid
-        availableScaledPaidLimit = Math.min(scaledLimit, availableScaledPaidTermLimit)
+//        availableScaledPaidLimit = Math.min(scaledLimit, availableScaledPaidTermLimit)
     }
 
-
+    void applyAnnualLimits() {
+        availableScaledIncurredLimit = Math.min(scaledLimit, availableScaledIncurredTermLimit)
+        availableScaledPaidLimit = Math.min(scaledLimit, availableScaledPaidTermLimit)
+        scaledAttachmentPointIncurred = attachmentPoint
+        if (premiumBase == PremiumBase.GNPI) {
+            scaledAttachmentPointIncurred *= gnpi
+        }
+        scaledAttachmentPointPaid = scaledAttachmentPointIncurred
+    }
 
     public void initBookKeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
     }
@@ -148,9 +157,11 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
         cededClaim.scale(0)
         if (grossClaim instanceof ClaimDevelopmentPacket) {
             cededClaim.incurred = grossClaim.incurred * factorIncurred * coveredByReinsurer
+            availableScaledIncurredLimit -= cededClaim.incurred
             cededClaim.paid = grossClaim.paid * factorPaid * coveredByReinsurer
+            availableScaledPaidLimit -= cededClaim.paid
             if (grossClaim.incurred > 0) {
-                cededClaim.reserved = cededClaim.incurred - cededClaim.paid
+                cededClaim.reserved = Math.abs(cededClaim.incurred - cededClaim.paid)
                 remainingCededReserves.put(grossClaim, cededClaim.reserved)
             }
             else {
@@ -162,6 +173,7 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
         }
         else if (grossClaim instanceof Claim) {
             cededClaim.ultimate = grossClaim.ultimate * factorIncurred * coveredByReinsurer
+            availableScaledIncurredLimit -= cededClaim.ultimate
         }
         return cededClaim
     }

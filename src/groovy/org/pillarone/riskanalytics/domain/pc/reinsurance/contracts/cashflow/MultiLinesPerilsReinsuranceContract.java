@@ -1,6 +1,5 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cashflow;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.NotImplementedException;
 import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.core.packets.PacketList;
@@ -11,7 +10,6 @@ import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimFilterUtilities;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimPacketFactory;
 import org.pillarone.riskanalytics.domain.pc.claims.SortClaimsByFractionOfPeriod;
-import org.pillarone.riskanalytics.domain.pc.constants.IncludeType;
 import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments;
 import org.pillarone.riskanalytics.domain.pc.constants.ReinsuranceContractBase;
 import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
@@ -63,7 +61,7 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
     private IReinsuranceContractStrategy parmContractStrategy = ReinsuranceContractType.getTrivial();
     private ICommissionStrategy parmCommissionStrategy = CommissionStrategyType.getNoCommission();
     private ICoverAttributeStrategy parmCover = CoverAttributeStrategyType.getStrategy(
-            CoverAttributeStrategyType.ALL, ArrayUtils.toMap(new Object[][]{{"reserves", IncludeType.NOTINCLUDED}}));
+            CoverAttributeStrategyType.ALL, Collections.emptyMap());
     private ICoverPeriod parmCoverPeriod = new FullPeriodCoveredStrategy();
     private double parmCoveredByReinsurer = 1d;
     /**
@@ -94,6 +92,9 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
         PeriodScope periodScope = iterationScope.getPeriodScope();
         int currentPeriod = periodScope.getCurrentPeriod();
         if (iterationScope.getCurrentIteration() == 0) {
+            if (currentPeriod == 0) {
+                initSimulation();
+            }
             initDuringFirstIteration();
         }
         if (currentPeriod == 0) {
@@ -111,9 +112,10 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
             }
             contract.initBookKeepingFigures(outClaimsGrossInCoveredPeriod, outFilteredUnderwritingInfo);
             if (periodScope.getCurrentPeriodStartDate().getYear() != lastPeriodYear) {
-                contract.initBookKeepingFiguresOfPeriod(outClaimsGrossInCoveredPeriod, outFilteredUnderwritingInfo, parmCoveredByReinsurer);
+                contract.applyAnnualLimits();
                 lastPeriodYear = periodScope.getCurrentPeriodStartDate().getYear();
             }
+            contract.initBookKeepingFiguresOfPeriod(outClaimsGrossInCoveredPeriod, outFilteredUnderwritingInfo, parmCoveredByReinsurer);
 
             Collections.sort(outClaimsGrossInCoveredPeriod, SortClaimsByFractionOfPeriod.getInstance());
             if (isSenderWired(outUncoveredClaims)) {
@@ -151,9 +153,12 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
         }
     }
 
+    private void initSimulation() {
+        lastPeriodYear = simulationScope.getIterationScope().getPeriodScope().getCurrentPeriodStartDate().getYear() - 1;  // force mismatch in first doCalculation run
+    }
+
     protected void initDuringFirstIteration() {
         PeriodScope periodScope = simulationScope.getIterationScope().getPeriodScope();
-        lastPeriodYear = periodScope.getCurrentPeriodStartDate().getYear() - 1;  // force mismatch in first doCalculation run
         coverPerPeriod.add(parmCoverPeriod.getCoverDuration(
                 periodScope.getCurrentPeriodStartDate(),
                 periodScope.getNextPeriodStartDate()));
@@ -204,7 +209,7 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
         for (Claim claim : outFilteredClaims) {
             if (claim.getClass().equals(ClaimDevelopmentPacket.class)) {
                 int originalPeriod = ((ClaimDevelopmentPacket) claim).getOriginalPeriod();
-                double fractionOfPeriod = ((ClaimDevelopmentPacket) claim).getFractionOfPeriod();
+                double fractionOfPeriod = claim.getFractionOfPeriod();
                 boolean originalPeriodCovered = originalPeriod < coverPerPeriod.size() && coverPerPeriod.get(originalPeriod).isCovered(fractionOfPeriod);
                 if (originalPeriod == currentPeriod && coverOfCurrentPeriod.isCovered(fractionOfPeriod)
                         || originalPeriodCovered) {

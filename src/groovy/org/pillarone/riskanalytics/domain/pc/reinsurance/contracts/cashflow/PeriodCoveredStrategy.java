@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-class PeriodCoveredStrategy implements ICoverPeriod, IParameterObject {
+public class PeriodCoveredStrategy implements ICoverPeriod, IParameterObject {
 
     private DateTime start;
     private DateTime end;

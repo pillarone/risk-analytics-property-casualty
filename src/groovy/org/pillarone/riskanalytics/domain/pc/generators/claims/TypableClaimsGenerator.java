@@ -186,7 +186,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
         }
     }
 
-    private Model getModel() {
+    protected Model getModel() {
         return simulationScope.getModel();
     }
 
@@ -194,7 +194,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
      * Filter the claims generator's inProbabilites: only inProbabilites with corresponding
      * marginals string matching the claims generator's name are used.
      */
-    private List<Double> filterProbabilities() {
+    protected List<Double> filterProbabilities() {
         List<Double> probabilities = new ArrayList<Double>();
         for (DependenceStream stream : inProbabilities) {
             // todo(sku): refactor in order to use component references in marginals
@@ -206,7 +206,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
         return probabilities;
     }
 
-    private List<Event> extractEvents(List<EventSeverity> eventSeverities) {
+    protected List<Event> extractEvents(List<EventSeverity> eventSeverities) {
         List<Event> events = new ArrayList<Event>();
         for (EventSeverity eventSeverity : eventSeverities) {
             events.add(eventSeverity.event);
@@ -214,7 +214,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
         return events;
     }
 
-    private List<EventSeverity> filterEvents() {
+    protected List<EventSeverity> filterEvents() {
         List<EventSeverity> eventSeverities = new ArrayList<EventSeverity>();
         for (EventDependenceStream stream : inEventSeverities) {
             int index = stream.marginals.indexOf(getNormalizedName());
@@ -225,7 +225,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
         return eventSeverities;
     }
 
-    private double generateFrequency(RandomDistribution distribution, DistributionModified modification, FrequencyBase frequencyBase) {
+    protected double generateFrequency(RandomDistribution distribution, DistributionModified modification, FrequencyBase frequencyBase) {
         double frequency = 0;
         IRandomNumberGenerator generator = getCachedGenerator(distribution, modification);
         // todo(sku): refactor in order to use IExposureBaseStrategy or an equivalent construct
@@ -241,7 +241,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
         return frequency;
     }
 
-    private List<Double> generateClaimsValues(int number, RandomDistribution distribution, DistributionModified modification) {
+    protected List<Double> generateClaimsValues(int number, RandomDistribution distribution, DistributionModified modification) {
         if (distribution == null) {
             throw new IllegalStateException("A distribution must be set");
         }
@@ -253,7 +253,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
         return claimValues;
     }
 
-    private List<Event> generateEvents(int number) {
+    protected List<Event> generateEvents(int number) {
         List<Double> dates = UniformDoubleList.getDoubles(number, true);
         List<Event> events = new ArrayList<Event>(number);
         for (Double date : dates) {
@@ -265,7 +265,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
     }
 
     // todo(sku): refactor once the variate distributions are properly refactored
-    private List<Double> calculateClaimsValues(List<Double> probabilites, RandomDistribution distribution, DistributionModified modification) {
+    protected List<Double> calculateClaimsValues(List<Double> probabilites, RandomDistribution distribution, DistributionModified modification) {
         Distribution dist = distribution.getDistribution();
         if (modification.getType().equals(DistributionModifier.CENSORED) || modification.getType().equals(DistributionModifier.CENSOREDSHIFT)) {
             dist = new CensoredDist(distribution.getDistribution(),
@@ -282,7 +282,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
         return claimValues;
     }
 
-    private List<Double> calculateEventClaimsValues(List<EventSeverity> eventSeverities, RandomDistribution distribution) {
+    protected List<Double> calculateEventClaimsValues(List<EventSeverity> eventSeverities, RandomDistribution distribution) {
         List<Double> claimValues = new ArrayList<Double>(eventSeverities.size());
         for (EventSeverity severity : eventSeverities) {
             claimValues.add(distribution.getDistribution().inverseF(severity.value));

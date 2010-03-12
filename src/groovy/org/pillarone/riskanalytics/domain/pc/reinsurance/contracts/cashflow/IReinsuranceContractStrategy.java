@@ -18,6 +18,8 @@ interface IReinsuranceContractStrategy extends IParameterObject {
     /** executed for every period a contract has covered and is not exhausted */
     void initBookKeepingFiguresOfPeriod(List<Claim> grossClaims, List<UnderwritingInfo> grossUnderwritingInfos, double coveredByReinsurer);
 
+    void applyAnnualLimits();
+
     /**
      *  Calculates the claim covered of the loss net after contracts with
      *  a smaller inuring priority or preceding contracts in the net.
