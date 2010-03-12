@@ -64,7 +64,7 @@ class LossPortfolioTransferContractStrategy extends AbstractContractStrategy imp
                 break
             case LPTPremiumBase.RELATIVE_TO_CEDED_RESERVES_VOLUME:
                 cededUnderwritingInfo.premiumWritten =
-                    initialReserves * quotaShare * coveredByReinsurer * premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
+                    initialReserves * quotaShare * coveredByReinsurer * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
                 break
             default:
                 throw new IllegalArgumentException("$premiumBase type is not suppported.")
