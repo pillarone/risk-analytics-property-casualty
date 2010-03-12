@@ -78,7 +78,7 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
                         ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.25, "coveredByReinsurer": 1d]),
                 parmCommissionStrategy : CommissionStrategyType.getStrategy(
                         CommissionStrategyType.FIXEDCOMMISSION, ["commission": 0d]),
-                parmCoverPeriod : CoverPeriodType.getCoverPeriod(
+                parmCoverPeriod : CoverPeriodType.getStrategy(
                         CoverPeriodType.PERIOD,
                         ['start': new DateTime(2010,1,1,0,0,0,0), 'end': new DateTime(2010,6,30,0,0,0,0)]),
                 parmCoveredByReinsurer : 1d,
@@ -96,7 +96,7 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
                         ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.25, "coveredByReinsurer": 1d]),
                 parmCommissionStrategy : CommissionStrategyType.getStrategy(
                         CommissionStrategyType.FIXEDCOMMISSION, ["commission": 0d]),
-                parmCoverPeriod : CoverPeriodType.getCoverPeriod(
+                parmCoverPeriod : CoverPeriodType.getStrategy(
                         CoverPeriodType.PERIOD,
                         ['start': new DateTime(2011,1,1,0,0,0,0), 'end': new DateTime(2013,12,31,0,0,0,0)]),
                 parmCoveredByReinsurer : 1d,
@@ -115,7 +115,7 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
                         ReinsuranceContractType.QUOTASHARE, ["quotaShare": quotaShare, "coveredByReinsurer": 1d]),
                 parmCommissionStrategy : CommissionStrategyType.getStrategy(
                         CommissionStrategyType.FIXEDCOMMISSION, ["commission": commission]),
-                parmCoverPeriod : CoverPeriodType.getCoverPeriod(
+                parmCoverPeriod : CoverPeriodType.getStrategy(
                         CoverPeriodType.PERIOD,
                         ['start': new DateTime(contractStartYear,1,1,0,0,0,0),
                            'end': new DateTime(contractStartYear+contractDuration-1,12,31,0,0,0,0)]),

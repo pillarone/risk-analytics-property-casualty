@@ -37,10 +37,10 @@ class CoverPeriodType extends AbstractParameterObjectClassifier {
     }
 
     public IParameterObject getParameterObject(Map parameters) {
-        return getCoverPeriod(this, parameters)
+        return getStrategy(this, parameters)
     }
 
-    static ICoverPeriod getCoverPeriod(CoverPeriodType type, Map parameters) {
+    static ICoverPeriod getStrategy(CoverPeriodType type, Map parameters) {
         switch (type) {
             case CoverPeriodType.NONE:
                 return new NoPeriodCoveredStrategy()
