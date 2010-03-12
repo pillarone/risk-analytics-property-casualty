@@ -98,12 +98,11 @@ public class UnderwritingInfo extends ExposureInfo {
     }
 
     public String toString() {
-        if (origin == null || originalUnderwritingInfo == null) {
-            return "premium: " + String.valueOf(premiumWritten) + ", commission: " + commission;
-        }
-        else {
-            return "premium: " + String.valueOf(premiumWritten) + ", commission: " + commission + ", origin: " + origin.getNormalizedName() + ", original " + originalUnderwritingInfo.origin.getNormalizedName();
-        }
+        return "premium: " + String.valueOf(premiumWritten) + ", commission: " + commission +
+                ", origin: " + (origin == null ? "null" : origin.getNormalizedName()) +
+                ", original " + (originalUnderwritingInfo==null ? "null" :
+                                 originalUnderwritingInfo.origin==null ? "unnamed" :
+                                 originalUnderwritingInfo.origin.getNormalizedName());
     }
 
     public LobMarker getLineOfBusiness() {

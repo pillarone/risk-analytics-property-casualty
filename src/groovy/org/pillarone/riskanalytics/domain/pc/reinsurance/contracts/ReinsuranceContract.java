@@ -21,20 +21,6 @@ import java.util.List;
  */
 public class ReinsuranceContract extends Component implements IReinsuranceContractMarker {
 
-    /** Defines the kind of contract and parameterization      */
-    protected IReinsuranceContractStrategy parmContractStrategy = ReinsuranceContractStrategyFactory.getTrivial();
-
-    private ICommissionStrategy parmCommissionStrategy = CommissionStrategyType.getNoCommission();
-
-    /**
-     *  Defines the claim and underwriting info the contract will receive.
-     *  Namely, the net after contracts with lower inuring priority.
-     *
-     *  Cave: Setting the inuring priority is not trivial. Make sure you have a
-     *  correct understanding before 'playing around' with it.
-     */
-    protected int parmInuringPriority = 0;
-
     protected PacketList<Claim> inClaims = new PacketList<Claim>(Claim.class);
     protected PacketList<UnderwritingInfo> inUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
     private PacketList<SingleValuePacket> inInitialReserves = new PacketList<SingleValuePacket>(SingleValuePacket.class);
@@ -51,6 +37,20 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
     protected PacketList<UnderwritingInfo> outCoverUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
 
     protected PacketList<ReinsuranceResultWithCommissionPacket> outContractFinancials = new PacketList<ReinsuranceResultWithCommissionPacket>(ReinsuranceResultWithCommissionPacket.class);
+
+    /** Defines the kind of contract and parametrization */
+    protected IReinsuranceContractStrategy parmContractStrategy = ReinsuranceContractStrategyFactory.getTrivial();
+
+    private ICommissionStrategy parmCommissionStrategy = CommissionStrategyType.getNoCommission();
+
+    /**
+     *  Defines the claim and underwriting info the contract will receive.
+     *  Namely, the net after contracts with lower inuring priority.
+     *
+     *  Cave: Setting the inuring priority is not trivial. Make sure you have a
+     *  correct understanding before 'playing around' with it.
+     */
+    protected int parmInuringPriority = 0;
 
     public void doCalculation() {
         if (parmContractStrategy == null) throw new IllegalStateException("A contract strategy must be set");
@@ -70,7 +70,7 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
             calculateCededUnderwritingInfos(inUnderwritingInfo, outCoverUnderwritingInfo);
         }
 
-        parmCommissionStrategy.calculateCommission(outCoveredClaims, outCoverUnderwritingInfo , false);
+        parmCommissionStrategy.calculateCommission(outCoveredClaims, outCoverUnderwritingInfo, false, false);
         fillDevelopedClaimsChannels();
         if (isSenderWired(getOutContractFinancials())) {
             ReinsuranceResultWithCommissionPacket result = new ReinsuranceResultWithCommissionPacket();

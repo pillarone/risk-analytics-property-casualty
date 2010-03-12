@@ -22,7 +22,7 @@ class HistoricalClaimsTests extends GroovyTestCase {
                 [       1000d,        2000d,        4000d,        8000d,       16000d,       32000d,       64000d, ], // amounts incurred
                 [        100d,         200d,         400d,         800d,        1600d,        3200d,        6400d, ], // amounts paid
             ],["Date Incurred", "Date Paid", "Amount Incurred", "Amount Paid"])
-        historicalClaims.iterationScope = MultiLinesPerilsReinsuranceContractTests.getIterationScope(new DateTime(2010,1,1,0,0,0,0), Period.years(2))
+        historicalClaims.iterationScope = MultiLinesPerilsReinsuranceContractTests.getNewFirstIterationScope(new DateTime(2010,1,1,0,0,0,0), Period.years(2))
 
         historicalClaims.doCalculation()
 

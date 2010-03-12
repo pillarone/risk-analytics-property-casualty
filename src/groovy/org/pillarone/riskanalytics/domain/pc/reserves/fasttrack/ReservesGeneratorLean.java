@@ -51,7 +51,6 @@ public class ReservesGeneratorLean extends GeneratorCachingComponent implements 
             ArrayUtils.toMap(new Object[][]{{"basedOnClaimsGenerators", new ComboBoxTableMultiDimensionalParameter(
                     Collections.emptyList(),
                     Arrays.asList("Claims Generators"), PerilMarker.class)}}));
-    private static final double EPS = 1e-8;
 
     protected void doCalculation() {
         ClaimDevelopmentLeanPacket claim = new ClaimDevelopmentLeanPacket();
