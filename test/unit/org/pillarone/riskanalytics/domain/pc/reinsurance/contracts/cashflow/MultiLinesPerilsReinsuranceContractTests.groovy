@@ -16,21 +16,40 @@ import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentW
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 
+import org.pillarone.riskanalytics.core.model.Model
+import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
+import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments
+import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
+import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cashflow.cover.CoverAttributeStrategyType
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.NoneCoverAttributeStrategy
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.ICoverAttributeStrategy
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.LineOfBusinessCoverAttributeStrategy
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.PerilsCoverAttributeStrategy
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.LineOfBusinessPerilsCoverAttributeStrategy
+import org.pillarone.riskanalytics.domain.pc.claims.TestPerilComponent
+import org.pillarone.riskanalytics.domain.pc.claims.TestLobComponent
+import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiCoverAttributeReinsuranceContractTests
+
 /**
- * @author stefan.kunz (at) intuitive-collaboration (dot) com
+ * @author stefan.kunz & ben.ginsberg (at) intuitive-collaboration (dot) com
  */
 class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
 
     static MultiLinesPerilsReinsuranceContract getContractFullCoverAllLinesPerils() {
         MultiLinesPerilsReinsuranceContract contract = new MultiLinesPerilsReinsuranceContract(
                 parmContractStrategy : ReinsuranceContractType.getContractStrategy(
-                        ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.25, "commission": 0.0, "coveredByReinsurer": 1d]),
+                        ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.25, "coveredByReinsurer": 1d]),
+                parmCommissionStrategy : CommissionStrategyType.getStrategy(
+                        CommissionStrategyType.FIXEDCOMMISSION, ["commission": 0d]),
                 parmCoverPeriod : new FullPeriodCoveredStrategy(),
                 parmCoveredByReinsurer : 1d,
                 parmInuringPriority : 0d)
         SimulationScope simulationScope= new SimulationScope()
         simulationScope.model = new VoidTestModel()
-        simulationScope.iterationScope = getIterationScope(new DateTime(2010,1,1,0,0,0,0), Period.years(1))
+        simulationScope.iterationScope = getNewFirstIterationScope(new DateTime(2010,1,1,0,0,0,0), Period.years(1))
         contract.simulationScope = simulationScope
 
         return contract
@@ -39,13 +58,15 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
     static MultiLinesPerilsReinsuranceContract getQuotaShare50FullCoverAllLinesPerils() {
         MultiLinesPerilsReinsuranceContract contract = new MultiLinesPerilsReinsuranceContract(
                 parmContractStrategy : ReinsuranceContractType.getContractStrategy(
-                        ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.50, "commission": 0.0, "coveredByReinsurer": 1d]),
+                        ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.50, "coveredByReinsurer": 1d]),
+                parmCommissionStrategy : CommissionStrategyType.getStrategy(
+                        CommissionStrategyType.FIXEDCOMMISSION, ["commission": 0d]),
                 parmCoverPeriod : new FullPeriodCoveredStrategy(),
                 parmCoveredByReinsurer : 1d,
                 parmInuringPriority : 0d)
         SimulationScope simulationScope= new SimulationScope()
         simulationScope.model = new VoidTestModel()
-        simulationScope.iterationScope = getIterationScope(new DateTime(2010,1,1,0,0,0,0), Period.years(1))
+        simulationScope.iterationScope = getNewFirstIterationScope(new DateTime(2010,1,1,0,0,0,0), Period.years(1))
         contract.simulationScope = simulationScope
 
         return contract
@@ -54,7 +75,9 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
     static MultiLinesPerilsReinsuranceContract getContractHalfPeriodCoverAllLinesPerils() {
         MultiLinesPerilsReinsuranceContract contract = new MultiLinesPerilsReinsuranceContract(
                 parmContractStrategy : ReinsuranceContractType.getContractStrategy(
-                        ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.25, "commission": 0.0, "coveredByReinsurer": 1d]),
+                        ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.25, "coveredByReinsurer": 1d]),
+                parmCommissionStrategy : CommissionStrategyType.getStrategy(
+                        CommissionStrategyType.FIXEDCOMMISSION, ["commission": 0d]),
                 parmCoverPeriod : CoverPeriodType.getCoverPeriod(
                         CoverPeriodType.PERIOD,
                         ['start': new DateTime(2010,1,1,0,0,0,0), 'end': new DateTime(2010,6,30,0,0,0,0)]),
@@ -62,7 +85,7 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
                 parmInuringPriority : 0d)
         SimulationScope simulationScope= new SimulationScope()
         simulationScope.model = new VoidTestModel()
-        simulationScope.iterationScope = getIterationScope(new DateTime(2010,1,1,0,0,0,0), Period.years(1))
+        simulationScope.iterationScope = getNewFirstIterationScope(new DateTime(2010,1,1,0,0,0,0), Period.years(1))
         contract.simulationScope = simulationScope
         return contract
     }
@@ -70,7 +93,9 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
     static MultiLinesPerilsReinsuranceContract getContractThreePeriodCoverDelayedAllLinesPerils() {
         MultiLinesPerilsReinsuranceContract contract = new MultiLinesPerilsReinsuranceContract(
                 parmContractStrategy : ReinsuranceContractType.getContractStrategy(
-                        ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.25, "commission": 0.0, "coveredByReinsurer": 1d]),
+                        ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.25, "coveredByReinsurer": 1d]),
+                parmCommissionStrategy : CommissionStrategyType.getStrategy(
+                        CommissionStrategyType.FIXEDCOMMISSION, ["commission": 0d]),
                 parmCoverPeriod : CoverPeriodType.getCoverPeriod(
                         CoverPeriodType.PERIOD,
                         ['start': new DateTime(2011,1,1,0,0,0,0), 'end': new DateTime(2013,12,31,0,0,0,0)]),
@@ -78,34 +103,86 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
                 parmInuringPriority : 0d)
         SimulationScope simulationScope= new SimulationScope()
         simulationScope.model = new VoidTestModel()
-        simulationScope.iterationScope = getIterationScope(new DateTime(2010,1,1,0,0,0,0), Period.years(1))
+        simulationScope.iterationScope = getNewFirstIterationScope(new DateTime(2010,1,1,0,0,0,0), Period.years(1))
         contract.simulationScope = simulationScope
         return contract
     }
 
-    static MultiLinesPerilsReinsuranceContract getAllLinesPerilsQuotaShareContract(int iterationStart, int contractStart, int contractDuration = 1, double quotaShare = 0.5, double inuringPriority = 0, double commission = 0) {
+    static MultiLinesPerilsReinsuranceContract getAllLinesPerilsQuotaShareContract(int iterationStartYear, int contractStartYear,
+                int contractDuration = 1, double quotaShare = 0.5, double inuringPriority = 0, double commission = 0) {
         MultiLinesPerilsReinsuranceContract contract = new MultiLinesPerilsReinsuranceContract(
                 parmContractStrategy : ReinsuranceContractType.getContractStrategy(
-                        ReinsuranceContractType.QUOTASHARE, ["quotaShare": quotaShare, "commission": commission, "coveredByReinsurer": 1d]),
+                        ReinsuranceContractType.QUOTASHARE, ["quotaShare": quotaShare, "coveredByReinsurer": 1d]),
+                parmCommissionStrategy : CommissionStrategyType.getStrategy(
+                        CommissionStrategyType.FIXEDCOMMISSION, ["commission": commission]),
                 parmCoverPeriod : CoverPeriodType.getCoverPeriod(
                         CoverPeriodType.PERIOD,
-                        ['start': new DateTime(contractStart,1,1,0,0,0,0), 'end': new DateTime(contractStart+contractDuration-1,12,31,0,0,0,0)]),
+                        ['start': new DateTime(contractStartYear,1,1,0,0,0,0),
+                           'end': new DateTime(contractStartYear+contractDuration-1,12,31,0,0,0,0)]),
                 parmCoveredByReinsurer : 1d,
-                parmInuringPriority : 0d)
+                parmInuringPriority : inuringPriority)
         SimulationScope simulationScope= new SimulationScope()
         simulationScope.model = new VoidTestModel()
-        simulationScope.iterationScope = getIterationScope(new DateTime(iterationStart,1,1,0,0,0,0), Period.years(1))
+        simulationScope.iterationScope = getNewFirstIterationScope(new DateTime(iterationStartYear,1,1,0,0,0,0), Period.years(1))
         contract.simulationScope = simulationScope
         return contract
     }
 
-    static IterationScope getIterationScope(DateTime startSimulation, Period period) {
-        PeriodScope periodScope = new PeriodScope()
-        periodScope.periodCounter = new ContinuousPeriodCounter(startSimulation, period)
-        IterationScope iterationScope = new IterationScope()
-        iterationScope.periodScope = periodScope
+    /** this method is like the one in MultiCoverAttributeReinsuranceContractTests, but has no reserves */
+    static ICoverAttributeStrategy getCoverAttributeStrategy(Map<String, List<String>> cover, Model model = null) {
+        boolean hasLines = cover.containsKey('lines')
+        boolean hasPerils = cover.containsKey('perils')
+
+        ComboBoxTableMultiDimensionalParameter lines = hasLines ? new ComboBoxTableMultiDimensionalParameter(cover['lines'], ['Covered Lines'], LobMarker) : null
+        ComboBoxTableMultiDimensionalParameter perils = hasPerils ? new ComboBoxTableMultiDimensionalParameter(cover['perils'], ['Covered Perils'], PerilMarker) : null
+
+        // each of the strategy-specific ComboBoxTableMultiDimensionalParameter properties needs to set the simulation model (to simulate a choice from the GUI)
+        if (model != null) {
+            if (hasLines) {lines.setSimulationModel model}
+            if (hasPerils) {perils.setSimulationModel model}
+        }
+
+        // return one of:
+        hasLines && hasPerils ? CoverAttributeStrategyType.getStrategy(CoverAttributeStrategyType.LINESOFBUSINESSPERILS, ['connection': LogicArguments.AND, 'lines': lines, 'perils': perils]) :
+        hasLines ? CoverAttributeStrategyType.getStrategy(CoverAttributeStrategyType.LINESOFBUSINESS, ['lines': lines]) :
+        hasPerils ? CoverAttributeStrategyType.getStrategy(CoverAttributeStrategyType.PERILS, ['perils': perils]) :
+        new NoneCoverAttributeStrategy()
+    }
+
+    static IterationScope getNewFirstIterationScope(DateTime startSimulation, Period period) {
+        IterationScope iterationScope = new IterationScope(
+                periodScope: new PeriodScope(
+                        periodCounter: new ContinuousPeriodCounter(
+                                startSimulation, period
+                        )
+                )
+        )
         iterationScope.prepareNextIteration()
         return iterationScope
+    }
+
+    // code coverage
+    void testGetStrategy() {
+        ICoverAttributeStrategy coverStrategy = getCoverAttributeStrategy([:])
+        assertTrue "cover strategy is None", coverStrategy instanceof NoneCoverAttributeStrategy
+
+        coverStrategy = getCoverAttributeStrategy(['lines': ['L1']])
+        assertTrue "cover strategy is LOB", coverStrategy instanceof LineOfBusinessCoverAttributeStrategy
+
+        coverStrategy = getCoverAttributeStrategy(['perils': ['P1']])
+        assertTrue "cover strategy is Perils", coverStrategy instanceof PerilsCoverAttributeStrategy
+
+        coverStrategy = getCoverAttributeStrategy(['lines': ['L1'], 'perils': ['P1']])
+        assertTrue "cover strategy is LobPerils", coverStrategy instanceof LineOfBusinessPerilsCoverAttributeStrategy
+    }
+
+    void testDefaultContract() {
+        MultiLinesPerilsReinsuranceContract contract = new MultiLinesPerilsReinsuranceContract()
+        assertNotNull contract
+        assertSame ReinsuranceContractType.TRIVIAL, contract.parmContractStrategy.type
+
+        // make sure that the IDE hasn't introduced an error when "optimizing imports" (we want *cashflow*.cover.CAST)
+        assertSame org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cashflow.cover.CoverAttributeStrategyType.ALL, contract.parmCover.type
     }
 
     void testOneFullPeriodCover() {
@@ -151,7 +228,7 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
 
         SimulationScope simulationScope= new SimulationScope()
         simulationScope.model = new VoidTestModel()
-        simulationScope.iterationScope = getIterationScope(new DateTime(2010,1,1,0,0,0,0), Period.years(1))
+        simulationScope.iterationScope = getNewFirstIterationScope(new DateTime(2010,1,1,0,0,0,0), Period.years(1))
         contract.simulationScope = simulationScope
 
         def netClaims = new TestProbe(contract, 'outUncoveredClaims')
@@ -305,7 +382,10 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         // simulate the second period, but with another nontrivial contract strategy (instance)
         contract.reset()
         contract.parmContractStrategy = ReinsuranceContractType.getContractStrategy(
-                ReinsuranceContractType.QUOTASHARE, ['quotaShare': 0.25, 'commission':0])
+                        ReinsuranceContractType.QUOTASHARE, ['quotaShare': 0.25])
+        contract.parmCommissionStrategy = CommissionStrategyType.getStrategy(
+                        CommissionStrategyType.FIXEDCOMMISSION, ["commission": 0d])
+
         contract.inClaims << claim1000 << claim800
         contract.simulationScope.iterationScope.periodScope.prepareNextPeriod()
         shouldFail IllegalArgumentException, {contract.doCalculation()}
@@ -362,17 +442,17 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
     * Make sure that Net UnderwritingInfo is not calculated when not wired in a contract (code/branch coverage test)
     */
     void testUnderwritingInfoCededButNotNetWired() {
-        MultiLinesPerilsReinsuranceContract contract = MultiLinesPerilsReinsuranceContractTests.getAllLinesPerilsQuotaShareContract(2010, 2010, 4, 0.25, 0, 0.1)
+        MultiLinesPerilsReinsuranceContract contract = MultiLinesPerilsReinsuranceContractTests.getAllLinesPerilsQuotaShareContract(2010, 2010, 4, 0.25, 0, 0.2)
         contract.name = 'Quota Share 25%'
 
         ClaimDevelopmentPacket claim1000 = new ClaimDevelopmentPacket(incurred: 1000, paid: 500, reserved: 500, changeInReserves: 500, originalClaim: new Claim())
         ClaimDevelopmentPacket claim800 = new ClaimDevelopmentPacket(incurred: 800, paid: 480, reserved: 320, changeInReserves: 480, originalClaim: new Claim())
         contract.inClaims << claim1000 << claim800
 
-        UnderwritingInfo originalUnderwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: 50)
-        UnderwritingInfo originalUnderwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: 5)
-        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: 50, originalUnderwritingInfo: originalUnderwritingInfo200)
-        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: 5, originalUnderwritingInfo: originalUnderwritingInfo100)
+        UnderwritingInfo originalUnderwritingInfo200 = new UnderwritingInfo(premiumWritten: 202, commission: 17)
+        UnderwritingInfo originalUnderwritingInfo100 = new UnderwritingInfo(premiumWritten: 101, commission: 7)
+        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: 13, originalUnderwritingInfo: originalUnderwritingInfo200)
+        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: 3, originalUnderwritingInfo: originalUnderwritingInfo100)
         contract.inUnderwritingInfo << underwritingInfo200 << underwritingInfo100
 
         def wiredUWInfoFiltered = new TestProbe(contract, 'outFilteredUnderwritingInfo')
@@ -385,10 +465,9 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         assertEquals 'number of UnderwritingInfo packets net after contract', 0, contract.outNetAfterCoverUnderwritingInfo.size()
 
         assertEquals 'underwritinginfo200 ceded premium written after contract', 50, contract.outCoverUnderwritingInfo[0].premiumWritten
-        assertEquals 'underwritinginfo200 ceded commission after contract', 5, contract.outCoverUnderwritingInfo[0].commission
-
         assertEquals 'underwritinginfo100 ceded premium written after contract', 25, contract.outCoverUnderwritingInfo[1].premiumWritten
-        assertEquals 'underwritinginfo100 ceded commission after contract', 2.5, contract.outCoverUnderwritingInfo[1].commission
+        assertEquals 'underwritinginfo200 ceded commission after contract', 0.2*0.25*200, contract.outCoverUnderwritingInfo[0].commission
+        assertEquals 'underwritinginfo100 ceded commission after contract', 0.2*0.25*100, contract.outCoverUnderwritingInfo[1].commission
     }
 
     /**
@@ -397,17 +476,17 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
      * not be necessary for code coverage.
      */
     void testUnderwritingInfoNetButNotCededWired() {
-        MultiLinesPerilsReinsuranceContract contract = MultiLinesPerilsReinsuranceContractTests.getAllLinesPerilsQuotaShareContract(2010, 2010, 4, 0.25, 0, 0.1)
+        MultiLinesPerilsReinsuranceContract contract = MultiLinesPerilsReinsuranceContractTests.getAllLinesPerilsQuotaShareContract(2010, 2010, 4, 0.25, 0, 0.2)
         contract.name = 'Quota Share 25%'
 
         ClaimDevelopmentPacket claim1000 = new ClaimDevelopmentPacket(incurred: 1000, paid: 500, reserved: 500, changeInReserves: 500, originalClaim: new Claim())
         ClaimDevelopmentPacket claim800 = new ClaimDevelopmentPacket(incurred: 800, paid: 480, reserved: 320, changeInReserves: 480, originalClaim: new Claim())
         contract.inClaims << claim1000 << claim800
 
-        UnderwritingInfo originalUnderwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: 50)
-        UnderwritingInfo originalUnderwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: 5)
-        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: 50, originalUnderwritingInfo: originalUnderwritingInfo200)
-        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: 5, originalUnderwritingInfo: originalUnderwritingInfo100)
+        UnderwritingInfo originalUnderwritingInfo200 = new UnderwritingInfo(premiumWritten: 202, commission: 17)
+        UnderwritingInfo originalUnderwritingInfo100 = new UnderwritingInfo(premiumWritten: 101, commission: 7)
+        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: 13, originalUnderwritingInfo: originalUnderwritingInfo200)
+        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: 3, originalUnderwritingInfo: originalUnderwritingInfo100)
         contract.inUnderwritingInfo << underwritingInfo200 << underwritingInfo100
 
         def wiredUWInfoFiltered = new TestProbe(contract, 'outFilteredUnderwritingInfo')
@@ -419,27 +498,27 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         assertEquals 'number of UnderwritingInfo packets ceded after contract', 2, contract.outCoverUnderwritingInfo.size()
         assertEquals 'number of UnderwritingInfo packets net after contract', 2, contract.outNetAfterCoverUnderwritingInfo.size()
 
-        // these values were not present in testUnderwritingInfoCededButNotNetWired (since Net was not wired, only Ceded)
-        assertEquals 'underwritinginfo200 net premium written after contract', 150, contract.outNetAfterCoverUnderwritingInfo[0].premiumWritten
-        assertEquals 'underwritinginfo200 net commission after contract', 5, contract.outNetAfterCoverUnderwritingInfo[0].commission
-        assertEquals 'underwritinginfo100 net premium written after contract', 75, contract.outNetAfterCoverUnderwritingInfo[1].premiumWritten
-        assertEquals 'underwritinginfo100 net commission after contract', 2.5, contract.outNetAfterCoverUnderwritingInfo[1].commission
-
         // these values should be the same as in testUnderwritingInfoCededButNotNetWired (because when Net is wired, Ceded is also calculated)
         assertEquals 'underwritinginfo200 ceded premium written after contract', 50, contract.outCoverUnderwritingInfo[0].premiumWritten
-        assertEquals 'underwritinginfo200 ceded commission after contract', 5, contract.outCoverUnderwritingInfo[0].commission
         assertEquals 'underwritinginfo100 ceded premium written after contract', 25, contract.outCoverUnderwritingInfo[1].premiumWritten
-        assertEquals 'underwritinginfo100 ceded commission after contract', 2.5, contract.outCoverUnderwritingInfo[1].commission
+        assertEquals 'underwritinginfo200 ceded commission after contract', 0.2*0.25*200, contract.outCoverUnderwritingInfo[0].commission
+        assertEquals 'underwritinginfo100 ceded commission after contract', 0.2*0.25*100, contract.outCoverUnderwritingInfo[1].commission
+
+        // these values were not present in testUnderwritingInfoCededButNotNetWired (since Net was not wired, only Ceded)
+        assertEquals 'underwritinginfo200 net premium written after contract', 150, contract.outNetAfterCoverUnderwritingInfo[0].premiumWritten
+        assertEquals 'underwritinginfo100 net premium written after contract', 75, contract.outNetAfterCoverUnderwritingInfo[1].premiumWritten
+        assertEquals 'underwritinginfo200 net commission after contract', 13, contract.outNetAfterCoverUnderwritingInfo[0].commission
+        assertEquals 'underwritinginfo100 net commission after contract', 3, contract.outNetAfterCoverUnderwritingInfo[1].commission
     }
 
     void testTrivialContractStrategy() {
         MultiLinesPerilsReinsuranceContract contract = new MultiLinesPerilsReinsuranceContract(
                 parmContractStrategy: ReinsuranceContractType.getContractStrategy(ReinsuranceContractType.TRIVIAL, [:])
         )
-        SimulationScope simulationScope= new SimulationScope()
-        simulationScope.model = new VoidTestModel()
-        simulationScope.iterationScope = getIterationScope(new DateTime(2010,1,1,0,0,0,0), Period.years(1))
-        contract.simulationScope = simulationScope
+        contract.simulationScope = new SimulationScope(
+                iterationScope: getNewFirstIterationScope(new DateTime(2010,1,1,0,0,0,0), Period.years(1)),
+                model: new VoidTestModel()
+        )
 
         ClaimDevelopmentPacket claim1000 = new ClaimDevelopmentPacket(incurred: 1000, paid: 500, reserved: 500, changeInReserves: 500, originalClaim: new Claim())
         ClaimDevelopmentPacket claim800 = new ClaimDevelopmentPacket(incurred: 800, paid: 480, reserved: 320, changeInReserves: 480, originalClaim: new Claim())
@@ -462,8 +541,117 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         assertEquals 'number of claim packets net after contract', 0, contract.outUncoveredClaims.size()
         assertEquals 'number of claim packets ceded after contract', 0, contract.outCoveredClaims.size()
 
-        assertEquals 'number of UnderwritingInfo packets filtered', 2, contract.outFilteredUnderwritingInfo.size()  // todo(bgi): should be 0.
+        assertEquals 'number of UnderwritingInfo packets filtered', 2, contract.outFilteredUnderwritingInfo.size() // is 2 since trivial contract cover is ALL
         assertEquals 'number of UnderwritingInfo packets ceded after contract', 0, contract.outCoverUnderwritingInfo.size()
         assertEquals 'number of UnderwritingInfo packets net after contract', 0, contract.outNetAfterCoverUnderwritingInfo.size()
+    }
+
+    void testTrivialContractStrategyNoneCovered() {
+        MultiLinesPerilsReinsuranceContract contract = new MultiLinesPerilsReinsuranceContract(
+                parmContractStrategy: ReinsuranceContractType.getContractStrategy(ReinsuranceContractType.TRIVIAL, [:]),
+                parmCover: new NoneCoverAttributeStrategy()
+        )
+        contract.simulationScope = new SimulationScope(
+                iterationScope: getNewFirstIterationScope(new DateTime(2010,1,1,0,0,0,0), Period.years(1)),
+                model: new VoidTestModel()
+        )
+
+        ClaimDevelopmentPacket claim1000 = new ClaimDevelopmentPacket(incurred: 1000, paid: 500, reserved: 500, changeInReserves: 500, originalClaim: new Claim())
+        ClaimDevelopmentPacket claim800 = new ClaimDevelopmentPacket(incurred: 800, paid: 480, reserved: 320, changeInReserves: 480, originalClaim: new Claim())
+        contract.inClaims << claim1000 << claim800
+
+        UnderwritingInfo originalUnderwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: 50)
+        UnderwritingInfo originalUnderwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: 5)
+        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: 50, originalUnderwritingInfo: originalUnderwritingInfo200)
+        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: 5, originalUnderwritingInfo: originalUnderwritingInfo100)
+        contract.inUnderwritingInfo << underwritingInfo200 << underwritingInfo100
+
+        def netClaims = new TestProbe(contract, 'outUncoveredClaims')
+        def cededClaims = new TestProbe(contract, 'outCoveredClaims')
+
+        def wiredUWInfoFiltered = new TestProbe(contract, 'outFilteredUnderwritingInfo')
+        def wiredUWInfoNet = new TestProbe(contract, 'outNetAfterCoverUnderwritingInfo')
+
+        contract.doCalculation()
+
+        assertEquals 'number of claim packets net after contract', 0, contract.outUncoveredClaims.size()
+        assertEquals 'number of claim packets ceded after contract', 0, contract.outCoveredClaims.size()
+
+        assertEquals 'number of UnderwritingInfo packets filtered', 0, contract.outFilteredUnderwritingInfo.size() // is 0 since none are covered
+        assertEquals 'number of UnderwritingInfo packets ceded after contract', 0, contract.outCoverUnderwritingInfo.size()
+        assertEquals 'number of UnderwritingInfo packets net after contract', 0, contract.outNetAfterCoverUnderwritingInfo.size()
+    }
+
+    void testUsageWithCombinedFiltering() {
+        SimulationScope simulationScope = new SimulationScope(model: new VoidTestModel())
+
+        // create peril markers (and add them to the simulation model)
+        TestPerilComponent perilA = new TestPerilComponent(name: 'peril a')
+        TestPerilComponent perilB = new TestPerilComponent(name: 'peril b')
+        simulationScope.model.allComponents << perilA << perilB
+
+        // create LOB markers (and add them to the simulation model)
+        Map<String, TestLobComponent> lob = MultiCoverAttributeReinsuranceContractTests.createLobs(['fire', 'hull'], simulationScope.model)
+
+        // create contract; choose QuotaShareContractStrategy and LineOfBusinessPerilsCoverAttributeStrategy
+        MultiLinesPerilsReinsuranceContract contract = getAllLinesPerilsQuotaShareContract(2010, 2010, 4, 0.25, 0, 0.2)
+        // contract only covers hull LOB from peril B (both conditions are enforced; connection type is AND)
+        contract.parmCover = getCoverAttributeStrategy(['lines': ['hull'], 'perils': ['peril b']], simulationScope.model)
+
+        Claim claim001 = new Claim(lineOfBusiness: lob['fire'], peril: perilA, value: 1000, fractionOfPeriod: 0.1, claimType: ClaimType.SINGLE)
+        Claim claim002 = new Claim(lineOfBusiness: lob['fire'], peril: perilA, value: 2000, fractionOfPeriod: 0.2, claimType: ClaimType.ATTRITIONAL)
+        Claim claim011 = new Claim(lineOfBusiness: lob['fire'], peril: perilB, value: 3000, fractionOfPeriod: 0.4, claimType: ClaimType.SINGLE)
+        Claim claim012 = new Claim(lineOfBusiness: lob['fire'], peril: perilB, value: 4000, fractionOfPeriod: 0.8, claimType: ClaimType.ATTRITIONAL)
+        Claim claim101 = new Claim(lineOfBusiness: lob['hull'], peril: perilA, value: 5000, fractionOfPeriod: 0.5, claimType: ClaimType.SINGLE)
+        Claim claim102 = new Claim(lineOfBusiness: lob['hull'], peril: perilA, value: 6000, fractionOfPeriod: 0.0, claimType: ClaimType.ATTRITIONAL)
+        Claim claim111 = new Claim(lineOfBusiness: lob['hull'], peril: perilB, value: 7000, fractionOfPeriod: 0.9, claimType: ClaimType.SINGLE)
+        Claim claim112 = new Claim(lineOfBusiness: lob['hull'], peril: perilB, value: 8000, fractionOfPeriod: 0.7, claimType: ClaimType.ATTRITIONAL)
+
+        UnderwritingInfo uInfo001 = new UnderwritingInfo(lineOfBusiness: lob['fire'], origin: perilA, premiumWritten: 120, commission: 11)
+        UnderwritingInfo uInfo002 = new UnderwritingInfo(lineOfBusiness: lob['fire'], origin: perilA, premiumWritten: 220, commission: 13)
+        UnderwritingInfo uInfo011 = new UnderwritingInfo(lineOfBusiness: lob['fire'], origin: perilB, premiumWritten: 130, commission: 17)
+        UnderwritingInfo uInfo012 = new UnderwritingInfo(lineOfBusiness: lob['fire'], origin: perilB, premiumWritten: 230, commission: 19)
+        UnderwritingInfo uInfo101 = new UnderwritingInfo(lineOfBusiness: lob['hull'], origin: perilA, premiumWritten: 320, commission: 11)
+        UnderwritingInfo uInfo102 = new UnderwritingInfo(lineOfBusiness: lob['hull'], origin: perilA, premiumWritten: 420, commission: 13)
+        UnderwritingInfo uInfo111 = new UnderwritingInfo(lineOfBusiness: lob['hull'], origin: perilB, premiumWritten: 330, commission: 17)
+        UnderwritingInfo uInfo112 = new UnderwritingInfo(lineOfBusiness: lob['hull'], origin: perilB, premiumWritten: 430, commission: 19)
+
+        // wire all out channels
+        List outChannelsWired = [
+                'outFilteredClaims',
+                'outFilteredUnderwritingInfo',
+                'outClaimsGrossInCoveredPeriod',
+                'outUncoveredClaims',
+                'outCoveredClaims',
+                'outNetAfterCoverUnderwritingInfo',
+                'outCoverUnderwritingInfo',
+        ].collect {new TestProbe(contract, it)}
+
+        contract.inClaims << claim001 << claim002 << claim011 << claim012 << claim101 << claim102 << claim111 << claim112
+        contract.inUnderwritingInfo << uInfo001 << uInfo002 << uInfo011 << uInfo012 << uInfo101 << uInfo102 << uInfo111 << uInfo112
+        contract.doCalculation()
+
+        assertEquals "# of outPackets", "2, 4, 2, 2, 2, 0, 0, 0, 4, 4", ([
+                contract.outFilteredClaims,                 // 2
+                contract.outFilteredUnderwritingInfo,       // 4
+                contract.outClaimsGrossInCoveredPeriod,     // 2
+                contract.outUncoveredClaims,                // 2
+                contract.outCoveredClaims,                  // 2
+                contract.outClaimsDevelopmentGross,         // 0
+                contract.outClaimsDevelopmentCeded,         // 0
+                contract.outClaimsDevelopmentNet,           // 0
+                contract.outNetAfterCoverUnderwritingInfo,  // 4
+                contract.outCoverUnderwritingInfo,          // 4
+        ].collect {it.size()}).join(", ")
+
+        // check that (hull/B claims, hull/AB uwinfo) packets were processed correctly:
+        // claims are filtered by peril and lob (=> hull/B),
+        assertEquals "filtered claims", "7000.0, 8000.0", (contract.outFilteredClaims.collect {it.value}).join(", ") // Q: should fractionOfPeriod force the reverse order of packets?
+        // underwriting by lob but not by peril (=> hull/A, hull/B)
+        assertEquals "filtered uwinfo", "320.0, 420.0, 330.0, 430.0", (contract.outFilteredUnderwritingInfo.collect {it.premiumWritten}).join(", ")
+        assertEquals "ceded premium written", "80.0, 105.0, 82.5, 107.5", (contract.outCoverUnderwritingInfo.collect {it.premiumWritten}).join(", ")
+        assertEquals "ceded commission", "16.0, 21.0, 16.5, 21.5", (contract.outCoverUnderwritingInfo.collect {it.commission}).join(", ")
+        assertEquals "net premium written", "240.0, 315.0, 247.5, 322.5", (contract.outNetAfterCoverUnderwritingInfo.collect {it.premiumWritten}).join(", ")
+        assertEquals "net commission", "11.0, 13.0, 17.0, 19.0", (contract.outNetAfterCoverUnderwritingInfo.collect {it.commission}).join(", ")
     }
 }

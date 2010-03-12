@@ -87,7 +87,7 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
      * add them to a model (if specified);
      * return them in a map with name as key.
      */
-    Map<String, TestLobComponent> createLobs(List<String> lobNames, Model model = null) {
+    static Map<String, TestLobComponent> createLobs(List<String> lobNames, Model model = null) {
         Map<String, TestLobComponent> lob = new HashMap()
         for (String lobName : lobNames) {
             lob.put(lobName, new TestLobComponent(name: lobName))
@@ -96,9 +96,6 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
             }
         }
         return lob
-    }
-
-    void testUsage() {
     }
 
     // code coverage

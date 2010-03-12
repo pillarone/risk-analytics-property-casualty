@@ -8,6 +8,8 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cashflow.Mult
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.core.util.TestPretendInChannelWired
+import org.pillarone.riskanalytics.core.components.Component
+import org.pillarone.riskanalytics.core.example.component.TestComponent
 
 /**
  * ben.ginsberg (at) intuitive-collaboration (dot) com
@@ -196,6 +198,7 @@ class MultiLinesPerilsReinsuranceProgramTests extends GroovyTestCase {
      * and not on CEDED (i.e., we want a+b != 0.5). We expect the net and ceded amounts
      * for contract 3 and thus as well for the overall program to differ from their
      * respective amounts if contract 3 were based on CEDED.
+     * todo(bgi): discuss how commissions should be treated, since there is the danger of them being double-added by mergers (if two parallel contracts both touch a packet)
      */
     void testUsageThirdBasedOnNet() {
         MultiLinesPerilsReinsuranceProgram program = new MultiLinesPerilsReinsuranceProgram()
@@ -273,10 +276,24 @@ class MultiLinesPerilsReinsuranceProgramTests extends GroovyTestCase {
         assertEquals 'claim800 net incurred after program', 800*(1-(shareContract1+shareContract2))*(1-shareContract3), programClaimsNet[1].incurred, eps
     }
 
+    /**
+     * Tests the effect of an artificial (illegal and unlikely) reinsurance program:
+     * three quota share contracts, the first two in parallel (illegal), the third in series (unlikely; would  be XL),
+     * on the premium written and commission properties of an underwriting info packet.
+     */
     void testUnderwritingInfo() {
         MultiLinesPerilsReinsuranceProgram program = new MultiLinesPerilsReinsuranceProgram()
 
+        /**
+         *  We use this variable each time we set a parameter that we don't expect to be observed.
+         *  Each time we use this variable (in the test setup), we pre-increment it, to get a unique
+         *  (and therefore identifiable) value.
+         */
+        double bogusValue = 1E9
+
+        /** each reinsurance contract gives the same fixed commission rate back to the program ("primary insurer") */
         double commission = 0.1
+
         // set up a quota share contract for 4 years (1.1.2010--31.12.2013)
         // with inuring priority 0 and iteration scope starting 1.1.2010
         // and quota share value given by the variable:
@@ -303,95 +320,109 @@ class MultiLinesPerilsReinsuranceProgramTests extends GroovyTestCase {
         ClaimDevelopmentPacket claim800 = new ClaimDevelopmentPacket(incurred: 800, paid: 480, reserved: 320, changeInReserves: 480, originalClaim: new Claim())
         program.inClaims << claim1000 << claim800
 
-        UnderwritingInfo originalUnderwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: 50)
-        UnderwritingInfo originalUnderwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: 5)
-        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: 50, originalUnderwritingInfo: originalUnderwritingInfo200)
-        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: 5, originalUnderwritingInfo: originalUnderwritingInfo100)
+        UnderwritingInfo originalUnderwritingInfo200 = new UnderwritingInfo(
+                premiumWritten: ++bogusValue,
+                commission: ++bogusValue,
+                origin: new TestComponent(name: "ui1")
+        )
+        UnderwritingInfo originalUnderwritingInfo100 = new UnderwritingInfo(
+                premiumWritten: ++bogusValue,
+                commission: ++bogusValue,
+                origin: new TestComponent(name: "ui2")
+        )
+        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(
+                premiumWritten: 200,
+                commission: 50, // this should be zero in the real world
+                originalUnderwritingInfo: originalUnderwritingInfo200
+        )
+        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(
+                premiumWritten: 100,
+                commission: 5, // this should be zero in the real world
+                originalUnderwritingInfo: originalUnderwritingInfo100
+        )
         program.inUnderwritingInfo << underwritingInfo200 << underwritingInfo100
 
         TestPretendInChannelWired inUnderwritingInfoWired = new TestPretendInChannelWired(program, "inUnderwritingInfo")
         program.wire()
 
-        List qs1UWInfoNet = new TestProbe(qs1, 'outNetAfterCoverUnderwritingInfo').result
-        List qs1UWInfoCeded = new TestProbe(qs1, 'outCoverUnderwritingInfo').result
-        List qs1UWInfoAll = new TestProbe(program, 'outUnderwritingInfo').result
+        List qs1UInfoCeded = new TestProbe(qs1, 'outCoverUnderwritingInfo').result
+        List qs1UInfoNet = new TestProbe(qs1, 'outNetAfterCoverUnderwritingInfo').result
 
-        List qs2UWInfoNet = new TestProbe(qs2, 'outNetAfterCoverUnderwritingInfo').result
-        List qs2UWInfoCeded = new TestProbe(qs2, 'outCoverUnderwritingInfo').result
-        List qs2UWInfoAll = new TestProbe(program, 'outUnderwritingInfo').result
+        List qs2UInfoCeded = new TestProbe(qs2, 'outCoverUnderwritingInfo').result
+        List qs2UInfoNet = new TestProbe(qs2, 'outNetAfterCoverUnderwritingInfo').result
 
-        List qs3UWInfoNet = new TestProbe(qs3, 'outNetAfterCoverUnderwritingInfo').result
-        List qs3UWInfoCeded = new TestProbe(qs3, 'outCoverUnderwritingInfo').result
-        List qs3UWInfoAll = new TestProbe(program, 'outUnderwritingInfo').result
+        // look inside the program's wiring at what happens to uwinfo packets after layer 1 (inuring priority 0)
+        List layer1UInfoGross = new TestProbe(program.underwritingInfoMergers[0], 'outUnderwritingInfoGross').result
+        List layer1UInfoCeded = new TestProbe(program.underwritingInfoMergers[0], 'outUnderwritingInfoCeded').result
+        List layer1UInfoNet = new TestProbe(program.underwritingInfoMergers[0], 'outUnderwritingInfoNet').result
+        
+        List qs3UInfoCeded = new TestProbe(qs3, 'outCoverUnderwritingInfo').result
+        List qs3UInfoNet = new TestProbe(qs3, 'outNetAfterCoverUnderwritingInfo').result
 
-        List programUWInfoNet = new TestProbe(program, 'outNetAfterCoverUnderwritingInfo').result
-        List programUWInfoCeded = new TestProbe(program, 'outCoverUnderwritingInfo').result
-        List programUWInfoAll = new TestProbe(program, 'outUnderwritingInfo').result
+        List programUInfoTotal = new TestProbe(program, 'outUnderwritingInfo').result
+        List programUInfoCeded = new TestProbe(program, 'outCoverUnderwritingInfo').result
+        List programUInfoNet = new TestProbe(program, 'outNetAfterCoverUnderwritingInfo').result
 
         program.start()
 
-        assertEquals 'number of UnderwritingInfo packets ceded after qs1', 2, qs1UWInfoCeded.size()
-        assertEquals 'number of UnderwritingInfo packets ceded after qs2', 2, qs2UWInfoCeded.size()
-        assertEquals 'number of UnderwritingInfo packets ceded after qs3', 2, qs3UWInfoCeded.size()
-        assertEquals 'number of UnderwritingInfo packets ceded after program', 2, programUWInfoCeded.size()
-        assertEquals 'number of UnderwritingInfo packets net after qs1', 2, qs1UWInfoNet.size()
-        assertEquals 'number of UnderwritingInfo packets net after qs2', 2, qs2UWInfoNet.size()
-        assertEquals 'number of UnderwritingInfo packets net after qs3', 2, qs3UWInfoNet.size()
-        assertEquals 'number of UnderwritingInfo packets net after program', 2, programUWInfoNet.size()
-        assertEquals 'number of UnderwritingInfo packets after qs1', 2, qs1UWInfoAll.size()
-        assertEquals 'number of UnderwritingInfo packets after qs2', 2, qs2UWInfoAll.size()
-        assertEquals 'number of UnderwritingInfo packets after qs3', 2, qs3UWInfoAll.size()
-        assertEquals 'number of UnderwritingInfo packets after program', 2, programUWInfoAll.size()
+        assertEquals 'number of UnderwritingInfo packets ceded after qs1', 2, qs1UInfoCeded.size()
+        assertEquals 'number of UnderwritingInfo packets ceded after qs2', 2, qs2UInfoCeded.size()
+        assertEquals 'number of UnderwritingInfo packets ceded after qs3', 2, qs3UInfoCeded.size()
+        assertEquals 'number of UnderwritingInfo packets ceded after program', 2, programUInfoCeded.size()
+        assertEquals 'number of UnderwritingInfo packets net after qs1', 2, qs1UInfoNet.size()
+        assertEquals 'number of UnderwritingInfo packets net after qs2', 2, qs2UInfoNet.size()
+        assertEquals 'number of UnderwritingInfo packets net after qs3', 2, qs3UInfoNet.size()
+        assertEquals 'number of UnderwritingInfo packets net after program', 2, programUInfoNet.size()
+        assertEquals 'number of UnderwritingInfo packets after program', 2, programUInfoTotal.size()
+        assertEquals 'number of UnderwritingInfo packets gross after layer1', 2, layer1UInfoGross.size()
+        assertEquals 'number of UnderwritingInfo packets ceded after layer1', 2, layer1UInfoCeded.size()
+        assertEquals 'number of UnderwritingInfo packets net after layer1', 2, layer1UInfoNet.size()
 
-        // compute expected ratios
-        double layer1Ceded = qs1Value + qs2Value // 0.6
-        double layer1Net = 1.0 - layer1Ceded // 0.4
-        double layer2Ceded = layer1Net * qs3Value // 0.2
-        double layer2Net = layer1Net * (1 - qs3Value) // 0.2
-        double totalCeded = layer1Ceded + layer2Ceded // 0.8
-        double totalNet = 1 - totalCeded // 0.2
+        /**
+         *  Follow the first uwinfo packet as it passes in turn through the
+         *  out channels of qs1, qs2, uwinfo-merger-0(=layer1), qs3 & program.
+         *  Check the (gross,) ceded & net from each (applicable) out channel.
+         *
+         *  (If a double is off by some epsilon, format the expected and observed
+         *  values inside the closure with a sprintf. For example:
+         *       {(double)it}         ->   {String.sprintf'%.6f',(double)it}
+         *       {it[0].commission}   ->   {String.sprintf'%.6f',it[0].commission}
+         *  This will test accuracy to 6 places.)
+         */
 
-        double eps = 1E-10
-        assertEquals 'consistency of test case internal variables', totalNet, layer2Net//, eps
+        assertEquals 'qs1, underwritinginfo200: premium written (ceded/net)',
+            ([40, 160].collect {(double)it}).join(", "),
+            ([qs1UInfoCeded, qs1UInfoNet].collect {it[0].premiumWritten}).join(", ")
+        assertEquals 'qs1, underwritinginfo200: commission (ceded/net)',
+            ([4, 50].collect {(double)it}).join(", "),
+            ([qs1UInfoCeded, qs1UInfoNet].collect {it[0].commission}).join(", ")
 
-        assertEquals 'underwritinginfo200 ceded premium written after qs1', 200*qs1Value, qs1UWInfoCeded[0].premiumWritten
-        assertEquals 'underwritinginfo200 ceded commission after qs1', 200*qs1Value*commission, qs1UWInfoCeded[0].commission
-        assertEquals 'underwritinginfo200 net premium written after qs1', 200*(1-qs1Value), qs1UWInfoNet[0].premiumWritten, eps
-        assertEquals 'underwritinginfo200 net commission after qs1', 200*qs1Value*commission, qs1UWInfoNet[0].commission
+        assertEquals 'qs2, underwritinginfo200: premium written (ceded/net)',
+            ([80, 120].collect {(double)it}).join(", "),
+            ([qs2UInfoCeded, qs2UInfoNet].collect {it[0].premiumWritten}).join(", ")
+        assertEquals 'qs2, underwritinginfo200: commission (ceded/net)',
+            ([8, 50].collect {(double)it}).join(", "),
+            ([qs2UInfoCeded, qs2UInfoNet].collect {it[0].commission}).join(", ")
 
-        assertEquals 'underwritinginfo100 ceded premium written after qs1', 100*qs1Value, qs1UWInfoCeded[1].premiumWritten
-        assertEquals 'underwritinginfo100 ceded commission after qs1', 100*qs1Value*commission, qs1UWInfoCeded[1].commission
-        assertEquals 'underwritinginfo100 net premium written after qs1', 100*(1-qs1Value), qs1UWInfoNet[1].premiumWritten, eps
-        assertEquals 'underwritinginfo100 net commission after qs1', 100*qs1Value*commission, qs1UWInfoNet[1].commission
+        assertEquals 'layer1, underwritinginfo200: premium written (gross/ceded/net)',
+            ([200, 120, 80].collect {(double)it}).join(", "),
+            ([layer1UInfoGross, layer1UInfoCeded, layer1UInfoNet].collect {it[0].premiumWritten}).join(", ")
+        assertEquals 'layer1, underwritinginfo200: commission (gross/ceded/net)',
+            ([50, 12, 12].collect {(double)it}).join(", "),
+            ([layer1UInfoGross, layer1UInfoCeded, layer1UInfoNet].collect {it[0].commission}).join(", ")
 
-        assertEquals 'underwritinginfo200 ceded premium written after qs2', 200*qs2Value, qs2UWInfoCeded[0].premiumWritten
-        assertEquals 'underwritinginfo200 ceded commission after qs2', 200*qs2Value*commission, qs2UWInfoCeded[0].commission
-        assertEquals 'underwritinginfo200 net premium written after qs2', 200*(1-qs2Value), qs2UWInfoNet[0].premiumWritten, eps
-        assertEquals 'underwritinginfo200 net commission after qs2', 200*qs2Value*commission, qs2UWInfoNet[0].commission
+        assertEquals 'qs3, underwritinginfo200: premium written (ceded/net)',
+            ([40, 40].collect {(double)it}).join(", "),
+            ([qs3UInfoCeded, qs3UInfoNet].collect {it[0].premiumWritten}).join(", ")
+        assertEquals 'qs3, underwritinginfo200: commission (ceded/net)',
+            ([4, 12].collect {(double)it}).join(", "),
+            ([qs3UInfoCeded, qs3UInfoNet].collect {it[0].commission}).join(", ")
 
-        assertEquals 'underwritinginfo100 ceded premium written after qs2', 100*qs2Value, qs2UWInfoCeded[1].premiumWritten
-        assertEquals 'underwritinginfo100 ceded commission after qs2', 100*qs2Value*commission, qs2UWInfoCeded[1].commission
-        assertEquals 'underwritinginfo100 net premium written after qs2', 100*(1-qs2Value), qs2UWInfoNet[1].premiumWritten, eps
-        assertEquals 'underwritinginfo100 net commission after qs2', 100*qs2Value*commission, qs2UWInfoNet[1].commission
-
-        assertEquals 'underwritinginfo200 ceded premium written after qs3', 200*layer1Net*qs3Value, qs3UWInfoCeded[0].premiumWritten, eps
-        assertEquals 'underwritinginfo200 ceded commission after qs3', 200*layer1Net*qs3Value*commission, qs3UWInfoCeded[0].commission, eps
-        assertEquals 'underwritinginfo200 net premium written after qs3', 200*layer1Net*(1-qs3Value), qs3UWInfoNet[0].premiumWritten, eps
-        assertEquals 'underwritinginfo200 net commission after qs3', 200*layer1Net*qs3Value*commission, qs3UWInfoNet[0].commission, eps
-
-        assertEquals 'underwritinginfo100 ceded premium written after qs3', 100*layer1Net*qs3Value, qs3UWInfoCeded[1].premiumWritten, eps
-        assertEquals 'underwritinginfo100 ceded commission after qs3', 100*layer1Net*qs3Value*commission, qs3UWInfoCeded[1].commission, eps
-        assertEquals 'underwritinginfo100 net premium written after qs3', 100*layer1Net*(1-qs3Value), qs3UWInfoNet[1].premiumWritten, eps
-        assertEquals 'underwritinginfo100 net commission after qs3', 100*layer1Net*qs3Value*commission, qs3UWInfoNet[1].commission, eps
-
-        assertEquals 'underwritinginfo200 ceded premium written after program', 200*totalCeded, programUWInfoCeded[0].premiumWritten
-        assertEquals 'underwritinginfo200 ceded commission after program', 200*totalCeded*commission, programUWInfoCeded[0].commission
-        assertEquals 'underwritinginfo200 net premium written after program', 200*totalNet, programUWInfoNet[0].premiumWritten, eps
-        assertEquals 'underwritinginfo200 net commission after program', 200*totalCeded*commission, programUWInfoNet[0].commission
-
-        assertEquals 'underwritinginfo100 ceded premium written after program', 100*totalCeded, programUWInfoCeded[1].premiumWritten
-        assertEquals 'underwritinginfo100 ceded commission after program', 100*totalCeded*commission, programUWInfoCeded[1].commission
-        assertEquals 'underwritinginfo100 net premium written after program', 100*totalNet, programUWInfoNet[1].premiumWritten, eps
-        assertEquals 'underwritinginfo100 net commission after program', 100*totalCeded*commission, programUWInfoNet[1].commission
+        assertEquals 'program, underwritinginfo200: premium written (gross/ceded/net)',
+            ([200, 160, 40].collect {(double)it}).join(", "),
+            ([programUInfoTotal, programUInfoCeded, programUInfoNet].collect {it[0].premiumWritten}).join(", ")
+        assertEquals 'program, underwritinginfo200: commission (gross/ceded/net)',
+            ([50, 16, 16].collect {(double)it}).join(", "),
+            ([programUInfoTotal, programUInfoCeded, programUInfoNet].collect {it[0].commission}).join(", ")
     }
 }

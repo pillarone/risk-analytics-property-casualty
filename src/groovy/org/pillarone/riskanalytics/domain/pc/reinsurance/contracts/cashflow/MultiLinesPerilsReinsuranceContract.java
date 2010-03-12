@@ -1,9 +1,9 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cashflow;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.NotImplementedException;
 import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.core.packets.PacketList;
-import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter;
 import org.pillarone.riskanalytics.core.simulation.engine.IterationScope;
 import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope;
 import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope;
@@ -11,10 +11,17 @@ import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimFilterUtilities;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimPacketFactory;
 import org.pillarone.riskanalytics.domain.pc.claims.SortClaimsByFractionOfPeriod;
+import org.pillarone.riskanalytics.domain.pc.constants.IncludeType;
+import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments;
 import org.pillarone.riskanalytics.domain.pc.constants.ReinsuranceContractBase;
 import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType;
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.ICommissionStrategy;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cashflow.cover.AllCoverAttributeStrategy;
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cashflow.cover.CoverAttributeStrategyType;
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.*;
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket;
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacketFactory;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingFilterUtilities;
@@ -22,7 +29,6 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -34,43 +40,10 @@ import java.util.List;
  */
 public class MultiLinesPerilsReinsuranceContract extends Component implements IReinsuranceContractMarker {
 
-    private SimulationScope simulationScope;
-    /**
-     * initialized during the first iteration, member variables reset before each iteration
-     */
-    private IReinsuranceContractStrategy contract;
-    /** initialized during first iteration */
-    private double coveredByReinsurer;
-    /** initialized during first iteration */
-    private List<CoverDuration> coverPerPeriod = new ArrayList<CoverDuration>();
-
-    private int lastPeriodYear;
-
-    private ComboBoxTableMultiDimensionalParameter parmCoveredLines = new ComboBoxTableMultiDimensionalParameter(
-        Collections.emptyList(), Arrays.asList("Covered Lines"), LobMarker.class);
-    private ComboBoxTableMultiDimensionalParameter parmCoveredPerils = new ComboBoxTableMultiDimensionalParameter(
-        Collections.emptyList(), Arrays.asList("perils"), PerilMarker.class);
-
-    /** Defines the kind of contract and parametrization      */
-    private IReinsuranceContractStrategy parmContractStrategy = ReinsuranceContractType.getTrivial();
-    private ICoverPeriod parmCoverPeriod = new FullPeriodCoveredStrategy();
-    private double parmCoveredByReinsurer = 1d;
-
-    /**
-     *  Defines the claim and underwriting info the contract will receive.
-     *  Namely, the net after contracts with lower inuring priority.
-     *
-     *  Cave: Setting the inuring priority is not trivial. Make sure you have a
-     *  correct understanding before 'playing around' with it.
-     */
-    private double parmInuringPriority = 0d;
-
-    private ReinsuranceContractBase parmBasedOn = ReinsuranceContractBase.NET;
-
     private PacketList<Claim> inClaims = new PacketList<Claim>(Claim.class);
     private PacketList<UnderwritingInfo> inUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
 
-    /** claims whose source is a covered line         */
+    /** claims whose source is a covered line and/or a covered peril */
     private PacketList<Claim> outFilteredClaims = new PacketList<Claim>(Claim.class);
     private PacketList<UnderwritingInfo> outFilteredUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
 
@@ -86,25 +59,54 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
     private PacketList<UnderwritingInfo> outNetAfterCoverUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
     private PacketList<UnderwritingInfo> outCoverUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
 
+    /** Defines the kind of contract and parametrization */
+    private IReinsuranceContractStrategy parmContractStrategy = ReinsuranceContractType.getTrivial();
+    private ICommissionStrategy parmCommissionStrategy = CommissionStrategyType.getNoCommission();
+    private ICoverAttributeStrategy parmCover = CoverAttributeStrategyType.getStrategy(
+            CoverAttributeStrategyType.ALL, ArrayUtils.toMap(new Object[][]{{"reserves", IncludeType.NOTINCLUDED}}));
+    private ICoverPeriod parmCoverPeriod = new FullPeriodCoveredStrategy();
+    private double parmCoveredByReinsurer = 1d;
+    /**
+     *  Defines the claim and underwriting info the contract will receive.
+     *  Namely, the net after contracts with lower inuring priority.
+     *
+     *  Cave: Setting the inuring priority is not trivial. Make sure you have a
+     *  correct understanding before 'playing around' with it.
+     */
+    private double parmInuringPriority = 0d;
+    private ReinsuranceContractBase parmBasedOn = ReinsuranceContractBase.NET;
+
+    private SimulationScope simulationScope;
+    /** initialized during the first iteration, member variables reset before each iteration */
+    private IReinsuranceContractStrategy contract;
+    /** initialized during first iteration */
+    private double coveredByReinsurer;
+    /** initialized during first iteration */
+    private List<CoverDuration> coverPerPeriod = new ArrayList<CoverDuration>();
+
+    private int lastPeriodYear;
+
     public void doCalculation() {
         if (parmContractStrategy == null) throw new IllegalArgumentException("A contract strategy must be set");
+        if (parmCover == null) throw new IllegalStateException("A cover attribute strategy must be set");
 
         IterationScope iterationScope = simulationScope.getIterationScope();
         PeriodScope periodScope = iterationScope.getPeriodScope();
+        int currentPeriod = periodScope.getCurrentPeriod();
         if (iterationScope.getCurrentIteration() == 0) {
             initDuringFirstIteration();
         }
-        if (periodScope.getCurrentPeriod() == 0) {
+        if (currentPeriod == 0) {
             initIteration();
         }
         filterInChannels();
 
-        CoverDuration coverOfCurrentPeriod = coverPerPeriod.get(periodScope.getCurrentPeriod());
+        CoverDuration coverOfCurrentPeriod = coverPerPeriod.get(currentPeriod);
         if (contract != null) { // && coverOfCurrentPeriod.isCovered()) {
 //            if (!contract.exhausted()) {  // todo(sku): think if all following lines are really not necessary if a contract is exhausted
-            filterClaimsInCoveredPeriod(periodScope.getCurrentPeriod(), coverOfCurrentPeriod);
+            filterClaimsInCoveredPeriod(currentPeriod, coverOfCurrentPeriod);
 
-            if (periodScope.getCurrentPeriod() == 0) {
+            if (currentPeriod == 0) {
                 contract.initBookKeepingFiguresForIteration(outClaimsGrossInCoveredPeriod, outFilteredUnderwritingInfo);
             }
             contract.initBookKeepingFigures(outClaimsGrossInCoveredPeriod, outFilteredUnderwritingInfo);
@@ -129,6 +131,9 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
             }
 //            }
         }
+
+        parmCommissionStrategy.calculateCommission(outCoveredClaims, outCoverUnderwritingInfo, currentPeriod == 0, false);
+
         if (isSenderWired(outClaimsDevelopmentGross)) {
             for (int i = 0; i < outClaimsGrossInCoveredPeriod.size(); i++) {
                 outClaimsDevelopmentGross.add((ClaimDevelopmentPacket) outClaimsGrossInCoveredPeriod.get(i));
@@ -158,7 +163,7 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
                 coveredByReinsurer = parmCoveredByReinsurer;
             }
             else if (contract.equals(parmContractStrategy)) {
-                // same instance: may occur if a one period parameterization is applied for several periods
+                // same instance: may occur if one period parameterization is applied for several periods
             }
             else {
                 throw new IllegalArgumentException("Only one nontrivial strategy per contract is allowed");
@@ -173,13 +178,26 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
     }
 
     protected void filterInChannels() {
-        List<LobMarker> coveredLines = parmCoveredLines.getValuesAsObjects(simulationScope.getModel());
-        List<PerilMarker> coveredPerils = parmCoveredPerils.getValuesAsObjects(simulationScope.getModel());
-        outFilteredClaims.addAll(ClaimFilterUtilities.filterClaimsByPerilAndLob(inClaims, coveredPerils, coveredLines));
-        if (coveredLines.size() == 0) {
-            coveredLines = ClaimFilterUtilities.getLineOfBusiness(outFilteredClaims);
+       if (parmCover instanceof NoneCoverAttributeStrategy) {
+            // leave outFiltered* lists void
         }
-        outFilteredUnderwritingInfo.addAll(UnderwritingFilterUtilities.filterUnderwritingInfoByLob(inUnderwritingInfo, coveredLines));
+        else if (parmCover instanceof AllCoverAttributeStrategy) {
+            outFilteredClaims.addAll(inClaims);
+            outFilteredUnderwritingInfo.addAll(inUnderwritingInfo);
+        }
+        else {
+            List<LobMarker> coveredLines = !(parmCover instanceof ILinesOfBusinessCoverAttributeStrategy) ? null :
+                    (List<LobMarker>) (((ILinesOfBusinessCoverAttributeStrategy) parmCover).getLines().getValuesAsObjects());
+            List<PerilMarker> coveredPerils = !(parmCover instanceof IPerilCoverAttributeStrategy) ? null :
+                    (List<PerilMarker>) (((IPerilCoverAttributeStrategy) parmCover).getPerils().getValuesAsObjects());
+            LogicArguments connection = !(parmCover instanceof ICombinedCoverAttributeStrategy) ? null :
+                    ((ICombinedCoverAttributeStrategy) parmCover).getConnection();
+            outFilteredClaims.addAll(ClaimFilterUtilities.filterClaimsByPerilLobReserve(inClaims, coveredPerils, coveredLines, null, connection));
+            if (coveredLines == null || coveredLines.size() == 0) {
+               coveredLines = ClaimFilterUtilities.getLineOfBusiness(outFilteredClaims);
+            }
+            outFilteredUnderwritingInfo.addAll(UnderwritingFilterUtilities.filterUnderwritingInfoByLob(inUnderwritingInfo, coveredLines));
+        }
     }
 
     private void filterClaimsInCoveredPeriod(int currentPeriod, CoverDuration coverOfCurrentPeriod) {
@@ -412,22 +430,6 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
         this.outClaimsDevelopmentNet = outClaimsDevelopmentNet;
     }
 
-    public ComboBoxTableMultiDimensionalParameter getParmCoveredLines() {
-        return parmCoveredLines;
-    }
-
-    public void setParmCoveredLines(ComboBoxTableMultiDimensionalParameter parmCoveredLines) {
-        this.parmCoveredLines = parmCoveredLines;
-    }
-
-    public ComboBoxTableMultiDimensionalParameter getParmCoveredPerils() {
-        return parmCoveredPerils;
-    }
-
-    public void setParmCoveredPerils(ComboBoxTableMultiDimensionalParameter parmCoveredPerils) {
-        this.parmCoveredPerils = parmCoveredPerils;
-    }
-
     public SimulationScope getSimulationScope() {
         return simulationScope;
     }
@@ -450,5 +452,21 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
 
     public void setOutFilteredUnderwritingInfo(PacketList<UnderwritingInfo> outFilteredUnderwritingInfo) {
         this.outFilteredUnderwritingInfo = outFilteredUnderwritingInfo;
+    }
+
+    public ICommissionStrategy getParmCommissionStrategy() {
+        return parmCommissionStrategy;
+    }
+
+    public void setParmCommissionStrategy(ICommissionStrategy parmCommissionStrategy) {
+        this.parmCommissionStrategy = parmCommissionStrategy;
+    }
+
+    public ICoverAttributeStrategy getParmCover() {
+        return parmCover;
+    }
+
+    public void setParmCover(ICoverAttributeStrategy parmCover) {
+        this.parmCover = parmCover;
     }
 }
