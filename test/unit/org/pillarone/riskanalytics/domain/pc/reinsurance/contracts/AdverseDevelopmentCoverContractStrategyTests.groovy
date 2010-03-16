@@ -10,7 +10,7 @@ import org.pillarone.riskanalytics.core.packets.PacketList
 import org.pillarone.riskanalytics.core.util.TestProbe
 
 /**
- * @author ben.ginsberg (at) intuitive-collaboration (dot) com
+ * @author ben.ginsberg (at) intuitive-collaboration (dot) com, shartmann (at) munichre (dot) com
  */
 class AdverseDevelopmentCoverContractStrategyTests extends GroovyTestCase {
 
@@ -70,13 +70,16 @@ class AdverseDevelopmentCoverContractStrategyTests extends GroovyTestCase {
         contract.inUnderwritingInfo << UnderwritingInfoTests.getUnderwritingInfo()      //premium=2000
 
         assertTrue contract.outCoveredClaims.isEmpty()
+        def probeLPT = new TestProbe(contract, "outCoverUnderwritingInfo")    // needed in order to trigger the calculation of cover underwriting info
         contract.doCalculation()
+
         assertEquals "outClaims.size", 3, contract.outCoveredClaims.size()
         assertEquals "outClaims[0]", claim1.ultimate * 0.2, contract.outCoveredClaims[0].ultimate
         assertEquals "outClaims[1]", claim2.ultimate * 0.2, contract.outCoveredClaims[1].ultimate
         assertEquals "outClaims[2]", claim3.ultimate * 0.2, contract.outCoveredClaims[2].ultimate
 
         assertEquals "outClaimsNet.size", 0, contract.outUncoveredClaims.size()
+        assertEquals "contract, premium", 2000d * 0.2, contract.outCoverUnderwritingInfo[0].premiumWritten
         contract.reset()
         assertTrue contract.outCoveredClaims.isEmpty()
     }
@@ -91,13 +94,16 @@ class AdverseDevelopmentCoverContractStrategyTests extends GroovyTestCase {
         contract.inUnderwritingInfo << UnderwritingInfoTests.getUnderwritingInfo()      //premium=2000
 
         assertTrue contract.outCoveredClaims.isEmpty()
+        def probeLPT = new TestProbe(contract, "outCoverUnderwritingInfo")    // needed in order to trigger the calculation of cover underwriting info
         contract.doCalculation()
+
         assertEquals "outClaims.size", 3, contract.outCoveredClaims.size()
         assertEquals "outClaims[0]", claim1.ultimate * 0.2, contract.outCoveredClaims[0].ultimate
         assertEquals "outClaims[1]", claim2.ultimate * 0.2, contract.outCoveredClaims[1].ultimate
         assertEquals "outClaims[2]", claim3.ultimate * 0.2, contract.outCoveredClaims[2].ultimate
 
         assertEquals "outClaimsNet.size", 0, contract.outUncoveredClaims.size()
+        assertEquals "contract, premium", 400d, contract.outCoverUnderwritingInfo[0].premiumWritten
         contract.reset()
         assertTrue contract.outCoveredClaims.isEmpty()
     }
