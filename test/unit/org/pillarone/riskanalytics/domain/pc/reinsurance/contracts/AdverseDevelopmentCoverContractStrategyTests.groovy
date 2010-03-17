@@ -158,7 +158,6 @@ class AdverseDevelopmentCoverContractStrategyTests extends GroovyTestCase {
 
         PacketList<Claim> cededClaims = contract.outCoveredClaims
         PacketList<Claim> netClaims = contract.outUncoveredClaims
-        def netWired = new TestProbe(contract, "outUncoveredClaims") // wire net claims so we can test their results
         
         contract.doCalculation()
 
@@ -166,7 +165,7 @@ class AdverseDevelopmentCoverContractStrategyTests extends GroovyTestCase {
         assertEquals "# uncovered claims", 3, netClaims.size()
 
         // expect: proportional to gross incurred
-        return; //todo(bgi): update & re-enable the tests below after the expected values are decided upon
+        //todo(bgi): update & re-enable the tests below after the expected values are decided upon
 
         // test cededClaims
         assertEquals "claim 1, incurred", 100, ((ClaimDevelopmentLeanPacket) cededClaims[0]).incurred
@@ -192,22 +191,22 @@ class AdverseDevelopmentCoverContractStrategyTests extends GroovyTestCase {
                                                    +((ClaimDevelopmentLeanPacket) cededClaims[2]).reserved)
 
         // test netClaims
-        assertEquals "claim 1, net incurred", 100, ((ClaimDevelopmentLeanPacket) netClaims[0]).incurred
-        assertEquals "claim 1, net paid", 50, ((ClaimDevelopmentLeanPacket) netClaims[0]).paid
+        assertEquals "claim 1, net incurred", 150, ((ClaimDevelopmentLeanPacket) netClaims[0]).incurred
+        assertEquals "claim 1, net paid", 100, ((ClaimDevelopmentLeanPacket) netClaims[0]).paid
         assertEquals "claim 1, net reserved", 50, ((ClaimDevelopmentLeanPacket) netClaims[0]).reserved
 
-        assertEquals "claim 2, net incurred", 40, ((ClaimDevelopmentLeanPacket) netClaims[1]).incurred
+        assertEquals "claim 2, net incurred", 60, ((ClaimDevelopmentLeanPacket) netClaims[1]).incurred
         assertEquals "claim 2, net paid", 20, ((ClaimDevelopmentLeanPacket) netClaims[1]).paid
-        assertEquals "claim 2, net reserved", 20, ((ClaimDevelopmentLeanPacket) netClaims[1]).reserved
+        assertEquals "claim 2, net reserved", 40, ((ClaimDevelopmentLeanPacket) netClaims[1]).reserved
 
-        assertEquals "claim 3, net incurred", 60, ((ClaimDevelopmentLeanPacket) netClaims[2]).incurred
-        assertEquals "claim 3, net paid", 30, ((ClaimDevelopmentLeanPacket) netClaims[2]).paid
-        assertEquals "claim 3, net reserved", 30, ((ClaimDevelopmentLeanPacket) netClaims[2]).reserved
+        assertEquals "claim 3, net incurred", 90, ((ClaimDevelopmentLeanPacket) netClaims[2]).incurred
+        assertEquals "claim 3, net paid", 80, ((ClaimDevelopmentLeanPacket) netClaims[2]).paid
+        assertEquals "claim 3, net reserved", 10, ((ClaimDevelopmentLeanPacket) netClaims[2]).reserved
 
-        assertEquals "total claims, net incurred", 200, (((ClaimDevelopmentLeanPacket) netClaims[0]).incurred
+        assertEquals "total claims, net incurred", 300, (((ClaimDevelopmentLeanPacket) netClaims[0]).incurred
                                                         +((ClaimDevelopmentLeanPacket) netClaims[1]).incurred
                                                         +((ClaimDevelopmentLeanPacket) netClaims[2]).incurred)
-        assertEquals "total claims, net paid", 100, (((ClaimDevelopmentLeanPacket) netClaims[0]).paid
+        assertEquals "total claims, net paid", 200, (((ClaimDevelopmentLeanPacket) netClaims[0]).paid
                                                     +((ClaimDevelopmentLeanPacket) netClaims[1]).paid
                                                     +((ClaimDevelopmentLeanPacket) netClaims[2]).paid)
         assertEquals "total claims, net reserved", 100, (((ClaimDevelopmentLeanPacket) netClaims[0]).reserved
