@@ -10,8 +10,8 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilit
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-// todo: not yet efficient since the aggregate gross underwriting info is calculated twice
-// (in the calculation of the book-keeping figures (implicitly) in the calculation of the ceded underwriting info
+// todo: not yet efficient, since the aggregate gross underwriting info is calculated twice: first, when
+// calculating the bookkeeping figures, then again (implicitly) calculating the ceded underwriting info.
 
 class AdverseDevelopmentCoverContractStrategy extends AbstractContractStrategy implements IReinsuranceContractStrategy, IParameterObject {
 
@@ -49,11 +49,8 @@ class AdverseDevelopmentCoverContractStrategy extends AbstractContractStrategy i
         inClaim.ultimate * factor * coveredByReinsurer
     }
 
-    public void initBookKeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
-        double aggregateGrossClaimAmount = 0.0
-        for (Claim claim in inClaims) {
-            aggregateGrossClaimAmount += claim.ultimate
-        }
+    public void initBookkeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
+        double aggregateGrossClaimAmount = inClaims.ultimate.sum()
         double scaledAttachmentPoint = attachmentPoint
         double scaledLimit = limit
         if (premiumBase == PremiumBase.GNPI) {

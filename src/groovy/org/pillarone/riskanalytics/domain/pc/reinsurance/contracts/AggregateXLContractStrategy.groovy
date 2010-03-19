@@ -54,7 +54,7 @@ class AggregateXLContractStrategy extends AbstractContractStrategy implements IR
         return coveredLoss
     }
 
-    public void initBookKeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
+    public void initBookkeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
         double aggregateGrossClaimAmount = 0.0
         for (Claim claim in inClaims) {
             if (claim.claimType == claimClass) {

@@ -34,7 +34,7 @@ class LossPortfolioTransferContractStrategy extends AbstractContractStrategy imp
          "coveredByReinsurer": coveredByReinsurer]
     }
 
-    void initBookKeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
+    void initBookkeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
         double totalPremium = coverUnderwritingInfo.premiumWritten.sum()
         if (totalPremium == 0) {
             for (UnderwritingInfo underwritingInfo: coverUnderwritingInfo) {

@@ -62,7 +62,7 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
         reinstatementPremiums.values[Math.min(reinstatement, reinstatementPremiums.valueRowCount - 1)] * coveredByReinsurer
     }
 
-    void initBookKeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
+    void initBookkeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
         availableAggregateLimit = aggregateLimit
         reinstatements = availableAggregateLimit / limit - 1
         double totalPremium = coverUnderwritingInfo.premiumWritten.sum()

@@ -31,8 +31,8 @@ class CXLContractStrategy extends XLContractStrategy implements IReinsuranceCont
         }
     }
 
-    void initBookKeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
-        super.initBookKeepingFigures inClaims, coverUnderwritingInfo
+    void initBookkeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
+        super.initBookkeepingFigures inClaims, coverUnderwritingInfo
         // merge claims by event id
         claimsValueMergedByEvent.clear()
         for (Claim claim: inClaims) {

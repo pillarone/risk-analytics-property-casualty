@@ -12,7 +12,7 @@ abstract class AbstractContractStrategy implements IReinsuranceContractStrategy,
 
     double coveredByReinsurer = 1d
 
-    public void initBookKeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
+    public void initBookkeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
     }
 
     public void resetMemberInstances() {

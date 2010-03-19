@@ -55,7 +55,7 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
     public void doCalculation() {
         if (parmContractStrategy == null) throw new IllegalStateException("A contract strategy must be set");
 
-        parmContractStrategy.initBookKeepingFigures(inClaims, inUnderwritingInfo);
+        parmContractStrategy.initBookkeepingFigures(inClaims, inUnderwritingInfo);
 
         Collections.sort(inClaims, SortClaimsByFractionOfPeriod.getInstance());
         if (isSenderWired(outUncoveredClaims)) {

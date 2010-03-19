@@ -49,7 +49,7 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
         inClaim.ultimate * factor * coveredByReinsurer
     }
 
-    public void initBookKeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
+    public void initBookkeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
         double aggregateGrossClaimAmount = 0.0
         for (Claim claim in inClaims) {
             aggregateGrossClaimAmount += claim.ultimate

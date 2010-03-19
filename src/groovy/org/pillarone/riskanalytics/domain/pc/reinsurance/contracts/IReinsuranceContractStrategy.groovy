@@ -11,12 +11,12 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
  */
 interface IReinsuranceContractStrategy {
 
-    /** cave: current implementation works only for periods of one year length            */
-    void initBookKeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo);
+    /** cave: current implementation works only for periods of one year length */
+    void initBookkeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo);
 
     /**
      *  Calculates the claim covered of the loss net after contracts with
-     *  a smaller inuring priority or preceeding contracts in the net.
+     *  a smaller inuring priority or preceding contracts in the net.
      */
     // todo(sku): replace with a new function double calculateCededShare(Claim grossClaim)
     double calculateCoveredLoss(Claim grossClaim);

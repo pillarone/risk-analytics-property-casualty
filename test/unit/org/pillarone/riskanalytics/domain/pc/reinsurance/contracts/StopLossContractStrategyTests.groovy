@@ -97,7 +97,7 @@ class StopLossContractStrategyTests extends GroovyTestCase {
         UnderwritingInfo grossUnderwritingInfo = UnderwritingInfoTests.getUnderwritingInfo()     //premium=2000
         ReinsuranceContract stopLoss = getContractSL0()                                             //40% xs 120% => 800xs 2400
         //============================================================ testInitBookKeepingFigures()
-        stopLoss.parmContractStrategy.initBookKeepingFigures claims, [grossUnderwritingInfo]
+        stopLoss.parmContractStrategy.initBookkeepingFigures claims, [grossUnderwritingInfo]
         assertEquals "factor", 0.2, stopLoss.parmContractStrategy.factor                           //pay 800 out of 4000
         //============================================================ testGetCededUnderwriting
         UnderwritingInfo cededUnderwritingInfo = stopLoss.parmContractStrategy.calculateCoverUnderwritingInfo(grossUnderwritingInfo, 0)

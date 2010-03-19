@@ -54,7 +54,7 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
         }
         filterInChannels();
         // initialize contract details
-        parmContractStrategy.initBookKeepingFigures(outFilteredClaims, outFilteredUnderwritingInfo);
+        parmContractStrategy.initBookkeepingFigures(outFilteredClaims, outFilteredUnderwritingInfo);
 
         Collections.sort(outFilteredClaims, SortClaimsByFractionOfPeriod.getInstance());
         if (isSenderWired(getOutUncoveredClaims()) || isSenderWired(getOutClaimsDevelopmentLeanNet())) {

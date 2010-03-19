@@ -125,7 +125,7 @@ class QuotaShareContractStrategy extends AbstractContractStrategy implements IRe
         cededUnderwritingInfo
     }
 
-    void initBookKeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
+    void initBookkeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
         switch (limit) {
             case AalLimitStrategy:
                 availableAnnualAggregateLimit = ((AalLimitStrategy) limit).getAAL()
