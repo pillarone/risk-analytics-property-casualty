@@ -59,6 +59,11 @@ public class UnderwritingInfo extends ExposureInfo {
         return 0;
     }
 
+    /**
+     * Adds additive UnderwritingInfo fields (premiumWritten, commission) as well as combining ExposureInfo fields.
+     * @param other
+     * @return UnderwritingInfo packet with resulting fields
+     */
     public UnderwritingInfo plus(UnderwritingInfo other) {
         super.plus(other);
         premiumWritten += other.premiumWritten;

@@ -4,6 +4,8 @@ import org.pillarone.riskanalytics.core.parameterization.*
 import org.pillarone.riskanalytics.domain.utils.constraints.DoubleConstraints
 
 /**
+ * Defines the commission on a reinsurance contract. The parameters depend on the type of commission.
+ *
  * @author shartmann (at) munichre (dot) com
  */
 public class CommissionStrategyType extends AbstractParameterObjectClassifier {

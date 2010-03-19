@@ -58,6 +58,11 @@ public class ExposureInfo extends MultiValuePacket {
         return 1;
     }
 
+    /**
+     * Adds additive ExposureInfo fields (premiumWrittenAsIf, numberOfPolicies); averages sumInsured, weighted by the respective numberOfPolicies.
+     * @param other
+     * @return ExposureInfo packet with resulting fields
+     */
     public ExposureInfo plus(ExposureInfo other) {
         if (other == null) return this;
         sumInsured = (numberOfPolicies * sumInsured + other.numberOfPolicies * other.sumInsured);

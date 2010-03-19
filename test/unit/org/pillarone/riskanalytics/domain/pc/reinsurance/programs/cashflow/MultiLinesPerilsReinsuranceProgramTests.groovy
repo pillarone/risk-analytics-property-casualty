@@ -280,6 +280,7 @@ class MultiLinesPerilsReinsuranceProgramTests extends GroovyTestCase {
      * Tests the effect of an artificial (illegal and unlikely) reinsurance program:
      * three quota share contracts, the first two in parallel (illegal), the third in series (unlikely; would  be XL),
      * on the premium written and commission properties of an underwriting info packet.
+     * Note: the commissions are >0 before the start of the program, which is not a real world test case!
      */
     void testUnderwritingInfo() {
         MultiLinesPerilsReinsuranceProgram program = new MultiLinesPerilsReinsuranceProgram()
