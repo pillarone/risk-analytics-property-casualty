@@ -21,16 +21,12 @@ public class UnderwritingFilterUtilities {
         List<UnderwritingInfo> filterUnderwritingInfos = new ArrayList<UnderwritingInfo>(underwritingInfos.size());
         if (coverCriteria != null) {
             for (UnderwritingInfo underwritingInfo : underwritingInfos) {
-                if (underwritingInfo.originalUnderwritingInfo == null) {
-                    if (coverCriteria.contains(underwritingInfo.origin)) {
-                        filterUnderwritingInfos.add(underwritingInfo);
-                    }
-                }
-                else {
-                    if (coverCriteria.contains(underwritingInfo.originalUnderwritingInfo)) {
-                        filterUnderwritingInfos.add(underwritingInfo);
-
-                    }
+                // todo(bgi): provisionally changed ? : to && || here:** for PMO-782; but we may find a different solution
+                if (underwritingInfo.originalUnderwritingInfo != null && coverCriteria.contains(
+                    underwritingInfo.originalUnderwritingInfo)        || coverCriteria.contains(
+                    underwritingInfo.origin)
+                ) {
+                    filterUnderwritingInfos.add(underwritingInfo);
                 }
             }
         }

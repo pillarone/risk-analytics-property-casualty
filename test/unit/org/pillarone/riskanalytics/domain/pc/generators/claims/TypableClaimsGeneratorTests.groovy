@@ -241,6 +241,7 @@ public class TypableClaimsGeneratorTests extends GroovyTestCase {
         def channelWired = new TestPretendInChannelWired(claimsGenerator, "inEventSeverities")
         // wire underwriting info
         UnderwritingInfo underwritingInfo = new UnderwritingInfo(premiumWritten:1000d)
+        //underwritingInfo.originalUnderwritingInfo = underwritingInfo
         claimsGenerator.inUnderwritingInfo << underwritingInfo
         claimsGenerator.doCalculation()
 
@@ -279,6 +280,7 @@ public class TypableClaimsGeneratorTests extends GroovyTestCase {
         claimsGenerator.setSimulationScope(new SimulationScope(model: new ClaimsModel()))
         // wire underwriting info
         UnderwritingInfo underwritingInfo = new UnderwritingInfo(premiumWritten:100d, numberOfPolicies:5d)
+        //underwritingInfo.originalUnderwritingInfo = underwritingInfo
         claimsGenerator.inUnderwritingInfo << underwritingInfo
         claimsGenerator.doCalculation()
 
