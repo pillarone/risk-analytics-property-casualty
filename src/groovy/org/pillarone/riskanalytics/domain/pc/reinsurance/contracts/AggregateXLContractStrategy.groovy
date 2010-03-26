@@ -43,7 +43,7 @@ class AggregateXLContractStrategy extends AbstractContractStrategy implements IR
             "claimClass": claimClass]
     }
 
-    public double calculateCoveredLoss(Claim inClaim) {
+    public double allocateCededClaim(Claim inClaim) {
         double coveredLoss
         if (inClaim.claimType == claimClass) {
             coveredLoss = inClaim.ultimate * factor * coveredByReinsurer

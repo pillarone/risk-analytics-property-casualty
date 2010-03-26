@@ -16,7 +16,7 @@ class TrivialContractStrategy extends AbstractContractStrategy implements IReins
         type
     }
 
-    public double calculateCoveredLoss(Claim inClaim) {
+    public double allocateCededClaim(Claim inClaim) {
         return 0d
     }
 

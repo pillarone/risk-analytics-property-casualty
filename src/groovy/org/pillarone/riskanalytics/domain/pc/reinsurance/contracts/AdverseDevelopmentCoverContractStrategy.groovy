@@ -6,6 +6,8 @@ import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities
+import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
+import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -13,23 +15,24 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilit
 // todo: not yet efficient, since the aggregate gross underwriting info is calculated twice: first, when
 // calculating the bookkeeping figures, then again (implicitly) calculating the ceded underwriting info.
 
-class AdverseDevelopmentCoverContractStrategy extends AbstractContractStrategy implements IReinsuranceContractStrategy, IParameterObject {
+class AdverseDevelopmentCoverContractStrategy extends AbstractContractStrategy implements IReinsuranceContractStrategyWithClaimsDevelopment, IParameterObject {
 
     static final ReinsuranceContractType type = ReinsuranceContractType.STOPLOSS
 
-    /** Premium can be expressed as a fraction of a base quantity.           */
+    /** Premium can be expressed as a fraction of a base quantity. */
     PremiumBase premiumBase = PremiumBase.ABSOLUTE
 
-    /** Premium as a percentage of the premium base           */
+    /** Premium as a percentage of the premium base */
     double premium
 
-    /** attachment point is also expressed as a fraction of gnpi if premium base == GNPI           */
+    /** attachment point is also expressed as a fraction of gnpi if premium base == GNPI */
     double attachmentPoint
 
-    /** attachment point is also expressed as a fraction of gnpi if premium base == GNPI        */
+    /** attachment point is also expressed as a fraction of gnpi if premium base == GNPI */
     double limit
 
-    private double factor
+    private double incurredAllocationFactor
+    private double paidAllocationFactor
 
     Map<UnderwritingInfo, Double> grossPremiumSharesPerBand = [:]
 
@@ -45,12 +48,28 @@ class AdverseDevelopmentCoverContractStrategy extends AbstractContractStrategy i
             "coveredByReinsurer": coveredByReinsurer]
     }
 
-    public double calculateCoveredLoss(Claim inClaim) {
-        inClaim.ultimate * factor * coveredByReinsurer
+    public double allocateCededClaim(Claim inClaim) {
+        inClaim.ultimate * incurredAllocationFactor * coveredByReinsurer
+    }
+
+    public double allocateCededPaid(ClaimDevelopmentPacket inClaim) {
+        inClaim.paid * paidAllocationFactor * coveredByReinsurer
+    }
+
+    public double allocateCededPaid(ClaimDevelopmentLeanPacket inClaim) {
+        inClaim.paid * paidAllocationFactor * coveredByReinsurer
     }
 
     public void initBookkeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
-        double aggregateGrossClaimAmount = inClaims.ultimate.sum()
+        // calculate aggregate ultimate/incurred & paid (by primary insurer)
+        double aggregateGrossClaim = inClaims.ultimate.sum()
+        // problem: not all incoming claims packets may have a paid property; solution: sum those found
+        // assume nothing was paid for Claim packets (which lack the paid property)
+        double aggregateGrossClaimPaid = inClaims.collect {
+                it instanceof ClaimDevelopmentLeanPacket ? ((ClaimDevelopmentLeanPacket) it).paid :
+                    it instanceof ClaimDevelopmentPacket ? ((ClaimDevelopmentPacket) it).paid :
+                        0}.sum()
+
         double scaledAttachmentPoint = attachmentPoint
         double scaledLimit = limit
         if (premiumBase == PremiumBase.GNPI) {
@@ -59,8 +78,13 @@ class AdverseDevelopmentCoverContractStrategy extends AbstractContractStrategy i
             scaledLimit *= gnpi
         }
 
-        double aggregateCededClaimAmount = Math.min(Math.max(aggregateGrossClaimAmount - scaledAttachmentPoint, 0), scaledLimit)
-        factor = (aggregateGrossClaimAmount != 0) ? aggregateCededClaimAmount / aggregateGrossClaimAmount : 1d
+        // calculate aggregate ultimate & paid by this reinsurer (for this contract)
+        double aggregateCededClaim = Math.min(Math.max(aggregateGrossClaim - scaledAttachmentPoint, 0), scaledLimit)
+        double aggregateCededClaimPaid = Math.min(Math.max(aggregateGrossClaimPaid - scaledAttachmentPoint, 0), scaledLimit)
+
+        // calculate allocation factors (used by allocateCededClaim & allocateCededPaid)
+        incurredAllocationFactor = (aggregateGrossClaim != 0) ? aggregateCededClaim / aggregateGrossClaim : 1d
+        paidAllocationFactor = (aggregateGrossClaimPaid != 0) ? aggregateCededClaimPaid / aggregateGrossClaimPaid : 1d
 
         double totalPremium = coverUnderwritingInfo.premiumWritten.sum()
         if (totalPremium != 0) {

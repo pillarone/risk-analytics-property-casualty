@@ -9,6 +9,7 @@ import org.pillarone.riskanalytics.domain.pc.claims.SortClaimsByFractionOfPeriod
 import org.pillarone.riskanalytics.domain.pc.reinsurance.ReinsuranceResultWithCommissionPacket;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.ICommissionStrategy;
+import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities;
@@ -122,11 +123,52 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
         }
     }
 
-    protected Claim getCoveredClaim(Claim claim, Component origin) {
-        double cededFraction = claim.getUltimate() == 0 ? 1d : parmContractStrategy.calculateCoveredLoss(claim) / claim.getUltimate();
-        Claim claimCeded = claim.copy();
-        claimCeded.scale(cededFraction);
-        setClaimReferences(claimCeded, claim, origin);
+    /**
+     * Calculates the ceded claim, with or without claim development information; for aggregate
+     * covers with development information, the ceded part is allocated to each single claim.
+     *
+     * //todo(bgi): see if we need to refactor, move ceded development allocation into the Strategies and Claim packets
+     * 
+     * @param grossClaim A Claim packet, possibly with development info (ClaimDevelopmentPacket or ClaimDevelopmentLeanPacket).
+     * @param origin
+     * @return A Claim packet (or ClaimDevelopmentPacket or ClaimDevelopmentLeanPacket), of the same type as grossClaim.
+     */
+    protected Claim getCoveredClaim(Claim grossClaim, Component origin){
+        Claim claimCeded;
+        double coveredLoss = parmContractStrategy.allocateCededClaim(grossClaim);
+        boolean hasDevelopment = grossClaim instanceof ClaimDevelopmentPacket ||
+                                grossClaim instanceof ClaimDevelopmentLeanPacket;
+        // calculate ceded development info (paid/reserved/changeInReserves) as appropriate to the Claim packet type
+        if (hasDevelopment && parmContractStrategy instanceof IReinsuranceContractStrategyWithClaimsDevelopment) {
+            // ceded development info has a different (allocation) factor from ceded claims
+            if (grossClaim instanceof ClaimDevelopmentLeanPacket) {
+                ClaimDevelopmentLeanPacket claim = new ClaimDevelopmentLeanPacket(grossClaim);
+                claim.setPaid(((IReinsuranceContractStrategyWithClaimsDevelopment)
+                    parmContractStrategy).allocateCededPaid((ClaimDevelopmentLeanPacket) grossClaim));
+                claim.setReserved(claim.getUltimate() - claim.getPaid()); // perhaps not necessary since CDLP.getReserved calculates the same difference
+                claimCeded = claim;
+            }
+            else { // (grossClaim instanceof ClaimDevelopmentPacket)
+                ClaimDevelopmentPacket claim = new ClaimDevelopmentPacket(grossClaim);
+                claim.setPaid(((IReinsuranceContractStrategyWithClaimsDevelopment)
+                    parmContractStrategy).allocateCededPaid((ClaimDevelopmentPacket) grossClaim));
+                double reserved = claim.getUltimate() - claim.getPaid();
+                claim.setChangeInReserves(reserved - claim.getReserved());
+                claim.setReserved(reserved);
+                claimCeded = claim;
+            }
+        }
+        else {
+            // ceded development info uses the same (allocation) factor as ceded claims
+            claimCeded = grossClaim.copy();
+            double claimLoss = grossClaim.getUltimate();
+            double cededFraction = claimLoss == 0 ? 1d : coveredLoss / claimLoss;
+            claimCeded.scale(cededFraction);//scales ultimate & (for claims with development) paid & (for CDP) reserves & changeInReserves
+        }
+        // use the same ceded claim interface for all types of Claim packets and contract strategies
+        claimCeded.setUltimate(coveredLoss);
+        // set other common attributes
+        setClaimReferences(claimCeded, grossClaim, origin);
         return claimCeded;
     }
 

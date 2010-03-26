@@ -21,7 +21,7 @@ class WCXLContractStrategy extends XLContractStrategy implements IReinsuranceCon
         ReinsuranceContractType.WCXL
     }
 
-    double calculateCoveredLoss(Claim inClaim) {
+    double allocateCededClaim(Claim inClaim) {
         // todo (sku): work on clear definitions of ClaimType.EVENT and ClaimType.AGGREGATE_EVENT
         if (inClaim.claimType.equals(ClaimType.EVENT) || inClaim.claimType.equals(ClaimType.AGGREGATED_EVENT)) {
             return inClaim.ultimate * cededShareByEvent.get(inClaim.event) * coveredByReinsurer

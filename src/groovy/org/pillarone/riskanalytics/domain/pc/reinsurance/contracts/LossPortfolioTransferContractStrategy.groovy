@@ -48,7 +48,7 @@ class LossPortfolioTransferContractStrategy extends AbstractContractStrategy imp
         }
     }
 
-    double calculateCoveredLoss(Claim inClaim) {
+    double allocateCededClaim(Claim inClaim) {
         inClaim.ultimate * quotaShare * coveredByReinsurer
     }
 

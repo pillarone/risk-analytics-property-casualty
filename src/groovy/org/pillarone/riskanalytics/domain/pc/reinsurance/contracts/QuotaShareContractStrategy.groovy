@@ -38,7 +38,7 @@ class QuotaShareContractStrategy extends AbstractContractStrategy implements IRe
             "coveredByReinsurer": coveredByReinsurer]
     }
 
-    double calculateCoveredLoss(Claim inClaim) {
+    double allocateCededClaim(Claim inClaim) {
         switch (limit) {
             case NoneLimitStrategy:
                 return inClaim.ultimate * quotaShare * coveredByReinsurer

@@ -14,7 +14,7 @@ import java.util.Arrays;
 public class ClaimDevelopmentLeanPacket extends Claim {
 
     private double paid;
-    private double reserved;
+    private double reserved; //todo(bgi): eliminate this field (currently, we'd only need to replace it with its getter in toString)?
     private Claim convertedClaim;
 
     private static final String INCURRED = "incurred";
@@ -37,8 +37,9 @@ public class ClaimDevelopmentLeanPacket extends Claim {
 
     /**
      *  This function is not secure in the sense that it does not check if the object itself and
-     *  the obejct received as argument are of equal type.
+     *  the object received as argument are of equal type.
      */
+    //todo(bgi): see if this one should perhaps enforce safety
     @Override
     public Claim getNetClaim(Claim cededClaim) {
         ClaimDevelopmentLeanPacket netClaim = (ClaimDevelopmentLeanPacket) copy();
@@ -49,7 +50,7 @@ public class ClaimDevelopmentLeanPacket extends Claim {
 
     /**
      *  This function is not secure in the sense that it does not check if the object itself and
-     *  the obejct received as argument are of equal type.
+     *  the object received as argument are of equal type.
      */
     @Override
     public void plus(Claim claim) {
@@ -59,7 +60,7 @@ public class ClaimDevelopmentLeanPacket extends Claim {
 
     /**
      *  This function is not secure in the sense that it does not check if the object itself and
-     *  the obejct received as argument are of equal type.
+     *  the object received as argument are of equal type.
      */
     @Override
     public void minus(Claim claim) {
@@ -74,7 +75,7 @@ public class ClaimDevelopmentLeanPacket extends Claim {
     }
 
     /**
-     *  Converts the current packet into a Claim packet setting its value to incurred
+     *  Converts the current packet into a Claim packet, setting its value to incurred
      */
     public Claim getClaimPacket() {
         if (convertedClaim == null) {

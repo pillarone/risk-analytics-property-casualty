@@ -32,7 +32,7 @@ class SurplusContractStrategy extends AbstractContractStrategy implements IReins
             "coveredByReinsurer": coveredByReinsurer]
     }
 
-    public double calculateCoveredLoss(Claim inClaim) {
+    public double allocateCededClaim(Claim inClaim) {
         if (inClaim instanceof ClaimWithExposure && inClaim.exposure) {
             return getFractionCeded(((ClaimWithExposure) inClaim).exposure.sumInsured) * inClaim.ultimate * coveredByReinsurer
         }

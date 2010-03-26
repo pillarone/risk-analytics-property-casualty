@@ -45,7 +45,7 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
             "coveredByReinsurer": coveredByReinsurer]
     }
 
-    public double calculateCoveredLoss(Claim inClaim) {
+    public double allocateCededClaim(Claim inClaim) {
         inClaim.ultimate * factor * coveredByReinsurer
     }
 

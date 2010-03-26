@@ -59,6 +59,12 @@ class ReinsuranceContractStrategyFactory {
         return new LossPortfolioTransferContractStrategy(quotaShare: quotaShare, premiumBase: premiumBase, premium: premium, coveredByReinsurer: coveredByReinsurer)
     }
 
+    private static IReinsuranceContractStrategy getAdverseDevelopmentCover(double attachmentPoint, double limit, PremiumBase premiumBase,
+                                                            double premium, double coveredByReinsurer) {
+        return new AdverseDevelopmentCoverContractStrategy(attachmentPoint: attachmentPoint, limit: limit, premiumBase: premiumBase,
+                premium: premium, coveredByReinsurer: coveredByReinsurer)
+    }
+
     public static IReinsuranceContractStrategy getTrivial() {
         return new TrivialContractStrategy()
     }
@@ -105,7 +111,7 @@ class ReinsuranceContractStrategyFactory {
                         parameters["premium"], parameters["coveredByReinsurer"])
                 break
             case ReinsuranceContractType.ADVERSEDEVELOPMENTCOVER:
-                contract = getStopLoss(parameters["attachmentPoint"], parameters["limit"], parameters["premiumBase"],
+                contract = getAdverseDevelopmentCover(parameters["attachmentPoint"], parameters["limit"], parameters["premiumBase"],
                     parameters["premium"], parameters["coveredByReinsurer"])
                 break
         }

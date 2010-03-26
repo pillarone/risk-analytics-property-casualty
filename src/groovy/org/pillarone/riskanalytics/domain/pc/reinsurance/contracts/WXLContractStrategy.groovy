@@ -14,7 +14,7 @@ class WXLContractStrategy extends XLContractStrategy implements IReinsuranceCont
         ReinsuranceContractType.WXL
     }
 
-    double calculateCoveredLoss(Claim inClaim) {
+    double allocateCededClaim(Claim inClaim) {
         if (inClaim.claimType.equals(ClaimType.SINGLE) && availableAggregateLimit > 0) {
             double ceded = Math.min(Math.max(inClaim.ultimate - attachmentPoint, 0), limit) * coveredByReinsurer
             ceded = availableAggregateLimit > ceded ? ceded : availableAggregateLimit

@@ -41,7 +41,7 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
 
     abstract ReinsuranceContractType getType()
 
-    abstract double calculateCoveredLoss(Claim inClaim)
+    abstract double allocateCededClaim(Claim inClaim)
 
     protected double calculateUsedReinstatements() {
         return Math.min((aggregateLimit - availableAggregateLimit) / limit, reinstatements)

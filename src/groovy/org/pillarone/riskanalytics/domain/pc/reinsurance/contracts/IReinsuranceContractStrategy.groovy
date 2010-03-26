@@ -19,7 +19,7 @@ interface IReinsuranceContractStrategy {
      *  a smaller inuring priority or preceding contracts in the net.
      */
     // todo(sku): replace with a new function double calculateCededShare(Claim grossClaim)
-    double calculateCoveredLoss(Claim grossClaim);
+    double allocateCededClaim(Claim grossClaim);
 
     UnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossInfo, double initialReserves);
 
