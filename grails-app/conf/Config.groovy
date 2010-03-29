@@ -1,6 +1,8 @@
 import org.pillarone.riskanalytics.core.output.batch.results.DerbyBulkInsert
 import org.pillarone.riskanalytics.core.output.batch.results.MysqlBulkInsert
 import org.pillarone.riskanalytics.core.output.batch.results.SQLServerBulkInsert
+import org.pillarone.riskanalytics.core.output.batch.calculations.MysqlCalculationsBulkInsert
+import org.pillarone.riskanalytics.core.output.batch.calculations.GenericBulkInsert
 
 // locations to search for config files that get merged into the main config
 // config files can either be Java properties files or ConfigSlurper scripts
@@ -37,7 +39,7 @@ grails.enable.native2ascii = true
 
 maxIterations = 100000
 keyFiguresToCalculate = null
-batchInsert = null
+resultBulkInsert = null
 userLogin = false
 // a cron for a batch, A cron expression is a string comprised of 6 or 7 fields separated by white space.
 // Fields can contain any of the allowed values: Sec Min Hour dayOfMonth month dayOfWeek Year
@@ -72,6 +74,8 @@ environments {
     }
     test {
         ExceptionSafeOut = System.out
+        resultBulkInsert = org.pillarone.riskanalytics.core.output.batch.results.GenericBulkInsert
+        calculationBulkInsert = GenericBulkInsert
         keyFiguresToCalculate = [
                 'stdev': true,
                 'percentile': [0.0, 10.0, 20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 80.0, 90.0, 100.0],
@@ -82,7 +86,8 @@ environments {
     }
     sqlserver {
         models = ["FiniteReModel"]
-        batchInsert = SQLServerBulkInsert
+        resultBulkInsert = SQLServerBulkInsert
+        calculationBulkInsert = GenericBulkInsert
         keyFiguresToCalculate = [
                 'stdev': true,
                 'percentile': [0.0, 10.0, 20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 80.0, 90.0, 100.0],
@@ -103,15 +108,10 @@ environments {
         }
     }
     mysql {
-        batchInsert = MysqlBulkInsert
+        resultBulkInsert = MysqlBulkInsert
+        calculationBulkInsert = MysqlCalculationsBulkInsert
         ExceptionSafeOut = System.out
-//        models = ["PodraPModel"]
-//        models << "CapitalEagleModel"
-//        models << "DynamicCapitalEagleModel"
-        models = ["MultiProductStatutoryLifeModel"]
-//        models << "PodraPModel"
-//        models << "ReservesWithPatternModel"
-//        models << "FiniteReModel"
+        models = ["PodraPModel"]
         log4j = {
             appenders {
                 console name: 'stdout', layout: pattern(conversionPattern: '[%d] %-5p %c{1} %m%n')
@@ -134,10 +134,8 @@ environments {
                     'org.pillarone.modelling.ui.main.action.ImportAllAction',
                     'org.pillarone.modelling.ui.main.action.ItemLoadHandler'
 
-            debug 'org.pillarone.modelling.output',
-                    //'org.pillarone.riskanalytics.domain.life.accounting.Account'
-                    //'org.pillarone.riskanalytics.domain.life.reinsurance.UnitLinkedLifeReinsuranceContractPacket',
-                    //'org.pillarone.modelling.fileimport'
+            debug 'org.pillarone.riskAnalytics.output',
+                    'org.pillarone.riskanalytics.core.simulation.engine.actions',
 
                     warn()
         }
@@ -162,7 +160,8 @@ environments {
     }
 
     production {
-        batchInsert = MysqlBulkInsert
+        resultBulkInsert = MysqlBulkInsert
+        calculationBulkInsert = MysqlCalculationsBulkInsert
         userLogin = true
         maxIterations = 10000
         models = ["CapitalEagleModel", "DependencyModel", "DynamicCapitalEagleModel", "MultiLineReinsuranceModel", "TwoLobDependencyModel", "PodraPModel"]
@@ -176,7 +175,8 @@ environments {
     }
 
     standalone {
-        batchInsert = DerbyBulkInsert
+        resultBulkInsert = DerbyBulkInsert
+        calculationBulkInsert = MysqlCalculationsBulkInsert
         ExceptionSafeOut = System.err
         maxIterations = 10000
         models = ["CapitalEagleModel", "DependencyModel", "DynamicCapitalEagleModel", "MultiLineReinsuranceModel", "TwoLobDependencyModel", "PodraPModel"]
