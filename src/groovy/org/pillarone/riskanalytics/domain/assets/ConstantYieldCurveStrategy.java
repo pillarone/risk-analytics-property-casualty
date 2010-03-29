@@ -2,6 +2,7 @@ package org.pillarone.riskanalytics.domain.assets;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject;
+import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier;
 
 import java.util.GregorianCalendar;
 import java.util.Map;
@@ -26,7 +27,7 @@ public class ConstantYieldCurveStrategy implements ITermStructure, IParameterObj
         return getRate();
     }
 
-    public Object getType() {
+    public IParameterObjectClassifier getType() {
         return type;
     }
 

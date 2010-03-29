@@ -7,6 +7,7 @@ import org.pillarone.riskanalytics.core.packets.PacketList
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.ExposureInfo
+import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 
 /**
  * @author martin.melchior (at) fhnw (dot) ch
@@ -19,7 +20,7 @@ class RiskToBandAllocatorStrategy implements IRiskAllocatorStrategy, IParameterO
 
     RiskBandAllocationBaseLimited allocationBase = RiskBandAllocationBaseLimited.PREMIUM
 
-    public Object getType() {
+    public IParameterObjectClassifier getType() {
         return RiskAllocatorType.RISKTOBAND
     }
 

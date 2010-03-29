@@ -2,6 +2,7 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.commissions;
 
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter;
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory;
+import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier;
 import org.pillarone.riskanalytics.core.util.GroovyUtils;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
@@ -22,7 +23,7 @@ public class SlidingCommissionStrategy implements ICommissionStrategy {
             Arrays.asList(LOSS_RATIO, COMMISSION),
             ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER));
 
-    public Object getType() {
+    public IParameterObjectClassifier getType() {
         return CommissionStrategyType.SLIDINGCOMMISSION;
     }
 

@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.assetLiabilityMismatch;
 
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject;
+import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier;
 
 import java.util.Collections;
 import java.util.Map;
@@ -13,7 +14,7 @@ public class AbsoluteAssetLiabilityMismatchGeneratorStrategy  implements IParame
     public AbsoluteAssetLiabilityMismatchGeneratorStrategy() {
     }
 
-    public Object getType() {
+    public IParameterObjectClassifier getType() {
         return AssetLiabilityMismatchGeneratorStrategyType.ABSOLUTE;
     }
 

@@ -3,6 +3,7 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cashflow;
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +16,7 @@ public class PeriodCoveredStrategy implements ICoverPeriod, IParameterObject {
     private DateTime start;
     private DateTime end;
 
-    public Object getType() {
+    public IParameterObjectClassifier getType() {
         return CoverPeriodType.PERIOD;
     }
 

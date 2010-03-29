@@ -8,6 +8,7 @@ import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.domain.utils.DistributionModified
 import org.pillarone.riskanalytics.domain.utils.DistributionModifierFactory
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
+import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -18,7 +19,7 @@ public class AttritionalClaimsGeneratorStrategy implements IParameterObject, ICl
     RandomDistribution claimsSizeDistribution = RandomDistributionFactory.getDistribution(DistributionType.CONSTANT, ['constant': 0d])
     DistributionModified claimsSizeModification = DistributionModifierFactory.getModifier(DistributionModifier.NONE, [:])
 
-    public Object getType() {
+    public IParameterObjectClassifier getType() {
         return ClaimsGeneratorType.ATTRITIONAL
     }
 

@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover;
 
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter;
+import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier;
 import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments;
 import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
@@ -22,7 +23,7 @@ public class LineOfBusinessPerilsCoverAttributeStrategy
     private ComboBoxTableMultiDimensionalParameter perils
             = new ComboBoxTableMultiDimensionalParameter(Collections.emptyList(), Arrays.asList("Covered Perils"), PerilMarker.class);
 
-    public Object getType() {
+    public IParameterObjectClassifier getType() {
         return CoverAttributeStrategyType.LINESOFBUSINESSPERILS;
     }
 

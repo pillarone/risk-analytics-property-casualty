@@ -1,5 +1,6 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cashflow.cover;
 
+import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier;
 import org.pillarone.riskanalytics.domain.pc.constants.IncludeType;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.ICoverAttributeStrategy;
 
@@ -13,7 +14,7 @@ import java.util.Map;
  */
 public class AllCoverAttributeStrategy implements ICoverAttributeStrategy {
 
-    public Object getType() {
+    public IParameterObjectClassifier getType() {
         return CoverAttributeStrategyType.ALL;
     }
 

@@ -1,6 +1,6 @@
-import org.pillarone.riskanalytics.core.output.batch.DerbyBulkInsert
-import org.pillarone.riskanalytics.core.output.batch.MysqlBulkInsert
-import org.pillarone.riskanalytics.core.output.batch.SQLServerBulkInsert
+import org.pillarone.riskanalytics.core.output.batch.results.DerbyBulkInsert
+import org.pillarone.riskanalytics.core.output.batch.results.MysqlBulkInsert
+import org.pillarone.riskanalytics.core.output.batch.results.SQLServerBulkInsert
 
 // locations to search for config files that get merged into the main config
 // config files can either be Java properties files or ConfigSlurper scripts

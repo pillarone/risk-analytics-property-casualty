@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.reserves.cashflow
 
-import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter;
+import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
+import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier;
 
 /**
  * Cave: minimum development period at least 1
@@ -19,7 +20,7 @@ public class HistoricLastPaidClaimsStrategy implements IHistoricClaimsStrategy {
         return diagonalValues
     }
 
-    public Object getType() {
+    public IParameterObjectClassifier getType() {
         return HistoricClaimsStrategyType.LAST_PAID
     }
 

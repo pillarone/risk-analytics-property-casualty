@@ -2,6 +2,7 @@ package org.pillarone.riskanalytics.domain.pc.underwriting
 
 import org.apache.commons.logging.Log
 import org.apache.commons.logging.LogFactory
+import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -22,7 +23,7 @@ public class PremiumWrittenExposureBaseStrategy extends DependingExposureBaseStr
         }
     }
 
-    public Object getType() {
+    public IParameterObjectClassifier getType() {
         return ExposureBaseType.PREMIUMWRITTEN;
     }
 }

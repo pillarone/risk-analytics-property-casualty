@@ -1,5 +1,6 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.commissions;
 
+import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 
@@ -21,7 +22,7 @@ public class ProfitCommissionStrategy implements ICommissionStrategy {
      */
     private double lossCarriedForward = 0d;
 
-    public Object getType() {
+    public IParameterObjectClassifier getType() {
         return CommissionStrategyType.PROFITCOMMISSION;
     }
 

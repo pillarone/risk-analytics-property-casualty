@@ -4,13 +4,14 @@ import org.pillarone.riskanalytics.domain.pc.constants.Exposure
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.domain.utils.RandomDistribution
 import org.pillarone.riskanalytics.domain.utils.DistributionModified
+import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 public class NoneClaimsGeneratorStrategy implements IParameterObject, IClaimsGeneratorStrategy {
 
-    public Object getType() {
+    public IParameterObjectClassifier getType() {
         return ClaimsGeneratorType.NONE
     }
 

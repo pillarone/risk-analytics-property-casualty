@@ -14,6 +14,7 @@ import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.utils.RandomNumberGeneratorFactory
 import org.pillarone.riskanalytics.domain.pc.underwriting.ExposureInfo
+import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 
 /**
  * @author jdittrich (at) munichre (dot) com
@@ -32,7 +33,7 @@ class SumInsuredGeneratorRiskAllocatorStrategy implements IRiskAllocatorStrategy
 
     double bandMean = 1d / 3d
 
-    public Object getType() {
+    public IParameterObjectClassifier getType() {
         return RiskAllocatorType.SUMINSUREDGENERATOR
     }
 

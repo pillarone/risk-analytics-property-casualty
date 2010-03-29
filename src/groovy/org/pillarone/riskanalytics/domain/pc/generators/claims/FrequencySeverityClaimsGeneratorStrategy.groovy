@@ -10,6 +10,7 @@ import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.domain.utils.DistributionModified
 import org.pillarone.riskanalytics.domain.utils.DistributionModifierFactory
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
+import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -24,7 +25,7 @@ public class FrequencySeverityClaimsGeneratorStrategy implements IParameterObjec
     DistributionModified claimsSizeModification = DistributionModifierFactory.getModifier(DistributionModifier.NONE, [:])
     FrequencySeverityClaimType produceClaim = FrequencySeverityClaimType.SINGLE
 
-    public Object getType() {
+    public IParameterObjectClassifier getType() {
         return ClaimsGeneratorType.FREQUENCY_SEVERITY
     }
 

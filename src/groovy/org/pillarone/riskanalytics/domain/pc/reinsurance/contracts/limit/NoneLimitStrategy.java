@@ -1,5 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit;
 
+import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier;
+
 import java.util.Collections;
 import java.util.Map;
 
@@ -8,7 +10,7 @@ import java.util.Map;
  */
 public class NoneLimitStrategy implements ILimitStrategy {
 
-    public Object getType() {
+    public IParameterObjectClassifier getType() {
         return LimitStrategyType.NONE;
     }
 

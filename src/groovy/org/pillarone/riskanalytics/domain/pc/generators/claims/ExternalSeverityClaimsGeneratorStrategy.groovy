@@ -7,6 +7,7 @@ import org.pillarone.riskanalytics.domain.utils.RandomDistribution
 import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.domain.utils.DistributionModified
+import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -17,7 +18,7 @@ public class ExternalSeverityClaimsGeneratorStrategy implements IParameterObject
     RandomDistribution claimsSizeDistribution = RandomDistributionFactory.getDistribution(DistributionType.CONSTANT, ['constant': 0d])
     FrequencySeverityClaimType produceClaim = FrequencySeverityClaimType.AGGREGATED_EVENT
 
-    public Object getType() {
+    public IParameterObjectClassifier getType() {
         return ClaimsGeneratorType.EXTERNAL_SEVERITY
     }
 

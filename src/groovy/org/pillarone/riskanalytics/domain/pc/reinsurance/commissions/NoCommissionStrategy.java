@@ -1,5 +1,6 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.commissions;
 
+import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 
@@ -13,7 +14,7 @@ import java.util.Map;
  */
 public class NoCommissionStrategy implements ICommissionStrategy {
 
-    public Object getType() {
+    public IParameterObjectClassifier getType() {
         return CommissionStrategyType.NOCOMMISSION;
     }
 

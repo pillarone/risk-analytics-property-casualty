@@ -1,5 +1,6 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.commissions;
 
+import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 
@@ -14,7 +15,7 @@ public class FixedCommissionStrategy implements ICommissionStrategy {
 
     private double commission = 0;
 
-    public Object getType() {
+    public IParameterObjectClassifier getType() {
         return CommissionStrategyType.FIXEDCOMMISSION;
     }
 

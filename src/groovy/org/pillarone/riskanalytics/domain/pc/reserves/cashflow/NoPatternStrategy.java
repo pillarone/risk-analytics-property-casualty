@@ -1,5 +1,6 @@
 package org.pillarone.riskanalytics.domain.pc.reserves.cashflow;
 
+import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier;
 import org.pillarone.riskanalytics.domain.pc.constants.SimulationPeriod;
 
 import java.util.Collections;
@@ -11,7 +12,7 @@ import java.util.Map;
  */
 public class NoPatternStrategy extends AbstractPatternStrategy {
 
-    public Object getType() {
+    public IParameterObjectClassifier getType() {
         return PatternStrategyType.NONE;
     }
 

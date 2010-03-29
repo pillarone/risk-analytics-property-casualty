@@ -1,5 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.generators.copulas;
 
+import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier;
+
 /**
  * @author Michael-Noe (at) Web (dot) de
  */
@@ -7,7 +9,7 @@ class PerilGumbelCopulaStrategy extends GumbelCopulaStrategy {
 
     static final PerilCopulaType type = PerilCopulaType.GUMBEL;
 
-    public Object getType() {
+    public IParameterObjectClassifier getType() {
         return type;
     }
 }

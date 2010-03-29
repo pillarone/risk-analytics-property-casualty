@@ -1,4 +1,6 @@
-package org.pillarone.riskanalytics.domain.pc.reserves.cashflow;
+package org.pillarone.riskanalytics.domain.pc.reserves.cashflow
+
+import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier;
 
 
 /**
@@ -10,7 +12,7 @@ public class NoHistoricClaimsStrategy implements IHistoricClaimsStrategy {
         Collections.emptyMap()
     }
 
-    public Object getType() {
+    public IParameterObjectClassifier getType() {
         return HistoricClaimsStrategyType.NONE
     }
 

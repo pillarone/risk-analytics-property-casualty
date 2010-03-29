@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover;
 
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter;
+import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier;
 import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker;
 
 import java.util.Arrays;
@@ -16,7 +17,7 @@ public class ReservesCoverAttributeStrategy implements IReservesCoverAttributeSt
     private ComboBoxTableMultiDimensionalParameter reserves
             = new ComboBoxTableMultiDimensionalParameter(Collections.emptyList(), Arrays.asList("Covered Reserves"), IReserveMarker.class);
 
-    public Object getType() {
+    public IParameterObjectClassifier getType() {
         return CoverAttributeStrategyType.RESERVES;
     }
 

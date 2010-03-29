@@ -1,5 +1,6 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover;
 
+import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier;
 import org.pillarone.riskanalytics.domain.pc.constants.IncludeType;
 
 import java.util.HashMap;
@@ -14,7 +15,7 @@ public class AllCoverAttributeStrategy implements ICoverAttributeStrategy {
     
     private IncludeType reserves = IncludeType.NOTINCLUDED;
 
-    public Object getType() {
+    public IParameterObjectClassifier getType() {
         return CoverAttributeStrategyType.ALL;
     }
 

@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.reserves.cashflow
 
-import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter;
+import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
+import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier;
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -17,7 +18,7 @@ public class HistoricLastReportedClaimsStrategy implements IHistoricClaimsStrate
         return diagonalValues
     }
 
-    public Object getType() {
+    public IParameterObjectClassifier getType() {
         return HistoricClaimsStrategyType.LAST_REPORTED
     }
 

@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.applicable;
 
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter;
+import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
 
 import java.util.Arrays;
@@ -16,7 +17,7 @@ public class ContractApplicableStrategy implements IContractApplicableStrategy {
     private ComboBoxTableMultiDimensionalParameter applicableContracts = new ComboBoxTableMultiDimensionalParameter(
         Collections.emptyList(), Arrays.asList("Applicable Contracts"), IReinsuranceContractMarker.class);
 
-    public Object getType() {
+    public IParameterObjectClassifier getType() {
         return ApplicableStrategyType.CONTRACT;
     }
 

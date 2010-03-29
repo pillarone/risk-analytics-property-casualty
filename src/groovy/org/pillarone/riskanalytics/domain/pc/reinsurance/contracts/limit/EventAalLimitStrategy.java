@@ -1,5 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit;
 
+import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,7 +13,7 @@ public class EventAalLimitStrategy implements ILimitStrategy {
     private double eventLimit = 0;
     private double aal = 0;
 
-    public Object getType() {
+    public IParameterObjectClassifier getType() {
         return LimitStrategyType.EVENTLIMITAAL;
     }
 

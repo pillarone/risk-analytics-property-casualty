@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.assets
 
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject
+import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 
 /**
  * @author cyril (dot) neyme (at) kpmg (dot) fr
@@ -17,7 +18,7 @@ public class YieldCurveCIRStrategy implements ITermStructure, IParameterObject, 
     double initialInterestRate;
 
 
-    public Object getType() {
+    public IParameterObjectClassifier getType() {
         type
     }
 

@@ -1,5 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit;
 
+import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,7 +12,7 @@ public class AadLimitStrategy implements ILimitStrategy {
 
     private double aad = 0;
 
-    public Object getType() {
+    public IParameterObjectClassifier getType() {
         return LimitStrategyType.AAD;
     }
 
