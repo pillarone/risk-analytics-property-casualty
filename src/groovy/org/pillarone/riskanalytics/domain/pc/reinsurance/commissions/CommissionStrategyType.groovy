@@ -4,7 +4,7 @@ import org.pillarone.riskanalytics.core.parameterization.*
 import org.pillarone.riskanalytics.domain.utils.constraints.DoubleConstraints
 
 /**
- * Defines the commission on a reinsurance contract. The parameters depend on the type of commission.
+ * Defines the commission on a reinsurance contract or a commission component.
  *
  * @author shartmann (at) munichre (dot) com
  */

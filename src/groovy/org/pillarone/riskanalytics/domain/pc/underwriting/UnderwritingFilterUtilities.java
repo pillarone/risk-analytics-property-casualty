@@ -13,19 +13,17 @@ public class UnderwritingFilterUtilities {
     /**
      * @param underwritingInfos underwriting info packets to be filtered
      * @param coverCriteria     components such as RiskBands
-     * @return an underwriting info packet is added to the list of filtered underwriting info packets it the originalClaim
-     *         references an element of the
-     *         cover criteria or if the originalClaim property is null the origin property is evaluated.
+     * @return an underwriting info packet is added to the list of filtered underwriting info packets if the
+     *          originalUnderwritingInfo references an element of the cover criteria. If it didn't match or
+     *          originalUnderwritingInfo property is null, the origin property is evaluated.
      */
     public static List<UnderwritingInfo> filterUnderwritingInfo(List<UnderwritingInfo> underwritingInfos, List coverCriteria) {
         List<UnderwritingInfo> filterUnderwritingInfos = new ArrayList<UnderwritingInfo>(underwritingInfos.size());
         if (coverCriteria != null) {
             for (UnderwritingInfo underwritingInfo : underwritingInfos) {
-                // todo(bgi): provisionally changed ? : to && || here:** for PMO-782; but we may find a different solution
-                if (underwritingInfo.originalUnderwritingInfo != null && coverCriteria.contains(
-                    underwritingInfo.originalUnderwritingInfo)        || coverCriteria.contains(
-                    underwritingInfo.origin)
-                ) {
+                if (underwritingInfo.originalUnderwritingInfo != null
+                        && coverCriteria.contains(underwritingInfo.originalUnderwritingInfo)        
+                        || coverCriteria.contains(underwritingInfo.origin)) {
                     filterUnderwritingInfos.add(underwritingInfo);
                 }
             }
