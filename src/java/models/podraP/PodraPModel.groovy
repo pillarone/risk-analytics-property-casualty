@@ -9,34 +9,39 @@ import org.pillarone.riskanalytics.domain.pc.lob.DynamicConfigurableLobs
 import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.MultiLineDynamicReinsuranceProgram
 
 /**
+ * A PodraPModel is a model for liabilities, including deterministic underwriting information, stochastic claims
+ * generation, allocation to line of business, and a reinsurance program. Claims can be correlated by using copulas
+ * for attritional claims, or by using event generators.<br>
+ *
+ * On the model level, each component (type) can have an arbitrary number of instances included in the model,
+ * which are specified in the parametrization and can be managed from user interface.
+ *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 class PodraPModel extends StochasticModel {
 
-// Anlegen der Komponenten des Podra Modells
-// als "Dynamische Komponenten" (Elemente können im UI hinzugefügt und gelöscht werden
-// Underwriting Kennzahlen: Risikobänder
+    /** underwritingSegments is a collection of RiskBands which emit their properties on the outUnderwritingInfo channel */
     DynamicUnderwritingSegments underwritingSegments
-// Schadengeneratoren: Typen Attritional Loss, Frequency Severity
+    /** a list of independently specified claims generators */
     DynamicClaimsGenerators claimsGenerators
-// Abhängigkeitsstrukturen: Copulae auf Attritional Loss Verteilungen
+    /** dependency structures: copulas based on attritional loss distributions */
     DynamicDependencies dependencies
-// Ereignisgeneratoren für Frequency Severity Generatoren
+    // Ereignisgeneratoren für Frequency Severity Generatoren
     DynamicMultipleDependencies eventGenerators
-// Zusammenfassung der Schadengeneratoren zu Branchen
+    // mappings of claims Zusammenfassung der Schadengeneratoren zu Branchen
     DynamicConfigurableLobs linesOfBusiness
-// Rückversicherung auf Branchen oder SG-Level
+    // Rückversicherung auf Branchen oder SG-Level
     MultiLineDynamicReinsuranceProgram reinsurance
 
     void initComponents() {
-// Komponenten anlegen
+        // set up components
         underwritingSegments = new DynamicUnderwritingSegments()
         claimsGenerators = new DynamicClaimsGenerators()
         dependencies = new DynamicDependencies()
         eventGenerators = new DynamicMultipleDependencies()
         linesOfBusiness = new DynamicConfigurableLobs()
         reinsurance = new MultiLineDynamicReinsuranceProgram()
-// Aufbau des Modells als Baumstruktur: Wurzeln festlegen
+        // build up the model as a tree structure: define the roots
         addStartComponent underwritingSegments
         addStartComponent dependencies
         addStartComponent eventGenerators
@@ -44,6 +49,9 @@ class PodraPModel extends StochasticModel {
 
     void wireComponents() {
 // Zusammenbinden der Komponenten: Übergabe von Ausgabegrößen an Eingabekanäle
+        /**
+         * connect inputs to (preceding) outputs
+         */
         claimsGenerators.inUnderwritingInfo = underwritingSegments.outUnderwritingInfo
         claimsGenerators.inProbabilities = dependencies.outProbabilities
         claimsGenerators.inEventSeverities = eventGenerators.outEventSeverities

@@ -13,21 +13,30 @@ import org.pillarone.riskanalytics.domain.utils.DistributionModifierFactory
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 
 /**
+ * <p>A DynamicClaimsGenerators is a container for TypeableClaimsGenerators which can be managed from the UI
+ * through the facilities of the parent class, DynamicComposedComponent.</p>
+ *
+ * <p><ul>DynamicClaimsGenerators contains the following channels:
+ * <li>inUnderwritingInfo
+ * <li>inProbabilities
+ * <li>inEventSeverities
+ * <li>outClaims
+ * </ul></p>
+ *
+ * <p>The host sends all incoming packets to each included typeable claims generator, and routes the outClaims
+ * packets from each generator to its out channel.</p>
+ *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
- *
- * Dynamische Komponente zum Anlegen von DynamicClaimsGenerators mittels UI.
- * Die Segmente werden über DynamicComposedComponent gespreichert.
- * Zulässige Subkomponente: TypeableClaimsGenerator, Generatorstrategie muss IClaimsGeneratorStrategy implementieren
- *
  */
 
 public class DynamicClaimsGenerators extends DynamicComposedComponent {
 
-    /** needs to be connected only if a none absolute base is selected    */
+    /** needs to be connected only if a none absolute base is selected */
     PacketList<UnderwritingInfo> inUnderwritingInfo = new PacketList(UnderwritingInfo.class);
-    /** needs to be connected only if the claims generator was selected as target in a copula    */
+    /** needs to be connected only if the claims generator was selected as target in a copula */
     PacketList<DependenceStream> inProbabilities = new PacketList(DependenceStream.class);
-    /** needs to be connected only ...    */
+    /** needs to be connected only if the claims generator is using externally specified severities
+     * (that is, the claims generator is based on/resamples given experience data) */
     PacketList<EventDependenceStream> inEventSeverities = new PacketList(EventDependenceStream.class);
 
     PacketList<Claim> outClaims = new PacketList(Claim.class);

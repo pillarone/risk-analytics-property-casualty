@@ -31,10 +31,10 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
+ *
+ * Typisierbare Schadengeneratoren in parmClaimsModel
+ *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
- *
- * Typisierbare Schadengeneratoren in parmClaimsModel 
- *
  */
 public class TypableClaimsGenerator extends GeneratorCachingComponent implements PerilMarker {
 

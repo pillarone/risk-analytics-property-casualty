@@ -7,6 +7,11 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceCo
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
 
 /**
+ * A MultiLineDynamicReinsuranceProgram is an almost identical analog to DynamicReinsuranceProgram,
+ * the salient difference being that the contracts it contains are MultiLineReinsuranceContracts
+ * (which know which lines, perils or reserves they cover) rather than ReinsuranceContracts
+ * (which make no discrimination and cover everything they are given).
+ *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 public class MultiLineDynamicReinsuranceProgram extends DynamicReinsuranceProgram {
