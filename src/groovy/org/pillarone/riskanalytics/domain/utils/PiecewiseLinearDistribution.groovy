@@ -70,7 +70,7 @@ class PiecewiseLinearDistribution implements Distribution {
 
     double inverseF(double u) {
         if ((u < 0) || (u > 1)) throw new IllegalArgumentException("Got probability argument outside [0,1] PieceWiseLinearDistribution");
-        int i = 1;                                     //first piece uf cdft containing u
+        int i = 1;                                     //first piece of cdft containing u
         while (u > cdft[i]) {i++}                       //now we have cdft[i-1]<=u<=cdft[i]    (even cdft[i-1]<u for u>0)
         double pos = (u - cdft[i - 1]) / (cdft[i] - cdft[i - 1])    //pos is relative location of u in that interval
         return (1 - pos) * val[i - 1] + pos * val[i]
@@ -79,7 +79,7 @@ class PiecewiseLinearDistribution implements Distribution {
     double cdf(double v) {
         if (v <= val[0]) return 0.0;
         if (v >= val[last]) return 1.0
-        int i = 1;                                     //first piece uf val containing v
+        int i = 1;                                     //first piece of val containing v
         while (v > val[i]) {i++}                       //now we have val[i-1]<v<=val[i]
         double pos = (v - val[i - 1]) / (val[i] - val[i - 1])    //pos is relative location of v in that interval
         return (1 - pos) * cdft[i - 1] + pos * cdft[i]
