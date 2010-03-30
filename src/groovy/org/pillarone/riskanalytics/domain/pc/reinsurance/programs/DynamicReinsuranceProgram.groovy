@@ -15,9 +15,39 @@ import org.pillarone.riskanalytics.core.packets.PacketList
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiCoverAttributeReinsuranceContract
+import org.pillarone.riskanalytics.domain.pc.constants.ReinsuranceContractBase
+import org.apache.commons.logging.Log
+import org.apache.commons.logging.LogFactory
 
 /**
- *  This class uses Market*Merger components.
+ * A DynamicReinsuranceProgram is a DynamicComposedComponent -- i.e. a container of a sequence of
+ * similar components -- which, in this case, are reinsurance contracts.
+ *
+ * The contracts are wired in series in the order specified by their inuring priorities (with tying
+ * contracts wired in parallel), and merged after each stage to calculate the net from that stage.
+ *
+ * DynamicReinsuranceProgram uses the following input and output channels:
+ *     in channels:
+ *         inClaims
+ *         inUnderwritingInfo
+ *     out channels:
+ *         outClaims* (* = Net, Gross, Ceded)
+ *         outClaimsDevelopmentLean* (* = Net, Gross, Ceded)
+ *         out*UnderwritingInfo (* = Cover, NetAfterCover, -)
+ * Ceded/covered packets from all contained reinsurance contracts as well as final net/uncovered
+ * amounts are sent out of the DynamicReinsuranceProgram. Claims are always processed, however
+ * underwriting info amounts are only calculated when a relevant in and out channel is wired.
+ *
+ * A typical object starts its life, get some ReinsuranceContract objects added to it with the
+ * addSubComponent() method, gets wired with wire(), and then may be invoked with start() or as the
+ * result of an upstream start() or doCalculation() once all in channels are ready.
+ * A helper method, createDefaultSubComponent(), returns a TRIVIAL contract with inuring priority 0
+ * which could be customized and added to the program with addSubComponent, but its use is not required.
+ *
+ * This class uses Market*Merger components (i.e. MarketClaimsMerger & MarketUnderwritingInfoMerger),
+ * as noted above, to accomplish the merging after each stage (i.e. each distinct inuring priority >=0).
+ * The class will throw an error during wiring if any inuring priority is <0. //todo(bgi): add test case
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
@@ -48,6 +78,8 @@ class DynamicReinsuranceProgram extends DynamicComposedComponent {
     List<MarketClaimsMerger> claimsMergers = new ArrayList<MarketClaimsMerger>()
     List<MarketUnderwritingInfoMerger> underwritingInfoMergers = new ArrayList<MarketUnderwritingInfoMerger>()
 
+    private static Log LOG = LogFactory.getLog(DynamicReinsuranceProgram.class);
+
     public ReinsuranceContract createDefaultSubComponent() {
         ReinsuranceContract newContract = new ReinsuranceContract(parmInuringPriority: 0,
                 parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.TRIVIAL, [:]))
@@ -56,12 +88,12 @@ class DynamicReinsuranceProgram extends DynamicComposedComponent {
 
     /**
      *  A ClaimsMerger is used for every inuring priority.
-     *  Each ClaimsMerger receives the net claims of the preceeding ClaimsMerger and the ceded claims of the contracts
+     *  Each ClaimsMerger receives the net claims of the preceding ClaimsMerger and the ceded claims of the contracts
      *  with the same inuring priority. The merged net claims are sent to the contracts with the next higher inuring
      *  priority and the following ClaimsMerger. The merged ceded claims are sent to the last ClaimsMerger.
      *  The first ClaimsMerger receives the inClaims of the program.
      *  The last ClaimsMerger prepares the claims for the out channels. It receives the inClaims of the program, the
-     *  ceded claims of all preceeding ClaimsMerger and the contracts with the highest inuring priority. But the net
+     *  ceded claims of all preceding ClaimsMergers and the contracts with the highest inuring priority. But the net
      *  claims of the second last contract are not sent to it.
      */
     public void wire() {
@@ -111,6 +143,14 @@ class DynamicReinsuranceProgram extends DynamicComposedComponent {
             }
             if (currentMerger == 0) {
                 doWire PRC, getContract(i), 'inClaims', this, 'inClaims'
+                if (getContract(i) instanceof MultiCoverAttributeReinsuranceContract &&
+                    ((MultiCoverAttributeReinsuranceContract) getContract(i)).parmBasedOn.equals(ReinsuranceContractBase.CEDED)) {
+                    //todo(bgi): warn the user that the parameter makes no sense and will be ignored for this run
+                    if (LOG.isDebugEnabled()) {
+                        String contractName = getContract(i).normalizedName + " with " + claimsMergers[-1].name
+                        LOG.debug("DynamicReinsuranceProgram contract claims wiring: ignoring contract base parameter value CEDED, using NET, for contract $contractName")
+                    }
+                }
             }
             else if (currentMerger > 0) {
                 wireContractInClaims(getContract(i), (MarketClaimsMerger) claimsMergers[currentMerger - 1])
@@ -204,6 +244,5 @@ class DynamicReinsuranceProgram extends DynamicComposedComponent {
     public String getGenericSubComponentName() {
         return "contracts"
     }
-
 
 }
