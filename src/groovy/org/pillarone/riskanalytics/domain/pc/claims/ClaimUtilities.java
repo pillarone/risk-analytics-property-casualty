@@ -14,21 +14,6 @@ import java.util.Map;
  */
 public class ClaimUtilities {
 
-    public static ClaimWithExposure getClaimWithExposure(Claim claim) {
-        ClaimWithExposure result = new ClaimWithExposure();
-        result.setOriginalClaim(claim.getOriginalClaim());
-        result.setEvent(claim.getEvent());
-        result.setFractionOfPeriod(claim.getFractionOfPeriod());
-        result.setClaimType(claim.getClaimType());
-        // SingleValuePacket properties
-        result.setUltimate(claim.getUltimate());
-        // Packet properties
-        result.setOrigin(claim.origin);
-        result.setSender(claim.sender);
-        result.setSenderChannelName(claim.senderChannelName);
-        return result;
-    }
-
     public static boolean isOriginal(Claim original, Claim hasOriginal) {
         return hasOriginal.getOriginalClaim() != null && hasOriginal.getOriginalClaim().equals(original);
     }

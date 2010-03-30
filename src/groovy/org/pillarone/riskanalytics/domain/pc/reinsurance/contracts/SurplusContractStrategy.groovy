@@ -2,7 +2,6 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts
 
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
-import org.pillarone.riskanalytics.domain.pc.claims.ClaimWithExposure
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
 
@@ -33,11 +32,11 @@ class SurplusContractStrategy extends AbstractContractStrategy implements IReins
     }
 
     public double allocateCededClaim(Claim inClaim) {
-        if (inClaim instanceof ClaimWithExposure && inClaim.exposure) {
-            return getFractionCeded(((ClaimWithExposure) inClaim).exposure.sumInsured) * inClaim.ultimate * coveredByReinsurer
+        if (inClaim.hasExposureInfo()) {
+            return inClaim.ultimate * coveredByReinsurer * getFractionCeded(inClaim.exposure.sumInsured)
         }
         else {
-            return inClaim.ultimate * defaultCededLossShare * coveredByReinsurer
+            return inClaim.ultimate * coveredByReinsurer * defaultCededLossShare
         }
     }
 

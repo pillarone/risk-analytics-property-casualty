@@ -6,7 +6,6 @@ import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.pc.underwriting.ExposureInfo
-import org.pillarone.riskanalytics.domain.pc.claims.ClaimWithExposure
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractStrategyFactory
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
 
@@ -88,11 +87,8 @@ class SurplusProgramTests extends GroovyTestCase {
                 [[100d, 400d, 800d], [0.25, 0.5, 0.25]], ['maximum sum insured', 'portion']
         )
 
-
-        def probeSurplusNet = new TestProbe(surplus, "outClaimsNet")
-        List surplusNetClaims = probeSurplusNet.result
-        def probeSurplusCeded = new TestProbe(surplus, "outClaims")
-        List surplusCededClaims = probeSurplusCeded.result
+        List surplusNetClaims = (new TestProbe(surplus, "outClaimsNet")).result
+        List surplusCededClaims = (new TestProbe(surplus, "outClaims")).result
 
         surplus.start()
 
@@ -102,7 +98,7 @@ class SurplusProgramTests extends GroovyTestCase {
         Map<Double, List<Claim>> mapNetLarge = [:]
         Map<Double, Double> mapAggrNetLarge = [:]
         for (Claim claim: surplusNetClaims) {
-            ExposureInfo expInfo = ((ClaimWithExposure) claim).exposure
+            ExposureInfo expInfo = claim.exposure
             if (claim.claimType == ClaimType.ATTRITIONAL) {
                 if (!mapNetAttr.containsKey(expInfo.maxSumInsured)) {
                     mapNetAttr[expInfo.maxSumInsured] = []
@@ -129,7 +125,7 @@ class SurplusProgramTests extends GroovyTestCase {
         Map<Double, List<Claim>> mapCededLarge = [:]
         Map<Double, Double> mapAggrCededLarge = [:]
         for (Claim claim: surplusCededClaims) {
-            ExposureInfo expInfo = ((ClaimWithExposure) claim).exposure
+            ExposureInfo expInfo = claim.exposure
             if (claim.claimType == ClaimType.ATTRITIONAL) {
                 if (!mapCededAttr.containsKey(expInfo.maxSumInsured)) {
                     mapCededAttr[expInfo.maxSumInsured] = []

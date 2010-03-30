@@ -2,7 +2,6 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts
 
 import org.pillarone.riskanalytics.core.util.TestProbe
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
-import org.pillarone.riskanalytics.domain.pc.claims.ClaimWithExposure
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 
@@ -78,14 +77,14 @@ class SurplusContractStrategyTests extends GroovyTestCase {
 
     void testCalculateCededClaimsOnly() {
         List<UnderwritingInfo> exposures = getMockUnderwritingInfo()
-        ClaimWithExposure attrClaim100 = new ClaimWithExposure(claimType: ClaimType.ATTRITIONAL, ultimate: 100d, exposure: exposures[0])
-        ClaimWithExposure attrClaim101 = new ClaimWithExposure(claimType: ClaimType.ATTRITIONAL, ultimate: 100d, exposure: exposures[1])
-        ClaimWithExposure attrClaim102 = new ClaimWithExposure(claimType: ClaimType.ATTRITIONAL, ultimate: 100d, exposure: exposures[2])
+        Claim attrClaim100 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 100d, exposure: exposures[0])
+        Claim attrClaim101 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 100d, exposure: exposures[1])
+        Claim attrClaim102 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 100d, exposure: exposures[2])
 
-        ClaimWithExposure largeClaim60 = new ClaimWithExposure(claimType: ClaimType.SINGLE, ultimate: 60d, exposure: exposures[0])
-        ClaimWithExposure largeClaim61 = new ClaimWithExposure(claimType: ClaimType.SINGLE, ultimate: 60d, exposure: exposures[1])
-        ClaimWithExposure largeClaim62 = new ClaimWithExposure(claimType: ClaimType.SINGLE, ultimate: 60d, exposure: exposures[2])
-        ClaimWithExposure attrClaim303 = new ClaimWithExposure(claimType: ClaimType.ATTRITIONAL, ultimate: 300d, exposure: exposures[3])
+        Claim largeClaim60 = new Claim(claimType: ClaimType.SINGLE, ultimate: 60d, exposure: exposures[0])
+        Claim largeClaim61 = new Claim(claimType: ClaimType.SINGLE, ultimate: 60d, exposure: exposures[1])
+        Claim largeClaim62 = new Claim(claimType: ClaimType.SINGLE, ultimate: 60d, exposure: exposures[2])
+        Claim attrClaim303 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 300d, exposure: exposures[3])
 
         ReinsuranceContract contract = getContract0()
         assertTrue contract.outCoveredClaims.isEmpty()
@@ -122,10 +121,10 @@ class SurplusContractStrategyTests extends GroovyTestCase {
           Claim attrClaim102 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 200d)
           Claim attrClaim303 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 300d)
 
-          ClaimWithExposure largeClaim60 = new ClaimWithExposure(claimType: ClaimType.SINGLE, ultimate: 60d, exposure: exposures[0])
-          ClaimWithExposure largeClaim61 = new ClaimWithExposure(claimType: ClaimType.SINGLE, ultimate: 60d, exposure: exposures[1])
-          ClaimWithExposure largeClaim62 = new ClaimWithExposure(claimType: ClaimType.SINGLE, ultimate: 60d, exposure: exposures[2])
-          ClaimWithExposure largeClaim63 = new ClaimWithExposure(claimType: ClaimType.SINGLE, ultimate: 60d, exposure: exposures[4])
+          Claim largeClaim60 = new Claim(claimType: ClaimType.SINGLE, ultimate: 60d, exposure: exposures[0])
+          Claim largeClaim61 = new Claim(claimType: ClaimType.SINGLE, ultimate: 60d, exposure: exposures[1])
+          Claim largeClaim62 = new Claim(claimType: ClaimType.SINGLE, ultimate: 60d, exposure: exposures[2])
+          Claim largeClaim63 = new Claim(claimType: ClaimType.SINGLE, ultimate: 60d, exposure: exposures[4])
 
 
           ReinsuranceContract contract = getContract1()

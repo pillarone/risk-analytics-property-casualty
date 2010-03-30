@@ -8,7 +8,6 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.ExposureInfo
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
 import org.pillarone.riskanalytics.domain.pc.allocators.AllocationTable
-import org.pillarone.riskanalytics.domain.pc.claims.ClaimWithExposure
 
 /**
  * @author martin.melchior (at) fhnw (dot) ch
@@ -70,11 +69,11 @@ class RiskAllocatorTests extends GroovyTestCase {
             inUnderwritingInfo: underwritingInfos)
         allocator.inTargetDistribution << allocationTable
         allocator.doCalculation()
-        PacketList<ClaimWithExposure> outClaims = allocator.outClaims
+        PacketList<Claim> outClaims = allocator.outClaims
         assertNotNull(outClaims)
         assertEquals(n, outClaims.size())
         for (int i = 0; i < n; i++) {
-            ClaimWithExposure claim = outClaims[i]
+            Claim claim = outClaims[i]
             assertEquals(value / n, claim.ultimate)
             assertNotNull(claim.exposure)
             assertEquals(claim.exposure, underwritingInfos[i])
@@ -124,7 +123,7 @@ class RiskAllocatorTests extends GroovyTestCase {
         allocator.doCalculation()
 
         // test the allocation
-        PacketList<ClaimWithExposure> outClaims = allocator.outClaims
+        PacketList<Claim> outClaims = allocator.outClaims
         assertFalse(testAllocation(outClaims, allocationTable.getMap('maximum sum insured', 'portion'), inClaims))
         Map<Double, Double> actualDistribution = [:]
         for (int k = n; k > 0; k--) {
@@ -164,13 +163,13 @@ class RiskAllocatorTests extends GroovyTestCase {
         return inClaims
     }
 
-    boolean testAllocation(List<ClaimWithExposure> outClaims, Map<Double, Double> targetDistribution, List<Claim> inClaims) {
+    boolean testAllocation(List<Claim> outClaims, Map<Double, Double> targetDistribution, List<Claim> inClaims) {
         assertNotNull(outClaims)
         int numOfClaims = inClaims.size()
         assertEquals(numOfClaims, outClaims.size())
         Map<Double, Integer> frequencyDistr = [:]
         for (int i = 0; i < numOfClaims; i++) {
-            ClaimWithExposure claim = outClaims[i]
+            Claim claim = outClaims[i]
             assertNotNull(claim.exposure)
             double maxSI = claim.exposure.maxSumInsured
             if (!frequencyDistr.containsKey(maxSI)) {

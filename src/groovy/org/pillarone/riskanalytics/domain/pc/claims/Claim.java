@@ -7,6 +7,7 @@ import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
 import org.pillarone.riskanalytics.domain.pc.generators.severities.Event;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
+import org.pillarone.riskanalytics.domain.pc.underwriting.ExposureInfo;
 
 import java.util.*;
 
@@ -24,6 +25,7 @@ public class Claim extends MultiValuePacket {
     private IComponentMarker peril;
     private LobMarker lineOfBusiness;
     private IReinsuranceContractMarker reinsuranceContract;
+    private ExposureInfo exposure;
 
     private static final String ULTIMATE = "ultimate";
 
@@ -46,6 +48,7 @@ public class Claim extends MultiValuePacket {
         setPeril(claim.getPeril());
         setLineOfBusiness(claim.getLineOfBusiness());
         setReinsuranceContract(claim.getReinsuranceContract());
+        setExposure(claim.getExposure());
     }
 
     public void plus(Claim claim) {
@@ -172,5 +175,17 @@ public class Claim extends MultiValuePacket {
 
     public void setReinsuranceContract(IReinsuranceContractMarker reinsuranceContract) {
         this.reinsuranceContract = reinsuranceContract;
+    }
+
+    public ExposureInfo getExposure() {
+        return exposure;
+    }
+
+    public void setExposure(ExposureInfo exposure) {
+        this.exposure = exposure;
+    }
+
+    public  boolean hasExposureInfo() {
+        return this.exposure != null;
     }
 }

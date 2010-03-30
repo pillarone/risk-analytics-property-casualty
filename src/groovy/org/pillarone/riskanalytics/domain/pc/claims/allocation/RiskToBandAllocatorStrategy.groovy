@@ -7,7 +7,6 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.allocators.AllocationTable
 import org.pillarone.riskanalytics.domain.pc.underwriting.ExposureInfo
-import org.pillarone.riskanalytics.domain.pc.claims.ClaimWithExposure
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimUtilities
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
@@ -42,20 +41,19 @@ class RiskToBandAllocatorStrategy implements IRiskAllocatorStrategy, IParameterO
         // get risk map
         Map<Double, ExposureInfo> riskMap = getRiskMap(underwritingInfos)
 
-        // allocate the claims  *************************
+        // allocate the claims
         Map<Double, Double> targetDistributionMaxSI = targetDistribution?.get(0).getMap('maximum sum insured', 'portion')
         targetDistributionMaxSI = convertKeysToDouble(targetDistributionMaxSI)
 
         PacketList<Claim> allocatedClaims = new PacketList(Claim)
         if (targetDistributionMaxSI) {
-            Map<Double, List<Claim>> largeClaimsAllocation = allocateLargeClaims(
-                    filterClaimsByType(claims, ClaimType.SINGLE), riskMap, targetDistributionMaxSI)
+            Map<Double, List<Claim>> largeClaimsAllocation = allocateLargeClaims(filterClaimsByType(claims, ClaimType.SINGLE), riskMap, targetDistributionMaxSI)
             for (Entry<Double, List<Claim>> entry: largeClaimsAllocation.entrySet()) {
-                ExposureInfo expInfo = riskMap[entry.key]
+                ExposureInfo exposure = riskMap[entry.key]
                 for (Claim claim: entry.value) {
-                    ClaimWithExposure claimExt = ClaimUtilities.getClaimWithExposure(claim)
-                    claimExt.exposure = expInfo
-                    allocatedClaims << claimExt
+                    if (claim.hasExposureInfo()) throw new IllegalArgumentException("Can't remap claim's exposure")
+                    claim.exposure = exposure
+                    allocatedClaims << claim
                 }
             }
 
@@ -70,14 +68,13 @@ class RiskToBandAllocatorStrategy implements IRiskAllocatorStrategy, IParameterO
     }
 
     private List<Claim> getAllocatedClaims(List<Claim> claims, ClaimType claimType, Map<Double, ExposureInfo> riskMap, Map<Double, Double> targetDistribution) {
-        Map<Double, List<ClaimWithExposure>> aggrEventClaimsAllocation = allocateClaims(
-                filterClaimsByType(claims, claimType), riskMap, targetDistribution
-        )
+        Map<Double, List<Claim>> aggrEventClaimsAllocation = allocateClaims(filterClaimsByType(claims, claimType), riskMap, targetDistribution)
         List<Claim> allocatedClaims = new ArrayList<Claim>(aggrEventClaimsAllocation.size());
-        for (Entry<Double, List<ClaimWithExposure>> entry: aggrEventClaimsAllocation.entrySet()) {
-            ExposureInfo expInfo = riskMap[entry.key]
-            for (ClaimWithExposure claim: entry.value) {
-                claim.exposure = expInfo
+        for (Entry<Double, List<Claim>> entry: aggrEventClaimsAllocation.entrySet()) {
+            ExposureInfo exposure = riskMap[entry.key]
+            for (Claim claim: entry.value) {
+                if (claim.hasExposureInfo()) throw new IllegalArgumentException("Can't remap claim's exposure")
+                claim.exposure = exposure
                 allocatedClaims << claim
             }
         }
@@ -86,8 +83,8 @@ class RiskToBandAllocatorStrategy implements IRiskAllocatorStrategy, IParameterO
 
     /**
      *  This function is temporarily needed as the db returns BigDecimal and the GUI may return
-     *  Integer values and the map works only porperly with Double keys. Once we can make sure
-     *  to get double values it will be obsolet.
+     *  Integer values and the map works only properly with Double keys. Once we can ensure that
+     *  we always get double values, it will be obsolete.
      */
     // todo: try to remove this function
     private Map<Double, Double> convertKeysToDouble(Map<Double, Double> targetDistributionMaxSI) {
@@ -102,19 +99,18 @@ class RiskToBandAllocatorStrategy implements IRiskAllocatorStrategy, IParameterO
         return targetDistributionMaxSI
     }
 
-    private Map<Double, List<ClaimWithExposure>> allocateClaims(List<Claim> claims,
-                                                                Map<Double, ExposureInfo> riskMap,
-                                                                Map<Double, Double> targetDistribution) {
-        Map<Double, List<ClaimWithExposure>> lossToRiskMap = [:]
+    private Map<Double, List<Claim>> allocateClaims(List<Claim> claims,
+                                                    Map<Double, ExposureInfo> riskMap,
+                                                    Map<Double, Double> targetDistribution) {
+        Map<Double, List<Claim>> lossToRiskMap = [:]
         for (Claim claim: claims) {
             for (Entry<Double, Double> entry: targetDistribution.entrySet()) {
-                ClaimWithExposure claimExt = ClaimUtilities.getClaimWithExposure(claim)
-                claimExt.value *= entry.value
-                claimExt.exposure = riskMap[entry.key]
+                Claim copy = claim.copy()
+                copy.value *= entry.value
                 if (!lossToRiskMap.containsKey(entry.key)) {
-                    lossToRiskMap[entry.key] = new ArrayList<ClaimWithExposure>()
+                    lossToRiskMap[entry.key] = new ArrayList<Claim>()
                 }
-                lossToRiskMap[entry.key] << claimExt
+                lossToRiskMap[entry.key] << copy
             }
         }
         lossToRiskMap
@@ -201,7 +197,7 @@ class RiskToBandAllocatorStrategy implements IRiskAllocatorStrategy, IParameterO
 
     private static List<Claim> filterClaimsByType(List<Claim> claims, ClaimType claimType) {
         List<Claim> claimsToAllocate = []
-        claims.each {Claim claim ->
+        for (Claim claim : claims) {
             if (claim.claimType == claimType) {
                 claimsToAllocate << claim
             }

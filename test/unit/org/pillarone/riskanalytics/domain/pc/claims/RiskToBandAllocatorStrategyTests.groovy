@@ -28,13 +28,13 @@ public class RiskToBandAllocatorStrategyTests extends GroovyTestCase {
     private static PacketList<UnderwritingInfo> getMockExposureData(int n) {
         // prepare mock list of exposure info
         PacketList<UnderwritingInfo> underwritingInfos = []
-        for (int it = 1; it <= n; it++) {
+        for (int i = 1; i <= n; i++) {
             underwritingInfos << new UnderwritingInfo(
-                    premiumWrittenAsIf: 100d * it,
-                    premiumWritten: 100d * it,
-                    numberOfPolicies: it,
-                    sumInsured: 1000d * (2 * it - 1),
-                    maxSumInsured: 1000d * 2 * it)
+                    premiumWrittenAsIf: 100d * i,
+                    premiumWritten: 100d * i,
+                    numberOfPolicies: i,
+                    sumInsured: 1000d * (2 * i - 1),
+                    maxSumInsured: 1000d * 2 * i)
         }
         underwritingInfos
     }
@@ -75,7 +75,7 @@ public class RiskToBandAllocatorStrategyTests extends GroovyTestCase {
         assertNotNull(allocatedClaims)
         assertEquals(n, allocatedClaims.size())
         for (int i = 0; i < n; i++) {
-            ClaimWithExposure claim = allocatedClaims[i]
+            Claim claim = allocatedClaims[i]
             assertEquals "ultimate $i", value * underwritingInfos[i].premiumWritten / totalPremium, claim.ultimate
             assertNotNull "exposure $i not null", claim.exposure
             assertEquals "exposure $i", claim.exposure, underwritingInfos[i]

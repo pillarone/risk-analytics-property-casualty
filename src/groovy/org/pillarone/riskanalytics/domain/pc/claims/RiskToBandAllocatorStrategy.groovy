@@ -32,7 +32,7 @@ class RiskToBandAllocatorStrategy implements IRiskAllocatorStrategy, IParameterO
         // get risk map
         Map<Double, ExposureInfo> riskMap = getRiskMap(underwritingInfos)
 
-        // allocate the claims  *************************
+        // allocate the claims
         Map<Double, Double> targetDistributionMaxSI = getTargetDistribution(underwritingInfos, allocationBase)
         targetDistributionMaxSI = convertKeysToDouble(targetDistributionMaxSI)
 
@@ -41,11 +41,11 @@ class RiskToBandAllocatorStrategy implements IRiskAllocatorStrategy, IParameterO
             Map<Double, List<Claim>> largeClaimsAllocation = allocateSingleClaims(
                     filterClaimsByType(claims, ClaimType.SINGLE), riskMap, targetDistributionMaxSI)
             for (Entry<Double, List<Claim>> entry: largeClaimsAllocation.entrySet()) {
-                ExposureInfo expInfo = riskMap[entry.key]
+                ExposureInfo exposure = riskMap[entry.key]
                 for (Claim claim: entry.value) {
-                    ClaimWithExposure claimExt = ClaimUtilities.getClaimWithExposure(claim)
-                    claimExt.exposure = expInfo
-                    allocatedClaims << claimExt
+                    if (claim.hasExposureInfo()) throw new IllegalArgumentException("Can't remap claim's exposure")
+                    claim.exposure = exposure
+                    allocatedClaims << claim
                 }
             }
 
@@ -60,14 +60,15 @@ class RiskToBandAllocatorStrategy implements IRiskAllocatorStrategy, IParameterO
     }
 
     private List<Claim> getAllocatedClaims(List<Claim> claims, ClaimType claimType, Map<Double, ExposureInfo> riskMap, Map<Double, Double> targetDistribution) {
-        Map<Double, List<ClaimWithExposure>> aggrAllocation = allocateClaims(
+        Map<Double, List<Claim>> aggrAllocation = allocateClaims(
                 filterClaimsByType(claims, claimType), riskMap, targetDistribution
         )
         List<Claim> allocatedClaims = new ArrayList<Claim>(aggrAllocation.size());
-        for (Entry<Double, List<ClaimWithExposure>> entry: aggrAllocation.entrySet()) {
-            ExposureInfo expInfo = riskMap[entry.key]
-            for (ClaimWithExposure claim: entry.value) {
-                claim.exposure = expInfo
+        for (Entry<Double, List<Claim>> entry: aggrAllocation.entrySet()) {
+            ExposureInfo exposure = riskMap[entry.key]
+            for (Claim claim: entry.value) {
+//                if (claim.hasExposureInfo()) throw new IllegalArgumentException("Can't remap claim's exposure")
+                claim.exposure = exposure
                 allocatedClaims << claim
             }
         }
@@ -94,8 +95,8 @@ class RiskToBandAllocatorStrategy implements IRiskAllocatorStrategy, IParameterO
 
     /**
      *  This function is temporarily needed as the db returns BigDecimal and the GUI may return
-     *  Integer values and the map works only porperly with Double keys. Once we can make sure
-     *  to get double values it will be obsolet.
+     *  Integer values and the map works properly only with Double keys. Once we can ensure that
+     *  we always get double values, it will be obsolete.
      */
     // todo: try to remove this function
     private Map<Double, Double> convertKeysToDouble(Map<Double, Double> targetDistributionMaxSI) {
@@ -110,19 +111,18 @@ class RiskToBandAllocatorStrategy implements IRiskAllocatorStrategy, IParameterO
         return targetDistributionMaxSI
     }
 
-    private Map<Double, List<ClaimWithExposure>> allocateClaims(List<Claim> claims,
-                                                                Map<Double, ExposureInfo> riskMap,
-                                                                Map<Double, Double> targetDistribution) {
-        Map<Double, List<ClaimWithExposure>> lossToRiskMap = [:]
+    private Map<Double, List<Claim>> allocateClaims(List<Claim> claims,
+                                                    Map<Double, ExposureInfo> riskMap,
+                                                    Map<Double, Double> targetDistribution) {
+        Map<Double, List<Claim>> lossToRiskMap = [:]
         for (Claim claim: claims) {
             for (Entry<Double, Double> entry: targetDistribution.entrySet()) {
-                ClaimWithExposure claimExt = ClaimUtilities.getClaimWithExposure(claim)
-                claimExt.scale(entry.value)
-                claimExt.exposure = riskMap[entry.key]
+                Claim copy = claim.copy()
+                copy.scale(entry.value)
                 if (!lossToRiskMap.containsKey(entry.key)) {
-                    lossToRiskMap[entry.key] = new ArrayList<ClaimWithExposure>()
+                    lossToRiskMap[entry.key] = new ArrayList<Claim>()
                 }
-                lossToRiskMap[entry.key] << claimExt
+                lossToRiskMap[entry.key] << copy
             }
         }
         lossToRiskMap

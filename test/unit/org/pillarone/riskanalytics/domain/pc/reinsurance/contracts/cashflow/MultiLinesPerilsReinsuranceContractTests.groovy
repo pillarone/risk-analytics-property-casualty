@@ -10,7 +10,6 @@ import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope
 import org.pillarone.riskanalytics.core.util.TestProbe
 import org.pillarone.riskanalytics.domain.assets.VoidTestModel
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
-import org.pillarone.riskanalytics.domain.pc.claims.ClaimWithExposure
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentWithIBNRPacket
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
@@ -397,7 +396,6 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
      * in inClaims is an instance of one of these classes:
      * <ul><li>ClaimDevelopmentLeanPacket</li>
      * <li>ClaimDevelopmentWithIBNRPacket</li>
-     * <li>ClaimExposure</li></ul>
      */
     void testUnimplementedClaim() {
         MultiLinesPerilsReinsuranceContract contract = getAllLinesPerilsQuotaShareContract(2011, 2011, 1, 0.5, 0)
@@ -408,11 +406,6 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         contract.reset()
         contract.parmContractStrategy = ReinsuranceContractType.getTrivial()
         contract.inClaims << new ClaimDevelopmentWithIBNRPacket()
-        shouldFail NotImplementedException, {contract.doCalculation()}
-
-        contract.reset()
-        contract.parmContractStrategy = ReinsuranceContractType.getTrivial()
-        contract.inClaims << new ClaimWithExposure()
         shouldFail NotImplementedException, {contract.doCalculation()}
     }
 
