@@ -3,6 +3,9 @@ package org.pillarone.riskanalytics.domain.utils
 import umontreal.iro.lecuyer.randvar.RandomVariateGen
 
 /**
+ * Mock distribution acts like a PRNG with a fixed random seed and number of generated values:
+ * given a list of constants, this "distribution" "generates" (regurgitates) each value in turn.
+ *
  * @author: ben.ginsberg (at) intuitive-collaboration (dot) com
  */
 class ConstantsVariateGenerator extends RandomVariateGen {

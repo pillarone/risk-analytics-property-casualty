@@ -3,8 +3,10 @@ package org.pillarone.riskanalytics.domain.utils
 import umontreal.iro.lecuyer.probdist.Distribution
 
 /**
- * Mock distribution acts like a PRNG with a fixed random seed and number of generated random numbers:
- * given a list of constants, this "distribution" "generates" (regurgitates) each value in turn.
+ * This may actually not differ at all from a discrete (or discrete empirical) distribution; however,
+ * you can create an instance of this from any sequence of values (array of doubles), even one with duplicates.
+ * This distribution counts and sorts unique values from the sequence of values it is given, and uses these to
+ * efficiently compute cdf & inverseF calculations. 
  *
  * Uses a rudimentary "binary search" for cdf & inverseF calculations; should work for reasonably sized arrays.
  *
