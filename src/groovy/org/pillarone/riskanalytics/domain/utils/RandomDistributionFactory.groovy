@@ -37,8 +37,8 @@ class RandomDistributionFactory {
 
     private static Distribution getDiscreteEmpiricalDistribution(double[] obs, double[] prob) {
         double probSum = 0
-        assert obs.length == prob.length, "DiscreteEmpiricalGenerator requires lists of same length but got $obs.length and $prob.length"
-        prob.each {cell -> probSum += cell}
+        assert obs.length == prob.length, "Discrete empirical distributions require the same number of observations and probabilities, but got $obs.length and $prob.length "
+        for (double value : prob) {probSum += value}
         assert 1.0 - probSum < 1e-6, "DiscreteEmpiricalGenerator requires the sum of probabilities to be 1.0"
         return new DiscreteDistribution(obs, prob, obs.length)
     }
@@ -50,7 +50,6 @@ class RandomDistributionFactory {
         def prob = cumprob.collect {cell -> ret = cell - lastcell; lastcell = cell; ret }
         return getDiscreteEmpiricalDistribution(obs, prob as double[])
     }
-
 
     static RandomDistribution getUniformDistribution() {
         return getDistribution(DistributionType.UNIFORM, ['a': 0, 'b': 1])
@@ -125,6 +124,9 @@ class RandomDistributionFactory {
                     break
                 case DistributionType.INVERSEGAUSSIANDIST:
                     distribution.distribution = new InverseGaussianDist(parameters["mu"], parameters["lambda"])
+                    break
+                case DistributionType.CONSTANTS:
+                    distribution.distribution = new ConstantsDistribution(asDouble(parameters["constants"]))
                     break
             }
         } catch (IllegalArgumentException e) { // distribution stays null and validation will handle this

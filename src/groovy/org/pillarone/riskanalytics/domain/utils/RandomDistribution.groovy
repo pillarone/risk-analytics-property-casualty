@@ -26,23 +26,19 @@ class RandomDistribution implements IParameterObject {
         builder.toHashCode()
     }
 
+    /**
+     * regards objects as equal iff their formal types and all parameter values agree
+     */
     public boolean equals(Object obj) {
-        if (obj instanceof RandomDistribution) {
-            if (!distribution.class.equals(obj.distribution.class)) {
-                return false
-            }
-            boolean parametersEqual = true
-            parameters.keySet().each {
-                if (!parameters[it].equals(obj.parameters[it])) {
-                    parametersEqual = false
-                }
-            }
-            return parametersEqual
-        } else {
+        if (!(obj instanceof RandomDistribution) || !distribution.class.equals(((RandomDistribution)obj).distribution.class)) {
             return false
         }
-
+        for (Object parameter : parameters.keySet()) {
+            if (!parameters[parameter].equals(obj.parameters[parameter])) {
+                return false
+            }
+        }
+        return true
     }
-
 
 }

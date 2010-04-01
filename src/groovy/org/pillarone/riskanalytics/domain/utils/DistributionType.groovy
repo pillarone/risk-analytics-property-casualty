@@ -47,10 +47,13 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
             "binomial dist", "BINOMIALDIST", ["n": 1, "p": 0d])
     public static final DistributionType INVERSEGAUSSIANDIST = new DistributionType(
             "inverse gaussian dist", "INVERSEGAUSSIANDIST", ["mu": 1d, "lambda": 1d])
+    public static final DistributionType CONSTANTS = new DistributionType(
+            "constant values", "CONSTANTS", ["constants": new TableMultiDimensionalParameter([0d, 1d], ['constants'])])
 
     public static final all = [
             CHISQUAREDIST,
             CONSTANT,
+            CONSTANTS,
             BINOMIALDIST,
             DISCRETEEMPIRICAL,
             DISCRETEEMPIRICALCUMULATIVE,
@@ -229,6 +232,10 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
         validationService.register(INVERSEGAUSSIANDIST) {Map type ->
             if (type.lambda > 0) return true
             ["distribution.type.error.inversegaussian.lambda.negative.or.zero", type.lambda]
+        }
+        validationService.register(CONSTANTS) {Map type ->
+            if (type.constants.size() > 0) return true
+            ["distribution.type.error.constants.empty", type.constants]
         }
     }
 

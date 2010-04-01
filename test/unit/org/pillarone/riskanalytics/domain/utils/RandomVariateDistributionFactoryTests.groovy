@@ -18,20 +18,20 @@ class RandomVariateDistributionFactoryTests extends GroovyTestCase {
             params["gamma"] = 0.5
             params["a"] = 0.3
             params["b"] = 0.9
-            params["p"] = 0.5
+            params["m"] = 0.9
             params["n"] = 1
+            params["p"] = 0.5
             params["constant"] = 1
             params["observations"] = new TableMultiDimensionalParameter([10, 100, 1000], ['observations'])
             params["probabilities"] = [0.2, 0.3, 0.5]
-            params["supportPoints"] = new TableMultiDimensionalParameter([[0.0, 10.0, 100.0, 1000.0],[0.0, 0.2, 0.5, 1.0]], ['values', 'cummulative probabilities'])
-            params["mu"] = 1
-            params["sigma"] = 1
-
-            params["m"] = 0.9
             params["discreteEmpiricalValues"] = new TableMultiDimensionalParameter([[10, 100, 1000], [0.2, 0.3, 0.5]], ['observations', 'probabilities'])
             params["discreteEmpiricalCumulativeValues"] = new TableMultiDimensionalParameter([[10, 100, 1000], [0.2, 0.5, 1]], ['observations', 'cumulative probabilities'])
+            params["supportPoints"] = new TableMultiDimensionalParameter([[0, 10, 100, 1000], [0, 0.2, 0.5, 1]], ['values', 'cummulative probabilities'])
             params["values"] = [0, 10, 100, 1000]
             params["cumulative probabilities"] = [0, 0.2, 0.5, 1.0]
+            params["mu"] = 1
+            params["sigma"] = 1
+            params["constants"] = [0,1]
 
             IRandomVariateDistribution distribution = RandomVariateDistributionFactory.getDistribution(it, params)
             assertNotNull "${it}: ", distribution

@@ -19,6 +19,7 @@ class ClaimSizeDistributionType extends DistributionType {
         [
                 CHISQUAREDIST,
                 CONSTANT,
+                CONSTANTS,
                 DISCRETEEMPIRICAL,
                 DISCRETEEMPIRICALCUMULATIVE,
                 LOGNORMAL,
