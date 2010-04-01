@@ -13,7 +13,7 @@ public class CommissionStrategyType extends AbstractParameterObjectClassifier {
     public static final CommissionStrategyType NOCOMMISSION = new CommissionStrategyType("no commission", "NOCOMMISSION", [:])
     public static final CommissionStrategyType FIXEDCOMMISSION = new CommissionStrategyType("fixed commission", "FIXEDCOMMISSION", ['commission':0d])
     public static final CommissionStrategyType SLIDINGCOMMISSION = new CommissionStrategyType("sliding commission", "SLIDINGCOMMISSION",
-           ['bandCommission': new ConstrainedMultiDimensionalParameter(
+           ['commissionBands': new ConstrainedMultiDimensionalParameter(
                         [[0d], [0d]],
                         [SlidingCommissionStrategy.LOSS_RATIO, SlidingCommissionStrategy.COMMISSION],
                         ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))])
@@ -51,7 +51,7 @@ public class CommissionStrategyType extends AbstractParameterObjectClassifier {
     }
 
     public static ICommissionStrategy getStrategy(CommissionStrategyType type, Map parameters) {
-        ICommissionStrategy commissionStrategy ;
+        ICommissionStrategy commissionStrategy;
         switch (type) {
             case CommissionStrategyType.NOCOMMISSION:
                 commissionStrategy = new NoCommissionStrategy()

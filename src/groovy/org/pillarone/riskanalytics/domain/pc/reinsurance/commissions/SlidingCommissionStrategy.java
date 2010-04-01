@@ -19,7 +19,7 @@ public class SlidingCommissionStrategy implements ICommissionStrategy {
     public static final String COMMISSION = "Commission";
     
     private ConstrainedMultiDimensionalParameter commissionBands = new ConstrainedMultiDimensionalParameter(
-            GroovyUtils.convertToListOfList(new Object[]{"", 1d}),
+            GroovyUtils.convertToListOfList(new Object[]{0d, 0d}),
             Arrays.asList(LOSS_RATIO, COMMISSION),
             ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER));
 

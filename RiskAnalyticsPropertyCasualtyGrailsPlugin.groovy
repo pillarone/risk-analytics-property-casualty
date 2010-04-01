@@ -5,6 +5,7 @@ import org.pillarone.riskanalytics.domain.pc.constraints.PerilPortion
 import org.pillarone.riskanalytics.core.parameterization.SimpleConstraint
 import org.pillarone.riskanalytics.domain.pc.output.AggregatedDrillDownCollectingModeStrategy
 import org.pillarone.riskanalytics.core.output.CollectingModeFactory
+import org.pillarone.riskanalytics.domain.utils.constraints.DoubleConstraints
 
 class RiskAnalyticsPropertyCasualtyGrailsPlugin {
     // the plugin version
@@ -48,6 +49,7 @@ class RiskAnalyticsPropertyCasualtyGrailsPlugin {
         ConstraintsFactory.registerConstraint(new PerilPortion())
         ConstraintsFactory.registerConstraint(new UnderwritingPortion())
         ConstraintsFactory.registerConstraint(new ReservePortion())
+        ConstraintsFactory.registerConstraint(new DoubleConstraints())
     }
 
     def onChange = {event ->
