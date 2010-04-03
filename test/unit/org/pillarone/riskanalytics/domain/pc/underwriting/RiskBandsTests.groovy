@@ -7,29 +7,29 @@ class RiskBandsTests extends GroovyTestCase {
 
     static UnderwritingInfo getUnderwritingInfo0() {
         return new UnderwritingInfo(
-                premiumWrittenAsIf: 5000,
-                numberOfPolicies: 1000,
-                sumInsured: 80,
-                maxSumInsured: 100,
-                premiumWritten: 5000)
+                premiumWrittenAsIf: 5000d,
+                numberOfPolicies: 1000d,
+                sumInsured: 80d,
+                maxSumInsured: 100d,
+                premiumWritten: 5000d)
     }
     // second band: ceded = (200-100)/200 = 0.5
     static UnderwritingInfo getUnderwritingInfo1() {
         return new UnderwritingInfo(
-                premiumWrittenAsIf: 2000,
-                numberOfPolicies: 100,
-                sumInsured: 200,
-                maxSumInsured: 400,
-                premiumWritten: 2000)
+                premiumWrittenAsIf: 2000d,
+                numberOfPolicies: 100d,
+                sumInsured: 200d,
+                maxSumInsured: 400d,
+                premiumWritten: 2000d)
     }
     // third band: ceded = (400-100)/500 = 0.6
     static UnderwritingInfo getUnderwritingInfo2() {
         return new UnderwritingInfo(
-                premiumWrittenAsIf: 4000,
-                numberOfPolicies: 50,
-                sumInsured: 500,
-                maxSumInsured: 800,
-                premiumWritten: 4000)
+                premiumWrittenAsIf: 4000d,
+                numberOfPolicies: 50d,
+                sumInsured: 500d,
+                maxSumInsured: 800d,
+                premiumWritten: 4000d)
     }
 
     static List<UnderwritingInfo> getUnderwritingInfos() {
@@ -38,13 +38,13 @@ class RiskBandsTests extends GroovyTestCase {
 
     void testUsage() {
         AbstractMultiDimensionalParameter underwritingInformation1 = new TableMultiDimensionalParameter(
-                [[100, 400, 800], [80, 200, 500], [5000, 2000, 4000], [1000, 100, 50]],
-                ['maximum sum insured', 'average sum insured', 'premium', 'number of policies/risks'],
+                [[100d, 400d, 800d], [80d, 200d, 500d], [5000d, 2000d, 4000d], [1000d, 100d, 50d]],
+                ['maximum sum insured', 'average sum insured', 'premium', 'number of policies'],
         )
 
         AbstractMultiDimensionalParameter underwritingInformation2 = new TableMultiDimensionalParameter(
-                [[100, 400, 800], [80, 200, 500], [5000, 2000, 4000], [1000, 100, 50]],
-                ['maximum sum insured', 'average sum insured', 'premium', 'number of policies/risks'],
+                [[100d, 400d, 800d], [80d, 200d, 500d], [5000d, 2000d, 4000d], [1000d, 100d, 50d]],
+                ['maximum sum insured', 'average sum insured', 'premium', 'number of policies'],
         )
 
         RiskBands bands = new RiskBands(parmUnderwritingInformation: underwritingInformation1)

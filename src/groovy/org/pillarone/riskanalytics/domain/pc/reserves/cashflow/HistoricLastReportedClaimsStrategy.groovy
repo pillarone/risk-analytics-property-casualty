@@ -13,7 +13,7 @@ public class HistoricLastReportedClaimsStrategy implements IHistoricClaimsStrate
     public Map<Integer, Double> getDiagonalValues() {
         Map<Integer, Double> diagonalValues = new LinkedHashMap<Integer, Double>()
         for (int row = 1; row < reportedByDevelopmentPeriod.getRowCount(); row++) {
-            diagonalValues.put((Integer) reportedByDevelopmentPeriod.getValueAt(row, 1), (Double) reportedByDevelopmentPeriod.getValueAt(row, 0))
+            diagonalValues.put((Integer) reportedByDevelopmentPeriod.getValueAt(row, 2), (Double) reportedByDevelopmentPeriod.getValueAt(row, 1))
         }
         return diagonalValues
     }

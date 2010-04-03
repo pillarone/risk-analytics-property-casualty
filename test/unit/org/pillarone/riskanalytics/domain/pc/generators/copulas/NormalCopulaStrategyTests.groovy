@@ -86,9 +86,9 @@ class NormalCopulaStrategyTests extends GroovyTestCase {
         Copula copula = getCopula0()
         AbstractMultiDimensionalParameter matrix = ((NormalCopulaStrategy) copula.getParmCopulaStrategy()).getDependencyMatrix()
         assertEquals matrix, (((NormalCopulaStrategy) copula.getParmCopulaStrategy()).getParameters()).get("dependencyMatrix")
-        assertEquals 1.0, matrix.getValueAt(1, 1)
-        assertEquals 0.1, matrix.getValueAt(1, 2)
-        assertEquals 0.0, matrix.getValueAt(2, 1)
-        assertEquals 1.0, matrix.getValueAt(2, 2)
+        assertEquals 1.0, matrix.getValueAt(1, 2)
+        assertEquals 0.1, matrix.getValueAt(1, 3)
+        assertEquals 0.0, matrix.getValueAt(2, 2)
+        assertEquals 1.0, matrix.getValueAt(2, 3)
     }
 }

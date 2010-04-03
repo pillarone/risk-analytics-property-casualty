@@ -15,7 +15,7 @@ public class HistoricLastPaidClaimsStrategy implements IHistoricClaimsStrategy {
     public Map<Integer, Double> getDiagonalValues() {
         Map<Integer, Double> diagonalValues = new LinkedHashMap<Integer, Double>()
         for (int row = 1; row < paidByDevelopmentPeriod.getRowCount(); row++) {
-            diagonalValues.put((Integer) paidByDevelopmentPeriod.getValueAt(row, 1), (Double) paidByDevelopmentPeriod.getValueAt(row, 0))
+            diagonalValues.put((Integer) paidByDevelopmentPeriod.getValueAt(row, 2), (Double) paidByDevelopmentPeriod.getValueAt(row, 1))
         }
         return diagonalValues
     }

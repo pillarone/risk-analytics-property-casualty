@@ -53,11 +53,11 @@ class RiskBands extends Component implements IUnderwritingInfoMarker {
         for (int i = 1; i < parmUnderwritingInformation.rowCount; i++) {
             UnderwritingInfo underwritingInfo = UnderwritingInfoPacketFactory.createPacket()
             // todo : safer column selection
-            underwritingInfo.premiumWritten = parmUnderwritingInformation.getValueAt(i, 2)
+            underwritingInfo.premiumWritten = parmUnderwritingInformation.getValueAt(i, 3)
             underwritingInfo.premiumWrittenAsIf = underwritingInfo.premiumWritten
-            underwritingInfo.maxSumInsured = parmUnderwritingInformation.getValueAt(i, 0)
-            underwritingInfo.sumInsured = parmUnderwritingInformation.getValueAt(i, 1)
-            underwritingInfo.numberOfPolicies = parmUnderwritingInformation.getValueAt(i, 3)
+            underwritingInfo.maxSumInsured = parmUnderwritingInformation.getValueAt(i, 1)
+            underwritingInfo.sumInsured = parmUnderwritingInformation.getValueAt(i, 2)
+            underwritingInfo.numberOfPolicies = parmUnderwritingInformation.getValueAt(i, 4)
             underwritingInfo.origin = this
             underwritingInfo.originalUnderwritingInfo = underwritingInfo
             outUnderwritingInfo << underwritingInfo
