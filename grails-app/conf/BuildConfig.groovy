@@ -22,3 +22,4 @@ coverage {
             '**TagLib**'
     ]
 }
+//grails.plugin.location.'risk-analytics-core' = "../RiskAnalyticsCore"
