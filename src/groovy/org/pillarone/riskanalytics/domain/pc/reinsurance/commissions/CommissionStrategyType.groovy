@@ -57,18 +57,20 @@ public class CommissionStrategyType extends AbstractParameterObjectClassifier {
                 commissionStrategy = new NoCommissionStrategy()
                 break;
             case CommissionStrategyType.FIXEDCOMMISSION:
-                commissionStrategy = new FixedCommissionStrategy(commission : (Double) parameters['commission'])
+                commissionStrategy = new FixedCommissionStrategy(
+                        commission : (Double) parameters['commission'])
                 break;
             case CommissionStrategyType.PROFITCOMMISSION:
-                  commissionStrategy = new ProfitCommissionStrategy(
-                          profitCommissionRatio : (Double) parameters['profitCommissionRatio'],
-                          costRatio : (Double) parameters['costRatio'],
-                          lossCarriedForwardEnabled : (Boolean) parameters['lossCarriedForwardEnabled'],
-                          initialLossCarriedForward : (Double) parameters['initialLossCarriedForward'])
-                  break;
-              case CommissionStrategyType.SLIDINGCOMMISSION:
-                  commissionStrategy = new SlidingCommissionStrategy(commissionBands: (ConstrainedMultiDimensionalParameter) parameters['commissionBands'])
-                  break;
+                commissionStrategy = new ProfitCommissionStrategy(
+                        profitCommissionRatio : (Double) parameters['profitCommissionRatio'],
+                        costRatio : (Double) parameters['costRatio'],
+                        lossCarriedForwardEnabled : (Boolean) parameters['lossCarriedForwardEnabled'],
+                        initialLossCarriedForward : (Double) parameters['initialLossCarriedForward'])
+                break;
+            case CommissionStrategyType.SLIDINGCOMMISSION:
+                commissionStrategy = new SlidingCommissionStrategy(
+                        commissionBands: (ConstrainedMultiDimensionalParameter) parameters['commissionBands'])
+                break;
         }
         return commissionStrategy;
     }
