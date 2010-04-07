@@ -47,7 +47,7 @@ class CXLContractStrategy extends XLContractStrategy implements IReinsuranceCont
                 }
             }
         }
-
+        // todo (jdi): CXL should also work with PremiumBase.GNPI
         for (MapEntry claim: claimsValueMergedByEvent.entrySet()) {
             double ceded = Math.min(Math.max(claim.value - attachmentPoint, 0), limit)
             ceded = availableAggregateLimit > ceded ? ceded : availableAggregateLimit
