@@ -53,7 +53,7 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
     public static final all = [
             CHISQUAREDIST,
             CONSTANT,
-            CONSTANTS,
+//            CONSTANTS,        // todo(bgi): reactivate once everything is running (see comments in PMO-787)
             BINOMIALDIST,
             DISCRETEEMPIRICAL,
             DISCRETEEMPIRICALCUMULATIVE,
