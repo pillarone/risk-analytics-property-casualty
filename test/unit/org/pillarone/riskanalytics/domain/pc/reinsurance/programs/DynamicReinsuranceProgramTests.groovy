@@ -10,6 +10,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceCo
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoTests
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit.LimitStrategyType
 
 class DynamicReinsuranceProgramTests extends GroovyTestCase {
 
@@ -43,15 +44,15 @@ class DynamicReinsuranceProgramTests extends GroovyTestCase {
                         ["quotaShare": 0.1,
                                 "coveredByReinsurer": 1d]),
                 parmInuringPriority: 1)
-        // todo(sku): was an AAL
         ReinsuranceContract quotaShare3 = new ReinsuranceContract(
+                parmInuringPriority: 5,
                 parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
-                        ReinsuranceContractType.QUOTASHARE,
-                        ["quotaShare": 0.15,
-       //                         "annualAggregateLimit": 20,
-                                "coveredByReinsurer": 1d]),
-                parmInuringPriority: 5
-        )
+                        ReinsuranceContractType.QUOTASHARE, [
+                                "quotaShare": 0.15,
+                                "coveredByReinsurer": 1d,
+                                "limit": LimitStrategyType.getStrategy(
+                                        LimitStrategyType.AAL, [
+                                                "aal": 20d ])]))
         quotaShare1.name = "subContract0"
         quotaShare2.name = "subContract1"
         quotaShare3.name = "subContract2"
@@ -63,43 +64,31 @@ class DynamicReinsuranceProgramTests extends GroovyTestCase {
 
         program.wire()
 
-        def probeQS1net = new TestProbe(quotaShare1, "outUncoveredClaims")
-        List qs1ClaimsNet = probeQS1net.result
-
-        def probeQS1ceded = new TestProbe(quotaShare1, "outCoveredClaims")
-        List qs1ClaimsCeded = probeQS1ceded.result
-
-        def probeQS2net = new TestProbe(quotaShare2, "outUncoveredClaims")
-        List qs2ClaimsNet = probeQS2net.result
-
-        def probeQS2ceded = new TestProbe(quotaShare2, "outCoveredClaims")
-        List qs2ClaimsCeded = probeQS2ceded.result
-
-        def probeQS3net = new TestProbe(quotaShare3, "outUncoveredClaims")
-        List qs3ClaimsNet = probeQS3net.result
-
-        def probeQS3ceded = new TestProbe(quotaShare3, "outCoveredClaims")
-        List qs3ClaimsCeded = probeQS3ceded.result
+        List qs1ClaimsNet = (new TestProbe(quotaShare1, "outUncoveredClaims")).result
+        List qs1ClaimsCeded = (new TestProbe(quotaShare1, "outCoveredClaims")).result
+        List qs2ClaimsNet = (new TestProbe(quotaShare2, "outUncoveredClaims")).result
+        List qs2ClaimsCeded = (new TestProbe(quotaShare2, "outCoveredClaims")).result
+        List qs3ClaimsNet = (new TestProbe(quotaShare3, "outUncoveredClaims")).result
+        List qs3ClaimsCeded = (new TestProbe(quotaShare3, "outCoveredClaims")).result
 
         program.start()
 
-        assertTrue 2 == qs1ClaimsNet.size()
-        assertTrue 2 == qs2ClaimsNet.size()
-        assertTrue 2 == qs3ClaimsNet.size()
+        assertTrue "QS1 has 2 net claims packets", 2 == qs1ClaimsNet.size()
+        assertTrue "QS2 has 2 net claims packets", 2 == qs2ClaimsNet.size()
+        assertTrue "QS3 has 2 net claims packets", 2 == qs3ClaimsNet.size()
 
         assertEquals "quotaShare1, attritional net claim", 61.2, qs1ClaimsNet[0].ultimate
         assertEquals "quotaShare1, attritional ceded claim", 15.3, qs1ClaimsCeded[0].ultimate
-        // todo(sku): should work again if AAL is re-enabled
-//        assertEquals "quotaShare1, large net claim", 38, qs1ClaimsNet[1].ultimate
-//        assertEquals "quotaShare1, large ceded claim", 9.5, qs1ClaimsCeded[1].ultimate
-//        assertEquals "quotaShare2, attritional net claim", 90, qs2ClaimsNet[0].ultimate
-//        assertEquals "quotaShare2, attritional ceded claim", 10, qs2ClaimsCeded[0].ultimate
-//        assertEquals "quotaShare2, large net claim", 54, qs2ClaimsNet[1].ultimate
-//        assertEquals "quotaShare2, large ceded claim", 6, qs2ClaimsCeded[1].ultimate
-//        assertEquals "quotaShare3, attritional net claim", 76.5, qs3ClaimsNet[0].ultimate
-//        assertEquals "quotaShare3, attritional ceded claim", 13.5, qs3ClaimsCeded[0].ultimate
-//        assertEquals "quotaShare3, large net claim", 47.5, qs3ClaimsNet[1].ultimate
-//        assertEquals "quotaShare3, large ceded claim", 6.5, qs3ClaimsCeded[1].ultimate
+        assertEquals "quotaShare1, large net claim", 38, qs1ClaimsNet[1].ultimate
+        assertEquals "quotaShare1, large ceded claim", 9.5, qs1ClaimsCeded[1].ultimate
+        assertEquals "quotaShare2, attritional net claim", 90, qs2ClaimsNet[0].ultimate
+        assertEquals "quotaShare2, attritional ceded claim", 10, qs2ClaimsCeded[0].ultimate
+        assertEquals "quotaShare2, large net claim", 54, qs2ClaimsNet[1].ultimate
+        assertEquals "quotaShare2, large ceded claim", 6, qs2ClaimsCeded[1].ultimate
+        assertEquals "quotaShare3, attritional net claim", 76.5, qs3ClaimsNet[0].ultimate
+        assertEquals "quotaShare3, attritional ceded claim", 13.5, qs3ClaimsCeded[0].ultimate
+        assertEquals "quotaShare3, large net claim", 47.5, qs3ClaimsNet[1].ultimate
+        assertEquals "quotaShare3, large ceded claim", 6.5, qs3ClaimsCeded[1].ultimate
     }
 
     void testUsageMixedContractOrder() {

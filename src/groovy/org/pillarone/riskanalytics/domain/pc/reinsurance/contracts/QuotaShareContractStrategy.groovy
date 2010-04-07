@@ -13,6 +13,7 @@ import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit.EventLimitStrategy
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit.EventAalLimitStrategy
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit.NoneLimitStrategy
+import org.apache.commons.lang.NotImplementedException
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -57,43 +58,43 @@ class QuotaShareContractStrategy extends AbstractContractStrategy implements IRe
 
     private double calculateCoveredLossApplyingEventLimitAAL(Claim inClaim) {
         if (availableAnnualAggregateLimit > 0) {
-            double cededValue = Math.min(inClaim.ultimate * quotaShare * coveredByReinsurer, availableAnnualAggregateLimit)
+            double cededValue = Math.min(inClaim.ultimate * quotaShare, availableAnnualAggregateLimit)
             if (inClaim.claimType.equals(ClaimType.EVENT) || inClaim.claimType.equals(ClaimType.AGGREGATED_EVENT)) {
                 cededValue = Math.min(cededValue, eventLimit)
             }
             availableAnnualAggregateLimit -= cededValue
-            return cededValue
+            return cededValue * coveredByReinsurer
         }
         return 0d
     }
 
     private double calculateCoveredLossApplyingEventLimit(Claim inClaim) {
-        double cededValue = inClaim.ultimate * quotaShare * coveredByReinsurer
+        double cededValue = inClaim.ultimate * quotaShare
         if (inClaim.claimType.equals(ClaimType.EVENT) || inClaim.claimType.equals(ClaimType.AGGREGATED_EVENT)) {
             cededValue = Math.min(cededValue, eventLimit)
         }
-        return cededValue
+        return cededValue * coveredByReinsurer
     }
 
     private double calculateCoveredLossApplyingAALAAD(Claim inClaim) {
+        double cededClaim
         if (remainingAnnualAggregateDeductible > 0) {
-            double cededClaim = Math.min(Math.max(inClaim.ultimate - remainingAnnualAggregateDeductible, 0) * quotaShare, availableAnnualAggregateLimit) * coveredByReinsurer
+            // apply the quota share to no more than the available AAL, after subtracting any remaining AAD
+            cededClaim = Math.min(availableAnnualAggregateLimit, Math.max(0, inClaim.ultimate - remainingAnnualAggregateDeductible) * quotaShare)
             remainingAnnualAggregateDeductible -= inClaim.ultimate
-            availableAnnualAggregateLimit -= cededClaim
-            return cededClaim
         }
         else {
-            double cededClaim = Math.min(inClaim.ultimate * quotaShare, availableAnnualAggregateLimit) * coveredByReinsurer
-            availableAnnualAggregateLimit -= cededClaim
-            return cededClaim
+            cededClaim = Math.min(availableAnnualAggregateLimit, inClaim.ultimate * quotaShare)
         }
+        availableAnnualAggregateLimit -= cededClaim
+        return cededClaim * coveredByReinsurer
     }
 
     private double calculateCoveredLossApplyingAAL(Claim inClaim) {
         if (availableAnnualAggregateLimit > 0) {
-            double cededClaim = Math.min(inClaim.ultimate * quotaShare, availableAnnualAggregateLimit) * coveredByReinsurer
+            double cededClaim = Math.min(inClaim.ultimate * quotaShare, availableAnnualAggregateLimit)
             availableAnnualAggregateLimit -= cededClaim
-            return cededClaim
+            return cededClaim * coveredByReinsurer
         }
         else {
             return 0d
@@ -101,17 +102,15 @@ class QuotaShareContractStrategy extends AbstractContractStrategy implements IRe
     }
 
     private double calculateCoveredLossApplyingAAD(Claim inClaim) {
+        double grossAfterAAD
         if (remainingAnnualAggregateDeductible > 0) {
+            grossAfterAAD = Math.max(inClaim.ultimate - remainingAnnualAggregateDeductible, 0)
             remainingAnnualAggregateDeductible -= inClaim.ultimate
-            if (remainingAnnualAggregateDeductible < 0) {
-                return -remainingAnnualAggregateDeductible * quotaShare * coveredByReinsurer
-            }
-            return 0.0
         }
         else {
-            double cededClaim = inClaim.ultimate * quotaShare * coveredByReinsurer
-            return cededClaim
+            grossAfterAAD = inClaim.ultimate
         }
+        return grossAfterAAD * quotaShare * coveredByReinsurer
     }
 
     UnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double initialReserves) {
@@ -144,6 +143,10 @@ class QuotaShareContractStrategy extends AbstractContractStrategy implements IRe
                 eventLimit = ((EventAalLimitStrategy) limit).getEventLimit()
                 availableAnnualAggregateLimit = ((EventAalLimitStrategy) limit).getAAL()
                 break
+            case NoneLimitStrategy:
+                break
+            default:
+                throw new NotImplementedException(limit.getClass().getName() + " limits are not implemented for quota share.");
         }
     }
 }

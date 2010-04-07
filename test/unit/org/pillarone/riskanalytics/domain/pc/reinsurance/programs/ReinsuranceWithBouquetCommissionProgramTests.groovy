@@ -18,6 +18,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.*
 import org.pillarone.riskanalytics.core.components.Component
 import org.pillarone.riskanalytics.core.example.component.TestComponent
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit.LimitStrategyType
 
 /**
  * @author shartmann (at) munichre (dot) com
@@ -32,12 +33,18 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
     Claim attrClaim100 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 100d, fractionOfPeriod: 0d, originalClaim: attrMarketClaim1000)
     Claim largeClaim60 = new Claim(claimType: ClaimType.SINGLE, ultimate: 60d, fractionOfPeriod: 0.1d, originalClaim: largeMarketClaim600)
 
-    static MultiCoverAttributeReinsuranceContract getQuotaShare(int quotaShare, int priority) {
+    static MultiCoverAttributeReinsuranceContract getQuotaShare(int quotaShare/*units=percent!*/, int priority, double limit = 0d) {
         new MultiCoverAttributeReinsuranceContract(
-            parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
-                ReinsuranceContractType.QUOTASHARE,
-                ["quotaShare": 0.01d*quotaShare, "limit": 0.0, "coveredByReinsurer": 1d]),
             parmInuringPriority: priority,
+            parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+                ReinsuranceContractType.QUOTASHARE, [
+                    "quotaShare": 0.01d * quotaShare,
+                    "coveredByReinsurer": 1d,
+                    "limit": (limit > 0) ?
+                        LimitStrategyType.getStrategy(LimitStrategyType.AAL, ["aal": limit]) :
+                        LimitStrategyType.getStrategy(LimitStrategyType.NONE, [:])
+                ]
+            )
             // parmCover: default is ALL
         )
     }
@@ -76,18 +83,7 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
 
         MultiCoverAttributeReinsuranceContract quotaShare1 = getQuotaShare(20,10)
         MultiCoverAttributeReinsuranceContract quotaShare2 = getQuotaShare(10,1)
-        MultiCoverAttributeReinsuranceContract quotaShare3 = getQuotaShare(15,5)
-        // todo(sku): was an AAL
-//        MultiCoverAttributeReinsuranceContract quotaShare3 = getQuotaShare(15,5)
-//            new MultiCoverAttributeReinsuranceContract(
-//                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
-//                        ReinsuranceContractType.QUOTASHARE,
-//                        ["quotaShare": 0.15,
-//                                "limit": 0.0,
-////                                "annualAggregateLimit": 20,
-//                                "coveredByReinsurer": 1d]),
-//                parmInuringPriority: 5
-//        )
+        MultiCoverAttributeReinsuranceContract quotaShare3 = getQuotaShare(15,5,20) // annualAggregateLimit AAL = 20
         quotaShare1.name = "subContract0"
         quotaShare2.name = "subContract1"
         quotaShare3.name = "subContract2"
@@ -125,17 +121,16 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
 
         assertEquals "quotaShare1, attritional net claim", 61.2, qs1ClaimsNet[0].ultimate
         assertEquals "quotaShare1, attritional ceded claim", 15.3, qs1ClaimsCeded[0].ultimate
-        // todo(sku): should work again if AAL is re-enabled
-//        assertEquals "quotaShare1, large net claim", 38, qs1ClaimsNet[1].ultimate
-//        assertEquals "quotaShare1, large ceded claim", 9.5, qs1ClaimsCeded[1].ultimate
-//        assertEquals "quotaShare2, attritional net claim", 90, qs2ClaimsNet[0].ultimate
-//        assertEquals "quotaShare2, attritional ceded claim", 10, qs2ClaimsCeded[0].ultimate
-//        assertEquals "quotaShare2, large net claim", 54, qs2ClaimsNet[1].ultimate
-//        assertEquals "quotaShare2, large ceded claim", 6, qs2ClaimsCeded[1].ultimate
-//        assertEquals "quotaShare3, attritional net claim", 76.5, qs3ClaimsNet[0].ultimate
-//        assertEquals "quotaShare3, attritional ceded claim", 13.5, qs3ClaimsCeded[0].ultimate
-//        assertEquals "quotaShare3, large net claim", 47.5, qs3ClaimsNet[1].ultimate
-//        assertEquals "quotaShare3, large ceded claim", 6.5, qs3ClaimsCeded[1].ultimate
+        assertEquals "quotaShare1, large net claim", 38, qs1ClaimsNet[1].ultimate
+        assertEquals "quotaShare1, large ceded claim", 9.5, qs1ClaimsCeded[1].ultimate
+        assertEquals "quotaShare2, attritional net claim", 90, qs2ClaimsNet[0].ultimate
+        assertEquals "quotaShare2, attritional ceded claim", 10, qs2ClaimsCeded[0].ultimate
+        assertEquals "quotaShare2, large net claim", 54, qs2ClaimsNet[1].ultimate
+        assertEquals "quotaShare2, large ceded claim", 6, qs2ClaimsCeded[1].ultimate
+        assertEquals "quotaShare3, attritional net claim", 76.5, qs3ClaimsNet[0].ultimate
+        assertEquals "quotaShare3, attritional ceded claim", 13.5, qs3ClaimsCeded[0].ultimate
+        assertEquals "quotaShare3, large net claim", 47.5, qs3ClaimsNet[1].ultimate
+        assertEquals "quotaShare3, large ceded claim", 6.5, qs3ClaimsCeded[1].ultimate
     }
 
     void testUsageMixedContractOrder() {

@@ -18,7 +18,7 @@ class ReinsuranceContractTests extends GroovyTestCase {
         Claim attrClaim100 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 100d)
         Claim largeClaim60 = new Claim(claimType: ClaimType.SINGLE, ultimate: 60d)
 
-        ReinsuranceContract quotaShare1 = QuotaShareContractStrategyTests.getContract(0.5)
+        ReinsuranceContract quotaShare1 = QuotaShareContractStrategyTests.getQuotaShareContract(0.5)
 
         quotaShare1.inClaims << attrClaim100 << largeClaim60
 
@@ -34,8 +34,8 @@ class ReinsuranceContractTests extends GroovyTestCase {
         Claim attrClaim100 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 100d)
         Claim largeClaim60 = new Claim(claimType: ClaimType.SINGLE, ultimate: 60d)
 
-        quotaShare1 = QuotaShareContractStrategyTests.getContract(0.5)
-        quotaShare2 = QuotaShareContractStrategyTests.getContractAAL(0.5, 30)
+        quotaShare1 = QuotaShareContractStrategyTests.getQuotaShareContract(0.5)
+        quotaShare2 = QuotaShareContractStrategyTests.getQuotaShareContract(0.5, ['aal': 30])
 
         quotaShare1.inClaims << attrClaim100 << largeClaim60
 
