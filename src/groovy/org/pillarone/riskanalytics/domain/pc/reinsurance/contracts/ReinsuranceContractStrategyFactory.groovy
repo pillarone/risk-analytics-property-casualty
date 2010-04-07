@@ -69,6 +69,18 @@ class ReinsuranceContractStrategyFactory {
         return new TrivialContractStrategy()
     }
 
+    private static IReinsuranceContractStrategy getGoldorak(double attachmentPoint, double limit, double aggregateLimit,
+                                                       PremiumBase premiumBase, double premium,
+                                                       AbstractMultiDimensionalParameter reinstatementPremiums,
+                                                       double coveredByReinsurer, double slAttachmentPoint,
+                                                       double slLimit, double goldorakSlThreshold) {
+        return new GoldorakContractStrategy(attachmentPoint: attachmentPoint, limit: limit, aggregateLimit: aggregateLimit,
+                premiumBase: premiumBase, premium: premium, reinstatementPremiums: reinstatementPremiums,
+                coveredByReinsurer: coveredByReinsurer, slAttachmentPoint: slAttachmentPoint, slLimit: slLimit,
+                goldorakSlThreshold: goldorakSlThreshold)
+    }
+
+
     static IReinsuranceContractStrategy getContractStrategy(ReinsuranceContractType type, Map parameters) {
         IReinsuranceContractStrategy contract
         switch (type) {
@@ -113,6 +125,12 @@ class ReinsuranceContractStrategyFactory {
             case ReinsuranceContractType.ADVERSEDEVELOPMENTCOVER:
                 contract = getAdverseDevelopmentCover(parameters["attachmentPoint"], parameters["limit"], parameters["premiumBase"],
                     parameters["premium"], parameters["coveredByReinsurer"])
+                break
+            case ReinsuranceContractType.GOLDORAK:
+                contract = getGoldorak(parameters["attachmentPoint"], parameters["limit"], parameters["aggregateLimit"],
+                        parameters["premiumBase"], parameters["premium"], parameters["reinstatementPremiums"],
+                        parameters["coveredByReinsurer"], parameters["slAttachmentPoint"], parameters["slLimit"],
+                        parameters["goldorakSlThreshold"])
                 break
         }
         return contract

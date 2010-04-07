@@ -33,14 +33,16 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
 
     public static final ReinsuranceContractType AGGREGATEXL = new ReinsuranceContractType("aggregate xl", "AggregateXL",
         ["attachmentPoint": 0d, "limit": 0d, "premiumBase": PremiumBase.ABSOLUTE, "premium": 0d, "coveredByReinsurer": 1d, "claimClass": ClaimType.AGGREGATED_EVENT])
-
     public static final ReinsuranceContractType LOSSPORTFOLIOTRANSFER = new ReinsuranceContractType("loss portfolio transfer", "LOSSPORTFOLIOTRANSFER",
         ["quotaShare": 0d, "premiumBase": LPTPremiumBase.ABSOLUTE, "premium": 0d, "coveredByReinsurer": 1d])
     public static final ReinsuranceContractType ADVERSEDEVELOPMENTCOVER = new ReinsuranceContractType("adverse development cover", "ADVERSEDEVELOPMENTCOVER",
         ["attachmentPoint": 0d, "limit": 0d, "premiumBase": PremiumBase.ABSOLUTE, "premium": 0d, "coveredByReinsurer": 1d])
+    public static final ReinsuranceContractType GOLDORAK = new ReinsuranceContractType("goldorak", "GOLDORAK", ["attachmentPoint": 0d, "limit": 0d,
+        "aggregateLimit": 0d, "premiumBase": PremiumBase.ABSOLUTE, "premium": 0d, "coveredByReinsurer": 1d, "slAttachmentPoint": 0d,
+        "slLimit": 0d, "goldorakSlThreshold" : 0d, "reinstatementPremiums": new TableMultiDimensionalParameter([0.0], ['Reinstatement Premium'])])
 
     public static final all = [QUOTASHARE, SURPLUS, WXL, CXL,
-        WCXL, STOPLOSS, TRIVIAL, AGGREGATEXL, LOSSPORTFOLIOTRANSFER, ADVERSEDEVELOPMENTCOVER]
+        WCXL, STOPLOSS, TRIVIAL, AGGREGATEXL, LOSSPORTFOLIOTRANSFER, ADVERSEDEVELOPMENTCOVER, GOLDORAK]
 
     protected static Map types = [:]
     static {
