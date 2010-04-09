@@ -17,11 +17,13 @@ class ClaimSizeDistributionType extends DistributionType {
 
     public List<IParameterObjectClassifier> getClassifiers() {
         [
+                BETA,
                 CHISQUAREDIST,
                 CONSTANT,
                 CONSTANTS,
                 DISCRETEEMPIRICAL,
                 DISCRETEEMPIRICALCUMULATIVE,
+                EXPONENTIAL,
                 LOGNORMAL,
                 LOGNORMAL_MU_SIGMA,
                 NORMAL,

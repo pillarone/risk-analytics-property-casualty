@@ -1,9 +1,11 @@
 package org.pillarone.riskanalytics.domain.utils
 
+import umontreal.iro.lecuyer.probdist.BetaDist
 import umontreal.iro.lecuyer.probdist.BinomialDist
 import umontreal.iro.lecuyer.probdist.ChiSquareDist
 import umontreal.iro.lecuyer.probdist.DiscreteDistribution
 import umontreal.iro.lecuyer.probdist.Distribution
+import umontreal.iro.lecuyer.probdist.ExponentialDist
 import umontreal.iro.lecuyer.probdist.InverseGaussianDist
 import umontreal.iro.lecuyer.probdist.LognormalDist
 import umontreal.iro.lecuyer.probdist.NegativeBinomialDist
@@ -65,38 +67,37 @@ class RandomDistributionFactory {
         try {
             switch (type) {
                 case DistributionType.NORMAL:
-                    if (parameters.isEmpty()) {
-                        distribution.distribution = new NormalDist(0, 1)
-                    }
-                    else {
-                        distribution.distribution = new NormalDist(parameters["mean"], parameters["stDev"])
-                    }
+                    distribution.distribution = new NormalDist(
+                        (double) (parameters.containsKey("mean") ? parameters["mean"] : 0),
+                        (double) (parameters.containsKey("stDev") ? parameters["stDev"] : 1)
+                    )
                     break
                 case DistributionType.LOGNORMAL:
-                    distribution.distribution = getLognormalDistribution(parameters["mean"], parameters["stDev"])
+                    distribution.distribution = getLognormalDistribution((double) parameters["mean"], (double) parameters["stDev"])
                     break
                 case DistributionType.LOGNORMAL_MU_SIGMA:
-                    distribution.distribution = new LognormalDist(parameters["mu"], parameters["sigma"])
+                    distribution.distribution = new LognormalDist((double) parameters["mu"], (double) parameters["sigma"])
                     break
                 case DistributionType.POISSON:
-                    if (parameters.isEmpty()) {
-                        distribution.distribution = new PoissonDist(0)
-                    }
-                    else {
-                        distribution.distribution = new PoissonDist(parameters["lambda"])
-                    }
+                    distribution.distribution = new PoissonDist((double) (parameters.containsKey("lambda") ? parameters["lambda"] : 0))
+                    break
+                case DistributionType.EXPONENTIAL:
+                    distribution.distribution = new ExponentialDist((double) (parameters.containsKey("lambda") ? parameters["lambda"] : 0))
                     break
                 case DistributionType.NEGATIVEBINOMIAL:
-                    distribution.distribution = new NegativeBinomialDist(parameters["gamma"], parameters["p"])
+                    distribution.distribution = new NegativeBinomialDist((double) parameters["gamma"], (double) parameters["p"])
                     break
                 case DistributionType.PARETO:
-                    distribution.distribution = new ParetoDist(parameters["alpha"], parameters["beta"])
+                    distribution.distribution = new ParetoDist((double) parameters["alpha"], (double) parameters["beta"])
+                    break
+                case DistributionType.BETA:
+                    distribution.distribution = new BetaDist((double) parameters["alpha"], (double) parameters["beta"])
                     break
                 case DistributionType.UNIFORM:
-                    distribution.distribution = new UniformDist(parameters["a"], parameters["b"])
+                    distribution.distribution = new UniformDist((double) parameters["a"], (double) parameters["b"])
                     break
                 case DistributionType.CONSTANT:
-                    distribution.distribution = new ConstantDistribution(parameters["constant"])
+                    distribution.distribution = new ConstantDistribution((double) parameters["constant"])
                     break
                 case DistributionType.DISCRETEEMPIRICAL:
                     distribution.distribution = getDiscreteEmpiricalDistribution(asDouble(parameters["discreteEmpiricalValues"].getColumnByName("observations")), asDouble(parameters["discreteEmpiricalValues"].getColumnByName("probabilities")))
@@ -111,19 +112,19 @@ class RandomDistributionFactory {
                     distribution.distribution = new PiecewiseLinearDistribution(asDouble(parameters["supportPoints"].getColumnByName("values")), asDouble(parameters["supportPoints"].getColumnByName("cummulative probabilities")))
                     break
                 case DistributionType.TRIANGULARDIST:
-                    distribution.distribution = new TriangularDist(parameters["a"], parameters["b"], parameters["m"])
+                    distribution.distribution = new TriangularDist((double) parameters["a"], (double) parameters["b"], (double) parameters["m"])
                     break
                 case DistributionType.CHISQUAREDIST:
-                    distribution.distribution = new ChiSquareDist(parameters["n"])
+                    distribution.distribution = new ChiSquareDist((int) parameters["n"])
                     break
                 case DistributionType.STUDENTDIST:
-                    distribution.distribution = new StudentDist(parameters["n"])
+                    distribution.distribution = new StudentDist((int) parameters["n"])
                     break
                 case DistributionType.BINOMIALDIST:
-                    distribution.distribution = new BinomialDist(parameters["n"], parameters["p"])
+                    distribution.distribution = new BinomialDist((int) parameters["n"], (double) parameters["p"])
                     break
                 case DistributionType.INVERSEGAUSSIANDIST:
-                    distribution.distribution = new InverseGaussianDist(parameters["mu"], parameters["lambda"])
+                    distribution.distribution = new InverseGaussianDist((double) parameters["mu"], (double) parameters["lambda"])
                     break
                 case DistributionType.CONSTANTS:
                     distribution.distribution = new ConstantsDistribution(asDouble(parameters["constants"]))

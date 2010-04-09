@@ -15,6 +15,8 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
 
     public static final DistributionType POISSON = new DistributionType(
             "poisson", "POISSON", ["lambda": 0d])
+    public static final DistributionType EXPONENTIAL = new DistributionType(
+            "exponential", "EXPONENTIAL", ["lambda": 0d])
     public static final DistributionType NEGATIVEBINOMIAL = new DistributionType(
             "negative binomial", "NEGATIVEBINOMIAL", ["gamma": 1d, "p": 1d])
     public static final DistributionType DISCRETEEMPIRICAL = new DistributionType(
@@ -27,6 +29,8 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
             "log normal (mean, stdev)", "LOGNORMAL", ["mean": 1d, "stDev": 1d])
     public static final DistributionType LOGNORMAL_MU_SIGMA = new DistributionType(
             "log normal (mu, sigma)", "LOGNORMAL_MU_SIGMA", ["mu": 1d, "sigma": 1d])
+    public static final DistributionType BETA = new DistributionType(
+            "beta", "BETA", ["alpha": 1d, "beta": 1d])
     public static final DistributionType PARETO = new DistributionType(
             "pareto", "PARETO", ["alpha": 1d, "beta": 1d])
     public static final DistributionType UNIFORM = new DistributionType(
@@ -51,12 +55,14 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
             "constant values", "CONSTANTS", ["constants": new TableMultiDimensionalParameter([0d, 1d], ['constants'])])
 
     public static final all = [
+            BETA,
             CHISQUAREDIST,
             CONSTANT,
 //            CONSTANTS,        // todo(bgi): reactivate once everything is running (see comments in PMO-787)
             BINOMIALDIST,
             DISCRETEEMPIRICAL,
             DISCRETEEMPIRICALCUMULATIVE,
+            EXPONENTIAL,
             INVERSEGAUSSIANDIST,
             LOGNORMAL,
             LOGNORMAL_MU_SIGMA,
@@ -80,6 +86,15 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
         validationService.register(POISSON) {Map type ->
             if (type.lambda >= 0) return true
             ["distribution.type.error.poisson.negative.lambda", type.lambda]
+        }
+        validationService.register(EXPONENTIAL) {Map type ->
+            type.lambda < 0 ? ["distribution.type.error.exponential.negative.lambda", type.lambda] :
+            true
+        }
+        validationService.register(BETA) {Map type ->
+            type.alpha < 0 ? ["distribution.type.error.exponential.negative.alpha", type.alpha] :
+            type.beta < 0 ? ["distribution.type.error.exponential.negative.beta", type.beta] :
+            true
         }
 
         validationService.register(NEGATIVEBINOMIAL) {Map type ->

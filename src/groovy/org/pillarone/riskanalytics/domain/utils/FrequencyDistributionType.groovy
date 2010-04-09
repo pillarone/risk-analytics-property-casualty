@@ -21,7 +21,8 @@ class FrequencyDistributionType extends DistributionType {
                 DISCRETEEMPIRICAL,
                 DISCRETEEMPIRICALCUMULATIVE,
                 NEGATIVEBINOMIAL,
-                POISSON
+                POISSON,
+                EXPONENTIAL
         ]
     }
 }

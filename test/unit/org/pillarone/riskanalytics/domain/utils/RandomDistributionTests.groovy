@@ -1,5 +1,7 @@
 package org.pillarone.riskanalytics.domain.utils
 
+//import umontreal.iro.lecuyer.probdist.BetaDist
+
 public class RandomDistributionTests extends GroovyTestCase {
 
     void testEquals() {
@@ -13,6 +15,16 @@ public class RandomDistributionTests extends GroovyTestCase {
         assertFalse r1.equals(r2)
         assertFalse r1.hashCode().equals(r2.hashCode())
 
+        r1 = RandomDistributionFactory.getDistribution(FrequencyDistributionType.EXPONENTIAL, ["lambda": 4.874])
+        r2 = RandomDistributionFactory.getDistribution(FrequencyDistributionType.EXPONENTIAL, ["lambda": 4.874])
+        assertTrue r1.equals(r2)
+        assertEquals r1.hashCode(), r2.hashCode()
+
+        r1 = RandomDistributionFactory.getDistribution(FrequencyDistributionType.EXPONENTIAL, ["lambda": 4.874])
+        r2 = RandomDistributionFactory.getDistribution(FrequencyDistributionType.EXPONENTIAL, ["lambda": 5])
+        assertFalse r1.equals(r2)
+        assertFalse r1.hashCode().equals(r2.hashCode())
+
         r1 = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.PARETO, ["beta": 1000000.0, "alpha": 1.416])
         r2 = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.PARETO, ["beta": 1000000.0, "alpha": 1.416])
         assertTrue r1.equals(r2)
@@ -22,6 +34,25 @@ public class RandomDistributionTests extends GroovyTestCase {
         r2 = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.PARETO, ["beta": 1000000.0, "alpha": 1.415])
         assertFalse r1.equals(r2)
         assertFalse r1.hashCode().equals(r2.hashCode())
+
+        //todo(bgi): re-enable once the IllegalArgumentException caught in RDF.getDistribution (catch at line 133, from BetaDist constructor call at line 94) is resolved
+        // note that the below will also generate the error:
+        //BetaDist d = new BetaDist(4d, 7d)
+        // the error is:
+        //    optimization/Lmder_fcn
+        //    java.lang.NoClassDefFoundError: optimization/Lmder_fcn
+        //        at java.lang.Class.forName0(Native Method)
+        //        at java.lang.Class.forName(Class.java:164)
+        //
+        //r1 = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.BETA, ["alpha": 0.4, "beta": 0.7])
+        //r2 = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.BETA, ["alpha": 0.4, "beta": 0.7])
+        //assertTrue r1.equals(r2)
+        //assertEquals r1.hashCode(), r2.hashCode()
+        //
+        //r1 = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.BETA, ["alpha": 0.4, "beta": 0.7])
+        //r2 = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.BETA, ["alpha": 0.4, "beta": 0.7001])
+        //assertFalse r1.equals(r2)
+        //assertFalse r1.hashCode().equals(r2.hashCode())
 
         r1 = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.CONSTANTS, ["constants": [1, 3, 7, 9]])
         r2 = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.CONSTANTS, ["constants": [1, 3, 7, 9]])
