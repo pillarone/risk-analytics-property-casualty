@@ -39,6 +39,12 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
     private double scaledLimit
     private double scaledTermLimit
     private double gnpi
+
+    /** aggregate over a whole iteration */
+    double aggregateGrossPaidOverIteration = 0
+    /** aggregate over a whole iteration */
+    double aggregateCededPaidOverIteration = 0
+
     /**
      *  The keys are the original gross claims sorting from claims development component.
      *  These maps are necessary for a correct calculation of the reserves.
@@ -90,6 +96,9 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
         availableScaledPaidLimit = scaledLimit
         availableScaledIncurredTermLimit = scaledTermLimit
         availableScaledPaidTermLimit = scaledTermLimit
+
+        aggregateGrossPaidOverIteration = 0
+        aggregateCededPaidOverIteration = 0
     }
 
     void initBookKeepingFiguresOfPeriod(List<Claim> grossClaims, List<UnderwritingInfo> grossUnderwritingInfos, double coveredByReinsurer) {
@@ -98,6 +107,7 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
         if (grossClaims[0] instanceof ClaimDevelopmentPacket) {
             aggregateGrossIncurred = grossClaims.incurred.sum()
             aggregateGrossPaid = grossClaims.paid.sum()
+            aggregateGrossPaidOverIteration += aggregateGrossPaid
         }
         else if (grossClaims[0] instanceof Claim) {
             aggregateGrossIncurred = grossClaims.ultimate.sum()
@@ -108,8 +118,10 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
         availableScaledIncurredTermLimit -= aggregateCededIncurred
 //        availableScaledIncurredLimit = Math.min(scaledLimit, availableScaledIncurredTermLimit)
 
-        double aggregateCededPaid = Math.min(Math.max(aggregateGrossPaid - scaledAttachmentPointPaid, 0), availableScaledPaidLimit)
-        scaledAttachmentPointPaid = Math.max(scaledAttachmentPointPaid - aggregateGrossPaid, 0)
+        double aggregateCededPaid = Math.min(Math.max(aggregateGrossPaidOverIteration - scaledAttachmentPointPaid, 0), availableScaledPaidLimit)
+        aggregateCededPaid -= aggregateCededPaidOverIteration
+        aggregateCededPaidOverIteration += aggregateCededPaid
+        scaledAttachmentPointPaid = Math.max(scaledAttachmentPointPaid - aggregateGrossPaidOverIteration, 0)
         factorPaid = (aggregateGrossPaid != 0) ? aggregateCededPaid / aggregateGrossPaid : 0d
         availableScaledPaidTermLimit -= aggregateCededPaid
 //        availableScaledPaidLimit = Math.min(scaledLimit, availableScaledPaidTermLimit)

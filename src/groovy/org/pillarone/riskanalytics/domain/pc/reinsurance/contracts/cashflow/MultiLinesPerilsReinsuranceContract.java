@@ -210,7 +210,9 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
             if (claim.getClass().equals(ClaimDevelopmentPacket.class)) {
                 int originalPeriod = ((ClaimDevelopmentPacket) claim).getOriginalPeriod();
                 double fractionOfPeriod = claim.getFractionOfPeriod();
-                boolean originalPeriodCovered = originalPeriod < coverPerPeriod.size() && coverPerPeriod.get(originalPeriod).isCovered(fractionOfPeriod);
+                boolean historicClaim = originalPeriod < 0;
+                boolean originalPeriodCovered = !historicClaim && originalPeriod < coverPerPeriod.size()
+                        && coverPerPeriod.get(originalPeriod).isCovered(fractionOfPeriod);
                 if (originalPeriod == currentPeriod && coverOfCurrentPeriod.isCovered(fractionOfPeriod)
                         || originalPeriodCovered) {
                     outClaimsGrossInCoveredPeriod.add(claim);
