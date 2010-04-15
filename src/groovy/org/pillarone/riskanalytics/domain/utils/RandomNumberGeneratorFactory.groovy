@@ -75,7 +75,7 @@ class RandomNumberGeneratorFactory {
                             parameters: distribution.parameters)
                     }
                     else {
-                        throw new IllegalArgumentException("The distribution ${distribution.distribution} is not a ContinuousDistribution!")
+                        throw new IllegalArgumentException("The distribution ${distribution.distribution} is not a ContinuousDistribution! Truncation option is therefore not available.")
                     }
                     break
                 case DistributionModifier.TRUNCATEDSHIFT:
@@ -88,7 +88,7 @@ class RandomNumberGeneratorFactory {
                             parameters: distribution.parameters)
                     }
                     else {
-                        throw new IllegalArgumentException("The distribution ${distribution.distribution} is not a ContinuousDistribution!")
+                        throw new IllegalArgumentException("The distribution ${distribution.distribution} is not a ContinuousDistribution! Truncation option is therefore not available.")
                     }
                     break
 

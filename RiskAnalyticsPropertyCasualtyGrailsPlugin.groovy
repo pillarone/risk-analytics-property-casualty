@@ -6,10 +6,11 @@ import org.pillarone.riskanalytics.core.parameterization.SimpleConstraint
 import org.pillarone.riskanalytics.domain.pc.output.AggregatedDrillDownCollectingModeStrategy
 import org.pillarone.riskanalytics.core.output.CollectingModeFactory
 import org.pillarone.riskanalytics.domain.utils.constraints.DoubleConstraints
+import org.pillarone.riskanalytics.domain.pc.company.CompanyPortion
 
 class RiskAnalyticsPropertyCasualtyGrailsPlugin {
     // the plugin version
-    def version = "0.6"
+    def version = "0.6.0.1"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.2.0 > *"
     // the other plugins this plugin depends on
@@ -47,6 +48,7 @@ class RiskAnalyticsPropertyCasualtyGrailsPlugin {
 
         ConstraintsFactory.registerConstraint(new SimpleConstraint())
         ConstraintsFactory.registerConstraint(new PerilPortion())
+        ConstraintsFactory.registerConstraint(new CompanyPortion())
         ConstraintsFactory.registerConstraint(new UnderwritingPortion())
         ConstraintsFactory.registerConstraint(new ReservePortion())
         ConstraintsFactory.registerConstraint(new DoubleConstraints())
