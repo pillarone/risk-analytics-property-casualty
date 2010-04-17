@@ -58,6 +58,12 @@ public class ExposureInfo extends MultiValuePacket {
         return 1;
     }
 
+    public void scale(double factor) {
+        maxSumInsured *= factor;
+        premiumWrittenAsIf *= factor;
+        sumInsured *= factor;
+    }
+
     /**
      * Adds additive ExposureInfo fields (premiumWrittenAsIf, numberOfPolicies); averages sumInsured, weighted by the respective numberOfPolicies.
      * @param other

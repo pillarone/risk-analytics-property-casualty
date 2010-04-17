@@ -60,7 +60,10 @@ class MultiCompanyModel extends StochasticModel {
         reinsuranceMarket.inClaims = linesOfBusiness.outClaimsGross
         linesOfBusiness.inUnderwritingInfoCeded = reinsuranceMarket.outCoverUnderwritingInfo
         linesOfBusiness.inClaimsCeded = reinsuranceMarket.outClaimsCeded
-        companies.inClaims = reinsuranceMarket.outClaimsGross
+        companies.inClaimsGross = reinsuranceMarket.outClaimsGross
+        companies.inClaimsCeded = reinsuranceMarket.outClaimsCeded
+        companies.inUnderwritingInfoGross = reinsuranceMarket.outUnderwritingInfo
+        companies.inUnderwritingInfoCeded = reinsuranceMarket.outCoverUnderwritingInfo
         aggregateFinancials.inClaims = reinsuranceMarket.outClaimsNet
         aggregateFinancials.inUnderwritingInfo = reinsuranceMarket.outNetAfterCoverUnderwritingInfo
         aggregateFinancials.inAlm = almGenerators.outAlmResult

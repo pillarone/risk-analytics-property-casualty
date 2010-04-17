@@ -78,6 +78,12 @@ public class UnderwritingInfo extends ExposureInfo {
         return this;
     }
 
+    public void scale(double factor) {
+        super.scale(factor);
+        commission *= factor;
+        premiumWritten *= factor;
+    }
+
     public double getPremiumWritten() {
         return premiumWritten;
     }

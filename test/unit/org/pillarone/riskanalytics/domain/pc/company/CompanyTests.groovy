@@ -21,14 +21,14 @@ class CompanyTests extends GroovyTestCase {
         Claim claim100A = new Claim(ultimate: 100, lineOfBusiness: motorA)
         Claim claim500B = new Claim(ultimate: 500, lineOfBusiness: motorB)
 
-        companyA.inClaims << claim100A << claim500B
+        companyA.inClaimsGross << claim100A << claim500B
         companyA.doCalculation()
-        assertEquals 'number of claims for company A', 1, companyA.outClaims.size()
-        assertEquals 'correct claim for company A', claim100A, companyA.outClaims[0]
+        assertEquals 'number of claims for company A', 1, companyA.outClaimsGross.size()
+        assertEquals 'correct claim for company A', claim100A.ultimate, companyA.outClaimsGross[0].ultimate
 
-        companyB.inClaims << claim100A << claim500B
+        companyB.inClaimsGross << claim100A << claim500B
         companyB.doCalculation()
-        assertEquals 'number of claims for company B', 1, companyB.outClaims.size()
-        assertEquals 'correct claim for company B', claim500B, companyB.outClaims[0]
+        assertEquals 'number of claims for company B', 1, companyB.outClaimsGross.size()
+        assertEquals 'correct claim for company B', claim500B.ultimate, companyB.outClaimsGross[0].ultimate
     }
 }

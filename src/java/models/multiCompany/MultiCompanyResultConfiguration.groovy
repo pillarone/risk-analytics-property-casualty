@@ -10,9 +10,13 @@ components {
 		}
 	}
 	companies {
-		outClaims = "AGGREGATED"
 		subsubcomponents {
-			outClaims = "AGGREGATED"
+			outClaimsLeanDevelopmentGross = "AGGREGATED"
+			outClaimsLeanDevelopmentCeded = "AGGREGATED"
+			outClaimsLeanDevelopmentNet = "AGGREGATED"
+            outUnderwritingInfoGross = "AGGREGATED"
+            outUnderwritingInfoCeded = "AGGREGATED"
+            outUnderwritingInfoNet = "AGGREGATED"
 		}
 	}
 	linesOfBusiness {
