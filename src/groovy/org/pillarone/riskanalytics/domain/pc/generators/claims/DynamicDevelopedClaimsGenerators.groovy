@@ -36,7 +36,7 @@ public class DynamicDevelopedClaimsGenerators extends DynamicComposedComponent {
                         claimsSizeDistribution: RandomDistributionFactory.getDistribution(DistributionType.CONSTANT, ['constant': 0d]),
                         claimsSizeModification: DistributionModifierFactory.getModifier(DistributionModifier.NONE, [:]),
                         claimsSizeBase: Exposure.ABSOLUTE]),
-                parmPeriodPaymentPortion: 0d)
+                parmPeriodPaymentPortion: 1d)
         return newComponent
     }
 
