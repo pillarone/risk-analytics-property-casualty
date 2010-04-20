@@ -42,7 +42,7 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
     /** Defines the kind of contract and parametrization */
     protected IReinsuranceContractStrategy parmContractStrategy = ReinsuranceContractStrategyFactory.getTrivial();
 
-    private ICommissionStrategy parmCommissionStrategy = CommissionStrategyType.getNoCommission();
+    protected ICommissionStrategy parmCommissionStrategy = CommissionStrategyType.getNoCommission();
 
     /**
      *  Defines the claim and underwriting info the contract will receive.
