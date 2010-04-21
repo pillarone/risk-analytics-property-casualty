@@ -1,5 +1,7 @@
 package models.multiCompany
 
+import org.pillarone.riskanalytics.domain.assets.constants.Rating
+
 model=models.multiCompany.MultiCompanyModel
 periodCount=1
 displayName='Three Companies'
@@ -23,7 +25,6 @@ components {
 	}
 	reinsuranceMarket {
 		subQuotaShare {
-			parmCedentCompany[0]=new org.pillarone.riskanalytics.core.parameterization.ConstrainedString(org.pillarone.riskanalytics.domain.pc.company.ICompanyMarker, 'mars')
 			parmCommissionStrategy[0]=org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType.getStrategy(org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType.NOCOMMISSION, [:])
 			parmInuringPriority[0]=0
 			parmCover[0]=org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.CoverAttributeStrategyType.getStrategy(org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.CoverAttributeStrategyType.ALL, ["reserves":org.pillarone.riskanalytics.domain.pc.constants.IncludeType.NOTINCLUDED,])
@@ -82,13 +83,13 @@ components {
 	}
 	companies {
 		subVenus {
-			parmToBeRemoved[0]=0.0
+			parmRating[0] = Rating.BBB
 		}
 		subEarthRe {
-			parmToBeRemoved[0]=0.0
+			parmRating[0] = Rating.BBB
 		}
 		subMars {
-			parmToBeRemoved[0]=0.0
+			parmRating[0] = Rating.BBB
 		}
 	}
 }

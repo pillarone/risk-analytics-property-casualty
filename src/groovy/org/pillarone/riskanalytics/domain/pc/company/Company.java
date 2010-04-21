@@ -5,6 +5,7 @@ import org.apache.commons.logging.LogFactory;
 import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter;
+import org.pillarone.riskanalytics.domain.assets.constants.Rating;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.lob.CompanyConfigurableLobWithReserves;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
@@ -38,9 +39,12 @@ public class Company extends Component implements ICompanyMarker {
     private PacketList<UnderwritingInfo> outUnderwritingInfoCeded = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
     private PacketList<UnderwritingInfo> outUnderwritingInfoNet = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
 
-    private double parmToBeRemoved = 0;
+    /**
+     * This parameter is currently not used for any calculation. It may be used for default modeling as in DCEM.
+     * Reason for adding it: Components addable in a DynamicComposedComponent need at least one parameter.
+     */
+    private Rating parmRating = Rating.BBB;
 
-    private static Log LOG = LogFactory.getLog(Company.class);
     /**
      * contains the covered portion of <tt>this</tt> company per contract
      */
@@ -197,14 +201,6 @@ public class Company extends Component implements ICompanyMarker {
         this.outClaimsGross = outClaimsGross;
     }
 
-    public double getParmToBeRemoved() {
-        return parmToBeRemoved;
-    }
-
-    public void setParmToBeRemoved(double parmToBeRemoved) {
-        this.parmToBeRemoved = parmToBeRemoved;
-    }
-
     public PacketList<ClaimDevelopmentLeanPacket> getOutClaimsLeanDevelopmentGross() {
         return outClaimsLeanDevelopmentGross;
     }
@@ -291,5 +287,13 @@ public class Company extends Component implements ICompanyMarker {
 
     public void setOutUnderwritingInfoNet(PacketList<UnderwritingInfo> outUnderwritingInfoNet) {
         this.outUnderwritingInfoNet = outUnderwritingInfoNet;
+    }
+
+    public Rating getParmRating() {
+        return parmRating;
+    }
+
+    public void setParmRating(Rating parmRating) {
+        this.parmRating = parmRating;
     }
 }
