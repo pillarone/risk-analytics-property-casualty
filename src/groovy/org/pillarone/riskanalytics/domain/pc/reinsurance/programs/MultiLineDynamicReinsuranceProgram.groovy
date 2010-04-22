@@ -12,8 +12,10 @@ import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimen
  * (which know which lines, perils or reserves they cover) rather than ReinsuranceContracts
  * (which make no discrimination and cover everything they are given).
  *
+ * @deprecated use DynamicMultiCoverAttributeReinsuranceProgram instead
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@Deprecated
 public class MultiLineDynamicReinsuranceProgram extends DynamicReinsuranceProgram {
 
     public MultiLineReinsuranceContract createDefaultSubComponent() {

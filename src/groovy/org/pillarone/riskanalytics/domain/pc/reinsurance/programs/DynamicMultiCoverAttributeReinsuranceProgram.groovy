@@ -12,6 +12,7 @@ import org.pillarone.riskanalytics.domain.pc.claims.MarketClaimsMerger
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContract
 import org.pillarone.riskanalytics.core.wiring.WireCategory
 import org.pillarone.riskanalytics.domain.pc.underwriting.MarketUnderwritingInfoMerger
+import org.pillarone.riskanalytics.core.components.Component
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -27,6 +28,10 @@ public class DynamicMultiCoverAttributeReinsuranceProgram extends DynamicReinsur
                 parmCover: CoverAttributeStrategyType.getStrategy(
                             CoverAttributeStrategyType.ALL, ['reserves': IncludeType.NOTINCLUDED]))
         return contract
+    }
+
+    public String getGenericSubComponentName() {
+        'riContract'
     }
 
     void wire() {

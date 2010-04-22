@@ -10,6 +10,7 @@ import org.pillarone.riskanalytics.domain.pc.lob.DynamicConfigurableLobsWithRese
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.DynamicReservesGeneratorLean
 import org.pillarone.riskanalytics.domain.pc.underwriting.DynamicUnderwritingSegments
 import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.DynamicMultiCoverAttributeReinsuranceProgram
+import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.ReinsuranceWithBouquetCommissionProgram
 
 /**
  * @author shartmann (at) munichre (dot) com
@@ -22,7 +23,7 @@ class PodraPreviewModel extends StochasticModel {
     DynamicDependencies dependencies
     DynamicMultipleDependencies eventGenerators
     DynamicConfigurableLobsWithReserves linesOfBusiness
-    DynamicMultiCoverAttributeReinsuranceProgram reinsurance
+    ReinsuranceWithBouquetCommissionProgram reinsurance
     DynamicAssetLiabilityMismatchGenerator almGenerators
     AlmResultAggregator aggregateFinancials
 
@@ -34,7 +35,7 @@ class PodraPreviewModel extends StochasticModel {
         dependencies = new DynamicDependencies()
         eventGenerators = new DynamicMultipleDependencies()
         linesOfBusiness = new DynamicConfigurableLobsWithReserves()
-        reinsurance = new DynamicMultiCoverAttributeReinsuranceProgram()
+        reinsurance = new ReinsuranceWithBouquetCommissionProgram()
         almGenerators = new DynamicAssetLiabilityMismatchGenerator()
         aggregateFinancials = new AlmResultAggregator()
 

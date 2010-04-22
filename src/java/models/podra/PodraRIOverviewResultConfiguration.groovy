@@ -29,12 +29,14 @@ components {
 		outCoverUnderwritingInfo = "AGGREGATED"
 		outNetAfterCoverUnderwritingInfo = "AGGREGATED"
 		outUnderwritingInfo = "AGGREGATED"
-		subcontracts {
-			outClaimsDevelopmentLeanCeded = "AGGREGATED"
-			outClaimsDevelopmentLeanGross = "AGGREGATED"
-			outClaimsDevelopmentLeanNet = "AGGREGATED"
-			outContractFinancials = "AGGREGATED"
-			outCoverUnderwritingInfo = "AGGREGATED"
+		subContracts {
+            subRiContracts {
+                outClaimsDevelopmentLeanCeded = "AGGREGATED"
+                outClaimsDevelopmentLeanGross = "AGGREGATED"
+                outClaimsDevelopmentLeanNet = "AGGREGATED"
+                outContractFinancials = "AGGREGATED"
+                outCoverUnderwritingInfo = "AGGREGATED"
+            }
 		}
 	}
 }

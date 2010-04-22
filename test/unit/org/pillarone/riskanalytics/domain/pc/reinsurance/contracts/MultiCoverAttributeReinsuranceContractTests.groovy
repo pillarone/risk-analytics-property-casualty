@@ -20,6 +20,9 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.*
 
 /**
+ * These test cases don't totally match the situation as it is when the component is used in a model as the
+ * simulationScope.model is a trivial one and peril/lob reference information is injected more directly.
+ *
  * @author stefan.kunz & ben.ginsberg (at) intuitive-collaboration (dot) com
  */
 public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase {
@@ -28,7 +31,7 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
      * get a 20% Quota Share contract with no commission, covering only the 'fire' LOB
      */
     static MultiCoverAttributeReinsuranceContract getQuotaShare20FireLOB() {
-        return new MultiCoverAttributeReinsuranceContract(
+        MultiCoverAttributeReinsuranceContract contract = new MultiCoverAttributeReinsuranceContract(
             parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
                 ReinsuranceContractType.QUOTASHARE,
                 ["quotaShare": 0.2, "coveredByReinsurer": 1d]),
@@ -37,16 +40,24 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
                 CoverAttributeStrategyType.LINESOFBUSINESS,
                 ['lines': new ComboBoxTableMultiDimensionalParameter(['fire'], ['Covered Lines'], LobMarker)])
         )
+        SimulationScope simulationScope= new SimulationScope()
+        simulationScope.model = new VoidTestModel()
+        contract.simulationScope = simulationScope
+        return contract
     }
 
     static MultiCoverAttributeReinsuranceContract getMultiCoverAttributeReinsuranceContract(IReinsuranceContractStrategy contractStrategy,
                                                                                             ICoverAttributeStrategy coverStrategy,
                                                                                             int inuringPriority = 10) {
-        new MultiCoverAttributeReinsuranceContract(
+        MultiCoverAttributeReinsuranceContract contract = new MultiCoverAttributeReinsuranceContract(
             parmContractStrategy: contractStrategy,
             parmInuringPriority: inuringPriority,
             parmCover: coverStrategy
         )
+        SimulationScope simulationScope= new SimulationScope()
+        simulationScope.model = new VoidTestModel()
+        contract.simulationScope = simulationScope
+        return contract
     }
 
     static IReinsuranceContractStrategy getQuotaShareContractStrategy(double quotaShare = 0.2,

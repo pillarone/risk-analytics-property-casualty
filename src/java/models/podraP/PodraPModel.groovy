@@ -6,7 +6,7 @@ import org.pillarone.riskanalytics.domain.pc.generators.claims.DynamicClaimsGene
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.DynamicDependencies
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.DynamicMultipleDependencies
 import org.pillarone.riskanalytics.domain.pc.lob.DynamicConfigurableLobs
-import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.MultiLineDynamicReinsuranceProgram
+import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.ReinsuranceWithBouquetCommissionProgram
 
 /**
  * A PodraPModel is a model for liabilities, including deterministic underwriting information, stochastic claims
@@ -31,7 +31,7 @@ class PodraPModel extends StochasticModel {
     // mappings of claims Zusammenfassung der Schadengeneratoren zu Branchen
     DynamicConfigurableLobs linesOfBusiness
     // Rückversicherung auf Branchen oder SG-Level
-    MultiLineDynamicReinsuranceProgram reinsurance
+    ReinsuranceWithBouquetCommissionProgram reinsurance
 
     void initComponents() {
         // set up components
@@ -40,7 +40,7 @@ class PodraPModel extends StochasticModel {
         dependencies = new DynamicDependencies()
         eventGenerators = new DynamicMultipleDependencies()
         linesOfBusiness = new DynamicConfigurableLobs()
-        reinsurance = new MultiLineDynamicReinsuranceProgram()
+        reinsurance = new ReinsuranceWithBouquetCommissionProgram()
         // build up the model as a tree structure: define the roots
         addStartComponent underwritingSegments
         addStartComponent dependencies

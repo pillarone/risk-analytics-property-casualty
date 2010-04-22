@@ -7,7 +7,7 @@ import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.DynamicReservesG
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.DynamicDependencies
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.DynamicMultipleDependencies
 import org.pillarone.riskanalytics.domain.pc.lob.DynamicConfigurableLobsWithReserves
-import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.MultiLineDynamicReinsuranceProgram
+import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.ReinsuranceWithBouquetCommissionProgram
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -20,7 +20,7 @@ class PodraPCModel extends StochasticModel {
     DynamicDependencies dependencies
     DynamicMultipleDependencies eventGenerators
     DynamicConfigurableLobsWithReserves linesOfBusiness
-    MultiLineDynamicReinsuranceProgram reinsurance
+    ReinsuranceWithBouquetCommissionProgram reinsurance
 
     void initComponents() {
         underwritingSegments = new DynamicUnderwritingSegments()
@@ -29,7 +29,7 @@ class PodraPCModel extends StochasticModel {
         dependencies = new DynamicDependencies()
         eventGenerators = new DynamicMultipleDependencies()
         linesOfBusiness = new DynamicConfigurableLobsWithReserves()
-        reinsurance = new MultiLineDynamicReinsuranceProgram()
+        reinsurance = new ReinsuranceWithBouquetCommissionProgram()
 
         addStartComponent underwritingSegments
         addStartComponent dependencies

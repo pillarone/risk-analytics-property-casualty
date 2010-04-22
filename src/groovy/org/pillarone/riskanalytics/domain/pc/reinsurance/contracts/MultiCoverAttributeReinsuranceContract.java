@@ -110,11 +110,11 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
         }
         else {
             List<LobMarker> coveredLines = parmCover instanceof ILinesOfBusinessCoverAttributeStrategy
-                    ? ((ILinesOfBusinessCoverAttributeStrategy) parmCover).getLines().getValuesAsObjects() : null;
+                    ? ((ILinesOfBusinessCoverAttributeStrategy) parmCover).getLines().getValuesAsObjects(simulationScope.getModel()) : null;
             List<PerilMarker> coveredPerils = parmCover instanceof IPerilCoverAttributeStrategy
-                    ? ((IPerilCoverAttributeStrategy) parmCover).getPerils().getValuesAsObjects() : null;
+                    ? ((IPerilCoverAttributeStrategy) parmCover).getPerils().getValuesAsObjects(simulationScope.getModel()) : null;
             List<IReserveMarker> coveredReserves = parmCover instanceof IReservesCoverAttributeStrategy
-                    ? ((IReservesCoverAttributeStrategy) parmCover).getReserves().getValuesAsObjects() : null;
+                    ? ((IReservesCoverAttributeStrategy) parmCover).getReserves().getValuesAsObjects(simulationScope.getModel()) : null;
             LogicArguments connection = parmCover instanceof ICombinedCoverAttributeStrategy
                     ? ((ICombinedCoverAttributeStrategy) parmCover).getConnection() : null;
             outFilteredClaims.addAll(ClaimFilterUtilities.filterClaimsByPerilLobReserve(inClaims, coveredPerils, coveredLines, coveredReserves, connection));
