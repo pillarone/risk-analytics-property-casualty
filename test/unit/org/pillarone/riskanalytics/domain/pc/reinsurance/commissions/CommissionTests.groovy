@@ -192,7 +192,7 @@ class CommissionTests extends GroovyTestCase {
                 parmCommissionStrategy :
                     CommissionStrategyType.getStrategy(
                     CommissionStrategyType.PROFITCOMMISSION,
-                        [profitCommissionRatio: 0.03d, costRatio: 0.2d,
+                        [commissionRatio: 0d, profitCommissionRatio: 0.03d, costRatio: 0.2d,
                             lossCarriedForwardEnabled: true, initialLossCarriedForward: 20d]),
                 parmApplicableStrategy :
                     ApplicableStrategyType.getStrategy(
@@ -245,7 +245,7 @@ class CommissionTests extends GroovyTestCase {
 
         Commission commission = new Commission(
             parmCommissionStrategy : CommissionStrategyType.getStrategy(CommissionStrategyType.PROFITCOMMISSION,
-                [profitCommissionRatio: 0.03d, costRatio: 0.2d, lossCarriedForwardEnabled: true, initialLossCarriedForward: 20d]),
+                [commissionRatio: 0d, profitCommissionRatio: 0.03d, costRatio: 0.2d, lossCarriedForwardEnabled: true, initialLossCarriedForward: 20d]),
             parmApplicableStrategy : ApplicableStrategyType.getStrategy(ApplicableStrategyType.CONTRACT, [applicableContracts:
                 new ComboBoxTableMultiDimensionalParameter(contracts, ['Applicable Contracts'], IReinsuranceContractMarker)]),
             simulationScope : simulationScope
@@ -281,7 +281,7 @@ class CommissionTests extends GroovyTestCase {
 
         Commission commission = new Commission(
             parmCommissionStrategy : CommissionStrategyType.getStrategy(CommissionStrategyType.PROFITCOMMISSION,
-                [profitCommissionRatio: 0.3d, costRatio: 0.1d, lossCarriedForwardEnabled: true, initialLossCarriedForward: 5d]),
+                [commissionRatio: 0d, profitCommissionRatio: 0.3d, costRatio: 0.1d, lossCarriedForwardEnabled: true, initialLossCarriedForward: 5d]),
             parmApplicableStrategy : ApplicableStrategyType.getStrategy(ApplicableStrategyType.CONTRACT, [applicableContracts:
                 new ComboBoxTableMultiDimensionalParameter(contracts, ['Applicable Contracts'], IReinsuranceContractMarker)]),
             simulationScope : simulationScope

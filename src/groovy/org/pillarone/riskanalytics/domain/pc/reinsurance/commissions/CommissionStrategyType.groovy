@@ -18,7 +18,7 @@ public class CommissionStrategyType extends AbstractParameterObjectClassifier {
                         [SlidingCommissionStrategy.LOSS_RATIO, SlidingCommissionStrategy.COMMISSION],
                         ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))])
     public static final CommissionStrategyType PROFITCOMMISSION = new CommissionStrategyType("profit commission", "PROFITCOMMISSION",
-            ['profitCommissionRatio':0d, 'costRatio':0d, 'lossCarriedForwardEnabled':true, 'initialLossCarriedForward':0d])
+            ['profitCommissionRatio':0d, 'commissionRatio':0d, 'costRatio':0d, 'lossCarriedForwardEnabled':true, 'initialLossCarriedForward':0d])
 
     public static final all = [NOCOMMISSION, FIXEDCOMMISSION, SLIDINGCOMMISSION, PROFITCOMMISSION]
 
@@ -63,6 +63,7 @@ public class CommissionStrategyType extends AbstractParameterObjectClassifier {
             case CommissionStrategyType.PROFITCOMMISSION:
                 commissionStrategy = new ProfitCommissionStrategy(
                         profitCommissionRatio : (Double) parameters['profitCommissionRatio'],
+                        commissionRatio : (Double) parameters['commissionRatio'],
                         costRatio : (Double) parameters['costRatio'],
                         lossCarriedForwardEnabled : (Boolean) parameters['lossCarriedForwardEnabled'],
                         initialLossCarriedForward : (Double) parameters['initialLossCarriedForward'])
