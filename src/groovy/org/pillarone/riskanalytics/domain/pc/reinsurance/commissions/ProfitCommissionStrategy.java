@@ -49,8 +49,8 @@ public class ProfitCommissionStrategy implements ICommissionStrategy {
         for (UnderwritingInfo underwritingInfo : underwritingInfos) {
             totalPremiumWritten += underwritingInfo.getPremiumWritten();
         }
-        double fixedCommission =  commissionRatio * totalPremiumWritten; // calculate 'prior' fixed commission
-        double nextLossCarriedForward = (totalPremiumWritten - fixedCommission) * (1d - costRatio) - incurredClaims;
+        double fixedCommission = commissionRatio * totalPremiumWritten; // calculate 'prior' fixed commission
+        double nextLossCarriedForward = totalPremiumWritten * (1d - costRatio) - fixedCommission - incurredClaims;
         double commissionableProfit = Math.max(0d, nextLossCarriedForward - lossCarriedForward);
         double totalCommission =  fixedCommission + profitCommissionRatio * commissionableProfit;
 

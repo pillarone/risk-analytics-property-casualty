@@ -105,7 +105,7 @@ class ProfitCommissionStrategyTests extends GroovyTestCase {
         commissionStrategy.calculateCommission claims, underwritingInfo, true, false
 
         assertEquals '# outUnderwritingInfo packets', 1, underwritingInfo.size()
-        assertEquals 'underwritingInfo100plus1', 0.02*100 + 0.03*((100-2)*(1d-0.2)-50-20), underwritingInfo[0].commission
+        assertEquals 'underwritingInfo100plus1', 0.02*100 + 0.03*(100*(1-0.2)-2-50-20), underwritingInfo[0].commission
     }
 
     void testUnderflowProtectionBoundary() {
