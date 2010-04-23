@@ -97,7 +97,7 @@ class DynamicReinsuranceProgram extends DynamicComposedComponent {
      *  claims of the second last contract are not sent to it.
      */
     public void wire() {
-        if (componentList.size() > 0) {
+        if (subComponentCount() > 0) {
             initWiring()
             wireContractsClaimsChannels()
             wireClaimsMergers()
@@ -107,8 +107,12 @@ class DynamicReinsuranceProgram extends DynamicComposedComponent {
                 wireContractsUnderwritingChannels()
                 wireUnderwritingInfoMergers()
             }
+            wireReplicatingOutChannels()
         }
-        wireReplicatingOutChannels()
+        else { // program has no contracts
+            doWire WC, this, 'outClaimsGross', this, 'inClaims'
+            doWire WC, this, 'outUnderwritingInfo', this, 'inUnderwritingInfo'
+        }
     }
 
     /**
@@ -194,19 +198,13 @@ class DynamicReinsuranceProgram extends DynamicComposedComponent {
      *
      */
     private void wireReplicatingOutChannels() {
-        if (componentList.size() > 0) {
-            doWire PRC, this, 'outClaimsGross', claimsMergers[-1], 'outClaimsGross'
-            doWire PRC, this, 'outClaimsNet', claimsMergers[-1], 'outClaimsNet'
-            doWire PRC, this, 'outClaimsDevelopmentLeanGross', claimsMergers[-1], 'outClaimsDevelopmentLeanGross'
-            doWire PRC, this, 'outClaimsDevelopmentLeanNet', claimsMergers[-1], 'outClaimsDevelopmentLeanNet'
-            if (isReceiverWired(inUnderwritingInfo)) {
-                doWire PRC, this, 'outNetAfterCoverUnderwritingInfo', underwritingInfoMergers[-1], 'outUnderwritingInfoNet'
-                doWire PRC, this, 'outUnderwritingInfo', underwritingInfoMergers[-1], 'outUnderwritingInfoGross'
-            }
-        }
-        else { // program has no contracts
-            doWire WC, this, 'outClaimsGross', this, 'inClaims'
-            doWire WC, this, 'outUnderwritingInfo', this, 'inUnderwritingInfo'
+        doWire PRC, this, 'outClaimsGross', claimsMergers[-1], 'outClaimsGross'
+        doWire PRC, this, 'outClaimsNet', claimsMergers[-1], 'outClaimsNet'
+        doWire PRC, this, 'outClaimsDevelopmentLeanGross', claimsMergers[-1], 'outClaimsDevelopmentLeanGross'
+        doWire PRC, this, 'outClaimsDevelopmentLeanNet', claimsMergers[-1], 'outClaimsDevelopmentLeanNet'
+        if (isReceiverWired(inUnderwritingInfo)) {
+            doWire PRC, this, 'outNetAfterCoverUnderwritingInfo', underwritingInfoMergers[-1], 'outUnderwritingInfoNet'
+            doWire PRC, this, 'outUnderwritingInfo', underwritingInfoMergers[-1], 'outUnderwritingInfoGross'
         }
     }
 
@@ -232,13 +230,6 @@ class DynamicReinsuranceProgram extends DynamicComposedComponent {
 
     public ReinsuranceContract getContract(int index) {
         componentList[sortedIndizes[index]]
-    }
-
-    /**
-     * Helper method for wiring when sender or receiver are determined dynamically
-     */
-    public static void doWire(category, receiver, inChannelName, sender, outChannelName) {
-        category.doSetProperty(receiver, inChannelName, category.doGetProperty(sender, outChannelName))
     }
 
     public String getGenericSubComponentName() {
