@@ -43,28 +43,43 @@ class ReinsuranceWithBouquetCommissionProgram extends ComposedComponent {
     ContractFinancials financialsAggregator = new ContractFinancials()
 
     void wire() {
+        if (subCommissions.subComponentCount() > 0) {
+            WiringUtils.use(WireCategory) {
+                subCommissions.inClaims = subContracts.outClaimsCeded
+                subCommissions.inUnderwritingInfo = subContracts.outCoverUnderwritingInfo
+                underwritingInfoMerger.inUnderwritingInfoCeded = subCommissions.outUnderwritingInfoModified
+                underwritingInfoMerger.inUnderwritingInfoCeded = subCommissions.outUnderwritingInfoUnmodified
+                financialsAggregator.inUnderwritingInfoCeded = underwritingInfoMerger.outUnderwritingInfoCeded
+            }
+            WiringUtils.use(PortReplicatorCategory) {
+                underwritingInfoMerger.inUnderwritingInfoGross = this.inUnderwritingInfo
+                this.outNetAfterCoverUnderwritingInfo = underwritingInfoMerger.outUnderwritingInfoNet
+                this.outUnderwritingInfo = underwritingInfoMerger.outUnderwritingInfoGross
+                this.outCoverUnderwritingInfo = underwritingInfoMerger.outUnderwritingInfoCeded
+            }
+        }
+        else {
+            WiringUtils.use(WireCategory) {
+                financialsAggregator.inUnderwritingInfoCeded = subContracts.outCoverUnderwritingInfo
+            }
+            WiringUtils.use(PortReplicatorCategory) {
+                this.outNetAfterCoverUnderwritingInfo = subContracts.outNetAfterCoverUnderwritingInfo
+                this.outUnderwritingInfo = subContracts.outUnderwritingInfo
+                this.outCoverUnderwritingInfo = subContracts.outCoverUnderwritingInfo
+            }
+        }
         WiringUtils.use(WireCategory) {
-            subCommissions.inClaims = subContracts.outClaimsCeded
-            subCommissions.inUnderwritingInfo = subContracts.outCoverUnderwritingInfo
-            underwritingInfoMerger.inUnderwritingInfoCeded = subCommissions.outUnderwritingInfoModified
-            underwritingInfoMerger.inUnderwritingInfoCeded = subCommissions.outUnderwritingInfoUnmodified
             financialsAggregator.inClaimsCeded = subContracts.outClaimsCeded
-            financialsAggregator.inUnderwritingInfoCeded = underwritingInfoMerger.outUnderwritingInfoCeded
         }
         WiringUtils.use(PortReplicatorCategory) {
             subContracts.inClaims = this.inClaims
             subContracts.inUnderwritingInfo = this.inUnderwritingInfo
-            underwritingInfoMerger.inUnderwritingInfoGross = this.inUnderwritingInfo
             this.outClaimsNet = subContracts.outClaimsNet
             this.outClaimsGross = subContracts.outClaimsGross
             this.outClaimsCeded = subContracts.outClaimsCeded
             this.outClaimsDevelopmentLeanNet = subContracts.outClaimsDevelopmentLeanNet
             this.outClaimsDevelopmentLeanGross = subContracts.outClaimsDevelopmentLeanGross
             this.outClaimsDevelopmentLeanCeded = subContracts.outClaimsDevelopmentLeanCeded
-
-            this.outNetAfterCoverUnderwritingInfo = underwritingInfoMerger.outUnderwritingInfoNet
-            this.outUnderwritingInfo = underwritingInfoMerger.outUnderwritingInfoGross
-            this.outCoverUnderwritingInfo = underwritingInfoMerger.outUnderwritingInfoCeded
             this.outContractFinancials = financialsAggregator.outContractFinancials
         }
     }
