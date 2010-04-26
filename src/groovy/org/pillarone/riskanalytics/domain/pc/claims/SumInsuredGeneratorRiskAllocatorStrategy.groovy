@@ -57,10 +57,10 @@ class SumInsuredGeneratorRiskAllocatorStrategy implements IRiskAllocatorStrategy
             if (claim.hasExposureInfo()) throw new IllegalArgumentException("Can't re-define claim's exposure")
             ExposureInfo exposure = new ExposureInfo()
             exposure.exposureDefinition = Exposure.ABSOLUTE
-            if (claim.claimType == ClaimType.SINGLE) {
+//            if (claim.claimType == ClaimType.SINGLE) {
                 exposure.maxSumInsured = maxSumInsuredUWI
                 exposure.sumInsured = claim.ultimate + generator.nextValue() * (maxSumInsuredUWI - claim.ultimate)
-            }
+//            }
             claim.exposure = exposure
             allocatedClaims << claim
         }
