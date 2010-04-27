@@ -11,7 +11,7 @@ import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.DynamicReservesG
 import org.pillarone.riskanalytics.domain.pc.underwriting.DynamicUnderwritingSegments
 import org.pillarone.riskanalytics.domain.pc.lob.DynamicCompanyConfigurableLobsWithReserves
 import org.pillarone.riskanalytics.domain.pc.company.DynamicCompany
-import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.ReinsuranceMarket
+import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.ReinsuranceMarketWithBouquetCommissionProgram
 
 /**
  * @author shartmann (at) munichre (dot) com
@@ -25,7 +25,7 @@ class MultiCompanyModel extends StochasticModel {
     DynamicMultipleDependencies eventGenerators
     DynamicCompanyConfigurableLobsWithReserves linesOfBusiness
     DynamicCompany companies
-    ReinsuranceMarket reinsuranceMarket
+    ReinsuranceMarketWithBouquetCommissionProgram reinsuranceMarket
     DynamicAssetLiabilityMismatchGenerator almGenerators
     AlmResultAggregator aggregateFinancials
 
@@ -38,7 +38,7 @@ class MultiCompanyModel extends StochasticModel {
         eventGenerators = new DynamicMultipleDependencies()
         linesOfBusiness = new DynamicCompanyConfigurableLobsWithReserves()
         companies = new DynamicCompany()
-        reinsuranceMarket = new ReinsuranceMarket()
+        reinsuranceMarket = new ReinsuranceMarketWithBouquetCommissionProgram()
         almGenerators = new DynamicAssetLiabilityMismatchGenerator()
         aggregateFinancials = new AlmResultAggregator()
 

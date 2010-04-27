@@ -65,13 +65,14 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
             calculateCededClaims(inClaims, outCoveredClaims, this);
         }
 
-        if (isSenderWired(outNetAfterCoverUnderwritingInfo)) {
-            calculateUnderwritingInfos(inUnderwritingInfo, outCoverUnderwritingInfo, outNetAfterCoverUnderwritingInfo);
-        } else if (isSenderWired(outCoverUnderwritingInfo)) {
+        if (isSenderWired(outCoverUnderwritingInfo) || isSenderWired(outNetAfterCoverUnderwritingInfo)) {
             calculateCededUnderwritingInfos(inUnderwritingInfo, outCoverUnderwritingInfo);
         }
 
         parmCommissionStrategy.calculateCommission(outCoveredClaims, outCoverUnderwritingInfo, false, false);
+        if (isSenderWired(outNetAfterCoverUnderwritingInfo)) {
+            calculateNetUnderwritingInfos(outCoverUnderwritingInfo, outNetAfterCoverUnderwritingInfo);
+        }
         fillDevelopedClaimsChannels();
         if (isSenderWired(getOutContractFinancials())) {
             ReinsuranceResultWithCommissionPacket result = new ReinsuranceResultWithCommissionPacket();
@@ -205,6 +206,15 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
             setOriginalUnderwritingInfo(underwritingInfo, cededUnderwritingInfo);
             cededUnderwritingInfos.add(cededUnderwritingInfo);
             UnderwritingInfo netUnderwritingInfo = UnderwritingInfoUtilities.calculateNet(underwritingInfo, cededUnderwritingInfo);
+            setOriginalUnderwritingInfo(underwritingInfo, netUnderwritingInfo);
+            netUnderwritingInfos.add(netUnderwritingInfo);
+        }
+    }
+
+    protected void calculateNetUnderwritingInfos(List<UnderwritingInfo> cededUnderwritingInfos,
+                                              List<UnderwritingInfo> netUnderwritingInfos) {
+        for (UnderwritingInfo underwritingInfo : cededUnderwritingInfos) {
+            UnderwritingInfo netUnderwritingInfo = (UnderwritingInfo) underwritingInfo.copy();
             setOriginalUnderwritingInfo(underwritingInfo, netUnderwritingInfo);
             netUnderwritingInfos.add(netUnderwritingInfo);
         }

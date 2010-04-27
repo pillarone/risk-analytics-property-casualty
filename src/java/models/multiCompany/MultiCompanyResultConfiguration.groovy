@@ -11,12 +11,18 @@ components {
 	}
 	companies {
 		subsubcomponents {
-			outClaimsLeanDevelopmentGross = "AGGREGATED"
 			outClaimsLeanDevelopmentCeded = "AGGREGATED"
+			outClaimsLeanDevelopmentGross = "AGGREGATED"
+			outClaimsLeanDevelopmentGrossPrimaryInsurer = "AGGREGATED"
+			outClaimsLeanDevelopmentGrossReinsurer = "AGGREGATED"
 			outClaimsLeanDevelopmentNet = "AGGREGATED"
-            outUnderwritingInfoGross = "AGGREGATED"
-            outUnderwritingInfoCeded = "AGGREGATED"
-            outUnderwritingInfoNet = "AGGREGATED"
+			outClaimsLeanDevelopmentNetPrimaryInsurer = "AGGREGATED"
+			outUnderwritingInfoCeded = "AGGREGATED"
+			outUnderwritingInfoGross = "AGGREGATED"
+			outUnderwritingInfoGrossPrimaryInsurer = "AGGREGATED"
+			outUnderwritingInfoGrossReinsurer = "AGGREGATED"
+			outUnderwritingInfoNet = "AGGREGATED"
+			outUnderwritingInfoNetPrimaryInsurer = "AGGREGATED"
 		}
 	}
 	linesOfBusiness {
