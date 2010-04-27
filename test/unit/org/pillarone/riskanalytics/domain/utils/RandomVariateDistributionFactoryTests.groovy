@@ -33,8 +33,6 @@ class RandomVariateDistributionFactoryTests extends GroovyTestCase {
             params["sigma"] = 1
             params["constants"] = new TableMultiDimensionalParameter([0,1], ['constants'])
 
-            //todo(bgi): re-enable BETA distribution once BetaDist constructor call is working (see RandomDistributionTests line 40 for more info)
-            if (it == DistributionType.BETA) return
             IRandomVariateDistribution distribution = RandomVariateDistributionFactory.getDistribution(it, params)
             assertNotNull "${it}: ", distribution
             assertNotNull distribution.inverseDistributionFunction(0.5)
