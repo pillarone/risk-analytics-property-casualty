@@ -7,7 +7,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.CoverAt
 model = models.podra.PodraModel
 periodCount = 1
 displayName = 'CapitalEagle Reinsurance Program NP'
-applicationVersion = '0.5'
+applicationVersion = '0.6.1'
 components {
     reinsurance {
         subContracts {

@@ -9,7 +9,7 @@ import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
 model = models.podra.PodraModel
 periodCount = 1
 displayName = 'One Line Example'
-applicationVersion = '0.5'
+applicationVersion = '0.6.1'
 components {
     claimsGenerators {
         subMotorHullSingle {

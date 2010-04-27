@@ -8,7 +8,7 @@ import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimen
 model = models.podra.PodraModel
 periodCount = 1
 displayName = 'CapitalEagle CorrelatedAttritionals Reinsurance Program NP+ML50'
-applicationVersion = '0.5'
+applicationVersion = '0.6.1'
 components {
     claimsGenerators {
         subPersonalAccidentAttritional {

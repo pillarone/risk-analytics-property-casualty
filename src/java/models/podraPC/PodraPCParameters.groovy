@@ -26,7 +26,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.CoverAt
 model=models.podraPC.PodraPCModel
 periodCount=1
 displayName='One Line Example P&C'
-applicationVersion='0.4.2'
+applicationVersion='0.6.1'
 components {
 	claimsGenerators {
 		subMotorHullSingle {

@@ -5,7 +5,7 @@ import org.pillarone.riskanalytics.domain.assets.constants.Rating
 model=models.multiCompany.MultiCompanyModel
 periodCount=1
 displayName='Three Companies'
-applicationVersion='0.6'
+applicationVersion='0.6.1'
 components {
 	reserveGenerators {
 		subMarsMotor {

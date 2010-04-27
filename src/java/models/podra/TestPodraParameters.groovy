@@ -29,14 +29,12 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.CoverAt
 model = models.podra.PodraModel
 periodCount = 1
 displayName = 'Drill Down Test Parameter'
-applicationVersion = '0.5'
+applicationVersion = '0.6.1'
 components {
     reinsurance {
         subContracts {
             subPropertyCxl {
                 parmCover[0] = CoverAttributeStrategyType.getStrategy(CoverAttributeStrategyType.LINESOFBUSINESS, ['lines': new ComboBoxTableMultiDimensionalParameter(['property'], ["Covered Lines"], LobMarker),])
-//            parmCover[0]=CoverAttributeStrategyType.getStrategy(CoverAttributeStrategyType.ALL, ["reserves":org.pillarone.riskanalytics.domain.pc.constants.IncludeType.NOTINCLUDED,])
-//            parmCover[0]=CoverAttributeStrategyType.getStrategy(CoverAttributeStrategyType.LINESOFBUSINESS, ["lines":new ComboBoxTableMultiDimensionalParameter([[""]],["Covered Lines"], LobMarker),])
                 parmInuringPriority[0] = 1
                 parmContractStrategy[0] = ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.CXL,
                         ["premiumBase": PremiumBase.GNPI, "premium": 0.0688,
