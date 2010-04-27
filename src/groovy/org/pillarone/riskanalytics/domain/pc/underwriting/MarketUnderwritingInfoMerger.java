@@ -78,7 +78,6 @@ public class MarketUnderwritingInfoMerger extends Component {
                         netUnderwritingInfo = netUnderwritingInfo.minus(cededUnderwritingInfo);
                         // net commission = sum of matched ceded commission
                         netUnderwritingInfo.commission = cededUnderwritingInfo.commission;
-                        netUnderwritingInfo.numberOfPolicies = grossUnderwritingInfo.numberOfPolicies;
                     }
 
                     outUnderwritingInfoCeded.add(cededUnderwritingInfo);

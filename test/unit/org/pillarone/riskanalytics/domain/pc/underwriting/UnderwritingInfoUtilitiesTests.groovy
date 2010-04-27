@@ -36,9 +36,9 @@ public class UnderwritingInfoUtilitiesTests extends GroovyTestCase {
 
         assertEquals "premium written", 500,  netUnderwritingInfo[0].premiumWritten
         assertEquals "premium written as if", 0,  netUnderwritingInfo[0].premiumWrittenAsIf
-        assertEquals "number of policies", 0,  netUnderwritingInfo[0].numberOfPolicies
+        assertEquals "number of policies", 100,  netUnderwritingInfo[0].numberOfPolicies
         assertEquals "premium written", 1000,  netUnderwritingInfo[1].premiumWritten
         assertEquals "premium written as if", 0,  netUnderwritingInfo[1].premiumWrittenAsIf
-        assertEquals "number of policies", 0,  netUnderwritingInfo[1].numberOfPolicies
+        assertEquals "number of policies", 100,  netUnderwritingInfo[1].numberOfPolicies
     }
 }

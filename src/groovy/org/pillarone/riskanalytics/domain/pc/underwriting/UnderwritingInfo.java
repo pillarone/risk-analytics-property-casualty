@@ -71,10 +71,14 @@ public class UnderwritingInfo extends ExposureInfo {
         return this;
     }
 
+   // todo: think about commission
     public UnderwritingInfo minus(UnderwritingInfo other) {
         super.minus(other);
         premiumWritten -= other.premiumWritten;
         commission -= other.commission;
+        if (premiumWritten == 0 && commission == 0 && sumInsured == 0) {
+            numberOfPolicies = 0;
+        }
         return this;
     }
 

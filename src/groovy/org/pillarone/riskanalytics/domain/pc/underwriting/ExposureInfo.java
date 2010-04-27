@@ -62,6 +62,9 @@ public class ExposureInfo extends MultiValuePacket {
         maxSumInsured *= factor;
         premiumWrittenAsIf *= factor;
         sumInsured *= factor;
+        if (factor == 0) {
+            numberOfPolicies = 0;
+        }
     }
 
     /**
@@ -84,11 +87,22 @@ public class ExposureInfo extends MultiValuePacket {
         return this;
     }
 
+
+    /** caveat : for the minus method defined below we have to be careful with the number of policies here
+    used for deriving the (averaged) sum insured from the total sum insured.
+    For the correct approach follow the two outlined steps:
+        step 1: Compute the difference of the total sums insured (analogously to premiumWrittenAsIf)
+        step 2: To obtain the averaged sum insured use the number of policies of the minuend only.
+    This is the natural procedure for insurance contracts where the minuend corresponds to the gross portfolio
+    while the subtrahend is associated to the ceded portfolio. Hence for the number of policies we solely use the
+    information from the gross portfolio.
+    Sole exception (implemented in subclass): gross and ceded portfolio are equal, then numberOfPolicies =0.
+    */
+
     ExposureInfo minus(ExposureInfo other) {
         if (other == null) return this;
-        sumInsured = numberOfPolicies * sumInsured + other.numberOfPolicies * other.sumInsured;
+        sumInsured = numberOfPolicies * sumInsured - other.numberOfPolicies * other.sumInsured;
         premiumWrittenAsIf -= other.premiumWrittenAsIf;
-        numberOfPolicies -= other.numberOfPolicies;
         if (numberOfPolicies > 0) {
             sumInsured = sumInsured / numberOfPolicies;
         }

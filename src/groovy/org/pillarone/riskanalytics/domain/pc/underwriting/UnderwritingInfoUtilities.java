@@ -52,7 +52,6 @@ public class UnderwritingInfoUtilities {
         netUnderwritingInfo.originalUnderwritingInfo = cededUnderwritingInfo.originalUnderwritingInfo;
         netUnderwritingInfo = netUnderwritingInfo.minus(cededUnderwritingInfo);
         netUnderwritingInfo.commission = cededUnderwritingInfo.commission;
-        netUnderwritingInfo.numberOfPolicies = grossUnderwritingInfo.numberOfPolicies;
         return netUnderwritingInfo;
     }
 
