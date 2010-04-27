@@ -127,7 +127,7 @@ class RandomDistributionFactory {
                     distribution.distribution = new InverseGaussianDist((double) parameters["mu"], (double) parameters["lambda"])
                     break
                 case DistributionType.CONSTANTS:
-                    distribution.distribution = new ConstantsDistribution(asDouble(parameters["constants"]))
+                    distribution.distribution = new ConstantsDistribution(asDouble(parameters["constants"].getColumnByName("constants")))
                     break
             }
         } catch (IllegalArgumentException e) { // distribution stays null and validation will handle this

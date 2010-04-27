@@ -58,7 +58,7 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
             BETA,
             CHISQUAREDIST,
             CONSTANT,
-//            CONSTANTS,        // todo(bgi): reactivate once everything is running (see comments in PMO-787)
+            CONSTANTS,
             BINOMIALDIST,
             DISCRETEEMPIRICAL,
             DISCRETEEMPIRICALCUMULATIVE,
