@@ -31,7 +31,7 @@ class RandomVariateDistributionFactoryTests extends GroovyTestCase {
             params["cumulative probabilities"] = [0, 0.2, 0.5, 1.0]
             params["mu"] = 1
             params["sigma"] = 1
-            params["constants"] = [0,1]
+            params["constants"] = new TableMultiDimensionalParameter([0,1], ['constants'])
 
             //todo(bgi): re-enable BETA distribution once BetaDist constructor call is working (see RandomDistributionTests line 40 for more info)
             if (it == DistributionType.BETA) return

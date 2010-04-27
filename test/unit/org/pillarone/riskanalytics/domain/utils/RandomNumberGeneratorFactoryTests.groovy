@@ -34,7 +34,7 @@ class RandomNumberGeneratorFactoryTests extends GroovyTestCase {
             params["cumulative probabilities"] = [0, 0.2, 0.5, 1.0]
             params["mu"] = 1
             params["sigma"] = 1
-            params["constants"] = [0,1]
+            params["constants"] = new TableMultiDimensionalParameter([0,1], ['constants'])
 
             //todo(bgi): re-enable BETA distribution once BetaDist constructor call is working (see RandomDistributionTests line 40 for more info)
             if (it == DistributionType.BETA) return
@@ -66,7 +66,7 @@ class RandomNumberGeneratorFactoryTests extends GroovyTestCase {
         for (int i = 0; i < 20000; i++) curList.add(generator1.nextValue())
         Collections.sort(curList)
         double[] temp = curList.toArray(); //StatUtils operate only on array of double, hence the conversion               
-        double empiricalMean = StatUtils.mean(temp)  //works only with array of double
+        double empiricalMean = StatUtils.mean(temp) //works only with array of double
         double empiricalVar = StatUtils.variance(temp)
         assertEquals 2d, empiricalMean, 0.02
         assertEquals 1d, empiricalVar, 0.05

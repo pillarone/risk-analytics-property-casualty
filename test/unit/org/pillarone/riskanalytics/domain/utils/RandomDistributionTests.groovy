@@ -1,5 +1,7 @@
 package org.pillarone.riskanalytics.domain.utils
 
+import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
+
 //import umontreal.iro.lecuyer.probdist.BetaDist
 
 public class RandomDistributionTests extends GroovyTestCase {
@@ -35,32 +37,13 @@ public class RandomDistributionTests extends GroovyTestCase {
         assertFalse r1.equals(r2)
         assertFalse r1.hashCode().equals(r2.hashCode())
 
-        //todo(bgi): re-enable once the IllegalArgumentException caught in RDF.getDistribution (catch at line 133, from BetaDist constructor call at line 94) is resolved
-        // note that the below will also generate the error:
-        //BetaDist d = new BetaDist(4d, 7d)
-        // the error is:
-        //    optimization/Lmder_fcn
-        //    java.lang.NoClassDefFoundError: optimization/Lmder_fcn
-        //        at java.lang.Class.forName0(Native Method)
-        //        at java.lang.Class.forName(Class.java:164)
-        //
-        //r1 = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.BETA, ["alpha": 0.4, "beta": 0.7])
-        //r2 = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.BETA, ["alpha": 0.4, "beta": 0.7])
-        //assertTrue r1.equals(r2)
-        //assertEquals r1.hashCode(), r2.hashCode()
-        //
-        //r1 = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.BETA, ["alpha": 0.4, "beta": 0.7])
-        //r2 = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.BETA, ["alpha": 0.4, "beta": 0.7001])
-        //assertFalse r1.equals(r2)
-        //assertFalse r1.hashCode().equals(r2.hashCode())
-
-        r1 = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.CONSTANTS, ["constants": [1, 3, 7, 9]])
-        r2 = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.CONSTANTS, ["constants": [1, 3, 7, 9]])
+        r1 = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.BETA, ["alpha": 0.4, "beta": 0.7])
+        r2 = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.BETA, ["alpha": 0.4, "beta": 0.7])
         assertTrue r1.equals(r2)
         assertEquals r1.hashCode(), r2.hashCode()
 
-        r1 = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.CONSTANTS, ["constants": [1, 3, 7, 9]])
-        r2 = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.CONSTANTS, ["constants": [1, 3, 7, 9.001]])
+        r1 = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.BETA, ["alpha": 0.4, "beta": 0.7])
+        r2 = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.BETA, ["alpha": 0.4, "beta": 0.7001])
         assertFalse r1.equals(r2)
         assertFalse r1.hashCode().equals(r2.hashCode())
     }
@@ -70,7 +53,7 @@ public class RandomDistributionTests extends GroovyTestCase {
         RandomDistribution rd
         for (int i=1; i<=10; i++) {
             values.add(i)
-            rd = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.CONSTANTS, ["constants": values])
+            rd = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.CONSTANTS, ["constants": new TableMultiDimensionalParameter(values, ["constants"])])
             assertEquals "U[1..${i}] mean", 0.5*(1 + i), rd.distribution.getMean()
             assertEquals "U[1..${i}] sdev", Math.sqrt((i*i - 1)/12), rd.distribution.getStandardDeviation(), 1E-9
             // U[1..3] sdev expected:<0.8164965809481384> but was:<0.8164965809277257>
@@ -84,27 +67,27 @@ public class RandomDistributionTests extends GroovyTestCase {
         assertEquals "U[1..10] inverseF(.5)", 5, rd.distribution.inverseF(0.5)
 
         values.add(11)
-        rd = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.CONSTANTS, ["constants": values])
+        rd = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.CONSTANTS, ["constants": new TableMultiDimensionalParameter(values, ["constants"])])
         assertEquals "U[1..11] inverseF(.5)", 6, rd.distribution.inverseF(0.5)
 
         values.add(6)
-        rd = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.CONSTANTS, ["constants": values])
+        rd = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.CONSTANTS, ["constants": new TableMultiDimensionalParameter(values, ["constants"])])
         assertEquals "U[1..11,6] inverseF(.5)", 6, rd.distribution.inverseF(0.5)
 
         values.add(11)
-        rd = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.CONSTANTS, ["constants": values])
+        rd = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.CONSTANTS, ["constants": new TableMultiDimensionalParameter(values, ["constants"])])
         assertEquals "U[1..11,6,11] inverseF(.5)", 6, rd.distribution.inverseF(0.5)
 
         values.add(1)
-        rd = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.CONSTANTS, ["constants": values])
+        rd = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.CONSTANTS, ["constants": new TableMultiDimensionalParameter(values, ["constants"])])
         assertEquals "U[1..11,1,6,11] inverseF(.5)", 6, rd.distribution.inverseF(0.5)
 
         values.add(5.9)
-        rd = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.CONSTANTS, ["constants": values])
+        rd = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.CONSTANTS, ["constants": new TableMultiDimensionalParameter(values, ["constants"])])
         assertEquals "U[1..11,1,6,11,5.9] inverseF(.5)", 6, rd.distribution.inverseF(0.5)
 
         values.add(2)
-        rd = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.CONSTANTS, ["constants": values])
+        rd = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.CONSTANTS, ["constants": new TableMultiDimensionalParameter(values, ["constants"])])
         assertEquals "U[1..11,1,2,5.9,6,11] inverseF(.5)", 5.9, rd.distribution.inverseF(0.5)
     }
 }

@@ -249,8 +249,9 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
             ["distribution.type.error.inversegaussian.lambda.negative.or.zero", type.lambda]
         }
         validationService.register(CONSTANTS) {Map type ->
-            if (type.constants.size() > 0) return true
-            ["distribution.type.error.constants.empty", type.constants]
+            double[] values = type.constants.getColumnByName('constants')
+            if (values && values.size() > 0) return true
+            ["distribution.type.error.constants.empty", values]
         }
     }
 
