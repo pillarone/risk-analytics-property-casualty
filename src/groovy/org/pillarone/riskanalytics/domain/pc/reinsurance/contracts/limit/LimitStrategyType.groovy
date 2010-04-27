@@ -13,7 +13,7 @@ class LimitStrategyType extends AbstractParameterObjectClassifier {
     public static final LimitStrategyType AAL = new LimitStrategyType("AAL", "AAL", ['aal': 0d])
     public static final LimitStrategyType AAD = new LimitStrategyType("AAD", "AAD", ['aad': 0d])
     public static final LimitStrategyType AALAAD = new LimitStrategyType("AAL, AAD", "AALAAD", ['aal': 0d, 'aad': 0d])
-    public static final LimitStrategyType EVENTLIMIT = new LimitStrategyType("event", "EVENT", ['eventLimit': 0d])
+    public static final LimitStrategyType EVENTLIMIT = new LimitStrategyType("event", "EVENTLIMIT", ['eventLimit': 0d])
     public static final LimitStrategyType EVENTLIMITAAL = new LimitStrategyType("event, AAL", "EVENTLIMITAAL", ['aal': 0d, 'eventLimit': 0d])
 
     public static final all = [NONE, AAL, AAD, AALAAD, EVENTLIMIT, EVENTLIMITAAL]
