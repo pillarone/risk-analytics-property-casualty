@@ -46,15 +46,15 @@ components {
 		outNetAfterCoverUnderwritingInfo = "AGGREGATED"
 		outUnderwritingInfo = "AGGREGATED"
 		subContracts {
-            subRiContracts {
-                outClaimsDevelopmentLeanCeded = "AGGREGATED"
-                outClaimsDevelopmentLeanGross = "AGGREGATED"
-                outClaimsDevelopmentLeanNet = "AGGREGATED"
-                outContractFinancials = "AGGREGATED"
-                outCoverUnderwritingInfo = "AGGREGATED"
-                outFilteredUnderwritingInfo = "AGGREGATED"
-                outNetAfterCoverUnderwritingInfo = "AGGREGATED"
-            }
+			subRiContracts {
+				outClaimsDevelopmentLeanCeded = "AGGREGATED"
+				outClaimsDevelopmentLeanGross = "AGGREGATED"
+				outClaimsDevelopmentLeanNet = "AGGREGATED"
+				outContractFinancials = "AGGREGATED"
+				outCoverUnderwritingInfo = "AGGREGATED"
+				outFilteredUnderwritingInfo = "AGGREGATED"
+				outNetAfterCoverUnderwritingInfo = "AGGREGATED"
+			}
 		}
 	}
 	reserveGenerators {
