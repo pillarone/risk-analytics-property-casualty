@@ -2,14 +2,13 @@ package org.pillarone.riskanalytics.domain.pc.generators.claims
 
 import org.pillarone.riskanalytics.core.components.Component
 import org.pillarone.riskanalytics.core.packets.PacketList
+import org.pillarone.riskanalytics.core.util.TestProbe
 import org.pillarone.riskanalytics.core.wiring.WireCategory
 import org.pillarone.riskanalytics.core.wiring.WiringUtils
-import org.pillarone.riskanalytics.core.util.TestProbe
-import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
-import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.domain.pc.generators.frequency.Frequency
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.RiskBandsTests
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
+import org.pillarone.riskanalytics.domain.utils.DistributionType
 
 /**
  * @author michael-noe (at) web (dot) de, stefan.kunz (at) intuitive-collaboration (dot) com
@@ -22,10 +21,10 @@ class SingleClaimsGeneratorWithFrequencyExtractorTests extends GroovyTestCase {
 
     void setUp() {
         generator0 = new SingleClaimsGeneratorWithFrequencyExtractor(0)
-        generator0.subClaimsGenerator = new SingleClaimsGenerator(parmDistribution: RandomDistributionFactory.getDistribution(DistributionType.LOGNORMAL, ["mean": 5, "stDev": 10]))
+        generator0.subClaimsGenerator = new SingleClaimsGenerator(parmDistribution: DistributionType.getStrategy(DistributionType.LOGNORMAL, ["mean": 5, "stDev": 10]))
         generator0.subClaimsGenerator.validateParameterization()
         generator1 = new SingleClaimsGeneratorWithFrequencyExtractor(1)
-        generator1.subClaimsGenerator = new SingleClaimsGenerator(parmDistribution: RandomDistributionFactory.getDistribution(DistributionType.LOGNORMAL, ["mean": 5, "stDev": 10]))
+        generator1.subClaimsGenerator = new SingleClaimsGenerator(parmDistribution: DistributionType.getStrategy(DistributionType.LOGNORMAL, ["mean": 5, "stDev": 10]))
         generator1.subClaimsGenerator.validateParameterization()
         provider = new TestFrequencyUnderwritingProvider()
     }

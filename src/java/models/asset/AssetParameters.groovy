@@ -1,10 +1,9 @@
 package models.asset
 
-import org.pillarone.riskanalytics.domain.assets.constants.Seniority
-import org.pillarone.riskanalytics.domain.assets.constants.Rating
-import org.pillarone.riskanalytics.domain.assets.constants.BondType
 import org.pillarone.riskanalytics.domain.assets.TermStructureType
-import org.pillarone.riskanalytics.domain.assets.ModellingStrategyFactory
+import org.pillarone.riskanalytics.domain.assets.constants.BondType
+import org.pillarone.riskanalytics.domain.assets.constants.Rating
+import org.pillarone.riskanalytics.domain.assets.constants.Seniority
 
 model = models.asset.AssetModel
 periodCount = 3
@@ -96,8 +95,8 @@ components {
         parmInitialCash[2] = 10000.0
     }
     yieldCurve {
-        parmModellingStrategy[2] = ModellingStrategyFactory.getModellingStrategy(TermStructureType.CIR, ["meanReversionParameter": 0.01, "riskAversionParameter": 0.0, "longRunMean": 0.08, "volatility": 0.05, "initialInterestRate": 0.05,])
-        parmModellingStrategy[1] = ModellingStrategyFactory.getModellingStrategy(TermStructureType.CIR, ["meanReversionParameter": 0.01, "riskAversionParameter": 0.0, "longRunMean": 0.08, "volatility": 0.05, "initialInterestRate": 0.05,])
-        parmModellingStrategy[0] = ModellingStrategyFactory.getModellingStrategy(TermStructureType.CIR, ["meanReversionParameter": 0.01, "riskAversionParameter": 0.0, "longRunMean": 0.08, "volatility": 0.05, "initialInterestRate": 0.05,])
+        parmModellingStrategy[2] = TermStructureType.getStrategy(TermStructureType.CIR, ["meanReversionParameter": 0.01, "riskAversionParameter": 0.0, "longRunMean": 0.08, "volatility": 0.05, "initialInterestRate": 0.05,])
+        parmModellingStrategy[1] = TermStructureType.getStrategy(TermStructureType.CIR, ["meanReversionParameter": 0.01, "riskAversionParameter": 0.0, "longRunMean": 0.08, "volatility": 0.05, "initialInterestRate": 0.05,])
+        parmModellingStrategy[0] = TermStructureType.getStrategy(TermStructureType.CIR, ["meanReversionParameter": 0.01, "riskAversionParameter": 0.0, "longRunMean": 0.08, "volatility": 0.05, "initialInterestRate": 0.05,])
     }
 }

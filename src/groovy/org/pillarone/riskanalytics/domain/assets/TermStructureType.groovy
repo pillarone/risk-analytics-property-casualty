@@ -1,7 +1,7 @@
 package org.pillarone.riskanalytics.domain.assets
 
-import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObjectClassifier
+import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 
 /**
@@ -42,23 +42,26 @@ public class TermStructureType extends AbstractParameterObjectClassifier {
     }
 
     public IParameterObject getParameterObject(Map parameters) {
-        return ModellingStrategyFactory.getModellingStrategy(this, parameters)
+        return TermStructureType.getStrategy(this, parameters)
     }
 
-    public String getConstructionString(Map parameters) {   //todo (cne) change this function and define a naming convention for modellingChoices (this is a copy/paste of reinsurance contracts)
-        StringBuffer parameterString = new StringBuffer('[')
-        parameters.each {k, v ->
-            if (v.class.isEnum()) {
-                parameterString << "\"$k\":${v.class.name}.$v,"
-            } else {
-                parameterString << "\"$k\":$v,"
-            }
+    static IModellingStrategy getStrategy(TermStructureType type, Map parameters) {
+        IModellingStrategy curve
+        switch (type) {
+            case TermStructureType.CIR:
+                curve = new YieldCurveCIRStrategy(
+                            (double) parameters["meanReversionParameter"],
+                            (double) parameters["riskAversionParameter"],
+                            (double) parameters["longRunMean"],
+                            (double) parameters["volatility"],
+                            (double) parameters["initialInterestRate"])
+                break;
+            case TermStructureType.CONSTANT:
+                curve = new ConstantYieldCurveStrategy((double) parameters["rate"])
+                break
+            //...
         }
-        if (parameterString.size() == 1) {
-            parameterString << ':'
-        }
-        parameterString << ']'
-        "org.pillarone.riskanalytics.domain.assets.ModellingStrategyFactory.getModellingStrategy(${this.class.name}.${typeName.toUpperCase()}, ${parameterString})"
+        return curve;
     }
 
 }

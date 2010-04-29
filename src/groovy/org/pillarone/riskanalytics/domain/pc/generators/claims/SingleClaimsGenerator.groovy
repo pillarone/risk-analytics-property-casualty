@@ -1,20 +1,13 @@
 package org.pillarone.riskanalytics.domain.pc.generators.claims
 
-import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
-import org.pillarone.riskanalytics.domain.pc.constants.Exposure
 import org.pillarone.riskanalytics.core.packets.PacketList
-import org.pillarone.riskanalytics.domain.utils.IRandomNumberGenerator
-import org.pillarone.riskanalytics.domain.utils.RandomDistribution
-import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
-import org.pillarone.riskanalytics.domain.utils.ClaimSizeDistributionType
-import org.pillarone.riskanalytics.domain.utils.DistributionModified
-import org.pillarone.riskanalytics.domain.utils.DistributionModifierFactory
-import org.pillarone.riskanalytics.domain.utils.DistributionModifier
-import org.pillarone.riskanalytics.domain.pc.generators.severities.Severity
-import org.pillarone.riskanalytics.domain.pc.generators.frequency.Frequency
-import org.pillarone.riskanalytics.domain.utils.RandomNumberGeneratorFactory
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimPacketFactory
+import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
+import org.pillarone.riskanalytics.domain.pc.constants.Exposure
+import org.pillarone.riskanalytics.domain.pc.generators.frequency.Frequency
+import org.pillarone.riskanalytics.domain.pc.generators.severities.Severity
+import org.pillarone.riskanalytics.domain.utils.*
 
 /**
  *  The large claims generators generate claims according the number received
@@ -33,8 +26,8 @@ class SingleClaimsGenerator extends ClaimsGenerator implements PerilMarker {
 
     IRandomNumberGenerator generator
 
-    RandomDistribution parmDistribution = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.CONSTANT, ["constant": 0d])
-    DistributionModified parmModification = DistributionModifierFactory.getModifier(DistributionModifier.NONE, [:])
+    RandomDistribution parmDistribution = DistributionType.getStrategy(ClaimSizeDistributionType.CONSTANT, ["constant": 0d])
+    DistributionModified parmModification = DistributionModifier.getStrategy(DistributionModifier.NONE, [:])
 
     /** Input channel for claim severity to be generated    */
     PacketList<Severity> inProbability = new PacketList(Severity.class);

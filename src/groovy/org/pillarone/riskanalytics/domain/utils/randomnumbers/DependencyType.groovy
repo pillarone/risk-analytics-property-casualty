@@ -3,6 +3,10 @@ package org.pillarone.riskanalytics.domain.utils.randomnumbers
 import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObjectClassifier
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject
+import org.pillarone.riskanalytics.core.util.MathUtils
+import umontreal.iro.lecuyer.probdist.NormalDist
+import umontreal.iro.lecuyer.randvar.NormalGen
+import umontreal.iro.lecuyer.randvarmulti.MultinormalCholeskyGen
 
 /**
  * @author ali.majidi (at) munichre (dot) com, stefan.kunz (at) intuitive-collaboration (dot) com
@@ -34,12 +38,20 @@ class DependencyType extends AbstractParameterObjectClassifier {
     }
 
     public IParameterObject getParameterObject(Map parameters) {
-        return DependentGeneratorFactory.getGenerator(this, parameters)
+        return DependencyType.getStrategy(this, parameters)
     }
 
-    public String getConstructionString(Map parameters) {
-        TreeMap sortedParameters = new TreeMap()
-        sortedParameters.putAll(parameters)
-        "org.pillarone.riskanalytics.domain.utils.randomnumbers.DependentGeneratorFactory.getGenerator(${this.class.name}.${typeName.toUpperCase()}, $sortedParameters)"
+    static IMultiRandomGenerator getStrategy(DependencyType type, Map parameters) {
+        IMultiRandomGenerator generator
+        switch (type) {
+            case DependencyType.NORMAL:
+                generator = new MultiRandomNumberGenerator(
+                    generator: new MultinormalCholeskyGen(
+                        new NormalGen(MathUtils.RANDOM_NUMBER_GENERATOR_INSTANCE, new NormalDist(0d, 1d)),
+                        (double[]) parameters["meanVector"],
+                        (double[][]) parameters["sigmaMatrix"]))
+                break
+        }
+        generator
     }
 }

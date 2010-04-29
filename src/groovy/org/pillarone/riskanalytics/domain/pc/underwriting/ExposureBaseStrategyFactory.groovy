@@ -1,43 +1,15 @@
 package org.pillarone.riskanalytics.domain.pc.underwriting
 
-import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
-
 /**
+ * @deprecated use ExposureBaseType.getStrategy
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@Deprecated
 public class ExposureBaseStrategyFactory {
-    private static IExposureBaseStrategy getAbsolute() {
-        return new AbsoluteExposureBaseStrategy()
-    }
 
-    private static IExposureBaseStrategy getPremiumWritten(ComboBoxTableMultiDimensionalParameter underwritingInformation) {
-        return new PremiumWrittenExposureBaseStrategy(underwritingInformation: underwritingInformation)
-    }
-
-    private static IExposureBaseStrategy getNumberOfPolicies(ComboBoxTableMultiDimensionalParameter underwritingInformation) {
-        return new NumberOfPoliciesExposureBaseStrategy(underwritingInformation: underwritingInformation)
-    }
-
-    private static IExposureBaseStrategy getSumInsured(ComboBoxTableMultiDimensionalParameter underwritingInformation) {
-        return new SumInsuredExposureBaseStrategy(underwritingInformation: underwritingInformation)
-    }
-
+    @Deprecated
     static IExposureBaseStrategy getStrategy(ExposureBaseType type, Map parameters) {
-        IExposureBaseStrategy exposureBase
-        switch (type) {
-            case ExposureBaseType.ABSOLUTE:
-                exposureBase = getAbsolute()
-                break
-            case ExposureBaseType.PREMIUMWRITTEN:
-                exposureBase = getPremiumWritten(parameters['underwritingInformation'])
-                break
-            case ExposureBaseType.NUMBEROFPOLICIES:
-                exposureBase = getNumberOfPolicies(parameters['underwritingInformation'])
-                break
-            case ExposureBaseType.SUMINSURED:
-                exposureBase = getSumInsured(parameters['underwritingInformation'])
-                break
-        }
-        return exposureBase
+        ExposureBaseType.getStrategy(type, parameters)
     }
+
 }

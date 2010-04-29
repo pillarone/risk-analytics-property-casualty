@@ -1,12 +1,12 @@
 package models.dependency
 
 import org.pillarone.riskanalytics.core.model.StochasticModel
-import org.pillarone.riskanalytics.domain.pc.generators.frequency.FrequencyGenerator
+import org.pillarone.riskanalytics.domain.pc.aggregators.ClaimsAggregator
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.LobCopula
-import org.pillarone.riskanalytics.domain.pc.severities.AttachEventToSeverity
+import org.pillarone.riskanalytics.domain.pc.generators.frequency.FrequencyGenerator
 import org.pillarone.riskanalytics.domain.pc.lob.DependentLobAttrSingleEventClaims
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContract
-import org.pillarone.riskanalytics.domain.pc.aggregators.ClaimsAggregator
+import org.pillarone.riskanalytics.domain.pc.severities.AttachEventToSeverity
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com

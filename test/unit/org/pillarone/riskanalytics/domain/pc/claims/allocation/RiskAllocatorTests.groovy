@@ -1,13 +1,13 @@
 package org.pillarone.riskanalytics.domain.pc.claims.allocation
 
 import java.util.Map.Entry
-import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.core.packets.PacketList
-import org.pillarone.riskanalytics.domain.pc.underwriting.ExposureInfo
+import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
+import org.pillarone.riskanalytics.domain.pc.allocators.AllocationTable
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
-import org.pillarone.riskanalytics.domain.pc.allocators.AllocationTable
+import org.pillarone.riskanalytics.domain.pc.underwriting.ExposureInfo
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 
 /**
  * @author martin.melchior (at) fhnw (dot) ch
@@ -64,7 +64,7 @@ class RiskAllocatorTests extends GroovyTestCase {
         )
         AllocationTable allocationTable = new AllocationTable(table: table)
         RiskAllocator allocator = new RiskAllocator(
-            parmRiskAllocatorStrategy: RiskAllocatorStrategyFactory.getAllocatorStrategy(RiskAllocatorType.RISKTOBAND, [:]),
+            parmRiskAllocatorStrategy: RiskAllocatorType.getStrategy(RiskAllocatorType.RISKTOBAND, [:]),
             inClaims: inClaims,
             inUnderwritingInfo: underwritingInfos)
         allocator.inTargetDistribution << allocationTable
@@ -101,7 +101,7 @@ class RiskAllocatorTests extends GroovyTestCase {
         )
         AllocationTable allocationTable = new AllocationTable(table: table)
         RiskAllocator allocator = new RiskAllocator(
-            parmRiskAllocatorStrategy: RiskAllocatorStrategyFactory.getAllocatorStrategy(RiskAllocatorType.RISKTOBAND, [:]),
+            parmRiskAllocatorStrategy: RiskAllocatorType.getStrategy(RiskAllocatorType.RISKTOBAND, [:]),
             inClaims: inClaims,
             inUnderwritingInfo: underwritingInfos)
         allocator.inTargetDistribution << allocationTable
@@ -116,7 +116,7 @@ class RiskAllocatorTests extends GroovyTestCase {
 
         // do the allocation
         allocator = new RiskAllocator(
-            parmRiskAllocatorStrategy: RiskAllocatorStrategyFactory.getAllocatorStrategy(RiskAllocatorType.RISKTOBAND, [:]),
+            parmRiskAllocatorStrategy: RiskAllocatorType.getStrategy(RiskAllocatorType.RISKTOBAND, [:]),
             inClaims: inClaims,
             inUnderwritingInfo: underwritingInfos)
         allocator.inTargetDistribution << allocationTable

@@ -3,8 +3,6 @@
  */
 package models.claims
 
-import models.claims.ClaimsModel
-
 model = ClaimsModel
 periodCount = 1
 

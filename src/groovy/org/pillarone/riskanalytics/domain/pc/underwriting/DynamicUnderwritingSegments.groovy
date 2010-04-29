@@ -1,7 +1,5 @@
 package org.pillarone.riskanalytics.domain.pc.underwriting
 
-import org.apache.commons.logging.Log
-import org.apache.commons.logging.LogFactory
 import org.pillarone.riskanalytics.core.components.DynamicComposedComponent
 import org.pillarone.riskanalytics.core.packets.PacketList
 

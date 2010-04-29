@@ -10,7 +10,6 @@ import org.pillarone.riskanalytics.domain.pc.generators.GeneratorCachingComponen
 import org.pillarone.riskanalytics.domain.utils.*;
 
 import java.util.Collections;
-import java.util.HashMap;
 
 /**
  * @author shartmann (at) munichre (dot) com
@@ -25,9 +24,9 @@ public class AssetLiabilityMismatchGenerator extends GeneratorCachingComponent i
     //todo sha: claim should be replaced with ALM result: claim currently used as result (POSITIVE)
     private PacketList<Claim> outAlmResult = new PacketList<Claim>(Claim.class);
 
-    private RandomDistribution parmDistribution = RandomDistributionFactory.getDistribution(DistributionType.CONSTANT,
+    private RandomDistribution parmDistribution = DistributionType.getStrategy(DistributionType.CONSTANT,
             ArrayUtils.toMap(new Object[][]{{"constant", 0d}}));
-    private DistributionModified parmModification = DistributionModifierFactory.getModifier(DistributionModifier.NONE, Collections.emptyMap());
+    private DistributionModified parmModification = DistributionModifier.getStrategy(DistributionModifier.NONE, Collections.emptyMap());
     private double parmInitialVolume = 0d;
     private IAssetLiabilityMismatchGeneratorStrategy parmAssetLiabilityMismatchModel =
             AssetLiabilityMismatchGeneratorStrategyType.getStrategy(

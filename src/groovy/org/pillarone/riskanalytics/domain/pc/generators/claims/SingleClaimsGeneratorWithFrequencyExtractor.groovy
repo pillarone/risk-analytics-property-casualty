@@ -1,14 +1,14 @@
 package org.pillarone.riskanalytics.domain.pc.generators.claims
 
-import org.pillarone.riskanalytics.domain.pc.generators.frequency.FrequencyExtractor
 import org.pillarone.riskanalytics.core.components.ComposedComponent
 import org.pillarone.riskanalytics.core.packets.PacketList
 import org.pillarone.riskanalytics.core.wiring.PortReplicatorCategory
 import org.pillarone.riskanalytics.core.wiring.WireCategory
 import org.pillarone.riskanalytics.core.wiring.WiringUtils
-import org.pillarone.riskanalytics.domain.pc.generators.frequency.Frequency
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
+import org.pillarone.riskanalytics.domain.pc.generators.frequency.Frequency
+import org.pillarone.riskanalytics.domain.pc.generators.frequency.FrequencyExtractor
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 
 /**
  * @author michael-noe (at) web (dot) de, stefan.kunz (at) intuitive-collaboration (dot) com

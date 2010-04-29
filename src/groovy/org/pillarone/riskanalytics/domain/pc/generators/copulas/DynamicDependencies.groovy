@@ -1,9 +1,9 @@
 package org.pillarone.riskanalytics.domain.pc.generators.copulas
 
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
 import org.pillarone.riskanalytics.core.components.DynamicComposedComponent
 import org.pillarone.riskanalytics.core.packets.PacketList
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
+import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com

@@ -1,10 +1,10 @@
 package models.capitalEagle
 
 import org.pillarone.riskanalytics.core.model.StochasticModel
+import org.pillarone.riskanalytics.domain.pc.aggregators.ClaimsAggregator
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.LobCopula
 import org.pillarone.riskanalytics.domain.pc.lob.ExampleLobAttritionalDependencies
 import org.pillarone.riskanalytics.domain.pc.lob.PropertyLobAttritionalDependencies
-import org.pillarone.riskanalytics.domain.pc.aggregators.ClaimsAggregator
 
 class CapitalEagleAttritionalDependenciesModel extends StochasticModel {
     LobCopula copulaAttritional

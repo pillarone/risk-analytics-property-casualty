@@ -10,7 +10,6 @@ import org.pillarone.riskanalytics.domain.pc.aggregators.ClaimsMerger
 import org.pillarone.riskanalytics.domain.pc.aggregators.UnderwritingInfoMerger
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContract
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractStrategyFactory
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 
@@ -36,11 +35,11 @@ class ReinsuranceProgram3SerialContracts extends ComposedComponent {
     PacketList<UnderwritingInfo> outUnderwritingInfoNet = new PacketList(UnderwritingInfo)
 
 
-    ReinsuranceContract subContract1 = new ReinsuranceContract(parmContractStrategy: new ReinsuranceContractStrategyFactory().getContractStrategy(ReinsuranceContractType.TRIVIAL, [:]))
-    ReinsuranceContract subContract2 = new ReinsuranceContract(parmContractStrategy: new ReinsuranceContractStrategyFactory().getContractStrategy(ReinsuranceContractType.TRIVIAL, [:]))
-    ReinsuranceContract subContract3 = new ReinsuranceContract(parmContractStrategy: new ReinsuranceContractStrategyFactory().getContractStrategy(ReinsuranceContractType.TRIVIAL, [:]))
-    ReinsuranceContract subContract4 = new ReinsuranceContract(parmContractStrategy: new ReinsuranceContractStrategyFactory().getContractStrategy(ReinsuranceContractType.TRIVIAL, [:]))
-    ReinsuranceContract subContract5 = new ReinsuranceContract(parmContractStrategy: new ReinsuranceContractStrategyFactory().getContractStrategy(ReinsuranceContractType.TRIVIAL, [:]))
+    ReinsuranceContract subContract1 = new ReinsuranceContract(parmContractStrategy: ReinsuranceContractType.getStrategy(ReinsuranceContractType.TRIVIAL, [:]))
+    ReinsuranceContract subContract2 = new ReinsuranceContract(parmContractStrategy: ReinsuranceContractType.getStrategy(ReinsuranceContractType.TRIVIAL, [:]))
+    ReinsuranceContract subContract3 = new ReinsuranceContract(parmContractStrategy: ReinsuranceContractType.getStrategy(ReinsuranceContractType.TRIVIAL, [:]))
+    ReinsuranceContract subContract4 = new ReinsuranceContract(parmContractStrategy: ReinsuranceContractType.getStrategy(ReinsuranceContractType.TRIVIAL, [:]))
+    ReinsuranceContract subContract5 = new ReinsuranceContract(parmContractStrategy: ReinsuranceContractType.getStrategy(ReinsuranceContractType.TRIVIAL, [:]))
 
     ClaimsMerger subClaimsAggregator = new ClaimsMerger()
     UnderwritingInfoMerger subUnderwritingInfoMerger = new UnderwritingInfoMerger()

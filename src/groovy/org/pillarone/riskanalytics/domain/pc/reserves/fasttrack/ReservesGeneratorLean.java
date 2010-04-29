@@ -19,9 +19,9 @@ import java.util.List;
 
 /**
  * <ul class="alternate" type="square">
- * <li>Initial reserves consist of a single value. It is splitted into a paid and reserved part according
+ * <li>Initial reserves consists of a single value. It is split into a paid and reserved part according
  * to a modifiable (censor, truncate) distribution.</li>
- * <li>"Initial" reserves for periods after the first projected periods consist of the sum of the reserved
+ * <li>"Initial" reserves for periods after the first projected period consist of the sum of the reserved
  * part of the initial reserves of the former period and the newly generated reserved claims.</li>
  * </ul>
  *
@@ -41,9 +41,9 @@ public class ReservesGeneratorLean extends GeneratorCachingComponent implements 
     private PacketList<ClaimDevelopmentLeanPacket> outClaimsLeanDevelopment = new PacketList<ClaimDevelopmentLeanPacket>(ClaimDevelopmentLeanPacket.class);
     private PacketList<SingleValuePacket> outInitialReserves = new PacketList<SingleValuePacket>(SingleValuePacket.class);
 
-    private RandomDistribution parmDistribution = RandomDistributionFactory.getDistribution(DistributionType.CONSTANT,
+    private RandomDistribution parmDistribution = DistributionType.getStrategy(DistributionType.CONSTANT,
             ArrayUtils.toMap(new Object[][]{{"constant", 0d}}));
-    private DistributionModified parmModification = DistributionModifierFactory.getModifier(DistributionModifier.NONE, new HashMap());
+    private DistributionModified parmModification = DistributionModifier.getStrategy(DistributionModifier.NONE, new HashMap());
     private double parmPeriodPaymentPortion = 0d;
     private double parmInitialReserves = 0d;
     private IReservesGeneratorStrategy parmReservesModel = ReservesGeneratorStrategyType.getStrategy(

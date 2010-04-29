@@ -16,7 +16,7 @@ class AdverseDevelopmentCoverContractStrategyTests extends GroovyTestCase {
 
     static ReinsuranceContract getContractSL0() {
         return new ReinsuranceContract(
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.ADVERSEDEVELOPMENTCOVER,
                         ["attachmentPoint": 1.20,
                                 "limit": 0.40,
@@ -27,7 +27,7 @@ class AdverseDevelopmentCoverContractStrategyTests extends GroovyTestCase {
 
     static ReinsuranceContract getContractSL1() {
         return new ReinsuranceContract(
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.ADVERSEDEVELOPMENTCOVER,
                         ["attachmentPoint": 1.15,
                                 "limit": 0.15,
@@ -38,7 +38,7 @@ class AdverseDevelopmentCoverContractStrategyTests extends GroovyTestCase {
 
     static ReinsuranceContract getContractSLAbs0() {
         return new ReinsuranceContract(
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.ADVERSEDEVELOPMENTCOVER,
                         ["attachmentPoint": 2400,
                                 "limit": 800,
@@ -49,7 +49,7 @@ class AdverseDevelopmentCoverContractStrategyTests extends GroovyTestCase {
 
     static ReinsuranceContract getContractADCXS(double limit, double attachmentPoint) {
         return new ReinsuranceContract(
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.ADVERSEDEVELOPMENTCOVER,
                         ["attachmentPoint": attachmentPoint,
                                 "limit": limit,

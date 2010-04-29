@@ -1,13 +1,12 @@
 package org.pillarone.riskanalytics.domain.pc.generators.copulas
 
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
 import org.pillarone.riskanalytics.core.components.DynamicComposedComponent
 import org.pillarone.riskanalytics.core.packets.PacketList
-import org.pillarone.riskanalytics.domain.utils.DistributionModifierFactory
-import org.pillarone.riskanalytics.domain.utils.DistributionModifier
-import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
-import org.pillarone.riskanalytics.domain.utils.FrequencyDistributionType
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
+import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
+import org.pillarone.riskanalytics.domain.utils.DistributionModifier
+import org.pillarone.riskanalytics.domain.utils.DistributionType
+import org.pillarone.riskanalytics.domain.utils.FrequencyDistributionType
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -18,8 +17,8 @@ public class DynamicMultipleDependencies extends DynamicComposedComponent {
 
     public MultipleProbabilitiesCopula createDefaultSubComponent() {
         MultipleProbabilitiesCopula newComponent = new MultipleProbabilitiesCopula(
-                modifier: DistributionModifierFactory.getModifier(DistributionModifier.NONE, [:]),
-                parmFrequencyDistribution: RandomDistributionFactory.getDistribution(
+                modifier: DistributionModifier.getStrategy(DistributionModifier.NONE, [:]),
+                parmFrequencyDistribution: DistributionType.getStrategy(
                         FrequencyDistributionType.CONSTANT, ["constant": 1d]),
                 parmCopulaStrategy: CopulaStrategyFactory.getCopulaStrategy(PerilCopulaType.INDEPENDENT,
                         ["targets": new ComboBoxTableMultiDimensionalParameter([''], ['perils'], PerilMarker)]))

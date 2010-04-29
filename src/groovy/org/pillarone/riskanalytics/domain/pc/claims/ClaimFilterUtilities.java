@@ -1,9 +1,9 @@
 package org.pillarone.riskanalytics.domain.pc.claims;
 
+import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments;
 import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
-import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
 import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker;
 

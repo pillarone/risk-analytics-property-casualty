@@ -47,7 +47,7 @@ public class TrivialContractStrategy extends AbstractContractStrategy {
 
 //    @Override
 //    public IReinsuranceContractStrategy clone() {
-//        return ReinsuranceContractType.getContractStrategy(getType(), getParameters());
+//        return ReinsuranceContractType.getStrategy(getType(), getParameters());
 //    }
 
     public boolean exhausted() {

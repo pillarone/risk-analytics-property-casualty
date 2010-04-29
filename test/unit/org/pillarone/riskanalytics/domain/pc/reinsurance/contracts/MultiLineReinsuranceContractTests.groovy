@@ -1,19 +1,19 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts
 
-import org.pillarone.riskanalytics.domain.assets.VoidTestModel
-import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
 import org.pillarone.riskanalytics.core.components.Component
+import org.pillarone.riskanalytics.core.example.component.TestComponent
+import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope
 import org.pillarone.riskanalytics.core.util.TestProbe
-import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
+import org.pillarone.riskanalytics.domain.assets.VoidTestModel
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
-import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
-import org.pillarone.riskanalytics.domain.pc.generators.severities.Event
-import org.pillarone.riskanalytics.core.example.component.TestComponent
-import org.pillarone.riskanalytics.domain.pc.generators.claims.TypableClaimsGenerator
 import org.pillarone.riskanalytics.domain.pc.claims.TestLobComponent
+import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
+import org.pillarone.riskanalytics.domain.pc.generators.claims.TypableClaimsGenerator
+import org.pillarone.riskanalytics.domain.pc.generators.severities.Event
+import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
+import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -22,7 +22,7 @@ public class MultiLineReinsuranceContractTests extends GroovyTestCase {
 
     static MultiLineReinsuranceContract getQSContract20Percent() {
         return new MultiLineReinsuranceContract(
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.QUOTASHARE,
                         ["quotaShare": 0.2,
                          "coveredByReinsurer": 1d]),

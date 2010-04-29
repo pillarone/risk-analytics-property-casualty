@@ -1,10 +1,10 @@
 package org.pillarone.riskanalytics.domain.pc.generators.claims
 
+import org.pillarone.riskanalytics.core.packets.PacketList
+import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
 import org.pillarone.riskanalytics.domain.pc.constants.Exposure
-import org.pillarone.riskanalytics.core.packets.PacketList
 import org.pillarone.riskanalytics.domain.pc.generators.frequency.Frequency
-import org.pillarone.riskanalytics.domain.pc.claims.Claim
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com

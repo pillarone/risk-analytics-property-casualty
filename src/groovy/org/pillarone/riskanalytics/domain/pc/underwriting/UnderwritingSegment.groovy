@@ -1,8 +1,8 @@
 package org.pillarone.riskanalytics.domain.pc.underwriting
 
-import org.pillarone.riskanalytics.domain.pc.constants.Exposure
 import org.pillarone.riskanalytics.core.components.Component
 import org.pillarone.riskanalytics.core.packets.PacketList
+import org.pillarone.riskanalytics.domain.pc.constants.Exposure
 
 /**
  * TODO: writtenPremiumAsif is (implicitly) defined as exposure * price per unit of exposure which is wrong

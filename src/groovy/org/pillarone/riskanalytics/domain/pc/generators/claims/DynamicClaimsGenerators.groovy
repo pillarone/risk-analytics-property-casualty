@@ -1,16 +1,14 @@
 package org.pillarone.riskanalytics.domain.pc.generators.claims
 
-import org.pillarone.riskanalytics.domain.pc.constants.Exposure
 import org.pillarone.riskanalytics.core.components.DynamicComposedComponent
 import org.pillarone.riskanalytics.core.packets.PacketList
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
+import org.pillarone.riskanalytics.domain.pc.claims.Claim
+import org.pillarone.riskanalytics.domain.pc.constants.Exposure
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.DependenceStream
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.EventDependenceStream
-import org.pillarone.riskanalytics.domain.pc.claims.Claim
-import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
-import org.pillarone.riskanalytics.domain.utils.DistributionType
-import org.pillarone.riskanalytics.domain.utils.DistributionModifierFactory
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
+import org.pillarone.riskanalytics.domain.utils.DistributionType
 
 /**
  * <p>A DynamicClaimsGenerators is a container for TypeableClaimsGenerators which can be managed from the UI
@@ -43,9 +41,9 @@ public class DynamicClaimsGenerators extends DynamicComposedComponent {
 
     public TypableClaimsGenerator createDefaultSubComponent() {
         TypableClaimsGenerator newComponent = new TypableClaimsGenerator(
-                parmClaimsModel: ClaimsGeneratorStrategyFactory.getStrategy(ClaimsGeneratorType.ATTRITIONAL, [
-                        claimsSizeDistribution: RandomDistributionFactory.getDistribution(DistributionType.CONSTANT, ['constant': 0d]),
-                        claimsSizeModification: DistributionModifierFactory.getModifier(DistributionModifier.NONE, [:]),
+                parmClaimsModel: ClaimsGeneratorType.getStrategy(ClaimsGeneratorType.ATTRITIONAL, [
+                        claimsSizeDistribution: DistributionType.getStrategy(DistributionType.CONSTANT, ['constant': 0d]),
+                        claimsSizeModification: DistributionModifier.getStrategy(DistributionModifier.NONE, [:]),
                         claimsSizeBase: Exposure.ABSOLUTE]))
         return newComponent
     }

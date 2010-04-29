@@ -1,7 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.generators.copulas
 
-import org.pillarone.riskanalytics.domain.pc.severities.SeverityExtractor
 import org.pillarone.riskanalytics.domain.pc.generators.severities.Severity
+import org.pillarone.riskanalytics.domain.pc.severities.SeverityExtractor
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com

@@ -1,10 +1,9 @@
 package org.pillarone.riskanalytics.domain.pc.generators.copulas
 
 import org.pillarone.riskanalytics.core.parameterization.AbstractMultiDimensionalParameter
-import org.pillarone.riskanalytics.domain.utils.RandomDistribution
-import org.pillarone.riskanalytics.domain.utils.IRandomNumberGenerator
-import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
 import org.pillarone.riskanalytics.domain.utils.DistributionType
+import org.pillarone.riskanalytics.domain.utils.IRandomNumberGenerator
+import org.pillarone.riskanalytics.domain.utils.RandomDistribution
 import org.pillarone.riskanalytics.domain.utils.RandomNumberGeneratorFactory
 
 /**
@@ -21,7 +20,7 @@ abstract class GumbelCopulaStrategy extends AbstractCopulaStrategy {
 
     public List<Number> getRandomVector() {
         List<Number> randomVector = new ArrayList()
-        distribution = RandomDistributionFactory.getDistribution(DistributionType.UNIFORM, ["a": 0d, "b": 1d])
+        distribution = DistributionType.getStrategy(DistributionType.UNIFORM, ["a": 0d, "b": 1d])
         generatorUniform = RandomNumberGeneratorFactory.getGenerator(distribution)
         double s = (double) generatorUniform.nextValue()
         double q = (double) generatorUniform.nextValue()

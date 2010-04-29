@@ -1,9 +1,6 @@
 package org.pillarone.riskanalytics.domain.utils
 
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
-import org.pillarone.riskanalytics.domain.utils.DistributionType
-import org.pillarone.riskanalytics.domain.utils.IRandomVariateDistribution
-import org.pillarone.riskanalytics.domain.utils.RandomVariateDistributionFactory
 
 class RandomVariateDistributionFactoryTests extends GroovyTestCase {
 

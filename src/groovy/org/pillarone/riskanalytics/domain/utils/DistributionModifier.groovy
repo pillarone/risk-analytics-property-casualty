@@ -41,18 +41,36 @@ class DistributionModifier extends AbstractParameterObjectClassifier {
         types[type]
     }
 
-    public String getConstructionString(Map parameters) {
-        TreeMap sortedParameters = new TreeMap()
-        sortedParameters.putAll(parameters)
-        "org.pillarone.riskanalytics.domain.utils.DistributionModifierFactory.getModifier(${this.class.name}.${typeName.toUpperCase()}, $sortedParameters)"
-    }
-
     public List<IParameterObjectClassifier> getClassifiers() {
         all
     }
 
     public IParameterObject getParameterObject(Map parameters) {
-        return DistributionModifierFactory.getModifier(this, parameters)
+        return DistributionModifier.getStrategy(this, parameters)
     }
 
+    static DistributionModified getStrategy(DistributionModifier modifier, Map parameters) {
+        DistributionModified distributionModified
+        switch (modifier) {
+            case DistributionModifier.NONE:
+                distributionModified = new DistributionModified(type: DistributionModifier.NONE, parameters: [:])
+                break
+            case DistributionModifier.CENSORED:
+                distributionModified = new DistributionModified(type: DistributionModifier.CENSORED, parameters: parameters)
+                break
+            case DistributionModifier.CENSOREDSHIFT:
+                distributionModified = new DistributionModified(type: DistributionModifier.CENSOREDSHIFT, parameters: parameters)
+                break
+            case DistributionModifier.TRUNCATED:
+                distributionModified = new DistributionModified(type: DistributionModifier.TRUNCATED, parameters: parameters)
+                break
+            case DistributionModifier.TRUNCATEDSHIFT:
+                distributionModified = new DistributionModified(type: DistributionModifier.TRUNCATEDSHIFT, parameters: parameters)
+                break
+            case DistributionModifier.SHIFT:
+                distributionModified = new DistributionModified(type: DistributionModifier.SHIFT, parameters: parameters)
+                break
+        }
+        return distributionModified
+    }
 }

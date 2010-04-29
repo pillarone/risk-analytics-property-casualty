@@ -1,5 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.programs
 
+import org.pillarone.riskanalytics.core.components.Component
+import org.pillarone.riskanalytics.core.example.component.TestComponent
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope
@@ -12,13 +14,14 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.Commission
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionTests
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.applicable.ApplicableStrategyType
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingSegment
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.*
-import org.pillarone.riskanalytics.core.components.Component
-import org.pillarone.riskanalytics.core.example.component.TestComponent
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiCoverAttributeReinsuranceContract
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContract
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit.LimitStrategyType
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingSegment
 
 /**
  * @author shartmann (at) munichre (dot) com
@@ -36,7 +39,7 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
     static MultiCoverAttributeReinsuranceContract getQuotaShare(int quotaShare/*units=percent!*/, int priority, double limit = 0d) {
         new MultiCoverAttributeReinsuranceContract(
             parmInuringPriority: priority,
-            parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+            parmContractStrategy: ReinsuranceContractType.getStrategy(
                 ReinsuranceContractType.QUOTASHARE, [
                     "quotaShare": 0.01d * quotaShare,
                     "coveredByReinsurer": 1d,
@@ -51,7 +54,7 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
 
     static MultiCoverAttributeReinsuranceContract getWXL(double attachment){
         new MultiCoverAttributeReinsuranceContract(
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.WXL,
                         ["attachmentPoint": attachment,
                                 "limit": 20,

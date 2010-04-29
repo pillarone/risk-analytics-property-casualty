@@ -2,13 +2,11 @@ package org.pillarone.riskanalytics.domain.pc.reserves.fasttrack
 
 import org.pillarone.riskanalytics.core.components.Component
 import org.pillarone.riskanalytics.core.components.PeriodStore
-import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope
-import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
-import org.pillarone.riskanalytics.domain.utils.DistributionType
-import org.pillarone.riskanalytics.domain.utils.DistributionModifierFactory
-import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
+import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope
 import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
+import org.pillarone.riskanalytics.domain.utils.DistributionModifier
+import org.pillarone.riskanalytics.domain.utils.DistributionType
 
 /**
  * @author shartmann (at) munichre (dot) com
@@ -18,9 +16,9 @@ class ReservesGeneratorLeanTests extends GroovyTestCase {
 
     void testUsageInitialReserves() {
         ReservesGeneratorLean reservesGeneratorLean = new ReservesGeneratorLean(
-                parmDistribution: RandomDistributionFactory.getDistribution(DistributionType.CONSTANT,
+                parmDistribution: DistributionType.getStrategy(DistributionType.CONSTANT,
                         ["constant": 1.2d]),
-                parmModification: DistributionModifierFactory.getModifier(DistributionModifier.NONE, new HashMap()),
+                parmModification: DistributionModifier.getStrategy(DistributionModifier.NONE, new HashMap()),
                 parmPeriodPaymentPortion: 0.3d,
                 parmInitialReserves: 100d,
                 parmReservesModel: ReservesGeneratorStrategyType.getStrategy(
@@ -49,9 +47,9 @@ class ReservesGeneratorLeanTests extends GroovyTestCase {
 
     void testUsageAbsoluteReserve() {
         ReservesGeneratorLean reservesGeneratorLean = new ReservesGeneratorLean(
-                parmDistribution: RandomDistributionFactory.getDistribution(DistributionType.CONSTANT,
+                parmDistribution: DistributionType.getStrategy(DistributionType.CONSTANT,
                         ["constant": 200d]),
-                parmModification: DistributionModifierFactory.getModifier(DistributionModifier.NONE, new HashMap()),
+                parmModification: DistributionModifier.getStrategy(DistributionModifier.NONE, new HashMap()),
                 parmPeriodPaymentPortion: 0.3d,
                 parmInitialReserves: 100d,
                 parmReservesModel: ReservesGeneratorStrategyType.getStrategy(
@@ -79,9 +77,9 @@ class ReservesGeneratorLeanTests extends GroovyTestCase {
 
     void testUsagePriorPeriod() {
         ReservesGeneratorLean reservesGeneratorLean = new ReservesGeneratorLean(
-                parmDistribution: RandomDistributionFactory.getDistribution(DistributionType.CONSTANT,
+                parmDistribution: DistributionType.getStrategy(DistributionType.CONSTANT,
                         ["constant": 1.0d]),
-                parmModification: DistributionModifierFactory.getModifier(DistributionModifier.NONE, new HashMap()),
+                parmModification: DistributionModifier.getStrategy(DistributionModifier.NONE, new HashMap()),
                 parmPeriodPaymentPortion: 0.3d,
                 parmInitialReserves: 100d,
                 parmReservesModel: ReservesGeneratorStrategyType.getStrategy(
@@ -109,9 +107,9 @@ class ReservesGeneratorLeanTests extends GroovyTestCase {
 
     void testUsagePriorPeriodWithIncomingPackets() {
         ReservesGeneratorLean reservesGeneratorLean = new ReservesGeneratorLean(
-                parmDistribution: RandomDistributionFactory.getDistribution(DistributionType.CONSTANT,
+                parmDistribution: DistributionType.getStrategy(DistributionType.CONSTANT,
                         ["constant": 1.0d]),
-                parmModification: DistributionModifierFactory.getModifier(DistributionModifier.NONE, new HashMap()),
+                parmModification: DistributionModifier.getStrategy(DistributionModifier.NONE, new HashMap()),
                 parmPeriodPaymentPortion: 0.3d,
                 parmInitialReserves: 100d,
                 parmReservesModel: ReservesGeneratorStrategyType.getStrategy(
@@ -143,9 +141,9 @@ class ReservesGeneratorLeanTests extends GroovyTestCase {
 
     void testUsageAbsoluteReserveWithIncomingPackets() {
         ReservesGeneratorLean reservesGeneratorLean = new ReservesGeneratorLean(
-                parmDistribution: RandomDistributionFactory.getDistribution(DistributionType.CONSTANT,
+                parmDistribution: DistributionType.getStrategy(DistributionType.CONSTANT,
                         ["constant": 200d]),
-                parmModification: DistributionModifierFactory.getModifier(DistributionModifier.NONE, new HashMap()),
+                parmModification: DistributionModifier.getStrategy(DistributionModifier.NONE, new HashMap()),
                 parmPeriodPaymentPortion: 0.3d,
                 parmInitialReserves: 100d,
                 parmReservesModel: ReservesGeneratorStrategyType.getStrategy(
@@ -177,9 +175,9 @@ class ReservesGeneratorLeanTests extends GroovyTestCase {
 
     void testUsageInitialReservesWithIncomingPackets() {
         ReservesGeneratorLean reservesGeneratorLean = new ReservesGeneratorLean(
-                parmDistribution: RandomDistributionFactory.getDistribution(DistributionType.CONSTANT,
+                parmDistribution: DistributionType.getStrategy(DistributionType.CONSTANT,
                         ["constant": 1.0d]),
-                parmModification: DistributionModifierFactory.getModifier(DistributionModifier.NONE, new HashMap()),
+                parmModification: DistributionModifier.getStrategy(DistributionModifier.NONE, new HashMap()),
                 parmPeriodPaymentPortion: 0.3d,
                 parmInitialReserves: 100d,
                 parmReservesModel: ReservesGeneratorStrategyType.getStrategy(
@@ -211,9 +209,9 @@ class ReservesGeneratorLeanTests extends GroovyTestCase {
 
     void testUsagePriorPeriodWithIncomingFilteredPackets() {
         ReservesGeneratorLean reservesGeneratorLean = new ReservesGeneratorLean(
-                parmDistribution: RandomDistributionFactory.getDistribution(DistributionType.CONSTANT,
+                parmDistribution: DistributionType.getStrategy(DistributionType.CONSTANT,
                         ["constant": 1.0d]),
-                parmModification: DistributionModifierFactory.getModifier(DistributionModifier.NONE, new HashMap()),
+                parmModification: DistributionModifier.getStrategy(DistributionModifier.NONE, new HashMap()),
                 parmPeriodPaymentPortion: 0.3d,
                 parmInitialReserves: 100d,
                 parmReservesModel: ReservesGeneratorStrategyType.getStrategy(
@@ -249,9 +247,9 @@ class ReservesGeneratorLeanTests extends GroovyTestCase {
 
     void testUsageAbsoluteReserveWithIncomingFilteredPackets() {
         ReservesGeneratorLean reservesGeneratorLean = new ReservesGeneratorLean(
-                parmDistribution: RandomDistributionFactory.getDistribution(DistributionType.CONSTANT,
+                parmDistribution: DistributionType.getStrategy(DistributionType.CONSTANT,
                         ["constant": 200d]),
-                parmModification: DistributionModifierFactory.getModifier(DistributionModifier.NONE, new HashMap()),
+                parmModification: DistributionModifier.getStrategy(DistributionModifier.NONE, new HashMap()),
                 parmPeriodPaymentPortion: 0.3d,
                 parmInitialReserves: 100d,
                 parmReservesModel: ReservesGeneratorStrategyType.getStrategy(

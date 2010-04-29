@@ -2,9 +2,9 @@ package org.pillarone.riskanalytics.domain.pc.generators.severities;
 
 import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.core.packets.PacketList;
+import org.pillarone.riskanalytics.domain.pc.generators.frequency.Frequency;
 import org.pillarone.riskanalytics.domain.utils.IRandomNumberGenerator;
 import org.pillarone.riskanalytics.domain.utils.RandomNumberGeneratorFactory;
-import org.pillarone.riskanalytics.domain.pc.generators.frequency.Frequency;
 
 /**
  *  The severity generator produces severities with number of

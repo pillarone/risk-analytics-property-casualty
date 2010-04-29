@@ -1,9 +1,9 @@
 package org.pillarone.riskanalytics.domain.pc.generators.copulas
 
 import org.pillarone.riskanalytics.core.parameterization.AbstractMultiDimensionalParameter
-import umontreal.iro.lecuyer.probdist.StudentDist
 import org.pillarone.riskanalytics.core.parameterization.MatrixMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.pc.generators.frequency.Frequency
+import umontreal.iro.lecuyer.probdist.StudentDist
 
 /**
  *  For the Correlation test , you  need to uncomment the count and manipulate it manually. Also the tolerance

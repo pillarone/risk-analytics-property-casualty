@@ -1,13 +1,12 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts
 
+import org.pillarone.riskanalytics.core.packets.SingleValuePacket
+import org.pillarone.riskanalytics.core.util.TestProbe
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
-
-import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
 import org.pillarone.riskanalytics.domain.pc.constants.LPTPremiumBase
-import org.pillarone.riskanalytics.core.util.TestProbe
+import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoTests
-import org.pillarone.riskanalytics.core.packets.SingleValuePacket
 
 /**
  * @author shartmann (at) munichre (dot) com
@@ -16,19 +15,19 @@ class LossPortfolioTransferContractStrategyTests extends GroovyTestCase {
 
     static ReinsuranceContract getContractAbsolute0() {
         return new ReinsuranceContract(
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.LOSSPORTFOLIOTRANSFER, ["quotaShare": 0.3d, "premiumBase": LPTPremiumBase.ABSOLUTE, "premium": 0d, "coveredByReinsurer": 1d]))
     }
 
     static ReinsuranceContract getContractAbsolute100() {
         return new ReinsuranceContract(
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.LOSSPORTFOLIOTRANSFER, ["quotaShare": 0.3d, "premiumBase": LPTPremiumBase.ABSOLUTE, "premium": 100d, "coveredByReinsurer": 1d]))
     }
 
     static ReinsuranceContract getContractRelative05() {
         return new ReinsuranceContract(
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.LOSSPORTFOLIOTRANSFER, ["quotaShare": 0.3d, "premiumBase": LPTPremiumBase.RELATIVE_TO_CEDED_RESERVES_VOLUME, "premium": 200d, "coveredByReinsurer": 0.8]))
     }
 

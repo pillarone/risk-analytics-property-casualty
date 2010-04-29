@@ -1,17 +1,14 @@
 package org.pillarone.riskanalytics.domain.pc.lob
 
-import org.pillarone.riskanalytics.core.util.TestProbe
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
-import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
-import org.pillarone.riskanalytics.domain.utils.ClaimSizeDistributionType
-import org.pillarone.riskanalytics.domain.utils.DistributionType
-import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocatorStrategyFactory
+import org.pillarone.riskanalytics.core.util.TestProbe
 import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocatorType
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.QuotaShareContractStrategyTests
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.WXLContractStrategyTests
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.StopLossContractStrategyTests
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.WXLContractStrategyTests
+import org.pillarone.riskanalytics.domain.utils.ClaimSizeDistributionType
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
-import org.pillarone.riskanalytics.domain.utils.DistributionModifierFactory
+import org.pillarone.riskanalytics.domain.utils.DistributionType
 
 class ExampleLobTests extends GroovyTestCase {
 
@@ -28,15 +25,15 @@ class ExampleLobTests extends GroovyTestCase {
                 ['maximum sum insured', 'average sum insured', 'premium', 'number of policies/risks'],
                 )
 
-        lob.subClaimsGenerator.subAttritionalClaimsGenerator.parmDistribution = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.CONSTANT, ["constant": attritionalClaim])
-        lob.subClaimsGenerator.subSingleClaimsGenerator.subFrequencyGenerator.parmDistribution = RandomDistributionFactory.getDistribution(DistributionType.CONSTANT, ["constant": numberOfLargeClaims])
-        lob.subClaimsGenerator.subSingleClaimsGenerator.subClaimsGenerator.parmDistribution = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.CONSTANT, ["constant": largeClaim])
+        lob.subClaimsGenerator.subAttritionalClaimsGenerator.parmDistribution = DistributionType.getStrategy(ClaimSizeDistributionType.CONSTANT, ["constant": attritionalClaim])
+        lob.subClaimsGenerator.subSingleClaimsGenerator.subFrequencyGenerator.parmDistribution = DistributionType.getStrategy(DistributionType.CONSTANT, ["constant": numberOfLargeClaims])
+        lob.subClaimsGenerator.subSingleClaimsGenerator.subClaimsGenerator.parmDistribution = DistributionType.getStrategy(ClaimSizeDistributionType.CONSTANT, ["constant": largeClaim])
         lob.subRiProgram.subContract1.parmContractStrategy = QuotaShareContractStrategyTests.getQuotaShareContract(0.5).parmContractStrategy
         lob.subRiProgram.subContract2.parmContractStrategy = WXLContractStrategyTests.getContract0().parmContractStrategy
         lob.subRiProgram.subContract3.parmContractStrategy = StopLossContractStrategyTests.getContractSL0().parmContractStrategy
-        lob.subAllocator.parmRiskAllocatorStrategy=RiskAllocatorStrategyFactory.getAllocatorStrategy(RiskAllocatorType.SUMINSUREDGENERATOR, [
-                distribution: RandomDistributionFactory.getDistribution(DistributionType.NORMAL, ["mean": 0d, "stDev": 1d]),
-                modification: DistributionModifierFactory.getModifier(DistributionModifier.NONE, [:]),
+        lob.subAllocator.parmRiskAllocatorStrategy=RiskAllocatorType.getStrategy(RiskAllocatorType.SUMINSUREDGENERATOR, [
+                distribution: DistributionType.getStrategy(DistributionType.NORMAL, ["mean": 0d, "stDev": 1d]),
+                modification: DistributionModifier.getStrategy(DistributionModifier.NONE, [:]),
                 bandMean: 1d/3d])
         lob.validateParameterization()
 

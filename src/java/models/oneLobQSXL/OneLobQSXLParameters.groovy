@@ -1,15 +1,14 @@
 package models.oneLobQSXL
 
-import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
-import org.pillarone.riskanalytics.domain.utils.FrequencyDistributionType
-import org.pillarone.riskanalytics.domain.pc.constants.FrequencyBase
-import org.pillarone.riskanalytics.domain.utils.ClaimSizeDistributionType
+import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.pc.constants.Exposure
+import org.pillarone.riskanalytics.domain.pc.constants.FrequencyBase
+import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.QuotaShareContractStrategy
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.WXLContractStrategy
-import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
-import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
-
+import org.pillarone.riskanalytics.domain.utils.ClaimSizeDistributionType
+import org.pillarone.riskanalytics.domain.utils.DistributionType
+import org.pillarone.riskanalytics.domain.utils.FrequencyDistributionType
 
 model = OneLobQSXLModel
 periodCount = 2
@@ -17,12 +16,12 @@ allPeriods = 0..<periodCount
 
 components {
     frequencyGenerator {
-        parmDistribution[allPeriods] = RandomDistributionFactory.getDistribution(FrequencyDistributionType.POISSON, ["lambda": 1])
+        parmDistribution[allPeriods] = DistributionType.getStrategy(FrequencyDistributionType.POISSON, ["lambda": 1])
         parmBase[allPeriods] = FrequencyBase.ABSOLUTE
     }
     claimsGenerator {
-        parmDistribution[allPeriods] = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.NORMAL, ["mean": 20, "stDev": 10])
-        parmDistribution[allPeriods] = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.PARETO, ["alpha": 1, "beta": 2])
+        parmDistribution[allPeriods] = DistributionType.getStrategy(ClaimSizeDistributionType.NORMAL, ["mean": 20, "stDev": 10])
+        parmDistribution[allPeriods] = DistributionType.getStrategy(ClaimSizeDistributionType.PARETO, ["alpha": 1, "beta": 2])
         parmBase[allPeriods] = Exposure.ABSOLUTE
     }
     quotaShare {

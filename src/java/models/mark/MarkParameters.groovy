@@ -1,13 +1,11 @@
 package models.mark
 
-import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
-import org.pillarone.riskanalytics.domain.utils.FrequencyDistributionType
+import org.pillarone.riskanalytics.domain.pc.constants.Exposure
 import org.pillarone.riskanalytics.domain.pc.constants.FrequencyBase
 import org.pillarone.riskanalytics.domain.utils.ClaimSizeDistributionType
-import org.pillarone.riskanalytics.domain.utils.DistributionModifierFactory
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
-import org.pillarone.riskanalytics.domain.pc.constants.Exposure
-
+import org.pillarone.riskanalytics.domain.utils.DistributionType
+import org.pillarone.riskanalytics.domain.utils.FrequencyDistributionType
 
 model = MarkModel
 periodCount = 2
@@ -19,15 +17,15 @@ lambda = 0.3
 
 components {
     frequencyGenerator {
-        parmDistribution[allPeriods] = RandomDistributionFactory.getDistribution(FrequencyDistributionType.POISSON, ["lambda": lambda])
+        parmDistribution[allPeriods] = DistributionType.getStrategy(FrequencyDistributionType.POISSON, ["lambda": lambda])
         parmBase[allPeriods] = FrequencyBase.ABSOLUTE
     }
     claimsGeneratorFire {
-        parmDistribution[allPeriods] = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.NORMAL, ["mean": 10.4d, "stDev": 2.1d])
-        parmModification[allPeriods] = DistributionModifierFactory.getModifier(DistributionModifier.TRUNCATED, ["min": 5d, "max": 10d])
+        parmDistribution[allPeriods] = DistributionType.getStrategy(ClaimSizeDistributionType.NORMAL, ["mean": 10.4d, "stDev": 2.1d])
+        parmModification[allPeriods] = DistributionModifier.getStrategy(DistributionModifier.TRUNCATED, ["min": 5d, "max": 10d])
         parmBase[allPeriods] = Exposure.ABSOLUTE
     }
     claimsGeneratorMotor {
-        parmDistribution[allPeriods] = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.NORMAL, ["mean": (2 * mean), "stDev": (0.75 * stDev)])
+        parmDistribution[allPeriods] = DistributionType.getStrategy(ClaimSizeDistributionType.NORMAL, ["mean": (2 * mean), "stDev": (0.75 * stDev)])
     }
 }

@@ -17,7 +17,7 @@ class QuotaShareContractStrategyTests extends GroovyTestCase {
                                 isAAD ? (isAAL ? LimitStrategyType.AALAAD : LimitStrategyType.AAD) :
                                         (isAAL ? LimitStrategyType.AAL : LimitStrategyType.NONE)
         return new ReinsuranceContract(
-            parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+            parmContractStrategy: ReinsuranceContractType.getStrategy(
                 ReinsuranceContractType.QUOTASHARE, [
                     "quotaShare": quotaShare,
                     "coveredByReinsurer": coveredByReinsurer,

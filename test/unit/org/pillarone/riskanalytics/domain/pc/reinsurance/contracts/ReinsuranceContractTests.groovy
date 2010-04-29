@@ -1,8 +1,8 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts
 
+import org.pillarone.riskanalytics.core.util.TestProbe
 import org.pillarone.riskanalytics.core.wiring.WireCategory
 import org.pillarone.riskanalytics.core.wiring.WiringUtils
-import org.pillarone.riskanalytics.core.util.TestProbe
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
 

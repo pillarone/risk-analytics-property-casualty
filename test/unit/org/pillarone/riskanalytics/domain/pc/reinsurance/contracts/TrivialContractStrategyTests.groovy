@@ -11,7 +11,7 @@ class TrivialContractStrategyTests extends GroovyTestCase {
 
     static ReinsuranceContract getContract0() {
         return new ReinsuranceContract(
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.TRIVIAL, [:]))
+                parmContractStrategy: ReinsuranceContractType.getStrategy(ReinsuranceContractType.TRIVIAL, [:]))
     }
 
     void testCalculateCededClaimsOnly() {

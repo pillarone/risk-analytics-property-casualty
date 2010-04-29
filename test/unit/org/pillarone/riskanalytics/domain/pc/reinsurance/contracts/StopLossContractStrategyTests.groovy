@@ -1,8 +1,8 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts
 
-import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
+import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoTests
 
@@ -14,7 +14,7 @@ class StopLossContractStrategyTests extends GroovyTestCase {
 
     static ReinsuranceContract getContractSL0() {
         return new ReinsuranceContract(
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.STOPLOSS,
                         ["attachmentPoint": 1.20,
                                 "limit": 0.40,
@@ -25,7 +25,7 @@ class StopLossContractStrategyTests extends GroovyTestCase {
 
     static ReinsuranceContract getContractSL1() {
         return new ReinsuranceContract(
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.STOPLOSS,
                         ["attachmentPoint": 1.15,
                                 "limit": 0.15,
@@ -36,7 +36,7 @@ class StopLossContractStrategyTests extends GroovyTestCase {
 
     static ReinsuranceContract getContractSLAbs0() {
         return new ReinsuranceContract(
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.STOPLOSS,
                         ["attachmentPoint": 2400,
                                 "limit": 800,

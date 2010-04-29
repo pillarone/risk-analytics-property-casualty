@@ -1,9 +1,9 @@
 package models.reinsuranceComparison
 
 import org.pillarone.riskanalytics.core.model.StochasticModel
+import org.pillarone.riskanalytics.domain.pc.aggregators.ClaimsAggregator
 import org.pillarone.riskanalytics.domain.pc.lob.ExampleLob4RIPrograms
 import org.pillarone.riskanalytics.domain.pc.lob.PropertyLob4RIPrograms
-import org.pillarone.riskanalytics.domain.pc.aggregators.ClaimsAggregator
 
 class ReinsuranceComparisonModel extends StochasticModel {
     ExampleLob4RIPrograms mtpl

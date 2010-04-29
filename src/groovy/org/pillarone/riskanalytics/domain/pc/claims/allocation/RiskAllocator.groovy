@@ -2,9 +2,9 @@ package org.pillarone.riskanalytics.domain.pc.claims.allocation
 
 import org.pillarone.riskanalytics.core.components.Component
 import org.pillarone.riskanalytics.core.packets.PacketList
+import org.pillarone.riskanalytics.domain.pc.allocators.AllocationTable
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
-import org.pillarone.riskanalytics.domain.pc.allocators.AllocationTable
 
 /**
  * @deprecated newer version available in domain.pc.claims package 
@@ -18,7 +18,7 @@ import org.pillarone.riskanalytics.domain.pc.allocators.AllocationTable
 @Deprecated
 class RiskAllocator extends Component {
     /** Defines the kind of allocation and parameterization       */
-    IRiskAllocatorStrategy parmRiskAllocatorStrategy = RiskAllocatorStrategyFactory.getAllocatorStrategy(RiskAllocatorType.NONE, [:])
+    IRiskAllocatorStrategy parmRiskAllocatorStrategy = RiskAllocatorType.getStrategy(RiskAllocatorType.NONE, [:])
 
     /** The claims that should be associated with underlying exposure.           */
     PacketList<Claim> inClaims = new PacketList(Claim)

@@ -1,19 +1,18 @@
 package models.onelobsurplus
 
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
-import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocatorStrategyFactory
 import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocatorType
 import org.pillarone.riskanalytics.domain.pc.constants.Exposure
 import org.pillarone.riskanalytics.domain.pc.constants.FrequencyBase
 import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
 import org.pillarone.riskanalytics.domain.pc.constants.RiskBandAllocationBase
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.QuotaShareContractStrategy
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.SurplusContractStrategy
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.WXLContractStrategy
 import org.pillarone.riskanalytics.domain.utils.ClaimSizeDistributionType
+import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.domain.utils.FrequencyDistributionType
-import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
-import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
 
 model = OneLobSurplusModel
 periodCount = 2
@@ -30,19 +29,19 @@ components {
         parmAllocationBaseSingleClaims[allPeriods] = RiskBandAllocationBase.NUMBER_OF_POLICIES
     }
     frequencyGenerator {
-        parmDistribution[allPeriods] = RandomDistributionFactory.getDistribution(FrequencyDistributionType.POISSON, ["lambda": 1d])
+        parmDistribution[allPeriods] = DistributionType.getStrategy(FrequencyDistributionType.POISSON, ["lambda": 1d])
         parmBase[allPeriods] = FrequencyBase.ABSOLUTE
     }
     singleClaimsGenerator {
-        parmDistribution[allPeriods] = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.PARETO, ['alpha': 1.2d, 'beta': 5000d])
+        parmDistribution[allPeriods] = DistributionType.getStrategy(ClaimSizeDistributionType.PARETO, ['alpha': 1.2d, 'beta': 5000d])
         parmBase[allPeriods] = Exposure.ABSOLUTE
     }
     attritionalClaimsGenerator {
-        parmDistribution[allPeriods] = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.NORMAL, ['mean': 100000d, 'stDev': 5000d])
+        parmDistribution[allPeriods] = DistributionType.getStrategy(ClaimSizeDistributionType.NORMAL, ['mean': 100000d, 'stDev': 5000d])
         parmBase[allPeriods] = Exposure.ABSOLUTE
     }
     claimsAllocator {
-        parmRiskAllocatorStrategy[allPeriods] = RiskAllocatorStrategyFactory.getAllocatorStrategy(RiskAllocatorType.RISKTOBAND, [:])
+        parmRiskAllocatorStrategy[allPeriods] = RiskAllocatorType.getStrategy(RiskAllocatorType.RISKTOBAND, [:])
     }
     quotaShare {
 		parmContractStrategy[allPeriods]= new QuotaShareContractStrategy("quotaShare":0.2, "coveredByReinsurer": 1d)

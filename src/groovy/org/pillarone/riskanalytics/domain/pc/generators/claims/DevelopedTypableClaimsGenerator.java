@@ -1,8 +1,8 @@
 package org.pillarone.riskanalytics.domain.pc.generators.claims;
 
+import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
-import org.pillarone.riskanalytics.core.packets.PacketList;
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com

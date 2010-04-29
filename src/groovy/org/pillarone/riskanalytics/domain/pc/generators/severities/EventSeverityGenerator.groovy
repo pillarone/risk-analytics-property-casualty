@@ -1,16 +1,10 @@
 package org.pillarone.riskanalytics.domain.pc.generators.severities
 
-import org.pillarone.riskanalytics.domain.pc.generators.GeneratorCachingComponent
 import org.pillarone.riskanalytics.core.packets.PacketList
-import org.pillarone.riskanalytics.domain.utils.RandomDistribution
-import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
-import org.pillarone.riskanalytics.domain.utils.DistributionType
-import org.pillarone.riskanalytics.domain.utils.DistributionModified
-import org.pillarone.riskanalytics.domain.utils.DistributionModifierFactory
-import org.pillarone.riskanalytics.domain.utils.DistributionModifier
+import org.pillarone.riskanalytics.domain.pc.generators.GeneratorCachingComponent
 import org.pillarone.riskanalytics.domain.pc.generators.frequency.Frequency
-import org.pillarone.riskanalytics.domain.utils.IRandomNumberGenerator
 import org.pillarone.riskanalytics.domain.utils.randomnumbers.UniformDoubleList
+import org.pillarone.riskanalytics.domain.utils.*
 
 /**
  *  The event severity generator produces event severities with number of
@@ -24,8 +18,8 @@ import org.pillarone.riskanalytics.domain.utils.randomnumbers.UniformDoubleList
  */
 class EventSeverityGenerator extends GeneratorCachingComponent {
 
-    RandomDistribution parmDistribution = RandomDistributionFactory.getDistribution(DistributionType.UNIFORM, ["a": 0, "b": 1]);
-    DistributionModified parmModification = DistributionModifierFactory.getModifier(DistributionModifier.NONE, new HashMap());
+    RandomDistribution parmDistribution = DistributionType.getStrategy(DistributionType.UNIFORM, ["a": 0, "b": 1]);
+    DistributionModified parmModification = DistributionModifier.getStrategy(DistributionModifier.NONE, new HashMap());
 
     /** Input channel for the number of severities to be generated     */
     PacketList<Frequency> inSeverityCount = new PacketList(Frequency)

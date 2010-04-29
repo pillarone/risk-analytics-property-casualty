@@ -2,8 +2,8 @@ package org.pillarone.riskanalytics.domain.pc.reserves.fasttrack
 
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
+import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
 
 /**
  * @author shartmann (at) munichre (dot) com

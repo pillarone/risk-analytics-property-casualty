@@ -7,9 +7,9 @@ import org.pillarone.riskanalytics.domain.pc.generators.claims.DynamicDevelopedC
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.DynamicDependencies
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.DynamicMultipleDependencies
 import org.pillarone.riskanalytics.domain.pc.lob.DynamicConfigurableLobsWithReserves
+import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.ReinsuranceWithBouquetCommissionProgram
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.DynamicReservesGeneratorLean
 import org.pillarone.riskanalytics.domain.pc.underwriting.DynamicUnderwritingSegments
-import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.ReinsuranceWithBouquetCommissionProgram
 
 /**
  * @author shartmann (at) munichre (dot) com

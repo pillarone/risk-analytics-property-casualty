@@ -4,7 +4,6 @@ import org.pillarone.riskanalytics.domain.pc.generators.copulas.CopulaStrategyFa
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.LobCopulaType
 import org.pillarone.riskanalytics.core.parameterization.MatrixMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.SimpleMultiDimensionalParameter
-import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 
 model = CorrelatedAttritionalClaimsModel
@@ -22,10 +21,10 @@ components {
 
     }
     fireClaims {
-        parmDistribution[allPeriods] = RandomDistributionFactory.getDistribution(DistributionType.LOGNORMAL, ["mean": 100000, "stDev": 200])
+        parmDistribution[allPeriods] = DistributionType.getStrategy(DistributionType.LOGNORMAL, ["mean": 100000, "stDev": 200])
     }
     hullClaims {
-        parmDistribution[allPeriods] = RandomDistributionFactory.getDistribution(DistributionType.LOGNORMAL, ["mean": 100000, "stDev": 200])
+        parmDistribution[allPeriods] = DistributionType.getStrategy(DistributionType.LOGNORMAL, ["mean": 100000, "stDev": 200])
     }
 
 }

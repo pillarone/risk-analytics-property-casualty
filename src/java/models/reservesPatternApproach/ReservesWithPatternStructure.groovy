@@ -3,8 +3,6 @@
  */
 package models.reservesPatternApproach
 
-import models.reservesPatternApproach.ReservesWithPatternModel
-
 model = ReservesWithPatternModel
 periodCount = 1
 

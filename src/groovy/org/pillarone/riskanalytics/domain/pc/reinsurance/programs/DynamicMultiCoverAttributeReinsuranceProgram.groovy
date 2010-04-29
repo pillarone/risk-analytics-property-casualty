@@ -1,16 +1,15 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.programs
 
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractStrategyFactory
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiCoverAttributeReinsuranceContract
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.CoverAttributeStrategyType
-import org.pillarone.riskanalytics.domain.pc.constants.IncludeType
-import org.pillarone.riskanalytics.domain.pc.reinsurance.ReinsuranceResultWithCommissionPacket
 import org.pillarone.riskanalytics.core.packets.PacketList
-import org.pillarone.riskanalytics.domain.pc.constants.ReinsuranceContractBase
-import org.pillarone.riskanalytics.domain.pc.claims.MarketClaimsMerger
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContract
 import org.pillarone.riskanalytics.core.wiring.WireCategory
+import org.pillarone.riskanalytics.domain.pc.claims.MarketClaimsMerger
+import org.pillarone.riskanalytics.domain.pc.constants.IncludeType
+import org.pillarone.riskanalytics.domain.pc.constants.ReinsuranceContractBase
+import org.pillarone.riskanalytics.domain.pc.reinsurance.ReinsuranceResultWithCommissionPacket
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiCoverAttributeReinsuranceContract
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContract
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.CoverAttributeStrategyType
 import org.pillarone.riskanalytics.domain.pc.underwriting.MarketUnderwritingInfoMerger
 
 /**
@@ -23,7 +22,7 @@ public class DynamicMultiCoverAttributeReinsuranceProgram extends DynamicReinsur
     public MultiCoverAttributeReinsuranceContract createDefaultSubComponent() {
         MultiCoverAttributeReinsuranceContract contract = new MultiCoverAttributeReinsuranceContract(
                 parmInuringPriority: 0,
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.TRIVIAL, [:]),
+                parmContractStrategy: ReinsuranceContractType.getStrategy(ReinsuranceContractType.TRIVIAL, [:]),
                 parmCover: CoverAttributeStrategyType.getStrategy(
                             CoverAttributeStrategyType.ALL, ['reserves': IncludeType.NOTINCLUDED]))
         return contract

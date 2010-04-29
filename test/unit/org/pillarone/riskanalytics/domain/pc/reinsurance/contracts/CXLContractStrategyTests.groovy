@@ -1,11 +1,11 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts
 
+import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.util.TestProbe
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
-import org.pillarone.riskanalytics.domain.pc.generators.severities.Event
-import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
-import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
+import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
+import org.pillarone.riskanalytics.domain.pc.generators.severities.Event
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoTests
 
@@ -35,7 +35,7 @@ class CXLContractStrategyTests extends GroovyTestCase {
 
     static ReinsuranceContract getContract0() {
         return new ReinsuranceContract(
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.CXL,
                         ["attachmentPoint": 20,
                          "limit": 30,
@@ -48,7 +48,7 @@ class CXLContractStrategyTests extends GroovyTestCase {
 
     static ReinsuranceContract getContract1() {
         return new ReinsuranceContract(
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.CXL,
                         ["attachmentPoint": 80,
                          "limit": 20,

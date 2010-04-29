@@ -1,22 +1,18 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts
 
-import groovy.mock.interceptor.StubFor
 import models.test.StructureTestModel
 import org.pillarone.riskanalytics.core.components.Component
-import org.pillarone.riskanalytics.core.parameterization.StructureInformation
+import org.pillarone.riskanalytics.core.example.component.TestComponent
+import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
+import org.pillarone.riskanalytics.core.parameterization.ConstrainedString
 import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope
 import org.pillarone.riskanalytics.core.util.TestProbe
-import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
-import org.pillarone.riskanalytics.domain.pc.constants.Reinsurer
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
-
-import org.pillarone.riskanalytics.core.example.component.TestComponent
-import org.pillarone.riskanalytics.domain.pc.reinsurance.IReinsurerMarker
-import org.pillarone.riskanalytics.core.parameterization.ConstrainedString
 import org.pillarone.riskanalytics.domain.pc.creditrisk.ReinsurerDefault
+import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
+import org.pillarone.riskanalytics.domain.pc.reinsurance.IReinsurerMarker
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -25,7 +21,7 @@ public class MultiLineReinsuranceContractWithDefaultTests extends GroovyTestCase
 
     static MultiLineReinsuranceContractWithDefault getContract0() {
         return new MultiLineReinsuranceContractWithDefault(
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.QUOTASHARE,
                         ["quotaShare": 0.5,
                                 "coveredByReinsurer": 1d]),

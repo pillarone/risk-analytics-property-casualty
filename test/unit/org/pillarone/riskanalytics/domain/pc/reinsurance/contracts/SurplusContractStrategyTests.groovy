@@ -1,9 +1,9 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts
 
 import org.pillarone.riskanalytics.core.util.TestProbe
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
-import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
+import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -13,7 +13,7 @@ class SurplusContractStrategyTests extends GroovyTestCase {
 
     static ReinsuranceContract getContract0() {
         return new ReinsuranceContract(
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.SURPLUS,
                         ["retention": 100,
                          "lines": 5,
@@ -23,7 +23,7 @@ class SurplusContractStrategyTests extends GroovyTestCase {
 
     static ReinsuranceContract getContract1() {
         return new ReinsuranceContract(
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
                     ReinsuranceContractType.SURPLUS,
                     ["retention": 100,
                      "lines": 5,

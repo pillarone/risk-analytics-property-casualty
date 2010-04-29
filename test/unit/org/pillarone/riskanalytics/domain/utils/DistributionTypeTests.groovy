@@ -1,7 +1,6 @@
 package org.pillarone.riskanalytics.domain.utils
 
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
-import org.pillarone.riskanalytics.domain.utils.DistributionType
 
 /**
  * @author: dierk.koenig at canoo.com

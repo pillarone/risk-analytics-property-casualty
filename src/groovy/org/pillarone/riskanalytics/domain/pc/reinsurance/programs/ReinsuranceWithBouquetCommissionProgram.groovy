@@ -7,11 +7,11 @@ import org.pillarone.riskanalytics.core.wiring.WireCategory
 import org.pillarone.riskanalytics.core.wiring.WiringUtils
 import org.pillarone.riskanalytics.domain.pc.aggregators.UnderwritingInfoMerger
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
+import org.pillarone.riskanalytics.domain.pc.reinsurance.ContractFinancials
+import org.pillarone.riskanalytics.domain.pc.reinsurance.ReinsuranceResultWithCommissionPacket
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.DynamicCommission
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
-import org.pillarone.riskanalytics.domain.pc.reinsurance.ReinsuranceResultWithCommissionPacket
-import org.pillarone.riskanalytics.domain.pc.reinsurance.ContractFinancials
 
 /**
  * @author shartmann (at) munichre (dot) com

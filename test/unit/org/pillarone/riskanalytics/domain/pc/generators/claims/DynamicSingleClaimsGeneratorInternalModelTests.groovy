@@ -1,9 +1,8 @@
 package org.pillarone.riskanalytics.domain.pc.generators.claims
 
+import org.pillarone.riskanalytics.core.util.TestProbe
 import org.pillarone.riskanalytics.core.wiring.WireCategory
 import org.pillarone.riskanalytics.core.wiring.WiringUtils
-import org.pillarone.riskanalytics.core.util.TestProbe
-import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 
 /**
@@ -21,19 +20,19 @@ public class DynamicSingleClaimsGeneratorInternalModelTests extends GroovyTestCa
         generator = new DynamicSingleClaimsGeneratorInternalModel()
 
         generator0 = new SingleClaimsGeneratorWithFrequencyExtractor(0)
-        generator0.subClaimsGenerator = new SingleClaimsGenerator(parmDistribution: RandomDistributionFactory.getDistribution(DistributionType.LOGNORMAL, ["mean": 5, "stDev": 10]))
+        generator0.subClaimsGenerator = new SingleClaimsGenerator(parmDistribution: DistributionType.getStrategy(DistributionType.LOGNORMAL, ["mean": 5, "stDev": 10]))
         generator0.subClaimsGenerator.validateParameterization()
         generator0.name = "subGenerator0"
         generator.addSubComponent(generator0)
 
         generator1 = new SingleClaimsGeneratorWithFrequencyExtractor(1)
-        generator1.subClaimsGenerator = new SingleClaimsGenerator(parmDistribution: RandomDistributionFactory.getDistribution(DistributionType.LOGNORMAL, ["mean": 5, "stDev": 10]))
+        generator1.subClaimsGenerator = new SingleClaimsGenerator(parmDistribution: DistributionType.getStrategy(DistributionType.LOGNORMAL, ["mean": 5, "stDev": 10]))
         generator1.subClaimsGenerator.validateParameterization()
         generator1.name = "subGenerator1"
         generator.addSubComponent(generator1)
 
         generator2 = new SingleClaimsGeneratorWithFrequencyExtractor(2)
-        generator2.subClaimsGenerator = new SingleClaimsGenerator(parmDistribution: RandomDistributionFactory.getDistribution(DistributionType.LOGNORMAL, ["mean": 5, "stDev": 10]))
+        generator2.subClaimsGenerator = new SingleClaimsGenerator(parmDistribution: DistributionType.getStrategy(DistributionType.LOGNORMAL, ["mean": 5, "stDev": 10]))
         generator2.subClaimsGenerator.validateParameterization()
         generator2.name = "subGenerator2"
         generator.addSubComponent(generator2)

@@ -3,11 +3,11 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.programs
 import org.pillarone.riskanalytics.core.util.TestProbe
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.QuotaShareContractStrategyTests
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.WXLContractStrategyTests
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.StopLossContractStrategyTests
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.constants.Exposure
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.QuotaShareContractStrategyTests
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.StopLossContractStrategyTests
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.WXLContractStrategyTests
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com

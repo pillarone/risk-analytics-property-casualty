@@ -1,24 +1,26 @@
 package org.pillarone.riskanalytics.domain.pc.generators.claims;
 
 import org.apache.commons.lang.NotImplementedException;
+import org.pillarone.riskanalytics.core.model.Model;
+import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter;
-import org.pillarone.riskanalytics.domain.pc.claims.*;
+import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope;
+import org.pillarone.riskanalytics.domain.pc.claims.Claim;
+import org.pillarone.riskanalytics.domain.pc.claims.ClaimPacketFactory;
+import org.pillarone.riskanalytics.domain.pc.claims.IRiskAllocatorStrategy;
+import org.pillarone.riskanalytics.domain.pc.claims.RiskAllocatorType;
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType;
 import org.pillarone.riskanalytics.domain.pc.constants.FrequencyBase;
 import org.pillarone.riskanalytics.domain.pc.constants.FrequencySeverityClaimType;
 import org.pillarone.riskanalytics.domain.pc.generators.GeneratorCachingComponent;
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.DependenceStream;
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.EventDependenceStream;
-import org.pillarone.riskanalytics.domain.pc.generators.severities.EventSeverity;
 import org.pillarone.riskanalytics.domain.pc.generators.severities.Event;
+import org.pillarone.riskanalytics.domain.pc.generators.severities.EventSeverity;
 import org.pillarone.riskanalytics.domain.pc.underwriting.IUnderwritingInfoMarker;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingFilterUtilities;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingUtilities;
-import org.pillarone.riskanalytics.core.model.Model;
-import org.pillarone.riskanalytics.core.packets.PacketList;
-import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope;
 import org.pillarone.riskanalytics.domain.utils.*;
 import org.pillarone.riskanalytics.domain.utils.randomnumbers.UniformDoubleList;
 import umontreal.iro.lecuyer.probdist.ContinuousDistribution;
@@ -54,11 +56,11 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
     private PacketList<EventDependenceStream> inEventSeverities = new PacketList<EventDependenceStream>(EventDependenceStream.class);
 
     // attritional, frequency average attritional, ...
-    private IClaimsGeneratorStrategy parmClaimsModel = ClaimsGeneratorStrategyFactory.getStrategy(ClaimsGeneratorType.ATTRITIONAL, new HashMap());
+    private IClaimsGeneratorStrategy parmClaimsModel = ClaimsGeneratorType.getStrategy(ClaimsGeneratorType.ATTRITIONAL, new HashMap());
     /**
      * Defines the kind of allocation and parameterization
      */
-    private IRiskAllocatorStrategy parmAssociateExposureInfo = RiskAllocatorStrategyFactory.getAllocatorStrategy(RiskAllocatorType.NONE, new HashMap());
+    private IRiskAllocatorStrategy parmAssociateExposureInfo = RiskAllocatorType.getStrategy(RiskAllocatorType.NONE, new HashMap());
 
     private ComboBoxTableMultiDimensionalParameter parmUnderwritingInformation = new ComboBoxTableMultiDimensionalParameter(
         Arrays.asList(""), Arrays.asList("Underwriting Information"), IUnderwritingInfoMarker.class);

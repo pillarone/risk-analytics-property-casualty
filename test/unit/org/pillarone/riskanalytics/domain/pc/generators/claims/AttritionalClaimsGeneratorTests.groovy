@@ -2,14 +2,14 @@ package org.pillarone.riskanalytics.domain.pc.generators.claims
 
 import org.pillarone.riskanalytics.core.components.Component
 import org.pillarone.riskanalytics.core.packets.PacketList
+import org.pillarone.riskanalytics.core.util.TestProbe
 import org.pillarone.riskanalytics.core.wiring.WireCategory
 import org.pillarone.riskanalytics.core.wiring.WiringUtils
-import org.pillarone.riskanalytics.core.util.TestProbe
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingSegment
-import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
-import org.pillarone.riskanalytics.domain.utils.ClaimSizeDistributionType
-import org.pillarone.riskanalytics.domain.pc.generators.severities.Severity
 import org.pillarone.riskanalytics.domain.pc.constants.Exposure
+import org.pillarone.riskanalytics.domain.pc.generators.severities.Severity
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingSegment
+import org.pillarone.riskanalytics.domain.utils.ClaimSizeDistributionType
+import org.pillarone.riskanalytics.domain.utils.DistributionType
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -21,11 +21,11 @@ class AttritionalClaimsGeneratorTests extends GroovyTestCase {
     UnderwritingSegment underwritingSegment1
 
     void testGenerateLognormalClaims() {
-        generateClaims(new AttritionalClaimsGenerator(parmDistribution: RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.LOGNORMAL, ["mean": 5, "stDev": 10])))
+        generateClaims(new AttritionalClaimsGenerator(parmDistribution: DistributionType.getStrategy(ClaimSizeDistributionType.LOGNORMAL, ["mean": 5, "stDev": 10])))
     }
 
     void testGenerateNormalClaims() {
-        generateClaims(new AttritionalClaimsGenerator(parmDistribution: RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.NORMAL, ["mean": 1000, "stDev": 20])))
+        generateClaims(new AttritionalClaimsGenerator(parmDistribution: DistributionType.getStrategy(ClaimSizeDistributionType.NORMAL, ["mean": 1000, "stDev": 20])))
     }
 
     private void generateClaims(AttritionalClaimsGenerator generator) {
@@ -44,7 +44,7 @@ class AttritionalClaimsGeneratorTests extends GroovyTestCase {
 
     void testInvalidBase() {
         generator = new AttritionalClaimsGenerator(
-            parmDistribution: RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.LOGNORMAL, ["mean": 5, "stDev": 10]),
+            parmDistribution: DistributionType.getStrategy(ClaimSizeDistributionType.LOGNORMAL, ["mean": 5, "stDev": 10]),
             parmBase: Exposure.PREMIUM_WRITTEN
         )
         shouldFail(java.lang.IllegalStateException) {
@@ -53,7 +53,7 @@ class AttritionalClaimsGeneratorTests extends GroovyTestCase {
     }
 
     void testMoreThanOneUnderwritingInfoSourceWired() {
-        generator = new AttritionalClaimsGenerator(parmDistribution: RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.LOGNORMAL, ["mean": 5, "stDev": 10]))
+        generator = new AttritionalClaimsGenerator(parmDistribution: DistributionType.getStrategy(ClaimSizeDistributionType.LOGNORMAL, ["mean": 5, "stDev": 10]))
         underwritingSegment0 = new UnderwritingSegment()
         underwritingSegment1 = new UnderwritingSegment()
 
@@ -68,7 +68,7 @@ class AttritionalClaimsGeneratorTests extends GroovyTestCase {
 
     void testGenerationByInverseDistribution() {
         generator = new AttritionalClaimsGenerator(
-            parmDistribution: RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.NORMAL, ["mean": 0, "stDev": 1]))
+            parmDistribution: DistributionType.getStrategy(ClaimSizeDistributionType.NORMAL, ["mean": 0, "stDev": 1]))
         probability = new TestProbabilityProvider()
 
         WiringUtils.use(WireCategory) {
@@ -86,7 +86,7 @@ class AttritionalClaimsGeneratorTests extends GroovyTestCase {
 
     void testGenerationByInverseDistributionNoProbabilityReceived() {
         generator = new AttritionalClaimsGenerator(
-            parmDistribution: RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.NORMAL, ["mean": 0, "stDev": 1]))
+            parmDistribution: DistributionType.getStrategy(ClaimSizeDistributionType.NORMAL, ["mean": 0, "stDev": 1]))
         probability = new TestProbabilityProvider()
 
         WiringUtils.use(WireCategory) {
@@ -102,7 +102,7 @@ class AttritionalClaimsGeneratorTests extends GroovyTestCase {
 
     void testGenerationByInverseDistributionMoreThanOneProbability() {
         generator = new AttritionalClaimsGenerator(
-            parmDistribution: RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.NORMAL, ["mean": 0, "stDev": 1]))
+            parmDistribution: DistributionType.getStrategy(ClaimSizeDistributionType.NORMAL, ["mean": 0, "stDev": 1]))
         probability = new TestProbabilityProvider()
 
         WiringUtils.use(WireCategory) {

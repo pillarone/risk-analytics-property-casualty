@@ -1,10 +1,9 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.programs
 
+import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiLineReinsuranceContract
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractStrategyFactory
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
-import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
 
 /**
  * A MultiLineDynamicReinsuranceProgram is an almost identical analog to DynamicReinsuranceProgram,
@@ -21,7 +20,7 @@ public class MultiLineDynamicReinsuranceProgram extends DynamicReinsuranceProgra
     public MultiLineReinsuranceContract createDefaultSubComponent() {
         MultiLineReinsuranceContract contract = new MultiLineReinsuranceContract(
                 parmInuringPriority: 0,
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.TRIVIAL, [:]),
+                parmContractStrategy: ReinsuranceContractType.getStrategy(ReinsuranceContractType.TRIVIAL, [:]),
                 parmCoveredLines: new ComboBoxTableMultiDimensionalParameter([''], ['Covered Lines'], LobMarker)
         )
         return contract

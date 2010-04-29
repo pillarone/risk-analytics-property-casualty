@@ -1,29 +1,23 @@
 package org.pillarone.riskanalytics.domain.pc.generators.copulas
 
+import org.pillarone.riskanalytics.core.packets.PacketList
+import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.pc.generators.GeneratorCachingComponent
 import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
-import org.pillarone.riskanalytics.domain.pc.generators.severities.Event
-import org.pillarone.riskanalytics.core.packets.PacketList
-import org.pillarone.riskanalytics.domain.utils.DistributionModified
-import org.pillarone.riskanalytics.domain.utils.DistributionModifierFactory
-import org.pillarone.riskanalytics.domain.utils.DistributionModifier
-import org.pillarone.riskanalytics.domain.utils.RandomDistribution
-import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
-import org.pillarone.riskanalytics.domain.utils.FrequencyDistributionType
-import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
-import org.pillarone.riskanalytics.domain.utils.IRandomNumberGenerator
 import org.pillarone.riskanalytics.domain.pc.generators.frequency.Frequency
-import org.pillarone.riskanalytics.domain.utils.randomnumbers.UniformDoubleList
-import org.pillarone.riskanalytics.domain.pc.generators.severities.EventSeverity
 import org.pillarone.riskanalytics.domain.pc.generators.frequency.FrequencyPacketFactory
+import org.pillarone.riskanalytics.domain.pc.generators.severities.Event
+import org.pillarone.riskanalytics.domain.pc.generators.severities.EventSeverity
+import org.pillarone.riskanalytics.domain.utils.randomnumbers.UniformDoubleList
+import org.pillarone.riskanalytics.domain.utils.*
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 public class MultipleProbabilitiesCopula extends GeneratorCachingComponent {
 
-    private DistributionModified modifier = DistributionModifierFactory.getModifier(DistributionModifier.NONE, new HashMap());
-    private RandomDistribution parmFrequencyDistribution = RandomDistributionFactory.getDistribution(
+    private DistributionModified modifier = DistributionModifier.getStrategy(DistributionModifier.NONE, new HashMap());
+    private RandomDistribution parmFrequencyDistribution = DistributionType.getStrategy(
             FrequencyDistributionType.CONSTANT, ['constant': 0d])
 
     private ICopulaStrategy parmCopulaStrategy = CopulaStrategyFactory.getCopulaStrategy(PerilCopulaType.INDEPENDENT,

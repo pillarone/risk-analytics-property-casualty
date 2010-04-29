@@ -32,7 +32,7 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
      */
     static MultiCoverAttributeReinsuranceContract getQuotaShare20FireLOB() {
         MultiCoverAttributeReinsuranceContract contract = new MultiCoverAttributeReinsuranceContract(
-            parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+            parmContractStrategy: ReinsuranceContractType.getStrategy(
                 ReinsuranceContractType.QUOTASHARE,
                 ["quotaShare": 0.2, "coveredByReinsurer": 1d]),
             parmInuringPriority: 10,
@@ -62,7 +62,7 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
 
     static IReinsuranceContractStrategy getQuotaShareContractStrategy(double quotaShare = 0.2,
                                                                       double coveredByReinsurer = 1d) {
-        ReinsuranceContractStrategyFactory.getContractStrategy(
+        ReinsuranceContractType.getStrategy(
             ReinsuranceContractType.QUOTASHARE,
             ["quotaShare": quotaShare, "coveredByReinsurer": coveredByReinsurer]
         )

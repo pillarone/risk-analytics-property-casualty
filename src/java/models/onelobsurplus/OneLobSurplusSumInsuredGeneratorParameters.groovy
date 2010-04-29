@@ -1,20 +1,16 @@
 package models.onelobsurplus
 
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
-import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocatorStrategyFactory
 import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocatorType
 import org.pillarone.riskanalytics.domain.pc.constants.Exposure
 import org.pillarone.riskanalytics.domain.pc.constants.FrequencyBase
 import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
 import org.pillarone.riskanalytics.domain.pc.constants.RiskBandAllocationBase
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.QuotaShareContractStrategy
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractStrategyFactory
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
-import org.pillarone.riskanalytics.domain.utils.DistributionModifierFactory
 import org.pillarone.riskanalytics.domain.utils.DistributionType
-import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
-import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
 
 model=models.onelobsurplus.OneLobSurplusModel
 periodCount=2
@@ -29,35 +25,35 @@ components {
 		parmAllocationBaseSingleClaims[1]=RiskBandAllocationBase.NUMBER_OF_POLICIES
 	}
 	frequencyGenerator {
-		parmDistribution[0]=RandomDistributionFactory.getDistribution(DistributionType.POISSON, ["lambda":1.0])
-		parmDistribution[1]=RandomDistributionFactory.getDistribution(DistributionType.POISSON, ["lambda":1.0])
+		parmDistribution[0]=DistributionType.getStrategy(DistributionType.POISSON, ["lambda":1.0])
+		parmDistribution[1]=DistributionType.getStrategy(DistributionType.POISSON, ["lambda":1.0])
 		parmBase[0]=FrequencyBase.ABSOLUTE
 		parmBase[1]=FrequencyBase.ABSOLUTE
 	}
 	singleClaimsGenerator {
-		parmDistribution[0]=RandomDistributionFactory.getDistribution(DistributionType.PARETO, ["beta":5000.0, "alpha":1.2])
-		parmDistribution[1]=RandomDistributionFactory.getDistribution(DistributionType.PARETO, ["beta":5000.0, "alpha":1.2])
+		parmDistribution[0]=DistributionType.getStrategy(DistributionType.PARETO, ["beta":5000.0, "alpha":1.2])
+		parmDistribution[1]=DistributionType.getStrategy(DistributionType.PARETO, ["beta":5000.0, "alpha":1.2])
 		parmBase[0]=Exposure.ABSOLUTE
 		parmBase[1]=Exposure.ABSOLUTE
-		parmModification[0]=DistributionModifierFactory.getModifier(DistributionModifier.NONE, [:])
-		parmModification[1]=DistributionModifierFactory.getModifier(DistributionModifier.NONE, [:])
+		parmModification[0]=DistributionModifier.getStrategy(DistributionModifier.NONE, [:])
+		parmModification[1]=DistributionModifier.getStrategy(DistributionModifier.NONE, [:])
 	}
 	attritionalClaimsGenerator {
-		parmDistribution[0]=RandomDistributionFactory.getDistribution(DistributionType.NORMAL, ["stDev":5000.0, "mean":100000.0])
-		parmDistribution[1]=RandomDistributionFactory.getDistribution(DistributionType.NORMAL, ["stDev":5000.0, "mean":100000.0])
+		parmDistribution[0]=DistributionType.getStrategy(DistributionType.NORMAL, ["stDev":5000.0, "mean":100000.0])
+		parmDistribution[1]=DistributionType.getStrategy(DistributionType.NORMAL, ["stDev":5000.0, "mean":100000.0])
 		parmBase[0]=Exposure.ABSOLUTE
 		parmBase[1]=Exposure.ABSOLUTE
-		parmModification[0]=DistributionModifierFactory.getModifier(DistributionModifier.NONE, [:])
-		parmModification[1]=DistributionModifierFactory.getModifier(DistributionModifier.NONE, [:])
+		parmModification[0]=DistributionModifier.getStrategy(DistributionModifier.NONE, [:])
+		parmModification[1]=DistributionModifier.getStrategy(DistributionModifier.NONE, [:])
 	}
 	claimsAllocator {
-		parmRiskAllocatorStrategy[0]=RiskAllocatorStrategyFactory.getAllocatorStrategy(RiskAllocatorType.SUMINSUREDGENERATOR, [
-                distribution: RandomDistributionFactory.getDistribution(DistributionType.NORMAL, ["mean": 0d, "stDev": 1d]),
-                modification: DistributionModifierFactory.getModifier(DistributionModifier.NONE, [:]),
+		parmRiskAllocatorStrategy[0]=RiskAllocatorType.getStrategy(RiskAllocatorType.SUMINSUREDGENERATOR, [
+                distribution: DistributionType.getStrategy(DistributionType.NORMAL, ["mean": 0d, "stDev": 1d]),
+                modification: DistributionModifier.getStrategy(DistributionModifier.NONE, [:]),
                 bandMean: 1d/3d])
-		parmRiskAllocatorStrategy[1]=RiskAllocatorStrategyFactory.getAllocatorStrategy(RiskAllocatorType.SUMINSUREDGENERATOR, [
-                distribution: RandomDistributionFactory.getDistribution(DistributionType.NORMAL, ["mean": 0d, "stDev": 1d]),
-                modification: DistributionModifierFactory.getModifier(DistributionModifier.NONE, [:]),
+		parmRiskAllocatorStrategy[1]=RiskAllocatorType.getStrategy(RiskAllocatorType.SUMINSUREDGENERATOR, [
+                distribution: DistributionType.getStrategy(DistributionType.NORMAL, ["mean": 0d, "stDev": 1d]),
+                modification: DistributionModifier.getStrategy(DistributionModifier.NONE, [:]),
                 bandMean: 1d/3d])
 	}
     quotaShare {
@@ -65,16 +61,16 @@ components {
         parmCommissionStrategy[allPeriods] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0d])
 	}
     surplus {
-		parmContractStrategy[0]=ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.SURPLUS, ["retention":2000.0,"lines":4,"defaultCededLossShare":0.0,"coveredByReinsurer":1.0,])
+		parmContractStrategy[0]=ReinsuranceContractType.getStrategy(ReinsuranceContractType.SURPLUS, ["retention":2000.0,"lines":4,"defaultCededLossShare":0.0,"coveredByReinsurer":1.0,])
         parmCommissionStrategy[0] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0d])
-		parmContractStrategy[1]=ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.SURPLUS, ["retention":2000.0,"lines":4,"defaultCededLossShare":0.0,"coveredByReinsurer":1.0,])
+		parmContractStrategy[1]=ReinsuranceContractType.getStrategy(ReinsuranceContractType.SURPLUS, ["retention":2000.0,"lines":4,"defaultCededLossShare":0.0,"coveredByReinsurer":1.0,])
         parmCommissionStrategy[1] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0d])
 		parmInuringPriority[0]=0
 		parmInuringPriority[1]=0
 	}
 	wxl {
-		parmContractStrategy[0]=ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.WXL, ["premiumBase":PremiumBase.ABSOLUTE,"premium":1000.0,"reinstatementPremiums":new TableMultiDimensionalParameter([0.5],["Reinstatement Premium"]),"attachmentPoint":2000.0,"limit":20000.0,"aggregateLimit":100000.0,"coveredByReinsurer":1.0,])
-		parmContractStrategy[1]=ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.WXL, ["premiumBase":PremiumBase.ABSOLUTE,"premium":1000.0,"reinstatementPremiums":new TableMultiDimensionalParameter([0.5],["Reinstatement Premium"]),"attachmentPoint":2000.0,"limit":20000.0,"aggregateLimit":100000.0,"coveredByReinsurer":1.0,])
+		parmContractStrategy[0]=ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumBase":PremiumBase.ABSOLUTE,"premium":1000.0,"reinstatementPremiums":new TableMultiDimensionalParameter([0.5],["Reinstatement Premium"]),"attachmentPoint":2000.0,"limit":20000.0,"aggregateLimit":100000.0,"coveredByReinsurer":1.0,])
+		parmContractStrategy[1]=ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumBase":PremiumBase.ABSOLUTE,"premium":1000.0,"reinstatementPremiums":new TableMultiDimensionalParameter([0.5],["Reinstatement Premium"]),"attachmentPoint":2000.0,"limit":20000.0,"aggregateLimit":100000.0,"coveredByReinsurer":1.0,])
 		parmInuringPriority[0]=0
 		parmInuringPriority[1]=0
 	}

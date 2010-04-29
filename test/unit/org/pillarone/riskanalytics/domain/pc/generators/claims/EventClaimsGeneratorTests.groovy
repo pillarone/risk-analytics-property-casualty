@@ -1,21 +1,20 @@
 package org.pillarone.riskanalytics.domain.pc.generators.claims
 
 import org.pillarone.riskanalytics.core.packets.PacketList
-import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
-import org.pillarone.riskanalytics.domain.utils.DistributionType
-import org.pillarone.riskanalytics.domain.pc.generators.severities.EventSeverity
 import org.pillarone.riskanalytics.domain.pc.generators.severities.Event
+import org.pillarone.riskanalytics.domain.pc.generators.severities.EventSeverity
+import org.pillarone.riskanalytics.domain.utils.DistributionType
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 class EventClaimsGeneratorTests extends GroovyTestCase {
     void testGenerateLognormalClaims() {
-        generateClaims(new EventClaimsGenerator(parmDistribution: RandomDistributionFactory.getDistribution(DistributionType.LOGNORMAL, ["mean": 5, "stDev": 10])))
+        generateClaims(new EventClaimsGenerator(parmDistribution: DistributionType.getStrategy(DistributionType.LOGNORMAL, ["mean": 5, "stDev": 10])))
     }
 
     void testGenerateNormalClaims() {
-        generateClaims(new EventClaimsGenerator(parmDistribution: RandomDistributionFactory.getDistribution(DistributionType.NORMAL, ["mean": 10, "stDev": 2])))
+        generateClaims(new EventClaimsGenerator(parmDistribution: DistributionType.getStrategy(DistributionType.NORMAL, ["mean": 10, "stDev": 2])))
     }
 
     private void generateClaims(EventClaimsGenerator generator) {

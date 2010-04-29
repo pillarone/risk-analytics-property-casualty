@@ -3,22 +3,21 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.programs
 import org.pillarone.riskanalytics.core.wiring.WireCategory as WC
 import org.pillarone.riskanalytics.core.wiring.PortReplicatorCategory as PRC
 
-import org.pillarone.riskanalytics.domain.pc.claims.MarketClaimsMerger
-import org.pillarone.riskanalytics.domain.pc.underwriting.MarketUnderwritingInfoMerger
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContract
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractComparator
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractStrategyFactory
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
+import org.apache.commons.logging.Log
+import org.apache.commons.logging.LogFactory
 import org.pillarone.riskanalytics.core.components.Component
 import org.pillarone.riskanalytics.core.components.DynamicComposedComponent
 import org.pillarone.riskanalytics.core.packets.PacketList
-import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiCoverAttributeReinsuranceContract
+import org.pillarone.riskanalytics.domain.pc.claims.MarketClaimsMerger
 import org.pillarone.riskanalytics.domain.pc.constants.ReinsuranceContractBase
-import org.apache.commons.logging.Log
-import org.apache.commons.logging.LogFactory
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiCoverAttributeReinsuranceContract
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContract
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractComparator
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
+import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
+import org.pillarone.riskanalytics.domain.pc.underwriting.MarketUnderwritingInfoMerger
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 
 /**
  * A DynamicReinsuranceProgram is a DynamicComposedComponent -- i.e. a container of a sequence of
@@ -82,7 +81,7 @@ class DynamicReinsuranceProgram extends DynamicComposedComponent {
 
     public ReinsuranceContract createDefaultSubComponent() {
         ReinsuranceContract newContract = new ReinsuranceContract(parmInuringPriority: 0,
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.TRIVIAL, [:]))
+                parmContractStrategy: ReinsuranceContractType.getStrategy(ReinsuranceContractType.TRIVIAL, [:]))
         return newContract
     }
 

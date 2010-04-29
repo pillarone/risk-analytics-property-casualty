@@ -1,8 +1,8 @@
 package models.exampleCompany
 
 import org.pillarone.riskanalytics.core.model.StochasticModel
-import org.pillarone.riskanalytics.domain.pc.lob.ExampleLob
 import org.pillarone.riskanalytics.domain.pc.aggregators.ClaimsMerger
+import org.pillarone.riskanalytics.domain.pc.lob.ExampleLob
 
 /**
  * @author: stefan.kunz (at) intuitive-collaboration (dot) com

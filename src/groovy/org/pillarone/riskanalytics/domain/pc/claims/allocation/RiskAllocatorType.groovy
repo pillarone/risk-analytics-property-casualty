@@ -1,12 +1,12 @@
 package org.pillarone.riskanalytics.domain.pc.claims.allocation
 
 import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObjectClassifier
-import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject
-import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
-import org.pillarone.riskanalytics.domain.utils.DistributionType
-import org.pillarone.riskanalytics.domain.utils.DistributionModifierFactory
+import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
+import org.pillarone.riskanalytics.domain.utils.DistributionModified
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
+import org.pillarone.riskanalytics.domain.utils.DistributionType
+import org.pillarone.riskanalytics.domain.utils.RandomDistribution
 
 /**
  * @deprecated newer version available in domain.pc.claims package
@@ -19,8 +19,8 @@ class RiskAllocatorType extends AbstractParameterObjectClassifier {
 
     public static final RiskAllocatorType RISKTOBAND = new RiskAllocatorType("risk to band", "RISKTOBAND", [:])
     public static final RiskAllocatorType SUMINSUREDGENERATOR = new RiskAllocatorType("sum insured generator", "SUMINSUREDGENERATOR", [
-        distribution: RandomDistributionFactory.getDistribution(DistributionType.NORMAL, ["mean": 0d, "stDev": 1d]),
-        modification: DistributionModifierFactory.getModifier(DistributionModifier.NONE, [:]),
+        distribution: DistributionType.getStrategy(DistributionType.NORMAL, ["mean": 0d, "stDev": 1d]),
+        modification: DistributionModifier.getStrategy(DistributionModifier.NONE, [:]),
         bandMean: 1d / 3d])
     public static final RiskAllocatorType NONE = new RiskAllocatorType("none", "NONE", [:])
 
@@ -46,26 +46,25 @@ class RiskAllocatorType extends AbstractParameterObjectClassifier {
     }
 
     public IParameterObject getParameterObject(Map parameters) {
-        return RiskAllocatorStrategyFactory.getAllocatorStrategy(this, parameters)
+        return RiskAllocatorType.getStrategy(this, parameters)
     }
 
-    public String getConstructionString(Map parameters) {
-        StringBuffer parameterString = new StringBuffer('[')
-        parameters.each {k, v ->
-            if (v.class.isEnum()) {
-                parameterString << "\"$k\":${v.class.name}.$v,"
-            }
-            else if (v instanceof IParameterObject) {
-                parameterString << "\"$k\":${v.type.getConstructionString(v.parameters)},"
-            }
-            else {
-                parameterString << "\"$k\":$v,"
-            }
+    static IRiskAllocatorStrategy getStrategy(RiskAllocatorType type, Map parameters) {
+        IRiskAllocatorStrategy riskAllocator
+        switch (type) {
+            case RiskAllocatorType.NONE:
+                riskAllocator = new TrivialRiskAllocatorStrategy()
+                break
+            case RiskAllocatorType.RISKTOBAND:
+                riskAllocator = new RiskToBandAllocatorStrategy()
+                break
+            case RiskAllocatorType.SUMINSUREDGENERATOR:
+                riskAllocator = new SumInsuredGeneratorRiskAllocatorStrategy(
+                    distribution: (RandomDistribution) parameters["distribution"],
+                    modification: (DistributionModified) parameters["modification"],
+                    bandMean: (double) parameters["bandMean"])
+                break
         }
-        if (parameterString.size() == 1) {
-            parameterString << ':'
-        }
-        parameterString << ']'
-        return "org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocatorStrategyFactory.getAllocatorStrategy(${this.class.name}.${typeName.toUpperCase()}, ${parameterString})"
+        return riskAllocator
     }
 }

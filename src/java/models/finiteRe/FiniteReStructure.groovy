@@ -3,8 +3,6 @@
  */
 package models.finiteRe
 
-import models.finiteRe.FiniteReModel
-
 model = FiniteReModel
 periodCount = 4
 

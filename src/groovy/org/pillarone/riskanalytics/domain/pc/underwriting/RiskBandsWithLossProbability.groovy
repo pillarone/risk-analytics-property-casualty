@@ -1,10 +1,10 @@
 package org.pillarone.riskanalytics.domain.pc.underwriting
 
-import org.pillarone.riskanalytics.domain.pc.constants.RiskBandAllocationBase
 import org.pillarone.riskanalytics.core.packets.PacketList
 import org.pillarone.riskanalytics.core.parameterization.AbstractMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.pc.allocators.AllocationTable
+import org.pillarone.riskanalytics.domain.pc.constants.RiskBandAllocationBase
 
 /**
  * @author: Michael-Noe (at) Web (dot) de

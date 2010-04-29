@@ -1,9 +1,9 @@
 package org.pillarone.riskanalytics.domain.assets.parameterization;
 
 import org.apache.commons.lang.ArrayUtils;
-import org.pillarone.riskanalytics.domain.assets.*;
 import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.core.packets.PacketList;
+import org.pillarone.riskanalytics.domain.assets.*;
 
 /**
  * @author cyril (dot) neyme (at) kpmg (dot) fr
@@ -11,7 +11,7 @@ import org.pillarone.riskanalytics.core.packets.PacketList;
 public class YieldCurveChoice extends Component {
 
 
-    private IModellingStrategy parmModellingStrategy = ModellingStrategyFactory.getModellingStrategy(TermStructureType.CONSTANT,
+    private IModellingStrategy parmModellingStrategy = TermStructureType.getStrategy(TermStructureType.CONSTANT,
         ArrayUtils.toMap(new Object[][]{{"rate", 0.0}}));
 
     private PacketList<YieldModellingChoices> outYieldModellingChoices = new PacketList<YieldModellingChoices>(YieldModellingChoices.class);

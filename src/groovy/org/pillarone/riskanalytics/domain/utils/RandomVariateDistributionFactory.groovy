@@ -32,6 +32,6 @@ class RandomVariateDistributionFactory {
     }
 
     static IRandomVariateDistribution getDistribution(DistributionType type, Map parameters) {
-        return new RandomVariateDistribution(distribution: RandomDistributionFactory.getDistribution(type, parameters))
+        return new RandomVariateDistribution(distribution: DistributionType.getStrategy(type, parameters))
     }
 }

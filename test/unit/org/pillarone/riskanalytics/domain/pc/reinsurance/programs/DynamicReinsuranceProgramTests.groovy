@@ -1,16 +1,15 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.programs
 
+import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.util.TestProbe
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingSegment
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
+import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContract
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractStrategyFactory
-import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
-import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoTests
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit.LimitStrategyType
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoTests
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingSegment
 
 class DynamicReinsuranceProgramTests extends GroovyTestCase {
 
@@ -33,20 +32,20 @@ class DynamicReinsuranceProgramTests extends GroovyTestCase {
         program = new DynamicReinsuranceProgram()
 
         ReinsuranceContract quotaShare1 = new ReinsuranceContract(
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.QUOTASHARE,
                         ["quotaShare": 0.2,
                                 "coveredByReinsurer": 1d]),
                 parmInuringPriority: 10)
         ReinsuranceContract quotaShare2 = new ReinsuranceContract(
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.QUOTASHARE,
                         ["quotaShare": 0.1,
                                 "coveredByReinsurer": 1d]),
                 parmInuringPriority: 1)
         ReinsuranceContract quotaShare3 = new ReinsuranceContract(
                 parmInuringPriority: 5,
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.QUOTASHARE, [
                                 "quotaShare": 0.15,
                                 "coveredByReinsurer": 1d,
@@ -95,13 +94,13 @@ class DynamicReinsuranceProgramTests extends GroovyTestCase {
         program = new DynamicReinsuranceProgram()
 
         ReinsuranceContract quotaShare = new ReinsuranceContract(
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.QUOTASHARE,
                         ["quotaShare": 0.2,
                                 "coveredByReinsurer": 1d]),
                 parmInuringPriority: 0)
         ReinsuranceContract wxl20xs10 = new ReinsuranceContract(
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.WXL,
                         ["attachmentPoint": 10,
                                 "limit": 20,
@@ -112,7 +111,7 @@ class DynamicReinsuranceProgramTests extends GroovyTestCase {
                                 "coveredByReinsurer": 1d]),
                 parmInuringPriority: 1)
         ReinsuranceContract wxl20xs30 = new ReinsuranceContract(
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.WXL,
                         ["attachmentPoint": 30,
                                 "limit": 20,
@@ -210,13 +209,13 @@ class DynamicReinsuranceProgramTests extends GroovyTestCase {
         program = new DynamicReinsuranceProgram()
 
         ReinsuranceContract quotaShare = new ReinsuranceContract(
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.QUOTASHARE,
                         ["quotaShare": 0.2,
                                 "coveredByReinsurer": 1d]),
                 parmInuringPriority: 0)
         ReinsuranceContract wxl20xs10 = new ReinsuranceContract(
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.WXL,
                         ["attachmentPoint": 10,
                                 "limit": 20,
@@ -227,7 +226,7 @@ class DynamicReinsuranceProgramTests extends GroovyTestCase {
                                 "coveredByReinsurer": 1d]),
                 parmInuringPriority: 1)
         ReinsuranceContract wxl20xs30 = new ReinsuranceContract(
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.WXL,
                         ["attachmentPoint": 30,
                                 "limit": 20,
@@ -238,7 +237,7 @@ class DynamicReinsuranceProgramTests extends GroovyTestCase {
                                 "coveredByReinsurer": 1d]),
                 parmInuringPriority: 1)
         ReinsuranceContract wxl20xs50 = new ReinsuranceContract(
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.WXL,
                         ["attachmentPoint": 50,
                                 "limit": 20,

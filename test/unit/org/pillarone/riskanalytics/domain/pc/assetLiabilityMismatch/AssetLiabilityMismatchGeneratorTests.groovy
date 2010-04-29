@@ -3,12 +3,9 @@ package org.pillarone.riskanalytics.domain.pc.assetLiabilityMismatch
 import org.pillarone.riskanalytics.core.components.Component
 import org.pillarone.riskanalytics.core.components.PeriodStore
 import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope
-import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
-import org.pillarone.riskanalytics.domain.utils.DistributionType
-import org.pillarone.riskanalytics.domain.utils.DistributionModifierFactory
-import org.pillarone.riskanalytics.domain.utils.DistributionModifier
-import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
+import org.pillarone.riskanalytics.domain.utils.DistributionModifier
+import org.pillarone.riskanalytics.domain.utils.DistributionType
 
 /**
  * @author shartmann (at) munichre (dot) com
@@ -18,9 +15,9 @@ class AssetLiabilityMismatchGeneratorTests extends GroovyTestCase {
 
   void testUsageAbsoluteReserve() {
     AssetLiabilityMismatchGenerator assetLiabilityMismatchGenerator = new AssetLiabilityMismatchGenerator(
-            parmDistribution: RandomDistributionFactory.getDistribution(DistributionType.CONSTANT,
+            parmDistribution: DistributionType.getStrategy(DistributionType.CONSTANT,
                     ["constant": 1.1d]),
-            parmModification: DistributionModifierFactory.getModifier(DistributionModifier.NONE, new HashMap()),
+            parmModification: DistributionModifier.getStrategy(DistributionModifier.NONE, new HashMap()),
             parmInitialVolume: 110d,
             parmAssetLiabilityMismatchModel: AssetLiabilityMismatchGeneratorStrategyType.getStrategy(
                     AssetLiabilityMismatchGeneratorStrategyType.ABSOLUTE, Collections.emptyMap())

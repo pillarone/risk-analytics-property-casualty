@@ -3,9 +3,9 @@ package org.pillarone.riskanalytics.domain.pc.generators.copulas
 import org.pillarone.riskanalytics.core.parameterization.AbstractMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.MatrixMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.pc.generators.frequency.Frequency
+import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.domain.utils.RandomVariateDistribution
 import org.pillarone.riskanalytics.domain.utils.RandomVariateDistributionFactory
-import org.pillarone.riskanalytics.domain.utils.DistributionType
 
 /**
  *  For the Correlation test , you  need to uncomment the count and manipulate it manually. Also the tolerance

@@ -25,7 +25,7 @@ class CopulaStrategyFactory {
         }
     }
 
-    private static ICopulaStrategy getFreechetUpperBoundCopula(CopulaType type, AbstractMultiDimensionalParameter targets) {
+    private static ICopulaStrategy getFrechetUpperBoundCopula(CopulaType type, AbstractMultiDimensionalParameter targets) {
         if (type instanceof LobCopulaType) {
             return new LobFrechetUpperBoundCopulaStrategy(targets: targets)
         }
@@ -56,34 +56,34 @@ class CopulaStrategyFactory {
         ICopulaStrategy copula
         switch (type) {
             case LobCopulaType.NORMAL:
-                copula = getNormalCopula(type, parameters["dependencyMatrix"])
+                copula = getNormalCopula(type, (AbstractMultiDimensionalParameter) parameters["dependencyMatrix"])
                 break
             case LobCopulaType.INDEPENDENT:
-                copula = getIndependentCopula(type, parameters["targets"])
+                copula = getIndependentCopula(type, (AbstractMultiDimensionalParameter) parameters["targets"])
                 break
             case LobCopulaType.FRECHETUPPERBOUND:
-                copula = getFreechetUpperBoundCopula(type, parameters["targets"])
+                copula = getFrechetUpperBoundCopula(type, (AbstractMultiDimensionalParameter) parameters["targets"])
                 break
             case LobCopulaType.T:
-                copula = getTCopula(type, parameters["dependencyMatrix"], parameters["degreesOfFreedom"])
+                copula = getTCopula(type, (AbstractMultiDimensionalParameter) parameters["dependencyMatrix"], (int) parameters["degreesOfFreedom"])
                 break
             case LobCopulaType.GUMBEL:
-                copula = getGumbelCopula(type, parameters["lambda"], parameters["dimension"], parameters["targets"])
+                copula = getGumbelCopula(type, (double) parameters["lambda"], (int) parameters["dimension"], (AbstractMultiDimensionalParameter) parameters["targets"])
                 break
             case PerilCopulaType.NORMAL:
-                copula = getNormalCopula(type, parameters["dependencyMatrix"])
+                copula = getNormalCopula(type, (AbstractMultiDimensionalParameter) parameters["dependencyMatrix"])
                 break
             case PerilCopulaType.INDEPENDENT:
-                copula = getIndependentCopula(type, parameters["targets"])
+                copula = getIndependentCopula(type, (AbstractMultiDimensionalParameter) parameters["targets"])
                 break
             case PerilCopulaType.FRECHETUPPERBOUND:
-                copula = getFreechetUpperBoundCopula(type, parameters["targets"])
+                copula = getFrechetUpperBoundCopula(type, (AbstractMultiDimensionalParameter) parameters["targets"])
                 break
             case PerilCopulaType.T:
-                copula = getTCopula(type, parameters["dependencyMatrix"], parameters["degreesOfFreedom"])
+                copula = getTCopula(type, (AbstractMultiDimensionalParameter) parameters["dependencyMatrix"], (int) parameters["degreesOfFreedom"])
                 break
             case PerilCopulaType.GUMBEL:
-                copula = getGumbelCopula(type, parameters["lambda"], parameters["dimension"], parameters["targets"])
+                copula = getGumbelCopula(type, (double) parameters["lambda"], (int) parameters["dimension"], (AbstractMultiDimensionalParameter) parameters["targets"])
                 break
         }
         return copula

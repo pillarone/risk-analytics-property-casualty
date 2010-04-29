@@ -1,15 +1,15 @@
 package org.pillarone.riskanalytics.domain.pc.generators.claims
 
+import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObjectClassifier
+import org.pillarone.riskanalytics.core.parameterization.IParameterObject
+import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 import org.pillarone.riskanalytics.domain.pc.constants.Exposure
 import org.pillarone.riskanalytics.domain.pc.constants.FrequencyBase
 import org.pillarone.riskanalytics.domain.pc.constants.FrequencySeverityClaimType
-import org.pillarone.riskanalytics.core.parameterization.IParameterObject
-import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObjectClassifier
-import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
-import org.pillarone.riskanalytics.domain.utils.DistributionType
-import org.pillarone.riskanalytics.domain.utils.DistributionModifierFactory
+import org.pillarone.riskanalytics.domain.utils.DistributionModified
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
-import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
+import org.pillarone.riskanalytics.domain.utils.DistributionType
+import org.pillarone.riskanalytics.domain.utils.RandomDistribution
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -19,42 +19,41 @@ public class ClaimsGeneratorType extends AbstractParameterObjectClassifier {
     public static final ClaimsGeneratorType NONE = new ClaimsGeneratorType("none", "NONE", [:])
     public static final ClaimsGeneratorType ATTRITIONAL = new ClaimsGeneratorType("attritional", "ATTRITIONAL", [
             claimsSizeBase: Exposure.ABSOLUTE,
-            claimsSizeDistribution: RandomDistributionFactory.getDistribution(DistributionType.CONSTANT, ["constant": 0d]),
-            claimsSizeModification: DistributionModifierFactory.getModifier(DistributionModifier.NONE, [:])])
+            claimsSizeDistribution: DistributionType.getStrategy(DistributionType.CONSTANT, ["constant": 0d]),
+            claimsSizeModification: DistributionModifier.getStrategy(DistributionModifier.NONE, [:])])
     public static final ClaimsGeneratorType ATTRITIONAL_WITH_DATE = new ClaimsGeneratorType("attritional with date", "ATTRITIONAL_WITH_DATE", [
             claimsSizeBase: Exposure.ABSOLUTE,
-            claimsSizeDistribution: RandomDistributionFactory.getDistribution(DistributionType.CONSTANT, ["constant": 0d]),
-            occurrenceDistribution: RandomDistributionFactory.getDistribution(DistributionType.CONSTANT, ["constant": 0.5d]),
-            claimsSizeModification: DistributionModifierFactory.getModifier(DistributionModifier.NONE, [:])])
+            claimsSizeDistribution: DistributionType.getStrategy(DistributionType.CONSTANT, ["constant": 0d]),
+            occurrenceDistribution: DistributionType.getStrategy(DistributionType.CONSTANT, ["constant": 0.5d]),
+            claimsSizeModification: DistributionModifier.getStrategy(DistributionModifier.NONE, [:])])
     public static final ClaimsGeneratorType EXTERNAL_SEVERITY = new ClaimsGeneratorType("external severity", "EXTERNAL_SEVERITY", [
             claimsSizeBase: Exposure.ABSOLUTE,
-            claimsSizeDistribution: RandomDistributionFactory.getDistribution(DistributionType.CONSTANT, ["constant": 0d]),
+            claimsSizeDistribution: DistributionType.getStrategy(DistributionType.CONSTANT, ["constant": 0d]),
             produceClaim: FrequencySeverityClaimType.AGGREGATED_EVENT])
     public static final ClaimsGeneratorType FREQUENCY_AVERAGE_ATTRITIONAL = new ClaimsGeneratorType("frequency average attritional", "FREQUENCY_AVERAGE_ATTRITIONAL", [
             frequencyBase: FrequencyBase.ABSOLUTE,
-            frequencyDistribution: RandomDistributionFactory.getDistribution(DistributionType.CONSTANT, ["constant": 0d]),
-            frequencyModification: DistributionModifierFactory.getModifier(DistributionModifier.NONE, [:]),
+            frequencyDistribution: DistributionType.getStrategy(DistributionType.CONSTANT, ["constant": 0d]),
+            frequencyModification: DistributionModifier.getStrategy(DistributionModifier.NONE, [:]),
             claimsSizeBase: Exposure.ABSOLUTE,
-            claimsSizeDistribution: RandomDistributionFactory.getDistribution(DistributionType.CONSTANT, ["constant": 0d]),
-            claimsSizeModification: DistributionModifierFactory.getModifier(DistributionModifier.NONE, [:])])
+            claimsSizeDistribution: DistributionType.getStrategy(DistributionType.CONSTANT, ["constant": 0d]),
+            claimsSizeModification: DistributionModifier.getStrategy(DistributionModifier.NONE, [:])])
     public static final ClaimsGeneratorType FREQUENCY_SEVERITY = new ClaimsGeneratorType("frequency severity", "FREQUENCY_SEVERITY", [
             frequencyBase: FrequencyBase.ABSOLUTE,
-            frequencyDistribution: RandomDistributionFactory.getDistribution(DistributionType.CONSTANT, ["constant": 0d]),
-            frequencyModification: DistributionModifierFactory.getModifier(DistributionModifier.NONE, [:]),
+            frequencyDistribution: DistributionType.getStrategy(DistributionType.CONSTANT, ["constant": 0d]),
+            frequencyModification: DistributionModifier.getStrategy(DistributionModifier.NONE, [:]),
             claimsSizeBase: Exposure.ABSOLUTE,
-            claimsSizeDistribution: RandomDistributionFactory.getDistribution(DistributionType.CONSTANT, ["constant": 0d]),
-            claimsSizeModification: DistributionModifierFactory.getModifier(DistributionModifier.NONE, [:]),
+            claimsSizeDistribution: DistributionType.getStrategy(DistributionType.CONSTANT, ["constant": 0d]),
+            claimsSizeModification: DistributionModifier.getStrategy(DistributionModifier.NONE, [:]),
             produceClaim: FrequencySeverityClaimType.SINGLE])
     public static final ClaimsGeneratorType OCCURRENCE_AND_SEVERITY = new ClaimsGeneratorType("occurrence and severity", "OCCURRENCE_AND_SEVERITY", [
             frequencyBase: FrequencyBase.ABSOLUTE,
-            frequencyDistribution: RandomDistributionFactory.getDistribution(DistributionType.CONSTANT, ["constant": 0d]),
-            frequencyModification: DistributionModifierFactory.getModifier(DistributionModifier.NONE, [:]),
+            frequencyDistribution: DistributionType.getStrategy(DistributionType.CONSTANT, ["constant": 0d]),
+            frequencyModification: DistributionModifier.getStrategy(DistributionModifier.NONE, [:]),
             claimsSizeBase: Exposure.ABSOLUTE,
-            claimsSizeDistribution: RandomDistributionFactory.getDistribution(DistributionType.CONSTANT, ["constant": 0d]),
-            occurrenceDistribution: RandomDistributionFactory.getDistribution(DistributionType.UNIFORM, ["a": 0d, "b": 1d]),
-            claimsSizeModification: DistributionModifierFactory.getModifier(DistributionModifier.NONE, [:]),
+            claimsSizeDistribution: DistributionType.getStrategy(DistributionType.CONSTANT, ["constant": 0d]),
+            occurrenceDistribution: DistributionType.getStrategy(DistributionType.UNIFORM, ["a": 0d, "b": 1d]),
+            claimsSizeModification: DistributionModifier.getStrategy(DistributionModifier.NONE, [:]),
             produceClaim: FrequencySeverityClaimType.SINGLE])
-
 
     public static final all = [NONE, ATTRITIONAL, ATTRITIONAL_WITH_DATE, FREQUENCY_AVERAGE_ATTRITIONAL, FREQUENCY_SEVERITY, OCCURRENCE_AND_SEVERITY, EXTERNAL_SEVERITY]
 
@@ -78,26 +77,65 @@ public class ClaimsGeneratorType extends AbstractParameterObjectClassifier {
     }
 
     public IParameterObject getParameterObject(Map parameters) {
-        return ClaimsGeneratorStrategyFactory.getStrategy(this, parameters)
+        return ClaimsGeneratorType.getStrategy(this, parameters)
     }
 
-    public String getConstructionString(Map parameters) {
-        StringBuffer parameterString = new StringBuffer('[')
-        parameters.each {k, v ->
-            if (v.class.isEnum()) {
-                parameterString << "\"$k\":${v.class.name}.$v,"
-            }
-            else if (v instanceof IParameterObject) {
-                parameterString << "\"$k\":${v.type.getConstructionString(v.parameters)},"
-            }
-            else {
-                parameterString << "\"$k\":$v,"
-            }
+    static IClaimsGeneratorStrategy getStrategy(ClaimsGeneratorType type, Map parameters) {
+        IClaimsGeneratorStrategy claimsGenerator;
+        switch (type) {
+            case ClaimsGeneratorType.NONE:
+                claimsGenerator = new NoneClaimsGeneratorStrategy()
+                break;
+            case ClaimsGeneratorType.ATTRITIONAL:
+                claimsGenerator = new AttritionalClaimsGeneratorStrategy(
+                        claimsSizeBase: (Exposure) parameters.get("claimsSizeBase"),
+                        claimsSizeDistribution: (RandomDistribution) parameters.get("claimsSizeDistribution"),
+                        claimsSizeModification: (DistributionModified) parameters.get("claimsSizeModification"))
+                break;
+            case ClaimsGeneratorType.ATTRITIONAL_WITH_DATE:
+                claimsGenerator = new OccurrenceAttritionalClaimsGeneratorStrategy(
+                        claimsSizeBase: (Exposure) parameters.get("claimsSizeBase"),
+                        claimsSizeDistribution: (RandomDistribution) parameters.get("claimsSizeDistribution"),
+                        occurrenceDistribution: (RandomDistribution) parameters.get("occurrenceDistribution"),
+                        claimsSizeModification: (DistributionModified) parameters.get("claimsSizeModification"))
+                break;
+            case ClaimsGeneratorType.FREQUENCY_AVERAGE_ATTRITIONAL:
+                claimsGenerator = new FrequencyAverageAttritionalClaimsGeneratorStrategy(
+                        frequencyBase: (FrequencyBase) parameters.get("frequencyBase"),
+                        frequencyDistribution: (RandomDistribution) parameters.get("frequencyDistribution"),
+                        frequencyModification: (DistributionModified) parameters.get("frequencyModification"),
+                        claimsSizeBase: (Exposure) parameters.get("claimsSizeBase"),
+                        claimsSizeDistribution: (RandomDistribution) parameters.get("claimsSizeDistribution"),
+                        claimsSizeModification: (DistributionModified) parameters.get("claimsSizeModification"))
+                break;
+            case ClaimsGeneratorType.FREQUENCY_SEVERITY:
+                claimsGenerator = new FrequencySeverityClaimsGeneratorStrategy(
+                        frequencyBase: (FrequencyBase) parameters.get("frequencyBase"),
+                        frequencyDistribution: (RandomDistribution) parameters.get("frequencyDistribution"),
+                        frequencyModification: (DistributionModified) parameters.get("frequencyModification"),
+                        claimsSizeBase: (Exposure) parameters.get("claimsSizeBase"),
+                        claimsSizeDistribution: (RandomDistribution) parameters.get("claimsSizeDistribution"),
+                        claimsSizeModification: (DistributionModified) parameters.get("claimsSizeModification"),
+                        produceClaim: (FrequencySeverityClaimType) parameters.get("produceClaim"))
+                break;
+            case ClaimsGeneratorType.OCCURRENCE_AND_SEVERITY:
+                claimsGenerator = new OccurrenceFrequencySeverityClaimsGeneratorStrategy(
+                        frequencyBase: (FrequencyBase) parameters.get("frequencyBase"),
+                        frequencyDistribution: (RandomDistribution) parameters.get("frequencyDistribution"),
+                        frequencyModification: (DistributionModified) parameters.get("frequencyModification"),
+                        claimsSizeBase: (Exposure) parameters.get("claimsSizeBase"),
+                        claimsSizeDistribution: (RandomDistribution) parameters.get("claimsSizeDistribution"),
+                        occurrenceDistribution: (RandomDistribution) parameters.get("occurrenceDistribution"),
+                        claimsSizeModification: (DistributionModified) parameters.get("claimsSizeModification"),
+                        produceClaim: (FrequencySeverityClaimType) parameters.get("produceClaim"))
+                break;
+            case ClaimsGeneratorType.EXTERNAL_SEVERITY:
+                claimsGenerator = new ExternalSeverityClaimsGeneratorStrategy(
+                        claimsSizeBase: (Exposure) parameters.get("claimsSizeBase"),
+                        claimsSizeDistribution: (RandomDistribution) parameters.get("claimsSizeDistribution"),
+                        produceClaim: (FrequencySeverityClaimType) parameters.get("produceClaim"))
         }
-        if (parameterString.size() == 1) {
-            parameterString << ':'
-        }
-        parameterString << ']'
-        return "org.pillarone.riskanalytics.domain.pc.generators.claims.ClaimsGeneratorStrategyFactory.getStrategy(${this.class.name}.${typeName.toUpperCase()}, ${parameterString})"
+        return claimsGenerator;
     }
-}
+
+ }

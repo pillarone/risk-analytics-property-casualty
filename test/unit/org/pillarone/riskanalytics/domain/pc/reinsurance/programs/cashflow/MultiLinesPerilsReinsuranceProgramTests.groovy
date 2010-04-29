@@ -1,5 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.programs.cashflow
 
+import org.pillarone.riskanalytics.core.example.component.TestComponent
+import org.pillarone.riskanalytics.core.util.TestPretendInChannelWired
 import org.pillarone.riskanalytics.core.util.TestProbe
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.constants.ReinsuranceContractBase
@@ -7,9 +9,6 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cashflow.Mult
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cashflow.MultiLinesPerilsReinsuranceContractTests
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
-import org.pillarone.riskanalytics.core.util.TestPretendInChannelWired
-import org.pillarone.riskanalytics.core.components.Component
-import org.pillarone.riskanalytics.core.example.component.TestComponent
 
 /**
  * ben.ginsberg (at) intuitive-collaboration (dot) com

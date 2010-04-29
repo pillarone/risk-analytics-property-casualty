@@ -16,7 +16,7 @@ class GoldorakContractStrategyTests extends GroovyTestCase {
 
     static ReinsuranceContract getContractGoldorakAbs() {
         return new ReinsuranceContract(
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.GOLDORAK,
                         ["attachmentPoint": 100d,
                                 "limit": 200d,
@@ -35,7 +35,7 @@ class GoldorakContractStrategyTests extends GroovyTestCase {
 
     static ReinsuranceContract getContractGoldorakRateOnLine() {
         return new ReinsuranceContract(
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.GOLDORAK,
                         ["attachmentPoint": 100d,
                                 "limit": 200d,
@@ -55,7 +55,7 @@ class GoldorakContractStrategyTests extends GroovyTestCase {
     static ReinsuranceContract getContractGoldorakGNPI() {
         // GNPI = Gross Premium = 1000
         return new ReinsuranceContract(
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.GOLDORAK,
                         ["attachmentPoint": 0.10d,
                                 "limit": 0.20d,

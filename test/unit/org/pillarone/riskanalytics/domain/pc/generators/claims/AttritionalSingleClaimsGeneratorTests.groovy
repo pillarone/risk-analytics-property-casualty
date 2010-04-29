@@ -1,10 +1,10 @@
 package org.pillarone.riskanalytics.domain.pc.generators.claims
 
 import org.pillarone.riskanalytics.core.util.TestProbe
-import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
-import org.pillarone.riskanalytics.domain.utils.FrequencyDistributionType
-import org.pillarone.riskanalytics.domain.utils.ClaimSizeDistributionType
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
+import org.pillarone.riskanalytics.domain.utils.ClaimSizeDistributionType
+import org.pillarone.riskanalytics.domain.utils.DistributionType
+import org.pillarone.riskanalytics.domain.utils.FrequencyDistributionType
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -14,9 +14,9 @@ class AttritionalSingleClaimsGeneratorTests extends GroovyTestCase {
     void testGenerateClaims() {
         AttritionalSingleClaimsGenerator generator = new AttritionalSingleClaimsGenerator()
         generator.internalWiring()
-        generator.subSingleClaimsGenerator.subFrequencyGenerator.parmDistribution = RandomDistributionFactory.getDistribution(FrequencyDistributionType.POISSON, ["lambda": 10])
-        generator.subSingleClaimsGenerator.subClaimsGenerator.parmDistribution = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.NORMAL, ["mean": 0, "stDev": 1])
-        generator.subAttritionalClaimsGenerator.parmDistribution = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.NORMAL, ["mean": 10, "stDev": 2])
+        generator.subSingleClaimsGenerator.subFrequencyGenerator.parmDistribution = DistributionType.getStrategy(FrequencyDistributionType.POISSON, ["lambda": 10])
+        generator.subSingleClaimsGenerator.subClaimsGenerator.parmDistribution = DistributionType.getStrategy(ClaimSizeDistributionType.NORMAL, ["mean": 0, "stDev": 1])
+        generator.subAttritionalClaimsGenerator.parmDistribution = DistributionType.getStrategy(ClaimSizeDistributionType.NORMAL, ["mean": 10, "stDev": 2])
         generator.validateParameterization()
 
         List frequency = new TestProbe(generator.subSingleClaimsGenerator.subFrequencyGenerator, "outFrequency").result

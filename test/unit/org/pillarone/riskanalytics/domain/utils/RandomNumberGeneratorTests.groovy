@@ -68,7 +68,7 @@ class RandomNumberGeneratorTests extends GroovyTestCase {
         double[] vals= [0.0, 0.1, 0.4, 0.49, 0.01]
         double[] vals1= [0.0, 0.1, 0.4, 0.4, 0.01]
         IRandomNumberGenerator generator = RandomNumberGeneratorFactory.getGenerator(
-                RandomDistributionFactory.getDistribution(DistributionType.DISCRETEEMPIRICAL,
+                DistributionType.getStrategy(DistributionType.DISCRETEEMPIRICAL,
                         ["discreteEmpiricalValues": new TableMultiDimensionalParameter([obs.toList(), vals.toList()], ["observations", "probabilities"])]))
         //["observations": obs, "probabilities": vals]))
 
@@ -78,7 +78,7 @@ class RandomNumberGeneratorTests extends GroovyTestCase {
         //for (int i=0;i<1000;i++) println list1[i]        //visual assessment SZU&AM looks OK
         shouldFail(AssertionError, {
             RandomNumberGeneratorFactory.getGenerator(
-                    RandomDistributionFactory.getDistribution(DistributionType.DISCRETEEMPIRICAL,
+                    DistributionType.getStrategy(DistributionType.DISCRETEEMPIRICAL,
                             ["discreteEmpiricalValues": new TableMultiDimensionalParameter([obs.toList(), vals1.toList()], ["observations", "probabilities"])]))
         })
 
@@ -86,7 +86,7 @@ class RandomNumberGeneratorTests extends GroovyTestCase {
     void testCreategetPiecewiseLinearEmpiricalDistributionGenerator() {
         double[] obs = [0.0, 10.0, 20.0, 25.0, 100.0]
         IRandomNumberGenerator generator = RandomNumberGeneratorFactory.getGenerator(
-                RandomDistributionFactory.getDistribution(DistributionType.PIECEWISELINEAREMPIRICAL,
+                DistributionType.getStrategy(DistributionType.PIECEWISELINEAREMPIRICAL,
                         ["observations": new TableMultiDimensionalParameter([obs.toList()], ["observations"])]))
         List<Double> list1=[]
         for (int i=0;i<1000;i++) list1.add(generator.nextValue())
@@ -99,7 +99,7 @@ class RandomNumberGeneratorTests extends GroovyTestCase {
         double[] vals  = [0.0, 10.0, 20.0, 25.0, 100.0]
         double[] probs = [0,    0.1,  0.3,  0.6,   1.0]
         IRandomNumberGenerator generator = RandomNumberGeneratorFactory.getGenerator(
-                RandomDistributionFactory.getDistribution(DistributionType.PIECEWISELINEAR,
+                DistributionType.getStrategy(DistributionType.PIECEWISELINEAR,
                         ["supportPoints": new TableMultiDimensionalParameter([vals.toList(), probs.toList()], ["values", "cummulative probabilities"])]))
         List<Double> list1=[]
         for (int i=0;i<1000;i++) list1.add(generator.nextValue())

@@ -1,8 +1,8 @@
 package org.pillarone.riskanalytics.domain.pc.underwriting
 
-import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObjectClassifier
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
+import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 
 /**
@@ -44,24 +44,25 @@ public class ExposureBaseType extends AbstractParameterObjectClassifier {
     }
 
     public IParameterObject getParameterObject(Map parameters) {
-        return ExposureBaseStrategyFactory.getStrategy(this, parameters)
+        return ExposureBaseType.getStrategy(this, parameters)
     }
 
-    public String getConstructionString(Map parameters) {
-        StringBuffer parameterString = new StringBuffer('[')
-        parameters.each {k, v ->
-            if (v.class.isEnum()) {
-                parameterString << "\"$k\":${v.class.name}.$v,"
-            } else if (v instanceof IParameterObject) {
-                parameterString << "\"$k\":${v.type.getConstructionString(v.parameters)},"
-            } else {
-                parameterString << "\"$k\":$v,"
-            }
+    static IExposureBaseStrategy getStrategy(ExposureBaseType type, Map parameters) {
+        IExposureBaseStrategy exposureBase
+        switch (type) {
+            case ExposureBaseType.ABSOLUTE:
+                exposureBase = new AbsoluteExposureBaseStrategy()
+                break
+            case ExposureBaseType.PREMIUMWRITTEN:
+                exposureBase = new PremiumWrittenExposureBaseStrategy(underwritingInformation: (ComboBoxTableMultiDimensionalParameter) parameters['underwritingInformation'])
+                break
+            case ExposureBaseType.NUMBEROFPOLICIES:
+                exposureBase = new NumberOfPoliciesExposureBaseStrategy(underwritingInformation: (ComboBoxTableMultiDimensionalParameter) parameters['underwritingInformation'])
+                break
+            case ExposureBaseType.SUMINSURED:
+                exposureBase = new SumInsuredExposureBaseStrategy(underwritingInformation: (ComboBoxTableMultiDimensionalParameter) parameters['underwritingInformation'])
+                break
         }
-        if (parameterString.size() == 1) {
-            parameterString << ':'
-        }
-        parameterString << ']'
-        return "org.pillarone.riskanalytics.domain.pc.underwriting.ExposureBaseStrategyFactory.getStrategy(${this.class.name}.${typeName.toUpperCase()}, ${parameterString})"
+        return exposureBase
     }
 }

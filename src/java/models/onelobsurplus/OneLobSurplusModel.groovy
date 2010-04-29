@@ -1,14 +1,13 @@
 package models.onelobsurplus
 
 import org.pillarone.riskanalytics.core.model.StochasticModel
-import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskBands
-import org.pillarone.riskanalytics.domain.pc.generators.frequency.FrequencyGenerator
-import org.pillarone.riskanalytics.domain.pc.generators.claims.SingleClaimsGenerator
-import org.pillarone.riskanalytics.domain.pc.generators.claims.AttritionalClaimsGenerator
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContract
-import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocatorType
 import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocator
-import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocatorStrategyFactory
+import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocatorType
+import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskBands
+import org.pillarone.riskanalytics.domain.pc.generators.claims.AttritionalClaimsGenerator
+import org.pillarone.riskanalytics.domain.pc.generators.claims.SingleClaimsGenerator
+import org.pillarone.riskanalytics.domain.pc.generators.frequency.FrequencyGenerator
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContract
 
 /**
  * @author martin.melchior (at) fhnw (dot) ch
@@ -22,7 +21,7 @@ class OneLobSurplusModel extends StochasticModel {
     AttritionalClaimsGenerator attritionalClaimsGenerator
 
     RiskAllocator claimsAllocator = new RiskAllocator(
-        parmRiskAllocatorStrategy: RiskAllocatorStrategyFactory.getAllocatorStrategy(RiskAllocatorType.RISKTOBAND, [:]))
+        parmRiskAllocatorStrategy: RiskAllocatorType.getStrategy(RiskAllocatorType.RISKTOBAND, [:]))
 
     ReinsuranceContract quotaShare
     ReinsuranceContract surplus

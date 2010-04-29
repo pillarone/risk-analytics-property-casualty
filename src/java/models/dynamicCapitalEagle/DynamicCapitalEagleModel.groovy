@@ -1,14 +1,14 @@
 package models.dynamicCapitalEagle
 
 import org.pillarone.riskanalytics.core.model.StochasticModel
-import org.pillarone.riskanalytics.domain.pc.underwriting.DynamicUnderwritingSegments
+import org.pillarone.riskanalytics.domain.pc.creditrisk.CreditDefault
 import org.pillarone.riskanalytics.domain.pc.generators.claims.DynamicClaimsGenerators
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.DynamicDependencies
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.DynamicMultipleDependencies
 import org.pillarone.riskanalytics.domain.pc.lob.DynamicConfigurableLobs
-import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.MultiLineDynamicReinsuranceProgramWithDefault
 import org.pillarone.riskanalytics.domain.pc.reinsurance.DynamicReinsurersDefaultProbabilities
-import org.pillarone.riskanalytics.domain.pc.creditrisk.CreditDefault
+import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.MultiLineDynamicReinsuranceProgramWithDefault
+import org.pillarone.riskanalytics.domain.pc.underwriting.DynamicUnderwritingSegments
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com

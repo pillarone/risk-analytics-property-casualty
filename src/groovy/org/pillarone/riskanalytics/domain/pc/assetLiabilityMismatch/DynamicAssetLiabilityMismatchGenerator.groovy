@@ -1,14 +1,12 @@
 package org.pillarone.riskanalytics.domain.pc.assetLiabilityMismatch
 
-import org.pillarone.riskanalytics.core.components.DynamicComposedComponent
 import org.pillarone.riskanalytics.core.components.Component
-import org.pillarone.riskanalytics.core.packets.SingleValuePacket
+import org.pillarone.riskanalytics.core.components.DynamicComposedComponent
 import org.pillarone.riskanalytics.core.packets.PacketList
+import org.pillarone.riskanalytics.core.packets.SingleValuePacket
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
-import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
-import org.pillarone.riskanalytics.domain.utils.DistributionType
-import org.pillarone.riskanalytics.domain.utils.DistributionModifierFactory
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
+import org.pillarone.riskanalytics.domain.utils.DistributionType
 
 /**
  * @author shartmann (at) munichre (dot) com
@@ -28,9 +26,9 @@ public class DynamicAssetLiabilityMismatchGenerator extends DynamicComposedCompo
 
     public Component createDefaultSubComponent() {
         return new AssetLiabilityMismatchGenerator(
-                parmDistribution : RandomDistributionFactory.getDistribution(DistributionType.CONSTANT ,
+                parmDistribution : DistributionType.getStrategy(DistributionType.CONSTANT ,
                                     ["constant" : 0d]),
-                parmModification : DistributionModifierFactory.getModifier(DistributionModifier.NONE, new HashMap()),
+                parmModification : DistributionModifier.getStrategy(DistributionModifier.NONE, new HashMap()),
                 parmAssetLiabilityMismatchModel : AssetLiabilityMismatchGeneratorStrategyType.getStrategy(
                                     AssetLiabilityMismatchGeneratorStrategyType.ABSOLUTE,
                                     [:],

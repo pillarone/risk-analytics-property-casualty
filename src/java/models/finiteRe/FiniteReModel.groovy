@@ -2,9 +2,9 @@ package models.finiteRe
 
 import org.pillarone.riskanalytics.core.model.StochasticModel
 import org.pillarone.riskanalytics.domain.pc.generators.claims.DynamicClaimsGenerators
-import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.MultiLineDynamicReinsuranceProgram
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiLineReinsuranceContract
 import org.pillarone.riskanalytics.domain.pc.reinsurance.FiniteRe
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiLineReinsuranceContract
+import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.MultiLineDynamicReinsuranceProgram
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com

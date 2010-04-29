@@ -2,8 +2,8 @@ package models.reserves
 
 import org.pillarone.riskanalytics.core.model.StochasticModel
 import org.pillarone.riskanalytics.domain.pc.generators.claims.DynamicDevelopedClaimsGenerators
-import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.DynamicReservesGeneratorLean
 import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.MultiLineDynamicReinsuranceProgram
+import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.DynamicReservesGeneratorLean
 
 /**
  * @author shartmann (at) munichre (dot) com

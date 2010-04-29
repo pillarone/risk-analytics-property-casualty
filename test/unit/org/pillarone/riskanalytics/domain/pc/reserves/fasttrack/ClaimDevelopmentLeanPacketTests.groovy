@@ -1,8 +1,8 @@
 package org.pillarone.riskanalytics.domain.pc.reserves.fasttrack
 
-import org.pillarone.riskanalytics.domain.pc.generators.severities.Event
-import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.core.example.component.TestComponent
+import org.pillarone.riskanalytics.domain.pc.claims.Claim
+import org.pillarone.riskanalytics.domain.pc.generators.severities.Event
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com

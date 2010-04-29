@@ -3,6 +3,8 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cashflow
 import org.apache.commons.lang.NotImplementedException
 import org.joda.time.DateTime
 import org.joda.time.Period
+import org.pillarone.riskanalytics.core.model.Model
+import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.simulation.ContinuousPeriodCounter
 import org.pillarone.riskanalytics.core.simulation.engine.IterationScope
 import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope
@@ -10,27 +12,20 @@ import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope
 import org.pillarone.riskanalytics.core.util.TestProbe
 import org.pillarone.riskanalytics.domain.assets.VoidTestModel
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
+import org.pillarone.riskanalytics.domain.pc.claims.TestLobComponent
+import org.pillarone.riskanalytics.domain.pc.claims.TestPerilComponent
+import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
+import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments
+import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
+import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiCoverAttributeReinsuranceContractTests
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cashflow.cover.CoverAttributeStrategyType
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentWithIBNRPacket
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
-
-import org.pillarone.riskanalytics.core.model.Model
-import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
-import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
-import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cashflow.cover.CoverAttributeStrategyType
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.NoneCoverAttributeStrategy
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.ICoverAttributeStrategy
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.LineOfBusinessCoverAttributeStrategy
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.PerilsCoverAttributeStrategy
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.LineOfBusinessPerilsCoverAttributeStrategy
-import org.pillarone.riskanalytics.domain.pc.claims.TestPerilComponent
-import org.pillarone.riskanalytics.domain.pc.claims.TestLobComponent
-import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiCoverAttributeReinsuranceContractTests
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.*
 
 /**
  * @author stefan.kunz & ben.ginsberg (at) intuitive-collaboration (dot) com

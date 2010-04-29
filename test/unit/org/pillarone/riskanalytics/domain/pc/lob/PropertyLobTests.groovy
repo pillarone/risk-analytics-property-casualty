@@ -1,17 +1,13 @@
 package org.pillarone.riskanalytics.domain.pc.lob
 
-import org.pillarone.riskanalytics.core.wiring.ITransmitter
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
-import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
-import org.pillarone.riskanalytics.domain.utils.ClaimSizeDistributionType
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractStrategyFactory
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
-import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
-import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocatorStrategyFactory
+import org.pillarone.riskanalytics.core.wiring.ITransmitter
 import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocatorType
-import org.pillarone.riskanalytics.domain.utils.DistributionType
-import org.pillarone.riskanalytics.domain.utils.DistributionModifierFactory
+import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
+import org.pillarone.riskanalytics.domain.utils.ClaimSizeDistributionType
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
+import org.pillarone.riskanalytics.domain.utils.DistributionType
 
 class PropertyLobTests extends GroovyTestCase {
 
@@ -36,20 +32,20 @@ class PropertyLobTests extends GroovyTestCase {
             [[0], [0], [10000d], [0]],
             ['maximum sum insured', 'average sum insured', 'premium', 'number of policies/risks'],
         )
-        lob.subClaimsGenerator.subSingleClaimsGenerator.subFrequencyGenerator.parmDistribution = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.CONSTANT, ["constant": numberOfLargeClaims])
-        lob.subClaimsGenerator.subSingleClaimsGenerator.subClaimsGenerator.parmDistribution = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.CONSTANT, ["constant": largeClaim])
-        lob.subClaimsGenerator.subEQGenerator.subFrequencyGenerator.parmDistribution = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.CONSTANT, ["constant": numberOfLargeClaims])
-        lob.subClaimsGenerator.subEQGenerator.subClaimsGenerator.parmDistribution = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.CONSTANT, ["constant": largeClaim])
-        lob.subClaimsGenerator.subFloodGenerator.subFrequencyGenerator.parmDistribution = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.CONSTANT, ["constant": numberOfLargeClaims])
-        lob.subClaimsGenerator.subFloodGenerator.subClaimsGenerator.parmDistribution = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.CONSTANT, ["constant": largeClaim])
-        lob.subClaimsGenerator.subStormGenerator.subFrequencyGenerator.parmDistribution = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.CONSTANT, ["constant": numberOfLargeClaims])
-        lob.subClaimsGenerator.subStormGenerator.subClaimsGenerator.parmDistribution = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.CONSTANT, ["constant": largeClaim])
+        lob.subClaimsGenerator.subSingleClaimsGenerator.subFrequencyGenerator.parmDistribution = DistributionType.getStrategy(ClaimSizeDistributionType.CONSTANT, ["constant": numberOfLargeClaims])
+        lob.subClaimsGenerator.subSingleClaimsGenerator.subClaimsGenerator.parmDistribution = DistributionType.getStrategy(ClaimSizeDistributionType.CONSTANT, ["constant": largeClaim])
+        lob.subClaimsGenerator.subEQGenerator.subFrequencyGenerator.parmDistribution = DistributionType.getStrategy(ClaimSizeDistributionType.CONSTANT, ["constant": numberOfLargeClaims])
+        lob.subClaimsGenerator.subEQGenerator.subClaimsGenerator.parmDistribution = DistributionType.getStrategy(ClaimSizeDistributionType.CONSTANT, ["constant": largeClaim])
+        lob.subClaimsGenerator.subFloodGenerator.subFrequencyGenerator.parmDistribution = DistributionType.getStrategy(ClaimSizeDistributionType.CONSTANT, ["constant": numberOfLargeClaims])
+        lob.subClaimsGenerator.subFloodGenerator.subClaimsGenerator.parmDistribution = DistributionType.getStrategy(ClaimSizeDistributionType.CONSTANT, ["constant": largeClaim])
+        lob.subClaimsGenerator.subStormGenerator.subFrequencyGenerator.parmDistribution = DistributionType.getStrategy(ClaimSizeDistributionType.CONSTANT, ["constant": numberOfLargeClaims])
+        lob.subClaimsGenerator.subStormGenerator.subClaimsGenerator.parmDistribution = DistributionType.getStrategy(ClaimSizeDistributionType.CONSTANT, ["constant": largeClaim])
 
-        lob.subRiProgram.subContract1.parmContractStrategy = ReinsuranceContractStrategyFactory.getContractStrategy(
+        lob.subRiProgram.subContract1.parmContractStrategy = ReinsuranceContractType.getStrategy(
             ReinsuranceContractType.QUOTASHARE,
             ["quotaShare": quotaShare,
                 "coveredByReinsurer": 1d])
-        lob.subRiProgram.subContract2.parmContractStrategy = ReinsuranceContractStrategyFactory.getContractStrategy(
+        lob.subRiProgram.subContract2.parmContractStrategy = ReinsuranceContractType.getStrategy(
             ReinsuranceContractType.WXL,
             ["attachmentPoint": wxlAttachmentPoint,
                 "limit": wxlLimit,
@@ -58,16 +54,16 @@ class PropertyLobTests extends GroovyTestCase {
                 "premium": wxlPremium,
                 "reinstatementPremium": new TableMultiDimensionalParameter([0.5], ['Reinstatement Premium']),
                 "coveredByReinsurer": 1d])
-        lob.subRiProgram.subContract3.parmContractStrategy = ReinsuranceContractStrategyFactory.getContractStrategy(
+        lob.subRiProgram.subContract3.parmContractStrategy = ReinsuranceContractType.getStrategy(
             ReinsuranceContractType.STOPLOSS,
             ["attachmentPoint": slAttachmentPoint,
                 "limit": slLimit,
                 "premiumBase": PremiumBase.ABSOLUTE,
                 "premium": 40,
                 "coveredByReinsurer": 1d])
-        lob.subAllocator.parmRiskAllocatorStrategy = RiskAllocatorStrategyFactory.getAllocatorStrategy(RiskAllocatorType.SUMINSUREDGENERATOR, [
-            distribution: RandomDistributionFactory.getDistribution(DistributionType.NORMAL, ["mean": 0d, "stDev": 1d]),
-            modification: DistributionModifierFactory.getModifier(DistributionModifier.NONE, [:]),
+        lob.subAllocator.parmRiskAllocatorStrategy = RiskAllocatorType.getStrategy(RiskAllocatorType.SUMINSUREDGENERATOR, [
+            distribution: DistributionType.getStrategy(DistributionType.NORMAL, ["mean": 0d, "stDev": 1d]),
+            modification: DistributionModifier.getStrategy(DistributionModifier.NONE, [:]),
             bandMean: 1d / 3d])
         List claimsGross = []
         def probeClaimsGross = [transmit: {-> claimsGross.addAll(lob.subClaimsGenerator.outClaims)}] as ITransmitter

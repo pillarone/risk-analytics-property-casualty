@@ -1,13 +1,12 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.programs
 
+import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.util.TestProbe
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
-import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
-import org.pillarone.riskanalytics.domain.pc.underwriting.ExposureInfo
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractStrategyFactory
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
+import org.pillarone.riskanalytics.domain.pc.underwriting.ExposureInfo
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 
 /**
  * @author martin.melchior (at) fhnw (dot) ch
@@ -68,7 +67,7 @@ class SurplusProgramTests extends GroovyTestCase {
         surplus.wire()
 
         // set parameters for the surplus
-        surplus.subSurplus.parmContractStrategy = ReinsuranceContractStrategyFactory.getContractStrategy(
+        surplus.subSurplus.parmContractStrategy = ReinsuranceContractType.getStrategy(
                 ReinsuranceContractType.SURPLUS,
                 ["retention": 100,
                  "lines": 3,

@@ -2,8 +2,8 @@ package models.reservesPatternApproach
 
 import org.pillarone.riskanalytics.core.model.StochasticModel
 import org.pillarone.riskanalytics.domain.pc.generators.claims.DynamicClaimsGenerators
-import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopment
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContract
+import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopment
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com

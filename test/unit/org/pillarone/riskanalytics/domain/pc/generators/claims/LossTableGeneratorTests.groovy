@@ -2,9 +2,9 @@ package org.pillarone.riskanalytics.domain.pc.generators.claims
 
 import org.pillarone.riskanalytics.core.wiring.WireCategory
 import org.pillarone.riskanalytics.core.wiring.WiringUtils
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingSegment
-import org.pillarone.riskanalytics.domain.pc.generators.frequency.Frequency
 import org.pillarone.riskanalytics.domain.pc.constants.Exposure
+import org.pillarone.riskanalytics.domain.pc.generators.frequency.Frequency
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingSegment
 
 class LossTableGeneratorTests extends GroovyTestCase {
 

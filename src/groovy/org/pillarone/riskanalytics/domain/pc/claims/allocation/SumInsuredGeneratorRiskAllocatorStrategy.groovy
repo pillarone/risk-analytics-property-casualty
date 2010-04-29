@@ -2,21 +2,14 @@ package org.pillarone.riskanalytics.domain.pc.claims.allocation
 
 import org.pillarone.riskanalytics.core.packets.PacketList
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject
+import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 import org.pillarone.riskanalytics.domain.pc.allocators.AllocationTable
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
 import org.pillarone.riskanalytics.domain.pc.constants.Exposure
-import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
-import org.pillarone.riskanalytics.domain.utils.IRandomNumberGenerator
-import org.pillarone.riskanalytics.domain.utils.RandomDistribution
-import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
-import org.pillarone.riskanalytics.domain.utils.DistributionType
-import org.pillarone.riskanalytics.domain.utils.DistributionModified
-import org.pillarone.riskanalytics.domain.utils.DistributionModifierFactory
-import org.pillarone.riskanalytics.domain.utils.DistributionModifier
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
-import org.pillarone.riskanalytics.domain.utils.RandomNumberGeneratorFactory
 import org.pillarone.riskanalytics.domain.pc.underwriting.ExposureInfo
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
+import org.pillarone.riskanalytics.domain.utils.*
 
 /**
  * @deprecated newer version available in domain.pc.claims package
@@ -32,9 +25,9 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.ExposureInfo
 class SumInsuredGeneratorRiskAllocatorStrategy implements IRiskAllocatorStrategy, IParameterObject {
 
     IRandomNumberGenerator generator
-    RandomDistribution distribution = RandomDistributionFactory.getDistribution(DistributionType.TRIANGULARDIST, ["a": 0d, "b": 1d, "m": 0.01])
+    RandomDistribution distribution = DistributionType.getStrategy(DistributionType.TRIANGULARDIST, ["a": 0d, "b": 1d, "m": 0.01])
 
-    DistributionModified modification = DistributionModifierFactory.getModifier(DistributionModifier.NONE, [:])
+    DistributionModified modification = DistributionModifier.getStrategy(DistributionModifier.NONE, [:])
 
     double bandMean = 1d / 3d
 

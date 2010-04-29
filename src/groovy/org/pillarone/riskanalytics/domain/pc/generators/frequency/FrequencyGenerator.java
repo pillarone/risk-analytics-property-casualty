@@ -1,9 +1,9 @@
 package org.pillarone.riskanalytics.domain.pc.generators.frequency;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.domain.pc.constants.FrequencyBase;
 import org.pillarone.riskanalytics.domain.pc.generators.GeneratorCachingComponent;
-import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.utils.*;
 
@@ -24,10 +24,10 @@ import java.util.HashMap;
  */
 public class FrequencyGenerator extends GeneratorCachingComponent {
 
-    private DistributionModified modifier = DistributionModifierFactory.getModifier(DistributionModifier.NONE, new HashMap());
+    private DistributionModified modifier = DistributionModifier.getStrategy(DistributionModifier.NONE, new HashMap());
 
     private FrequencyBase parmBase = FrequencyBase.ABSOLUTE;
-    private RandomDistribution parmDistribution = RandomDistributionFactory.getDistribution(
+    private RandomDistribution parmDistribution = DistributionType.getStrategy(
         FrequencyDistributionType.CONSTANT,
         ArrayUtils.toMap(new Object[][]{
             {"constant", 0d}

@@ -1,9 +1,8 @@
 package models.profiling
 
-
 import org.pillarone.riskanalytics.core.model.StochasticModel
-import org.pillarone.riskanalytics.domain.pc.generators.frequency.FrequencyGenerator
 import org.pillarone.riskanalytics.domain.pc.generators.claims.SingleClaimsGenerator
+import org.pillarone.riskanalytics.domain.pc.generators.frequency.FrequencyGenerator
 
 /**
  * @author: stefan.kunz (at) intuitive-collaboration (dot) com

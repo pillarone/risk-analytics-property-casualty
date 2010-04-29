@@ -1,13 +1,13 @@
 package org.pillarone.riskanalytics.domain.pc.generators.claims;
 
+import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimPacketFactory;
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType;
-import org.pillarone.riskanalytics.core.packets.PacketList;
-import org.pillarone.riskanalytics.domain.pc.generators.severities.EventSeverity;
 import org.pillarone.riskanalytics.domain.pc.generators.severities.Event;
+import org.pillarone.riskanalytics.domain.pc.generators.severities.EventSeverity;
+import org.pillarone.riskanalytics.domain.utils.DistributionType;
 import org.pillarone.riskanalytics.domain.utils.RandomDistribution;
-import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory;
 
 /**
  * The event claims generator sends claims object to components
@@ -20,7 +20,7 @@ import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory;
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 public class EventClaimsGenerator extends ClaimsGenerator {
-    private RandomDistribution parmDistribution = RandomDistributionFactory.getUniformDistribution();
+    private RandomDistribution parmDistribution = DistributionType.getUniformDistribution();
 
     /**
      * Input channel for claims severities to be generated

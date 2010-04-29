@@ -5,15 +5,13 @@ import org.pillarone.riskanalytics.core.packets.PacketList
 import org.pillarone.riskanalytics.core.wiring.PortReplicatorCategory
 import org.pillarone.riskanalytics.core.wiring.WireCategory
 import org.pillarone.riskanalytics.core.wiring.WiringUtils
+import org.pillarone.riskanalytics.domain.pc.claims.Claim
+import org.pillarone.riskanalytics.domain.pc.claims.allocation.ClaimsAllocation
+import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocator
+import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocatorType
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContract
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractStrategyFactory
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
-import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocator
-import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocatorStrategyFactory
-import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocatorType
-import org.pillarone.riskanalytics.domain.pc.claims.allocation.ClaimsAllocation
-import org.pillarone.riskanalytics.domain.pc.claims.Claim
 
 /**
  * @author martin.melchior (at) fhnw (dot) ch
@@ -32,13 +30,13 @@ class SurplusProgram extends ComposedComponent {
     // allocator and its configuration
     ClaimsAllocation subAttritionalAllocation = new ClaimsAllocation()
     RiskAllocator subAllocator = new RiskAllocator(
-        parmRiskAllocatorStrategy: RiskAllocatorStrategyFactory.getAllocatorStrategy(
+        parmRiskAllocatorStrategy: RiskAllocatorType.getStrategy(
             RiskAllocatorType.RISKTOBAND, [:]))
     ClaimsAllocation subLargeAllocation = new ClaimsAllocation()
 
     // reinsurance contract
     ReinsuranceContract subSurplus = new ReinsuranceContract(
-        parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(
+        parmContractStrategy: ReinsuranceContractType.getStrategy(
             ReinsuranceContractType.SURPLUS, ["retention": 0, "lines": 0, "commission": 0.0,
                 'defaultCededLossShare': 0d, 'coveredByReinsurer': 1d]))
 

@@ -7,7 +7,6 @@ import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimen
 import org.pillarone.riskanalytics.domain.pc.creditrisk.ReinsurerDefault
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiLineReinsuranceContractWithDefault
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractStrategyFactory
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
 
 /**
@@ -20,7 +19,7 @@ public class MultiLineDynamicReinsuranceProgramWithDefault extends DynamicReinsu
     public MultiLineReinsuranceContractWithDefault createDefaultSubComponent() {
         MultiLineReinsuranceContractWithDefault contract = new MultiLineReinsuranceContractWithDefault(
                 parmInuringPriority: 0,
-                parmContractStrategy: ReinsuranceContractStrategyFactory.getContractStrategy(ReinsuranceContractType.TRIVIAL, [:]),
+                parmContractStrategy: ReinsuranceContractType.getStrategy(ReinsuranceContractType.TRIVIAL, [:]),
                 parmCoveredLines: new ComboBoxTableMultiDimensionalParameter([''], ['Covered Lines'], LobMarker)
         )
         return contract

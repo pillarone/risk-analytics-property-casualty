@@ -8,9 +8,7 @@ import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimen
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
-import org.pillarone.riskanalytics.domain.utils.DistributionModifierFactory
 import org.pillarone.riskanalytics.domain.utils.DistributionType
-import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
 
 /**
  * @author shartmann (at) munichre (dot) com
@@ -29,9 +27,9 @@ public class DynamicReservesGeneratorLean extends DynamicComposedComponent {
 
     public Component createDefaultSubComponent() {
         return new ReservesGeneratorLean(
-                parmDistribution : RandomDistributionFactory.getDistribution(DistributionType.CONSTANT,
+                parmDistribution : DistributionType.getStrategy(DistributionType.CONSTANT,
                                     ["constant" : 0d]),
-                parmModification : DistributionModifierFactory.getModifier(DistributionModifier.NONE, new HashMap()),
+                parmModification : DistributionModifier.getStrategy(DistributionModifier.NONE, new HashMap()),
                 parmPeriodPaymentPortion : 0d,
                 parmInitialReserves : 0d,
                 parmReservesModel : ReservesGeneratorStrategyType.getStrategy(

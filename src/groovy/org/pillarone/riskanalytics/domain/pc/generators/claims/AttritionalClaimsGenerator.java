@@ -1,11 +1,11 @@
 package org.pillarone.riskanalytics.domain.pc.generators.claims;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimPacketFactory;
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType;
 import org.pillarone.riskanalytics.domain.pc.constants.Exposure;
-import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.domain.pc.generators.frequency.Frequency;
 import org.pillarone.riskanalytics.domain.pc.generators.severities.Severity;
 import org.pillarone.riskanalytics.domain.utils.*;
@@ -43,9 +43,9 @@ public class AttritionalClaimsGenerator extends ClaimsGenerator {
 
     private PacketList<Frequency> inMultiplier = new PacketList<Frequency>(Frequency.class);
 
-    private RandomDistribution parmDistribution = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.CONSTANT,
+    private RandomDistribution parmDistribution = DistributionType.getStrategy(ClaimSizeDistributionType.CONSTANT,
         ArrayUtils.toMap(new Object[][]{{"constant", 0d}}));
-    private DistributionModified parmModification = DistributionModifierFactory.getModifier(DistributionModifier.NONE, new HashMap());
+    private DistributionModified parmModification = DistributionModifier.getStrategy(DistributionModifier.NONE, new HashMap());
 
     public void validateWiring() {
         if (!maxOneSenderWired(getInUnderwritingInfo())) {

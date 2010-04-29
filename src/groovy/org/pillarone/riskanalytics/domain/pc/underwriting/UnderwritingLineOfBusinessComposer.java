@@ -1,12 +1,12 @@
 package org.pillarone.riskanalytics.domain.pc.underwriting;
 
+import org.pillarone.riskanalytics.core.components.Component;
+import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter;
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory;
 import org.pillarone.riskanalytics.core.util.GroovyUtils;
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.constraints.UnderwritingPortion;
-import org.pillarone.riskanalytics.core.components.Component;
-import org.pillarone.riskanalytics.core.packets.PacketList;
+import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 
 import java.util.ArrayList;
 import java.util.Arrays;

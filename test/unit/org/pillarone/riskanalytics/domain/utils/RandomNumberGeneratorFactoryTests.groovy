@@ -1,12 +1,8 @@
 package org.pillarone.riskanalytics.domain.utils
 
 import org.apache.commons.math.stat.StatUtils
-import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.SimpleMultiDimensionalParameter
-import org.pillarone.riskanalytics.domain.utils.DistributionType
-import org.pillarone.riskanalytics.domain.utils.IRandomNumberGenerator
-import org.pillarone.riskanalytics.domain.utils.RandomNumberGeneratorFactory
-import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
+import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
 
 class RandomNumberGeneratorFactoryTests extends GroovyTestCase {
 
@@ -37,7 +33,7 @@ class RandomNumberGeneratorFactoryTests extends GroovyTestCase {
             params["constants"] = new TableMultiDimensionalParameter([0,1], ['constants'])
 
             IRandomNumberGenerator generator = RandomNumberGeneratorFactory.getGenerator(
-                    RandomDistributionFactory.getDistribution(it, params))
+                    DistributionType.getStrategy(it, params))
             assertNotNull generator
             assertSame it, generator.type
             assertEquals params, generator.parameters
@@ -48,7 +44,7 @@ class RandomNumberGeneratorFactoryTests extends GroovyTestCase {
     void testException() {
         shouldFail {
             RandomNumberGeneratorFactory.getGenerator(
-                    RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.LOGNORMAL, ["mean": -1, "stDev": 5]))    //negative mean is illegal
+                    DistributionType.getStrategy(ClaimSizeDistributionType.LOGNORMAL, ["mean": -1, "stDev": 5]))    //negative mean is illegal
             //the related test void testlogNormalDistribution() is located in ClaimsGenerationTests
         }
     }
@@ -59,7 +55,7 @@ class RandomNumberGeneratorFactoryTests extends GroovyTestCase {
     */
     void testlogNormalDistribution() {
         IRandomNumberGenerator generator1 = RandomNumberGeneratorFactory.getGenerator(
-                RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.LOGNORMAL, ["mean": 2, "stDev": 1]))
+                DistributionType.getStrategy(ClaimSizeDistributionType.LOGNORMAL, ["mean": 2, "stDev": 1]))
         List<Double> curList = []
         for (int i = 0; i < 20000; i++) curList.add(generator1.nextValue())
         Collections.sort(curList)
@@ -72,8 +68,8 @@ class RandomNumberGeneratorFactoryTests extends GroovyTestCase {
 
     void testCensoredShiftDistribution() {
         IRandomNumberGenerator generator = RandomNumberGeneratorFactory.getGenerator(
-                RandomDistributionFactory.getDistribution(DistributionType.NORMAL, ["mean": 0, "stDev": 1]),
-                DistributionModifierFactory.getModifier(DistributionModifier.CENSOREDSHIFT, ["min": -1, "max": 1, "shift": 1])
+                DistributionType.getStrategy(DistributionType.NORMAL, ["mean": 0, "stDev": 1]),
+                DistributionModifier.getStrategy(DistributionModifier.CENSOREDSHIFT, ["min": -1, "max": 1, "shift": 1])
         )
         List<Double> randomNumbers = []
         for (int i = 0; i < 100; i++) randomNumbers.add(generator.nextValue())
@@ -84,8 +80,8 @@ class RandomNumberGeneratorFactoryTests extends GroovyTestCase {
 
     void testTruncatedShiftDistribution() {
         IRandomNumberGenerator generator = RandomNumberGeneratorFactory.getGenerator(
-                RandomDistributionFactory.getDistribution(DistributionType.NORMAL, ["mean": 0, "stDev": 1]),
-                DistributionModifierFactory.getModifier(DistributionModifier.TRUNCATEDSHIFT, ["min": -1, "max": 1, "shift": 1])
+                DistributionType.getStrategy(DistributionType.NORMAL, ["mean": 0, "stDev": 1]),
+                DistributionModifier.getStrategy(DistributionModifier.TRUNCATEDSHIFT, ["min": -1, "max": 1, "shift": 1])
         )
         List<Double> randomNumbers = []
         for (int i = 0; i < 100; i++) randomNumbers.add(generator.nextValue())

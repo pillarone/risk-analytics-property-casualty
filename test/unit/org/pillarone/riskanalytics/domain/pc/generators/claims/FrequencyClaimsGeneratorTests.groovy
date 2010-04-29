@@ -1,13 +1,12 @@
 package org.pillarone.riskanalytics.domain.pc.generators.claims
 
-
+import org.pillarone.riskanalytics.core.util.TestProbe
 import org.pillarone.riskanalytics.core.wiring.WireCategory
 import org.pillarone.riskanalytics.core.wiring.WiringUtils
-import org.pillarone.riskanalytics.core.util.TestProbe
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingSegment
-import org.pillarone.riskanalytics.domain.utils.RandomDistributionFactory
-import org.pillarone.riskanalytics.domain.utils.FrequencyDistributionType
 import org.pillarone.riskanalytics.domain.utils.ClaimSizeDistributionType
+import org.pillarone.riskanalytics.domain.utils.DistributionType
+import org.pillarone.riskanalytics.domain.utils.FrequencyDistributionType
 
 class FrequencyClaimsGeneratorTests extends GroovyTestCase {
 
@@ -17,8 +16,8 @@ class FrequencyClaimsGeneratorTests extends GroovyTestCase {
     void testGenerateClaims() {
         underwritingSegment = new UnderwritingSegment()
         generator = new FrequencyClaimsGenerator()
-        generator.subFrequencyGenerator.parmDistribution = RandomDistributionFactory.getDistribution(FrequencyDistributionType.POISSON, ["lambda": 10])
-        generator.subClaimsGenerator.parmDistribution = RandomDistributionFactory.getDistribution(ClaimSizeDistributionType.NORMAL, ["mean": 0, "stDev": 1])
+        generator.subFrequencyGenerator.parmDistribution = DistributionType.getStrategy(FrequencyDistributionType.POISSON, ["lambda": 10])
+        generator.subClaimsGenerator.parmDistribution = DistributionType.getStrategy(ClaimSizeDistributionType.NORMAL, ["mean": 0, "stDev": 1])
 
         WiringUtils.use(WireCategory) {
             generator.inUnderwritingInfo = underwritingSegment.outUnderwritingInfo

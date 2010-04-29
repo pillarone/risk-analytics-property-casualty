@@ -1,12 +1,11 @@
 package models.profiling
 
-
 import org.pillarone.riskanalytics.core.model.StochasticModel
 import org.pillarone.riskanalytics.core.packets.PacketList
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
-import org.pillarone.riskanalytics.domain.pc.generators.frequency.FrequencyGenerator
-import org.pillarone.riskanalytics.domain.pc.generators.claims.SingleClaimsGenerator
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
+import org.pillarone.riskanalytics.domain.pc.generators.claims.SingleClaimsGenerator
+import org.pillarone.riskanalytics.domain.pc.generators.frequency.FrequencyGenerator
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 
 class FrequencyClaimsGeneratorDecomposedModel extends StochasticModel {
 
