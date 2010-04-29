@@ -29,7 +29,7 @@ public class SlidingCommissionStrategy implements ICommissionStrategy {
 
     public Map getParameters() {
         Map<String, Object> map = new HashMap<String, Object>(1);
-        map.put("commission bands", commissionBands);
+        map.put("commissionBands", commissionBands);
         return map;
     }
 
