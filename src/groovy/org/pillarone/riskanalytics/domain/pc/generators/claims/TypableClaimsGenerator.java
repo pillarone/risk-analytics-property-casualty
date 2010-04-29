@@ -55,15 +55,15 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
      */
     private PacketList<EventDependenceStream> inEventSeverities = new PacketList<EventDependenceStream>(EventDependenceStream.class);
 
+    private ComboBoxTableMultiDimensionalParameter parmUnderwritingInformation = new ComboBoxTableMultiDimensionalParameter(
+        Arrays.asList(""), Arrays.asList("Underwriting Information"), IUnderwritingInfoMarker.class);
+
     // attritional, frequency average attritional, ...
     private IClaimsGeneratorStrategy parmClaimsModel = ClaimsGeneratorType.getStrategy(ClaimsGeneratorType.ATTRITIONAL, new HashMap());
     /**
      * Defines the kind of allocation and parameterization
      */
     private IRiskAllocatorStrategy parmAssociateExposureInfo = RiskAllocatorType.getStrategy(RiskAllocatorType.NONE, new HashMap());
-
-    private ComboBoxTableMultiDimensionalParameter parmUnderwritingInformation = new ComboBoxTableMultiDimensionalParameter(
-        Arrays.asList(""), Arrays.asList("Underwriting Information"), IUnderwritingInfoMarker.class);
 
     /**
      * claims which source is a covered line
@@ -316,6 +316,14 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
         this.inEventSeverities = inEventSeverities;
     }
 
+    public ComboBoxTableMultiDimensionalParameter getParmUnderwritingInformation() {
+        return parmUnderwritingInformation;
+    }
+
+    public void setParmUnderwritingInformation(ComboBoxTableMultiDimensionalParameter parmUnderwritingInformation) {
+        this.parmUnderwritingInformation = parmUnderwritingInformation;
+    }    
+
     public IClaimsGeneratorStrategy getParmClaimsModel() {
         return parmClaimsModel;
     }
@@ -346,14 +354,6 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
 
     public void setParmAssociateExposureInfo(IRiskAllocatorStrategy parmAssociateExposureInfo) {
         this.parmAssociateExposureInfo = parmAssociateExposureInfo;
-    }
-
-    public ComboBoxTableMultiDimensionalParameter getParmUnderwritingInformation() {
-        return parmUnderwritingInformation;
-    }
-
-    public void setParmUnderwritingInformation(ComboBoxTableMultiDimensionalParameter parmUnderwritingInformation) {
-        this.parmUnderwritingInformation = parmUnderwritingInformation;
     }
 
     public SimulationScope getSimulationScope() {
