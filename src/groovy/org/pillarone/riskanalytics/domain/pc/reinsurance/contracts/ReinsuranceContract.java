@@ -40,7 +40,7 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
     protected PacketList<ReinsuranceResultWithCommissionPacket> outContractFinancials = new PacketList<ReinsuranceResultWithCommissionPacket>(ReinsuranceResultWithCommissionPacket.class);
 
     /** Defines the kind of contract and parametrization */
-    protected IReinsuranceContractStrategy parmContractStrategy = ReinsuranceContractStrategyFactory.getTrivial();
+    protected IReinsuranceContractStrategy parmContractStrategy = ReinsuranceContractType.getTrivial();
 
     protected ICommissionStrategy parmCommissionStrategy = CommissionStrategyType.getNoCommission();
 
@@ -146,6 +146,7 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
                 ClaimDevelopmentLeanPacket claim = new ClaimDevelopmentLeanPacket(grossClaim);
                 claim.setPaid(((IReinsuranceContractStrategyWithClaimsDevelopment)
                     parmContractStrategy).allocateCededPaid((ClaimDevelopmentLeanPacket) grossClaim));
+//                claim.setReserved(claim.getUltimate() - claim.getPaid()); // perhaps not necessary since CDLP.getReserved calculates the same difference
                 claim.setReserved(claim.getUltimate() - claim.getPaid()); // perhaps not necessary since CDLP.getReserved calculates the same difference
                 claimCeded = claim;
             }
