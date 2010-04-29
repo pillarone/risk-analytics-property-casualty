@@ -3,6 +3,11 @@ package models.multiCompany
 model = models.multiCompany.MultiCompanyModel
 displayName = "Aggregated Overview 3"
 components {
+	almGenerators {
+		subsubcomponents {
+			outAlmResult = "AGGREGATED"
+		}
+	}
 	claimsGenerators {
 		outClaimsLeanDevelopment = "AGGREGATED"
 		subsubcomponents {
@@ -17,6 +22,7 @@ components {
 			outClaimsLeanDevelopmentGrossReinsurer = "AGGREGATED"
 			outClaimsLeanDevelopmentNet = "AGGREGATED"
 			outClaimsLeanDevelopmentNetPrimaryInsurer = "AGGREGATED"
+			outFinancialResults = "AGGREGATED"
 			outUnderwritingInfoCeded = "AGGREGATED"
 			outUnderwritingInfoGross = "AGGREGATED"
 			outUnderwritingInfoGrossPrimaryInsurer = "AGGREGATED"

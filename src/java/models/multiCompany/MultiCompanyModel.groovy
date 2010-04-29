@@ -2,7 +2,6 @@ package models.multiCompany
 
 import org.pillarone.riskanalytics.core.model.StochasticModel
 import org.pillarone.riskanalytics.domain.pc.aggregators.AlmResultAggregator
-import org.pillarone.riskanalytics.domain.pc.assetLiabilityMismatch.DynamicAssetLiabilityMismatchGenerator
 import org.pillarone.riskanalytics.domain.pc.generators.claims.DynamicDevelopedClaimsGenerators
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.DynamicDependencies
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.DynamicMultipleDependencies
@@ -12,6 +11,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.DynamicUnderwritingSeg
 import org.pillarone.riskanalytics.domain.pc.lob.DynamicCompanyConfigurableLobsWithReserves
 import org.pillarone.riskanalytics.domain.pc.company.DynamicCompany
 import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.ReinsuranceMarketWithBouquetCommissionProgram
+import org.pillarone.riskanalytics.domain.pc.assetLiabilityMismatch.DynamicCompanyConfigurableAssetLiabilityMismatchGenerator
 
 /**
  * @author shartmann (at) munichre (dot) com
@@ -26,7 +26,7 @@ class MultiCompanyModel extends StochasticModel {
     DynamicCompanyConfigurableLobsWithReserves linesOfBusiness
     DynamicCompany companies
     ReinsuranceMarketWithBouquetCommissionProgram reinsuranceMarket
-    DynamicAssetLiabilityMismatchGenerator almGenerators
+    DynamicCompanyConfigurableAssetLiabilityMismatchGenerator almGenerators
     AlmResultAggregator aggregateFinancials
 
 
@@ -39,7 +39,7 @@ class MultiCompanyModel extends StochasticModel {
         linesOfBusiness = new DynamicCompanyConfigurableLobsWithReserves()
         companies = new DynamicCompany()
         reinsuranceMarket = new ReinsuranceMarketWithBouquetCommissionProgram()
-        almGenerators = new DynamicAssetLiabilityMismatchGenerator()
+        almGenerators = new DynamicCompanyConfigurableAssetLiabilityMismatchGenerator()
         aggregateFinancials = new AlmResultAggregator()
 
         addStartComponent underwritingSegments
@@ -64,6 +64,7 @@ class MultiCompanyModel extends StochasticModel {
         companies.inClaimsCeded = reinsuranceMarket.outClaimsCeded
         companies.inUnderwritingInfoGross = reinsuranceMarket.outUnderwritingInfo
         companies.inUnderwritingInfoCeded = reinsuranceMarket.outCoverUnderwritingInfo
+        companies.inFinancialResults= almGenerators.outAlmResult
         aggregateFinancials.inClaims = reinsuranceMarket.outClaimsNet
         aggregateFinancials.inUnderwritingInfo = reinsuranceMarket.outNetAfterCoverUnderwritingInfo
         aggregateFinancials.inAlm = almGenerators.outAlmResult

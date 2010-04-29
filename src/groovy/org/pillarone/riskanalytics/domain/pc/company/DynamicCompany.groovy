@@ -15,6 +15,7 @@ class DynamicCompany extends DynamicComposedComponent {
     PacketList<Claim> inClaimsCeded = new PacketList<Claim>(Claim)
     PacketList<UnderwritingInfo> inUnderwritingInfoGross = new PacketList<UnderwritingInfo>(UnderwritingInfo)
     PacketList<UnderwritingInfo> inUnderwritingInfoCeded = new PacketList<UnderwritingInfo>(UnderwritingInfo)
+    PacketList<Claim> inFinancialResults = new PacketList<Claim>(Claim)
 
     Component createDefaultSubComponent() {
         new Company()
@@ -25,5 +26,6 @@ class DynamicCompany extends DynamicComposedComponent {
         replicateInChannels this, 'inClaimsCeded'
         replicateInChannels this, 'inUnderwritingInfoGross'
         replicateInChannels this, 'inUnderwritingInfoCeded'
+        replicateInChannels this, 'inFinancialResults'
     }
 }

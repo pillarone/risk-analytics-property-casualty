@@ -7,6 +7,7 @@ import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
 
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.lob.CompanyConfigurableLobWithReserves
+import org.pillarone.riskanalytics.domain.pc.assetLiabilityMismatch.CompanyConfigurableAssetLiabilityMismatchGenerator
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedString
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiCompanyCoverAttributeReinsuranceContract
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
@@ -14,7 +15,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
  */
-
+// todo(jwa): test commission output in UnderwritingInformation
 class CompanyTests extends GroovyTestCase {
 
     Company companyVenusRe = new Company(name: 'venus re')
@@ -29,6 +30,12 @@ class CompanyTests extends GroovyTestCase {
     CompanyConfigurableLobWithReserves motorMarsRe = new CompanyConfigurableLobWithReserves(parmCompany: parmCompanyMarsRe)
     CompanyConfigurableLobWithReserves motorPlutoRe = new CompanyConfigurableLobWithReserves(parmCompany: parmCompanyPlutoRe)
     CompanyConfigurableLobWithReserves accidentMarsRe = new CompanyConfigurableLobWithReserves(parmCompany: parmCompanyMarsRe)
+
+    CompanyConfigurableAssetLiabilityMismatchGenerator loanVenusRe = new CompanyConfigurableAssetLiabilityMismatchGenerator(parmCompany: parmCompanyVenusRe)
+    CompanyConfigurableAssetLiabilityMismatchGenerator loanMarsRe = new CompanyConfigurableAssetLiabilityMismatchGenerator(parmCompany: parmCompanyMarsRe)
+    CompanyConfigurableAssetLiabilityMismatchGenerator loanPlutoRe = new CompanyConfigurableAssetLiabilityMismatchGenerator(parmCompany: parmCompanyPlutoRe)
+    CompanyConfigurableAssetLiabilityMismatchGenerator loan2MarsRe = new CompanyConfigurableAssetLiabilityMismatchGenerator(parmCompany: parmCompanyMarsRe)
+
 
     ConstrainedMultiDimensionalParameter reinsurerMarsRe = new ConstrainedMultiDimensionalParameter([['mars re'], [1d]],
             ["Reinsurer", "Covered Portion"], ConstraintsFactory.getConstraints('COMPANY_PORTION'))
@@ -151,12 +158,12 @@ class CompanyTests extends GroovyTestCase {
 
         // inUnderwritingInfoCeded
         UnderwritingInfo uwInfo5 = new UnderwritingInfo(premiumWritten: 1000, sumInsured: 3000, numberOfPolicies: 3000,
-                lineOfBusiness: motorVenusRe, reinsuranceContract: motorVenusReQuotaShare)
-        UnderwritingInfo uwInfo6 = new UnderwritingInfo(premiumWritten: 2000, lineOfBusiness: motorMarsRe)
+                lineOfBusiness: motorVenusRe, reinsuranceContract: motorVenusReQuotaShare, commission: 200)
+        UnderwritingInfo uwInfo6 = new UnderwritingInfo(premiumWritten: 2000, lineOfBusiness: motorMarsRe, commission: 100 )
         UnderwritingInfo uwInfo7 = new UnderwritingInfo(premiumWritten: 2500, sumInsured: 5000, numberOfPolicies: 2000,
-                lineOfBusiness: motorVenusRe, reinsuranceContract: motorVenusReQuotaShare)
+                lineOfBusiness: motorVenusRe, reinsuranceContract: motorVenusReQuotaShare, commission: 300)
         UnderwritingInfo uwInfo9 = new UnderwritingInfo(premiumWritten: 18000, sumInsured: 3000,
-                numberOfPolicies: 20000, lineOfBusiness: accidentMarsRe, reinsuranceContract: accidentMarsReStopLoss)
+                numberOfPolicies: 20000, lineOfBusiness: accidentMarsRe, reinsuranceContract: accidentMarsReStopLoss, commission: 100)
 
         //Venus Re
         companyVenusRe.inUnderwritingInfoGross << uwInfo1 << uwInfo2 << uwInfo3 << uwInfo4 << uwInfo8
@@ -327,5 +334,44 @@ class CompanyTests extends GroovyTestCase {
         assertEquals('correct aggregated net sum Insured for primary insurer pluto re',
                 uwInfo4.sumInsured,
                 companyPlutoRe.outUnderwritingInfoNetPrimaryInsurer[0].sumInsured)
+
     }
+
+        void testFinacialResults()  {
+
+        parmCompanyVenusRe.selectedComponent = companyVenusRe
+        parmCompanyMarsRe.selectedComponent = companyMarsRe
+        parmCompanyPlutoRe.selectedComponent = companyPlutoRe
+
+        // FinancialResults
+        Claim almResult100V = new Claim(ultimate: 100, origin: loanVenusRe)
+        Claim almResult500M = new Claim(ultimate: 500, origin: loanMarsRe)
+        Claim almResult200V = new Claim(ultimate: 200, origin: loanVenusRe)
+        Claim almResult600P = new Claim(ultimate: 600, origin: loanPlutoRe)
+        Claim almResult300M = new Claim(ultimate: 300, origin: loan2MarsRe)
+
+
+        companyVenusRe.inFinancialResults << almResult100V << almResult500M << almResult200V << almResult600P << almResult300M
+        companyVenusRe.doCalculation()
+        assertEquals 'number of alm results for company venus re', 1, companyVenusRe.outFinancialResults.size()
+        assertEquals('correct aggregated financial result for company venus re', almResult100V.ultimate + almResult200V.ultimate,
+                companyVenusRe.outFinancialResults[0].ultimate)
+
+
+        companyMarsRe.inFinancialResults << almResult100V << almResult500M << almResult200V << almResult600P << almResult300M
+        companyMarsRe.doCalculation()
+        assertEquals 'number of alm results for company mars re', 1, companyMarsRe.outFinancialResults.size()
+        assertEquals('correct aggregate financial result for company mars re',
+                almResult500M.ultimate + almResult300M.ultimate, companyMarsRe.outFinancialResults[0].ultimate)
+        
+
+        companyPlutoRe.inFinancialResults << almResult100V << almResult500M << almResult200V << almResult600P << almResult300M
+        companyPlutoRe.doCalculation()
+        assertEquals 'number of alm results for company Pluto re', 1, companyPlutoRe.outFinancialResults.size()
+        assertEquals('correct aggregate financial result for company Pluto re',
+                almResult600P.ultimate, companyPlutoRe.outFinancialResults[0].ultimate)
+
+        }
+
 }
+

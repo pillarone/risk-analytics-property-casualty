@@ -4,6 +4,8 @@ import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter;
 import org.pillarone.riskanalytics.domain.assets.constants.Rating;
+import org.pillarone.riskanalytics.domain.pc.assetLiabilityMismatch.CompanyConfigurableAssetLiabilityMismatchGenerator;
+import org.pillarone.riskanalytics.domain.pc.assetLiabilityMismatch.IAssetLiabilityMismatchMarker;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.lob.CompanyConfigurableLobWithReserves;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
@@ -62,6 +64,11 @@ public class Company extends Component implements ICompanyMarker {
     private PacketList<UnderwritingInfo> outUnderwritingInfoCeded = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
     private PacketList<UnderwritingInfo> outUnderwritingInfoNet = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
     private PacketList<UnderwritingInfo> outUnderwritingInfoNetPrimaryInsurer = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
+
+    private PacketList<Claim> inFinancialResults = new PacketList<Claim>(Claim.class);
+    private PacketList<Claim> outFinancialResults = new PacketList<Claim>(Claim.class);
+
+
     /**
      * This parameter is currently not used for any calculation. It may be used for default modeling as in DCEM.
      * Reason for adding it: Components addable in a DynamicComposedComponent need at least one parameter.
@@ -173,6 +180,19 @@ public class Company extends Component implements ICompanyMarker {
             outUnderwritingInfoNet.add(aggregatedUnderwritingInfoNet);
             UnderwritingInfo aggregatedUnderwritingInfoNetPI = UnderwritingInfoUtilities.calculateNet(aggregatedUnderwritingInfoGrossPI, aggregatedUnderwritingInfoCeded);
             outUnderwritingInfoNetPrimaryInsurer.add(aggregatedUnderwritingInfoNetPI);
+
+            Claim aggregateFinancialResult;
+            if (inFinancialResults.size() > 0) {
+                aggregateFinancialResult = inFinancialResults.get(0).getClass().newInstance();
+            } else {
+                aggregateFinancialResult = (Claim) inFinancialResults.getType().newInstance();
+            }
+            for (Claim financialResult : inFinancialResults) {
+                if (isCompanyFinancialResult(financialResult)) {
+                    aggregateFinancialResult.plus(financialResult);
+                }
+            }
+            outFinancialResults.add(aggregateFinancialResult);
         }
         catch (InstantiationException e) {
             throw new RuntimeException(e.getCause());
@@ -191,6 +211,7 @@ public class Company extends Component implements ICompanyMarker {
         return (lob instanceof CompanyConfigurableLobWithReserves) &&
                 (((CompanyConfigurableLobWithReserves) lob).getParmCompany().getSelectedComponent() == this);
     }
+
     /**
      * @param underwritingInfo
      * @return if the underwriting info's line of business belongs to this company
@@ -199,6 +220,18 @@ public class Company extends Component implements ICompanyMarker {
         LobMarker lob = underwritingInfo.getLineOfBusiness();
         return (lob instanceof CompanyConfigurableLobWithReserves) &&
                 (((CompanyConfigurableLobWithReserves) lob).getParmCompany().getSelectedComponent() == this);
+    }
+
+    /**
+     * @param financialResult
+     * @return if the financialResults's almGenerator belongs to this company
+     */
+    private boolean isCompanyFinancialResult(Claim financialResult) {
+        if (financialResult.getOrigin() instanceof CompanyConfigurableAssetLiabilityMismatchGenerator) {
+            CompanyConfigurableAssetLiabilityMismatchGenerator almGenerator = (CompanyConfigurableAssetLiabilityMismatchGenerator) financialResult.getOrigin();
+            return almGenerator.getParmCompany().getSelectedComponent() == this;
+        }
+        return false;
     }
 
     /**
@@ -263,6 +296,7 @@ public class Company extends Component implements ICompanyMarker {
     public PacketList<Claim> getOutClaimsGrossReinsurer() {
         return outClaimsGrossReinsurer;
     }
+
     public void setOutClaimsGrossReinsurer(PacketList<Claim> outClaimsGrossReinsurer) {
         this.outClaimsGrossReinsurer = outClaimsGrossReinsurer;
     }
@@ -417,5 +451,21 @@ public class Company extends Component implements ICompanyMarker {
 
     public void setOutClaimsLeanDevelopmentNetPrimaryInsurer(PacketList<ClaimDevelopmentLeanPacket> outClaimsLeanDevelopmentNetPrimaryInsurer) {
         this.outClaimsLeanDevelopmentNetPrimaryInsurer = outClaimsLeanDevelopmentNetPrimaryInsurer;
+    }
+
+    public PacketList<Claim> getInFinancialResults() {
+        return inFinancialResults;
+    }
+
+    public void setInFinancialResults(PacketList<Claim> inFinancialResults) {
+        this.inFinancialResults = inFinancialResults;
+    }
+
+    public PacketList<Claim> getOutFinancialResults() {
+        return outFinancialResults;
+    }
+
+    public void setOutFinancialResults(PacketList<Claim> outFinancialResults) {
+        this.outFinancialResults = outFinancialResults;
     }
 }
