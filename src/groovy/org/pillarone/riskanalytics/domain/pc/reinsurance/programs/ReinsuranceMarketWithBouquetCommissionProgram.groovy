@@ -12,11 +12,12 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.ReinsuranceResultWithCo
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.DynamicCommission
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
+import org.pillarone.riskanalytics.core.wiring.ITransmitter
+import org.pillarone.riskanalytics.core.wiring.Transmitter
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-
 class ReinsuranceMarketWithBouquetCommissionProgram extends ComposedComponent {
 
     PacketList<Claim> inClaims = new PacketList(Claim)
@@ -44,44 +45,83 @@ class ReinsuranceMarketWithBouquetCommissionProgram extends ComposedComponent {
     ContractFinancials financialsAggregator = new ContractFinancials()
 
     void wire() {
-        if (subCommissions.subComponentCount() > 0) {
-            WiringUtils.use(WireCategory) {
-                subCommissions.inClaims = subContracts.outClaimsCeded
-                subCommissions.inUnderwritingInfo = subContracts.outCoverUnderwritingInfo
-                underwritingInfoMerger.inUnderwritingInfoCeded = subCommissions.outUnderwritingInfoModified
-                underwritingInfoMerger.inUnderwritingInfoCeded = subCommissions.outUnderwritingInfoUnmodified
-                financialsAggregator.inUnderwritingInfoCeded = underwritingInfoMerger.outUnderwritingInfoCeded
-            }
-            WiringUtils.use(PortReplicatorCategory) {
-                underwritingInfoMerger.inUnderwritingInfoGross = this.inUnderwritingInfo
-                this.outNetAfterCoverUnderwritingInfo = underwritingInfoMerger.outUnderwritingInfoNet
-                this.outUnderwritingInfo = underwritingInfoMerger.outUnderwritingInfoGross
-                this.outCoverUnderwritingInfo = underwritingInfoMerger.outUnderwritingInfoCeded
-            }
+        if (subContracts.subComponentCount() == 0 && subCommissions.subComponentCount() == 0) {
+            wireByPass()
         }
         else {
+            subCommissions.subComponentCount() == 0 ? wireNoCommissions() : wireCommissions()
             WiringUtils.use(WireCategory) {
-                financialsAggregator.inUnderwritingInfoCeded = subContracts.outCoverUnderwritingInfo
+                financialsAggregator.inClaimsCeded = subContracts.outClaimsCeded
             }
             WiringUtils.use(PortReplicatorCategory) {
-                this.outNetAfterCoverUnderwritingInfo = subContracts.outNetAfterCoverUnderwritingInfo
-                this.outUnderwritingInfo = subContracts.outUnderwritingInfo
-                this.outCoverUnderwritingInfo = subContracts.outCoverUnderwritingInfo
+                subContracts.inClaims = this.inClaims
+                subContracts.inUnderwritingInfo = this.inUnderwritingInfo
+                this.outClaimsNet = subContracts.outClaimsNet
+                this.outClaimsGross = subContracts.outClaimsGross
+                this.outClaimsCeded = subContracts.outClaimsCeded
+                this.outClaimsDevelopmentLeanNet = subContracts.outClaimsDevelopmentLeanNet
+                this.outClaimsDevelopmentLeanGross = subContracts.outClaimsDevelopmentLeanGross
+                this.outClaimsDevelopmentLeanCeded = subContracts.outClaimsDevelopmentLeanCeded
+                this.outContractFinancials = financialsAggregator.outContractFinancials
             }
         }
+    }
+
+    private void wireByPass() {
+        Map<Integer, ITransmitter> replaceTransmitters = new LinkedHashMap<Integer, ITransmitter>();
+        for (int i = 0; i < allOutputTransmitter.size(); i++) {
+            Transmitter transmitter = allOutputTransmitter.get(i);
+            // checking equality on list instances won't work, as all lists with size 0 have 0 as hashCode
+            if (transmitter.getSource().is(outClaimsGross)) {
+                ITransmitter transmitterWithModifiedSource = new Transmitter(transmitter.getSender(), inClaims, transmitter.getReceiver(), transmitter.getTarget())
+                replaceTransmitters.put(i, transmitterWithModifiedSource)
+            }
+            // checking equality on list instances won't work, as all lists with size 0 have 0 as hashCode
+            else if (transmitter.getSource().is(outUnderwritingInfo)) {
+                ITransmitter transmitterWithModifiedSource = new Transmitter(transmitter.getSender(), inUnderwritingInfo, transmitter.getReceiver(), transmitter.getTarget())
+                replaceTransmitters.put(i, transmitterWithModifiedSource)
+            }
+        }
+        for (Map.Entry<Integer, ITransmitter> entry : replaceTransmitters) {
+            allOutputTransmitter.set(entry.key, entry.value);
+        }
         WiringUtils.use(WireCategory) {
-            financialsAggregator.inClaimsCeded = subContracts.outClaimsCeded
+            this.outClaimsGross = this.inClaims
+            this.outUnderwritingInfo = this.inUnderwritingInfo
+        }
+    }
+
+    private void wireNoCommissions() {
+        WiringUtils.use(WireCategory) {
+            financialsAggregator.inUnderwritingInfoCeded = subContracts.outCoverUnderwritingInfo
         }
         WiringUtils.use(PortReplicatorCategory) {
-            subContracts.inClaims = this.inClaims
-            subContracts.inUnderwritingInfo = this.inUnderwritingInfo
-            this.outClaimsNet = subContracts.outClaimsNet
-            this.outClaimsGross = subContracts.outClaimsGross
-            this.outClaimsCeded = subContracts.outClaimsCeded
-            this.outClaimsDevelopmentLeanNet = subContracts.outClaimsDevelopmentLeanNet
-            this.outClaimsDevelopmentLeanGross = subContracts.outClaimsDevelopmentLeanGross
-            this.outClaimsDevelopmentLeanCeded = subContracts.outClaimsDevelopmentLeanCeded
-            this.outContractFinancials = financialsAggregator.outContractFinancials
+            this.outNetAfterCoverUnderwritingInfo = subContracts.outNetAfterCoverUnderwritingInfo
+            this.outUnderwritingInfo = subContracts.outUnderwritingInfo
+            this.outCoverUnderwritingInfo = subContracts.outCoverUnderwritingInfo
         }
+    }
+
+    private void wireCommissions() {
+        WiringUtils.use(WireCategory) {
+            subCommissions.inClaims = subContracts.outClaimsCeded
+            subCommissions.inUnderwritingInfo = subContracts.outCoverUnderwritingInfo
+            underwritingInfoMerger.inUnderwritingInfoCeded = subCommissions.outUnderwritingInfoModified
+            underwritingInfoMerger.inUnderwritingInfoCeded = subCommissions.outUnderwritingInfoUnmodified
+            financialsAggregator.inUnderwritingInfoCeded = underwritingInfoMerger.outUnderwritingInfoCeded
+        }
+        WiringUtils.use(PortReplicatorCategory) {
+            underwritingInfoMerger.inUnderwritingInfoGross = this.inUnderwritingInfo
+            this.outNetAfterCoverUnderwritingInfo = underwritingInfoMerger.outUnderwritingInfoNet
+            this.outUnderwritingInfo = underwritingInfoMerger.outUnderwritingInfoGross
+            this.outCoverUnderwritingInfo = underwritingInfoMerger.outUnderwritingInfoCeded
+        }
+    }
+
+    /**
+     * Helper method for wiring when sender or receiver are determined dynamically
+     */
+    public static void doWire(category, receiver, inChannelName, sender, outChannelName) {
+        category.doSetProperty(receiver, inChannelName, category.doGetProperty(sender, outChannelName))
     }
 }
