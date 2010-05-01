@@ -117,11 +117,4 @@ class ReinsuranceMarketWithBouquetCommissionProgram extends ComposedComponent {
             this.outCoverUnderwritingInfo = underwritingInfoMerger.outUnderwritingInfoCeded
         }
     }
-
-    /**
-     * Helper method for wiring when sender or receiver are determined dynamically
-     */
-    public static void doWire(category, receiver, inChannelName, sender, outChannelName) {
-        category.doSetProperty(receiver, inChannelName, category.doGetProperty(sender, outChannelName))
-    }
 }
