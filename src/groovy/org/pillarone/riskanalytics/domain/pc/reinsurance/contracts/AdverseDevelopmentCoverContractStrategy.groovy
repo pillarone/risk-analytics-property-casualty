@@ -8,6 +8,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket
+import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -17,10 +18,10 @@ import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentP
 
 class AdverseDevelopmentCoverContractStrategy extends AbstractContractStrategy implements IReinsuranceContractStrategyWithClaimsDevelopment, IParameterObject {
 
-    static final ReinsuranceContractType type = ReinsuranceContractType.STOPLOSS
+    static final ReinsuranceContractType type = ReinsuranceContractType.ADVERSEDEVELOPMENTCOVER
 
-    /** Premium can be expressed as a fraction of a base quantity. */
-    PremiumBase premiumBase = PremiumBase.ABSOLUTE
+    /** Premium, attachment point and limit can be expressed as a fraction of a base quantity. */
+    StopLossContractBase stopLossContractBase = StopLossContractBase.ABSOLUTE
 
     /** Premium as a percentage of the premium base */
     double premium
@@ -41,7 +42,7 @@ class AdverseDevelopmentCoverContractStrategy extends AbstractContractStrategy i
     }
 
     Map getParameters() {
-        ["premiumBase": premiumBase,
+        ["stopLossContractBase": stopLossContractBase,
             "premium": premium,
             "attachmentPoint": attachmentPoint,
             "limit": limit,
@@ -72,7 +73,7 @@ class AdverseDevelopmentCoverContractStrategy extends AbstractContractStrategy i
 
         double scaledAttachmentPoint = attachmentPoint
         double scaledLimit = limit
-        if (premiumBase == PremiumBase.GNPI) {
+        if (stopLossContractBase == StopLossContractBase.GNPI) {
             double gnpi = UnderwritingInfoUtilities.aggregate(coverUnderwritingInfo).premiumWritten
             scaledAttachmentPoint *= gnpi
             scaledLimit *= gnpi
@@ -103,19 +104,15 @@ class AdverseDevelopmentCoverContractStrategy extends AbstractContractStrategy i
         UnderwritingInfo cededUnderwritingInfo = UnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
         cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo?.originalUnderwritingInfo ? grossUnderwritingInfo.originalUnderwritingInfo : grossUnderwritingInfo
         cededUnderwritingInfo.commission = 0d
-        switch (premiumBase) {
-            case PremiumBase.ABSOLUTE:                                          //szu: this does not exist for stop-loss
+        switch (stopLossContractBase) {
+            case StopLossContractBase.ABSOLUTE:                                         
                 cededUnderwritingInfo.premiumWritten = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
                 cededUnderwritingInfo.premiumWrittenAsIf = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
                 break
-            case PremiumBase.GNPI:
+            case StopLossContractBase.GNPI:
                 cededUnderwritingInfo.premiumWritten = premium * grossUnderwritingInfo.premiumWritten
                 cededUnderwritingInfo.premiumWrittenAsIf = premium * grossUnderwritingInfo.premiumWrittenAsIf
                 break
-            case PremiumBase.RATE_ON_LINE:
-                throw new IllegalArgumentException("Defining the premium base as RoL is not suppported.")
-            case PremiumBase.NUMBER_OF_POLICIES:
-                throw new IllegalArgumentException("Defining the premium base as number of policies is not suppported.")
         }
         cededUnderwritingInfo
     }

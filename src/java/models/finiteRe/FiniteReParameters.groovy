@@ -13,6 +13,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceCo
 import org.pillarone.riskanalytics.domain.pc.underwriting.IUnderwritingInfoMarker
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
+import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
 
 model = models.finiteRe.FiniteReModel
 periodCount = 3
@@ -52,7 +53,7 @@ components {
     }
     wholeAccountStopLoss {
         parmContractStrategy[allPeriods] = ReinsuranceContractType.getStrategy(
-                ReinsuranceContractType.STOPLOSS, ["attachmentPoint": 2E7, "limit": 3E7, "premiumBase": PremiumBase.ABSOLUTE, "premium": 0, "coveredByReinsurer": 1d])
+                ReinsuranceContractType.STOPLOSS, ["attachmentPoint": 2E7, "limit": 3E7, "stopLossContractBase": StopLossContractBase.ABSOLUTE, "premium": 0, "coveredByReinsurer": 1d])
         parmCoveredLines[allPeriods] = new ComboBoxTableMultiDimensionalParameter([""], ["Covered Lines"], LobMarker)
         parmCoveredPerils[allPeriods] = new ComboBoxTableMultiDimensionalParameter([""], ["perils"], PerilMarker)
         parmInuringPriority[allPeriods] = 0
@@ -60,28 +61,28 @@ components {
     lineOfBusinessReinsurance {
         subPropertyStopLoss {
             parmContractStrategy[allPeriods] = ReinsuranceContractType.getStrategy(
-                    ReinsuranceContractType.STOPLOSS, ["attachmentPoint": 1E7, "limit": 2E7, "premiumBase": PremiumBase.ABSOLUTE, "premium": 0, "coveredByReinsurer": 1d])
+                    ReinsuranceContractType.STOPLOSS, ["attachmentPoint": 1E7, "limit": 2E7, "stopLossContractBase": StopLossContractBase.ABSOLUTE, "premium": 0, "coveredByReinsurer": 1d])
             parmCoveredLines[allPeriods] = new ComboBoxTableMultiDimensionalParameter([""], ["Covered Lines"], LobMarker)
             parmCoveredPerils[allPeriods] = new ComboBoxTableMultiDimensionalParameter(["property attritional", "property cat"], ["perils"], PerilMarker)
             parmInuringPriority[allPeriods] = 0
         }
         subMotorStopLoss {
             parmContractStrategy[allPeriods] = ReinsuranceContractType.getStrategy(
-                    ReinsuranceContractType.STOPLOSS, ["attachmentPoint": 1E7, "limit": 2E7, "premiumBase": PremiumBase.ABSOLUTE, "premium": 0, "coveredByReinsurer": 1d])
+                    ReinsuranceContractType.STOPLOSS, ["attachmentPoint": 1E7, "limit": 2E7, "stopLossContractBase": StopLossContractBase.ABSOLUTE, "premium": 0, "coveredByReinsurer": 1d])
             parmCoveredLines[allPeriods] = new ComboBoxTableMultiDimensionalParameter([""], ["Covered Lines"], LobMarker)
             parmCoveredPerils[allPeriods] = new ComboBoxTableMultiDimensionalParameter(["motor"], ["perils"], PerilMarker)
             parmInuringPriority[allPeriods] = 0
         }
         subMarineStopLoss {
             parmContractStrategy[allPeriods] = ReinsuranceContractType.getStrategy(
-                    ReinsuranceContractType.STOPLOSS, ["attachmentPoint": 1E7, "limit": 2E7, "premiumBase": PremiumBase.ABSOLUTE, "premium": 0, "coveredByReinsurer": 1d])
+                    ReinsuranceContractType.STOPLOSS, ["attachmentPoint": 1E7, "limit": 2E7, "stopLossContractBase": StopLossContractBase.ABSOLUTE, "premium": 0, "coveredByReinsurer": 1d])
             parmCoveredLines[allPeriods] = new ComboBoxTableMultiDimensionalParameter([""], ["Covered Lines"], LobMarker)
             parmCoveredPerils[allPeriods] = new ComboBoxTableMultiDimensionalParameter(["marine"], ["perils"], PerilMarker)
             parmInuringPriority[allPeriods] = 0
         }
         subHullStopLoss {
             parmContractStrategy[allPeriods] = ReinsuranceContractType.getStrategy(
-                    ReinsuranceContractType.STOPLOSS, ["attachmentPoint": 1E7, "limit": 2E7, "premiumBase": PremiumBase.ABSOLUTE, "premium": 0, "coveredByReinsurer": 1d])
+                    ReinsuranceContractType.STOPLOSS, ["attachmentPoint": 1E7, "limit": 2E7, "stopLossContractBase": StopLossContractBase.ABSOLUTE, "premium": 0, "coveredByReinsurer": 1d])
             parmCoveredLines[allPeriods] = new ComboBoxTableMultiDimensionalParameter([""], ["Covered Lines"], LobMarker)
             parmCoveredPerils[allPeriods] = new ComboBoxTableMultiDimensionalParameter(["hull"], ["perils"], PerilMarker)
             parmInuringPriority[allPeriods] = 0

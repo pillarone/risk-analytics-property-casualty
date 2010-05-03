@@ -77,7 +77,7 @@ public class ReinsuranceContractType extends AbstractParameterObjectClassifier {
                         reinstatementPremiums: parameters["reinstatementPremiums"])
             case ReinsuranceContractType.STOPLOSS:
                 return new StopLossContractStrategy(attachmentPoint: parameters["attachmentPoint"], limit: parameters["limit"],
-                        termLimit: parameters["termLimit"], premiumBase: parameters["premiumBase"], premium: parameters["premium"])
+                        termLimit: parameters["termLimit"], stopLossContractBase: parameters["stopLossContractBase"], premium: parameters["premium"])
         }
     }
 }

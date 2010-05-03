@@ -11,6 +11,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceCo
 import org.pillarone.riskanalytics.domain.utils.ClaimSizeDistributionType
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.domain.utils.FrequencyDistributionType
+import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
 
 model=models.exampleCompany.ExampleCompanyModel
 periodCount=1
@@ -57,7 +58,7 @@ components {
 				parmInuringPriority[0]=0
 			}
 			subContract3 {
-				parmContractStrategy[0]=ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["limit":1000.0,"attachmentPoint":800.0,"premium":800.0,"premiumBase":PremiumBase.ABSOLUTE, "coveredByReinsurer": 1d])
+				parmContractStrategy[0]=ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["limit":1000.0,"attachmentPoint":800.0,"premium":800.0,"stopLossContractBase":StopLossContractBase.ABSOLUTE, "coveredByReinsurer": 1d])
 				parmInuringPriority[0]=0
 			}
 		}
@@ -90,7 +91,7 @@ components {
 				parmInuringPriority[0]=0
 			}
 			subContract3 {
-				parmContractStrategy[0]=ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["limit":1000.0,"attachmentPoint":800.0,"premium":800.0,"premiumBase":PremiumBase.ABSOLUTE, "coveredByReinsurer": 1d])
+				parmContractStrategy[0]=ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["limit":1000.0,"attachmentPoint":800.0,"premium":800.0,"stopLossContractBase":StopLossContractBase.ABSOLUTE, "coveredByReinsurer": 1d])
 				parmInuringPriority[0]=0
 			}
 		}
@@ -135,7 +136,7 @@ components {
 				parmInuringPriority[0]=0
 			}
 			subContract3 {
-				parmContractStrategy[0]=ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["limit":1000.0,"attachmentPoint":800.0,"premium":800.0,"premiumBase":PremiumBase.ABSOLUTE, "coveredByReinsurer": 1d])
+				parmContractStrategy[0]=ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["limit":1000.0,"attachmentPoint":800.0,"premium":800.0,"stopLossContractBase":StopLossContractBase.ABSOLUTE, "coveredByReinsurer": 1d])
 				parmInuringPriority[0]=0
 			}
 		}
@@ -180,7 +181,7 @@ components {
 				parmInuringPriority[0]=0
 			}
 			subContract3 {
-				parmContractStrategy[0]=ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["limit":1000.0,"attachmentPoint":800.0,"premium":800.0,"premiumBase":PremiumBase.ABSOLUTE, "coveredByReinsurer": 1d])
+				parmContractStrategy[0]=ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["limit":1000.0,"attachmentPoint":800.0,"premium":800.0,"stopLossContractBase":StopLossContractBase.ABSOLUTE, "coveredByReinsurer": 1d])
 				parmInuringPriority[0]=0
 			}
 		}

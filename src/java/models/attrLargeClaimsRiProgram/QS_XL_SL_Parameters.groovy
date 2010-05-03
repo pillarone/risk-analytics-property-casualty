@@ -10,6 +10,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.WXLContractSt
 import org.pillarone.riskanalytics.domain.utils.ClaimSizeDistributionType
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.domain.utils.FrequencyDistributionType
+import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
 //import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
 
 model = QS_XL_SL_Model
@@ -39,6 +40,6 @@ components {
     }
     stopLoss {
         parmContractStrategy[allPeriods] = new StopLossContractStrategy(
-                "attachmentPoint": 800, "limit": 1000, "premiumBase": PremiumBase.ABSOLUTE, "premium": 800, "coveredByReinsurer": 1d)
+                "attachmentPoint": 800, "limit": 1000, "stopLossContractBase": StopLossContractBase.ABSOLUTE, "premium": 800, "coveredByReinsurer": 1d)
     }
 }

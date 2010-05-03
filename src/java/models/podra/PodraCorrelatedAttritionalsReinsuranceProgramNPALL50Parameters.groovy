@@ -209,7 +209,7 @@ components {
                 parmCover[0] = CoverAttributeStrategyType.getStrategy(CoverAttributeStrategyType.LINESOFBUSINESS, ['lines': new ComboBoxTableMultiDimensionalParameter(['personal accident'], ["Covered Lines"], LobMarker),])
             }
             subPropertySl {
-                parmContractStrategy[0] = ReinsuranceContractType.getStrategy(org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType.STOPLOSS, ["premiumBase": org.pillarone.riskanalytics.domain.pc.constants.PremiumBase.GNPI, "premium": 0.1207, "attachmentPoint": 1.0, "limit": 3.0, "coveredByReinsurer": 1.0,])
+                parmContractStrategy[0] = ReinsuranceContractType.getStrategy(org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType.STOPLOSS, ["stopLossContractBaseBase": org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase.GNPI, "premium": 0.1207, "attachmentPoint": 1.0, "limit": 3.0, "coveredByReinsurer": 1.0,])
                 parmCover[0] = CoverAttributeStrategyType.getStrategy(CoverAttributeStrategyType.LINESOFBUSINESS, ['lines': new ComboBoxTableMultiDimensionalParameter(['property'], ["Covered Lines"], LobMarker),])
                 parmInuringPriority[0] = 2
             }

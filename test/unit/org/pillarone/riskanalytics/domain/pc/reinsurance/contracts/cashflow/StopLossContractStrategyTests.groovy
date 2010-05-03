@@ -3,6 +3,7 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cashflow
 import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
+import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -14,7 +15,7 @@ class StopLossContractStrategyTests extends GroovyTestCase {
         StopLossContractStrategy stoploss = new StopLossContractStrategy(attachmentPoint: 150,
                         limit: 150,
                         termLimit: 150,
-                        premiumBase: PremiumBase.ABSOLUTE,
+                        stopLossContractBase: StopLossContractBase.ABSOLUTE,
                         premium: 10)
         double coveredByReinsurer = 1
 
@@ -113,7 +114,7 @@ class StopLossContractStrategyTests extends GroovyTestCase {
         StopLossContractStrategy stoploss = new StopLossContractStrategy(attachmentPoint: 200,
                         limit: 100,
                         termLimit: 100,
-                        premiumBase: PremiumBase.ABSOLUTE,
+                        stopLossContractBase: StopLossContractBase.ABSOLUTE,
                         premium: 10)
         double coveredByReinsurer = 1
 

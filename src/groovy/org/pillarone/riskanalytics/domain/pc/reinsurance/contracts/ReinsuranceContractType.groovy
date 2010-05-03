@@ -6,6 +6,7 @@ import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit.ILimitStrategy
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit.LimitStrategyType
 import org.pillarone.riskanalytics.core.parameterization.*
+import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
 
 class ReinsuranceContractType extends AbstractParameterObjectClassifier {
 
@@ -26,15 +27,14 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
         "aggregateLimit": 0d, "premiumBase": PremiumBase.ABSOLUTE, "premium": 0d, "coveredByReinsurer": 1d,
         "reinstatementPremiums": new TableMultiDimensionalParameter([0.0], ['Reinstatement Premium'])])
     public static final ReinsuranceContractType STOPLOSS = new ReinsuranceContractType("stop loss", "STOPLOSS",
-        ["attachmentPoint": 0d, "limit": 0d, "premiumBase": PremiumBase.ABSOLUTE, "premium": 0d, "coveredByReinsurer": 1d])
+        ["stopLossContractBase": StopLossContractBase.ABSOLUTE, "attachmentPoint": 0d, "limit": 0d, "premium": 0d, "coveredByReinsurer": 1d])
     public static final ReinsuranceContractType TRIVIAL = new ReinsuranceContractType("trivial", "TRIVIAL", [:])
-
     public static final ReinsuranceContractType AGGREGATEXL = new ReinsuranceContractType("aggregate xl", "AggregateXL",
         ["attachmentPoint": 0d, "limit": 0d, "premiumBase": PremiumBase.ABSOLUTE, "premium": 0d, "coveredByReinsurer": 1d, "claimClass": ClaimType.AGGREGATED_EVENT])
     public static final ReinsuranceContractType LOSSPORTFOLIOTRANSFER = new ReinsuranceContractType("loss portfolio transfer", "LOSSPORTFOLIOTRANSFER",
         ["quotaShare": 0d, "premiumBase": LPTPremiumBase.ABSOLUTE, "premium": 0d, "coveredByReinsurer": 1d])
     public static final ReinsuranceContractType ADVERSEDEVELOPMENTCOVER = new ReinsuranceContractType("adverse development cover", "ADVERSEDEVELOPMENTCOVER",
-        ["attachmentPoint": 0d, "limit": 0d, "premiumBase": PremiumBase.ABSOLUTE, "premium": 0d, "coveredByReinsurer": 1d])
+        ["attachmentPoint": 0d, "limit": 0d, "stopLossContractBase": StopLossContractBase.ABSOLUTE, "premium": 0d, "coveredByReinsurer": 1d])
     public static final ReinsuranceContractType GOLDORAK = new ReinsuranceContractType("goldorak", "GOLDORAK", ["attachmentPoint": 0d, "limit": 0d,
         "aggregateLimit": 0d, "premiumBase": PremiumBase.ABSOLUTE, "premium": 0d, "coveredByReinsurer": 1d, "slAttachmentPoint": 0d,
         "slLimit": 0d, "goldorakSlThreshold" : 0d, "reinstatementPremiums": new TableMultiDimensionalParameter([0.0], ['Reinstatement Premium'])])
@@ -69,9 +69,9 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
         return new QuotaShareContractStrategy(quotaShare: quotaShare, limit: limit, coveredByReinsurer: coveredByReinsurer)
     }
 
-    private static IReinsuranceContractStrategy getStopLoss(double attachmentPoint, double limit, PremiumBase premiumBase,
+    private static IReinsuranceContractStrategy getStopLoss(StopLossContractBase stopLossContractBase, double attachmentPoint, double limit,
                                                             double premium, double coveredByReinsurer) {
-        return new StopLossContractStrategy(attachmentPoint: attachmentPoint, limit: limit, premiumBase: premiumBase,
+        return new StopLossContractStrategy(stopLossContractBase: stopLossContractBase, attachmentPoint: attachmentPoint, limit: limit,
                 premium: premium, coveredByReinsurer: coveredByReinsurer)
     }
 
@@ -113,10 +113,10 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
         return new LossPortfolioTransferContractStrategy(quotaShare: quotaShare, premiumBase: premiumBase, premium: premium, coveredByReinsurer: coveredByReinsurer)
     }
 
-    private static IReinsuranceContractStrategy getAdverseDevelopmentCover(double attachmentPoint, double limit, PremiumBase premiumBase,
-                                                            double premium, double coveredByReinsurer) {
-        return new AdverseDevelopmentCoverContractStrategy(attachmentPoint: attachmentPoint, limit: limit, premiumBase: premiumBase,
-                premium: premium, coveredByReinsurer: coveredByReinsurer)
+    private static IReinsuranceContractStrategy getAdverseDevelopmentCover(StopLossContractBase stopLossContractBase, double attachmentPoint,
+                                                                           double limit, double premium, double coveredByReinsurer) {
+        return new AdverseDevelopmentCoverContractStrategy(stopLossContractBase: stopLossContractBase, attachmentPoint: attachmentPoint,
+                limit: limit, premium: premium, coveredByReinsurer: coveredByReinsurer)
     }
 
     public static IReinsuranceContractStrategy getTrivial() {
@@ -181,9 +181,9 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
                 break
             case ReinsuranceContractType.STOPLOSS:
                 contract = getStopLoss(
+                        (StopLossContractBase) parameters["stopLossContractBase"],
                         (double) parameters["attachmentPoint"],
                         (double) parameters["limit"],
-                        (PremiumBase) parameters["premiumBase"],
                         (double) parameters["premium"],
                         (double) parameters["coveredByReinsurer"])
                 break
@@ -206,9 +206,9 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
                 break
             case ReinsuranceContractType.ADVERSEDEVELOPMENTCOVER:
                 contract = getAdverseDevelopmentCover(
+                        (StopLossContractBase) parameters["stopLossContractBase"],
                         (double) parameters["attachmentPoint"],
                         (double) parameters["limit"],
-                        (PremiumBase) parameters["premiumBase"],
                         (double) parameters["premium"],
                         (double) parameters["coveredByReinsurer"])
                 break

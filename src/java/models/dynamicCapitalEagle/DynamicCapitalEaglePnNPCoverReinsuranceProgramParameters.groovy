@@ -19,6 +19,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.IUnderwritingInfoMarke
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.core.parameterization.*
+import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
 
 model = models.dynamicCapitalEagle.DynamicCapitalEagleModel
 periodCount = 1
@@ -154,7 +155,7 @@ components {
             parmReinsurer[0] = new ConstrainedString(IReinsurerMarker, '')
         }
         subSlProperty {
-            parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["premiumBase": PremiumBase.GNPI, "premium": 0.1207, "attachmentPoint": 1.0, "limit": 3.0, "coveredByReinsurer": 1.0,])
+            parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["stopLossContractBase": StopLossContractBase.GNPI, "premium": 0.1207, "attachmentPoint": 1.0, "limit": 3.0, "coveredByReinsurer": 1.0,])
             parmReinsurer[0] = new ConstrainedString(IReinsurerMarker, '')
             parmCoveredPerils[0] = new ComboBoxTableMultiDimensionalParameter([""], ["perils"], PerilMarker)
             parmCoveredLines[0] = new ComboBoxTableMultiDimensionalParameter(["property"], ["Covered Lines"], LobMarker)

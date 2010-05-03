@@ -1,6 +1,6 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts
 
-import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
+import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
@@ -17,8 +17,8 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
 
     static final ReinsuranceContractType type = ReinsuranceContractType.STOPLOSS
 
-    /** Premium can be expressed as a fraction of a base quantity.           */
-    PremiumBase premiumBase = PremiumBase.ABSOLUTE
+    /** Premium, limit and attachmentPoint can be expressed as a fraction of a base quantity.           */
+    StopLossContractBase stopLossContractBase = StopLossContractBase.ABSOLUTE
 
     /** Premium as a percentage of the premium base           */
     double premium
@@ -38,7 +38,7 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
     }
 
     Map getParameters() {
-        ["premiumBase": premiumBase,
+        ["stopLossContractBase": stopLossContractBase,
             "premium": premium,
             "attachmentPoint": attachmentPoint,
             "limit": limit,
@@ -56,7 +56,7 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
         }
         double scaledAttachmentPoint = attachmentPoint
         double scaledLimit = limit
-        if (premiumBase == PremiumBase.GNPI) {
+        if (stopLossContractBase == StopLossContractBase.GNPI) {
             double gnpi = UnderwritingInfoUtilities.aggregate(coverUnderwritingInfo).premiumWritten
             scaledAttachmentPoint *= gnpi
             scaledLimit *= gnpi
@@ -83,19 +83,15 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
         UnderwritingInfo cededUnderwritingInfo = UnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
         cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo?.originalUnderwritingInfo ? grossUnderwritingInfo.originalUnderwritingInfo : grossUnderwritingInfo
         cededUnderwritingInfo.commission = 0d
-        switch (premiumBase) {
-            case PremiumBase.ABSOLUTE:                                          //szu: this does not exist for stop-loss
+        switch (stopLossContractBase) {
+            case StopLossContractBase.ABSOLUTE:                                          //szu: this does not exist for stop-loss
                 cededUnderwritingInfo.premiumWritten = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
                 cededUnderwritingInfo.premiumWrittenAsIf = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
                 break
-            case PremiumBase.GNPI:
+            case StopLossContractBase.GNPI:
                 cededUnderwritingInfo.premiumWritten = premium * grossUnderwritingInfo.premiumWritten
                 cededUnderwritingInfo.premiumWrittenAsIf = premium * grossUnderwritingInfo.premiumWrittenAsIf
                 break
-            case PremiumBase.RATE_ON_LINE:
-                throw new IllegalArgumentException("Defining the premium base as RoL is not suppported.")
-            case PremiumBase.NUMBER_OF_POLICIES:
-                throw new IllegalArgumentException("Defining the premium base as number of policies is not suppported.")
         }
         cededUnderwritingInfo
     }

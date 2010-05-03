@@ -43,18 +43,13 @@ class ExampleLob4RIPrograms extends ComposedComponent {
             subClaimsGenerator.inUnderwritingInfo = subUnderwriting.outUnderwritingInfo
             subAllocator.inUnderwritingInfo = subUnderwriting.outUnderwritingInfo
             subAllocator.inTargetDistribution = subUnderwriting.outAttritionalTargetDistribution
-
             subAllocator.inClaims = subClaimsGenerator.outClaims
-
             subRiProgramA.inUnderwritingInfo = subAllocator.outUnderwritingInfo
             subRiProgramA.inClaims = subAllocator.outClaims
-
             subRiProgramB.inUnderwritingInfo = subAllocator.outUnderwritingInfo
             subRiProgramB.inClaims = subAllocator.outClaims
-
             subRiProgramC.inUnderwritingInfo = subAllocator.outUnderwritingInfo
             subRiProgramC.inClaims = subAllocator.outClaims
-
             subRiProgramD.inUnderwritingInfo = subAllocator.outUnderwritingInfo
             subRiProgramD.inClaims = subAllocator.outClaims
         }

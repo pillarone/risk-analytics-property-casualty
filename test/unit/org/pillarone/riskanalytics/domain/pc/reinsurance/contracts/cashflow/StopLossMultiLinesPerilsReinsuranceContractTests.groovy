@@ -7,6 +7,7 @@ import org.pillarone.riskanalytics.core.util.TestProbe
 import org.pillarone.riskanalytics.domain.assets.VoidTestModel
 import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket
+import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -17,7 +18,7 @@ class StopLossMultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         MultiLinesPerilsReinsuranceContract contract = new MultiLinesPerilsReinsuranceContract(
                 parmContractStrategy : ReinsuranceContractType.getContractStrategy(
                         ReinsuranceContractType.STOPLOSS, ['attachmentPoint': 150, 'limit': 150, 'termLimit': 300,
-                                                           'premiumBase': PremiumBase.ABSOLUTE, 'premium': 10]),
+                                                           'stopLossContractBase': StopLossContractBase.ABSOLUTE, 'premium': 10]),
                 parmCoverPeriod : CoverPeriodType.getStrategy(
                         CoverPeriodType.PERIOD,
                         ['start': new DateTime(2011,1,1,0,0,0,0), 'end': new DateTime(2013,12,31,0,0,0,0)]),

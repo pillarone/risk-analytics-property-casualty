@@ -10,6 +10,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionS
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
+import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
 
 model = models.capitalEagle.CapitalEagleModel
 periodCount = 4
@@ -289,9 +290,9 @@ components {
             }
             subContract3 {
                 parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.TRIVIAL, [:])
-                parmContractStrategy[2] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["premiumBase": PremiumBase.GNPI, "premium": 0.1207, "attachmentPoint": 1.0, "limit": 3.0, "coveredByReinsurer": 1.0,])
-                parmContractStrategy[1] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["premiumBase": PremiumBase.GNPI, "premium": 0.1207, "attachmentPoint": 1.0, "limit": 3.0, "coveredByReinsurer": 1.0,])
-                parmContractStrategy[3] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["premiumBase": PremiumBase.GNPI, "premium": 0.1207, "attachmentPoint": 1.0, "limit": 3.0, "coveredByReinsurer": 1.0,])
+                parmContractStrategy[2] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["stopLossContractBase": StopLossContractBase.GNPI, "premium": 0.1207, "attachmentPoint": 1.0, "limit": 3.0, "coveredByReinsurer": 1.0,])
+                parmContractStrategy[1] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["stopLossContractBase": StopLossContractBase.GNPI, "premium": 0.1207, "attachmentPoint": 1.0, "limit": 3.0, "coveredByReinsurer": 1.0,])
+                parmContractStrategy[3] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["stopLossContractBase": StopLossContractBase.GNPI, "premium": 0.1207, "attachmentPoint": 1.0, "limit": 3.0, "coveredByReinsurer": 1.0,])
                 parmInuringPriority[0] = 0
                 parmInuringPriority[2] = 0
                 parmInuringPriority[3] = 0

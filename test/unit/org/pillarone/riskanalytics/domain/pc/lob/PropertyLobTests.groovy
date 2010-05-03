@@ -8,6 +8,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceCo
 import org.pillarone.riskanalytics.domain.utils.ClaimSizeDistributionType
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
+import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
 
 class PropertyLobTests extends GroovyTestCase {
 
@@ -55,12 +56,12 @@ class PropertyLobTests extends GroovyTestCase {
                 "reinstatementPremium": new TableMultiDimensionalParameter([0.5], ['Reinstatement Premium']),
                 "coveredByReinsurer": 1d])
         lob.subRiProgram.subContract3.parmContractStrategy = ReinsuranceContractType.getStrategy(
-            ReinsuranceContractType.STOPLOSS,
-            ["attachmentPoint": slAttachmentPoint,
-                "limit": slLimit,
-                "premiumBase": PremiumBase.ABSOLUTE,
-                "premium": 40,
-                "coveredByReinsurer": 1d])
+                ReinsuranceContractType.STOPLOSS,
+                ["stopLossContractBase": StopLossContractBase.ABSOLUTE,
+                        "attachmentPoint": slAttachmentPoint,
+                        "limit": slLimit,
+                        "premium": 40,
+                        "coveredByReinsurer": 1d])
         lob.subAllocator.parmRiskAllocatorStrategy = RiskAllocatorType.getStrategy(RiskAllocatorType.SUMINSUREDGENERATOR, [
             distribution: DistributionType.getStrategy(DistributionType.NORMAL, ["mean": 0d, "stDev": 1d]),
             modification: DistributionModifier.getStrategy(DistributionModifier.NONE, [:]),

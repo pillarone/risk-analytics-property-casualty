@@ -14,6 +14,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceCo
 import org.pillarone.riskanalytics.domain.pc.underwriting.IUnderwritingInfoMarker
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
+import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
 
 model = models.finiteRe.FiniteReModel
 periodCount = 3
@@ -28,17 +29,17 @@ components {
             parmCoveredPerils[1] = new ComboBoxTableMultiDimensionalParameter(["property attritional", "property cat"], ["perils"], PerilMarker)
             parmCoveredPerils[0] = new ComboBoxTableMultiDimensionalParameter(["property attritional", "property cat"], ["perils"], PerilMarker)
             parmCoveredPerils[2] = new ComboBoxTableMultiDimensionalParameter(["property attritional", "property cat"], ["perils"], PerilMarker)
-            parmContractStrategy[1] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["premiumBase": PremiumBase.ABSOLUTE, "premium": 0.0, "attachmentPoint": 1.0E7, "limit": 2.0E7, "coveredByReinsurer": 1.0,])
-            parmContractStrategy[2] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["premiumBase": PremiumBase.ABSOLUTE, "premium": 0.0, "attachmentPoint": 1.0E7, "limit": 2.0E7, "coveredByReinsurer": 1.0,])
-            parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["premiumBase": PremiumBase.ABSOLUTE, "premium": 0.0, "attachmentPoint": 1.0E7, "limit": 2.0E7, "coveredByReinsurer": 1.0,])
+            parmContractStrategy[1] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["stopLossContractBase": StopLossContractBase.ABSOLUTE, "premium": 0.0, "attachmentPoint": 1.0E7, "limit": 2.0E7, "coveredByReinsurer": 1.0,])
+            parmContractStrategy[2] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["stopLossContractBase": StopLossContractBase.ABSOLUTE, "premium": 0.0, "attachmentPoint": 1.0E7, "limit": 2.0E7, "coveredByReinsurer": 1.0,])
+            parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["stopLossContractBase": StopLossContractBase.ABSOLUTE, "premium": 0.0, "attachmentPoint": 1.0E7, "limit": 2.0E7, "coveredByReinsurer": 1.0,])
             parmCoveredLines[2] = new ComboBoxTableMultiDimensionalParameter([""], ["Covered Lines"], LobMarker)
             parmCoveredLines[0] = new ComboBoxTableMultiDimensionalParameter([""], ["Covered Lines"], LobMarker)
             parmCoveredLines[1] = new ComboBoxTableMultiDimensionalParameter([""], ["Covered Lines"], LobMarker)
         }
         subMarineStopLoss {
-            parmContractStrategy[2] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["premiumBase": PremiumBase.ABSOLUTE, "premium": 0.0, "attachmentPoint": 1.0E7, "limit": 2.0E7, "coveredByReinsurer": 1.0,])
-            parmContractStrategy[1] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["premiumBase": PremiumBase.ABSOLUTE, "premium": 0.0, "attachmentPoint": 1.0E7, "limit": 2.0E7, "coveredByReinsurer": 1.0,])
-            parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["premiumBase": PremiumBase.ABSOLUTE, "premium": 0.0, "attachmentPoint": 1.0E7, "limit": 2.0E7, "coveredByReinsurer": 1.0,])
+            parmContractStrategy[2] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["stopLossContractBase": StopLossContractBase.ABSOLUTE, "premium": 0.0, "attachmentPoint": 1.0E7, "limit": 2.0E7, "coveredByReinsurer": 1.0,])
+            parmContractStrategy[1] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["stopLossContractBase": StopLossContractBase.ABSOLUTE, "premium": 0.0, "attachmentPoint": 1.0E7, "limit": 2.0E7, "coveredByReinsurer": 1.0,])
+            parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["stopLossContractBase": StopLossContractBase.ABSOLUTE, "premium": 0.0, "attachmentPoint": 1.0E7, "limit": 2.0E7, "coveredByReinsurer": 1.0,])
             parmCoveredLines[0] = new ComboBoxTableMultiDimensionalParameter([""], ["Covered Lines"], LobMarker)
             parmCoveredLines[1] = new ComboBoxTableMultiDimensionalParameter([""], ["Covered Lines"], LobMarker)
             parmCoveredLines[2] = new ComboBoxTableMultiDimensionalParameter([""], ["Covered Lines"], LobMarker)
@@ -59,17 +60,17 @@ components {
             parmCoveredPerils[1] = new ComboBoxTableMultiDimensionalParameter(["motor"], ["perils"], PerilMarker)
             parmCoveredPerils[2] = new ComboBoxTableMultiDimensionalParameter(["motor"], ["perils"], PerilMarker)
             parmCoveredPerils[0] = new ComboBoxTableMultiDimensionalParameter(["motor"], ["perils"], PerilMarker)
-            parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["premiumBase": PremiumBase.ABSOLUTE, "premium": 0.0, "attachmentPoint": 1.0E7, "limit": 2.0E7, "coveredByReinsurer": 1.0,])
-            parmContractStrategy[1] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["premiumBase": PremiumBase.ABSOLUTE, "premium": 0.0, "attachmentPoint": 1.0E7, "limit": 2.0E7, "coveredByReinsurer": 1.0,])
-            parmContractStrategy[2] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["premiumBase": PremiumBase.ABSOLUTE, "premium": 0.0, "attachmentPoint": 1.0E7, "limit": 2.0E7, "coveredByReinsurer": 1.0,])
+            parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["stopLossContractBase": StopLossContractBase.ABSOLUTE, "premium": 0.0, "attachmentPoint": 1.0E7, "limit": 2.0E7, "coveredByReinsurer": 1.0,])
+            parmContractStrategy[1] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["stopLossContractBase": StopLossContractBase.ABSOLUTE, "premium": 0.0, "attachmentPoint": 1.0E7, "limit": 2.0E7, "coveredByReinsurer": 1.0,])
+            parmContractStrategy[2] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["stopLossContractBase": StopLossContractBase.ABSOLUTE, "premium": 0.0, "attachmentPoint": 1.0E7, "limit": 2.0E7, "coveredByReinsurer": 1.0,])
         }
         subHullStopLoss {
             parmCoveredLines[2] = new ComboBoxTableMultiDimensionalParameter([""], ["Covered Lines"], LobMarker)
             parmCoveredLines[0] = new ComboBoxTableMultiDimensionalParameter([""], ["Covered Lines"], LobMarker)
             parmCoveredLines[1] = new ComboBoxTableMultiDimensionalParameter([""], ["Covered Lines"], LobMarker)
-            parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["premiumBase": PremiumBase.ABSOLUTE, "premium": 0.0, "attachmentPoint": 1.0E7, "limit": 2.0E7, "coveredByReinsurer": 1.0,])
-            parmContractStrategy[1] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["premiumBase": PremiumBase.ABSOLUTE, "premium": 0.0, "attachmentPoint": 1.0E7, "limit": 2.0E7, "coveredByReinsurer": 1.0,])
-            parmContractStrategy[2] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["premiumBase": PremiumBase.ABSOLUTE, "premium": 0.0, "attachmentPoint": 1.0E7, "limit": 2.0E7, "coveredByReinsurer": 1.0,])
+            parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["stopLossContractBase": StopLossContractBase.ABSOLUTE, "premium": 0.0, "attachmentPoint": 1.0E7, "limit": 2.0E7, "coveredByReinsurer": 1.0,])
+            parmContractStrategy[1] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["stopLossContractBase": StopLossContractBase.ABSOLUTE, "premium": 0.0, "attachmentPoint": 1.0E7, "limit": 2.0E7, "coveredByReinsurer": 1.0,])
+            parmContractStrategy[2] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["stopLossContractBase": StopLossContractBase.ABSOLUTE, "premium": 0.0, "attachmentPoint": 1.0E7, "limit": 2.0E7, "coveredByReinsurer": 1.0,])
             parmCoveredPerils[0] = new ComboBoxTableMultiDimensionalParameter(["hull"], ["perils"], PerilMarker)
             parmCoveredPerils[2] = new ComboBoxTableMultiDimensionalParameter(["hull"], ["perils"], PerilMarker)
             parmCoveredPerils[1] = new ComboBoxTableMultiDimensionalParameter(["hull"], ["perils"], PerilMarker)
@@ -137,9 +138,9 @@ components {
         }
     }
     wholeAccountStopLoss {
-        parmContractStrategy[1] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["premiumBase": PremiumBase.ABSOLUTE, "premium": 0.0, "attachmentPoint": 2.0E7, "limit": 3.0E7, "coveredByReinsurer": 1.0,])
-        parmContractStrategy[2] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["premiumBase": PremiumBase.ABSOLUTE, "premium": 0.0, "attachmentPoint": 2.0E7, "limit": 3.0E7, "coveredByReinsurer": 1.0,])
-        parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["premiumBase": PremiumBase.ABSOLUTE, "premium": 0.0, "attachmentPoint": 2.0E7, "limit": 3.0E7, "coveredByReinsurer": 1.0,])
+        parmContractStrategy[1] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["stopLossContractBase": StopLossContractBase.ABSOLUTE, "premium": 0.0, "attachmentPoint": 2.0E7, "limit": 3.0E7, "coveredByReinsurer": 1.0,])
+        parmContractStrategy[2] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["stopLossContractBase": StopLossContractBase.ABSOLUTE, "premium": 0.0, "attachmentPoint": 2.0E7, "limit": 3.0E7, "coveredByReinsurer": 1.0,])
+        parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["stopLossContractBase": StopLossContractBase.ABSOLUTE, "premium": 0.0, "attachmentPoint": 2.0E7, "limit": 3.0E7, "coveredByReinsurer": 1.0,])
         parmInuringPriority[2] = 0
         parmInuringPriority[0] = 0
         parmInuringPriority[1] = 0

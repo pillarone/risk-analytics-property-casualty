@@ -9,6 +9,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceCo
 import org.pillarone.riskanalytics.domain.utils.ClaimSizeDistributionType
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.domain.utils.FrequencyDistributionType
+import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
 
 model = models.riProgram.RiProgramModel
 periodCount = 2
@@ -52,8 +53,8 @@ components {
             parmInuringPriority[1] = 2
         }
         subContract2 {
-            parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["limit": 1000.0, "attachmentPoint": 800.0, "premium": 800.0, "premiumBase": PremiumBase.ABSOLUTE, "coveredByReinsurer": 1d])
-            parmContractStrategy[1] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["limit": 1000.0, "attachmentPoint": 800.0, "premium": 800.0, "premiumBase": PremiumBase.ABSOLUTE, "coveredByReinsurer": 1d])
+            parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["limit": 1000.0, "attachmentPoint": 800.0, "premium": 800.0, "stopLossContractBase": StopLossContractBase.ABSOLUTE, "coveredByReinsurer": 1d])
+            parmContractStrategy[1] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["limit": 1000.0, "attachmentPoint": 800.0, "premium": 800.0, "stopLossContractBase": StopLossContractBase.ABSOLUTE, "coveredByReinsurer": 1d])
             parmInuringPriority[0] = 3
             parmInuringPriority[1] = 3
         }

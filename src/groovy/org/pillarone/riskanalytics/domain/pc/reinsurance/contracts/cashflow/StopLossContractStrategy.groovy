@@ -1,6 +1,6 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cashflow
 
-import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
+import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities
@@ -15,8 +15,8 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
 
     static final ReinsuranceContractType type = ReinsuranceContractType.STOPLOSS
 
-    /** Premium can be expressed as a fraction of a base quantity.           */
-    PremiumBase premiumBase = PremiumBase.ABSOLUTE
+    /** Premium, limit and attachmentPoint can be expressed as a fraction of a base quantity.           */
+    StopLossContractBase stopLossContractBase = StopLossContractBase.ABSOLUTE
 
     /** Premium as a percentage of the premium base           */
     double premium
@@ -60,7 +60,7 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
     }
 
     Map getParameters() {
-        ["premiumBase": premiumBase,
+        ["stopLossContractBase": stopLossContractBase,
             "premium": premium,
             "attachmentPoint": attachmentPoint,
             "limit": limit,
@@ -74,7 +74,7 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
         scaledAttachmentPointIncurred = attachmentPoint
         scaledLimit = limit
         scaledTermLimit = termLimit
-        if (premiumBase == PremiumBase.GNPI) {
+        if (stopLossContractBase == StopLossContractBase.GNPI) {
             gnpi = UnderwritingInfoUtilities.aggregate(grossUnderwritingInfos).premiumWritten
             scaledAttachmentPointIncurred *= gnpi
             scaledLimit *= gnpi
@@ -131,7 +131,7 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
         availableScaledIncurredLimit = Math.min(scaledLimit, availableScaledIncurredTermLimit)
         availableScaledPaidLimit = Math.min(scaledLimit, availableScaledPaidTermLimit)
         scaledAttachmentPointIncurred = attachmentPoint
-        if (premiumBase == PremiumBase.GNPI) {
+        if (stopLossContractBase == StopLossContractBase.GNPI) {
             scaledAttachmentPointIncurred *= gnpi
         }
         scaledAttachmentPointPaid = scaledAttachmentPointIncurred
@@ -144,19 +144,15 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
         UnderwritingInfo cededUnderwritingInfo = UnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
         cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo?.originalUnderwritingInfo ? grossUnderwritingInfo.originalUnderwritingInfo : grossUnderwritingInfo
         cededUnderwritingInfo.commission = 0d
-        switch (premiumBase) {
-            case PremiumBase.ABSOLUTE:
+        switch (stopLossContractBase) {
+            case StopLossContractBase.ABSOLUTE:
                 cededUnderwritingInfo.premiumWritten = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
                 cededUnderwritingInfo.premiumWrittenAsIf = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
                 break
-            case PremiumBase.GNPI:
+            case StopLossContractBase.GNPI:
                 cededUnderwritingInfo.premiumWritten = premium * grossUnderwritingInfo.premiumWritten
                 cededUnderwritingInfo.premiumWrittenAsIf = premium * grossUnderwritingInfo.premiumWrittenAsIf
                 break
-            case PremiumBase.RATE_ON_LINE:
-                throw new IllegalArgumentException("Defining the premium base as RoL is not suppported.")
-            case PremiumBase.NUMBER_OF_POLICIES:
-                throw new IllegalArgumentException("Defining the premium base as number of policies is not suppported.")
         }
         cededUnderwritingInfo
     }

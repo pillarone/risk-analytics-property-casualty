@@ -16,6 +16,7 @@ import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.domain.utils.IRandomNumberGenerator
 import org.pillarone.riskanalytics.domain.utils.RandomDistribution
 import org.pillarone.riskanalytics.domain.utils.RandomNumberGeneratorFactory
+import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
 
 /**
  * @author martin.melchior (at) fhnw (dot) ch
@@ -33,7 +34,7 @@ class TestDensitiesModel extends StochasticModel {
         sl = new ReinsuranceContract(
             parmContractStrategy: ReinsuranceContractType.getStrategy(
                 ReinsuranceContractType.STOPLOSS,
-                ["attachmentPoint": 120d, "limit": 20d, "premiumBase": PremiumBase.ABSOLUTE, "premium": 0d, "coveredByReinsurer": 1d])
+                ["attachmentPoint": 120d, "limit": 20d, "stopLossContractBase": StopLossContractBase.ABSOLUTE, "premium": 0d, "coveredByReinsurer": 1d])
         )
         allComponents << claims
         allComponents << sl

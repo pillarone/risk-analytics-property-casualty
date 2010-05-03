@@ -11,6 +11,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.QuotaShareCon
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.WXLContractStrategy
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.StopLossContractStrategy
+import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
 
 /**
  * @author: stefan.kunz (at) intuitive-collaboration (dot) com
@@ -40,9 +41,9 @@ class QS_XL_SL_Model extends StochasticModel {
             "premium": 70,
             "reinstatementPremiums": new TableMultiDimensionalParameter([0.5], ['Reinstatement Premium'])))
         stopLoss = new ReinsuranceContract(parmContractStrategy: new StopLossContractStrategy(
+            "stopLossContractBase": StopLossContractBase.ABSOLUTE,
             "attachmentPoint": 1000,
             "limit": 1000,
-            "premiumBase": PremiumBase.ABSOLUTE,
             "premium": 800))
 
         allComponents << frequencyGenerator

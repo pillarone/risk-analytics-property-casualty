@@ -5,6 +5,7 @@ import org.pillarone.riskanalytics.domain.pc.constants.Exposure
 import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
 import org.pillarone.riskanalytics.domain.utils.DistributionType
+import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
 
 model=models.densityestimation.TestDensitiesModel
 periodCount=1
@@ -16,7 +17,7 @@ components {
 		parmBase[0]=Exposure.ABSOLUTE
 	}
 	sl {
-		parmContractStrategy[0]= ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["limit":600.0,"attachmentPoint":400.0,"premium":0.0,"premiumBase":PremiumBase.ABSOLUTE, "coveredByReinsurer": 1d])
+		parmContractStrategy[0]= ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["limit":600.0,"attachmentPoint":400.0,"premium":0.0,"stopLossContractBase":StopLossContractBase.ABSOLUTE, "coveredByReinsurer": 1d])
 		parmInuringPriority[0]=0
 	}
 	triModalClaims {

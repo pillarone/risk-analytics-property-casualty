@@ -8,6 +8,7 @@ import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoTests
+import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
 
 /**
  * @author ben.ginsberg (at) intuitive-collaboration (dot) com, shartmann (at) munichre (dot) com
@@ -18,9 +19,9 @@ class AdverseDevelopmentCoverContractStrategyTests extends GroovyTestCase {
         return new ReinsuranceContract(
                 parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.ADVERSEDEVELOPMENTCOVER,
-                        ["attachmentPoint": 1.20,
+                        ["stopLossContractBase": StopLossContractBase.GNPI,
+                                "attachmentPoint": 1.20,
                                 "limit": 0.40,
-                                "premiumBase": PremiumBase.GNPI,
                                 "premium": 0.20,
                                 "coveredByReinsurer": 1d]))
     }
@@ -29,9 +30,9 @@ class AdverseDevelopmentCoverContractStrategyTests extends GroovyTestCase {
         return new ReinsuranceContract(
                 parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.ADVERSEDEVELOPMENTCOVER,
-                        ["attachmentPoint": 1.15,
+                        ["stopLossContractBase": StopLossContractBase.GNPI,
+                                "attachmentPoint": 1.15,
                                 "limit": 0.15,
-                                "premiumBase": PremiumBase.GNPI,
                                 "premium": 0.1,
                                 "coveredByReinsurer": 1d]))
     }
@@ -40,9 +41,9 @@ class AdverseDevelopmentCoverContractStrategyTests extends GroovyTestCase {
         return new ReinsuranceContract(
                 parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.ADVERSEDEVELOPMENTCOVER,
-                        ["attachmentPoint": 2400,
+                        [ "stopLossContractBase": StopLossContractBase.ABSOLUTE,
+                                "attachmentPoint": 2400,
                                 "limit": 800,
-                                "premiumBase": PremiumBase.ABSOLUTE,
                                 "premium": 400,
                                 "coveredByReinsurer": 1d]))
     }
@@ -51,9 +52,9 @@ class AdverseDevelopmentCoverContractStrategyTests extends GroovyTestCase {
         return new ReinsuranceContract(
                 parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.ADVERSEDEVELOPMENTCOVER,
-                        ["attachmentPoint": attachmentPoint,
+                        ["stopLossContractBase": StopLossContractBase.ABSOLUTE,
+                                "attachmentPoint": attachmentPoint,
                                 "limit": limit,
-                                "premiumBase": PremiumBase.ABSOLUTE,
                                 "premium": 400,
                                 "coveredByReinsurer": 1d]))
     }
@@ -129,19 +130,15 @@ class AdverseDevelopmentCoverContractStrategyTests extends GroovyTestCase {
     void testGetCededUnderwritingInfoROE_IAE() {
         ReinsuranceContract stopLoss = getContractSL1()
         UnderwritingInfo underwritingInfo = UnderwritingInfoTests.getUnderwritingInfo()
-        stopLoss.parmContractStrategy.premiumBase = PremiumBase.RATE_ON_LINE
-        shouldFail(IllegalArgumentException) {
-            stopLoss.parmContractStrategy.calculateCoverUnderwritingInfo(underwritingInfo, 0d)
-        }
+        stopLoss.parmContractStrategy.calculateCoverUnderwritingInfo(underwritingInfo, 0d)
+
     }
 
     void testGetCededUnderwritingInfoNOP_IAE() {
         ReinsuranceContract stopLoss = getContractSL1()
         UnderwritingInfo underwritingInfo = UnderwritingInfoTests.getUnderwritingInfo()
-        stopLoss.parmContractStrategy.premiumBase = PremiumBase.NUMBER_OF_POLICIES
-        shouldFail(IllegalArgumentException) {
-            stopLoss.parmContractStrategy.calculateCoverUnderwritingInfo(underwritingInfo, 0d)
-        }
+        stopLoss.parmContractStrategy.calculateCoverUnderwritingInfo(underwritingInfo, 0d)
+
     }
 
     void testADC200XS200() {

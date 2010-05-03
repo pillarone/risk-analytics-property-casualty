@@ -10,6 +10,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionS
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
+import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
 
 model = models.reinsuranceComparison.ReinsuranceComparisonModel
 periodCount = 1
@@ -379,7 +380,7 @@ components {
 				parmInuringPriority[0] = 0
 			}
 			subContract3 {
-				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["premiumBase":PremiumBase.GNPI,"premium":0.1207,"attachmentPoint":6.7920797E7,"limit":2.03762391E8, "coveredByReinsurer": 1d])
+				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["stopLossContractBase":StopLossContractBase.GNPI,"premium":0.1207,"attachmentPoint":6.7920797E7,"limit":2.03762391E8, "coveredByReinsurer": 1d])
 				parmInuringPriority[0] = 0
 			}
 		}
@@ -393,7 +394,7 @@ components {
 				parmInuringPriority[0] = 0
 			}
 			subContract3 {
-				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["premiumBase":PremiumBase.GNPI,"premium":0.1207,"attachmentPoint":6.7920797E7,"limit":2.03762391E8, "coveredByReinsurer": 1d])
+				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["stopLossContractBase":StopLossContractBase.GNPI,"premium":0.1207,"attachmentPoint":6.7920797E7,"limit":2.03762391E8, "coveredByReinsurer": 1d])
 				parmInuringPriority[0] = 0
 			}
 		}
@@ -408,7 +409,7 @@ components {
 				parmInuringPriority[0] = 0
 			}
 			subContract3 {
-				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["premiumBase":PremiumBase.GNPI,"premium":0.1207,"attachmentPoint":3.3960398E7,"limit":1.01881194E8, "coveredByReinsurer": 1d])
+				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["stopLossContractBase":StopLossContractBase.GNPI,"premium":0.1207,"attachmentPoint":3.3960398E7,"limit":1.01881194E8, "coveredByReinsurer": 1d])
 				parmInuringPriority[0] = 0
 			}
 		}
