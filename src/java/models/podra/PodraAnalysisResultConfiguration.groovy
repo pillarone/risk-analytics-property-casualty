@@ -46,7 +46,7 @@ components {
 		outNetAfterCoverUnderwritingInfo = "AGGREGATED"
 		outUnderwritingInfo = "AGGREGATED"
 		subContracts {
-			subRiContracts {
+			subriContract {
 				outClaimsDevelopmentLeanCeded = "AGGREGATED"
 				outClaimsDevelopmentLeanGross = "AGGREGATED"
 				outClaimsDevelopmentLeanNet = "AGGREGATED"
