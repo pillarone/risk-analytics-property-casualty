@@ -44,18 +44,19 @@ public class SlidingCommissionStrategy implements ICommissionStrategy {
         }
         double totalLossRatio = totalClaims / totalPremium;
         LinkedHashMap<Double, Double> commissionRates = getCommissionRates();
-        double totalCommission = 0d;
-        double previousCommission = 0d;
+
+        double commission = 0d;
+        double keyLossRatio=0d;
 
         for (Map.Entry<Double, Double> entry : commissionRates.entrySet()) {
-            double lossRatio = entry.getKey();
-            double commission = entry.getValue();
-            if (lossRatio > totalLossRatio) {
-                totalCommission = previousCommission * totalPremium;
-                break;
+            double entryLossRatio = entry.getKey();
+            if ((entryLossRatio <= totalLossRatio) && (keyLossRatio < entryLossRatio )) {
+                keyLossRatio=entryLossRatio;
+                commission = entry.getValue();
             }
-            previousCommission = commission;
         }
+        double totalCommission=totalPremium * commission;
+
         if (isAdditive) {
             for (UnderwritingInfo uwInfo : underwritingInfos) {
                 double shareOfTotalPremium = uwInfo.getPremiumWritten() / totalPremium;
