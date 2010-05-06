@@ -17,9 +17,6 @@ public class DynamicConfigurableLobsWithReserves extends MultiPhaseDynamicCompos
     PacketList<Claim> inClaimsGross = new PacketList(Claim)
     PacketList<Claim> inClaimsCeded = new PacketList(Claim)
 
-    PacketList<UnderwritingInfo> outUnderwritingInfoNet = new PacketList(UnderwritingInfo)
-    PacketList<UnderwritingInfo> outUnderwritingInfoGross = new PacketList(UnderwritingInfo)
-    PacketList<UnderwritingInfo> outUnderwritingInfoCeded = new PacketList(UnderwritingInfo)
     PacketList<Claim> outClaimsNet = new PacketList(Claim)
     PacketList<Claim> outClaimsGross = new PacketList(Claim)
     PacketList<Claim> outClaimsCeded = new PacketList(Claim)
@@ -28,6 +25,10 @@ public class DynamicConfigurableLobsWithReserves extends MultiPhaseDynamicCompos
     PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanNet = new PacketList(ClaimDevelopmentLeanPacket)
     PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanGross = new PacketList(ClaimDevelopmentLeanPacket)
     PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanCeded = new PacketList(ClaimDevelopmentLeanPacket)
+
+    PacketList<UnderwritingInfo> outUnderwritingInfoNet = new PacketList(UnderwritingInfo)
+    PacketList<UnderwritingInfo> outUnderwritingInfoGross = new PacketList(UnderwritingInfo)
+    PacketList<UnderwritingInfo> outUnderwritingInfoCeded = new PacketList(UnderwritingInfo)
 
     public void wire() {
         if (componentList.size() == 0) {
