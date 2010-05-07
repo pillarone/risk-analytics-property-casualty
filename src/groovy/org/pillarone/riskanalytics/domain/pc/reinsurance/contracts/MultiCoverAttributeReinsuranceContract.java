@@ -64,13 +64,13 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
             calculateCededClaims(outFilteredClaims, outCoveredClaims, this);
         }
 
-        if (isSenderWired(outNetAfterCoverUnderwritingInfo)) {
-            calculateUnderwritingInfos(outFilteredUnderwritingInfo, outCoverUnderwritingInfo, outNetAfterCoverUnderwritingInfo);
-        }
-        else if (isSenderWired(outCoverUnderwritingInfo) || isSenderWired(outContractFinancials)) {
+        if (isSenderWired(outCoverUnderwritingInfo) || isSenderWired(outContractFinancials) || isSenderWired(outNetAfterCoverUnderwritingInfo)) {
             calculateCededUnderwritingInfos(outFilteredUnderwritingInfo, outCoverUnderwritingInfo);
         }
         parmCommissionStrategy.calculateCommission(outCoveredClaims, outCoverUnderwritingInfo, false, false);
+        if (isSenderWired(outNetAfterCoverUnderwritingInfo)) {
+            calculateNetUnderwritingInfos(outFilteredUnderwritingInfo, outCoverUnderwritingInfo, outNetAfterCoverUnderwritingInfo);
+        }
         if (inClaims.size() > 0 && inClaims.get(0) instanceof ClaimDevelopmentLeanPacket) {
             for (Claim claim : outFilteredClaims) {
                 getOutClaimsDevelopmentLeanGross().add((ClaimDevelopmentLeanPacket) claim);

@@ -71,7 +71,7 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
 
         parmCommissionStrategy.calculateCommission(outCoveredClaims, outCoverUnderwritingInfo, false, false);
         if (isSenderWired(outNetAfterCoverUnderwritingInfo)) {
-            calculateNetUnderwritingInfos(outCoverUnderwritingInfo, outNetAfterCoverUnderwritingInfo);
+            calculateNetUnderwritingInfos(inUnderwritingInfo, outCoverUnderwritingInfo, outNetAfterCoverUnderwritingInfo);
         }
         fillDevelopedClaimsChannels();
         if (isSenderWired(getOutContractFinancials())) {
@@ -212,11 +212,12 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
         }
     }
 
-    protected void calculateNetUnderwritingInfos(List<UnderwritingInfo> cededUnderwritingInfos,
-                                              List<UnderwritingInfo> netUnderwritingInfos) {
-        for (UnderwritingInfo underwritingInfo : cededUnderwritingInfos) {
-            UnderwritingInfo netUnderwritingInfo = (UnderwritingInfo) underwritingInfo.copy();
-            setOriginalUnderwritingInfo(underwritingInfo, netUnderwritingInfo);
+    protected void calculateNetUnderwritingInfos(List<UnderwritingInfo> grossUnderwritingInfos,
+                                                 List<UnderwritingInfo> cededUnderwritingInfos,
+                                                 List<UnderwritingInfo> netUnderwritingInfos) {
+        for (int i = 0; i < grossUnderwritingInfos.size(); i++) {
+            UnderwritingInfo netUnderwritingInfo = UnderwritingInfoUtilities.calculateNet(grossUnderwritingInfos.get(i), cededUnderwritingInfos.get(i));
+            setOriginalUnderwritingInfo(grossUnderwritingInfos.get(i), netUnderwritingInfo);
             netUnderwritingInfos.add(netUnderwritingInfo);
         }
     }
