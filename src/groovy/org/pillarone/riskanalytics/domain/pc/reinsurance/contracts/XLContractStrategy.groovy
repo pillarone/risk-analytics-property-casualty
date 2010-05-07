@@ -86,16 +86,16 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
         cededUnderwritingInfo.commission = 0d
         switch (premiumBase) {
             case PremiumBase.ABSOLUTE:
-                cededUnderwritingInfo.premiumWritten = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
-                cededUnderwritingInfo.premiumWrittenAsIf = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
+                cededUnderwritingInfo.premiumWritten = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo) * coveredByReinsurer
+                cededUnderwritingInfo.premiumWrittenAsIf = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo) * coveredByReinsurer
                 break
             case PremiumBase.GNPI:
-                cededUnderwritingInfo.premiumWritten = premium * grossUnderwritingInfo.premiumWritten
-                cededUnderwritingInfo.premiumWrittenAsIf = premium * grossUnderwritingInfo.premiumWrittenAsIf
+                cededUnderwritingInfo.premiumWritten = premium * grossUnderwritingInfo.premiumWritten * coveredByReinsurer
+                cededUnderwritingInfo.premiumWrittenAsIf = premium * grossUnderwritingInfo.premiumWrittenAsIf * coveredByReinsurer
                 break
             case PremiumBase.RATE_ON_LINE:
-                cededUnderwritingInfo.premiumWritten = premium * limit
-                cededUnderwritingInfo.premiumWrittenAsIf = premium * limit
+                cededUnderwritingInfo.premiumWritten = premium * limit * coveredByReinsurer
+                cededUnderwritingInfo.premiumWrittenAsIf = premium * limit * coveredByReinsurer
                 break
             case PremiumBase.NUMBER_OF_POLICIES:
                 throw new IllegalArgumentException("Defining the premium base as number of policies is not suppported.")
