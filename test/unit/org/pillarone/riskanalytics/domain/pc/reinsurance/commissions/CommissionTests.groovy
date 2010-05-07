@@ -2,9 +2,9 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.commissions
 
 import org.joda.time.DateTime
 import org.joda.time.Period
+import org.pillarone.riskanalytics.core.components.Component
+import org.pillarone.riskanalytics.core.example.component.TestComponent
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
-import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
-import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
 import org.pillarone.riskanalytics.core.simulation.ContinuousPeriodCounter
 import org.pillarone.riskanalytics.core.simulation.engine.IterationScope
 import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope
@@ -16,9 +16,6 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.applicable.
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContract
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
-import org.pillarone.riskanalytics.domain.utils.constraints.DoubleConstraints
-import org.pillarone.riskanalytics.core.components.Component
-import org.pillarone.riskanalytics.core.example.component.TestComponent
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
 
 /**
@@ -44,16 +41,10 @@ class CommissionTests extends GroovyTestCase {
         )
     }
 
-
-    private Commission getSlidingCommission() {
+    static Commission getSlidingCommission(Map<Double, Double> bands = [:]) {
         Commission commission = new Commission(
             parmCommissionStrategy :
-                CommissionStrategyType.getStrategy(
-                CommissionStrategyType.SLIDINGCOMMISSION,
-                    ['commissionBands': new ConstrainedMultiDimensionalParameter(
-                        [[0.0d, 0.1d, 0.2d, 0.5d], [0.2d, 0.10d, 0.05d, 0d]],
-                        [SlidingCommissionStrategy.LOSS_RATIO, SlidingCommissionStrategy.COMMISSION],
-                        ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))]),
+                SlidingCommissionStrategyTests.getSlidingCommissionStrategy(bands),
             parmApplicableStrategy :
                 ApplicableStrategyType.getStrategy(
                 ApplicableStrategyType.ALL, [:])

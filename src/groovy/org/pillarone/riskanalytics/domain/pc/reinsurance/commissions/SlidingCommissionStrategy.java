@@ -11,7 +11,21 @@ import org.pillarone.riskanalytics.domain.utils.constraints.DoubleConstraints;
 import java.util.*;
 
 /**
- * @author shartmann (at) munichre (dot) com
+ * Assigns a commission rate and calculates the commission on ceded premium based on the loss ratio
+ * (total losses / total premium).
+ *
+ * Internally, cutoff loss ratios are stored in commission bands as a Map with
+ * loss ratio (from, the lower limit) as keys commission rates as values.
+ * A first band, from -Infinity, with commission 0, is always added.
+ * Intermediate bands must be given in order of increasing lower limit.
+ * Each band applies to loss ratios inclusive of the lower limit, but
+ * exclusive of the upper limit (which is the next band's lower limit, if any).
+ * The caller must specify a last band with commission 0 if required;
+ * otherwise, the last commission is used for all sufficiently large
+ * loss ratios (i.e. at or above the last band's lower limit).
+ * (In other words, the last band given effectively has no upper limit.)
+ *
+ * @author shartmann (at) munichre (dot) com, ben.ginsberg (at) intuitive-collaboration.com
  */
 public class SlidingCommissionStrategy implements ICommissionStrategy {
 
@@ -22,6 +36,9 @@ public class SlidingCommissionStrategy implements ICommissionStrategy {
             GroovyUtils.convertToListOfList(new Object[]{0d, 0d}),
             Arrays.asList(LOSS_RATIO, COMMISSION),
             ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER));
+
+    private LinkedHashMap<Double, Double> commissionRates = null;
+    List<Double> lowerBandLimits = null;
 
     public IParameterObjectClassifier getType() {
         return CommissionStrategyType.SLIDINGCOMMISSION;
@@ -43,44 +60,37 @@ public class SlidingCommissionStrategy implements ICommissionStrategy {
             totalPremium += uwInfo.getPremiumWritten();
         }
         double totalLossRatio = totalClaims / totalPremium;
-        LinkedHashMap<Double, Double> commissionRates = getCommissionRates();
+        if (commissionRates == null) setCommissionRates(); // lazy initialization
 
-        double commission = 0d;
-        double keyLossRatio=0d;
-
-        for (Map.Entry<Double, Double> entry : commissionRates.entrySet()) {
-            double entryLossRatio = entry.getKey();
-            if ((entryLossRatio <= totalLossRatio) && (keyLossRatio < entryLossRatio )) {
-                keyLossRatio=entryLossRatio;
-                commission = entry.getValue();
+        double highestMatchingLowerBound = Double.NEGATIVE_INFINITY;
+        for (double entryLossRatio : lowerBandLimits) { // or: use commissionRates.keySet() if lowerBandLimits not desired
+            if ((highestMatchingLowerBound < entryLossRatio) && (entryLossRatio <= totalLossRatio)) {
+                highestMatchingLowerBound = entryLossRatio;
             }
         }
-        double totalCommission=totalPremium * commission;
+        double commission = commissionRates.get(highestMatchingLowerBound);
 
         if (isAdditive) {
             for (UnderwritingInfo uwInfo : underwritingInfos) {
-                double shareOfTotalPremium = uwInfo.getPremiumWritten() / totalPremium;
-                uwInfo.setCommission(uwInfo.getCommission() + shareOfTotalPremium * totalCommission);
+                uwInfo.setCommission(uwInfo.getCommission() + uwInfo.getPremiumWritten() * commission);
             }
         }
         else {
             for (UnderwritingInfo uwInfo : underwritingInfos) {
-                double shareOfTotalPremium = uwInfo.getPremiumWritten() / totalPremium;
-                uwInfo.setCommission(shareOfTotalPremium * totalCommission);
+                uwInfo.setCommission(uwInfo.getPremiumWritten() * commission);
             }
         }
     }
 
-    /**
-     * 
-     * @return key: loss ratio (from), value: commission
-     */
-    private LinkedHashMap<Double, Double> getCommissionRates() {
+    private void setCommissionRates() {
         int numberOfBands = commissionBands.getValueRowCount();
-        LinkedHashMap<Double, Double> commissionRates = new LinkedHashMap<Double, Double>(numberOfBands);
+        lowerBandLimits = new LinkedList<Double>();
+        commissionRates = new LinkedHashMap<Double, Double>(numberOfBands);
         int columnLossRatio = commissionBands.getColumnIndex(LOSS_RATIO);
         int columnCommission = commissionBands.getColumnIndex(COMMISSION);
-        double previousLossRatio = -1d;
+        double previousLossRatio = Double.NEGATIVE_INFINITY;
+        lowerBandLimits.add(previousLossRatio);
+        commissionRates.put(previousLossRatio, 0d);
         for (int row = 1; row <= numberOfBands; row++) {
             double lossRatio = (Double) commissionBands.getValueAt(row, columnLossRatio);
             if (lossRatio <= previousLossRatio) {
@@ -88,10 +98,11 @@ public class SlidingCommissionStrategy implements ICommissionStrategy {
             }
 
             double commission = (Double) commissionBands.getValueAt(row, columnCommission);
+            lowerBandLimits.add(lossRatio);
             commissionRates.put(lossRatio, commission);
             previousLossRatio = lossRatio;
         }
-        return commissionRates;
-    } 
+        // sort lowerBandLimits here if necessary (i.e. if above check is removed)
+    }
         
 }
