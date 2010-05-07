@@ -39,7 +39,8 @@ public class AggregatedDrillDownCollectingModeStrategy implements ICollectingMod
             }
         }
         else {
-            throw new NotImplementedException("The aggregate drill down mode is only available for claims");
+            throw new NotImplementedException("The aggregate drill down mode is only available for claims.\n" +
+                "Please adjust the selected result template or select another one.");
         }
         return null;
     }
