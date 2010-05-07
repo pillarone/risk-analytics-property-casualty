@@ -1,25 +1,29 @@
 package org.pillarone.riskanalytics.domain.utils
 
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
+import org.pillarone.riskanalytics.domain.utils.validation.DistributionTypeValidator
+import org.pillarone.riskanalytics.core.parameterization.ParameterValidationService
 
 /**
  * @author: dierk.koenig at canoo.com
  */
 class DistributionTypeTests extends GroovyTestCase {
 
+    ParameterValidationService validator = new DistributionTypeValidator().validationService
+
     void testDefaultUniformValidator() {
         def defaultUniform = DistributionType.UNIFORM
-        assertNull defaultUniform.validate(["a": 0d, "b": 1d])
+        assertEquals 0, validator.validate(defaultUniform, ["a": 0d, "b": 1d]).size()
     }
 
     void testPoissonValidator() {
         def validPoisson = DistributionType.POISSON
-        assertNull validPoisson.validate(["lambda": 0d])
+        assertEquals 0, validator.validate(validPoisson, ["lambda": 0d]).size()
     }
 
     void testFailingPoissonValidator() {
         def badPoisson = DistributionType.POISSON
-        def result = badPoisson.validate(['lambda': -1d])
+        def result = validator.validate(badPoisson, ['lambda': -1d])
         assertNotNull result
         assertEquals 'one error message', 1, result.size()
         assert result[0].msg instanceof String
@@ -28,12 +32,12 @@ class DistributionTypeTests extends GroovyTestCase {
 
     void testNegativeBinomialValidator() {
         def validNegBinomial = DistributionType.NEGATIVEBINOMIAL
-        assertNull validNegBinomial.validate(['gamma': 1, 'p': 0])
+        assertEquals 0, validator.validate(validNegBinomial, ['gamma': 1, 'p': 0]).size()
     }
 
     void testFailingNegativeBinomialValidator() {
         def badNegBinomial = DistributionType.NEGATIVEBINOMIAL
-        def result = badNegBinomial.validate(['gamma': 0, 'p': 2])
+        def result = validator.validate(badNegBinomial, ['gamma': 0, 'p': 2])
         assertNotNull result
         assertEquals 'two error messages', 2, result.size()
         assert result[0].msg instanceof String
@@ -44,12 +48,12 @@ class DistributionTypeTests extends GroovyTestCase {
 
     void testNormalValidator() {
         def validDistribution = DistributionType.NORMAL
-        assertNull validDistribution.validate(['mean': 0d, 'stDev': 1d])
+        assertEquals 0, validator.validate(validDistribution, ['mean': 0d, 'stDev': 1d]).size()
     }
 
     void testFailingNormalValidator() {
         def badPoisson = DistributionType.NORMAL
-        def result = badPoisson.validate(['mean': -1d, 'stDev': 0d])
+        def result = validator.validate(badPoisson, ['mean': -1d, 'stDev': 0d])
         assertNotNull result
         assertEquals 'one error message', 1, result.size()
         assert result[0].msg instanceof String
@@ -58,12 +62,12 @@ class DistributionTypeTests extends GroovyTestCase {
 
     void testLogNormalValidator() {
         def validDistribution = DistributionType.LOGNORMAL
-        assertNull validDistribution.validate(['mean': 0d, 'stDev': 1d])
+        assertEquals 0, validator.validate(validDistribution, ['mean': 0d, 'stDev': 1d]).size()
     }
 
     void testFailingLogNormalValidator() {
         def badPoisson = DistributionType.LOGNORMAL
-        def result = badPoisson.validate(['mean': -1d, 'stDev': 0d])
+        def result = validator.validate(badPoisson, ['mean': -1d, 'stDev': 0d])
         assertNotNull result
         assertEquals 'one error message', 1, result.size()
         assert result[0].msg instanceof String
@@ -72,12 +76,12 @@ class DistributionTypeTests extends GroovyTestCase {
 
     void testLogNormalMuSigmaValidator() {
         def validDistribution = DistributionType.LOGNORMAL_MU_SIGMA
-        assertNull validDistribution.validate(['mu': 0d, 'sigma': 1d])
+        assertEquals 0, validator.validate(validDistribution, ['mu': 0d, 'sigma': 1d]).size()
     }
 
     void testFailingLogNormalMuSigmaValidator() {
         def badPoisson = DistributionType.LOGNORMAL_MU_SIGMA
-        def result = badPoisson.validate(['mu': -1d, 'sigma': 0d])
+        def result = validator.validate(badPoisson, ['mu': -1d, 'sigma': 0d])
         assertNotNull result
         assertEquals 'one error message', 1, result.size()
         assert result[0].msg instanceof String
@@ -86,13 +90,14 @@ class DistributionTypeTests extends GroovyTestCase {
 
     void testParetoValidator() {
         def validDistribution = DistributionType.PARETO
-        assertNull validDistribution.validate(['alpha': 1d, 'beta': 1d])
+        assertEquals 0, validator.validate(validDistribution, ['alpha': 1d, 'beta': 1d]).size()
     }
 
     // todo(sku): extend with additional failing msg
+
     void testFailingParetoValidator() {
         def badDistribution = DistributionType.PARETO
-        def result = badDistribution.validate(['alpha': -1d, 'beta': 1d])
+        def result = validator.validate(badDistribution, ['alpha': -1d, 'beta': 1d])
         assertNotNull result
         assertEquals 'one error message', 1, result.size()
         assert result[0].msg instanceof String
@@ -101,7 +106,7 @@ class DistributionTypeTests extends GroovyTestCase {
 
     void testFailingUniformValidator() {
         def badUniform = DistributionType.UNIFORM
-        def result = badUniform.validate(["a": 1d, "b": 0d])
+        def result = validator.validate(badUniform, ["a": 1d, "b": 0d])
         assertNotNull result
         assertEquals 1, result.size()
         assert result[0].msg instanceof String
@@ -111,13 +116,13 @@ class DistributionTypeTests extends GroovyTestCase {
 
     void testPieceWiseLinearValidator() {
         def defaultPieceWiseLinear = DistributionType.PIECEWISELINEAR
-        assertNull defaultPieceWiseLinear.validate([supportPoints: new TableMultiDimensionalParameter(
-                [[0.0, 1.0], [0.0, 1.0]], ["values", "cummulative probabilities"])])
+        assertEquals 0, validator.validate(defaultPieceWiseLinear, [supportPoints: new TableMultiDimensionalParameter(
+                [[0.0, 1.0], [0.0, 1.0]], ["values", "cummulative probabilities"])]).size()
     }
 
     void testFailingPieceWiseLinearValidator() {
         def pieceWiseLinearValuesNotIncr = DistributionType.PIECEWISELINEAR
-        def result = pieceWiseLinearValuesNotIncr.validate([supportPoints: new TableMultiDimensionalParameter(
+        def result = validator.validate(pieceWiseLinearValuesNotIncr, [supportPoints: new TableMultiDimensionalParameter(
                 [[2.0, 1.0], [0.0, 1.0]], ["values", "cummulative probabilities"])])
         assertNotNull result
         assertEquals 1, result.size()
@@ -129,12 +134,12 @@ class DistributionTypeTests extends GroovyTestCase {
 
     void testTriangularValidator() {
         def validDistribution = DistributionType.TRIANGULARDIST
-        assertNull validDistribution.validate(['a': 1d, 'b': 1d, 'm': 1d])
+        assertEquals 0, validator.validate(validDistribution, ['a': 1d, 'b': 1d, 'm': 1d]).size()
     }
 
     void testFailingTriangularValidator() {
         def badDistribution = DistributionType.TRIANGULARDIST
-        def result = badDistribution.validate(['a': 2d, 'b': 1d, 'm': 1d])
+        def result = validator.validate(badDistribution, ['a': 2d, 'b': 1d, 'm': 1d])
         assertNotNull result
         assertEquals 'one error message', 1, result.size()
         assert result[0].msg instanceof String
@@ -143,12 +148,12 @@ class DistributionTypeTests extends GroovyTestCase {
 
     void testChiSquareValidator() {
         def validDistribution = DistributionType.CHISQUAREDIST
-        assertNull validDistribution.validate(['n': 1d])
+        assertEquals 0, validator.validate(validDistribution, ['n': 1d]).size()
     }
 
     void testFailingChiSquareValidator() {
         def badDistribution = DistributionType.CHISQUAREDIST
-        def result = badDistribution.validate(['n': 0d])
+        def result = validator.validate(badDistribution, ['n': 0d])
         assertNotNull result
         assertEquals 'one error message', 1, result.size()
         assert result[0].msg instanceof String
@@ -157,12 +162,12 @@ class DistributionTypeTests extends GroovyTestCase {
 
     void testStudentValidator() {
         def validDistribution = DistributionType.STUDENTDIST
-        assertNull validDistribution.validate(['n': 1d])
+        assertEquals 0, validator.validate(validDistribution, ['n': 1d]).size()
     }
 
     void testFailingStudentValidator() {
         def badDistribution = DistributionType.STUDENTDIST
-        def result = badDistribution.validate(['n': 0d])
+        def result = validator.validate(badDistribution, ['n': 0d])
         assertNotNull result
         assertEquals 'one error message', 1, result.size()
         assert result[0].msg instanceof String
@@ -171,12 +176,12 @@ class DistributionTypeTests extends GroovyTestCase {
 
     void testBinomialValidator() {
         def validNegBinomial = DistributionType.BINOMIALDIST
-        assertNull validNegBinomial.validate(['n': 1, 'p': 0])
+        assertEquals 0, validator.validate(validNegBinomial, ['n': 1, 'p': 0]).size()
     }
 
     void testFailingBinomialValidator() {
         def badNegBinomial = DistributionType.BINOMIALDIST
-        def result = badNegBinomial.validate(['n': 0, 'p': 2])
+        def result = validator.validate(badNegBinomial, ['n': 0, 'p': 2])
         assertNotNull result
         assertEquals 'two error messages', 2, result.size()
         assert result[0].msg instanceof String
@@ -186,12 +191,12 @@ class DistributionTypeTests extends GroovyTestCase {
 
     void testInvGaussianValidator() {
         def validDistribution = DistributionType.INVERSEGAUSSIANDIST
-        assertNull validDistribution.validate(['mu': 1d, 'lambda': 1d])
+        assertEquals 0, validator.validate(validDistribution, ['mu': 1d, 'lambda': 1d]).size()
     }
 
     void testFailingInvGaussianValidator() {
         def badDistribution = DistributionType.INVERSEGAUSSIANDIST
-        def result = badDistribution.validate(['mu': 0d, 'lambda': 0d])
+        def result = validator.validate(badDistribution, ['mu': 0d, 'lambda': 0d])
         assertNotNull result
         assertEquals 'two error messages', 2, result.size()
         assert result[0].msg instanceof String
