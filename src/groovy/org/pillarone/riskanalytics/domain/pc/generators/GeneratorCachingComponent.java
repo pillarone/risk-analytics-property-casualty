@@ -15,15 +15,17 @@ public abstract class GeneratorCachingComponent extends Component {
 
     protected IRandomNumberGenerator getCachedGenerator(RandomDistribution distribution, DistributionModified modifier) {
         String key = key(distribution, modifier);
-        IRandomNumberGenerator generator = generators.get(key);
+        IRandomNumberGenerator generator;
 //        if (modifier.getType().equals(DistributionModifier.TRUNCATED)) {
 //            double quantileOfMax = distribution.getDistribution().cdf((Double) modifier.getParameters().get("max"));
 //            double quantileOfMin = distribution.getDistribution().cdf((Double) modifier.getParameters().get("min"));
 //            if (quantileOfMax - quantileOfMin < 1E-4) {
-//                throw new IllegalArgumentException("unsufficient support for truncation limits");
+//                throw new IllegalArgumentException("the specified truncation limits have insufficient support");
 //            }
 //        }
-        if (generator == null) {
+        if (generators.containsKey(key)) {
+            generator = generators.get(key);
+        } else {
             generator = RandomNumberGeneratorFactory.getGenerator(distribution, modifier);
             generators.put(key, generator);
         }
