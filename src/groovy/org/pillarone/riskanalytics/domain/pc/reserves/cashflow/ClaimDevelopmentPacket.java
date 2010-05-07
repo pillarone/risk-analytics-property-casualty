@@ -54,6 +54,10 @@ public class ClaimDevelopmentPacket extends Claim {
         return netClaim;
     }
 
+    public double getIncurredDate() {
+        return originalPeriod + getFractionOfPeriod();
+    }
+
     /**
      *  This function is not secure in the sense that it does not check if the object itself and
      *  the obejct received as argument are of equal type.

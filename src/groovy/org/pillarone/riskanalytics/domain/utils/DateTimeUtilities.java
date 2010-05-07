@@ -1,14 +1,10 @@
 package org.pillarone.riskanalytics.domain.utils;
 
-import org.joda.time.DateTime;
-import org.joda.time.Years;
-import org.joda.time.MutableDateTime;
+import org.joda.time.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import org.joda.time.Period;
-import org.joda.time.PeriodType;
-import org.joda.time.Days;
+
 import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope;
 
 /**
@@ -125,6 +121,17 @@ public class DateTimeUtilities {
             return new Period(simulationStart, date).getYears();
         }
         throw new IllegalArgumentException("No rule implemented for " + simulationStart + ", " + periodLength + ", " + date);
+    }
+
+    public static double dateAsDouble(DateTime simulationStart, DateTime endOfFirstPeriod, DateTime date) {
+        Period periodLength = simulationPeriodLength(simulationStart, endOfFirstPeriod);
+        int period = simulationPeriod(simulationStart, periodLength, date);
+        DateTime beginOfPeriodForDate = new DateTime(simulationStart);
+        for (int i = 0; i < period; i++) {
+            beginOfPeriodForDate.plus(periodLength);
+        }
+        double periodLengthInDays = (Integer) periodLength.getDays();
+        return Days.daysBetween(beginOfPeriodForDate, date).getDays() / periodLengthInDays;
     }
 
     public static DateTime getDate(DateTime beginOfPeriod, DateTime endOfPeriod, int periodOffset, double fractionOfPeriod) {
