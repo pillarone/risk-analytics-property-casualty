@@ -3,7 +3,6 @@ package org.pillarone.riskanalytics.domain.utils
 import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObjectClassifier
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 import org.pillarone.riskanalytics.core.parameterization.ParameterValidationError
-import org.pillarone.riskanalytics.core.parameterization.ParameterValidationService
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import umontreal.iro.lecuyer.probdist.*
@@ -11,10 +10,6 @@ import umontreal.iro.lecuyer.probdist.*
 import static org.pillarone.riskanalytics.core.util.GroovyUtils.asDouble
 
 class DistributionType extends AbstractParameterObjectClassifier implements Serializable {
-
-    static final double EPSILON = 1E-6 // guard for "close-enough" checks instead of == for doubles
-
-    public static ParameterValidationService validationService = new ParameterValidationService()
 
     public static final DistributionType POISSON = new DistributionType(
             "poisson", "POISSON", ["lambda": 0d])
@@ -86,180 +81,6 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
         DistributionType.all.each {
             DistributionType.types[it.toString()] = it
         }
-        validationService.register(POISSON) {Map type ->
-            if (type.lambda >= 0) return true
-            ["distribution.type.error.poisson.negative.lambda", type.lambda]
-        }
-        validationService.register(EXPONENTIAL) {Map type ->
-            type.lambda < 0 ? ["distribution.type.error.exponential.negative.lambda", type.lambda] :
-            true
-        }
-        validationService.register(BETA) {Map type ->
-            type.alpha < 0 ? ["distribution.type.error.exponential.negative.alpha", type.alpha] :
-            type.beta < 0 ? ["distribution.type.error.exponential.negative.beta", type.beta] :
-            true
-        }
-
-        validationService.register(NEGATIVEBINOMIAL) {Map type ->
-            if (type.gamma > 0) return true
-            ["distribution.tpye.error.negativebinomial.gamma.negative.or.zero", type.gamma]
-        }
-        validationService.register(NEGATIVEBINOMIAL) {Map type ->
-            if ((0..1).containsWithinBounds(type.p)) return true
-            ["distribution.tpye.error.negativebinomial.p.out.of.range", type.p]
-        }
-        validationService.register(DISCRETEEMPIRICAL) {Map type ->
-            double[] values = type.discreteEmpiricalValues.getColumnByName('observations')
-            if (!values) {
-                return ["distribution.type.error.discreteempirical.observations.empty"]
-            }
-            for (int i = 1; i < values.length; i++) {
-                if (values[i - 1] > values[i]) {
-                    return ["distribution.type.error.discreteempirical.observations.not.increasing", i, values[i - 1], values[i]]
-                }
-            }
-            return true
-        }
-        validationService.register(DISCRETEEMPIRICAL) {Map type ->
-            double[] values = type.discreteEmpiricalValues.getColumnByName('probabilities')
-            if (!values) {
-                return ["distribution.type.error.discreteempirical.probabilities.empty"]
-            }
-            double sum = values.inject(0) {temp, it -> temp + it }
-            if (isCloseEnough(sum, 1d)) return true
-            ["distribution.type.error.discreteempirical.probabilities.sum.not.one", sum, values]
-        }
-        validationService.register(DISCRETEEMPIRICALCUMULATIVE) {Map type ->
-            double[] values = type.discreteEmpiricalCumulativeValues.getColumnByName('observations')
-            if (!values) {
-                return ["distribution.type.error.discreteempiricalcumulative.observations.empty"]
-            }
-            for (int i = 1; i < values.length; i++) {
-                if (values[i - 1] > values[i]) {
-                    return ["distribution.type.error.discreteempiricalcumulative.observations.not.increasing", i, values[i - 1], values[i]]
-                }
-            }
-            return true
-        }
-        validationService.register(DISCRETEEMPIRICALCUMULATIVE) {Map type ->
-            double[] values = type.discreteEmpiricalCumulativeValues.getColumnByName('cumulative probabilities')
-            if (!values) {
-                return ["distribution.type.error.discreteempiricalcumulative.probabilities.empty"]
-            }
-            for (int i = 1; i < values.length; i++) {
-                if (values[i - 1] > values[i]) {
-                    return ["distribution.type.error.discreteempiricalcumulative.probabilities.not.increasing", i, values[i - 1], values[i]]
-                }
-            }
-            if (!isCloseEnough(values[-1], 1d)) {
-                return ["distribution.type.error.discreteempiricalcumulative.probability.last.value.not.1", values[values.length - 1]]
-            }
-            return true
-        }
-        validationService.register(NORMAL) {Map type ->
-            if (type.stDev > 0) return true
-            ["distribution.type.error.normal.sigma.negative.or.zero", type.stDev]
-        }
-        validationService.register(LOGNORMAL) {Map type ->
-            if (type.stDev > 0) return true
-            ["distribution.type.error.lognormal.sigma.negative.or.zero", type.stDev]
-        }
-        // todo(sku): check for further restrictions
-        validationService.register(LOGNORMAL_MU_SIGMA) {Map type ->
-            if (type.sigma > 0) return true
-            ["distribution.type.error.lognormal_mu_sigma.sigma.negative.or.zero", type.sigma]
-        }
-        validationService.register(PARETO) {Map type ->
-            if (type.alpha > 0) return true
-            ["distribution.type.error.pareto.alpha.negative.or.zero", type.alpha]
-        }
-        validationService.register(PARETO) {Map type ->
-            if (type.beta > 0) return true
-            ["distribution.type.error.pareto.beta.negative.or.zero", type.beta]
-        }
-        validationService.register(UNIFORM) {Map type ->
-            if (type.a < type.b) return true
-            ["distribution.type.error.uniform", type.a, type.b]
-        }
-        validationService.register(PIECEWISELINEAR) {Map type ->
-            double[] values = type.supportPoints.getColumnByName('values')
-            if (!values) {
-                return ["distribution.type.error.piecewiselinear.values.empty"]
-            }
-            for (int i = 1; i < values.length; i++) {
-                if (values[i - 1] > values[i]) {
-                    return ["distribution.type.error.piecewiselinear.values.not.increasing", i, values[i - 1], values[i]]
-                }
-            }
-            return true
-        }
-        validationService.register(PIECEWISELINEAR) {Map type ->
-            double[] cdf = type.supportPoints.getColumnByName('cummulative probabilities')
-            if (!cdf) {
-                return ["distribution.type.error.piecewiselinear.cummulative.probabilities.empty"]
-            }
-            for (int i = 1; i < cdf.length; i++) {
-                if (cdf[i - 1] > cdf[i]) {
-                    return ["distribution.type.error.piecewiselinear.cummulative.probabilities.not.increasing", i, cdf[i - 1], cdf[i]]
-                }
-            }
-            if (!isCloseEnough(cdf[0], 0d)) {
-                return ["distribution.type.error.piecewiselinear.cdf.first.value.not.null", cdf[0]]
-            }
-            if (!isCloseEnough(cdf[-1], 1d)) {
-                return ["distribution.type.error.piecewiselinear.cdf.last.value.not.1", cdf[cdf.length - 1]]
-            }
-            return true
-        }
-        validationService.register(PIECEWISELINEAREMPIRICAL) {Map type ->
-            double[] values = type.observations.getColumnByName('observations')
-            if (!values) {
-                return ["distribution.type.error.piecewiselinearempirical.observations.empty"]
-            }
-            for (int i = 1; i < values.length; i++) {
-                if (values[i - 1] > values[i]) {
-                    return ["distribution.type.error.piecewiselinear.observations.not.increasing", i, values[i - 1], values[i]]
-                }
-            }
-            return true
-        }
-        validationService.register(TRIANGULARDIST) {Map type ->
-            if (type.a <= type.m && type.m <= type.b) return true
-            ["distribution.type.error.triangular", type.a, type.b, type.m]
-        }
-        validationService.register(CHISQUAREDIST) {Map type ->
-            if (type.n > 0) return true
-            ["distribution.type.error.chisquare.n.negative.or.zero", type.n]
-        }
-        validationService.register(STUDENTDIST) {Map type ->
-            if (type.n > 0) return true
-            ["distribution.type.error.student.n.negative.or.zero", type.n]
-        }
-        validationService.register(BINOMIALDIST) {Map type ->
-            if ((0..1).containsWithinBounds(type.p)) return true
-            ["distribution.tpye.error.binomial.p.out.of.range", type.p]
-        }
-        validationService.register(BINOMIALDIST) {Map type ->
-            if (type.n > 0) return true
-            ["distribution.tpye.error.binomial.n.negative.or.zero", type.n]
-        }
-        validationService.register(INVERSEGAUSSIANDIST) {Map type ->
-            if (type.mu > 0) return true
-            ["distribution.type.error.inversegaussian.mu.negative.or.zero", type.mu]
-        }
-        validationService.register(INVERSEGAUSSIANDIST) {Map type ->
-            if (type.lambda > 0) return true
-            ["distribution.type.error.inversegaussian.lambda.negative.or.zero", type.lambda]
-        }
-        validationService.register(CONSTANTS) {Map type ->
-            double[] values = type.constants.getColumnByName('constants')
-            if (values && values.size() > 0) return true
-            ["distribution.type.error.constants.empty", values]
-        }
-    }
-
-    static boolean isCloseEnough(double candidate, double compareAgainst) {
-        (candidate - compareAgainst).abs() < EPSILON
     }
 
     protected DistributionType(String typeName, Map parameters) {
@@ -286,10 +107,6 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
         TreeMap sortedParameters = new TreeMap()
         sortedParameters.putAll(parameters)
         "org.pillarone.riskanalytics.domain.utils.DistributionType.getStrategy(${this.class.name}.${typeName.toUpperCase()}, $sortedParameters)"
-    }
-
-    List<ParameterValidationError> validate(Map parameters) {
-        validationService.validate(this, parameters)
     }
 
     private Object readResolve() throws java.io.ObjectStreamException {

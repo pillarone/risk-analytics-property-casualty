@@ -7,6 +7,8 @@ import org.pillarone.riskanalytics.domain.pc.output.AggregatedDrillDownCollectin
 import org.pillarone.riskanalytics.core.output.CollectingModeFactory
 import org.pillarone.riskanalytics.domain.utils.constraints.DoubleConstraints
 import org.pillarone.riskanalytics.domain.pc.company.CompanyPortion
+import org.pillarone.riskanalytics.core.parameterization.validation.ValidatorRegistry
+import org.pillarone.riskanalytics.domain.utils.validation.DistributionTypeValidator
 
 class RiskAnalyticsPropertyCasualtyGrailsPlugin {
     // the plugin version
@@ -32,7 +34,7 @@ class RiskAnalyticsPropertyCasualtyGrailsPlugin {
     def documentation = "http://www.pillarone.org"
 
     def doWithWebDescriptor = {xml ->
-        // TODO Implement additions to web.xml (optional), this event occurs before 
+        // TODO Implement additions to web.xml (optional), this event occurs before
     }
 
     def doWithSpring = {
@@ -52,6 +54,8 @@ class RiskAnalyticsPropertyCasualtyGrailsPlugin {
         ConstraintsFactory.registerConstraint(new UnderwritingPortion())
         ConstraintsFactory.registerConstraint(new ReservePortion())
         ConstraintsFactory.registerConstraint(new DoubleConstraints())
+
+        ValidatorRegistry.addValidator(new DistributionTypeValidator())
     }
 
     def onChange = {event ->
