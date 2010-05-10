@@ -46,7 +46,7 @@ components {
             }
             subPropertyQuotaShare {
                 parmInuringPriority[0] = 0
-                parmCommissionStrategy[0] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ["commission": 0.0,])
+                parmCommissionStrategy[0] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ["commission": 0.1,])
                 parmCover[0] = CoverAttributeStrategyType.getStrategy(CoverAttributeStrategyType.LINESOFBUSINESS, ['lines': new ComboBoxTableMultiDimensionalParameter(['property'], ["Covered Lines"], LobMarker),])
                 parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.2, "coveredByReinsurer": 1.0,])
             }

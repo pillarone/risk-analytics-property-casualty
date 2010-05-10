@@ -44,7 +44,7 @@ public class UnderwritingInfoMerger extends Component {
                             grossMergedCededPairs.put(cededUnderwritingInfo.originalUnderwritingInfo, UnderwritingInfoPacketFactory.copy(cededUnderwritingInfo));
                         }
                         else {
-                            aggregateCededUnderwritingInfo = aggregateCededUnderwritingInfo.plus(cededUnderwritingInfo);
+                            aggregateCededUnderwritingInfo.plus(cededUnderwritingInfo);
                             aggregateCededUnderwritingInfo.numberOfPolicies = cededUnderwritingInfo.numberOfPolicies;
                             aggregateCededUnderwritingInfo.origin = this;
                         }
@@ -63,7 +63,7 @@ public class UnderwritingInfoMerger extends Component {
                         UnderwritingInfoUtilities.setZero(cededUnderwritingInfo);
                     }
                     else {
-                        netUnderwritingInfo = netUnderwritingInfo.minus(cededUnderwritingInfo);
+                        netUnderwritingInfo.minus(cededUnderwritingInfo);
                         netUnderwritingInfo.commission = cededUnderwritingInfo.commission;
                     }
                     outUnderwritingInfoCeded.add(cededUnderwritingInfo);

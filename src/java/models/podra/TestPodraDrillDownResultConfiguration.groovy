@@ -11,6 +11,7 @@ components {
 			outClaimsDevelopmentLeanCeded = "AGGREGATED_DRILL_DOWN"
 			outClaimsDevelopmentLeanGross = "AGGREGATED_DRILL_DOWN"
 			outClaimsDevelopmentLeanNet = "AGGREGATED_DRILL_DOWN"
+			outUnderwritingInfoCeded = "AGGREGATED_DRILL_DOWN"
 		}
 	}
 	reinsurance {
@@ -22,6 +23,7 @@ components {
                 outClaimsDevelopmentLeanCeded = "AGGREGATED_DRILL_DOWN"
                 outClaimsDevelopmentLeanGross = "AGGREGATED_DRILL_DOWN"
                 outClaimsDevelopmentLeanNet = "AGGREGATED_DRILL_DOWN"
+                outCoverUnderwritingInfo  = "AGGREGATED_DRILL_DOWN"
             }
 		}
 	}

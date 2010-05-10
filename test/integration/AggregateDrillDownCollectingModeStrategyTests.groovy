@@ -38,8 +38,10 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
 
     void postSimulationEvaluation() {
         correctPaths()
-        correctFields()
-        correctResults()
+        correctFields(['incurred', 'paid', 'reserved','commission', 'premium'])
+        correctResultsClaims()
+
+        correctResultsUwInfo()
     }
 
     void correctPaths() {
@@ -113,24 +115,32 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
                 'Podra:reinsurance:subContracts:subPropertyQuotaShare:subPropertyEarthquake:outClaimsDevelopmentLeanNet',
                 'Podra:reinsurance:subContracts:subPropertyQuotaShare:subPropertySingle:outClaimsDevelopmentLeanCeded',
                 'Podra:reinsurance:subContracts:subPropertyQuotaShare:subPropertySingle:outClaimsDevelopmentLeanGross',
-                'Podra:reinsurance:subContracts:subPropertyQuotaShare:subPropertySingle:outClaimsDevelopmentLeanNet'
+                'Podra:reinsurance:subContracts:subPropertyQuotaShare:subPropertySingle:outClaimsDevelopmentLeanNet',
+                'Podra:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded',
+                'Podra:linesOfBusiness:subProperty:outUnderwritingInfoCeded',
+                'Podra:reinsurance:subContracts:subMotorHullWxl:outCoverUnderwritingInfo',
+                'Podra:reinsurance:subContracts:subMotorHullWxl:subMotorHull:outCoverUnderwritingInfo',
+                'Podra:reinsurance:subContracts:subPropertyCxl:outCoverUnderwritingInfo',
+                'Podra:reinsurance:subContracts:subPropertyCxl:subProperty:outCoverUnderwritingInfo',
+                'Podra:reinsurance:subContracts:subPropertyQuotaShare:outCoverUnderwritingInfo',
+                'Podra:reinsurance:subContracts:subPropertyQuotaShare:subProperty:outCoverUnderwritingInfo'
         ]
         def collectedPaths = PathMapping.list()
         // there are 6 paths of the dynamic containers itself, in the following for loop they are ignored.
-        assertEquals '# of paths correct', paths.size(), collectedPaths.size() - 6
+        assertEquals '# of paths correct', paths.size(), collectedPaths.size() - 8
 
         for (int i = 0; i < collectedPaths.size(); i++) {
             if (collectedPaths[i].pathName.contains("sublineOfBusiness")) continue
 //            if (collectedPaths[i].pathName.contains("subContracts")) continue
             if (collectedPaths[i].pathName.contains("subRiContracts")) continue
+            def init = paths.contains(collectedPaths[i].pathName)
             assertTrue "$i ${collectedPaths[i].pathName} found", paths.remove(collectedPaths[i].pathName)
         }
 
         assertTrue 'all paths found', paths.size() == 0
     }
 
-    void correctFields() {
-        List<String> fields = ['incurred', 'paid', 'reserved']
+    void correctFields(List<String> fields) {
         def collectedFields = FieldMapping.list()
         assertEquals '# of fields correct', fields.size(), collectedFields.size()
 
@@ -140,7 +150,7 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
         assertTrue 'all field found', fields.size() == 0
     }
 
-    void correctResults() {
+    void correctResultsClaims() {
         Map<String, Double> resultsPerPath = new LinkedHashMap<String, Double>()
         resultsPerPath['Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded']=570d
         resultsPerPath['Podra:linesOfBusiness:outClaimsDevelopmentLeanGross']=2700d
@@ -223,9 +233,36 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
 
         for (Map.Entry<String, Double> result : resultsPerPath.entrySet()) {
 //            re-enable for debugging
-//            if (result.value != collectedResultsPerPath.get(result.key) && collectedResultsPerPath.get(result.key) != null) {
-//                println "$result.key ${result.value} ${collectedResultsPerPath.get(result.key)}"
-//            }
+            if (result.value != collectedResultsPerPath.get(result.key) && collectedResultsPerPath.get(result.key) != null) {
+                println "$result.key ${result.value} ${collectedResultsPerPath.get(result.key)}"
+            }
+            assertEquals "$result.key", resultsPerPath.get(result.key), result.value
+        }
+    }
+
+    void correctResultsUwInfo() {
+        Map<String, Double> resultsPerPath = new LinkedHashMap<String, Double>()
+        resultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:outCoverUnderwritingInfo']=570d
+        resultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:subMotorHull:outCoverUnderwritingInfo']=2700d
+        resultsPerPath['Podra:reinsurance:subContracts:subPropertyCxl:outCoverUnderwritingInfo']=2130d
+        resultsPerPath['Podra:reinsurance:subContracts:subPropertyCxl:subProperty:outCoverUnderwritingInfo']=200d
+        resultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:outCoverUnderwritingInfo']=1100d
+        resultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:subProperty:outCoverUnderwritingInfo']=900d
+
+        Map<String, Double> collectedResultsPerPath = new HashMap<String, Double>()
+        def results = SingleValueResult.list()
+        for (SingleValueResult result : results) {
+            if (result.field.fieldName == "commission" ||
+                    result.field.fieldName == "premium") {
+                collectedResultsPerPath[result.path.pathName] = result.value
+            }
+        }
+
+        for (Map.Entry<String, Double> result : resultsPerPath.entrySet()) {
+//            re-enable for debugging
+            if (result.value != collectedResultsPerPath.get(result.key) && collectedResultsPerPath.get(result.key) != null) {
+                println "$result.key ${result.value} ${collectedResultsPerPath.get(result.key)}"
+            }
             assertEquals "$result.key", resultsPerPath.get(result.key), result.value
         }
     }

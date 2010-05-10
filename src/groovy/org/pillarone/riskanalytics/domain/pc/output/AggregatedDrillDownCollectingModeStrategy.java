@@ -7,11 +7,13 @@ import org.pillarone.riskanalytics.core.output.ICollectingModeStrategy;
 import org.pillarone.riskanalytics.core.output.PacketCollector;
 import org.pillarone.riskanalytics.core.output.SingleValueResult;
 import org.pillarone.riskanalytics.core.output.batch.AbstractBulkInsert;
+import org.pillarone.riskanalytics.core.packets.Packet;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 
 import java.util.*;
 
@@ -29,7 +31,7 @@ public class AggregatedDrillDownCollectingModeStrategy implements ICollectingMod
 
     private PacketCollector packetCollector;
 
-    public List<SingleValueResult> collect(PacketList packets) { //throws IllegalAccessException {
+    public List<SingleValueResult> collect(PacketList packets) {
         if (packets.get(0) instanceof Claim) {
             try {
                 return createSingleValueResults(aggregateClaims(packets));
@@ -38,8 +40,16 @@ public class AggregatedDrillDownCollectingModeStrategy implements ICollectingMod
 //                todo(sku): remove
             }
         }
+        else if (packets.get(0) instanceof UnderwritingInfo) {
+            try {
+                return createSingleValueResults(aggregateUnderwritingInfo(packets));
+            }
+            catch (IllegalAccessException ex) {
+//                  todo(sku): remove
+            }
+        }
         else {
-            throw new NotImplementedException("The aggregate drill down mode is only available for claims.\n" +
+            throw new NotImplementedException("The aggregate drill down mode is only available for claims and underwriting info.\n" +
                 "Please adjust the selected result template or select another one.");
         }
         return null;
@@ -49,13 +59,16 @@ public class AggregatedDrillDownCollectingModeStrategy implements ICollectingMod
      * Create a SingleValueResult object for each packetValue.
      * Information about current simulation is gathered from the scopes.
      * The key of the value map is the path.
+     * @param packets
+     * @return
+     * @throws IllegalAccessException
      */
-    private List createSingleValueResults(Map<String, Claim> packets) throws IllegalAccessException {
+    private List<SingleValueResult> createSingleValueResults(Map<String, Packet> packets) throws IllegalAccessException {
         List<SingleValueResult> singleValueResults = new ArrayList<SingleValueResult>(packets.size());
-        for (Map.Entry<String, Claim> packet : packets.entrySet()) {
-            String path = packet.getKey();
-            Claim claim = packet.getValue();
-            for (Map.Entry<String, Number> field : claim.getValuesToSave().entrySet()) {
+        for (Map.Entry<String, Packet> packetEntry : packets.entrySet()) {
+            String path = packetEntry.getKey();
+            Packet packet = packetEntry.getValue();
+            for (Map.Entry<String, Number> field : packet.getValuesToSave().entrySet()) {
                 String fieldName = field.getKey();
                 Double value = (Double) field.getValue();
                 if (value == Double.NaN || value == Double.NEGATIVE_INFINITY || value == Double.POSITIVE_INFINITY) {
@@ -92,8 +105,8 @@ public class AggregatedDrillDownCollectingModeStrategy implements ICollectingMod
      * @param claims
      * @return a map with paths as key
      */
-    private Map<String, Claim> aggregateClaims(List<Claim> claims) {
-        Map<String, Claim> resultMap = new HashMap<String, Claim>(claims.size());
+    private Map<String, Packet> aggregateClaims(List<Claim> claims) {
+        Map<String, Packet> resultMap = new HashMap<String, Packet>(claims.size());
         if (claims == null || claims.size() == 0) {
             return resultMap;
         }
@@ -126,14 +139,39 @@ public class AggregatedDrillDownCollectingModeStrategy implements ICollectingMod
         return resultMap;
     }
 
+        /**
+     * @param underwritingInfos
+     * @return a map with paths as key
+     */
+    private Map<String, Packet> aggregateUnderwritingInfo(List<UnderwritingInfo> underwritingInfos) {
+        Map<String, Packet> resultMap = new HashMap<String, Packet>(underwritingInfos.size());
+        if (underwritingInfos == null || underwritingInfos.size() == 0) {
+            return resultMap;
+        }
+
+        for (UnderwritingInfo underwritingInfo : underwritingInfos) {
+            String originPath = packetCollector.getSimulationScope().getStructureInformation().getPath(underwritingInfo);
+            addToMap(underwritingInfo, originPath, resultMap);
+            if (underwritingInfo.sender instanceof LobMarker && underwritingInfo.getReinsuranceContract() != null) {
+                String contractPathExtension = underwritingInfo.getReinsuranceContract().getName();
+                addToMap(underwritingInfo, getComponentPath(), contractPathExtension, resultMap);
+            }
+            if (underwritingInfo.sender instanceof IReinsuranceContractMarker && underwritingInfo.getLineOfBusiness() != null) {
+                String lobPathExtension = underwritingInfo.getLineOfBusiness().getName();
+                addToMap(underwritingInfo, getComponentPath(), lobPathExtension, resultMap);
+            }
+        }
+        return resultMap;
+    }
+
     private String getComponentPath() {
         int separatorPositionBeforeChannel = packetCollector.getPath().lastIndexOf(":");
         return packetCollector.getPath().substring(0, separatorPositionBeforeChannel);
     }
 
-    private void addToMap(Claim claim, String path, Map<String, Claim> resultMap) {
+    private void addToMap(Claim claim, String path, Map<String, Packet> resultMap) {
         if (resultMap.containsKey(path)) {
-            Claim aggregateClaim = resultMap.get(path);
+            Claim aggregateClaim = (Claim) resultMap.get(path);
             aggregateClaim.plus(claim);
             resultMap.put(path, aggregateClaim);
         } else {
@@ -143,14 +181,35 @@ public class AggregatedDrillDownCollectingModeStrategy implements ICollectingMod
         }
     }
 
+    private void addToMap(UnderwritingInfo underwritingInfo, String path, Map<String, Packet> resultMap) {
+        if (resultMap.containsKey(path)) {
+            UnderwritingInfo aggregateUnderwritingInfo = (UnderwritingInfo) resultMap.get(path);
+            aggregateUnderwritingInfo.plus(aggregateUnderwritingInfo);
+            resultMap.put(path, aggregateUnderwritingInfo);
+        } else {
+            UnderwritingInfo clonedUnderwritingInfo = (UnderwritingInfo) underwritingInfo.copy();
+            resultMap.put(path, clonedUnderwritingInfo);
+        }
+    }
+
     // todo(sku): cache extended paths
-    private void addToMap(Claim claim, String path, String pathExtension, Map<String, Claim> resultMap) {
+    private void addToMap(Claim claim, String path, String pathExtension, Map<String, Packet> resultMap) {
         StringBuilder composedPath = new StringBuilder(path);
         composedPath.append(PATH_SEPARATOR);
         composedPath.append(pathExtension);
         composedPath.append(PATH_SEPARATOR);
         composedPath.append(claim.senderChannelName);
         addToMap(claim, composedPath.toString(), resultMap);
+    }
+
+    // todo(sku): cache extended paths
+    private void addToMap(UnderwritingInfo underwritingInfo, String path, String pathExtension, Map<String, Packet> resultMap) {
+        StringBuilder composedPath = new StringBuilder(path);
+        composedPath.append(PATH_SEPARATOR);
+        composedPath.append(pathExtension);
+        composedPath.append(PATH_SEPARATOR);
+        composedPath.append(underwritingInfo.senderChannelName);
+        addToMap(underwritingInfo, composedPath.toString(), resultMap);
     }
 
 //    PathMapping getPathMapping(String extendedPath) {

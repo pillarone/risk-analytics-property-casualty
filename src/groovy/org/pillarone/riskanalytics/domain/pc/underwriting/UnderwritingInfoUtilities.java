@@ -32,7 +32,7 @@ public class UnderwritingInfoUtilities {
         }
         UnderwritingInfo summedUnderwritingInfo = UnderwritingInfoPacketFactory.createPacket();
         for (UnderwritingInfo underwritingInfo: underwritingInfos) {
-            summedUnderwritingInfo = summedUnderwritingInfo.plus(underwritingInfo);
+            summedUnderwritingInfo.plus(underwritingInfo);
             summedUnderwritingInfo.exposureDefinition = underwritingInfo.exposureDefinition;
         }
         return summedUnderwritingInfo;
@@ -40,7 +40,8 @@ public class UnderwritingInfoUtilities {
 
     static public UnderwritingInfo difference(UnderwritingInfo grossUnderwritingInfo, UnderwritingInfo cededUnderwritingInfo) {
         UnderwritingInfo netUnderwritingInfo = (UnderwritingInfo) grossUnderwritingInfo.copy();
-        return netUnderwritingInfo.minus(cededUnderwritingInfo);
+        netUnderwritingInfo.minus(cededUnderwritingInfo);
+        return netUnderwritingInfo;
     }
 
     /**
@@ -50,7 +51,7 @@ public class UnderwritingInfoUtilities {
         assert grossUnderwritingInfo.numberOfPolicies == cededUnderwritingInfo.numberOfPolicies;
         UnderwritingInfo netUnderwritingInfo = (UnderwritingInfo) grossUnderwritingInfo.copy();
         netUnderwritingInfo.originalUnderwritingInfo = cededUnderwritingInfo.originalUnderwritingInfo;
-        netUnderwritingInfo = netUnderwritingInfo.minus(cededUnderwritingInfo);
+        netUnderwritingInfo.minus(cededUnderwritingInfo);
         netUnderwritingInfo.commission = cededUnderwritingInfo.commission;
         return netUnderwritingInfo;
     }
@@ -60,7 +61,8 @@ public class UnderwritingInfoUtilities {
         assert difference != null;
         assert difference.size() == 0;
         for (int i = 0; i < minuendUwInfo.size(); i++) {
-            difference.add(minuendUwInfo.get(i).minus(subtrahendUwInfo.get(i)));
+            minuendUwInfo.get(i).minus(subtrahendUwInfo.get(i));
+            difference.add(minuendUwInfo.get(i));
         }
     }
 

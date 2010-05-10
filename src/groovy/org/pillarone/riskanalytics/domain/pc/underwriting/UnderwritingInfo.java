@@ -64,22 +64,20 @@ public class UnderwritingInfo extends ExposureInfo {
      * @param other
      * @return UnderwritingInfo packet with resulting fields
      */
-    public UnderwritingInfo plus(UnderwritingInfo other) {
+    public void plus(UnderwritingInfo other) {
         super.plus(other);
         premiumWritten += other.premiumWritten;
         commission += other.commission;
-        return this;
     }
 
    // todo: think about commission
-    public UnderwritingInfo minus(UnderwritingInfo other) {
+    public void minus(UnderwritingInfo other) {
         super.minus(other);
         premiumWritten -= other.premiumWritten;
         commission -= other.commission;
         if (premiumWritten == 0 && commission == 0 && sumInsured == 0) {
             numberOfPolicies = 0;
         }
-        return this;
     }
 
     public void scale(double factor) {

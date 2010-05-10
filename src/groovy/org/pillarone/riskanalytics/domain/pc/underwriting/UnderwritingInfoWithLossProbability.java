@@ -25,14 +25,12 @@ public class UnderwritingInfoWithLossProbability extends UnderwritingInfo {
         return 0;
     }
 
-    public UnderwritingInfoWithLossProbability plus(UnderwritingInfoWithLossProbability other) {
+    public void plus(UnderwritingInfoWithLossProbability other) {
         super.plus(other);
-        return this;
     }
 
-    public UnderwritingInfoWithLossProbability minus(UnderwritingInfoWithLossProbability other) {
+    public void minus(UnderwritingInfoWithLossProbability other) {
         super.minus(other);
-        return this;
     }
 
     public double getLossProbability() {

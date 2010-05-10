@@ -205,9 +205,11 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
         for (UnderwritingInfo underwritingInfo : grossUnderwritingInfos) {
             UnderwritingInfo cededUnderwritingInfo = parmContractStrategy.calculateCoverUnderwritingInfo(underwritingInfo, getTotalInitialReserves());
             setOriginalUnderwritingInfo(underwritingInfo, cededUnderwritingInfo);
+            cededUnderwritingInfo.setReinsuranceContract(this);
             cededUnderwritingInfos.add(cededUnderwritingInfo);
             UnderwritingInfo netUnderwritingInfo = UnderwritingInfoUtilities.calculateNet(underwritingInfo, cededUnderwritingInfo);
             setOriginalUnderwritingInfo(underwritingInfo, netUnderwritingInfo);
+            netUnderwritingInfo.setReinsuranceContract(this);
             netUnderwritingInfos.add(netUnderwritingInfo);
         }
     }
@@ -218,6 +220,7 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
         for (int i = 0; i < grossUnderwritingInfos.size(); i++) {
             UnderwritingInfo netUnderwritingInfo = UnderwritingInfoUtilities.calculateNet(grossUnderwritingInfos.get(i), cededUnderwritingInfos.get(i));
             setOriginalUnderwritingInfo(grossUnderwritingInfos.get(i), netUnderwritingInfo);
+            netUnderwritingInfo.setReinsuranceContract(this);
             netUnderwritingInfos.add(netUnderwritingInfo);
         }
     }
@@ -227,6 +230,7 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
         for (UnderwritingInfo underwritingInfo : grossUnderwritingInfos) {
             UnderwritingInfo cededUnderwritingInfo = parmContractStrategy.calculateCoverUnderwritingInfo(underwritingInfo, getTotalInitialReserves());
             setOriginalUnderwritingInfo(underwritingInfo, cededUnderwritingInfo);
+            cededUnderwritingInfo.setReinsuranceContract(this);
             cededUnderwritingInfos.add(cededUnderwritingInfo);
         }
     }

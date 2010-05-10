@@ -53,7 +53,7 @@ public class MarketUnderwritingInfoMerger extends Component {
                         }
                         else {
                             // add subsequent matched packets to the aggregate working copy
-                            aggregateCededUnderwritingInfo = aggregateCededUnderwritingInfo.plus(cededUnderwritingInfo);
+                            aggregateCededUnderwritingInfo.plus(cededUnderwritingInfo);
                             // prevent ExposureInfo.plus from doubling the numberOfPolicies (since the packets come from just one source)!
                             aggregateCededUnderwritingInfo.numberOfPolicies = cededUnderwritingInfo.numberOfPolicies;
                             aggregateCededUnderwritingInfo.origin = this;
@@ -75,7 +75,7 @@ public class MarketUnderwritingInfoMerger extends Component {
                     }
                     else {
                         // net premium written = gross premium written - sum of matched ceded premium written
-                        netUnderwritingInfo = netUnderwritingInfo.minus(cededUnderwritingInfo);
+                        netUnderwritingInfo.minus(cededUnderwritingInfo);
                         // net commission = sum of matched ceded commission
                         netUnderwritingInfo.commission = cededUnderwritingInfo.commission;
                     }
