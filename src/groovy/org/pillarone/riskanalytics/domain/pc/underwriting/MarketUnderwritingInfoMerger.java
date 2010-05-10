@@ -16,26 +16,25 @@ public class MarketUnderwritingInfoMerger extends Component {
 
     private PacketList<UnderwritingInfo> inUnderwritingInfoCeded = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
     private PacketList<UnderwritingInfo> inUnderwritingInfoGross = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
-    private PacketList<UnderwritingInfo> outUnderwritingInfoNet = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
-    private PacketList<UnderwritingInfo> outUnderwritingInfoGross = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
     private PacketList<UnderwritingInfo> outUnderwritingInfoCeded = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
+    private PacketList<UnderwritingInfo> outUnderwritingInfoGross = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
+    private PacketList<UnderwritingInfo> outUnderwritingInfoNet = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
 
     public void doCalculation() {
         if (inUnderwritingInfoGross.isEmpty() && !inUnderwritingInfoCeded.isEmpty()) {
             throw new IllegalStateException("Only ceded underwriting info found!");
         }
 
-        /* The map contains the gross claims as keys and the ceded as values */
+        /* The map contains the gross UwInfo as keys and the ceded as values */
         if (anyOutChannelWired()) {
-            // By using a LinkedHashMap, we can be sure that all outClaims* lists will be sorted according
-            // to the inUnderwritingInfoGross list.
+            // Using a LinkedHashMap ensures that all outUwInfo* lists will be sorted according to the inUwInfoGross list.
             Map<UnderwritingInfo, GrossCededUnderwritingInfoPair> grossMergedCededPairs = new LinkedHashMap<UnderwritingInfo, GrossCededUnderwritingInfoPair>(inUnderwritingInfoGross.size());
             for (UnderwritingInfo grossUnderwritingInfo : inUnderwritingInfoGross) {
                 // use the originalUnderwritingInfo property from each (gross in-) UI packet as unique identifier for merging
-                if (grossMergedCededPairs.containsKey(grossUnderwritingInfo.originalUnderwritingInfo)) {
-                    throw new IllegalArgumentException("MarketUnderwritingInfoMerger.inUnderwritingInfoGross contains twice the same underwriting info!");
+                if (grossMergedCededPairs.containsKey(grossUnderwritingInfo.getOriginalUnderwritingInfo())) {
+                    throw new IllegalArgumentException("MarketUnderwritingInfoMerger.inUnderwritingInfoGross contained two packets with the same origin!");
                 }
-                grossMergedCededPairs.put(grossUnderwritingInfo.originalUnderwritingInfo, new GrossCededUnderwritingInfoPair(grossUnderwritingInfo));
+                grossMergedCededPairs.put(grossUnderwritingInfo.getOriginalUnderwritingInfo(), new GrossCededUnderwritingInfoPair(grossUnderwritingInfo));
                 outUnderwritingInfoGross.add(grossUnderwritingInfo);
             }
             if (isSenderWired(outUnderwritingInfoCeded) || isSenderWired(outUnderwritingInfoNet)) {

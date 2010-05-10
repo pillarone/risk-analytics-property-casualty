@@ -25,13 +25,13 @@ public class UnderwritingInfoMerger extends Component {
             throw new IllegalStateException("Only ceded underwriting information found!");
         }
 
-        /* The map contains the gross claims as keys and the ceded as values */
+        /* The map contains the gross UwInfo as keys and the ceded as values */
         if (anyOutChannelWired()) {
             // Using a LinkedHashMap ensures that all outUwInfo* lists will be sorted according to the inUwInfoGross list.
             Map<UnderwritingInfo, UnderwritingInfo> grossMergedCededPairs = new LinkedHashMap<UnderwritingInfo, UnderwritingInfo>(inUnderwritingInfoGross.size());
             for (UnderwritingInfo grossUnderwritingInfo : inUnderwritingInfoGross) {
                 if (grossMergedCededPairs.containsKey(grossUnderwritingInfo.getOriginalUnderwritingInfo())) {
-                    throw new IllegalArgumentException("UnderwritingInfosMerger.inUnderwritingInfoGross contains twice the same UnderwritingInfo!");
+                    throw new IllegalArgumentException("UnderwritingInfoMerger.inUnderwritingInfoGross contained two packets with the same origin!");
                 }
                 grossMergedCededPairs.put(grossUnderwritingInfo.getOriginalUnderwritingInfo(), null);
                 outUnderwritingInfoGross.add(grossUnderwritingInfo);
