@@ -2,9 +2,9 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.commissions
 
 import org.joda.time.DateTime
 import org.joda.time.Period
-import org.pillarone.riskanalytics.core.components.Component
-import org.pillarone.riskanalytics.core.example.component.TestComponent
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
+import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
+import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
 import org.pillarone.riskanalytics.core.simulation.ContinuousPeriodCounter
 import org.pillarone.riskanalytics.core.simulation.engine.IterationScope
 import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope
@@ -16,6 +16,9 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.applicable.
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContract
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
+import org.pillarone.riskanalytics.domain.utils.constraints.DoubleConstraints
+import org.pillarone.riskanalytics.core.components.Component
+import org.pillarone.riskanalytics.core.example.component.TestComponent
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
 
 /**
@@ -116,16 +119,16 @@ class CommissionTests extends GroovyTestCase {
 
         commission.setSimulationScope getTestSimulationScope(2010)
 
-        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: 50)
-        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: 5)
+        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: -50)
+        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: -5)
         commission.inUnderwritingInfo << underwritingInfo200 << underwritingInfo100
 
         commission.doCalculation()
 
         assertEquals '# outUnderwritingInfoUnmodified packets', 0, commission.outUnderwritingInfoUnmodified.size()
         assertEquals '# outUnderwritingInfoModified packets', 2, commission.outUnderwritingInfoModified.size()
-        assertEquals 'underwritingInfo200', 50+200*0.3, commission.outUnderwritingInfoModified[0].commission
-        assertEquals 'underwritingInfo200', 5+100*0.3, commission.outUnderwritingInfoModified[1].commission
+        assertEquals 'underwritingInfo200', -(50 + 200 * 0.3), commission.outUnderwritingInfoModified[0].commission
+        assertEquals 'underwritingInfo200', -(5 + 100 * 0.3), commission.outUnderwritingInfoModified[1].commission
     }
 
     void testSlidingCommission() {
@@ -134,48 +137,48 @@ class CommissionTests extends GroovyTestCase {
         Claim claim05 = new Claim(value: 5d);
         Claim claim20 = new Claim(value: 20d);
         Commission commission = getSlidingCommission()
-        commission.inUnderwritingInfo << getUnderwritingInfo(50d, 0d)
+        commission.inUnderwritingInfo << getUnderwritingInfo(50d, -0d)
         commission.inClaims << claim01
         commission.doCalculation()
         assertEquals 'totalPremiumWritten', 50, commission.outUnderwritingInfoModified[0].premiumWritten
-        assertEquals 'underwritingInfo050 (1)', 50*0.2, commission.outUnderwritingInfoModified[0].commission, 1E-10
+        assertEquals 'underwritingInfo050 (1)', -50 * 0.2, commission.outUnderwritingInfoModified[0].commission, 1E-10
 
         commission = getSlidingCommission()
-        commission.inUnderwritingInfo << getUnderwritingInfo(50d, 10d)
+        commission.inUnderwritingInfo << getUnderwritingInfo(50d, -10d)
         commission.inClaims << claim01
         commission.doCalculation()
-        assertEquals 'underwritingInfo100', 10+50*0.2, commission.outUnderwritingInfoModified[0].commission, 1E-10
+        assertEquals 'underwritingInfo100', -(10 + 50 * 0.2), commission.outUnderwritingInfoModified[0].commission, 1E-10
 
         commission = getSlidingCommission()
-        commission.inUnderwritingInfo << getUnderwritingInfo(50d, 0d)
+        commission.inUnderwritingInfo << getUnderwritingInfo(50d, -0d)
         commission.inClaims << claim05
         commission.doCalculation()
-        assertEquals 'underwritingInfo050 (2)', 50*0.1, commission.outUnderwritingInfoModified[0].commission, 1E-10
+        assertEquals 'underwritingInfo050 (2)', -50 * 0.1, commission.outUnderwritingInfoModified[0].commission, 1E-10
 
         commission = getSlidingCommission()
-        commission.inUnderwritingInfo << getUnderwritingInfo(50d, 0d)
+        commission.inUnderwritingInfo << getUnderwritingInfo(50d, -0d)
         commission.inClaims << claim20
         commission.doCalculation()
-        assertEquals 'underwritingInfo050 (3)', 50*0.05, commission.outUnderwritingInfoModified[0].commission, 1E-10
+        assertEquals 'underwritingInfo050 (3)', -50 * 0.05, commission.outUnderwritingInfoModified[0].commission, 1E-10
 
         commission = getSlidingCommission()
-        commission.inUnderwritingInfo << getUnderwritingInfo(50d, 0d)
+        commission.inUnderwritingInfo << getUnderwritingInfo(50d, -0d)
         commission.inClaims << claim01 << claim05 << claim20
         commission.doCalculation()
-        assertEquals 'underwritingInfo050 (4)', 0.0, commission.outUnderwritingInfoModified[0].commission, 1E-10
+        assertEquals 'underwritingInfo050 (4)', -0.0, commission.outUnderwritingInfoModified[0].commission, 1E-10
 
         commission = getSlidingCommission()
-        commission.inUnderwritingInfo << getUnderwritingInfo(50d, 0d) << getUnderwritingInfo(60d, 0d)
+        commission.inUnderwritingInfo << getUnderwritingInfo(50d, -0d) << getUnderwritingInfo(60d, -0d)
         commission.inClaims << claim05 << claim20
         commission.doCalculation()
-        assertEquals 'underwritingInfo050 uw1 (5)', 50*0.05, commission.outUnderwritingInfoModified[0].commission, 1E-10
-        assertEquals 'underwritingInfo050 uw2 (5)', 60*0.05, commission.outUnderwritingInfoModified[1].commission, 1E-10
+        assertEquals 'underwritingInfo050 uw1 (5)', -50 * 0.05, commission.outUnderwritingInfoModified[0].commission, 1E-10
+        assertEquals 'underwritingInfo050 uw2 (5)', -60 * 0.05, commission.outUnderwritingInfoModified[1].commission, 1E-10
 
         commission = getSlidingCommission()
-        commission.inUnderwritingInfo << getUnderwritingInfo(50d, 0d)
+        commission.inUnderwritingInfo << getUnderwritingInfo(50d, -0d)
         commission.inClaims
         commission.doCalculation()
-        assertEquals 'underwritingInfo050 (6)', 50*0.2, commission.outUnderwritingInfoModified[0].commission, 1E-10
+        assertEquals 'underwritingInfo050 (6)', -50 * 0.2, commission.outUnderwritingInfoModified[0].commission, 1E-10
     }
 
     void testProfitCommission() {
@@ -194,12 +197,12 @@ class CommissionTests extends GroovyTestCase {
 
         commission.inClaims << new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 50d)
 
-        commission.inUnderwritingInfo << new UnderwritingInfo(premiumWritten: 100, commission: 0)
+        commission.inUnderwritingInfo << new UnderwritingInfo(premiumWritten: 100, commission: -0)
 
         commission.doCalculation()
 
         assertEquals '# outUnderwritingInfoModified packets', 1, commission.outUnderwritingInfoModified.size()
-        assertEquals 'underwritingInfo100', 0.03*(100*(1d-0.2)-50-20), commission.outUnderwritingInfoModified[0].commission
+        assertEquals 'underwritingInfo100', -0.03 * (100 * (1d - 0.2) - 50 - 20), commission.outUnderwritingInfoModified[0].commission
     }
 
     void testFixedCommissionFilteringByContract() {
@@ -209,20 +212,20 @@ class CommissionTests extends GroovyTestCase {
         SimulationScope simulationScope = getTestSimulationScope(2010)
         simulationScope.model.allComponents << contract1 << contract2
 
-        UnderwritingInfo underwritingInfo100 = getUnderwritingInfoFromContract(100, 5, contract1)
-        UnderwritingInfo underwritingInfo200 = getUnderwritingInfoFromContract(200, 50, contract2)
+        UnderwritingInfo underwritingInfo100 = getUnderwritingInfoFromContract(100, -5, contract1)
+        UnderwritingInfo underwritingInfo200 = getUnderwritingInfoFromContract(200, -50, contract2)
 
         Commission commission = new Commission(
-            parmCommissionStrategy : CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, [commission: 0.3d]),
-            parmApplicableStrategy : ApplicableStrategyType.getStrategy(ApplicableStrategyType.CONTRACT, [applicableContracts:
+                parmCommissionStrategy: CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, [commission: 0.3d]),
+                parmApplicableStrategy: ApplicableStrategyType.getStrategy(ApplicableStrategyType.CONTRACT, [applicableContracts:
                 new ComboBoxTableMultiDimensionalParameter(['selected contract'], ['Applicable Contracts'], IReinsuranceContractMarker)]),
-            simulationScope : simulationScope
+                simulationScope: simulationScope
         )
         commission.inUnderwritingInfo << underwritingInfo200 << underwritingInfo100
         commission.doCalculation()
 
         assertEquals '# outUnderwritingInfoModified packets', 1, commission.outUnderwritingInfoModified.size()
-        assertEquals 'underwritingInfo100', 5+100*0.3, commission.outUnderwritingInfoModified[0].commission
+        assertEquals 'underwritingInfo100', -(5 + 100 * 0.3), commission.outUnderwritingInfoModified[0].commission
     }
 
     void testProfitCommissionFilteringByContract() {
@@ -243,9 +246,9 @@ class CommissionTests extends GroovyTestCase {
         )
         // contracts 1 & 2 are covered (an extra 30% commission applies to them) but contract 0 is not (no extra commission)
 
-        UnderwritingInfo underwritingInfo1 = getUnderwritingInfoFromContract(60, 1, contract1)
-        UnderwritingInfo underwritingInfo2 = getUnderwritingInfoFromContract(40, 2, contract2)
-        UnderwritingInfo underwritingInfo3 = getUnderwritingInfoFromContract(20, 4, contract0)
+        UnderwritingInfo underwritingInfo1 = getUnderwritingInfoFromContract(60, -1, contract1)
+        UnderwritingInfo underwritingInfo2 = getUnderwritingInfoFromContract(40, -2, contract2)
+        UnderwritingInfo underwritingInfo3 = getUnderwritingInfoFromContract(20, -4, contract0)
         commission.inUnderwritingInfo << underwritingInfo1 << underwritingInfo2 << underwritingInfo3
         // An extra 30% commission applies to UWInfo 100 & 200 but not 300
 
@@ -257,8 +260,8 @@ class CommissionTests extends GroovyTestCase {
         commission.doCalculation()
 
         assertEquals '# outUnderwritingInfoModified packets', 2, commission.outUnderwritingInfoModified.size()
-        assertEquals 'underwritingInfo1', 1+0.03*(100*(1d-0.2)-50-20)*0.6, commission.outUnderwritingInfoModified[0].commission
-        assertEquals 'underwritingInfo2', 2+0.03*(100*(1d-0.2)-50-20)*0.4, commission.outUnderwritingInfoModified[1].commission
+        assertEquals 'underwritingInfo1', -(1 + 0.03 * (100 * (1d - 0.2) - 50 - 20) * 0.6), commission.outUnderwritingInfoModified[0].commission
+        assertEquals 'underwritingInfo2', -(2 + 0.03 * (100 * (1d - 0.2) - 50 - 20) * 0.4), commission.outUnderwritingInfoModified[1].commission
     }
 
     void testProfitCommissionFilteringByContract2() {
@@ -279,12 +282,12 @@ class CommissionTests extends GroovyTestCase {
         )
         // contracts 1 & 2 are covered (an extra 30% commission applies to them) but contract 0 is not (no extra commission)
 
-        UnderwritingInfo underwritingInfo1 = getUnderwritingInfoFromContract(10, 1, contract1)
-        UnderwritingInfo underwritingInfo2 = getUnderwritingInfoFromContract(20, 2, contract1)
-        UnderwritingInfo underwritingInfo3 = getUnderwritingInfoFromContract(30, 3, contract1)
-        UnderwritingInfo underwritingInfo4 = getUnderwritingInfoFromContract(40, 4, contract2)
-        UnderwritingInfo underwritingInfo5 = getUnderwritingInfoFromContract(50, 5, contract2)
-        UnderwritingInfo underwritingInfo6 = getUnderwritingInfoFromContract(60, 6, contract0)
+        UnderwritingInfo underwritingInfo1 = getUnderwritingInfoFromContract(10, -1, contract1)
+        UnderwritingInfo underwritingInfo2 = getUnderwritingInfoFromContract(20, -2, contract1)
+        UnderwritingInfo underwritingInfo3 = getUnderwritingInfoFromContract(30, -3, contract1)
+        UnderwritingInfo underwritingInfo4 = getUnderwritingInfoFromContract(40, -4, contract2)
+        UnderwritingInfo underwritingInfo5 = getUnderwritingInfoFromContract(50, -5, contract2)
+        UnderwritingInfo underwritingInfo6 = getUnderwritingInfoFromContract(60, -6, contract0)
         commission.inUnderwritingInfo << underwritingInfo1 << underwritingInfo2 << underwritingInfo3
         commission.inUnderwritingInfo << underwritingInfo4 << underwritingInfo5 << underwritingInfo6
         // An extra 30% commission applies to UWInfo 1-5 but not UWInfo 6
@@ -300,10 +303,10 @@ class CommissionTests extends GroovyTestCase {
 
         // note: for UWInfo 1, 10/(10+20+30+40+50) * 0.3 = 1/15 * 0.3 = 0.1 * 0.2; similarly for UWInfo 2-5.
         assertEquals '# outUnderwritingInfoModified packets', 5, commission.outUnderwritingInfoModified.size()
-        assertEquals 'underwritingInfo1', 1+0.1*0.2*(150*(1d-0.1)-30-5), commission.outUnderwritingInfoModified[0].commission
-        assertEquals 'underwritingInfo2', 2+0.2*0.2*(150*(1d-0.1)-30-5), commission.outUnderwritingInfoModified[1].commission
-        assertEquals 'underwritingInfo3', 3+0.3*0.2*(150*(1d-0.1)-30-5), commission.outUnderwritingInfoModified[2].commission
-        assertEquals 'underwritingInfo4', 4+0.4*0.2*(150*(1d-0.1)-30-5), commission.outUnderwritingInfoModified[3].commission
-        assertEquals 'underwritingInfo5', 5+0.5*0.2*(150*(1d-0.1)-30-5), commission.outUnderwritingInfoModified[4].commission
+        assertEquals 'underwritingInfo1', -(1 + 0.1 * 0.2 * (150 * (1d - 0.1) - 30 - 5)), commission.outUnderwritingInfoModified[0].commission
+        assertEquals 'underwritingInfo2', -(2 + 0.2 * 0.2 * (150 * (1d - 0.1) - 30 - 5)), commission.outUnderwritingInfoModified[1].commission
+        assertEquals 'underwritingInfo3', -(3 + 0.3 * 0.2 * (150 * (1d - 0.1) - 30 - 5)), commission.outUnderwritingInfoModified[2].commission
+        assertEquals 'underwritingInfo4', -(4 + 0.4 * 0.2 * (150 * (1d - 0.1) - 30 - 5)), commission.outUnderwritingInfoModified[3].commission
+        assertEquals 'underwritingInfo5', -(5 + 0.5 * 0.2 * (150 * (1d - 0.1) - 30 - 5)), commission.outUnderwritingInfoModified[4].commission
     }
 }

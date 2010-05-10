@@ -66,7 +66,6 @@ public class MarketUnderwritingInfoMerger extends Component {
                     UnderwritingInfo netUnderwritingInfo = UnderwritingInfoPacketFactory.copy(grossUnderwritingInfo);
                     netUnderwritingInfo.origin = this;
                     netUnderwritingInfo.originalUnderwritingInfo = entry.getKey();
-
                     UnderwritingInfo cededUnderwritingInfo = entry.getValue().getUnderwritingInfoCeded();
                     if (cededUnderwritingInfo == null) {
                         cededUnderwritingInfo = UnderwritingInfoPacketFactory.copy(netUnderwritingInfo);
@@ -74,9 +73,7 @@ public class MarketUnderwritingInfoMerger extends Component {
                     }
                     else {
                         // net premium written = gross premium written - sum of matched ceded premium written
-                        netUnderwritingInfo.minus(cededUnderwritingInfo);
-                        // net commission = sum of matched ceded commission
-                        netUnderwritingInfo.commission = cededUnderwritingInfo.commission;
+                        netUnderwritingInfo = UnderwritingInfoUtilities.calculateNet(grossUnderwritingInfo, cededUnderwritingInfo);
                     }
 
                     outUnderwritingInfoCeded.add(cededUnderwritingInfo);

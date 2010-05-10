@@ -45,14 +45,31 @@ public class UnderwritingInfoUtilities {
     }
 
     /**
-     *  calculates the net underwriting info. Number of policies of gross and ceded have to be equal.
+     * calculates the net underwriting info. Number of policies of gross and ceded have to be equal.
+     * caveat: We have to be careful with the number of policies here used for deriving the (averaged)
+     * sum insured from the total sum insured.
+     * For the correct approach follow the two outlined steps:
+     * step 1: Compute the difference of the total sums insured (analogously to premiumWrittenAsIf)
+     * step 2: To obtain the averaged sum insured use the number of policies of the minuend only.
+     * This is the natural procedure for insurance contracts where the minuend corresponds to the gross portfolio
+     * while the subtrahend is associated to the ceded portfolio. Hence for the number of policies we solely use the
+     * information from the gross portfolio.
+     * Sole exception: gross and ceded portfolio are equal, then numberOfPolicies =0.
      */
+    // todo (jwa): assert in java has to be enabled explicitly !!! In my opinion it should not be used here for the number of policies!
     static public UnderwritingInfo calculateNet(UnderwritingInfo grossUnderwritingInfo, UnderwritingInfo cededUnderwritingInfo) {
         assert grossUnderwritingInfo.numberOfPolicies == cededUnderwritingInfo.numberOfPolicies;
         UnderwritingInfo netUnderwritingInfo = (UnderwritingInfo) grossUnderwritingInfo.copy();
         netUnderwritingInfo.originalUnderwritingInfo = cededUnderwritingInfo.originalUnderwritingInfo;
         netUnderwritingInfo.minus(cededUnderwritingInfo);
-        netUnderwritingInfo.commission = cededUnderwritingInfo.commission;
+        netUnderwritingInfo.numberOfPolicies = grossUnderwritingInfo.numberOfPolicies;
+        netUnderwritingInfo.sumInsured = grossUnderwritingInfo.sumInsured * grossUnderwritingInfo.numberOfPolicies - cededUnderwritingInfo.sumInsured * cededUnderwritingInfo.numberOfPolicies;
+        if (netUnderwritingInfo.numberOfPolicies > 0) {
+            netUnderwritingInfo.sumInsured = netUnderwritingInfo.sumInsured / netUnderwritingInfo.numberOfPolicies;
+        }
+        if (netUnderwritingInfo.premiumWritten == 0 && netUnderwritingInfo.commission == 0 && netUnderwritingInfo.sumInsured == 0) {
+            netUnderwritingInfo.numberOfPolicies = 0;
+        }
         return netUnderwritingInfo;
     }
 
@@ -65,6 +82,7 @@ public class UnderwritingInfoUtilities {
             difference.add(minuendUwInfo.get(i));
         }
     }
+
 
     static public List<UnderwritingInfo> difference(List<UnderwritingInfo> minuendUwInfo, List<UnderwritingInfo> subtrahendUwInfo) {
         assert minuendUwInfo.size() == subtrahendUwInfo.size();
@@ -122,6 +140,17 @@ public class UnderwritingInfoUtilities {
                 difference.add(netUnderwritingInfo);
             }
         }
+    }
+
+
+    static public List<UnderwritingInfo> setCommissionZero(List<UnderwritingInfo> UnderwritingInfoGross) {
+        List<UnderwritingInfo> UnderwritingInfoGrossWithZeroCommission = new ArrayList<UnderwritingInfo>(UnderwritingInfoGross.size());
+        for (UnderwritingInfo grossUnderwritingInfo : UnderwritingInfoGross) {
+            UnderwritingInfo grossUnderwritingInfoWithZeroCommission = (UnderwritingInfo) grossUnderwritingInfo.copy();
+            grossUnderwritingInfoWithZeroCommission.commission = 0;
+            UnderwritingInfoGrossWithZeroCommission.add(grossUnderwritingInfoWithZeroCommission);
+        }
+        return UnderwritingInfoGrossWithZeroCommission;
     }
 
     static public UnderwritingInfo findUnderwritingInfo(List<UnderwritingInfo> underwritingInfos, UnderwritingInfo refUwInfo) {

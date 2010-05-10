@@ -29,17 +29,16 @@ components {
             subPropertyCxl {
                 parmCover[0] = CoverAttributeStrategyType.getStrategy(CoverAttributeStrategyType.LINESOFBUSINESS, ['lines': new ComboBoxTableMultiDimensionalParameter(['property'], ["Covered Lines"], LobMarker),])
                 parmInuringPriority[0] = 1
-                parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.CXL,
-                        ["premiumBase": PremiumBase.GNPI, "premium": 0.0688,
+                parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.CXL, ["attachmentPoint": 300.0, "limit": 50.0, "aggregateLimit": 50.0, "premiumBase": PremiumBase.GNPI, "premium": 0.0688,
                                 "reinstatementPremiums": new TableMultiDimensionalParameter(GroovyUtils.toList([[1.0, 1.0, 1.0]]), ["Reinstatement Premium"]),
-                                "attachmentPoint": 300.0, "limit": 50.0, "aggregateLimit": 50.0, "coveredByReinsurer": 1.0,])
+                                "coveredByReinsurer": 1.0,])
                 parmCommissionStrategy[0] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ["commission": 0.0,])
             }
             subMotorHullWxl {
-                parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL,
-                        ["premiumBase": PremiumBase.GNPI, "premium": 0.043,
-                                "reinstatementPremiums": new TableMultiDimensionalParameter(GroovyUtils.toList([[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]]),
-                                        ["Reinstatement Premium"]), "attachmentPoint": 500.0, "limit": 200.0, "aggregateLimit": 200.0, "coveredByReinsurer": 1.0,])
+                parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["attachmentPoint": 500.0, "limit": 200.0, "aggregateLimit": 200.0,
+                        "premiumBase": PremiumBase.GNPI, "premium": 0.043,
+                        "reinstatementPremiums": new TableMultiDimensionalParameter(GroovyUtils.toList([[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]]),
+                                ["Reinstatement Premium"]), "coveredByReinsurer": 1.0,])
                 parmCover[0] = CoverAttributeStrategyType.getStrategy(CoverAttributeStrategyType.LINESOFBUSINESS, ['lines': new ComboBoxTableMultiDimensionalParameter(['motor hull'], ["Covered Lines"], LobMarker),])
                 parmInuringPriority[0] = 1
                 parmCommissionStrategy[0] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ["commission": 0.0,])

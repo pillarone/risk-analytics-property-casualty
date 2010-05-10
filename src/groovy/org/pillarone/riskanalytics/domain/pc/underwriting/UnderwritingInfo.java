@@ -70,7 +70,6 @@ public class UnderwritingInfo extends ExposureInfo {
         commission += other.commission;
     }
 
-   // todo: think about commission
     public void minus(UnderwritingInfo other) {
         super.minus(other);
         premiumWritten -= other.premiumWritten;

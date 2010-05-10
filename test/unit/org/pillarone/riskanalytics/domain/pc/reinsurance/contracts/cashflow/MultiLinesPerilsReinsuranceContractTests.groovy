@@ -34,16 +34,16 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
 
     static MultiLinesPerilsReinsuranceContract getContractFullCoverAllLinesPerils() {
         MultiLinesPerilsReinsuranceContract contract = new MultiLinesPerilsReinsuranceContract(
-                parmContractStrategy : ReinsuranceContractType.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getContractStrategy(
                         ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.25, "coveredByReinsurer": 1d]),
-                parmCommissionStrategy : CommissionStrategyType.getStrategy(
+                parmCommissionStrategy: CommissionStrategyType.getStrategy(
                         CommissionStrategyType.FIXEDCOMMISSION, ["commission": 0d]),
-                parmCoverPeriod : new FullPeriodCoveredStrategy(),
-                parmCoveredByReinsurer : 1d,
-                parmInuringPriority : 0d)
-        SimulationScope simulationScope= new SimulationScope()
+                parmCoverPeriod: new FullPeriodCoveredStrategy(),
+                parmCoveredByReinsurer: 1d,
+                parmInuringPriority: 0d)
+        SimulationScope simulationScope = new SimulationScope()
         simulationScope.model = new VoidTestModel()
-        simulationScope.iterationScope = getNewFirstIterationScope(new DateTime(2010,1,1,0,0,0,0), Period.years(1))
+        simulationScope.iterationScope = getNewFirstIterationScope(new DateTime(2010, 1, 1, 0, 0, 0, 0), Period.years(1))
         contract.simulationScope = simulationScope
 
         return contract
@@ -51,16 +51,16 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
 
     static MultiLinesPerilsReinsuranceContract getQuotaShare50FullCoverAllLinesPerils() {
         MultiLinesPerilsReinsuranceContract contract = new MultiLinesPerilsReinsuranceContract(
-                parmContractStrategy : ReinsuranceContractType.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getContractStrategy(
                         ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.50, "coveredByReinsurer": 1d]),
-                parmCommissionStrategy : CommissionStrategyType.getStrategy(
+                parmCommissionStrategy: CommissionStrategyType.getStrategy(
                         CommissionStrategyType.FIXEDCOMMISSION, ["commission": 0d]),
-                parmCoverPeriod : new FullPeriodCoveredStrategy(),
-                parmCoveredByReinsurer : 1d,
-                parmInuringPriority : 0d)
-        SimulationScope simulationScope= new SimulationScope()
+                parmCoverPeriod: new FullPeriodCoveredStrategy(),
+                parmCoveredByReinsurer: 1d,
+                parmInuringPriority: 0d)
+        SimulationScope simulationScope = new SimulationScope()
         simulationScope.model = new VoidTestModel()
-        simulationScope.iterationScope = getNewFirstIterationScope(new DateTime(2010,1,1,0,0,0,0), Period.years(1))
+        simulationScope.iterationScope = getNewFirstIterationScope(new DateTime(2010, 1, 1, 0, 0, 0, 0), Period.years(1))
         contract.simulationScope = simulationScope
 
         return contract
@@ -68,61 +68,61 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
 
     static MultiLinesPerilsReinsuranceContract getContractHalfPeriodCoverAllLinesPerils() {
         MultiLinesPerilsReinsuranceContract contract = new MultiLinesPerilsReinsuranceContract(
-                parmContractStrategy : ReinsuranceContractType.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getContractStrategy(
                         ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.25, "coveredByReinsurer": 1d]),
-                parmCommissionStrategy : CommissionStrategyType.getStrategy(
+                parmCommissionStrategy: CommissionStrategyType.getStrategy(
                         CommissionStrategyType.FIXEDCOMMISSION, ["commission": 0d]),
-                parmCoverPeriod : CoverPeriodType.getStrategy(
+                parmCoverPeriod: CoverPeriodType.getStrategy(
                         CoverPeriodType.PERIOD,
-                        ['start': new DateTime(2010,1,1,0,0,0,0), 'end': new DateTime(2010,6,30,0,0,0,0)]),
-                parmCoveredByReinsurer : 1d,
-                parmInuringPriority : 0d)
-        SimulationScope simulationScope= new SimulationScope()
+                        ['start': new DateTime(2010, 1, 1, 0, 0, 0, 0), 'end': new DateTime(2010, 6, 30, 0, 0, 0, 0)]),
+                parmCoveredByReinsurer: 1d,
+                parmInuringPriority: 0d)
+        SimulationScope simulationScope = new SimulationScope()
         simulationScope.model = new VoidTestModel()
-        simulationScope.iterationScope = getNewFirstIterationScope(new DateTime(2010,1,1,0,0,0,0), Period.years(1))
+        simulationScope.iterationScope = getNewFirstIterationScope(new DateTime(2010, 1, 1, 0, 0, 0, 0), Period.years(1))
         contract.simulationScope = simulationScope
         return contract
     }
 
     static MultiLinesPerilsReinsuranceContract getContractThreePeriodCoverDelayedAllLinesPerils() {
         MultiLinesPerilsReinsuranceContract contract = new MultiLinesPerilsReinsuranceContract(
-                parmContractStrategy : ReinsuranceContractType.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getContractStrategy(
                         ReinsuranceContractType.QUOTASHARE, ["quotaShare": 0.25, "coveredByReinsurer": 1d]),
-                parmCommissionStrategy : CommissionStrategyType.getStrategy(
+                parmCommissionStrategy: CommissionStrategyType.getStrategy(
                         CommissionStrategyType.FIXEDCOMMISSION, ["commission": 0d]),
-                parmCoverPeriod : CoverPeriodType.getStrategy(
+                parmCoverPeriod: CoverPeriodType.getStrategy(
                         CoverPeriodType.PERIOD,
-                        ['start': new DateTime(2011,1,1,0,0,0,0), 'end': new DateTime(2013,12,31,0,0,0,0)]),
-                parmCoveredByReinsurer : 1d,
-                parmInuringPriority : 0d)
-        SimulationScope simulationScope= new SimulationScope()
+                        ['start': new DateTime(2011, 1, 1, 0, 0, 0, 0), 'end': new DateTime(2013, 12, 31, 0, 0, 0, 0)]),
+                parmCoveredByReinsurer: 1d,
+                parmInuringPriority: 0d)
+        SimulationScope simulationScope = new SimulationScope()
         simulationScope.model = new VoidTestModel()
-        simulationScope.iterationScope = getNewFirstIterationScope(new DateTime(2010,1,1,0,0,0,0), Period.years(1))
+        simulationScope.iterationScope = getNewFirstIterationScope(new DateTime(2010, 1, 1, 0, 0, 0, 0), Period.years(1))
         contract.simulationScope = simulationScope
         return contract
     }
 
     static MultiLinesPerilsReinsuranceContract getAllLinesPerilsQuotaShareContract(int iterationStartYear, int contractStartYear,
-                int contractDuration = 1, double quotaShare = 0.5, double inuringPriority = 0, double commission = 0) {
+                                                                                   int contractDuration = 1, double quotaShare = 0.5, double inuringPriority = 0, double commission = 0) {
         MultiLinesPerilsReinsuranceContract contract = new MultiLinesPerilsReinsuranceContract(
-                parmContractStrategy : ReinsuranceContractType.getContractStrategy(
+                parmContractStrategy: ReinsuranceContractType.getContractStrategy(
                         ReinsuranceContractType.QUOTASHARE, ["quotaShare": quotaShare, "coveredByReinsurer": 1d]),
-                parmCommissionStrategy : CommissionStrategyType.getStrategy(
+                parmCommissionStrategy: CommissionStrategyType.getStrategy(
                         CommissionStrategyType.FIXEDCOMMISSION, ["commission": commission]),
-                parmCoverPeriod : CoverPeriodType.getStrategy(
+                parmCoverPeriod: CoverPeriodType.getStrategy(
                         CoverPeriodType.PERIOD,
-                        ['start': new DateTime(contractStartYear,1,1,0,0,0,0),
-                           'end': new DateTime(contractStartYear+contractDuration-1,12,31,0,0,0,0)]),
-                parmCoveredByReinsurer : 1d,
-                parmInuringPriority : inuringPriority)
-        SimulationScope simulationScope= new SimulationScope()
+                        ['start': new DateTime(contractStartYear, 1, 1, 0, 0, 0, 0),
+                                'end': new DateTime(contractStartYear + contractDuration - 1, 12, 31, 0, 0, 0, 0)]),
+                parmCoveredByReinsurer: 1d,
+                parmInuringPriority: inuringPriority)
+        SimulationScope simulationScope = new SimulationScope()
         simulationScope.model = new VoidTestModel()
-        simulationScope.iterationScope = getNewFirstIterationScope(new DateTime(iterationStartYear,1,1,0,0,0,0), Period.years(1))
+        simulationScope.iterationScope = getNewFirstIterationScope(new DateTime(iterationStartYear, 1, 1, 0, 0, 0, 0), Period.years(1))
         contract.simulationScope = simulationScope
         return contract
     }
 
-    /** this method is like the one in MultiCoverAttributeReinsuranceContractTests, but has no reserves */
+    /** this method is like the one in MultiCoverAttributeReinsuranceContractTests, but has no reserves  */
     static ICoverAttributeStrategy getCoverAttributeStrategy(Map<String, List<String>> cover, Model model = null) {
         boolean hasLines = cover.containsKey('lines')
         boolean hasPerils = cover.containsKey('perils')
@@ -138,9 +138,9 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
 
         // return one of:
         hasLines && hasPerils ? CoverAttributeStrategyType.getStrategy(CoverAttributeStrategyType.LINESOFBUSINESSPERILS, ['connection': LogicArguments.AND, 'lines': lines, 'perils': perils]) :
-        hasLines ? CoverAttributeStrategyType.getStrategy(CoverAttributeStrategyType.LINESOFBUSINESS, ['lines': lines]) :
-        hasPerils ? CoverAttributeStrategyType.getStrategy(CoverAttributeStrategyType.PERILS, ['perils': perils]) :
-        new NoneCoverAttributeStrategy()
+            hasLines ? CoverAttributeStrategyType.getStrategy(CoverAttributeStrategyType.LINESOFBUSINESS, ['lines': lines]) :
+                hasPerils ? CoverAttributeStrategyType.getStrategy(CoverAttributeStrategyType.PERILS, ['perils': perils]) :
+                    new NoneCoverAttributeStrategy()
     }
 
     static IterationScope getNewFirstIterationScope(DateTime startSimulation, Period period) {
@@ -156,6 +156,7 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
     }
 
     // code coverage
+
     void testGetStrategy() {
         ICoverAttributeStrategy coverStrategy = getCoverAttributeStrategy([:])
         assertTrue "cover strategy is None", coverStrategy instanceof NoneCoverAttributeStrategy
@@ -186,7 +187,7 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         contract.inClaims << claim1000 << claim800
 
         def netClaims = new TestProbe(contract, 'outUncoveredClaims')
-        
+
         contract.doCalculation()
 
         assertEquals '# gross covered', 2, contract.outClaimsGrossInCoveredPeriod.size()
@@ -220,9 +221,9 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         ClaimDevelopmentPacket claim800 = new ClaimDevelopmentPacket(incurred: 800, paid: 480, reserved: 320, changeInReserves: 480, fractionOfPeriod: 0.51)
         contract.inClaims << claim1000 << claim800
 
-        SimulationScope simulationScope= new SimulationScope()
+        SimulationScope simulationScope = new SimulationScope()
         simulationScope.model = new VoidTestModel()
-        simulationScope.iterationScope = getNewFirstIterationScope(new DateTime(2010,1,1,0,0,0,0), Period.years(1))
+        simulationScope.iterationScope = getNewFirstIterationScope(new DateTime(2010, 1, 1, 0, 0, 0, 0), Period.years(1))
         contract.simulationScope = simulationScope
 
         def netClaims = new TestProbe(contract, 'outUncoveredClaims')
@@ -305,7 +306,7 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
 
         contract.reset()
 
-        contract.inClaims << claim1000P0 << claim800P0 << claim1000P1 << claim800P1  << claim1000P3 << claim800P3
+        contract.inClaims << claim1000P0 << claim800P0 << claim1000P1 << claim800P1 << claim1000P3 << claim800P3
         contract.parmContractStrategy = ReinsuranceContractType.getTrivial()
         contract.simulationScope.iterationScope.periodScope.prepareNextPeriod()
         contract.doCalculation()
@@ -376,9 +377,9 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         // simulate the second period, but with another nontrivial contract strategy (instance)
         contract.reset()
         contract.parmContractStrategy = ReinsuranceContractType.getContractStrategy(
-                        ReinsuranceContractType.QUOTASHARE, ['quotaShare': 0.25])
+                ReinsuranceContractType.QUOTASHARE, ['quotaShare': 0.25])
         contract.parmCommissionStrategy = CommissionStrategyType.getStrategy(
-                        CommissionStrategyType.FIXEDCOMMISSION, ["commission": 0d])
+                CommissionStrategyType.FIXEDCOMMISSION, ["commission": 0d])
 
         contract.inClaims << claim1000 << claim800
         contract.simulationScope.iterationScope.periodScope.prepareNextPeriod()
@@ -424,11 +425,9 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         assertEquals 'zero claim', 0, contract.outClaimsGrossInCoveredPeriod[0].ultimate
     }
 
-
-
     /**
-    * Make sure that Net UnderwritingInfo is not calculated when not wired in a contract (code/branch coverage test)
-    */
+     * Make sure that Net UnderwritingInfo is not calculated when not wired in a contract (code/branch coverage test)
+     */
     void testUnderwritingInfoCededButNotNetWired() {
         MultiLinesPerilsReinsuranceContract contract = MultiLinesPerilsReinsuranceContractTests.getAllLinesPerilsQuotaShareContract(2010, 2010, 4, 0.25, 0, 0.2)
         contract.name = 'Quota Share 25%'
@@ -454,8 +453,8 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
 
         assertEquals 'underwritinginfo200 ceded premium written after contract', 50, contract.outCoverUnderwritingInfo[0].premiumWritten
         assertEquals 'underwritinginfo100 ceded premium written after contract', 25, contract.outCoverUnderwritingInfo[1].premiumWritten
-        assertEquals 'underwritinginfo200 ceded commission after contract', 0.2*0.25*200, contract.outCoverUnderwritingInfo[0].commission
-        assertEquals 'underwritinginfo100 ceded commission after contract', 0.2*0.25*100, contract.outCoverUnderwritingInfo[1].commission
+        assertEquals 'underwritinginfo200 ceded commission after contract', -0.2 * 0.25 * 200, contract.outCoverUnderwritingInfo[0].commission
+        assertEquals 'underwritinginfo100 ceded commission after contract', -0.2 * 0.25 * 100, contract.outCoverUnderwritingInfo[1].commission
     }
 
     /**
@@ -489,14 +488,14 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         // these values should be the same as in testUnderwritingInfoCededButNotNetWired (because when Net is wired, Ceded is also calculated)
         assertEquals 'underwritinginfo200 ceded premium written after contract', 50, contract.outCoverUnderwritingInfo[0].premiumWritten
         assertEquals 'underwritinginfo100 ceded premium written after contract', 25, contract.outCoverUnderwritingInfo[1].premiumWritten
-        assertEquals 'underwritinginfo200 ceded commission after contract', 0.2*0.25*200, contract.outCoverUnderwritingInfo[0].commission
-        assertEquals 'underwritinginfo100 ceded commission after contract', 0.2*0.25*100, contract.outCoverUnderwritingInfo[1].commission
+        assertEquals 'underwritinginfo200 ceded commission after contract', -0.2 * 0.25 * 200, contract.outCoverUnderwritingInfo[0].commission
+        assertEquals 'underwritinginfo100 ceded commission after contract', -0.2 * 0.25 * 100, contract.outCoverUnderwritingInfo[1].commission
 
         // these values were not present in testUnderwritingInfoCededButNotNetWired (since Net was not wired, only Ceded)
         assertEquals 'underwritinginfo200 net premium written after contract', 150, contract.outNetAfterCoverUnderwritingInfo[0].premiumWritten
         assertEquals 'underwritinginfo100 net premium written after contract', 75, contract.outNetAfterCoverUnderwritingInfo[1].premiumWritten
-        assertEquals 'underwritinginfo200 net commission after contract', 13, contract.outNetAfterCoverUnderwritingInfo[0].commission
-        assertEquals 'underwritinginfo100 net commission after contract', 3, contract.outNetAfterCoverUnderwritingInfo[1].commission
+        assertEquals 'underwritinginfo200 net commission after contract', 0.2 * 0.25 * 200, contract.outNetAfterCoverUnderwritingInfo[0].commission
+        assertEquals 'underwritinginfo100 net commission after contract', 0.2 * 0.25 * 100, contract.outNetAfterCoverUnderwritingInfo[1].commission
     }
 
     void testTrivialContractStrategy() {
@@ -504,7 +503,7 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
                 parmContractStrategy: ReinsuranceContractType.getContractStrategy(ReinsuranceContractType.TRIVIAL, [:])
         )
         contract.simulationScope = new SimulationScope(
-                iterationScope: getNewFirstIterationScope(new DateTime(2010,1,1,0,0,0,0), Period.years(1)),
+                iterationScope: getNewFirstIterationScope(new DateTime(2010, 1, 1, 0, 0, 0, 0), Period.years(1)),
                 model: new VoidTestModel()
         )
 
@@ -531,7 +530,7 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
 
         assertEquals 'number of UnderwritingInfo packets filtered', 2, contract.outFilteredUnderwritingInfo.size() // is 2 since trivial contract cover is ALL
         assertEquals 'number of UnderwritingInfo packets ceded after contract', 0, contract.outCoverUnderwritingInfo.size()
-        assertEquals 'number of UnderwritingInfo packets net after contract', 0, contract.outNetAfterCoverUnderwritingInfo.size()
+        assertEquals 'number of UnderwritingInfo packets net after contract', 2, contract.outNetAfterCoverUnderwritingInfo.size()
     }
 
     void testTrivialContractStrategyNoneCovered() {
@@ -540,7 +539,7 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
                 parmCover: new NoneCoverAttributeStrategy()
         )
         contract.simulationScope = new SimulationScope(
-                iterationScope: getNewFirstIterationScope(new DateTime(2010,1,1,0,0,0,0), Period.years(1)),
+                iterationScope: getNewFirstIterationScope(new DateTime(2010, 1, 1, 0, 0, 0, 0), Period.years(1)),
                 model: new VoidTestModel()
         )
 
@@ -638,8 +637,8 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         // underwriting by lob but not by peril (=> hull/A, hull/B)
         assertEquals "filtered uwinfo", "320.0, 420.0, 330.0, 430.0", (contract.outFilteredUnderwritingInfo.collect {it.premiumWritten}).join(", ")
         assertEquals "ceded premium written", "80.0, 105.0, 82.5, 107.5", (contract.outCoverUnderwritingInfo.collect {it.premiumWritten}).join(", ")
-        assertEquals "ceded commission", "16.0, 21.0, 16.5, 21.5", (contract.outCoverUnderwritingInfo.collect {it.commission}).join(", ")
+        assertEquals "ceded commission", "-16.0, -21.0, -16.5, -21.5", (contract.outCoverUnderwritingInfo.collect {it.commission}).join(", ")
         assertEquals "net premium written", "240.0, 315.0, 247.5, 322.5", (contract.outNetAfterCoverUnderwritingInfo.collect {it.premiumWritten}).join(", ")
-        assertEquals "net commission", "11.0, 13.0, 17.0, 19.0", (contract.outNetAfterCoverUnderwritingInfo.collect {it.commission}).join(", ")
+        assertEquals "net commission", "16.0, 21.0, 16.5, 21.5", (contract.outNetAfterCoverUnderwritingInfo.collect {it.commission}).join(", ")
     }
 }

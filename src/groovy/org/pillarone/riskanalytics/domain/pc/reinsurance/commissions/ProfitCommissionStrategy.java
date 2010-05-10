@@ -56,13 +56,13 @@ public class ProfitCommissionStrategy implements ICommissionStrategy {
 
         if (isAdditive) {
             for (UnderwritingInfo underwritingInfo : underwritingInfos) {
-                underwritingInfo.setCommission(underwritingInfo.getPremiumWritten() * totalCommission / totalPremiumWritten +
+                underwritingInfo.setCommission(-underwritingInfo.getPremiumWritten() * totalCommission / totalPremiumWritten +
                                                underwritingInfo.getCommission());
             }
         }
         else {
             for (UnderwritingInfo underwritingInfo : underwritingInfos) {
-                underwritingInfo.setCommission(underwritingInfo.getPremiumWritten() * totalCommission / totalPremiumWritten);
+                underwritingInfo.setCommission(-underwritingInfo.getPremiumWritten() * totalCommission / totalPremiumWritten);
             }
         }
 

@@ -59,8 +59,8 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
         ICommissionStrategy commissionStrategy = getSlidingCommissionStrategy() // uses method's default bands
         // default commission bands: 20% Commission on [0,10%) LossRatio, 10% on [10%,20%), 5% on [20%,50%), 0% at or over 50% loss ratio
 
-        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: 50)
-        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: 5)
+        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: -50)
+        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: -5)
         // so total premium written is 300
 
         Claim claim05 = new Claim(value: 5)
@@ -74,15 +74,15 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
         commissionStrategy.calculateCommission claims, underwritingInfos, false, false
 
         assertEquals '# outUnderwritingInfo packets', 2, underwritingInfos.size()
-        assertEquals 'underwritingInfo200', 200*0.2, underwritingInfos[0].commission
-        assertEquals 'underwritingInfo100', 100*0.2, underwritingInfos[1].commission
+        assertEquals 'underwritingInfo200', -200*0.2, underwritingInfos[0].commission
+        assertEquals 'underwritingInfo100', -100*0.2, underwritingInfos[1].commission
     }
 
     void testAdditiveUsage() {
         ICommissionStrategy commissionStrategy = getSlidingCommissionStrategy()
         // default commission bands: 20% Commission on [0,10%) LossRatio, 10% on [10%,20%), 5% on [20%,50%), 0% at or over 50% loss ratio
 
-        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: 50)
+        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: -50)
         List underwritingInfo = [underwritingInfo200]
         List claims = [new Claim(value: 25)]
         // loss ratio is 25/200 = 12.5%, in [10%, 20%], so the commission should be 10%
@@ -91,7 +91,7 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
         // Nota bene: this is the "additive" usage!
 
         assertEquals '# outUnderwritingInfo packets', 1, underwritingInfo.size()
-        assertEquals 'underwritingInfo200', 50+200*0.1, underwritingInfo[0].commission
+        assertEquals 'underwritingInfo200', -50-200*0.1, underwritingInfo[0].commission
     }
 
     /**
@@ -104,7 +104,7 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
         commissionStrategy.calculateCommission claims, uwInfo, false, false
         double lossRatio = claims.value.sum() / uwInfo.premiumWritten.sum() * 1E2
         assertEquals '# outUnderwritingInfo packets', 1, uwInfo.size()
-        assertEquals "Underwriting Commission (%) resulting from Loss Ratio of ${lossRatio}%", 0d, uwInfo[0].commission
+        assertEquals "Underwriting Commission (%) resulting from Loss Ratio of ${lossRatio}%", -0d, uwInfo[0].commission
     }
 
     void testPercentageSelectionCase0b() {
@@ -128,7 +128,7 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
         commissionStrategy.calculateCommission claims, uwInfo, false, false
         double lossRatio = claims.value.sum() / uwInfo.premiumWritten.sum() * 1E2
         assertEquals '# outUnderwritingInfo packets', 1, uwInfo.size()
-        assertEquals "Underwriting Commission (%) resulting from Loss Ratio of ${lossRatio}%", 7d, uwInfo[0].commission, 1E-14
+        assertEquals "Underwriting Commission (%) resulting from Loss Ratio of ${lossRatio}%", -7d, uwInfo[0].commission, 1E-14
     }
 
     void testPercentageSelectionCase2() {
@@ -136,7 +136,7 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
         commissionStrategy.calculateCommission claims, uwInfo, false, false
         double lossRatio = claims.value.sum() / uwInfo.premiumWritten.sum() * 1E2
         assertEquals '# outUnderwritingInfo packets', 1, uwInfo.size()
-        assertEquals "Underwriting Commission (%) resulting from Loss Ratio of ${lossRatio}%", 5d, uwInfo[0].commission
+        assertEquals "Underwriting Commission (%) resulting from Loss Ratio of ${lossRatio}%", -5d, uwInfo[0].commission
     }
 
     void testPercentageSelectionCase3a() {
@@ -144,7 +144,7 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
         commissionStrategy.calculateCommission claims, uwInfo, false, false
         double lossRatio = claims.value.sum() / uwInfo.premiumWritten.sum() * 1E2
         assertEquals '# outUnderwritingInfo packets', 1, uwInfo.size()
-        assertEquals "Underwriting Commission (%) resulting from Loss Ratio of ${lossRatio}%", 3d, uwInfo[0].commission
+        assertEquals "Underwriting Commission (%) resulting from Loss Ratio of ${lossRatio}%", -3d, uwInfo[0].commission
     }
 
     void testPercentageSelectionCase3b() {
@@ -152,7 +152,7 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
         commissionStrategy.calculateCommission claims, uwInfo, false, false
         double lossRatio = claims.value.sum() / uwInfo.premiumWritten.sum() * 1E2
         assertEquals '# outUnderwritingInfo packets', 1, uwInfo.size()
-        assertEquals "Underwriting Commission (%) resulting from Loss Ratio of ${lossRatio}%", 3d, uwInfo[0].commission
+        assertEquals "Underwriting Commission (%) resulting from Loss Ratio of ${lossRatio}%", -3d, uwInfo[0].commission
     }
 
     void testPercentageSelectionCase4() {
@@ -160,6 +160,6 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
         commissionStrategy.calculateCommission claims, uwInfo, false, false
         double lossRatio = claims.value.sum() / uwInfo.premiumWritten.sum() * 1E2
         assertEquals '# outUnderwritingInfo packets', 1, uwInfo.size()
-        assertEquals "Underwriting Commission (%) resulting from Loss Ratio of ${lossRatio}%", 0d, uwInfo[0].commission
+        assertEquals "Underwriting Commission (%) resulting from Loss Ratio of ${lossRatio}%", 0, uwInfo[0].commission
     }
 }

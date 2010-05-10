@@ -63,8 +63,7 @@ public class UnderwritingInfoMerger extends Component {
                         UnderwritingInfoUtilities.setZero(cededUnderwritingInfo);
                     }
                     else {
-                        netUnderwritingInfo.minus(cededUnderwritingInfo);
-                        netUnderwritingInfo.commission = cededUnderwritingInfo.commission;
+                        netUnderwritingInfo = UnderwritingInfoUtilities.calculateNet(grossUnderwritingInfo, cededUnderwritingInfo);
                     }
                     outUnderwritingInfoCeded.add(cededUnderwritingInfo);
                     outUnderwritingInfoNet.add(netUnderwritingInfo);

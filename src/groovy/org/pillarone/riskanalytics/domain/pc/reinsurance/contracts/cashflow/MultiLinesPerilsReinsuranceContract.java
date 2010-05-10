@@ -126,15 +126,19 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
                 calculateCededClaims(outClaimsGrossInCoveredPeriod, outCoveredClaims, this);
             }
 
-            if (isSenderWired(outNetAfterCoverUnderwritingInfo)) {
-                calculateUnderwritingInfos(outFilteredUnderwritingInfo, outCoverUnderwritingInfo, outNetAfterCoverUnderwritingInfo);
-            } else if (isSenderWired(outCoverUnderwritingInfo)) {
+
+            if (isSenderWired(outCoverUnderwritingInfo) || isSenderWired(outNetAfterCoverUnderwritingInfo)) {
                 calculateCededUnderwritingInfos(outFilteredUnderwritingInfo, outCoverUnderwritingInfo);
             }
 //            }
         }
 
         parmCommissionStrategy.calculateCommission(outCoveredClaims, outCoverUnderwritingInfo, currentPeriod == 0, false);
+
+        if (isSenderWired(outNetAfterCoverUnderwritingInfo)) {
+            UnderwritingInfoUtilities.calculateNet(outFilteredUnderwritingInfo, outCoverUnderwritingInfo, outNetAfterCoverUnderwritingInfo);
+        }
+
 
         if (isSenderWired(outClaimsDevelopmentGross)) {
             for (int i = 0; i < outClaimsGrossInCoveredPeriod.size(); i++) {
@@ -183,10 +187,9 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
     }
 
     protected void filterInChannels() {
-       if (parmCover instanceof NoneCoverAttributeStrategy) {
+        if (parmCover instanceof NoneCoverAttributeStrategy) {
             // leave outFiltered* lists void
-        }
-        else if (parmCover instanceof AllCoverAttributeStrategy) {
+        } else if (parmCover instanceof AllCoverAttributeStrategy) {
             outFilteredClaims.addAll(inClaims);
             outFilteredUnderwritingInfo.addAll(inUnderwritingInfo);
         }
@@ -199,10 +202,13 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
                     ((ICombinedCoverAttributeStrategy) parmCover).getConnection();
             outFilteredClaims.addAll(ClaimFilterUtilities.filterClaimsByPerilLobReserve(inClaims, coveredPerils, coveredLines, null, connection));
             if (coveredLines == null || coveredLines.size() == 0) {
-               coveredLines = ClaimFilterUtilities.getLineOfBusiness(outFilteredClaims);
+                coveredLines = ClaimFilterUtilities.getLineOfBusiness(outFilteredClaims);
             }
             outFilteredUnderwritingInfo.addAll(UnderwritingFilterUtilities.filterUnderwritingInfoByLob(inUnderwritingInfo, coveredLines));
         }
+        List<UnderwritingInfo> zeroCommissions = UnderwritingInfoUtilities.setCommissionZero(outFilteredUnderwritingInfo);
+        outFilteredUnderwritingInfo.clear();
+        outFilteredUnderwritingInfo.addAll(zeroCommissions);
     }
 
     private void filterClaimsInCoveredPeriod(int currentPeriod, CoverDuration coverOfCurrentPeriod) {
@@ -273,19 +279,6 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
         }
     }
 
-    protected void calculateUnderwritingInfos(List<UnderwritingInfo> grossUnderwritingInfos,
-                                              List<UnderwritingInfo> cededUnderwritingInfos,
-                                              List<UnderwritingInfo> netUnderwritingInfos) {
-        for (UnderwritingInfo underwritingInfo : grossUnderwritingInfos) {
-            UnderwritingInfo cededUnderwritingInfo = contract.calculateCoverUnderwritingInfo(underwritingInfo, coveredByReinsurer);
-            setOriginalUnderwritingInfo(underwritingInfo, cededUnderwritingInfo);
-            cededUnderwritingInfos.add(cededUnderwritingInfo);
-            UnderwritingInfo netUnderwritingInfo = UnderwritingInfoUtilities.calculateNet(underwritingInfo, cededUnderwritingInfo);
-            setOriginalUnderwritingInfo(underwritingInfo, netUnderwritingInfo);
-            netUnderwritingInfos.add(netUnderwritingInfo);
-        }
-    }
-
     protected void calculateCededUnderwritingInfos(List<UnderwritingInfo> grossUnderwritingInfos,
                                                    List<UnderwritingInfo> cededUnderwritingInfos) {
         for (UnderwritingInfo underwritingInfo : grossUnderwritingInfos) {
@@ -295,7 +288,8 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
         }
     }
 
-    /**
+
+     /**
      * zeroPackets are required to enable correct statistical keyfigure calculations. If no packet would be sent out
      * for a wired channel in an iteration and period, the resulting statistical keyfigures would be wrong as the total
      * number would not correspond to the number of iterations.

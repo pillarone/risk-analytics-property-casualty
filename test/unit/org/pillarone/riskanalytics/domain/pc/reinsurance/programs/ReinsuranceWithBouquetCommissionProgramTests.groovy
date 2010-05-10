@@ -435,15 +435,15 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
             'program.Contracts.outClaimsGross': ['component': program.subContracts, 'channel': 'outClaimsGross', 'count': 2],
             'program.Contracts.outClaimsCeded': ['component': program.subContracts, 'channel': 'outClaimsCeded', 'count': 6],
             'program.Contracts.outClaimsNet': ['component': program.subContracts, 'channel': 'outClaimsNet', 'count': 2],
-            'program.Contracts.outCoverUnderwritingInfo': ['component': program.subContracts, 'channel': 'outCoverUnderwritingInfo', 'values': ['premiumWritten': [200,270,306], 'commission': [20,54,30.6]], 'count': 3],
+            'program.Contracts.outCoverUnderwritingInfo': ['component': program.subContracts, 'channel': 'outCoverUnderwritingInfo', 'values': ['premiumWritten': [200,270,306], 'commission': [-20,-54,-30.6]], 'count': 3],
             'program.Contracts.outNetAfterCoverUnderwritingInfo': ['component': program.subContracts, 'channel': 'outNetAfterCoverUnderwritingInfo', 'values': ['premiumWritten': [1224], 'commission': [0]], 'count': 1],
             'program.uwInfoMerger.outUnderwritingInfoGross': ['component': program.underwritingInfoMerger, 'channel': 'outUnderwritingInfoGross', 'count': 1],
             'program.uwInfoMerger.outUnderwritingInfoCeded': ['component': program.underwritingInfoMerger, 'channel': 'outUnderwritingInfoCeded', 'count': 1],
             'program.uwInfoMerger.outUnderwritingInfoNet': ['component': program.underwritingInfoMerger, 'channel': 'outUnderwritingInfoNet', 'count': 1],
-            'program.Commissions.outUnderwritingInfoModified': ['component': program.subCommissions, 'channel': 'outUnderwritingInfoModified', 'values': ['premiumWritten': [270,200,306], 'commission': [54,20,30.6]], 'count': 3],
+            'program.Commissions.outUnderwritingInfoModified': ['component': program.subCommissions, 'channel': 'outUnderwritingInfoModified', 'values': ['premiumWritten': [270,200,306], 'commission': [-54,-20,-30.6]], 'count': 3],
             'program.Commissions.outUnderwritingInfoUnmodified': ['component': program.subCommissions, 'channel': 'outUnderwritingInfoUnmodified', 'count': 0],
             'program.financialsAggregator.outContractFinancials': ['component': program.financialsAggregator, 'channel': 'outContractFinancials', 'count': 1],
-            'program.outCoverUnderwritingInfo': ['component': program, 'channel': 'outCoverUnderwritingInfo', 'values': ['premiumWritten': [776], 'commission': [104.6]], 'count': 1],
+            'program.outCoverUnderwritingInfo': ['component': program, 'channel': 'outCoverUnderwritingInfo', 'values': ['premiumWritten': [776], 'commission': [-104.6]], 'count': 1],
             'program.outUnderwritingInfo': ['component': program, 'channel': 'outUnderwritingInfo', 'values': ['premiumWritten': [2000], 'commission': [0]], 'count': 1],
             'program.outNetAfterCoverUnderwritingInfo': ['component': program, 'channel': 'outNetAfterCoverUnderwritingInfo', 'values': ['premiumWritten': [1224], 'commission': [104.6]], 'count': 1],
         ]
@@ -515,7 +515,7 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
         assertEquals "# program premium written ceded", 1, programPremiumCeded.size()
         assertEquals "# program premium written net", 1, programPremiumNet.size()
 
-        assertEquals "program, commission on ceded premium", 104.6, programPremiumCeded[0].commission
+        assertEquals "program, commission on ceded premium", -104.6, programPremiumCeded[0].commission
         assertEquals "program, commission on net premium", 104.6, programPremiumNet[0].commission
     }
 
