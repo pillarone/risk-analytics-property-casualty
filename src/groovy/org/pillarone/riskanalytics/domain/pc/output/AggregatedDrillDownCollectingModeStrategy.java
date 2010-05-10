@@ -184,7 +184,7 @@ public class AggregatedDrillDownCollectingModeStrategy implements ICollectingMod
     private void addToMap(UnderwritingInfo underwritingInfo, String path, Map<String, Packet> resultMap) {
         if (resultMap.containsKey(path)) {
             UnderwritingInfo aggregateUnderwritingInfo = (UnderwritingInfo) resultMap.get(path);
-            aggregateUnderwritingInfo.plus(aggregateUnderwritingInfo);
+            aggregateUnderwritingInfo.plus(underwritingInfo);
             resultMap.put(path, aggregateUnderwritingInfo);
         } else {
             UnderwritingInfo clonedUnderwritingInfo = (UnderwritingInfo) underwritingInfo.copy();

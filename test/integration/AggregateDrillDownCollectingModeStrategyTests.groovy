@@ -39,9 +39,9 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
     void postSimulationEvaluation() {
         correctPaths()
         correctFields(['incurred', 'paid', 'reserved','commission', 'premium'])
-        correctResultsClaims()
-
-        correctResultsUwInfo()
+        correctPaidClaimsResults()
+        correctCommissionsResults()
+        correctPremiumResults()
     }
 
     void correctPaths() {
@@ -58,7 +58,7 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
                 'Podra:linesOfBusiness:subMotorHull:subMotorHullSingle:outClaimsDevelopmentLeanCeded',
                 'Podra:linesOfBusiness:subMotorHull:subMotorHullSingle:outClaimsDevelopmentLeanGross',
                 'Podra:linesOfBusiness:subMotorHull:subMotorHullSingle:outClaimsDevelopmentLeanNet',
-                'Podra:linesOfBusiness:subMotorHull:subMotorHullWxl:outClaimsDevelopmentLeanCeded',
+//                'Podra:linesOfBusiness:subMotorHull:subMotorHullWxl:outClaimsDevelopmentLeanCeded',
                 'Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded',
                 'Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross',
                 'Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet',
@@ -116,22 +116,37 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
                 'Podra:reinsurance:subContracts:subPropertyQuotaShare:subPropertySingle:outClaimsDevelopmentLeanCeded',
                 'Podra:reinsurance:subContracts:subPropertyQuotaShare:subPropertySingle:outClaimsDevelopmentLeanGross',
                 'Podra:reinsurance:subContracts:subPropertyQuotaShare:subPropertySingle:outClaimsDevelopmentLeanNet',
-                'Podra:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded',
-                'Podra:linesOfBusiness:subProperty:outUnderwritingInfoCeded',
+                'Podra:reinsurance:subContracts:subPropertyQuotaShare:subMotorHull:outClaimsDevelopmentLeanCeded',
+                'Podra:reinsurance:subContracts:subPropertyQuotaShare:subMotorHullAttritional:outClaimsDevelopmentLeanCeded',
+                'Podra:reinsurance:subContracts:subPropertyQuotaShare:subMotorHullAttritional:outClaimsDevelopmentLeanNet',
+                'Podra:reinsurance:subContracts:subPropertyQuotaShare:subMotorHullAttritional:outClaimsDevelopmentLeanGross',
+                'Podra:reinsurance:subContracts:subPropertyQuotaShare:subMotorHullSingle:outClaimsDevelopmentLeanCeded',
+                'Podra:reinsurance:subContracts:subPropertyQuotaShare:subMotorHullSingle:outClaimsDevelopmentLeanGross',
+                'Podra:reinsurance:subContracts:subPropertyQuotaShare:subMotorHullSingle:outClaimsDevelopmentLeanNet',
+                'Podra:reinsurance:subContracts:subPropertyQuotaShare:subMotorHull:outClaimsDevelopmentLeanNet',
+                'Podra:reinsurance:subContracts:subPropertyQuotaShare:subMotorHull:outClaimsDevelopmentLeanGross',
                 'Podra:reinsurance:subContracts:subMotorHullWxl:outCoverUnderwritingInfo',
                 'Podra:reinsurance:subContracts:subMotorHullWxl:subMotorHull:outCoverUnderwritingInfo',
                 'Podra:reinsurance:subContracts:subPropertyCxl:outCoverUnderwritingInfo',
                 'Podra:reinsurance:subContracts:subPropertyCxl:subProperty:outCoverUnderwritingInfo',
                 'Podra:reinsurance:subContracts:subPropertyQuotaShare:outCoverUnderwritingInfo',
-                'Podra:reinsurance:subContracts:subPropertyQuotaShare:subProperty:outCoverUnderwritingInfo'
+                'Podra:reinsurance:subContracts:subPropertyQuotaShare:subProperty:outCoverUnderwritingInfo',
+                'Podra:reinsurance:subContracts:subPropertyQuotaShare:subMotorHull:outCoverUnderwritingInfo',
+                'Podra:reinsurance:subContracts:subriContract:outClaimsDevelopmentLeanCeded',
+                'Podra:reinsurance:subContracts:subriContract:outClaimsDevelopmentLeanGross',
+                'Podra:reinsurance:subContracts:subriContract:outClaimsDevelopmentLeanNet',
+                'Podra:reinsurance:subContracts:subriContract:outCoverUnderwritingInfo',
+                'Podra:reinsurance:outCoverUnderwritingInfo',
+                'Podra:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded',
+                'Podra:linesOfBusiness:subProperty:outUnderwritingInfoCeded',
+                'Podra:linesOfBusiness:outUnderwritingInfoCeded',
         ]
         def collectedPaths = PathMapping.list()
         // there are 6 paths of the dynamic containers itself, in the following for loop they are ignored.
-        assertEquals '# of paths correct', paths.size(), collectedPaths.size() - 8
+        assertEquals '# of paths correct', paths.size(), collectedPaths.size() - 4
 
         for (int i = 0; i < collectedPaths.size(); i++) {
             if (collectedPaths[i].pathName.contains("sublineOfBusiness")) continue
-//            if (collectedPaths[i].pathName.contains("subContracts")) continue
             if (collectedPaths[i].pathName.contains("subRiContracts")) continue
             def init = paths.contains(collectedPaths[i].pathName)
             assertTrue "$i ${collectedPaths[i].pathName} found", paths.remove(collectedPaths[i].pathName)
@@ -150,21 +165,22 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
         assertTrue 'all field found', fields.size() == 0
     }
 
-    void correctResultsClaims() {
+    void correctPaidClaimsResults() {
         Map<String, Double> resultsPerPath = new LinkedHashMap<String, Double>()
-        resultsPerPath['Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded']=570d
+        resultsPerPath['Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded']=790d
         resultsPerPath['Podra:linesOfBusiness:outClaimsDevelopmentLeanGross']=2700d
-        resultsPerPath['Podra:linesOfBusiness:outClaimsDevelopmentLeanNet']=2130d
-        resultsPerPath['Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded']=200d
+        resultsPerPath['Podra:linesOfBusiness:outClaimsDevelopmentLeanNet']=1910d
+        resultsPerPath['Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded']=420d
         resultsPerPath['Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross']=1100d
-        resultsPerPath['Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet']=900d
-        resultsPerPath['Podra:linesOfBusiness:subMotorHull:subMotorHullAttritional:outClaimsDevelopmentLeanCeded']=0d
+        resultsPerPath['Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet']=680d
+        resultsPerPath['Podra:linesOfBusiness:subMotorHull:subMotorHullAttritional:outClaimsDevelopmentLeanCeded']=20d
         resultsPerPath['Podra:linesOfBusiness:subMotorHull:subMotorHullAttritional:outClaimsDevelopmentLeanGross']=100d
-        resultsPerPath['Podra:linesOfBusiness:subMotorHull:subMotorHullAttritional:outClaimsDevelopmentLeanNet']=100d
-        resultsPerPath['Podra:linesOfBusiness:subMotorHull:subMotorHullSingle:outClaimsDevelopmentLeanCeded']=200d
+        resultsPerPath['Podra:linesOfBusiness:subMotorHull:subMotorHullAttritional:outClaimsDevelopmentLeanNet']=80d
+        resultsPerPath['Podra:linesOfBusiness:subMotorHull:subMotorHullSingle:outClaimsDevelopmentLeanCeded']=400d
         resultsPerPath['Podra:linesOfBusiness:subMotorHull:subMotorHullSingle:outClaimsDevelopmentLeanGross']=1000d
-        resultsPerPath['Podra:linesOfBusiness:subMotorHull:subMotorHullSingle:outClaimsDevelopmentLeanNet']=800d
-        resultsPerPath['Podra:linesOfBusiness:subMotorHull:subMotorHullWxl:outClaimsDevelopmentLeanCeded']=200d
+        resultsPerPath['Podra:linesOfBusiness:subMotorHull:subMotorHullSingle:outClaimsDevelopmentLeanNet']=600d
+//        resultsPerPath['Podra:linesOfBusiness:subMotorHull:subMotorHullWxl:outClaimsDevelopmentLeanCeded']=200d   missing
+//        resultsPerPath['Podra:linesOfBusiness:subMotorHull:subPropertyQuotaShare:outClaimsDevelopmentLeanCeded']=220d     missing
         resultsPerPath['Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded']=370d
         resultsPerPath['Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross']=1600d
         resultsPerPath['Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet']=1230d
@@ -177,21 +193,21 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
         resultsPerPath['Podra:linesOfBusiness:subProperty:subPropertySingle:outClaimsDevelopmentLeanCeded']=180d
         resultsPerPath['Podra:linesOfBusiness:subProperty:subPropertySingle:outClaimsDevelopmentLeanGross']=900d
         resultsPerPath['Podra:linesOfBusiness:subProperty:subPropertySingle:outClaimsDevelopmentLeanNet']=720d
-        resultsPerPath['Podra:reinsurance:outClaimsDevelopmentLeanCeded']=570d
+        resultsPerPath['Podra:reinsurance:outClaimsDevelopmentLeanCeded']=790d
         resultsPerPath['Podra:reinsurance:outClaimsDevelopmentLeanGross']=2700d
-        resultsPerPath['Podra:reinsurance:outClaimsDevelopmentLeanNet']=2130d
+        resultsPerPath['Podra:reinsurance:outClaimsDevelopmentLeanNet']=1910d
         resultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:outClaimsDevelopmentLeanCeded']=200d
-        resultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:outClaimsDevelopmentLeanGross']=1100d
-        resultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:outClaimsDevelopmentLeanNet']=900d
-        resultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:subMotorHull:outClaimsDevelopmentLeanGross']=1100d
+        resultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:outClaimsDevelopmentLeanGross']=880d
+        resultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:outClaimsDevelopmentLeanNet']=680d
+        resultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:subMotorHull:outClaimsDevelopmentLeanGross']=880d
         resultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:subMotorHull:outClaimsDevelopmentLeanCeded']=200d
-        resultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:subMotorHull:outClaimsDevelopmentLeanNet']=900d
+        resultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:subMotorHull:outClaimsDevelopmentLeanNet']=680d
         resultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:subMotorHullAttritional:outClaimsDevelopmentLeanCeded']=0d
-        resultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:subMotorHullAttritional:outClaimsDevelopmentLeanGross']=100d
-        resultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:subMotorHullAttritional:outClaimsDevelopmentLeanNet']=100d
+        resultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:subMotorHullAttritional:outClaimsDevelopmentLeanGross']=80d
+        resultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:subMotorHullAttritional:outClaimsDevelopmentLeanNet']=80d
         resultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:subMotorHullSingle:outClaimsDevelopmentLeanCeded']=200d
-        resultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:subMotorHullSingle:outClaimsDevelopmentLeanGross']=1000d
-        resultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:subMotorHullSingle:outClaimsDevelopmentLeanNet']=800d
+        resultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:subMotorHullSingle:outClaimsDevelopmentLeanGross']=800d
+        resultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:subMotorHullSingle:outClaimsDevelopmentLeanNet']=600d
         resultsPerPath['Podra:reinsurance:subContracts:subPropertyCxl:outClaimsDevelopmentLeanCeded']=50d
         resultsPerPath['Podra:reinsurance:subContracts:subPropertyCxl:outClaimsDevelopmentLeanGross']=1280d
         resultsPerPath['Podra:reinsurance:subContracts:subPropertyCxl:outClaimsDevelopmentLeanNet']=1230d
@@ -207,9 +223,18 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
         resultsPerPath['Podra:reinsurance:subContracts:subPropertyCxl:subPropertySingle:outClaimsDevelopmentLeanCeded']=0d
         resultsPerPath['Podra:reinsurance:subContracts:subPropertyCxl:subPropertySingle:outClaimsDevelopmentLeanGross']=720d
         resultsPerPath['Podra:reinsurance:subContracts:subPropertyCxl:subPropertySingle:outClaimsDevelopmentLeanNet']=720d
-        resultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:outClaimsDevelopmentLeanCeded']=320d
-        resultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:outClaimsDevelopmentLeanGross']=1600d
-        resultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:outClaimsDevelopmentLeanNet']=1280d
+        resultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:outClaimsDevelopmentLeanCeded']=540d
+        resultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:outClaimsDevelopmentLeanGross']=2700d
+        resultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:outClaimsDevelopmentLeanNet']=2160d
+        resultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:subMotorHull:outClaimsDevelopmentLeanGross']=1100d
+        resultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:subMotorHull:outClaimsDevelopmentLeanCeded']=220d
+        resultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:subMotorHull:outClaimsDevelopmentLeanNet']=880d
+        resultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:subMotorHullAttritional:outClaimsDevelopmentLeanGross']=100d
+        resultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:subMotorHullAttritional:outClaimsDevelopmentLeanCeded']=20d
+        resultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:subMotorHullAttritional:outClaimsDevelopmentLeanNet']=80d
+        resultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:subMotorHullSingle:outClaimsDevelopmentLeanGross']=1000d
+        resultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:subMotorHullSingle:outClaimsDevelopmentLeanCeded']=200d
+        resultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:subMotorHullSingle:outClaimsDevelopmentLeanNet']=800d
         resultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:subProperty:outClaimsDevelopmentLeanGross']=1600d
         resultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:subProperty:outClaimsDevelopmentLeanCeded']=320d
         resultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:subProperty:outClaimsDevelopmentLeanNet']=1280d
@@ -233,37 +258,69 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
 
         for (Map.Entry<String, Double> result : resultsPerPath.entrySet()) {
 //            re-enable for debugging
-            if (result.value != collectedResultsPerPath.get(result.key) && collectedResultsPerPath.get(result.key) != null) {
-                println "$result.key ${result.value} ${collectedResultsPerPath.get(result.key)}"
-            }
-            assertEquals "$result.key", resultsPerPath.get(result.key), result.value
+//            if (result.value != collectedResultsPerPath.get(result.key) && collectedResultsPerPath.get(result.key) != null) {
+//                println "$result.key paid claims ${result.value} ${collectedResultsPerPath.get(result.key)}"
+//            }
+            assertEquals "$result.key paid claims", result.value, collectedResultsPerPath.get(result.key), 1E-8
         }
     }
 
-    void correctResultsUwInfo() {
-        Map<String, Double> resultsPerPath = new LinkedHashMap<String, Double>()
-        resultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:outCoverUnderwritingInfo']=570d
-        resultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:subMotorHull:outCoverUnderwritingInfo']=2700d
-        resultsPerPath['Podra:reinsurance:subContracts:subPropertyCxl:outCoverUnderwritingInfo']=2130d
-        resultsPerPath['Podra:reinsurance:subContracts:subPropertyCxl:subProperty:outCoverUnderwritingInfo']=200d
-        resultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:outCoverUnderwritingInfo']=1100d
-        resultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:subProperty:outCoverUnderwritingInfo']=900d
+    void correctCommissionsResults() {
+        Map<String, Double> expectedResultsPerPath = new LinkedHashMap<String, Double>()
+
+        expectedResultsPerPath['Podra:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded']=-160d
+        expectedResultsPerPath['Podra:linesOfBusiness:subProperty:outUnderwritingInfoCeded']=-140d
+        expectedResultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:outCoverUnderwritingInfo']=-0d
+        expectedResultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:subMotorHull:outCoverUnderwritingInfo']=-0d
+        expectedResultsPerPath['Podra:reinsurance:subContracts:subPropertyCxl:outCoverUnderwritingInfo']=-20d
+        expectedResultsPerPath['Podra:reinsurance:subContracts:subPropertyCxl:subProperty:outCoverUnderwritingInfo']=-20d
+        expectedResultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:outCoverUnderwritingInfo']=-280d
+        expectedResultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:subMotorHull:outCoverUnderwritingInfo']=-160
+        expectedResultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:subProperty:outCoverUnderwritingInfo']=-120
 
         Map<String, Double> collectedResultsPerPath = new HashMap<String, Double>()
         def results = SingleValueResult.list()
         for (SingleValueResult result : results) {
-            if (result.field.fieldName == "commission" ||
-                    result.field.fieldName == "premium") {
+            if (result.field.fieldName == "commission") {
                 collectedResultsPerPath[result.path.pathName] = result.value
             }
         }
 
-        for (Map.Entry<String, Double> result : resultsPerPath.entrySet()) {
+        for (Map.Entry<String, Double> result : expectedResultsPerPath.entrySet()) {
 //            re-enable for debugging
-            if (result.value != collectedResultsPerPath.get(result.key) && collectedResultsPerPath.get(result.key) != null) {
-                println "$result.key ${result.value} ${collectedResultsPerPath.get(result.key)}"
+//            if (result.value != collectedResultsPerPath.get(result.key) && collectedResultsPerPath.get(result.key) != null) {
+//                println "$result.key commission ${result.value} ${collectedResultsPerPath.get(result.key)}"
+//            }
+            assertEquals "$result.key commission", result.value, collectedResultsPerPath.get(result.key)
+        }
+    }
+
+    void correctPremiumResults() {
+        Map<String, Double> expectedResultsPerPath = new LinkedHashMap<String, Double>()
+        expectedResultsPerPath['Podra:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded']=1800d
+        expectedResultsPerPath['Podra:linesOfBusiness:subProperty:outUnderwritingInfoCeded']=1300d
+        expectedResultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:outCoverUnderwritingInfo']=200d
+        expectedResultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:subMotorHull:outCoverUnderwritingInfo']=200d
+        expectedResultsPerPath['Podra:reinsurance:subContracts:subPropertyCxl:outCoverUnderwritingInfo']=100d
+        expectedResultsPerPath['Podra:reinsurance:subContracts:subPropertyCxl:subProperty:outCoverUnderwritingInfo']=100d
+        expectedResultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:outCoverUnderwritingInfo']=2800d
+        expectedResultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:subMotorHull:outCoverUnderwritingInfo']=1600
+        expectedResultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:subProperty:outCoverUnderwritingInfo']=1200
+
+        Map<String, Double> collectedResultsPerPath = new HashMap<String, Double>()
+        def results = SingleValueResult.list()
+        for (SingleValueResult result : results) {
+            if (result.field.fieldName == "premium") {
+                collectedResultsPerPath[result.path.pathName] = result.value
             }
-            assertEquals "$result.key", resultsPerPath.get(result.key), result.value
+        }
+
+        for (Map.Entry<String, Double> result : expectedResultsPerPath.entrySet()) {
+//            re-enable for debugging
+//            if (result.value != collectedResultsPerPath.get(result.key) && collectedResultsPerPath.get(result.key) != null) {
+//                println "$result.key premium ${result.value} ${collectedResultsPerPath.get(result.key)}"
+//            }
+            assertEquals "$result.key premium", result.value, collectedResultsPerPath.get(result.key)
         }
     }
 }
