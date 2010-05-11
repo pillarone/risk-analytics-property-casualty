@@ -5,7 +5,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.pillarone.riskanalytics.core.output.ICollectingModeStrategy;
 import org.pillarone.riskanalytics.core.output.PacketCollector;
-import org.pillarone.riskanalytics.core.output.SingleValueResult;
+import org.pillarone.riskanalytics.core.output.SingleValueResultPOJO;
 import org.pillarone.riskanalytics.core.output.batch.AbstractBulkInsert;
 import org.pillarone.riskanalytics.core.packets.Packet;
 import org.pillarone.riskanalytics.core.packets.PacketList;
@@ -31,7 +31,7 @@ public class AggregatedDrillDownCollectingModeStrategy implements ICollectingMod
 
     private PacketCollector packetCollector;
 
-    public List<SingleValueResult> collect(PacketList packets) {
+    public List<SingleValueResultPOJO> collect(PacketList packets) {
         if (packets.get(0) instanceof Claim) {
             try {
                 return createSingleValueResults(aggregateClaims(packets));
@@ -39,18 +39,16 @@ public class AggregatedDrillDownCollectingModeStrategy implements ICollectingMod
             catch (IllegalAccessException ex) {
 //                todo(sku): remove
             }
-        }
-        else if (packets.get(0) instanceof UnderwritingInfo) {
+        } else if (packets.get(0) instanceof UnderwritingInfo) {
             try {
                 return createSingleValueResults(aggregateUnderwritingInfo(packets));
             }
             catch (IllegalAccessException ex) {
 //                  todo(sku): remove
             }
-        }
-        else {
+        } else {
             throw new NotImplementedException("The aggregate drill down mode is only available for claims and underwriting info.\n" +
-                "Please adjust the selected result template or select another one.");
+                    "Please adjust the selected result template or select another one.");
         }
         return null;
     }
@@ -59,12 +57,13 @@ public class AggregatedDrillDownCollectingModeStrategy implements ICollectingMod
      * Create a SingleValueResult object for each packetValue.
      * Information about current simulation is gathered from the scopes.
      * The key of the value map is the path.
+     *
      * @param packets
      * @return
      * @throws IllegalAccessException
      */
-    private List<SingleValueResult> createSingleValueResults(Map<String, Packet> packets) throws IllegalAccessException {
-        List<SingleValueResult> singleValueResults = new ArrayList<SingleValueResult>(packets.size());
+    private List<SingleValueResultPOJO> createSingleValueResults(Map<String, Packet> packets) throws IllegalAccessException {
+        List<SingleValueResultPOJO> singleValueResults = new ArrayList<SingleValueResultPOJO>(packets.size());
         for (Map.Entry<String, Packet> packetEntry : packets.entrySet()) {
             String path = packetEntry.getKey();
             Packet packet = packetEntry.getValue();
@@ -83,7 +82,7 @@ public class AggregatedDrillDownCollectingModeStrategy implements ICollectingMod
                     }
                     continue;
                 }
-                SingleValueResult result = new SingleValueResult();
+                SingleValueResultPOJO result = new SingleValueResultPOJO();
                 // correct syntax for master branch (0.6)
                 result.setSimulationRun(packetCollector.getSimulationScope().getSimulation().getSimulationRun());
                 // correct syntax for 0.5.x branch
@@ -139,7 +138,7 @@ public class AggregatedDrillDownCollectingModeStrategy implements ICollectingMod
         return resultMap;
     }
 
-        /**
+    /**
      * @param underwritingInfos
      * @return a map with paths as key
      */
@@ -225,7 +224,7 @@ public class AggregatedDrillDownCollectingModeStrategy implements ICollectingMod
 
     public String getDisplayName(Locale locale) {
         if (displayName == null) {
-            displayName = ResourceBundle.getBundle(RESOURCE_BUNDLE, locale).getString("ICollectingModeStrategy."+IDENTIFIER);
+            displayName = ResourceBundle.getBundle(RESOURCE_BUNDLE, locale).getString("ICollectingModeStrategy." + IDENTIFIER);
         }
         return displayName;
     }
