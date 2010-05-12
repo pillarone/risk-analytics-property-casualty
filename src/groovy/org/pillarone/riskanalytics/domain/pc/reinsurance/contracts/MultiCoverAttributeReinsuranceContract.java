@@ -89,7 +89,7 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
             UnderwritingInfo underwritingInfo = UnderwritingInfoUtilities.aggregate(outCoverUnderwritingInfo);
             if (underwritingInfo != null) {
                 result.setCededPremium(-underwritingInfo.getPremiumWritten());
-                result.setCededCommission(underwritingInfo.getCommission());
+                result.setCededCommission(-underwritingInfo.getCommission());
             }
             result.setCededClaim(ClaimUtilities.aggregateClaims(outCoveredClaims, this).getUltimate());
             outContractFinancials.add(result);
