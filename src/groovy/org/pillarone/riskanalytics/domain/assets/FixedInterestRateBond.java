@@ -143,7 +143,7 @@ public class FixedInterestRateBond implements IBondCalculations, Cloneable {
             top = top * 2;
         }
         double r = 0.5 * (top + bottom);
-        for (int i = 0; i < MAX_ITERATIONS; i++) {
+        for (int i = 1; i <= MAX_ITERATIONS; i++) {
             double diff = BondPriceDiscrete(date, r) - marketReferenceBond.getMarketValue(date, termStructure);
             if (Math.abs(diff) < ACCURACY)
                 return r;

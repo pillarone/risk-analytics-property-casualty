@@ -91,7 +91,7 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
         IterationScope iterationScope = simulationScope.getIterationScope();
         PeriodScope periodScope = iterationScope.getPeriodScope();
         int currentPeriod = periodScope.getCurrentPeriod();
-        if (iterationScope.getCurrentIteration() == 0) {
+        if (iterationScope.getCurrentIteration() == 1) {
             if (currentPeriod == 0) {
                 initSimulation();
             }
