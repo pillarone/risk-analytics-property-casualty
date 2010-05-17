@@ -19,8 +19,8 @@ public class OccurrenceAttritionalClaimsGeneratorStrategy extends AttritionalCla
     public Map getParameters() {
         ['claimsSizeBase': claimsSizeBase,
                 'claimsSizeDistribution': claimsSizeDistribution,
-                'occurrenceDistribution': occurrenceDistribution,
-                'claimsSizeModification': claimsSizeModification]
+                'claimsSizeModification': claimsSizeModification,
+                'occurrenceDistribution': occurrenceDistribution]
     }
 
     public RandomDistribution getOccurrenceDistribution() {

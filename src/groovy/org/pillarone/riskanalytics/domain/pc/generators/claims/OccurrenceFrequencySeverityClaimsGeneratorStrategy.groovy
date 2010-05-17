@@ -20,8 +20,8 @@ public class OccurrenceFrequencySeverityClaimsGeneratorStrategy implements IPara
     DistributionModified frequencyModification = DistributionModifier.getStrategy(DistributionModifier.NONE, [:])
     Exposure claimsSizeBase = Exposure.ABSOLUTE
     RandomDistribution claimsSizeDistribution = DistributionType.getStrategy(DistributionType.CONSTANT, ['constant': 0d])
-    RandomDistribution occurrenceDistribution = DistributionType.getStrategy(DistributionType.UNIFORM, ['a': 0d, 'b': 1d])
     DistributionModified claimsSizeModification = DistributionModifier.getStrategy(DistributionModifier.NONE, [:])
+    RandomDistribution occurrenceDistribution = DistributionType.getStrategy(DistributionType.UNIFORM, ['a': 0d, 'b': 1d])
     FrequencySeverityClaimType produceClaim = FrequencySeverityClaimType.SINGLE
 
     public IParameterObjectClassifier getType() {
@@ -34,8 +34,8 @@ public class OccurrenceFrequencySeverityClaimsGeneratorStrategy implements IPara
                 'frequencyModification': frequencyModification,
                 'claimsSizeBase': claimsSizeBase,
                 'claimsSizeDistribution': claimsSizeDistribution,
-                'occurrenceDistribution': occurrenceDistribution,
                 'claimsSizeModification': claimsSizeModification,
+                'occurrenceDistribution': occurrenceDistribution,
                 'produceClaim': produceClaim]
     }
 

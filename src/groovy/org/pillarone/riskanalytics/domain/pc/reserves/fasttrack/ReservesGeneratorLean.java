@@ -41,16 +41,16 @@ public class ReservesGeneratorLean extends GeneratorCachingComponent implements 
     private PacketList<ClaimDevelopmentLeanPacket> outClaimsLeanDevelopment = new PacketList<ClaimDevelopmentLeanPacket>(ClaimDevelopmentLeanPacket.class);
     private PacketList<SingleValuePacket> outInitialReserves = new PacketList<SingleValuePacket>(SingleValuePacket.class);
 
-    private RandomDistribution parmDistribution = DistributionType.getStrategy(DistributionType.CONSTANT,
-            ArrayUtils.toMap(new Object[][]{{"constant", 0d}}));
-    private DistributionModified parmModification = DistributionModifier.getStrategy(DistributionModifier.NONE, new HashMap());
-    private double parmPeriodPaymentPortion = 0d;
     private double parmInitialReserves = 0d;
     private IReservesGeneratorStrategy parmReservesModel = ReservesGeneratorStrategyType.getStrategy(
             ReservesGeneratorStrategyType.INITIAL_RESERVES,
             ArrayUtils.toMap(new Object[][]{{"basedOnClaimsGenerators", new ComboBoxTableMultiDimensionalParameter(
                     Collections.emptyList(),
                     Arrays.asList("Claims Generators"), PerilMarker.class)}}));
+    private RandomDistribution parmDistribution = DistributionType.getStrategy(DistributionType.CONSTANT,
+            ArrayUtils.toMap(new Object[][]{{"constant", 0d}}));
+    private DistributionModified parmModification = DistributionModifier.getStrategy(DistributionModifier.NONE, new HashMap());
+    private double parmPeriodPaymentPortion = 0d;
 
     protected void doCalculation() {
         ClaimDevelopmentLeanPacket claim = new ClaimDevelopmentLeanPacket();
