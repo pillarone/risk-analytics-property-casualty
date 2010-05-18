@@ -40,13 +40,20 @@ class PodraPCModel extends StochasticModel {
         claimsGenerators.inUnderwritingInfo = underwritingSegments.outUnderwritingInfo
         claimsGenerators.inProbabilities = dependencies.outProbabilities
         claimsGenerators.inEventSeverities = eventGenerators.outEventSeverities
-        linesOfBusiness.inUnderwritingInfoGross = underwritingSegments.outUnderwritingInfo
         reserveGenerators.inClaims = claimsGenerators.outClaims
-        linesOfBusiness.inClaimsGross = claimsGenerators.outClaims
-        linesOfBusiness.inClaimsGross = reserveGenerators.outClaimsDevelopment
-        reinsurance.inUnderwritingInfo = linesOfBusiness.outUnderwritingInfoGross
-        reinsurance.inClaims = linesOfBusiness.outClaimsGross
-        linesOfBusiness.inUnderwritingInfoCeded = reinsurance.outCoverUnderwritingInfo
-        linesOfBusiness.inClaimsCeded = reinsurance.outClaimsCeded
+        if (linesOfBusiness.subComponentCount() > 0) {
+            linesOfBusiness.inUnderwritingInfoGross = underwritingSegments.outUnderwritingInfo
+            linesOfBusiness.inClaimsGross = claimsGenerators.outClaims
+            linesOfBusiness.inClaimsGross = reserveGenerators.outClaimsDevelopment
+            reinsurance.inUnderwritingInfo = linesOfBusiness.outUnderwritingInfoGross
+            reinsurance.inClaims = linesOfBusiness.outClaimsGross
+            linesOfBusiness.inUnderwritingInfoCeded = reinsurance.outCoverUnderwritingInfo
+            linesOfBusiness.inClaimsCeded = reinsurance.outClaimsCeded
+        }
+        else {
+            reinsurance.inUnderwritingInfo = underwritingSegments.outUnderwritingInfo
+            reinsurance.inClaims = claimsGenerators.outClaims
+            reinsurance.inClaims = reserveGenerators.outClaimsDevelopment
+        }
     }
 }

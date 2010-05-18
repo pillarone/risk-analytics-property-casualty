@@ -48,18 +48,23 @@ class PodraPModel extends StochasticModel {
     }
 
     void wireComponents() {
-// Zusammenbinden der Komponenten: Übergabe von Ausgabegrößen an Eingabekanäle
         /**
          * connect inputs to (preceding) outputs
          */
         claimsGenerators.inUnderwritingInfo = underwritingSegments.outUnderwritingInfo
         claimsGenerators.inProbabilities = dependencies.outProbabilities
         claimsGenerators.inEventSeverities = eventGenerators.outEventSeverities
-        linesOfBusiness.inUnderwritingInfoGross = underwritingSegments.outUnderwritingInfo
-        linesOfBusiness.inClaimsGross = claimsGenerators.outClaims
-        reinsurance.inUnderwritingInfo = linesOfBusiness.outUnderwritingInfoGross
-        reinsurance.inClaims = linesOfBusiness.outClaimsGross
-        linesOfBusiness.inUnderwritingInfoCeded = reinsurance.outCoverUnderwritingInfo
-        linesOfBusiness.inClaimsCeded = reinsurance.outClaimsCeded
+        if (linesOfBusiness.subComponentCount() > 0) {
+            linesOfBusiness.inUnderwritingInfoGross = underwritingSegments.outUnderwritingInfo
+            linesOfBusiness.inClaimsGross = claimsGenerators.outClaims
+            reinsurance.inUnderwritingInfo = linesOfBusiness.outUnderwritingInfoGross
+            reinsurance.inClaims = linesOfBusiness.outClaimsGross
+            linesOfBusiness.inUnderwritingInfoCeded = reinsurance.outCoverUnderwritingInfo
+            linesOfBusiness.inClaimsCeded = reinsurance.outClaimsCeded
+        }
+        else {
+            reinsurance.inUnderwritingInfo = underwritingSegments.outUnderwritingInfo
+            reinsurance.inClaims = claimsGenerators.outClaims
+        }
     }
 }
