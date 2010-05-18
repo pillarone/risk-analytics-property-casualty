@@ -32,10 +32,10 @@ public class AlmResultAggregator extends Component {
         }
         Claim aggregateClaim = ClaimUtilities.aggregateClaims(inClaims, this);
         if (aggregateClaim != null) {
-            uwResult.setClaim(aggregateClaim.getUltimate());
+            uwResult.setClaim(-aggregateClaim.getUltimate());
         }
         if (underwritingInfo != null && aggregateClaim != null) {
-            uwResult.setResult(uwResult.getPremium() + uwResult.getCommission() - uwResult.getClaim());
+            uwResult.setResult(uwResult.getPremium() + uwResult.getCommission() + uwResult.getClaim());
             outUnderwriting.add(uwResult);
         }
 
