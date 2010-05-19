@@ -127,15 +127,11 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
 
     private static Distribution getDiscreteEmpiricalDistribution(double[] obs, double[] prob) {
         double probSum = 0
-        assert obs.length == prob.length, "Discrete empirical distributions require the same number of observations and probabilities, but got $obs.length and $prob.length "
         for (double value : prob) {probSum += value}
-        assert 1.0 - probSum < 1e-6, "DiscreteEmpiricalGenerator requires the sum of probabilities to be 1.0"
         return new DiscreteDistribution(obs, prob, obs.length)
     }
 
     private static Distribution getDiscreteEmpiricalCumulativeDistribution(double[] obs, double[] cumprob) {
-        assert obs.length == cumprob.length, "DiscreteEmpiricalCumulativeGenerator requires lists of same length but got $obs.length and $cumprob.length"
-        assert cumprob[-1] <= 1.0 && cumprob[-1] > 1.0 - 1e-6, "DiscreteEmpiricalCumulativeGenerator requires the last probability to be close to 1.0"
         double lastcell = 0, ret = 0
         def prob = cumprob.collect {cell -> ret = cell - lastcell; lastcell = cell; ret }
         return getDiscreteEmpiricalDistribution(obs, prob as double[])

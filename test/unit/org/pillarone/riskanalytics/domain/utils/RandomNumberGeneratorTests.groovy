@@ -76,12 +76,6 @@ class RandomNumberGeneratorTests extends GroovyTestCase {
         for (int i=0;i<1000;i++) list1.add(generator.nextValue())
         list1.sort()
         //for (int i=0;i<1000;i++) println list1[i]        //visual assessment SZU&AM looks OK
-        shouldFail(AssertionError, {
-            RandomNumberGeneratorFactory.getGenerator(
-                    DistributionType.getStrategy(DistributionType.DISCRETEEMPIRICAL,
-                            ["discreteEmpiricalValues": new TableMultiDimensionalParameter([obs.toList(), vals1.toList()], ["observations", "probabilities"])]))
-        })
-
     }
     void testCreategetPiecewiseLinearEmpiricalDistributionGenerator() {
         double[] obs = [0.0, 10.0, 20.0, 25.0, 100.0]
