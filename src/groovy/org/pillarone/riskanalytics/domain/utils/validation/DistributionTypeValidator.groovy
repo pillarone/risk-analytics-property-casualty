@@ -33,8 +33,11 @@ class DistributionTypeValidator implements IParameterizationValidator {
                     if (LOG.isDebugEnabled()) {
                         LOG.debug "validating ${parameter.path}"
                     }
-                    errors.addAll(validationService.validate(classifier, parameter.getParameterMap()))
+                    def currentErrors = validationService.validate(classifier, parameter.getParameterMap())
+                    currentErrors*.path = parameter.path
+                    errors.addAll(currentErrors)
                 }
+                errors.addAll(validate(parameter.classifierParameters.values().toList()))
             }
         }
 
