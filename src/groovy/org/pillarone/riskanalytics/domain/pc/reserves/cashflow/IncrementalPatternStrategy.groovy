@@ -22,6 +22,9 @@ public class IncrementalPatternStrategy extends AbstractPatternStrategy {
     }
 
     public List getPatternValues() {
+        if (incrementalPattern.getValues().size() > 0 && incrementalPattern.getValues().get(0) instanceof List) {
+            return (List) incrementalPattern.getValues().get(0)
+        }
         incrementalPattern.getValues()
     }
 

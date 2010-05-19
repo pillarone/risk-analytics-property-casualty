@@ -23,6 +23,9 @@ public class CumulativePatternStrategy extends AbstractPatternStrategy {
     }
 
    public List getPatternValues() {
+        if (cumulativePattern.getValues().size() > 0 && cumulativePattern.getValues().get(0) instanceof List) {
+            return (List) cumulativePattern.getValues().get(0)
+        }
         cumulativePattern.getValues()
     }
 
