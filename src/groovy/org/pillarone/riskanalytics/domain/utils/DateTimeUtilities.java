@@ -128,10 +128,10 @@ public class DateTimeUtilities {
         int period = simulationPeriod(simulationStart, periodLength, date);
         DateTime beginOfPeriodForDate = new DateTime(simulationStart);
         for (int i = 0; i < period; i++) {
-            beginOfPeriodForDate.plus(periodLength);
+            beginOfPeriodForDate = beginOfPeriodForDate.plus(periodLength);
         }
-        double periodLengthInDays = (Integer) periodLength.getDays();
-        return Days.daysBetween(beginOfPeriodForDate, date).getDays() / periodLengthInDays;
+        double periodLengthInDays = Days.daysBetween(simulationStart, endOfFirstPeriod).getDays();
+        return periodLengthInDays == 0 ? 0 : period + Days.daysBetween(beginOfPeriodForDate, date).getDays() / periodLengthInDays;
     }
 
     public static DateTime getDate(DateTime beginOfPeriod, DateTime endOfPeriod, int periodOffset, double fractionOfPeriod) {

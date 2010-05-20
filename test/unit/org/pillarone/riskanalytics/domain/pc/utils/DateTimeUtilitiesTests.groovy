@@ -33,6 +33,7 @@ class DateTimeUtilitiesTests extends GroovyTestCase {
     DateTime date20110401 = new DateTime(2011,4,1,0,0,0,0)
     DateTime date20110701 = new DateTime(2011,7,1,0,0,0,0)
     DateTime date20120101 = new DateTime(2012,1,1,0,0,0,0)
+    DateTime date20130101 = new DateTime(2013,1,1,0,0,0,0)
 
     void testConvertToDateTime() {
 
@@ -209,5 +210,13 @@ class DateTimeUtilitiesTests extends GroovyTestCase {
         assertEquals "-3/0.75 -> date20091024", date20091024, DateTimeUtilities.getDate(date20100101, date20100201, -3, 0.75)
         assertEquals "-1/0.5 -> date20091115", date20091115, DateTimeUtilities.getDate(date20100101, date20100401, -1, 0.5)
         assertEquals "-2/0.95 -> date20081213", date20081213, DateTimeUtilities.getDate(date20100101, date20110101, -2, 0.95)
+    }
+
+    void testDateAsDouble() {
+        assertEquals "start = simulation start", 0, DateTimeUtilities.dateAsDouble(date20100101, date20110101, date20100101)
+        assertEquals "end = first period end", 1, DateTimeUtilities.dateAsDouble(date20100101, date20110101, date20110101)
+        assertEquals "end = third period end", 3, DateTimeUtilities.dateAsDouble(date20100101, date20110101, date20130101)
+        assertEquals "end = third period end", 90/365d, DateTimeUtilities.dateAsDouble(date20100101, date20110101, date20100401)
+        assertEquals "end = third period end", (365+90)/365d, DateTimeUtilities.dateAsDouble(date20100101, date20110101, date20110401)
     }
 }
