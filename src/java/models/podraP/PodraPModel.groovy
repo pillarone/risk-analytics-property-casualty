@@ -14,7 +14,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.DynamicUnderwritingSeg
  * for attritional claims, or by using event generators.<br>
  *
  * On the model level, each component (type) can have an arbitrary number of instances included in the model,
- * which are specified in the parametrization and can be managed from user interface.
+ * which are specified in the parametrization and can be managed from the user interface.
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
