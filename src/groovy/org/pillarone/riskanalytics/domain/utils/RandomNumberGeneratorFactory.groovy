@@ -91,6 +91,20 @@ class RandomNumberGeneratorFactory {
                         throw new IllegalArgumentException("The distribution ${distribution.distribution} is not a ContinuousDistribution! Truncation option is therefore not available.")
                     }
                     break
+                case DistributionModifier.LEFTTRUNCATEDRIGHTCENSORED:
+                    if (distribution.distribution instanceof ContinuousDistribution) {
+                        generator = new RandomNumberGenerator(
+                            generator: new CensoredVariateGen(MathUtils.RANDOM_NUMBER_GENERATOR_INSTANCE,
+                                new TruncatedDist(distribution.distribution, modifier.parameters["min"], Double.POSITIVE_INFINITY),
+                                Double.NEGATIVE_INFINITY,
+                                modifier.parameters["max"]),
+                            type: distribution.type,
+                            parameters: distribution.parameters)
+                    }
+                    else {
+                        throw new IllegalArgumentException("The distribution ${distribution.distribution} is not a ContinuousDistribution! Truncation option is therefore not available.")
+                    }
+                    break
 
             }
             generator.modifier = modifier.type
