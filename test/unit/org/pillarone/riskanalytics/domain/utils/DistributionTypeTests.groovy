@@ -2,14 +2,14 @@ package org.pillarone.riskanalytics.domain.utils
 
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.utils.validation.DistributionTypeValidator
-import org.pillarone.riskanalytics.core.parameterization.ParameterValidationService
+import org.pillarone.riskanalytics.core.parameterization.validation.AbstractParameterValidationService
 
 /**
  * @author: dierk.koenig at canoo.com
  */
 class DistributionTypeTests extends GroovyTestCase {
 
-    ParameterValidationService validator = new DistributionTypeValidator().validationService
+    AbstractParameterValidationService validator = new DistributionTypeValidator().validationService
 
     void testDefaultUniformValidator() {
         def defaultUniform = DistributionType.UNIFORM

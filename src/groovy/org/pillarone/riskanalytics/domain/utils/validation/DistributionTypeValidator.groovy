@@ -3,22 +3,22 @@ package org.pillarone.riskanalytics.domain.utils.validation
 import org.apache.commons.logging.Log
 import org.apache.commons.logging.LogFactory
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
-import org.pillarone.riskanalytics.core.parameterization.ParameterValidationError
-import org.pillarone.riskanalytics.core.parameterization.ParameterValidationService
 import org.pillarone.riskanalytics.core.parameterization.validation.IParameterizationValidator
 import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterHolder
 import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterObjectParameterHolder
 import org.pillarone.riskanalytics.domain.utils.DistributionType
+import org.pillarone.riskanalytics.core.parameterization.validation.ParameterValidationError
+import org.pillarone.riskanalytics.core.parameterization.validation.AbstractParameterValidationService
 
 class DistributionTypeValidator implements IParameterizationValidator {
 
     private static Log LOG = LogFactory.getLog(DistributionTypeValidator)
     private static final double EPSILON = 1E-6 // guard for "close-enough" checks instead of == for doubles
 
-    private ParameterValidationService validationService
+    private AbstractParameterValidationService validationService
 
     public DistributionTypeValidator() {
-        validationService = new ParameterValidationService()
+        validationService = new ParameterValidationServiceImpl()
         registerConstraints()
     }
 
