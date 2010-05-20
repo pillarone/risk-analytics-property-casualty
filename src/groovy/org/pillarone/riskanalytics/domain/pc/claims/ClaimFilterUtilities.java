@@ -200,7 +200,7 @@ public class ClaimFilterUtilities {
     }
 
     /**
-     * @param claims                 the list of claims to filter
+     * @param claims                 the list of claims to filteruninstall-plugin risk-analytics-coreuninstall-plugin risk-analytics-core
      * @param coveredPerils          peril markers that the filter should select
      * @param coveredContracts       reinsurance contracts the filter selects
      * @param connection             logical junction type (AND or OR), required for combined filter strategies
@@ -209,21 +209,21 @@ public class ClaimFilterUtilities {
     public static List<ClaimDevelopmentPacket> filterClaimsByPerilContract(
                                                    List<ClaimDevelopmentPacket> claims,
                                                    List<PerilMarker> coveredPerils,
-                                                   List<IReinsuranceContractMarker> coveredContracts,
+                                                   List<String> coveredContracts,
                                                    LogicArguments connection) {
         List<ClaimDevelopmentPacket> filteredClaims = new ArrayList<ClaimDevelopmentPacket>();
         boolean hasPerils = coveredPerils != null && coveredPerils.size() > 0;
         boolean hasContracts = coveredContracts != null && coveredContracts.size() > 0;
         if (hasPerils && hasContracts && connection == LogicArguments.OR) {
             for (ClaimDevelopmentPacket claim : claims) {
-                if (coveredPerils.contains(claim.getPeril()) || coveredContracts.contains(claim.getReinsuranceContract())) {
+                if (coveredPerils.contains(claim.getPeril()) || coveredContracts.contains(claim.getReinsuranceContract().getNormalizedName())) {
                     filteredClaims.add(claim);
                 }
             }
         }
         else if (hasPerils && hasContracts && connection == LogicArguments.AND) {
             for (ClaimDevelopmentPacket claim : claims) {
-                if (coveredPerils.contains(claim.getPeril()) && coveredContracts.contains(claim.getReinsuranceContract())) {
+                if (coveredPerils.contains(claim.getPeril()) && coveredContracts.contains(claim.getReinsuranceContract().getNormalizedName())) {
                     filteredClaims.add(claim);
                 }
             }
@@ -237,13 +237,12 @@ public class ClaimFilterUtilities {
         }
         else if (hasContracts) {
             for (ClaimDevelopmentPacket claim : claims) {
-                if (coveredContracts.contains(claim.getReinsuranceContract())) {
+                if (coveredContracts.contains(claim.getReinsuranceContract().getNormalizedName())) {
                     filteredClaims.add(claim);
                 }
             }
         }
         else {
-//            filteredClaims.addAll(claims);
             throw new IllegalArgumentException("filterClaimsByPerilContract requires a list to filter claims by");
         }
         return filteredClaims;
