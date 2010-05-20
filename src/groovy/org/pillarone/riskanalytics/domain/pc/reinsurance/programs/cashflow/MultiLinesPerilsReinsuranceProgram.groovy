@@ -16,6 +16,16 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.MarketUnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 
 /**
+ * Reinsurance program for several synchronized reinsurance contracts operating on flat or subordinated priority levels
+ * according to the parameter parmInuringPriority. The different priority levels are successively traversed according to the
+ * following scheme:
+ * 1. the evaluated (aggregated) net information of the preceding priority level contracts provide the gross information for the in channnels
+ *    of the next priority level contracts.
+ * 2. Equipollent contracts (with the same priority) are applied independently, the resulting ceded information is aggregated to compute the
+ *    the overall net information associated to the priority level.
+ * Caveat: the commission only depends on the contract under consideration. Hence preceding information is not carried along
+ * contract level, but aggregated at the end of the program (and on priority level).
+ *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 class MultiLinesPerilsReinsuranceProgram extends DynamicComposedComponent {

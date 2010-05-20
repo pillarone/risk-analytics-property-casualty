@@ -59,17 +59,21 @@ public class MultiLineReinsuranceContract extends ReinsuranceContract {
         Collections.sort(outFilteredClaims, SortClaimsByFractionOfPeriod.getInstance());
         if (isSenderWired(getOutUncoveredClaims()) || isSenderWired(getOutClaimsDevelopmentLeanNet())) {
             calculateClaims(outFilteredClaims, outCoveredClaims, outUncoveredClaims, this);
-        }
-        else {
+        } else {
             calculateCededClaims(outFilteredClaims, outCoveredClaims, this);
         }
-        if (isSenderWired(outNetAfterCoverUnderwritingInfo)) {
-            calculateUnderwritingInfos(outFilteredUnderwritingInfo, outCoverUnderwritingInfo, outNetAfterCoverUnderwritingInfo);
-        }
-        else if (isSenderWired(outCoverUnderwritingInfo) || isSenderWired(outContractFinancials)) {
+
+        if (isSenderWired(outCoverUnderwritingInfo) || isSenderWired(outContractFinancials)) {
             calculateCededUnderwritingInfos(outFilteredUnderwritingInfo, outCoverUnderwritingInfo);
         }
+
         parmCommissionStrategy.calculateCommission(outCoveredClaims, outCoverUnderwritingInfo, false, false);
+
+        if (isSenderWired(outNetAfterCoverUnderwritingInfo)) {
+            UnderwritingInfoUtilities.calculateNet(outFilteredUnderwritingInfo, outCoverUnderwritingInfo, outNetAfterCoverUnderwritingInfo);
+        }
+
+
         if (inClaims.size() > 0 && inClaims.get(0) instanceof ClaimDevelopmentLeanPacket) {
             for (Claim claim : outFilteredClaims) {
                 getOutClaimsDevelopmentLeanGross().add((ClaimDevelopmentLeanPacket) claim);

@@ -130,7 +130,6 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
             if (isSenderWired(outCoverUnderwritingInfo) || isSenderWired(outNetAfterCoverUnderwritingInfo)) {
                 calculateCededUnderwritingInfos(outFilteredUnderwritingInfo, outCoverUnderwritingInfo);
             }
-//            }
         }
 
         parmCommissionStrategy.calculateCommission(outCoveredClaims, outCoverUnderwritingInfo, currentPeriod == 0, false);
@@ -206,6 +205,11 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
             }
             outFilteredUnderwritingInfo.addAll(UnderwritingFilterUtilities.filterUnderwritingInfoByLob(inUnderwritingInfo, coveredLines));
         }
+
+        /** commissions from prior reinsurance contracts are uncoupled from actual contracts,
+         *  hence they are eliminated from incoming information, but considered on
+         * program level in MultiLinesPerilsReinsuranceProgram
+         */
         List<UnderwritingInfo> zeroCommissions = UnderwritingInfoUtilities.setCommissionZero(outFilteredUnderwritingInfo);
         outFilteredUnderwritingInfo.clear();
         outFilteredUnderwritingInfo.addAll(zeroCommissions);
