@@ -6,6 +6,7 @@ import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
 import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker;
+import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket;
 
 import java.util.*;
 
@@ -194,6 +195,56 @@ public class ClaimFilterUtilities {
                     filteredClaims.add(claim);
                 }
             }
+        }
+        return filteredClaims;
+    }
+
+    /**
+     * @param claims                 the list of claims to filter
+     * @param coveredPerils          peril markers that the filter should select
+     * @param coveredContracts       reinsurance contracts the filter selects
+     * @param connection             logical junction type (AND or OR), required for combined filter strategies
+     * @return                       the list of claims that passed through the filter
+     */
+    public static List<ClaimDevelopmentPacket> filterClaimsByPerilContract(
+                                                   List<ClaimDevelopmentPacket> claims,
+                                                   List<PerilMarker> coveredPerils,
+                                                   List<IReinsuranceContractMarker> coveredContracts,
+                                                   LogicArguments connection) {
+        List<ClaimDevelopmentPacket> filteredClaims = new ArrayList<ClaimDevelopmentPacket>();
+        boolean hasPerils = coveredPerils != null && coveredPerils.size() > 0;
+        boolean hasContracts = coveredContracts != null && coveredContracts.size() > 0;
+        if (hasPerils && hasContracts && connection == LogicArguments.OR) {
+            for (ClaimDevelopmentPacket claim : claims) {
+                if (coveredPerils.contains(claim.getPeril()) || coveredContracts.contains(claim.getReinsuranceContract())) {
+                    filteredClaims.add(claim);
+                }
+            }
+        }
+        else if (hasPerils && hasContracts && connection == LogicArguments.AND) {
+            for (ClaimDevelopmentPacket claim : claims) {
+                if (coveredPerils.contains(claim.getPeril()) && coveredContracts.contains(claim.getReinsuranceContract())) {
+                    filteredClaims.add(claim);
+                }
+            }
+        }
+        else if (hasPerils) {
+            for (ClaimDevelopmentPacket claim : claims) {
+                if (coveredPerils.contains(claim.getPeril())) {
+                    filteredClaims.add(claim);
+                }
+            }
+        }
+        else if (hasContracts) {
+            for (ClaimDevelopmentPacket claim : claims) {
+                if (coveredContracts.contains(claim.getReinsuranceContract())) {
+                    filteredClaims.add(claim);
+                }
+            }
+        }
+        else {
+//            filteredClaims.addAll(claims);
+            throw new IllegalArgumentException("filterClaimsByPerilContract requires a list to filter claims by");
         }
         return filteredClaims;
     }
