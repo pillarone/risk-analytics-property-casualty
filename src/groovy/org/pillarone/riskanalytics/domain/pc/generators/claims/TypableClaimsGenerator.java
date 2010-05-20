@@ -267,14 +267,20 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
     }
 
     // todo(sku): refactor once the variate distributions are properly refactored
+
     protected List<Double> calculateClaimsValues(List<Double> probabilites, RandomDistribution distribution, DistributionModified modification) {
         Distribution dist = distribution.getDistribution();
         if (modification.getType().equals(DistributionModifier.CENSORED) || modification.getType().equals(DistributionModifier.CENSOREDSHIFT)) {
             dist = new CensoredDist(distribution.getDistribution(),
-                (Double) modification.getParameters().get("min"), (Double) modification.getParameters().get("max"));
+                    (Double) modification.getParameters().get("min"), (Double) modification.getParameters().get("max"));
         } else if (modification.getType().equals(DistributionModifier.TRUNCATED) || modification.getType().equals(DistributionModifier.TRUNCATEDSHIFT)) {
-            dist = new TruncatedDist((ContinuousDistribution) distribution.getDistribution(),
-                (Double) modification.getParameters().get("min"), (Double) modification.getParameters().get("max"));
+            Double leftBoundary = (Double) modification.getParameters().get("min");
+            Double rightBoundary = (Double) modification.getParameters().get("max");
+            if (dist.cdf(rightBoundary) - dist.cdf(leftBoundary) == 0.0) {
+                throw new IllegalArgumentException("Restricted density function not normalizeable for the claims generator " + this.getNormalizedName() + ".");
+            } else {
+                dist = new TruncatedDist((ContinuousDistribution) distribution.getDistribution(), leftBoundary, rightBoundary);
+            }
         }
         List<Double> claimValues = new ArrayList<Double>(probabilites.size());
         double shift = modification.getParameters().get("shift") == null ? 0 : (Double) modification.getParameters().get("shift");

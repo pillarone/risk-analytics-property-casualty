@@ -17,7 +17,8 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.RiskBands
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
-
+import org.pillarone.riskanalytics.domain.utils.RandomDistribution
+import umontreal.iro.lecuyer.probdist.*
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
@@ -406,5 +407,36 @@ public class TypableClaimsGeneratorTests extends GroovyTestCase {
         def channelWired = new TestPretendInChannelWired(claimsGenerator, "inProbabilities")
         channelWired = new TestPretendInChannelWired(claimsGenerator, "inProbabilities")
         shouldFail(IllegalArgumentException, { claimsGenerator.doCalculation() })
+    }
+
+
+    void testPartitionFunctionForTruncatedDensity() {
+
+        Distribution dist = DistributionType.getLognormalDistribution(1.0, 1.0)
+        double partitionFunction = dist.cdf(105000) - dist.cdf(95000)
+        assertEquals "partition function on truncated interval", 0.0, partitionFunction
+
+
+        Distribution distTruncated = new TruncatedDist((ContinuousDistribution) dist, (Double) 95000, (Double) 105000)
+        assertEquals " density left from interval", Double.POSITIVE_INFINITY, distTruncated.density(94000)
+        assertEquals " density within interval", Double.POSITIVE_INFINITY, distTruncated.density(100000)
+        assertEquals " density right from interval", Double.POSITIVE_INFINITY, distTruncated.density(106000)
+        assertEquals " inverse F(0.9)", Double.POSITIVE_INFINITY, distTruncated.inverseF(0.9)
+        assertEquals " cumulative distribution of 1000000", Double.POSITIVE_INFINITY, distTruncated.cdf(100000)
+
+        Distribution dist2 = DistributionType.getLognormalDistribution(1.0, 1.0)
+        double partitionFunction2 = dist2.cdf(5) - dist2.cdf(2)
+        assertEquals "partition function on truncated interval", true,partitionFunction2>0 && partitionFunction2 < Double.POSITIVE_INFINITY
+
+        // todo(jwa): there is a heavy bug in the code for the density, cf. first and fifth assertEquals (they should be zero)
+        Distribution dist2Truncated = new TruncatedDist((ContinuousDistribution) dist2, 2d, 5d)
+        assertEquals " density left from interval",dist2.density(1)/partitionFunction2, dist2Truncated.density(1)
+        assertEquals " density at left boundary", dist2.density(2)/partitionFunction2, dist2Truncated.density(2)
+        assertEquals " density within interval",dist2.density(3)/partitionFunction2 , dist2Truncated.density(3)
+        assertEquals " density at right boundary",dist2.density(5)/partitionFunction2 , dist2Truncated.density(5)
+        assertEquals " density right from interval", dist2.density(6)/partitionFunction2, dist2Truncated.density(6)
+        assertEquals " inverse F(0.9)",true, dist2Truncated.inverseF(0.9)>2 && dist2Truncated.inverseF(0.9)<5
+        assertEquals " cumulative distribution of 3", dist2.cdf(4)/partitionFunction2, dist2Truncated.cdf(4)
+
     }
 }
