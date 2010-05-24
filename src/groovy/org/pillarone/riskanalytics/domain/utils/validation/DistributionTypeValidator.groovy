@@ -64,7 +64,7 @@ class DistributionTypeValidator implements IParameterizationValidator {
             ["distribution.tpye.error.negativebinomial.gamma.negative.or.zero", type.gamma]
         }
         validationService.register(DistributionType.NEGATIVEBINOMIAL) {Map type ->
-            if ((0..1).containsWithinBounds(type.p)) return true
+            if ((0.0..1.0).containsWithinBounds(type.p)) return true
             ["distribution.tpye.error.negativebinomial.p.out.of.range", type.p]
         }
         validationService.register(DistributionType.DISCRETEEMPIRICAL) {Map type ->
@@ -195,7 +195,7 @@ class DistributionTypeValidator implements IParameterizationValidator {
             ["distribution.type.error.student.n.negative.or.zero", type.n]
         }
         validationService.register(DistributionType.BINOMIALDIST) {Map type ->
-            if ((0..1).containsWithinBounds(type.p)) return true
+            if ((0.0..1.0).containsWithinBounds(type.p)) return true
             ["distribution.tpye.error.binomial.p.out.of.range", type.p]
         }
         validationService.register(DistributionType.BINOMIALDIST) {Map type ->

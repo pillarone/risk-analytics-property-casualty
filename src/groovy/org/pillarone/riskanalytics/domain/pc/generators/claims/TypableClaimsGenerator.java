@@ -277,7 +277,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
             Double leftBoundary = (Double) modification.getParameters().get("min");
             Double rightBoundary = (Double) modification.getParameters().get("max");
             if (dist.cdf(rightBoundary) - dist.cdf(leftBoundary) == 0.0) {
-                throw new IllegalArgumentException("Restricted density function not normalizeable for the claims generator " + this.getNormalizedName() + ".");
+                throw new IllegalArgumentException("Restricted density function not normalizable for the claims generator " + this.getNormalizedName() + ".");
             } else {
                 dist = new TruncatedDist((ContinuousDistribution) distribution.getDistribution(), leftBoundary, rightBoundary);
             }
