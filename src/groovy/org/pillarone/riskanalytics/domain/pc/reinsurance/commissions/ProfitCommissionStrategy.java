@@ -51,7 +51,7 @@ public class ProfitCommissionStrategy implements ICommissionStrategy {
         }
         double fixedCommission = commissionRatio * totalPremiumWritten; // calculate 'prior' fixed commission
         double nextLossCarriedForward = totalPremiumWritten * (1d - costRatio) - fixedCommission - incurredClaims;
-        double commissionableProfit = Math.max(0d, nextLossCarriedForward - lossCarriedForward);
+        double commissionableProfit = Math.max(0d, nextLossCarriedForward + lossCarriedForward);
         double totalCommission =  fixedCommission + profitCommissionRatio * commissionableProfit;
 
         if (isAdditive) {
@@ -66,6 +66,7 @@ public class ProfitCommissionStrategy implements ICommissionStrategy {
             }
         }
 
+        // todo(jwa): something is inconsistent here
         lossCarriedForward = lossCarriedForwardEnabled ? Math.min(0d, nextLossCarriedForward) : 0d;
     }
 }

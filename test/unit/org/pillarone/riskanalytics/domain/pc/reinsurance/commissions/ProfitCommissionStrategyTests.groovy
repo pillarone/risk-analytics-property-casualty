@@ -36,7 +36,7 @@ class ProfitCommissionStrategyTests extends GroovyTestCase {
         commissionStrategy.calculateCommission claims, underwritingInfo, true, false
 
         assertEquals '# outUnderwritingInfo packets', 1, underwritingInfo.size()
-        assertEquals 'underwritingInfo100', -0.03 * (100 * (1d - 0.2) - 50 - 20), underwritingInfo[0].commission
+        assertEquals 'underwritingInfo100', -0.03 * (100 * (1d - 0.2) - 50 + 20), underwritingInfo[0].commission
     }
 
     /**
@@ -55,7 +55,7 @@ class ProfitCommissionStrategyTests extends GroovyTestCase {
 
         commissionStrategy.calculateCommission claims, underwritingInfo, true, true // test that prior commission is added
 
-        double totalPremiumWritten = 0.03 * (100 * (1d - 0.2) - 50 - 20)
+        double totalPremiumWritten = 0.03 * (100 * (1d - 0.2) - 50 + 20)
 
         assertEquals '# outUnderwritingInfo packets', 3, underwritingInfo.size()
         assertEquals 'underwritingInfo20', -(1 + 0.2 * totalPremiumWritten), underwritingInfo[0].commission
@@ -75,7 +75,7 @@ class ProfitCommissionStrategyTests extends GroovyTestCase {
         commissionStrategy.calculateCommission claims, underwritingInfo, true, false
 
         assertEquals '# outUnderwritingInfo packets', 1, underwritingInfo.size()
-        assertEquals 'underwritingInfo100plus1', -0.03 * (100 * (1d - 0.2) - 50 - 20), underwritingInfo[0].commission
+        assertEquals 'underwritingInfo100plus1', -0.03 * (100 * (1d - 0.2) - 50 + 20), underwritingInfo[0].commission
     }
 
     void testAddition2() {
@@ -90,7 +90,7 @@ class ProfitCommissionStrategyTests extends GroovyTestCase {
         commissionStrategy.calculateCommission claims, underwritingInfo, true, false
 
         assertEquals '# outUnderwritingInfo packets', 1, underwritingInfo.size()
-        assertEquals 'underwritingInfo200plus7', -0.03 * (200 * (1d - 0.2) - 50 - 20), underwritingInfo[0].commission, 1E-12
+        assertEquals 'underwritingInfo200plus7', -0.03 * (200 * (1d - 0.2) - 50 + 20), underwritingInfo[0].commission, 1E-12
     }
 
     void testProfitCommissionWithPriorFixedCommission() {
@@ -105,7 +105,7 @@ class ProfitCommissionStrategyTests extends GroovyTestCase {
         commissionStrategy.calculateCommission claims, underwritingInfo, true, false
 
         assertEquals '# outUnderwritingInfo packets', 1, underwritingInfo.size()
-        assertEquals 'underwritingInfo100plus1', -0.02 * 100 - 0.03 * (100 * (1 - 0.2) - 2 - 50 - 20), underwritingInfo[0].commission
+        assertEquals 'underwritingInfo100plus1', -0.02 * 100 - 0.03 * (100 * (1 - 0.2) - 2 - 50 + 20), underwritingInfo[0].commission
     }
 
     void testUnderflowProtectionBoundary() {
@@ -120,7 +120,7 @@ class ProfitCommissionStrategyTests extends GroovyTestCase {
 
         commissionStrategy.calculateCommission claims, underwritingInfo, true, false
         assertEquals '# outUnderwritingInfo packets', 1, underwritingInfo.size()
-        assertEquals 'underwritingInfo100', -0.03 * (100 * (1d - 0.2) - 60 - 20), underwritingInfo[0].commission
+        assertEquals 'underwritingInfo100', -0.03 * (100 * (1d - 0.2) - 60 + 20), underwritingInfo[0].commission
     }
 
     void testUnderflowProtectionPastBoundary() {
@@ -136,7 +136,7 @@ class ProfitCommissionStrategyTests extends GroovyTestCase {
 
         commissionStrategy.calculateCommission claims, underwritingInfo, true, false
         assertEquals '# outUnderwritingInfo packets', 1, underwritingInfo.size()
-        assertEquals 'underwritingInfo100', -0.03 * (100 * (1d - 0.2) - 60 - 20), underwritingInfo[0].commission
+        assertEquals 'underwritingInfo100', -0.03 * (100 * (1d - 0.2d) - 61 + 20), underwritingInfo[0].commission
     }
 
     void testUsageWithClaimDevelopmentLeanPacket() {
@@ -156,7 +156,7 @@ class ProfitCommissionStrategyTests extends GroovyTestCase {
         commissionStrategy.calculateCommission claims, underwritingInfo, true, false
 
         assertEquals '# outUnderwritingInfo packets', 1, underwritingInfo.size()
-        assertEquals 'underwritingInfo100', -0.03 * (100 * (1d - 0.2) - 50 - 20), underwritingInfo[0].commission
+        assertEquals 'underwritingInfo100', -0.03 * (100 * (1d - 0.2) - 50 + 20), underwritingInfo[0].commission
     }
 
 }

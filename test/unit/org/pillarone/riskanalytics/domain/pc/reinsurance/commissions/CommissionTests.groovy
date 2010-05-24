@@ -202,7 +202,7 @@ class CommissionTests extends GroovyTestCase {
         commission.doCalculation()
 
         assertEquals '# outUnderwritingInfoModified packets', 1, commission.outUnderwritingInfoModified.size()
-        assertEquals 'underwritingInfo100', -0.03 * (100 * (1d - 0.2) - 50 - 20), commission.outUnderwritingInfoModified[0].commission
+        assertEquals 'underwritingInfo100', -0.03 * (100 * (1d - 0.2) - 50 + 20), commission.outUnderwritingInfoModified[0].commission
     }
 
     void testFixedCommissionFilteringByContract() {
@@ -260,8 +260,8 @@ class CommissionTests extends GroovyTestCase {
         commission.doCalculation()
 
         assertEquals '# outUnderwritingInfoModified packets', 2, commission.outUnderwritingInfoModified.size()
-        assertEquals 'underwritingInfo1', -(1 + 0.03 * (100 * (1d - 0.2) - 50 - 20) * 0.6), commission.outUnderwritingInfoModified[0].commission
-        assertEquals 'underwritingInfo2', -(2 + 0.03 * (100 * (1d - 0.2) - 50 - 20) * 0.4), commission.outUnderwritingInfoModified[1].commission
+        assertEquals 'underwritingInfo1', -(1 + 0.03 * (100 * (1d - 0.2) - 50 + 20) * 0.6), commission.outUnderwritingInfoModified[0].commission
+        assertEquals 'underwritingInfo2', -(2 + 0.03 * (100 * (1d - 0.2) - 50 + 20) * 0.4), commission.outUnderwritingInfoModified[1].commission
     }
 
     void testProfitCommissionFilteringByContract2() {
@@ -303,10 +303,10 @@ class CommissionTests extends GroovyTestCase {
 
         // note: for UWInfo 1, 10/(10+20+30+40+50) * 0.3 = 1/15 * 0.3 = 0.1 * 0.2; similarly for UWInfo 2-5.
         assertEquals '# outUnderwritingInfoModified packets', 5, commission.outUnderwritingInfoModified.size()
-        assertEquals 'underwritingInfo1', -(1 + 0.1 * 0.2 * (150 * (1d - 0.1) - 30 - 5)), commission.outUnderwritingInfoModified[0].commission
-        assertEquals 'underwritingInfo2', -(2 + 0.2 * 0.2 * (150 * (1d - 0.1) - 30 - 5)), commission.outUnderwritingInfoModified[1].commission
-        assertEquals 'underwritingInfo3', -(3 + 0.3 * 0.2 * (150 * (1d - 0.1) - 30 - 5)), commission.outUnderwritingInfoModified[2].commission
-        assertEquals 'underwritingInfo4', -(4 + 0.4 * 0.2 * (150 * (1d - 0.1) - 30 - 5)), commission.outUnderwritingInfoModified[3].commission
-        assertEquals 'underwritingInfo5', -(5 + 0.5 * 0.2 * (150 * (1d - 0.1) - 30 - 5)), commission.outUnderwritingInfoModified[4].commission
+        assertEquals 'underwritingInfo1', -(1 + 0.1 * 0.2 * (150 * (1d - 0.1) - 30 + 5)), commission.outUnderwritingInfoModified[0].commission
+        assertEquals 'underwritingInfo2', -(2 + 0.2 * 0.2 * (150 * (1d - 0.1) - 30 + 5)), commission.outUnderwritingInfoModified[1].commission
+        assertEquals 'underwritingInfo3', -(3 + 0.3 * 0.2 * (150 * (1d - 0.1) - 30 + 5)), commission.outUnderwritingInfoModified[2].commission
+        assertEquals 'underwritingInfo4', -(4 + 0.4 * 0.2 * (150 * (1d - 0.1) - 30 + 5)), commission.outUnderwritingInfoModified[3].commission
+        assertEquals 'underwritingInfo5', -(5 + 0.5 * 0.2 * (150 * (1d - 0.1) - 30 + 5)), commission.outUnderwritingInfoModified[4].commission
     }
 }
