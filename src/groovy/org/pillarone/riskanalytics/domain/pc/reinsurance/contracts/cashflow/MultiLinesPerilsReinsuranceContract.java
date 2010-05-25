@@ -91,13 +91,13 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
         IterationScope iterationScope = simulationScope.getIterationScope();
         PeriodScope periodScope = iterationScope.getPeriodScope();
         int currentPeriod = periodScope.getCurrentPeriod();
-        if (iterationScope.getCurrentIteration() == 1) {
-            if (currentPeriod == 0) {
+        if (iterationScope.isFirstIteration()) {
+            if (periodScope.isFirstPeriod()) {
                 initSimulation();
             }
             initDuringFirstIteration();
         }
-        if (currentPeriod == 0) {
+        if (periodScope.isFirstPeriod()) {
             initIteration();
         }
         filterInChannels();
@@ -107,7 +107,7 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
 //            if (!contract.exhausted()) {  // todo(sku): think if all following lines are really not necessary if a contract is exhausted
             filterClaimsInCoveredPeriod(currentPeriod, coverOfCurrentPeriod);
 
-            if (currentPeriod == 0) {
+            if (periodScope.isFirstPeriod()) {
                 contract.initBookKeepingFiguresForIteration(outClaimsGrossInCoveredPeriod, outFilteredUnderwritingInfo);
             }
             contract.initBookKeepingFigures(outClaimsGrossInCoveredPeriod, outFilteredUnderwritingInfo);
@@ -132,7 +132,7 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
             }
         }
 
-        parmCommissionStrategy.calculateCommission(outCoveredClaims, outCoverUnderwritingInfo, currentPeriod == 0, false);
+        parmCommissionStrategy.calculateCommission(outCoveredClaims, outCoverUnderwritingInfo, periodScope.isFirstPeriod(), false);
 
         if (isSenderWired(outNetAfterCoverUnderwritingInfo)) {
             UnderwritingInfoUtilities.calculateNet(outFilteredUnderwritingInfo, outCoverUnderwritingInfo, outNetAfterCoverUnderwritingInfo);

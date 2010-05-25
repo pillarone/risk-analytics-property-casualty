@@ -51,12 +51,12 @@ public class HistoricalClaims extends Component implements PerilMarker {
 
     @Override
     protected void doCalculation() {
-        int currentIteration = iterationScope.getCurrentIteration();
-        int currentPeriod = iterationScope.getPeriodScope().getCurrentPeriod();
-        if (currentIteration == 1 && currentPeriod == 0) {
+        boolean isFirstIteration = iterationScope.isFirstIteration();
+        boolean isFirstPeriod = iterationScope.getPeriodScope().isFirstPeriod();
+        if (isFirstIteration && isFirstPeriod) {
             initSimulation();
         }
-        if (claims != null && currentPeriod == 0) {
+        if (claims != null && isFirstPeriod) {
             outClaims.addAll(claims);
         }
     }

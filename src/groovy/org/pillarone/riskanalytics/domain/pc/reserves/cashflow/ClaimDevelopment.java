@@ -45,7 +45,7 @@ public class ClaimDevelopment extends Component implements IReserveMarker {
         int currentPeriod = periodScope.getCurrentPeriod();
         Pattern payoutPattern = new Pattern(parmPayoutPattern);
         Pattern reportedPattern = new Pattern(parmReportedPattern);
-        if (currentPeriod == 0) {
+        if (periodScope.isFirstPeriod()) {
             developmentWithIBNR = !reportedPattern.isTrivial();
             processHistoricClaims(payoutPattern, reportedPattern);
         }
