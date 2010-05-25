@@ -1,13 +1,13 @@
-package org.pillarone.riskanalytics.domain.utils
+package org.pillarone.riskanalytics.domain.utils.validation
 
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
-import org.pillarone.riskanalytics.domain.utils.validation.DistributionTypeValidator
 import org.pillarone.riskanalytics.core.parameterization.validation.AbstractParameterValidationService
+import org.pillarone.riskanalytics.domain.utils.DistributionType
 
 /**
  * @author: dierk.koenig at canoo.com
  */
-class DistributionTypeTests extends GroovyTestCase {
+class DistributionTypeValidatorTests extends GroovyTestCase {
 
     AbstractParameterValidationService validator = new DistributionTypeValidator().validationService
 
