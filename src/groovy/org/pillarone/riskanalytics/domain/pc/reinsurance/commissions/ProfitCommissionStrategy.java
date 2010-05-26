@@ -66,7 +66,6 @@ public class ProfitCommissionStrategy implements ICommissionStrategy {
             }
         }
 
-        // todo(jwa): something is inconsistent here
         lossCarriedForward = lossCarriedForwardEnabled ? Math.min(0d, nextLossCarriedForward) : 0d;
     }
 }
