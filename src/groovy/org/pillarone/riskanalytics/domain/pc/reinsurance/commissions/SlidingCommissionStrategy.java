@@ -14,16 +14,21 @@ import java.util.*;
  * Assigns a commission rate and calculates the commission on ceded premium based on the loss ratio
  * (total losses / total premium).
  *
- * Internally, cutoff loss ratios are stored in commission bands as a Map with
- * loss ratio (from, the lower limit) as keys commission rates as values.
- * A first band, from -Infinity, with commission 0, is always added.
- * Intermediate bands must be given in order of increasing lower limit.
- * Each band applies to loss ratios inclusive of the lower limit, but
+ * The commission rate is a left-countinuous step-function of the loss ratio, with a finite number of jumps.
+ * Each step interval, or "commission band", is realized internally as a key-value pair in a Java Map object.
+ * Each map entry's key is the interval's left endpoint, and the map's value is the commission rate that
+ * applies for loss ratios in the interval. Because the interval's right endpoint is not stored in the map,
+ * we use the following conventions for defining & evaluating the resulting step function:
+ * <ol>
+ * <li>A first band, from -Infinity, with commission 0, is always added.
+ * <li>Intermediate bands must be given in order of increasing lower limit.
+ * <li>Each band applies to loss ratios inclusive of the lower limit, but
  * exclusive of the upper limit (which is the next band's lower limit, if any).
- * The caller must specify a last band with commission 0 if required;
- * otherwise, the last commission is used for all sufficiently large
+ * Otherwise, the last commission is used for all sufficiently large
  * loss ratios (i.e. at or above the last band's lower limit).
- * (In other words, the last band given effectively has no upper limit.)
+ * <li>The last band given effectively has no upper limit.
+ * The caller must therefore specify a last band with commission 0 under typical use cases.
+ * </ol>
  *
  * @author shartmann (at) munichre (dot) com, ben.ginsberg (at) intuitive-collaboration.com
  */
