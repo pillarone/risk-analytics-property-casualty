@@ -3,21 +3,21 @@ package org.pillarone.riskanalytics.domain.utils
 import umontreal.iro.lecuyer.probdist.Distribution
 
 /**
- * Date: 31.07.2008,  10:25:17
- * implements interface of external university Montreal package
- * in order to be used in the same way than the other predefined distributions
+ * Implements the interface of SSJ (external university of Montreal) package
+ * in order to be used in the same way as the other predefined distributions.
  *
+ * Date: 31.07.2008,  10:25:17
  * @author stefan.zumsteg@intuitive-collaboration.com
  */
 class PiecewiseLinearDistribution implements Distribution {
-    List<Double> val                //val contains a series of monotonically increasing values
-    List<Double> cdft                //cdft[i] is probability that value of random variable is <=val[i]
+
+    List<Double> val                //sortedValues contains a series of monotonically increasing values
+    List<Double> cdft                //cdft[i] is probability that value of random variable is <=sortedValues[i]
     //cdft[0]=0, , cdft[last]= 1
     private int last
     private double mean
     private double stdDev
     private double variance
-
 
     /** Constructor checks validity of arguments:
      *  - matching list length
@@ -31,15 +31,15 @@ class PiecewiseLinearDistribution implements Distribution {
         val = []
         cdft = []
         if (values.size() != cumulProb.size())
-            throw new IllegalArgumentException("Non-matching length of values and cdf in PieceWiseLinearDistribution");
+            throw new IllegalArgumentException("Nonmatching length of values and cdf in PieceWiseLinearDistribution");
         if (cumulProb[0] != 0) throw new IllegalArgumentException("First value has not cdf=0 in PieceWiseLinearDistribution");
         val.add(values[0]); cdft.add(cumulProb[0]);
         if (cumulProb[last] != 1) throw new IllegalArgumentException("Last value has not cdf=1 in PieceWiseLinearDistribution");
         for (int i = 1; i <= last; i++) {
             if (values[i] <= values[i - 1])
-                throw new IllegalArgumentException("Non increasing values in PieceWiseLinearDistribution");
+                throw new IllegalArgumentException("Nonincreasing values in PieceWiseLinearDistribution");
             if (cumulProb[i] <= cumulProb[i - 1]) {
-                throw new IllegalArgumentException("Non increasing cdf in PieceWiseLinearDistribution");
+                throw new IllegalArgumentException("Nonincreasing cdf in PieceWiseLinearDistribution");
             }
             val.add(values[i]);
             cdft.add(cumulProb[i]);
@@ -55,7 +55,7 @@ class PiecewiseLinearDistribution implements Distribution {
             double pieceProb = cdft[i] - cdft[i - 1]
             mean += pieceProb * (val[i] + val[i - 1]) / 2
 
-            meanSquare += pieceProb *  //expected value of x^2 for values between val[i-1] and val[i]
+            meanSquare += pieceProb *  //expected value of x^2 for values between sortedValues[i-1] and sortedValues[i]
                     (Math.pow(val[i], 3) - Math.pow(val[i - 1], 3)) /
                     (3 * (val[i] - val[i - 1])
                     )
@@ -79,8 +79,8 @@ class PiecewiseLinearDistribution implements Distribution {
     double cdf(double v) {
         if (v <= val[0]) return 0.0;
         if (v >= val[last]) return 1.0
-        int i = 1;                                     //first piece of val containing v
-        while (v > val[i]) {i++}                       //now we have val[i-1]<v<=val[i]
+        int i = 1;                                     //first piece of sortedValues containing v
+        while (v > val[i]) {i++}                       //now we have sortedValues[i-1]<v<=sortedValues[i]
         double pos = (v - val[i - 1]) / (val[i] - val[i - 1])    //pos is relative location of v in that interval
         return (1 - pos) * cdft[i - 1] + pos * cdft[i]
     }
@@ -95,7 +95,7 @@ class PiecewiseLinearDistribution implements Distribution {
     double getStandardDeviation() {return stdDev}
 
     double[] getParams() {
-        throw new IllegalArgumentException("Call to non-implmented getParams in PieceWiseLinearDistribution");
+        throw new IllegalArgumentException("PieceWiseLinearDistribution does not implement getParams");
         // return []    //that's another lazy alternative implementation
     }
 
