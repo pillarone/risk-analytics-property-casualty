@@ -200,7 +200,7 @@ public class ClaimFilterUtilities {
     }
 
     /**
-     * @param claims                 the list of claims to filteruninstall-plugin risk-analytics-coreuninstall-plugin risk-analytics-core
+     * @param claims                 the list of claims to filter
      * @param coveredPerils          peril markers that the filter should select
      * @param coveredContracts       reinsurance contracts the filter selects
      * @param connection             logical junction type (AND or OR), required for combined filter strategies
@@ -228,6 +228,9 @@ public class ClaimFilterUtilities {
                 }
             }
         }
+        else if (hasPerils && hasContracts && connection == null) {
+            throw new IllegalArgumentException("cannot combine filter criteria without specifying the logical connection type");
+        }
         else if (hasPerils) {
             for (ClaimDevelopmentPacket claim : claims) {
                 if (coveredPerils.contains(claim.getPeril())) {
@@ -243,7 +246,7 @@ public class ClaimFilterUtilities {
             }
         }
         else {
-            throw new IllegalArgumentException("filterClaimsByPerilContract requires a list to filter claims by");
+            throw new IllegalArgumentException("filterClaimsByPerilContract requires a nonempty list of perils or contracts (or both) to filter claims by");
         }
         return filteredClaims;
     }
