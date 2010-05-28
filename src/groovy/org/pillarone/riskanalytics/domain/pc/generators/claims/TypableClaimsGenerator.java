@@ -71,7 +71,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
     private PacketList<Claim> outClaims = new PacketList<Claim>(Claim.class);
 
     /**
-     * @return underwriting info of segments selected with parmUnderwritingInformation
+     * underwriting info of segments selected with parmUnderwritingInformation
      */
     private PacketList<UnderwritingInfo> outUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
 
@@ -267,8 +267,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
     }
 
     // todo(sku): refactor once the variate distributions are properly refactored
-
-    protected List<Double> calculateClaimsValues(List<Double> probabilites, RandomDistribution distribution, DistributionModified modification) {
+    protected List<Double> calculateClaimsValues(List<Double> probabilities, RandomDistribution distribution, DistributionModified modification) {
         Distribution dist = distribution.getDistribution();
         if (modification.getType().equals(DistributionModifier.CENSORED) || modification.getType().equals(DistributionModifier.CENSOREDSHIFT)) {
             dist = new CensoredDist(distribution.getDistribution(),
@@ -282,9 +281,9 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
                 dist = new TruncatedDist((ContinuousDistribution) distribution.getDistribution(), leftBoundary, rightBoundary);
             }
         }
-        List<Double> claimValues = new ArrayList<Double>(probabilites.size());
+        List<Double> claimValues = new ArrayList<Double>(probabilities.size());
         double shift = modification.getParameters().get("shift") == null ? 0 : (Double) modification.getParameters().get("shift");
-        for (Double probability : probabilites) {
+        for (Double probability : probabilities) {
             claimValues.add(dist.inverseF(probability) + shift);
         }
         return claimValues;

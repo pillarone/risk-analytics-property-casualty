@@ -13,7 +13,7 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
     public static final DistributionType POISSON = new DistributionType(
             "poisson", "POISSON", ["lambda": 0d])
     public static final DistributionType EXPONENTIAL = new DistributionType(
-            "exponential", "EXPONENTIAL", ["lambda": 0d])
+            "exponential", "EXPONENTIAL", ["lambda": 1d])
     public static final DistributionType NEGATIVEBINOMIAL = new DistributionType(
             "negative binomial", "NEGATIVEBINOMIAL", ["gamma": 1d, "p": 1d])
     public static final DistributionType DISCRETEEMPIRICAL = new DistributionType(
@@ -164,7 +164,7 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
                 distribution.distribution = new PoissonDist((double) (parameters.containsKey("lambda") ? parameters["lambda"] : 0))
                 break
             case DistributionType.EXPONENTIAL:
-                distribution.distribution = new ExponentialDist((double) (parameters.containsKey("lambda") ? parameters["lambda"] : 0))
+                distribution.distribution = new ExponentialDist((double) (parameters.containsKey("lambda") ? parameters["lambda"] : 1))
                 break
             case DistributionType.NEGATIVEBINOMIAL:
                 distribution.distribution = new NegativeBinomialDist((double) parameters["gamma"], (double) parameters["p"])

@@ -50,7 +50,7 @@ class DistributionTypeValidator implements IParameterizationValidator {
             ["distribution.type.error.poisson.negative.lambda", type.lambda]
         }
         validationService.register(DistributionType.EXPONENTIAL) {Map type ->
-            type.lambda < 0 ? ["distribution.type.error.exponential.negative.lambda", type.lambda] :
+            type.lambda <= 0 ? ["distribution.type.error.exponential.negative.lambda", type.lambda] :
                 true
         }
         validationService.register(DistributionType.BETA) {Map type ->
