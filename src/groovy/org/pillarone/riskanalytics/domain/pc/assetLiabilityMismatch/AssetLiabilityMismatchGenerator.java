@@ -27,7 +27,7 @@ public class AssetLiabilityMismatchGenerator extends GeneratorCachingComponent i
     private RandomDistribution parmDistribution = DistributionType.getStrategy(DistributionType.CONSTANT,
             ArrayUtils.toMap(new Object[][]{{"constant", 0d}}));
     private DistributionModified parmModification = DistributionModifier.getStrategy(DistributionModifier.NONE, Collections.emptyMap());
-    private double parmInitialVolume = 0d;
+    private double parmInitialVolume = 1d;
     private IAssetLiabilityMismatchGeneratorStrategy parmAssetLiabilityMismatchModel =
             AssetLiabilityMismatchGeneratorStrategyType.getStrategy(
                 AssetLiabilityMismatchGeneratorStrategyType.ABSOLUTE, Collections.emptyMap());
@@ -43,8 +43,11 @@ public class AssetLiabilityMismatchGenerator extends GeneratorCachingComponent i
     private void setIncurred(Claim claim) {
         IRandomNumberGenerator generator = getCachedGenerator(getParmDistribution(), getParmModification());
         Double randomFactor = (Double) generator.nextValue();
-
-        claim.setUltimate(randomFactor * parmInitialVolume);
+        if (parmInitialVolume != 0) {
+            claim.setUltimate(randomFactor * parmInitialVolume);
+        } else {
+            claim.setUltimate(randomFactor);
+        }
         SingleValuePacket initialVolume = new SingleValuePacket();
         initialVolume.setValue(parmInitialVolume);
         outInitialVolume.add(initialVolume);
