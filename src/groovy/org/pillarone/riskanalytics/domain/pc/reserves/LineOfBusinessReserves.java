@@ -29,7 +29,7 @@ public class LineOfBusinessReserves extends Component {
     // todo(sku): remove the following and related lines as soon as PMO-648 is resolved
     private PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLean = new PacketList<ClaimDevelopmentLeanPacket>(ClaimDevelopmentLeanPacket.class);
     private ConstrainedMultiDimensionalParameter parmPortions = new ConstrainedMultiDimensionalParameter(
-            GroovyUtils.convertToListOfList(new Object[]{"", 1d}),
+            GroovyUtils.toList("[[],[]]"),
             Arrays.asList(RESERVES, PORTION),
             ConstraintsFactory.getConstraints(ReservePortion.IDENTIFIER));
 

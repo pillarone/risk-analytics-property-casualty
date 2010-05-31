@@ -27,7 +27,7 @@ public class UnderwritingInfoAggregator extends Component {
 
         UnderwritingInfo grossAggregateUnderwritingInfo = UnderwritingInfoPacketFactory.createPacket();
         UnderwritingInfo cededAggregateUnderwritingInfo = UnderwritingInfoPacketFactory.createPacket();
-        if (isSenderWired(outUnderwritingInfoGross) || isSenderWired(outUnderwritingInfoNet)) {
+        if (!inUnderwritingInfoGross.isEmpty() && (isSenderWired(outUnderwritingInfoGross) || isSenderWired(outUnderwritingInfoNet))) {
             grossAggregateUnderwritingInfo = UnderwritingInfoUtilities.aggregate(inUnderwritingInfoGross);
             outUnderwritingInfoGross.add(grossAggregateUnderwritingInfo);
         }
@@ -37,7 +37,7 @@ public class UnderwritingInfoAggregator extends Component {
                 outUnderwritingInfoCeded.add(cededAggregateUnderwritingInfo);
             }
         }
-        if (isSenderWired(outUnderwritingInfoNet)) {
+        if ((!inUnderwritingInfoGross.isEmpty() || !inUnderwritingInfoCeded.isEmpty()) && isSenderWired(outUnderwritingInfoNet)) {
             outUnderwritingInfoNet.add(UnderwritingInfoUtilities.calculateNet(grossAggregateUnderwritingInfo, cededAggregateUnderwritingInfo));
         }
     }

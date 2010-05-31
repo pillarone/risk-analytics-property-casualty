@@ -23,10 +23,9 @@ public class UnderwritingLineOfBusinessComposer extends Component {
     private PacketList<UnderwritingInfo> inUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
     private PacketList<UnderwritingInfo> outUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
     private ConstrainedMultiDimensionalParameter parmPortions = new ConstrainedMultiDimensionalParameter(
-            GroovyUtils.convertToListOfList(new Object[]{"", 1d}),
+            GroovyUtils.toList("[[],[]]"),
             Arrays.asList(underwriting, portion),
-            ConstraintsFactory.getConstraints(UnderwritingPortion.IDENTIFIER)
-            );
+            ConstraintsFactory.getConstraints(UnderwritingPortion.IDENTIFIER));
 
 
     protected void doCalculation() {
