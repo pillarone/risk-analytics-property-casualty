@@ -27,9 +27,7 @@ public class MarketToLineOfBusinessClaims extends Component {
     // todo(sku): remove the following and related lines as soon as PMO-648 is resolved
     private PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLean = new PacketList<ClaimDevelopmentLeanPacket>(ClaimDevelopmentLeanPacket.class);
     private ConstrainedMultiDimensionalParameter parmPortions = new ConstrainedMultiDimensionalParameter(
-            GroovyUtils.convertToListOfList(new Object[]{"", 1d}),
-            Arrays.asList(PERIL, PORTION),
-            ConstraintsFactory.getConstraints(PerilPortion.IDENTIFIER));
+            GroovyUtils.toList("[[],[]]"), Arrays.asList(PERIL, PORTION),ConstraintsFactory.getConstraints(PerilPortion.IDENTIFIER));
 
 
     protected void doCalculation() {
