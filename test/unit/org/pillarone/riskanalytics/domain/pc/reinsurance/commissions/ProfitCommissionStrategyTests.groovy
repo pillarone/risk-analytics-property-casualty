@@ -36,7 +36,7 @@ class ProfitCommissionStrategyTests extends GroovyTestCase {
         commissionStrategy.calculateCommission claims, underwritingInfo, true, false
 
         assertEquals '# outUnderwritingInfo packets', 1, underwritingInfo.size()
-        assertEquals 'underwritingInfo100', -0.03 * (100 * (1d - 0.2) - 50 + 20), underwritingInfo[0].commission
+        assertEquals 'underwritingInfo100 commission', -0.3, underwritingInfo[0].commission
     }
 
     /**
@@ -55,12 +55,10 @@ class ProfitCommissionStrategyTests extends GroovyTestCase {
 
         commissionStrategy.calculateCommission claims, underwritingInfo, true, true // test that prior commission is added
 
-        double totalPremiumWritten = 0.03 * (100 * (1d - 0.2) - 50 + 20)
-
         assertEquals '# outUnderwritingInfo packets', 3, underwritingInfo.size()
-        assertEquals 'underwritingInfo20', -(1 + 0.2 * totalPremiumWritten), underwritingInfo[0].commission
-        assertEquals 'underwritingInfo30', -(1 + 0.3 * totalPremiumWritten), underwritingInfo[1].commission
-        assertEquals 'underwritingInfo50', -(1 + 0.5 * totalPremiumWritten), underwritingInfo[2].commission
+        assertEquals 'underwritingInfo20 commission', -1.06, underwritingInfo[0].commission
+        assertEquals 'underwritingInfo30 commission', -1.09, underwritingInfo[1].commission
+        assertEquals 'underwritingInfo50 commission', -1.15, underwritingInfo[2].commission
     }
 
     void testAddition1() {
@@ -75,7 +73,7 @@ class ProfitCommissionStrategyTests extends GroovyTestCase {
         commissionStrategy.calculateCommission claims, underwritingInfo, true, false
 
         assertEquals '# outUnderwritingInfo packets', 1, underwritingInfo.size()
-        assertEquals 'underwritingInfo100plus1', -0.03 * (100 * (1d - 0.2) - 50 + 20), underwritingInfo[0].commission
+        assertEquals 'underwritingInfo100plus1 commission', -0.3, underwritingInfo[0].commission
     }
 
     void testAddition2() {
@@ -90,7 +88,7 @@ class ProfitCommissionStrategyTests extends GroovyTestCase {
         commissionStrategy.calculateCommission claims, underwritingInfo, true, false
 
         assertEquals '# outUnderwritingInfo packets', 1, underwritingInfo.size()
-        assertEquals 'underwritingInfo200plus7', -0.03 * (200 * (1d - 0.2) - 50 + 20), underwritingInfo[0].commission, 1E-12
+        assertEquals 'underwritingInfo200plus7 commission', -2.7, underwritingInfo[0].commission, 1E-12
     }
 
     void testProfitCommissionWithPriorFixedCommission() {
@@ -105,7 +103,7 @@ class ProfitCommissionStrategyTests extends GroovyTestCase {
         commissionStrategy.calculateCommission claims, underwritingInfo, true, false
 
         assertEquals '# outUnderwritingInfo packets', 1, underwritingInfo.size()
-        assertEquals 'underwritingInfo100plus1', -0.02 * 100 - 0.03 * (100 * (1 - 0.2) - 2 - 50 + 20), underwritingInfo[0].commission
+        assertEquals 'underwritingInfo100plus1 commission', -2.24, underwritingInfo[0].commission
     }
 
     void testUnderflowProtectionBoundary() {
@@ -120,7 +118,7 @@ class ProfitCommissionStrategyTests extends GroovyTestCase {
 
         commissionStrategy.calculateCommission claims, underwritingInfo, true, false
         assertEquals '# outUnderwritingInfo packets', 1, underwritingInfo.size()
-        assertEquals 'underwritingInfo100', -0.03 * (100 * (1d - 0.2) - 60 + 20), underwritingInfo[0].commission
+        assertEquals 'underwritingInfo100 commission', 0, underwritingInfo[0].commission, 1E-10
     }
 
     void testUnderflowProtectionPastBoundary() {
@@ -136,7 +134,7 @@ class ProfitCommissionStrategyTests extends GroovyTestCase {
 
         commissionStrategy.calculateCommission claims, underwritingInfo, true, false
         assertEquals '# outUnderwritingInfo packets', 1, underwritingInfo.size()
-        assertEquals 'underwritingInfo100', -0.03 * (100 * (1d - 0.2d) - 61 + 20), underwritingInfo[0].commission
+        assertEquals 'underwritingInfo100', 0, underwritingInfo[0].commission, 1E-10
     }
 
     void testUsageWithClaimDevelopmentLeanPacket() {
@@ -145,9 +143,6 @@ class ProfitCommissionStrategyTests extends GroovyTestCase {
         ClaimDevelopmentLeanPacket claim1 = new ClaimDevelopmentLeanPacket(claimType: ClaimType.ATTRITIONAL, incurred: 30, paid: 5, reserved: 25)
         ClaimDevelopmentLeanPacket claim2 = new ClaimDevelopmentLeanPacket(claimType: ClaimType.ATTRITIONAL, incurred: 10, paid: 3, reserved: 7)
         ClaimDevelopmentLeanPacket claim3 = new ClaimDevelopmentLeanPacket(claimType: ClaimType.ATTRITIONAL, incurred: 10, paid: 2, reserved: 8)
-        //ClaimDevelopmentLeanPacket claim1 = new ClaimDevelopmentLeanPacket(claimType: ClaimType.ATTRITIONAL, incurred: 30, paid: 5)
-        //ClaimDevelopmentLeanPacket claim2 = new ClaimDevelopmentLeanPacket(claimType: ClaimType.ATTRITIONAL, incurred: 10, paid: 3)
-        //ClaimDevelopmentLeanPacket claim3 = new ClaimDevelopmentLeanPacket(claimType: ClaimType.ATTRITIONAL, incurred: 10, paid: 2)
         List claims = [claim1, claim2, claim3]
 
         UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: 0)
@@ -156,7 +151,6 @@ class ProfitCommissionStrategyTests extends GroovyTestCase {
         commissionStrategy.calculateCommission claims, underwritingInfo, true, false
 
         assertEquals '# outUnderwritingInfo packets', 1, underwritingInfo.size()
-        assertEquals 'underwritingInfo100', -0.03 * (100 * (1d - 0.2) - 50 + 20), underwritingInfo[0].commission
+        assertEquals 'underwritingInfo100', -0.3, underwritingInfo[0].commission
     }
-
 }

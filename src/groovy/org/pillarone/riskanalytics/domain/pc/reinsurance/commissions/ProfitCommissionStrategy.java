@@ -50,9 +50,10 @@ public class ProfitCommissionStrategy implements ICommissionStrategy {
             totalPremiumWritten += underwritingInfo.getPremiumWritten();
         }
         double fixedCommission = commissionRatio * totalPremiumWritten; // calculate 'prior' fixed commission
-        double nextLossCarriedForward = totalPremiumWritten * (1d - costRatio) - fixedCommission - incurredClaims;
-        double commissionableProfit = Math.max(0d, nextLossCarriedForward + lossCarriedForward);
+        double currentProfit = totalPremiumWritten * (1d - costRatio) - fixedCommission - incurredClaims;
+        double commissionableProfit = Math.max(0d, currentProfit - lossCarriedForward);
         double totalCommission =  fixedCommission + profitCommissionRatio * commissionableProfit;
+        lossCarriedForward = lossCarriedForwardEnabled ? Math.max(0d, lossCarriedForward - currentProfit) : 0d;
 
         if (isAdditive) {
             for (UnderwritingInfo underwritingInfo : underwritingInfos) {
@@ -65,7 +66,5 @@ public class ProfitCommissionStrategy implements ICommissionStrategy {
                 underwritingInfo.setCommission(-underwritingInfo.getPremiumWritten() * totalCommission / totalPremiumWritten);
             }
         }
-
-        lossCarriedForward = lossCarriedForwardEnabled ? Math.min(0d, nextLossCarriedForward) : 0d;
     }
 }
