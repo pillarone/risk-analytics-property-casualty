@@ -11,7 +11,6 @@ import org.pillarone.riskanalytics.domain.utils.RandomDistribution
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-// todo: extend with additional tests
 class ClaimsGeneratorStrategyValidatorTests extends GroovyTestCase {
 
     AbstractParameterValidationService validator = new ClaimsGeneratorStrategyValidator().validationService

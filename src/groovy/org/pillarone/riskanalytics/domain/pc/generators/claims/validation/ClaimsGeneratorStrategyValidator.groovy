@@ -21,7 +21,6 @@ import umontreal.iro.lecuyer.probdist.Distribution
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-// todo: extend implementation to cover all cases, try to avoid duplicate implementation for different claims model types
 class ClaimsGeneratorStrategyValidator implements IParameterizationValidator {
 
     private static Log LOG = LogFactory.getLog(ClaimsGeneratorStrategyValidator)
@@ -41,7 +40,7 @@ class ClaimsGeneratorStrategyValidator implements IParameterizationValidator {
         for (ParameterHolder parameter in parameters) {
             if (parameter instanceof ParameterObjectParameterHolder) {
                 IParameterObjectClassifier classifier = parameter.getClassifier()
-                if (classifier instanceof IClaimsGeneratorStrategy) {
+                if (classifier instanceof ClaimsGeneratorType) {
                     if (LOG.isDebugEnabled()) {
                         LOG.debug "validating ${parameter.path}"
                     }
