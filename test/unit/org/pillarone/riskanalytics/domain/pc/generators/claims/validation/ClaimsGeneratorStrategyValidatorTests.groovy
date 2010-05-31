@@ -5,6 +5,8 @@ import org.pillarone.riskanalytics.domain.pc.generators.claims.ClaimsGeneratorTy
 
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
+import org.pillarone.riskanalytics.domain.utils.DistributionModified
+import org.pillarone.riskanalytics.domain.utils.RandomDistribution
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -28,6 +30,25 @@ class ClaimsGeneratorStrategyValidatorTests extends GroovyTestCase {
             [claimsSizeDistribution: DistributionType.getStrategy(DistributionType.LOGNORMAL_MU_SIGMA, ['mu': 0d, 'sigma': 1d]),
              claimsSizeModification: DistributionModifier.getStrategy(DistributionModifier.TRUNCATED, ['min': 1000, 'max': 1001])])
         assertEquals 1, errors.size()
+    }
+
+    void testAllStrategies() {
+
+        RandomDistribution claimsSizeDistribution = DistributionType.getStrategy(DistributionType.LOGNORMAL_MU_SIGMA, ['mu': 0d, 'sigma': 1d])
+        DistributionModified largeModification = DistributionModifier.getStrategy(DistributionModifier.TRUNCATED, ['min': 1000, 'max': 1001])
+        DistributionModified smallModification = DistributionModifier.getStrategy(DistributionModifier.TRUNCATED, ['min': -1E3, 'max': 1001])
+
+        ClaimsGeneratorType.all.asList().each {ClaimsGeneratorType claimsGeneratorType ->
+            def errors = validator.validate(claimsGeneratorType, [
+                    claimsSizeDistribution: claimsSizeDistribution,
+                    claimsSizeModification: largeModification ])
+            assertEquals claimsGeneratorType.toString()+" validator checks truncated support", 1, errors.size()
+
+            errors = validator.validate(claimsGeneratorType, [
+                    claimsSizeDistribution: claimsSizeDistribution,
+                    claimsSizeModification: smallModification ])
+            assertEquals claimsGeneratorType.toString()+" validator checks truncated support", 0, errors.size()
+        }
     }
 }
 

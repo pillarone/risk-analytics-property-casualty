@@ -17,7 +17,7 @@ import org.pillarone.riskanalytics.domain.pc.generators.claims.ClaimsGeneratorTy
 import umontreal.iro.lecuyer.probdist.Distribution
 
 /**
- * This validator focus on valid combinations of distributions and modifications.
+ * This validator focuses on valid combinations of distributions and modifications.
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
@@ -57,21 +57,44 @@ class ClaimsGeneratorStrategyValidator implements IParameterizationValidator {
     }
 
     private void registerConstraints() {
+        validationService.register(ClaimsGeneratorType.NONE) {Map type ->
+            return checkArea(type)
+        }
         validationService.register(ClaimsGeneratorType.ATTRITIONAL) {Map type ->
-            Distribution distribution = type.claimsSizeDistribution.distribution
-            DistributionModified modification = type.claimsSizeModification
+            return checkArea(type)
+        }
+        validationService.register(ClaimsGeneratorType.ATTRITIONAL_WITH_DATE) {Map type ->
+            return checkArea(type)
+        }
+        validationService.register(ClaimsGeneratorType.FREQUENCY_AVERAGE_ATTRITIONAL) {Map type ->
+            return checkArea(type)
+        }
+        validationService.register(ClaimsGeneratorType.FREQUENCY_SEVERITY) {Map type ->
+            return checkArea(type)
+        }
+        validationService.register(ClaimsGeneratorType.OCCURRENCE_AND_SEVERITY) {Map type ->
+            return checkArea(type)
+        }
+        validationService.register(ClaimsGeneratorType.EXTERNAL_SEVERITY) {Map type ->
+            return checkArea(type)
+        }
+    }
 
-            if (modification.type == DistributionModifier.NONE
-                || modification.type == DistributionModifier.SHIFT) {
-              return
-            }
+    private def checkArea(Map type) {
+        Distribution distribution = type.claimsSizeDistribution.distribution
+        DistributionModified modification = type.claimsSizeModification
 
-            double leftBoundary = (Double) modification.getParameters().get("min");
-            double rightBoundary = (Double) modification.getParameters().get("max");
-            if (Math.abs(distribution.cdf(rightBoundary) - distribution.cdf(leftBoundary)) < 1E-8) {
-                return ["claims.model.error.restricted.density.function.not.normalizable.for.claims.generator"]
-            }
+        if (modification.type == DistributionModifier.NONE ||
+            modification.type == DistributionModifier.SHIFT) {
             return
         }
+
+        double leftBoundary = (Double) modification.getParameters().get("min");
+        double rightBoundary = (Double) modification.getParameters().get("max");
+        // todo: if cdf is expensive, split truncated cases to use getArea (and censored..?)
+        if (Math.abs(distribution.cdf(rightBoundary) - distribution.cdf(leftBoundary)) < 1E-8) {
+            return ["claims.model.error.restricted.density.function.not.normalizable.for.claims.generator"]
+        }
+        return
     }
 }
