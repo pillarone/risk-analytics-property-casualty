@@ -10,6 +10,7 @@ import org.pillarone.riskanalytics.domain.utils.constraints.DoubleConstraints;
 
 import java.util.*;
 
+
 /**
  * Assigns a commission rate and calculates the commission on ceded premium based on the loss ratio
  * (total losses / total premium).
@@ -98,10 +99,6 @@ public class SlidingCommissionStrategy implements ICommissionStrategy {
         commissionRates.put(previousLossRatio, 0d);
         for (int row = 1; row <= numberOfBands; row++) {
             double lossRatio = (Double) commissionBands.getValueAt(row, columnLossRatio);
-            if (lossRatio <= previousLossRatio) {
-                throw new IllegalArgumentException("Loss ratios must be strictly increasing");
-            }
-
             double commission = (Double) commissionBands.getValueAt(row, columnCommission);
             lowerBandLimits.add(lossRatio);
             commissionRates.put(lossRatio, commission);
