@@ -11,11 +11,10 @@ import org.pillarone.riskanalytics.core.parameterization.validation.ValidatorReg
 import org.pillarone.riskanalytics.domain.utils.validation.DistributionTypeValidator
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.validation.CommissionStrategyTypeValidator
 import org.pillarone.riskanalytics.domain.pc.generators.claims.validation.ClaimsGeneratorStrategyValidator
-//import org.pillarone.riskanalytics.domain.pc.generators.claims.validation.ClaimsGeneratorStrategyValidator
 
 class RiskAnalyticsPropertyCasualtyGrailsPlugin {
     // the plugin version
-    def version = "0.6.3.4"
+    def version = "1.0-ALPHA"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.2.0 > *"
     // the other plugins this plugin depends on
@@ -60,7 +59,8 @@ class RiskAnalyticsPropertyCasualtyGrailsPlugin {
 
         ValidatorRegistry.addValidator(new DistributionTypeValidator())
         ValidatorRegistry.addValidator(new CommissionStrategyTypeValidator())
-        ValidatorRegistry.addValidator(new ClaimsGeneratorStrategyValidator())
+        // todo(sku): re-enable once its working correctly
+//        ValidatorRegistry.addValidator(new ClaimsGeneratorStrategyValidator())
     }
 
     def onChange = {event ->
