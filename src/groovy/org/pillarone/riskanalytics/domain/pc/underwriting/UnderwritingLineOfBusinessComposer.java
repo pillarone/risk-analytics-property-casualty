@@ -38,13 +38,13 @@ public class UnderwritingLineOfBusinessComposer extends Component {
                 int row = parmPortions.getColumnByName(underwriting).indexOf(originName);
                 if (row > -1) {
                     UnderwritingInfo lobUnderwritingInfo = UnderwritingInfoPacketFactory.copy(underwritingInfo);
-                    lobUnderwritingInfo.originalUnderwritingInfo = underwritingInfo;
+                    // error message in MarketUnderwritingInfoMerger (reinsurance program) if reference to same underwritingInfo
+                    lobUnderwritingInfo.setOriginalUnderwritingInfo(lobUnderwritingInfo);
                     lobUnderwritingInfo.premiumWritten *= (Double) parmPortions.getValueAt(row + 1, portionColumn);
                     lobUnderwritingInfo.premiumWrittenAsIf *= (Double) parmPortions.getValueAt(row + 1, portionColumn);
                     lobUnderwritingInfo.sumInsured *= (Double) parmPortions.getValueAt(row + 1, portionColumn);
                     lobUnderwritingInfo.maxSumInsured *= (Double) parmPortions.getValueAt(row + 1, portionColumn);
                     lobUnderwritingInfo.commission *= (Double) parmPortions.getValueAt(row + 1, portionColumn);
-                    lobUnderwritingInfo.originalUnderwritingInfo = underwritingInfo;
                     lobUnderwritingInfo.origin = lineOfBusiness;
                     lobUnderwritingInfo.setLineOfBusiness((LobMarker) lineOfBusiness);
                     lobUnderwritingInfos.add(lobUnderwritingInfo);
