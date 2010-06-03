@@ -52,7 +52,7 @@ public class CommissionStrategyTypeValidator implements IParameterizationValidat
         validationService.register(CommissionStrategyType.SLIDINGCOMMISSION) {Map type ->
             double firstLossRatio = type.commissionBands.getValueAt(1, 1)
             if (firstLossRatio == 0) return true
-            ["commission.sliding.error.sliding.first.supporting.point.not.zero", firstLossRatio]
+            ["commission.sliding.error.first.supporting.point.not.zero", firstLossRatio]
         }
         validationService.register(CommissionStrategyType.SLIDINGCOMMISSION) {Map type ->
             double[] lossRatios = type.commissionBands.getColumnByName(SlidingCommissionStrategy.LOSS_RATIO)
@@ -74,7 +74,7 @@ public class CommissionStrategyTypeValidator implements IParameterizationValidat
             }
             for (int i = 0; i < commissions.length; i++) {
                 if (commissions[i] < 0) {
-                    return ["commission.sliding.error.commissions.not.non-negative", i, commissions[i]]
+                    return ["commission.sliding.error.commissions.negative", i, commissions[i]]
                 }
             }
             return true

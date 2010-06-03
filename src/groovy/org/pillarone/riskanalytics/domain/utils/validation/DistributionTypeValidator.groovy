@@ -50,18 +50,18 @@ class DistributionTypeValidator implements IParameterizationValidator {
             ["distribution.type.error.poisson.negative.lambda", type.lambda]
         }
         validationService.register(DistributionType.EXPONENTIAL) {Map type ->
-            type.lambda <= 0 ? ["distribution.type.error.exponential.negative.lambda", type.lambda] :
+            type.lambda <= 0 ? ["distribution.type.error.exponential.non-positive.lambda", type.lambda] :
                 true
         }
         validationService.register(DistributionType.BETA) {Map type ->
-            type.alpha < 0 ? ["distribution.type.error.exponential.negative.alpha", type.alpha] :
-                type.beta < 0 ? ["distribution.type.error.exponential.negative.beta", type.beta] :
+            type.alpha <= 0 ? ["distribution.type.error.beta.non-positive.alpha", type.alpha] :
+                type.beta <= 0 ? ["distribution.type.error.beta.non-positive.beta", type.beta] :
                     true
         }
 
         validationService.register(DistributionType.NEGATIVEBINOMIAL) {Map type ->
             if (type.gamma > 0) return true
-            ["distribution.tpye.error.negativebinomial.gamma.negative.or.zero", type.gamma]
+            ["distribution.tpye.error.negativebinomial.non-positive.gamma", type.gamma]
         }
         validationService.register(DistributionType.NEGATIVEBINOMIAL) {Map type ->
             if ((0.0..1.0).containsWithinBounds(type.p)) return true
@@ -91,11 +91,11 @@ class DistributionTypeValidator implements IParameterizationValidator {
         validationService.register(DistributionType.DISCRETEEMPIRICALCUMULATIVE) {Map type ->
             double[] values = type.discreteEmpiricalCumulativeValues.getColumnByName('observations')
             if (!values) {
-                return ["distribution.type.error.discreteempiricalcumulative.observations.empty"]
+                return ["distribution.type.error.discreteempirical.cumulative.observations.empty"]
             }
             for (int i = 1; i < values.length; i++) {
                 if (values[i - 1] > values[i]) {
-                    return ["distribution.type.error.discreteempiricalcumulative.observations.not.increasing", i, values[i - 1], values[i]]
+                    return ["distribution.type.error.discreteempirical.cumulative.observations.not.increasing", i, values[i - 1], values[i]]
                 }
             }
             return true
@@ -103,38 +103,38 @@ class DistributionTypeValidator implements IParameterizationValidator {
         validationService.register(DistributionType.DISCRETEEMPIRICALCUMULATIVE) {Map type ->
             double[] values = type.discreteEmpiricalCumulativeValues.getColumnByName('cumulative probabilities')
             if (!values) {
-                return ["distribution.type.error.discreteempiricalcumulative.probabilities.empty"]
+                return ["distribution.type.error.discreteempirical.cumulative.probabilities.empty"]
             }
             for (int i = 1; i < values.length; i++) {
                 if (values[i - 1] > values[i]) {
-                    return ["distribution.type.error.discreteempiricalcumulative.probabilities.not.increasing", i, values[i - 1], values[i]]
+                    return ["distribution.type.error.discreteempirical.cumulative.probabilities.not.increasing", i, values[i - 1], values[i]]
                 }
             }
             if (!isCloseEnough(values[-1], 1d)) {
-                return ["distribution.type.error.discreteempiricalcumulative.probability.last.value.not.1", values[values.length - 1]]
+                return ["distribution.type.error.discreteempirical.cumulative.probability.last.value.not.1", values[values.length - 1]]
             }
             return true
         }
         validationService.register(DistributionType.NORMAL) {Map type ->
             if (type.stDev > 0) return true
-            ["distribution.type.error.normal.sigma.negative.or.zero", type.stDev]
+            ["distribution.type.error.normal.sigma.non-positive", type.stDev]
         }
         validationService.register(DistributionType.LOGNORMAL) {Map type ->
             if (type.stDev > 0) return true
-            ["distribution.type.error.lognormal.sigma.negative.or.zero", type.stDev]
+            ["distribution.type.error.lognormal.sigma.non-positive", type.stDev]
         }
         // todo(sku): check for further restrictions
         validationService.register(DistributionType.LOGNORMAL_MU_SIGMA) {Map type ->
             if (type.sigma > 0) return true
-            ["distribution.type.error.lognormal_mu_sigma.sigma.negative.or.zero", type.sigma]
+            ["distribution.type.error.lognormal_mu_sigma.sigma.non-positive", type.sigma]
         }
         validationService.register(DistributionType.PARETO) {Map type ->
             if (type.alpha > 0) return true
-            ["distribution.type.error.pareto.alpha.negative.or.zero", type.alpha]
+            ["distribution.type.error.pareto.alpha.non-positive", type.alpha]
         }
         validationService.register(DistributionType.PARETO) {Map type ->
             if (type.beta > 0) return true
-            ["distribution.type.error.pareto.beta.negative.or.zero", type.beta]
+            ["distribution.type.error.pareto.beta.non-positive", type.beta]
         }
         validationService.register(DistributionType.UNIFORM) {Map type ->
             if (type.a < type.b) return true
@@ -153,13 +153,13 @@ class DistributionTypeValidator implements IParameterizationValidator {
             return true
         }
         validationService.register(DistributionType.PIECEWISELINEAR) {Map type ->
-            double[] cdf = type.supportPoints.getColumnByName('cummulative probabilities')
+            double[] cdf = type.supportPoints.getColumnByName('cumulative probabilities')
             if (!cdf) {
-                return ["distribution.type.error.piecewiselinear.cummulative.probabilities.empty"]
+                return ["distribution.type.error.piecewiselinear.cdf.probabilities.empty"]
             }
             for (int i = 1; i < cdf.length; i++) {
                 if (cdf[i - 1] > cdf[i]) {
-                    return ["distribution.type.error.piecewiselinear.cummulative.probabilities.not.increasing", i, cdf[i - 1], cdf[i]]
+                    return ["distribution.type.error.piecewiselinear.cdf.probabilities.not.increasing", i, cdf[i - 1], cdf[i]]
                 }
             }
             if (!isCloseEnough(cdf[0], 0d)) {
@@ -173,11 +173,11 @@ class DistributionTypeValidator implements IParameterizationValidator {
         validationService.register(DistributionType.PIECEWISELINEAREMPIRICAL) {Map type ->
             double[] values = type.observations.getColumnByName('observations')
             if (!values) {
-                return ["distribution.type.error.piecewiselinearempirical.observations.empty"]
+                return ["distribution.type.error.piecewiselinear.empirical.observations.empty"]
             }
             for (int i = 1; i < values.length; i++) {
                 if (values[i - 1] > values[i]) {
-                    return ["distribution.type.error.piecewiselinear.observations.not.increasing", i, values[i - 1], values[i]]
+                    return ["distribution.type.error.piecewiselinear.empirical.observations.not.increasing", i, values[i - 1], values[i]]
                 }
             }
             return true
@@ -188,11 +188,11 @@ class DistributionTypeValidator implements IParameterizationValidator {
         }
         validationService.register(DistributionType.CHISQUAREDIST) {Map type ->
             if (type.n > 0) return true
-            ["distribution.type.error.chisquare.n.negative.or.zero", type.n]
+            ["distribution.type.error.chisquare.n.non-positive", type.n]
         }
         validationService.register(DistributionType.STUDENTDIST) {Map type ->
             if (type.n > 0) return true
-            ["distribution.type.error.student.n.negative.or.zero", type.n]
+            ["distribution.type.error.student.n.non-positive", type.n]
         }
         validationService.register(DistributionType.BINOMIALDIST) {Map type ->
             if ((0.0..1.0).containsWithinBounds(type.p)) return true
@@ -200,15 +200,15 @@ class DistributionTypeValidator implements IParameterizationValidator {
         }
         validationService.register(DistributionType.BINOMIALDIST) {Map type ->
             if (type.n > 0) return true
-            ["distribution.tpye.error.binomial.n.negative.or.zero", type.n]
+            ["distribution.tpye.error.binomial.n.non-positive", type.n]
         }
         validationService.register(DistributionType.INVERSEGAUSSIANDIST) {Map type ->
             if (type.mu > 0) return true
-            ["distribution.type.error.inversegaussian.mu.negative.or.zero", type.mu]
+            ["distribution.type.error.inversegaussian.mu.non-positive", type.mu]
         }
         validationService.register(DistributionType.INVERSEGAUSSIANDIST) {Map type ->
             if (type.lambda > 0) return true
-            ["distribution.type.error.inversegaussian.lambda.negative.or.zero", type.lambda]
+            ["distribution.type.error.inversegaussian.lambda.non-positive", type.lambda]
         }
         validationService.register(DistributionType.CONSTANTS) {Map type ->
             double[] values = type.constants.getColumnByName('constants')
