@@ -94,7 +94,7 @@ class RandomNumberGeneratorTests extends GroovyTestCase {
         double[] probs = [0,    0.1,  0.3,  0.6,   1.0]
         IRandomNumberGenerator generator = RandomNumberGeneratorFactory.getGenerator(
                 DistributionType.getStrategy(DistributionType.PIECEWISELINEAR,
-                        ["supportPoints": new TableMultiDimensionalParameter([vals.toList(), probs.toList()], ["values", "cummulative probabilities"])]))
+                        ["supportPoints": new TableMultiDimensionalParameter([vals.toList(), probs.toList()], ["values", "cumulative probabilities"])]))
         List<Double> list1=[]
         for (int i=0;i<1000;i++) list1.add(generator.nextValue())
         // list1.sort()
