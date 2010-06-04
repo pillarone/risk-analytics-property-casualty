@@ -90,7 +90,7 @@ public class AggregatedDrillDownCollectingModeStrategy implements ICollectingMod
                 result.setIteration(packetCollector.getSimulationScope().getIterationScope().getCurrentIteration());
                 result.setPeriod(packetCollector.getSimulationScope().getIterationScope().getPeriodScope().getCurrentPeriod());
                 result.setPath(packetCollector.getSimulationScope().getMappingCache().lookupPath(path));
-                result.setCollector(packetCollector.getSimulationScope().getMappingCache().lookupCollector(AbstractBulkInsert.DEFAULT_COLLECTOR_NAME));
+                result.setCollector(packetCollector.getSimulationScope().getMappingCache().lookupCollector(packetCollector.getMode().getIdentifier()));
                 result.setField(packetCollector.getSimulationScope().getMappingCache().lookupField(fieldName));
                 result.setValueIndex(0);
                 result.setValue(value);
