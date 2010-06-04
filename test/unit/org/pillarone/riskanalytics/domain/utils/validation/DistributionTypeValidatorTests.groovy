@@ -117,13 +117,13 @@ class DistributionTypeValidatorTests extends GroovyTestCase {
     void testPieceWiseLinearValidator() {
         def defaultPieceWiseLinear = DistributionType.PIECEWISELINEAR
         assertEquals 0, validator.validate(defaultPieceWiseLinear, [supportPoints: new TableMultiDimensionalParameter(
-                [[0.0, 1.0], [0.0, 1.0]], ["values", "cummulative probabilities"])]).size()
+                [[0.0, 1.0], [0.0, 1.0]], ["values", "cumulative probabilities"])]).size()
     }
 
     void testFailingPieceWiseLinearValidator() {
         def pieceWiseLinearValuesNotIncr = DistributionType.PIECEWISELINEAR
         def result = validator.validate(pieceWiseLinearValuesNotIncr, [supportPoints: new TableMultiDimensionalParameter(
-                [[2.0, 1.0], [0.0, 1.0]], ["values", "cummulative probabilities"])])
+                [[2.0, 1.0], [0.0, 1.0]], ["values", "cumulative probabilities"])])
         assertNotNull result
         assertEquals 1, result.size()
         assert result[0].msg instanceof String

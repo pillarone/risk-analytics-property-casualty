@@ -33,7 +33,7 @@ class CommissionStrategyTypeValidatorTests extends GroovyTestCase {
                         ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))])
         assertNotNull errors
         assertEquals 'one error message', 1, errors.size()
-        assertEquals 'first loss ratio not null', 'commission.sliding.error.sliding.first.supporting.point.not.zero', errors[0].msg
+        assertEquals 'first loss ratio not null', 'commission.sliding.error.first.supporting.point.not.zero', errors[0].msg
     }
 
     void testSlidingCommissionValidatorAllCriteriasFail() {
@@ -45,9 +45,9 @@ class CommissionStrategyTypeValidatorTests extends GroovyTestCase {
                         ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))])
         assertNotNull errors
         assertEquals 'one error message', 4, errors.size()
-        assertEquals 'first loss ratio not null', 'commission.sliding.error.sliding.first.supporting.point.not.zero', errors[0].msg
+        assertEquals 'first loss ratio not null', 'commission.sliding.error.first.supporting.point.not.zero', errors[0].msg
         assertEquals 'loss ratio not increasing', 'commission.sliding.error.loss.ratios.not.strictly.increasing', errors[1].msg
-        assertEquals 'commissions not non-negative', 'commission.sliding.error.commissions.not.non-negative', errors[2].msg
+        assertEquals 'commissions negative', 'commission.sliding.error.commissions.negative', errors[2].msg
         assertEquals 'commissions not decreasing', 'commission.sliding.error.commissions.not.decreasing', errors[3].msg
     }
 
