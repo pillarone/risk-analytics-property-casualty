@@ -37,7 +37,7 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
     public static final DistributionType PIECEWISELINEAREMPIRICAL = new DistributionType(
             "piecewise linear empirical", "PIECEWISELINEAREMPIRICAL", ["observations": new TableMultiDimensionalParameter([0d, 1d], ['observations'])])
     public static final DistributionType PIECEWISELINEAR = new DistributionType(
-            "piecewise linear", "PIECEWISELINEAR", ["supportPoints": new TableMultiDimensionalParameter([[0d, 1d], [0d, 1d]], ['values', 'cummulative probabilities'])])
+            "piecewise linear", "PIECEWISELINEAR", ["supportPoints": new TableMultiDimensionalParameter([[0d, 1d], [0d, 1d]], ['values', 'cumulative probabilities'])])
     public static final DistributionType TRIANGULARDIST = new DistributionType(
             "triangular dist", "TRIANGULARDIST", ["a": 0d, "b": 1d, "m": 0.01])
     public static final DistributionType CHISQUAREDIST = new DistributionType(
