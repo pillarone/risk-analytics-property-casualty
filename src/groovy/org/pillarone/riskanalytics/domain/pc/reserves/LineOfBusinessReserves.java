@@ -44,7 +44,7 @@ public class LineOfBusinessReserves extends Component {
                 int row = parmPortions.getColumnByName(RESERVES).indexOf(originName);
                 if (row > -1) {
                     Claim lobClaim = claim.copy();
-                    lobClaim.setOriginalClaim(claim);
+                    lobClaim.setOriginalClaim(lobClaim);
                     lobClaim.origin = lineOfBusiness;
                     lobClaim.setLineOfBusiness((LobMarker) lineOfBusiness);
                     lobClaim.scale((Double) parmPortions.getValueAt(row + 1, portionColumn));
