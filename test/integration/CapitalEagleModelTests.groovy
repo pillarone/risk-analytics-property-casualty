@@ -15,7 +15,8 @@ class CapitalEagleModelTests extends ModelTest {
         'newCollectors'
     }
 
-    protected boolean shouldCompareResults() {
-        true
-    }
+    // todo: PMO-654
+//    protected boolean shouldCompareResults() {
+//        true
+//    }
 }

@@ -15,7 +15,8 @@ class PodraModelTests extends ModelTest {
         "One Line Example"
     }
 
-    protected boolean shouldCompareResults() {
-        true
-    }
+    // todo: PMO-654
+//    protected boolean shouldCompareResults() {
+//        true
+//    }
 }
