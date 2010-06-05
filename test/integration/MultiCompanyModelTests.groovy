@@ -14,4 +14,8 @@ class MultiCompanyModelTests extends ModelTest {
     String getParameterDisplayName() {
         "Three Companies"
     }
+
+    protected boolean shouldCompareResults() {
+        true
+    }
 }
