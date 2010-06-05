@@ -15,8 +15,7 @@ class PodraPModelTests extends ModelTest {
         "No Reinsurance Contracts"
     }
 
-    //todo(bgi):investigate
-//    protected boolean shouldCompareResults() {
-//        true
-//    }
+    protected boolean shouldCompareResults() {
+        true
+    }
 }

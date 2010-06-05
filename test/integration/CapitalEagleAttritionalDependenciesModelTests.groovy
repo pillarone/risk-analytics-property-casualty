@@ -19,8 +19,7 @@ class CapitalEagleAttritionalDependenciesModelTests extends ModelTest {
         return "CapitalEagleAttritionalDependencies4Parameters"
     }
 
-    // todo(sku): works locally but not in hudson
-//    protected boolean shouldCompareResults() {
-//        true
-//    }
+    protected boolean shouldCompareResults() {
+        true
+    }
 }

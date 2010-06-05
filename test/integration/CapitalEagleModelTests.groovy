@@ -15,8 +15,7 @@ class CapitalEagleModelTests extends ModelTest {
         'newCollectors'
     }
 
-    // todo(sku): works locally but not in hudson
-//    protected boolean shouldCompareResults() {
-//        true
-//    }
+    protected boolean shouldCompareResults() {
+        true
+    }
 }

@@ -15,8 +15,7 @@ class PodraModelTests extends ModelTest {
         "One Line Example"
     }
 
-    //todo(bgi):investigate
-//    protected boolean shouldCompareResults() {
-//        true
-//    }
+    protected boolean shouldCompareResults() {
+        true
+    }
 }
