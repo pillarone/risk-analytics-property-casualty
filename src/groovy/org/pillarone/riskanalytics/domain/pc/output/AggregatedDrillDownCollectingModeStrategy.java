@@ -83,10 +83,7 @@ public class AggregatedDrillDownCollectingModeStrategy implements ICollectingMod
                     continue;
                 }
                 SingleValueResultPOJO result = new SingleValueResultPOJO();
-                // correct syntax for master branch (0.6)
                 result.setSimulationRun(packetCollector.getSimulationScope().getSimulation().getSimulationRun());
-                // correct syntax for 0.5.x branch
-//                result.setSimulationRun(packetCollector.getSimulationScope().getSimulationRun());
                 result.setIteration(packetCollector.getSimulationScope().getIterationScope().getCurrentIteration());
                 result.setPeriod(packetCollector.getSimulationScope().getIterationScope().getPeriodScope().getCurrentPeriod());
                 result.setPath(packetCollector.getSimulationScope().getMappingCache().lookupPath(path));
@@ -112,26 +109,21 @@ public class AggregatedDrillDownCollectingModeStrategy implements ICollectingMod
 
         for (Claim claim : claims) {
             String originPath = packetCollector.getSimulationScope().getStructureInformation().getPath(claim);
-//            System.out.println("++P++" + originPath);
             addToMap(claim, originPath, resultMap);
             if (claim.sender instanceof LobMarker && claim.getPeril() != null) {
                 String perilPathExtension = claim.getPeril().getName();
-//                System.out.println(" L " +perilPathExtension + "(LobMarker)");
                 addToMap(claim, getComponentPath(), perilPathExtension, resultMap);
             }
             if (claim.sender instanceof LobMarker && claim.getReinsuranceContract() != null) {
                 String contractPathExtension = claim.getReinsuranceContract().getName();
-//                System.out.println(" L " +contractPathExtension + "(LobMarker)");
                 addToMap(claim, getComponentPath(), contractPathExtension, resultMap);
             }
             if (claim.sender instanceof IReinsuranceContractMarker && claim.getLineOfBusiness() != null) {
                 String lobPathExtension = claim.getLineOfBusiness().getName();
-//                System.out.println(" R " +lobPathExtension + "(IReinsuranceContractMarker)");
                 addToMap(claim, getComponentPath(), lobPathExtension, resultMap);
             }
             if (claim.sender instanceof IReinsuranceContractMarker && claim.getPeril() != null) {
                 String perilPathExtension = claim.getPeril().getName();
-//                System.out.println(" R " +perilPathExtension + "(IReinsuranceContractMarker)");
                 addToMap(claim, getComponentPath(), perilPathExtension, resultMap);
             }
         }
