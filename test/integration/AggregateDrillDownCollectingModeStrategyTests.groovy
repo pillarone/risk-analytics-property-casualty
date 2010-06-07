@@ -5,6 +5,8 @@ import org.pillarone.riskanalytics.core.output.FieldMapping
 import org.pillarone.riskanalytics.core.output.SingleValueResult
 import org.pillarone.riskanalytics.core.output.DBOutput
 import org.pillarone.riskanalytics.core.output.ICollectorOutputStrategy
+import org.pillarone.riskanalytics.core.output.CollectorMapping
+import org.pillarone.riskanalytics.core.output.AggregatedCollectingModeStrategy
 
 class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
 
@@ -34,6 +36,11 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
 
     int getIterationCount() {
         1
+    }
+
+    void setUp() {
+        super.setUp()
+        assertNotNull new CollectorMapping(collectorName: AggregatedCollectingModeStrategy.IDENTIFIER).save()
     }
 
     void postSimulationEvaluation() {
