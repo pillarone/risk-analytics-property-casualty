@@ -9,17 +9,17 @@ displayName = 'newCollectors'
 components {
     mtpl {
         subClaimsGenerator {
-            outClaims = SingleValueCollectingModeStrategy.IDENTIFIER
+            outClaims = AggregatedCollectingModeStrategy.IDENTIFIER
         }
     }
     motorHull {
         subClaimsGenerator {
-            outClaims = SingleValueCollectingModeStrategy.IDENTIFIER
+            outClaims = AggregatedCollectingModeStrategy.IDENTIFIER
         }
     }
     personalAccident {
         subClaimsGenerator {
-            outClaims = SingleValueCollectingModeStrategy.IDENTIFIER
+            outClaims = AggregatedCollectingModeStrategy.IDENTIFIER
         }
     }
     property {

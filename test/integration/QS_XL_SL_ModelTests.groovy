@@ -7,7 +7,7 @@ class QS_XL_SL_ModelTests extends ModelTest {
         QS_XL_SL_Model
     }
 
-//    protected boolean shouldCompareResults() {
-//        true
-//    }
+    protected boolean shouldCompareResults() {
+        true
+    }
 }

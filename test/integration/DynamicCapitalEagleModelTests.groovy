@@ -15,4 +15,7 @@ class DynamicCapitalEagleModelTests extends ModelTest {
         return "Reinsurance Contracts Details"
     }
 
+    protected boolean shouldCompareResults() {
+        true
+    }
 }

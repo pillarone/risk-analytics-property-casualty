@@ -7,4 +7,8 @@ class ReinsuranceComparisonModelTests extends ModelTest {
         ReinsuranceComparisonModel
     }
 
+    protected boolean shouldCompareResults() {
+        true
+    }
+
 }
