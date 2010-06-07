@@ -19,8 +19,7 @@ class CapitalEagleAttritionalDependenciesModelTests extends ModelTest {
         return "CapitalEagleAttritionalDependencies4Parameters"
     }
 
-    // todo: PMO-654
-//    protected boolean shouldCompareResults() {
-//        true
-//    }
+    protected boolean shouldCompareResults() {
+        true
+    }
 }

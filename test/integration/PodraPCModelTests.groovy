@@ -15,8 +15,7 @@ class PodraPCModelTests extends ModelTest {
         "One Line Example P&C"
     }
 
-    // todo: PMO-654
-//    protected boolean shouldCompareResults() {
-//        true
-//    }
+    protected boolean shouldCompareResults() {
+        true
+    }
 }

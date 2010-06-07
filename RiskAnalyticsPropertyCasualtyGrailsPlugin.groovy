@@ -59,8 +59,7 @@ class RiskAnalyticsPropertyCasualtyGrailsPlugin {
 
         ValidatorRegistry.addValidator(new DistributionTypeValidator())
         ValidatorRegistry.addValidator(new CommissionStrategyTypeValidator())
-        // todo(sku): re-enable once its working correctly
-//        ValidatorRegistry.addValidator(new ClaimsGeneratorStrategyValidator())
+        ValidatorRegistry.addValidator(new ClaimsGeneratorStrategyValidator())
     }
 
     def onChange = {event ->

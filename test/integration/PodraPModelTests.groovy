@@ -15,8 +15,7 @@ class PodraPModelTests extends ModelTest {
         "No Reinsurance Contracts"
     }
 
-    // todo: PMO-654
-//    protected boolean shouldCompareResults() {
-//        true
-//    }
+    protected boolean shouldCompareResults() {
+        true
+    }
 }
