@@ -3,10 +3,7 @@ package org.pillarone.riskanalytics.domain.pc.output;
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.pillarone.riskanalytics.core.output.ICollectingModeStrategy;
-import org.pillarone.riskanalytics.core.output.PacketCollector;
-import org.pillarone.riskanalytics.core.output.SingleValueResultPOJO;
-import org.pillarone.riskanalytics.core.output.batch.AbstractBulkInsert;
+import org.pillarone.riskanalytics.core.output.*;
 import org.pillarone.riskanalytics.core.packets.Packet;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType;
@@ -64,6 +61,7 @@ public class AggregatedDrillDownCollectingModeStrategy implements ICollectingMod
      */
     private List<SingleValueResultPOJO> createSingleValueResults(Map<String, Packet> packets) throws IllegalAccessException {
         List<SingleValueResultPOJO> singleValueResults = new ArrayList<SingleValueResultPOJO>(packets.size());
+        boolean firstPath = true;
         for (Map.Entry<String, Packet> packetEntry : packets.entrySet()) {
             String path = packetEntry.getKey();
             Packet packet = packetEntry.getValue();
@@ -87,12 +85,18 @@ public class AggregatedDrillDownCollectingModeStrategy implements ICollectingMod
                 result.setIteration(packetCollector.getSimulationScope().getIterationScope().getCurrentIteration());
                 result.setPeriod(packetCollector.getSimulationScope().getIterationScope().getPeriodScope().getCurrentPeriod());
                 result.setPath(packetCollector.getSimulationScope().getMappingCache().lookupPath(path));
-                result.setCollector(packetCollector.getSimulationScope().getMappingCache().lookupCollector(packetCollector.getMode().getIdentifier()));
+                if (firstPath) {
+                    result.setCollector(packetCollector.getSimulationScope().getMappingCache().lookupCollector("AGGREGATED"));
+                }
+                else {
+                    result.setCollector(packetCollector.getSimulationScope().getMappingCache().lookupCollector(packetCollector.getMode().getIdentifier()));
+                }
                 result.setField(packetCollector.getSimulationScope().getMappingCache().lookupField(fieldName));
                 result.setValueIndex(0);
                 result.setValue(value);
                 singleValueResults.add(result);
             }
+            firstPath = false;
         }
         return singleValueResults;
     }
@@ -102,7 +106,8 @@ public class AggregatedDrillDownCollectingModeStrategy implements ICollectingMod
      * @return a map with paths as key
      */
     private Map<String, Packet> aggregateClaims(List<Claim> claims) {
-        Map<String, Packet> resultMap = new HashMap<String, Packet>(claims.size());
+        // has to be a LinkedHashMap to make sure the shortest path is the first in the map and gets AGGREGATED as collecting mode
+        Map<String, Packet> resultMap = new LinkedHashMap<String, Packet>(claims.size());
         if (claims == null || claims.size() == 0) {
             return resultMap;
         }
