@@ -275,11 +275,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
         } else if (modification.getType().equals(DistributionModifier.TRUNCATED) || modification.getType().equals(DistributionModifier.TRUNCATEDSHIFT)) {
             Double leftBoundary = (Double) modification.getParameters().get("min");
             Double rightBoundary = (Double) modification.getParameters().get("max");
-            if (dist.cdf(rightBoundary) - dist.cdf(leftBoundary) == 0.0) {
-                throw new IllegalArgumentException("Restricted density function not normalizable for the claims generator " + this.getNormalizedName() + ".");
-            } else {
-                dist = new TruncatedDist((ContinuousDistribution) distribution.getDistribution(), leftBoundary, rightBoundary);
-            }
+            dist = new TruncatedDist((ContinuousDistribution) distribution.getDistribution(), leftBoundary, rightBoundary);
         }
         List<Double> claimValues = new ArrayList<Double>(probabilities.size());
         double shift = modification.getParameters().get("shift") == null ? 0 : (Double) modification.getParameters().get("shift");
