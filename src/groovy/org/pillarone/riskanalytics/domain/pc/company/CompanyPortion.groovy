@@ -8,6 +8,8 @@ import org.pillarone.riskanalytics.core.parameterization.IMultiDimensionalConstr
 class CompanyPortion implements IMultiDimensionalConstraints {
 
     public static final String IDENTIFIER = "COMPANY_PORTION"
+    public static int COMPANY_COLUMN_INDEX = 0;
+    public static int PORTION_COLUMN_INDEX = 1;
 
     boolean matches(int row, int column, Object value) {
         if (column == 0) {

@@ -251,8 +251,8 @@ public class Company extends Component implements ICompanyMarker {
             int numberOfReinsurers = coverPortions.getValueRowCount();
             int firstRowWithReinsurer = coverPortions.getTitleRowCount();
             for (int row = firstRowWithReinsurer; row <= numberOfReinsurers; row++) {
-                String reinsurerName = (String) coverPortions.getValueAt(row, 1);
-                portion = (Double) coverPortions.getValueAt(row, 2);
+                String reinsurerName = (String) coverPortions.getValueAt(row, CompanyPortion.COMPANY_COLUMN_INDEX);
+                portion = (Double) coverPortions.getValueAt(row, CompanyPortion.PORTION_COLUMN_INDEX);
                 if (!reinsurerName.equals(this.getNormalizedName())) {
                     // this company is not a reinsurer for the contract
                     portion = 0d;

@@ -37,7 +37,9 @@ public class SlidingCommissionStrategy implements ICommissionStrategy {
 
     public static final String LOSS_RATIO = "Loss Ratio (from)";
     public static final String COMMISSION = "Commission";
-    
+    public static final int LOSS_RATIO_COLUMN_INDEX = 0;
+    public static final int COMMISSION_COLUMN_INDEX = 1;
+
     private ConstrainedMultiDimensionalParameter commissionBands = new ConstrainedMultiDimensionalParameter(
             GroovyUtils.convertToListOfList(new Object[]{0d, 0d}),
             Arrays.asList(LOSS_RATIO, COMMISSION),

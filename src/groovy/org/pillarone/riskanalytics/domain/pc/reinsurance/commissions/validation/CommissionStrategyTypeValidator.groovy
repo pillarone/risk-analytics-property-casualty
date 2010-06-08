@@ -50,7 +50,7 @@ public class CommissionStrategyTypeValidator implements IParameterizationValidat
 
     private void registerConstraints() {
         validationService.register(CommissionStrategyType.SLIDINGCOMMISSION) {Map type ->
-            double firstLossRatio = type.commissionBands.getValueAt(1, 1)
+            double firstLossRatio = type.commissionBands.getValueAt(1, SlidingCommissionStrategy.LOSS_RATIO_COLUMN_INDEX)
             if (firstLossRatio == 0) return true
             ["commission.sliding.error.first.supporting.point.not.zero", firstLossRatio]
         }

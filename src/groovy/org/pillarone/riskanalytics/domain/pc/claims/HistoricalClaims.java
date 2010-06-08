@@ -44,10 +44,10 @@ public class HistoricalClaims extends Component implements PerilMarker {
             GroovyUtils.convertToListOfList(new Object[]{"2010-01-01", "2010-01-15", "0d", "0d"}),
             Arrays.asList("Date Incurred", "Date Paid", "Amount Incurred", "Amount Paid"));
 
-    private static final int DATE_INCURRED = 1;
-    private static final int DATE_PAID = 2;
-    private static final int AMOUNT_INCURRED = 3;
-    private static final int AMOUNT_PAID = 4;
+    private static final int DATE_INCURRED = 0;
+    private static final int DATE_PAID = 1;
+    private static final int AMOUNT_INCURRED = 2;
+    private static final int AMOUNT_PAID = 3;
 
     @Override
     protected void doCalculation() {
