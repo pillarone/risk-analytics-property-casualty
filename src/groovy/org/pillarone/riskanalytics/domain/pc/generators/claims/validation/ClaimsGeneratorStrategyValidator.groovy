@@ -15,6 +15,7 @@ import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.pc.generators.claims.IClaimsGeneratorStrategy
 import org.pillarone.riskanalytics.domain.pc.generators.claims.ClaimsGeneratorType
 import umontreal.iro.lecuyer.probdist.Distribution
+import org.codehaus.groovy.runtime.InvokerInvocationException
 
 /**
  * This validator focuses on valid combinations of distributions and modifications.
@@ -44,9 +45,14 @@ class ClaimsGeneratorStrategyValidator implements IParameterizationValidator {
                     if (LOG.isDebugEnabled()) {
                         LOG.debug "validating ${parameter.path}"
                     }
-                    def currentErrors = validationService.validate(classifier, parameter.getParameterMap())
-                    currentErrors*.path = parameter.path
-                    errors.addAll(currentErrors)
+                    try {
+                        def currentErrors = validationService.validate(classifier, parameter.getParameterMap())
+                        currentErrors*.path = parameter.path
+                        errors.addAll(currentErrors)
+                    }
+                    catch (IllegalArgumentException ex) {
+                        // distribution parameters are invalid, however this is checked in the DistributionTypeValidator
+                    }
                 }
                 // step down recursively
                 errors.addAll(validate(parameter.classifierParameters.values().toList()))
