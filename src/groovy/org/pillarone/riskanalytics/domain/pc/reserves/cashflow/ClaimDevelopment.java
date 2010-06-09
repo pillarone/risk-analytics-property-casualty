@@ -276,7 +276,7 @@ public class ClaimDevelopment extends Component implements IReserveMarker {
      * @return claims produced by covered perils
      */
     private List<Claim> filteredClaims() {
-        List<PerilMarker> coveredPerils = parmAppliedOnPerils.getValuesAsObjects(simulationScope.getModel());
+        List<PerilMarker> coveredPerils = parmAppliedOnPerils.getValuesAsObjects();
         return ClaimFilterUtilities.filterClaimsByPeril(inClaims, coveredPerils);
     }
 

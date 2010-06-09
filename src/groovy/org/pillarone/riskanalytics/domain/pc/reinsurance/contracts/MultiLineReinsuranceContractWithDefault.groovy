@@ -33,8 +33,8 @@ public class MultiLineReinsuranceContractWithDefault extends MultiLineReinsuranc
     }
 
     protected void filterInChannels() {
-        List<LobMarker> coveredLines = parmCoveredLines.getValuesAsObjects(simulationScope.model)
-        List<PerilMarker> coveredPerils = parmCoveredPerils.getValuesAsObjects(simulationScope.model)
+        List<LobMarker> coveredLines = parmCoveredLines.getValuesAsObjects()
+        List<PerilMarker> coveredPerils = parmCoveredPerils.getValuesAsObjects()
         outFilteredClaims.addAll(ClaimFilterUtilities.filterClaimsByPerilAndLob(inClaims, coveredPerils, coveredLines))
         if (coveredLines.size() == 0) {
             coveredLines = ClaimFilterUtilities.getLineOfBusiness(outFilteredClaims)

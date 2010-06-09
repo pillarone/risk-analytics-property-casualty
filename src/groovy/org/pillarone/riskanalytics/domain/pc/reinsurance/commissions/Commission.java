@@ -53,7 +53,7 @@ public class Commission extends Component {
 
             if (parmApplicableStrategy instanceof ContractApplicableStrategy) {
                 List<IReinsuranceContractMarker> applicableContracts = ((IContractApplicableStrategy) parmApplicableStrategy)
-                                             .getApplicableContracts().getValuesAsObjects(getSimulationScope().getModel());
+                                             .getApplicableContracts().getValuesAsObjects();
                 PacketList<Claim> filteredClaims = new PacketList<Claim>(Claim.class);
                 filteredClaims.addAll(ClaimFilterUtilities.filterClaimsByContract(inClaims, applicableContracts));
 

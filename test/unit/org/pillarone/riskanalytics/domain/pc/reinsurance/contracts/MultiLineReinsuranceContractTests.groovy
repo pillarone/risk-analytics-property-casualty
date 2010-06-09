@@ -118,6 +118,7 @@ public class MultiLineReinsuranceContractTests extends GroovyTestCase {
         TestLobComponent lobFire = new TestLobComponent(name: 'fire')
         TestLobComponent lobMotor = new TestLobComponent(name: 'motor')
         simulationScope.model.allComponents << lobFire << lobMotor
+        contract.parmCoveredLines.setSimulationModel simulationScope.model
         Event event1 = new Event()
         Event event2 = new Event()
         Claim originalClaim1 = new Claim(
@@ -165,6 +166,7 @@ public class MultiLineReinsuranceContractTests extends GroovyTestCase {
 
         contract.inClaims << claimDevelopment1 << claimDevelopment2
         contract.parmCoveredLines = new ComboBoxTableMultiDimensionalParameter(['motor'], ['Covered Lines'], LobMarker)
+        contract.parmCoveredLines.setSimulationModel simulationScope.model
         contract.doCalculation()
         assertEquals '# ceded claims packets', 1, contract.outCoveredClaims.size()
         assertEquals 'ceded incurred 0', 2.4d, contract.outCoveredClaims[0].incurred, 1E-10

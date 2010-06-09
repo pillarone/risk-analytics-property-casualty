@@ -393,6 +393,8 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
         for (Component component : program.subContracts.componentList) {
             simulationScope.model.allComponents << component
         }
+        commission1.parmApplicableStrategy.applicableContracts.setSimulationModel simulationScope.model
+        commission2.parmApplicableStrategy.applicableContracts.setSimulationModel simulationScope.model
 
         def probeQS1net = new TestProbe(quotaShare1, "outUncoveredClaims")
         def probeQS2net = new TestProbe(quotaShare2, "outUncoveredClaims")

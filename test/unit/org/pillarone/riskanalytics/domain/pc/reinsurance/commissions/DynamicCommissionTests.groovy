@@ -196,6 +196,9 @@ class DynamicCommissionTests extends GroovyTestCase {
                                 ["contract 4", "contract 5", "contract 6"], ['Applicable Contracts'], IReinsuranceContractMarker)]),
                 simulationScope: simulationScope,
         )
+        dynamicCommission.componentList.each { Commission commission ->
+            commission.parmApplicableStrategy.applicableContracts.setSimulationModel simulationScope.model
+        }
 
         dynamicCommission.internalWiring()
         dynamicCommission.doCalculation()

@@ -3,8 +3,6 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.commissions
 import org.joda.time.DateTime
 import org.joda.time.Period
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
-import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
-import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
 import org.pillarone.riskanalytics.core.simulation.ContinuousPeriodCounter
 import org.pillarone.riskanalytics.core.simulation.engine.IterationScope
 import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope
@@ -16,7 +14,6 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.applicable.
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContract
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
-import org.pillarone.riskanalytics.domain.utils.constraints.DoubleConstraints
 import org.pillarone.riskanalytics.core.components.Component
 import org.pillarone.riskanalytics.core.example.component.TestComponent
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
@@ -215,10 +212,14 @@ class CommissionTests extends GroovyTestCase {
         UnderwritingInfo underwritingInfo100 = getUnderwritingInfoFromContract(100, -5, contract1)
         UnderwritingInfo underwritingInfo200 = getUnderwritingInfoFromContract(200, -50, contract2)
 
+        ComboBoxTableMultiDimensionalParameter applicableContracts = new ComboBoxTableMultiDimensionalParameter(
+                ['selected contract'], ['Applicable Contracts'], IReinsuranceContractMarker)
+        applicableContracts.setSimulationModel simulationScope.model
+
         Commission commission = new Commission(
                 parmCommissionStrategy: CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, [commission: 0.3d]),
-                parmApplicableStrategy: ApplicableStrategyType.getStrategy(ApplicableStrategyType.CONTRACT, [applicableContracts:
-                new ComboBoxTableMultiDimensionalParameter(['selected contract'], ['Applicable Contracts'], IReinsuranceContractMarker)]),
+                parmApplicableStrategy: ApplicableStrategyType.getStrategy(ApplicableStrategyType.CONTRACT,
+                [applicableContracts: applicableContracts]),
                 simulationScope: simulationScope
         )
         commission.inUnderwritingInfo << underwritingInfo200 << underwritingInfo100
@@ -237,11 +238,16 @@ class CommissionTests extends GroovyTestCase {
         SimulationScope simulationScope = getTestSimulationScope(2010)
         simulationScope.model.allComponents << contract0 << contract1 << contract2
 
+        ComboBoxTableMultiDimensionalParameter applicableContracts = new ComboBoxTableMultiDimensionalParameter(
+                contracts, ['Applicable Contracts'], IReinsuranceContractMarker)
+        applicableContracts.setSimulationModel simulationScope.model
+
         Commission commission = new Commission(
             parmCommissionStrategy : CommissionStrategyType.getStrategy(CommissionStrategyType.PROFITCOMMISSION,
-                [commissionRatio: 0d, profitCommissionRatio: 0.03d, costRatio: 0.2d, lossCarriedForwardEnabled: true, initialLossCarriedForward: 20d]),
-            parmApplicableStrategy : ApplicableStrategyType.getStrategy(ApplicableStrategyType.CONTRACT, [applicableContracts:
-                new ComboBoxTableMultiDimensionalParameter(contracts, ['Applicable Contracts'], IReinsuranceContractMarker)]),
+                [commissionRatio: 0d, profitCommissionRatio: 0.03d, costRatio: 0.2d, lossCarriedForwardEnabled: true,
+                        initialLossCarriedForward: 20d]),
+            parmApplicableStrategy : ApplicableStrategyType.getStrategy(ApplicableStrategyType.CONTRACT,
+                    [applicableContracts: applicableContracts]),
             simulationScope : simulationScope
         )
         // contracts 1 & 2 are covered (an extra 30% commission applies to them) but contract 0 is not (no extra commission)
@@ -273,11 +279,15 @@ class CommissionTests extends GroovyTestCase {
         SimulationScope simulationScope = getTestSimulationScope(2010)
         simulationScope.model.allComponents << contract0 << contract1 << contract2
 
+        ComboBoxTableMultiDimensionalParameter applicableContracts = new ComboBoxTableMultiDimensionalParameter(
+                contracts, ['Applicable Contracts'], IReinsuranceContractMarker)
+        applicableContracts.setSimulationModel simulationScope.model
+
         Commission commission = new Commission(
             parmCommissionStrategy : CommissionStrategyType.getStrategy(CommissionStrategyType.PROFITCOMMISSION,
                 [commissionRatio: 0d, profitCommissionRatio: 0.3d, costRatio: 0.1d, lossCarriedForwardEnabled: true, initialLossCarriedForward: 5d]),
-            parmApplicableStrategy : ApplicableStrategyType.getStrategy(ApplicableStrategyType.CONTRACT, [applicableContracts:
-                new ComboBoxTableMultiDimensionalParameter(contracts, ['Applicable Contracts'], IReinsuranceContractMarker)]),
+            parmApplicableStrategy : ApplicableStrategyType.getStrategy(ApplicableStrategyType.CONTRACT,
+                    [applicableContracts: applicableContracts]),
             simulationScope : simulationScope
         )
         // contracts 1 & 2 are covered (an extra 30% commission applies to them) but contract 0 is not (no extra commission)
