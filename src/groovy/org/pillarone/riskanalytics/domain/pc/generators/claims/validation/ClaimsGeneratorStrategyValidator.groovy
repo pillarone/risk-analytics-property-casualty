@@ -86,6 +86,7 @@ class ClaimsGeneratorStrategyValidator implements IParameterizationValidator {
     }
 
     private def checkArea(Map type) {
+        if (type.size() == 0) return    // ClaimsGeneratorType.NONE select, no checks necessary
         Distribution distribution = type.claimsSizeDistribution.distribution
         DistributionModified modification = type.claimsSizeModification
 
