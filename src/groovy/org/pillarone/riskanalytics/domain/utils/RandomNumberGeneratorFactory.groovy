@@ -8,7 +8,6 @@ import umontreal.iro.lecuyer.probdist.UniformDist
 import umontreal.iro.lecuyer.randvar.BinomialGen
 import umontreal.iro.lecuyer.randvar.RandomVariateGen
 import umontreal.iro.lecuyer.randvar.UniformGen
-import umontreal.iro.lecuyer.rng.RandomStream
 
 /**
  * Enables different streams for generators, and parametrization of streams.
