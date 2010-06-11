@@ -90,7 +90,7 @@ class ClaimsGeneratorStrategyValidator implements IParameterizationValidator {
         Distribution distribution = type.claimsSizeDistribution.distribution
         DistributionModified modification = type.claimsSizeModification
 
-        if (modification.type == DistributionModifier.NONE ||
+        if (!modification || modification.type == DistributionModifier.NONE ||
             modification.type == DistributionModifier.SHIFT) {
             return
         }
