@@ -15,7 +15,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
  */
-// todo(jwa): think about commission in company, it is wrong as it stands now!
+
 class CompanyTests extends GroovyTestCase {
 
     Company companyVenusRe = new Company(name: 'venus re')
