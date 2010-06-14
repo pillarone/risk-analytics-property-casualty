@@ -6,11 +6,12 @@ import org.pillarone.riskanalytics.core.parameterization.SimpleConstraint
 import org.pillarone.riskanalytics.domain.pc.output.AggregatedDrillDownCollectingModeStrategy
 import org.pillarone.riskanalytics.core.output.CollectingModeFactory
 import org.pillarone.riskanalytics.domain.utils.constraints.DoubleConstraints
-import org.pillarone.riskanalytics.domain.pc.company.CompanyPortion
+import org.pillarone.riskanalytics.domain.pc.constraints.CompanyPortion
 import org.pillarone.riskanalytics.core.parameterization.validation.ValidatorRegistry
 import org.pillarone.riskanalytics.domain.utils.validation.DistributionTypeValidator
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.validation.CommissionStrategyTypeValidator
 import org.pillarone.riskanalytics.domain.pc.generators.claims.validation.ClaimsGeneratorStrategyValidator
+import org.pillarone.riskanalytics.domain.pc.constraints.validation.UnityPortionValidator
 
 class RiskAnalyticsPropertyCasualtyGrailsPlugin {
     // the plugin version
@@ -60,6 +61,7 @@ class RiskAnalyticsPropertyCasualtyGrailsPlugin {
         ValidatorRegistry.addValidator(new DistributionTypeValidator())
         ValidatorRegistry.addValidator(new CommissionStrategyTypeValidator())
         ValidatorRegistry.addValidator(new ClaimsGeneratorStrategyValidator())
+        ValidatorRegistry.addValidator(new UnityPortionValidator())
     }
 
     def onChange = {event ->

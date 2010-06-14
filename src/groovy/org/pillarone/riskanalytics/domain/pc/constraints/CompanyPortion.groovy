@@ -1,11 +1,13 @@
-package org.pillarone.riskanalytics.domain.pc.company
+package org.pillarone.riskanalytics.domain.pc.constraints
 
 import org.pillarone.riskanalytics.core.parameterization.IMultiDimensionalConstraints
+import org.pillarone.riskanalytics.domain.utils.constraints.IUnityPortion
+import org.pillarone.riskanalytics.domain.pc.company.ICompanyMarker
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-class CompanyPortion implements IMultiDimensionalConstraints {
+class CompanyPortion implements IMultiDimensionalConstraints, IUnityPortion {
 
     public static final String IDENTIFIER = "COMPANY_PORTION"
     public static int COMPANY_COLUMN_INDEX = 0;
@@ -26,5 +28,13 @@ class CompanyPortion implements IMultiDimensionalConstraints {
 
     Class getColumnType(int column) {
         return column == 0 ? ICompanyMarker : BigDecimal
+    }
+
+    int getPortionColumnIndex() {
+        return PORTION_COLUMN_INDEX
+    }
+
+    int getComponentNameColumnIndex() {
+        return COMPANY_COLUMN_INDEX
     }
 }
