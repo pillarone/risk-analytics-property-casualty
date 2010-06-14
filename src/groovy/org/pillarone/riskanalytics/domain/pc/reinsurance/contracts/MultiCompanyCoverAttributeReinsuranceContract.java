@@ -3,7 +3,7 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts;
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter;
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory;
 import org.pillarone.riskanalytics.core.util.GroovyUtils;
-import org.pillarone.riskanalytics.domain.pc.company.CompanyPortion;
+import org.pillarone.riskanalytics.domain.pc.constraints.CompanyPortion;
 
 import java.util.Arrays;
 
