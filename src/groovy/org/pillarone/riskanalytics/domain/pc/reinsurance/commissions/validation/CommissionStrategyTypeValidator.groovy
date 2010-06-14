@@ -56,7 +56,7 @@ public class CommissionStrategyTypeValidator implements IParameterizationValidat
         }
         validationService.register(CommissionStrategyType.SLIDINGCOMMISSION) {Map type ->
             double[] lossRatios = type.commissionBands.getColumnByName(SlidingCommissionStrategy.LOSS_RATIO)
-            if (!lossRatios) {
+            if (lossRatios.length==0) {
                 return ["commission.sliding.error.loss.ratios.empty"]
             }
             for (int i = 1; i < lossRatios.length; i++) {
@@ -69,7 +69,7 @@ public class CommissionStrategyTypeValidator implements IParameterizationValidat
 
         validationService.register(CommissionStrategyType.SLIDINGCOMMISSION) {Map type ->
             double[] commissions = type.commissionBands.getColumnByName(SlidingCommissionStrategy.COMMISSION)
-            if (!commissions) {
+            if (commissions.length==0) {
                 return ["commission.sliding.error.commissions.empty"]
             }
             for (int i = 0; i < commissions.length; i++) {
@@ -82,7 +82,7 @@ public class CommissionStrategyTypeValidator implements IParameterizationValidat
 
         validationService.register(CommissionStrategyType.SLIDINGCOMMISSION) {Map type ->
             double[] commissions = type.commissionBands.getColumnByName(SlidingCommissionStrategy.COMMISSION)
-            if (!commissions) {
+            if (commissions.length==0) {
                 return ["commission.sliding.error.commissions.empty"]
             }
             for (int i = 1; i < commissions.length; i++) {
