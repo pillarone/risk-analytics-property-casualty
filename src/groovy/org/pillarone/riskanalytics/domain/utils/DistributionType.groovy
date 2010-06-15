@@ -50,6 +50,12 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
             "inverse gaussian dist", "INVERSEGAUSSIANDIST", ["mu": 1d, "lambda": 1d])
     public static final DistributionType CONSTANTS = new DistributionType(
             "constant values", "CONSTANTS", ["constants": new TableMultiDimensionalParameter([0d, 1d], ['constants'])])
+    public static final DistributionType GAMMA = new DistributionType(
+            "gamma", "GAMMA", ["alpha": 2d, "lambda": 2d])
+    public static final DistributionType GUMBEL = new DistributionType(
+            "gumbel", "GUMBEL", ["beta": 1d, "delta": 0d])
+    public static final DistributionType LOGLOGISTIC = new DistributionType(
+            "log logistic", "LOGLOGISTIC", ["alpha": 2d, "beta": 1d])
 
     public static final all = [
             BETA,
@@ -60,7 +66,10 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
             DISCRETEEMPIRICAL,
             DISCRETEEMPIRICALCUMULATIVE,
             EXPONENTIAL,
+            GAMMA,
+            GUMBEL,
             INVERSEGAUSSIANDIST,
+            LOGLOGISTIC,
             LOGNORMAL,
             LOGNORMAL_MU_SIGMA,
             NEGATIVEBINOMIAL,
@@ -210,6 +219,15 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
                 break
             case DistributionType.CONSTANTS:
                 distribution.distribution = new ConstantsDistribution(asDouble(parameters["constants"].getColumnByName("constants")))
+                break
+            case DistributionType.GAMMA:
+                distribution.distribution = new GammaDist((double) parameters["alpha"], (double) parameters["lambda"])
+                break
+            case DistributionType.GUMBEL:
+                distribution.distribution = new GumbelDist((double) parameters["beta"], (double) parameters["delta"])
+                break
+            case DistributionType.LOGLOGISTIC:
+                distribution.distribution = new LoglogisticDist((double) parameters["alpha"], (double) parameters["beta"])
                 break
         }
 

@@ -44,6 +44,36 @@ public class RandomDistributionTests extends GroovyTestCase {
         r2 = DistributionType.getStrategy(ClaimSizeDistributionType.BETA, ["alpha": 0.4, "beta": 0.7001])
         assertFalse r1.equals(r2)
         assertFalse r1.hashCode().equals(r2.hashCode())
+
+        r1 = DistributionType.getStrategy(ClaimSizeDistributionType.GAMMA, ["alpha": 2.4, "lambda": 2.7])
+        r2 = DistributionType.getStrategy(ClaimSizeDistributionType.GAMMA, ["alpha": 2.4, "lambda": 2.7])
+        assertTrue r1.equals(r2)
+        assertEquals r1.hashCode(), r2.hashCode()
+
+        r1 = DistributionType.getStrategy(ClaimSizeDistributionType.GAMMA, ["alpha": 2.4, "lambda": 2.7])
+        r2 = DistributionType.getStrategy(ClaimSizeDistributionType.GAMMA, ["alpha": 2.4, "lambda": 2.7001])
+        assertFalse r1.equals(r2)
+        assertFalse r1.hashCode().equals(r2.hashCode())
+
+        r1 = DistributionType.getStrategy(ClaimSizeDistributionType.GUMBEL, ["beta": 0.4, "delta": 0.7])
+        r2 = DistributionType.getStrategy(ClaimSizeDistributionType.GUMBEL, ["beta": 0.4, "delta": 0.7])
+        assertTrue r1.equals(r2)
+        assertEquals r1.hashCode(), r2.hashCode()
+
+        r1 = DistributionType.getStrategy(ClaimSizeDistributionType.GUMBEL, ["beta": 0.4, "delta": 0.7])
+        r2 = DistributionType.getStrategy(ClaimSizeDistributionType.GUMBEL, ["beta": 0.4, "delta": 0.7001])
+        assertFalse r1.equals(r2)
+        assertFalse r1.hashCode().equals(r2.hashCode())
+
+        r1 = DistributionType.getStrategy(ClaimSizeDistributionType.LOGLOGISTIC, ["alpha": 2.4, "beta": 1.7])
+        r2 = DistributionType.getStrategy(ClaimSizeDistributionType.LOGLOGISTIC, ["alpha": 2.4, "beta": 1.7])
+        assertTrue r1.equals(r2)
+        assertEquals r1.hashCode(), r2.hashCode()
+
+        r1 = DistributionType.getStrategy(ClaimSizeDistributionType.LOGLOGISTIC, ["alpha": 2.4, "beta": 1.7])
+        r2 = DistributionType.getStrategy(ClaimSizeDistributionType.LOGLOGISTIC, ["alpha": 2.4, "beta": 1.7001])
+        assertFalse r1.equals(r2)
+        assertFalse r1.hashCode().equals(r2.hashCode())
     }
 
     void testConstantsDistribution() {

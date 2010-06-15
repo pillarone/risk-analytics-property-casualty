@@ -13,6 +13,7 @@ class RandomVariateDistributionFactoryTests extends GroovyTestCase {
             params["alpha"] = 0.4
             params["beta"] = 0.7
             params["gamma"] = 0.5
+            params["delta"] = 0.3
             params["a"] = 0.3
             params["b"] = 0.9
             params["m"] = 0.9
