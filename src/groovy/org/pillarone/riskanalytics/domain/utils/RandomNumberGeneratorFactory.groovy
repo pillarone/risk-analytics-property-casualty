@@ -8,6 +8,8 @@ import umontreal.iro.lecuyer.probdist.UniformDist
 import umontreal.iro.lecuyer.randvar.BinomialGen
 import umontreal.iro.lecuyer.randvar.RandomVariateGen
 import umontreal.iro.lecuyer.randvar.UniformGen
+import umontreal.iro.lecuyer.rng.RandomStream
+import umontreal.iro.lecuyer.rng.RandomStreamBase
 
 /**
  * Enables different streams for generators, and parametrization of streams.
@@ -19,6 +21,13 @@ class RandomNumberGeneratorFactory {
     static IRandomNumberGenerator getUniformGenerator() {
         IRandomNumberGenerator uniformGenerator
         UniformGen generator = new UniformGen(MathUtils.RANDOM_NUMBER_GENERATOR_INSTANCE, new UniformDist(0, 1))
+        uniformGenerator = new RandomNumberGenerator(generator: generator)
+        return uniformGenerator
+    }
+
+    static IRandomNumberGenerator getUniformGenerator(RandomStream stream) {
+        IRandomNumberGenerator uniformGenerator
+        UniformGen generator = new UniformGen(stream, new UniformDist(0, 1))
         uniformGenerator = new RandomNumberGenerator(generator: generator)
         return uniformGenerator
     }
@@ -35,40 +44,50 @@ class RandomNumberGeneratorFactory {
         return new RandomNumberGenerator(generator: generator, type: distribution.type, parameters: distribution.parameters)
     }
 
+
+    static IRandomNumberGenerator getGenerator(RandomDistribution distribution, RandomStream stream) {
+        RandomVariateGen generator = new RandomVariateGen(stream, distribution.distribution)
+        return new RandomNumberGenerator(generator: generator, type: distribution.type, parameters: distribution.parameters)
+    }
+
     static IRandomNumberGenerator getGenerator(RandomDistribution distribution, DistributionModified modifier) {
+        return getGenerator(distribution, modifier, MathUtils.RANDOM_NUMBER_GENERATOR_INSTANCE)
+    }
+
+    static IRandomNumberGenerator getGenerator(RandomDistribution distribution, DistributionModified modifier, RandomStreamBase randomStream) {
         if (modifier) {
             IRandomNumberGenerator generator
             switch (modifier.type) {
                 case DistributionModifier.NONE:
                     generator = new RandomNumberGenerator(
-                        generator: new RandomVariateGen(MathUtils.RANDOM_NUMBER_GENERATOR_INSTANCE, distribution.distribution))
+                            generator: new RandomVariateGen(randomStream, distribution.distribution))
                     break
-                // for simple truncation or censoring, we access the parameters directly
+            // for simple truncation or censoring, we access the parameters directly
                 case DistributionModifier.CENSORED:
                     generator = new RandomNumberGenerator(
-                        generator: new CensoredVariateGen(MathUtils.RANDOM_NUMBER_GENERATOR_INSTANCE, distribution.distribution,
-                            (double) modifier.parameters["min"],
-                            (double) modifier.parameters["max"]))
+                            generator: new CensoredVariateGen(randomStream, distribution.distribution,
+                                    (double) modifier.parameters["min"],
+                                    (double) modifier.parameters["max"]))
                     break
                 case DistributionModifier.CENSOREDSHIFT:
                     generator = new RandomNumberGenerator(
-                        generator: new CensoredVariateGen(MathUtils.RANDOM_NUMBER_GENERATOR_INSTANCE, distribution.distribution,
-                            (double) modifier.parameters["min"],
-                            (double) modifier.parameters["max"],
-                            (double) modifier.parameters["shift"]))
+                            generator: new CensoredVariateGen(randomStream, distribution.distribution,
+                                    (double) modifier.parameters["min"],
+                                    (double) modifier.parameters["max"],
+                                    (double) modifier.parameters["shift"]))
                     break
                 case DistributionModifier.SHIFT:
                     generator = new RandomNumberGenerator(
-                        generator: new ShiftedVariateGen(MathUtils.RANDOM_NUMBER_GENERATOR_INSTANCE, distribution.distribution,
-                            (double) modifier.parameters["shift"]))
+                            generator: new ShiftedVariateGen(randomStream, distribution.distribution,
+                                    (double) modifier.parameters["shift"]))
                     break
                 case DistributionModifier.TRUNCATED:
                     if (distribution.distribution instanceof ContinuousDistribution) {
-                    generator = new RandomNumberGenerator(
-                        generator: new RandomVariateGen(MathUtils.RANDOM_NUMBER_GENERATOR_INSTANCE,
-                            new TruncatedDist((ContinuousDistribution) distribution.distribution,
-                                (double) modifier.parameters["min"],
-                                (double) modifier.parameters["max"])))
+                        generator = new RandomNumberGenerator(
+                                generator: new RandomVariateGen(randomStream,
+                                        new TruncatedDist((ContinuousDistribution) distribution.distribution,
+                                                (double) modifier.parameters["min"],
+                                                (double) modifier.parameters["max"])))
                     }
                     else {
                         throw new IllegalArgumentException("The distribution ${distribution.distribution} is not a ContinuousDistribution! Truncation option is therefore not available.")
@@ -76,12 +95,12 @@ class RandomNumberGeneratorFactory {
                     break
                 case DistributionModifier.TRUNCATEDSHIFT:
                     if (distribution.distribution instanceof ContinuousDistribution) {
-                    generator = new RandomNumberGenerator(
-                        generator: new ShiftedVariateGen(MathUtils.RANDOM_NUMBER_GENERATOR_INSTANCE,
-                            new TruncatedDist((ContinuousDistribution) distribution.distribution,
-                                (double) modifier.parameters["min"],
-                                (double) modifier.parameters["max"]),
-                            (double) modifier.parameters["shift"]))
+                        generator = new RandomNumberGenerator(
+                                generator: new ShiftedVariateGen(randomStream,
+                                        new TruncatedDist((ContinuousDistribution) distribution.distribution,
+                                                (double) modifier.parameters["min"],
+                                                (double) modifier.parameters["max"]),
+                                        (double) modifier.parameters["shift"]))
                     }
                     else {
                         throw new IllegalArgumentException("The distribution ${distribution.distribution} is not a ContinuousDistribution! Truncation option is therefore not available.")
@@ -90,12 +109,12 @@ class RandomNumberGeneratorFactory {
                 case DistributionModifier.LEFTTRUNCATEDRIGHTCENSORED:
                     if (distribution.distribution instanceof ContinuousDistribution) {
                         generator = new RandomNumberGenerator(
-                            generator: new CensoredVariateGen(MathUtils.RANDOM_NUMBER_GENERATOR_INSTANCE,
-                                new TruncatedDist((ContinuousDistribution) distribution.distribution,
-                                    (double) modifier.parameters["min"],
-                                    (double) Double.POSITIVE_INFINITY),
-                                (double) Double.NEGATIVE_INFINITY,
-                                (double) modifier.parameters["max"]))
+                                generator: new CensoredVariateGen(randomStream,
+                                        new TruncatedDist((ContinuousDistribution) distribution.distribution,
+                                                (double) modifier.parameters["min"],
+                                                (double) Double.POSITIVE_INFINITY),
+                                        (double) Double.NEGATIVE_INFINITY,
+                                        (double) modifier.parameters["max"]))
                     }
                     else {
                         throw new IllegalArgumentException("The distribution ${distribution.distribution} is not a ContinuousDistribution! Truncation option is therefore not available.")
