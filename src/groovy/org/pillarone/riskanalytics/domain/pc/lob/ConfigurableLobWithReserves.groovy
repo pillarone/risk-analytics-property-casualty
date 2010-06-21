@@ -15,6 +15,8 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingFilterByOr
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingLineOfBusinessComposer
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
+import org.pillarone.riskanalytics.domain.pc.aggregators.UnderwritingInfoNetCalculator
+import org.pillarone.riskanalytics.domain.pc.claims.MarketGrossNetClaimsMerger
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -44,18 +46,18 @@ public class ConfigurableLobWithReserves extends MultipleCalculationPhaseCompose
     UnderwritingLineOfBusinessComposer subUnderwritingFilter;
 
     ClaimsFilterByOriginalOrigin subClaimsFilterCeded;
-    MarketClaimsMerger subClaimsAggregator;
+    MarketGrossNetClaimsMerger subClaimsAggregator;
     UnderwritingFilterByOriginalOrigin subUnderwritingInfoFilterCeded;
-    UnderwritingInfoAggregator subUnderwritingInfoAggregator;
+    UnderwritingInfoNetCalculator subUnderwritingInfoAggregator;
 
     ConfigurableLobWithReserves() {
         subClaimsFilter = new MarketToLineOfBusinessClaims();
         subReservesFilter = new LineOfBusinessReserves();
         subUnderwritingFilter = new UnderwritingLineOfBusinessComposer();
         subClaimsFilterCeded = new ClaimsFilterByOriginalOrigin();
-        subClaimsAggregator = new MarketClaimsMerger();
+        subClaimsAggregator = new MarketGrossNetClaimsMerger();
         subUnderwritingInfoFilterCeded = new UnderwritingFilterByOriginalOrigin();
-        subUnderwritingInfoAggregator = new UnderwritingInfoAggregator();
+        subUnderwritingInfoAggregator = new UnderwritingInfoNetCalculator();
     }
 
     public void wire() {

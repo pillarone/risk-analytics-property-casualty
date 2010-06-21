@@ -65,7 +65,14 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
                 'Podra:linesOfBusiness:subMotorHull:subMotorHullSingle:outClaimsDevelopmentLeanCeded',
                 'Podra:linesOfBusiness:subMotorHull:subMotorHullSingle:outClaimsDevelopmentLeanGross',
                 'Podra:linesOfBusiness:subMotorHull:subMotorHullSingle:outClaimsDevelopmentLeanNet',
-//                'Podra:linesOfBusiness:subMotorHull:subMotorHullWxl:outClaimsDevelopmentLeanCeded',
+                'Podra:linesOfBusiness:subMotorHull:subMotorHullWxl:outClaimsDevelopmentLeanCeded',
+                'Podra:linesOfBusiness:subMotorHull:subPropertyQuotaShare:outClaimsDevelopmentLeanCeded',
+                'Podra:linesOfBusiness:subMotorHull:subPropertyQuotaShare:outUnderwritingInfoCeded',
+                'Podra:linesOfBusiness:subMotorHull:subMotorHullWxl:outUnderwritingInfoCeded',
+                'Podra:linesOfBusiness:subProperty:subPropertyQuotaShare:outClaimsDevelopmentLeanCeded',
+                'Podra:linesOfBusiness:subProperty:subPropertyCxl:outClaimsDevelopmentLeanCeded',
+                'Podra:linesOfBusiness:subProperty:subPropertyCxl:outUnderwritingInfoCeded',
+                'Podra:linesOfBusiness:subProperty:subPropertyQuotaShare:outUnderwritingInfoCeded',
                 'Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded',
                 'Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross',
                 'Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet',
@@ -186,8 +193,10 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
         resultsPerPath['Podra:linesOfBusiness:subMotorHull:subMotorHullSingle:outClaimsDevelopmentLeanCeded']=400d
         resultsPerPath['Podra:linesOfBusiness:subMotorHull:subMotorHullSingle:outClaimsDevelopmentLeanGross']=1000d
         resultsPerPath['Podra:linesOfBusiness:subMotorHull:subMotorHullSingle:outClaimsDevelopmentLeanNet']=600d
-//        resultsPerPath['Podra:linesOfBusiness:subMotorHull:subMotorHullWxl:outClaimsDevelopmentLeanCeded']=200d   missing
-//        resultsPerPath['Podra:linesOfBusiness:subMotorHull:subPropertyQuotaShare:outClaimsDevelopmentLeanCeded']=220d     missing
+        resultsPerPath['Podra:linesOfBusiness:subMotorHull:subMotorHullWxl:outClaimsDevelopmentLeanCeded']=200d
+        resultsPerPath['Podra:linesOfBusiness:subMotorHull:subPropertyQuotaShare:outClaimsDevelopmentLeanCeded']=220d
+        resultsPerPath['Podra:linesOfBusiness:subProperty:subPropertyQuotaShare:outClaimsDevelopmentLeanCeded']=320d
+        resultsPerPath['Podra:linesOfBusiness:subProperty:subPropertyCxl:outClaimsDevelopmentLeanCeded']=50d
         resultsPerPath['Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded']=370d
         resultsPerPath['Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross']=1600d
         resultsPerPath['Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet']=1230d
@@ -277,6 +286,10 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
 
         expectedResultsPerPath['Podra:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded']=-160d
         expectedResultsPerPath['Podra:linesOfBusiness:subProperty:outUnderwritingInfoCeded']=-140d
+        expectedResultsPerPath['Podra:linesOfBusiness:subMotorHull:subPropertyQuotaShare:outUnderwritingInfoCeded']=-160d
+        expectedResultsPerPath['Podra:linesOfBusiness:subMotorHull:subMotorHullWxl:outUnderwritingInfoCeded']=0d
+        expectedResultsPerPath['Podra:linesOfBusiness:subProperty:subPropertyCxl:outUnderwritingInfoCeded']=-20d
+        expectedResultsPerPath['Podra:linesOfBusiness:subProperty:subPropertyQuotaShare:outUnderwritingInfoCeded']=-120d
         expectedResultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:outCoverUnderwritingInfo']=-0d
         expectedResultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:subMotorHull:outCoverUnderwritingInfo']=-0d
         expectedResultsPerPath['Podra:reinsurance:subContracts:subPropertyCxl:outCoverUnderwritingInfo']=-20d
@@ -306,6 +319,10 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
         Map<String, Double> expectedResultsPerPath = new LinkedHashMap<String, Double>()
         expectedResultsPerPath['Podra:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded']=1800d
         expectedResultsPerPath['Podra:linesOfBusiness:subProperty:outUnderwritingInfoCeded']=1300d
+        expectedResultsPerPath['Podra:linesOfBusiness:subMotorHull:subPropertyQuotaShare:outUnderwritingInfoCeded']=1600d
+        expectedResultsPerPath['Podra:linesOfBusiness:subMotorHull:subMotorHullWxl:outUnderwritingInfoCeded']=200d
+        expectedResultsPerPath['Podra:linesOfBusiness:subProperty:subPropertyCxl:outUnderwritingInfoCeded']=100d
+        expectedResultsPerPath['Podra:linesOfBusiness:subProperty:subPropertyQuotaShare:outUnderwritingInfoCeded']=1200d
         expectedResultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:outCoverUnderwritingInfo']=200d
         expectedResultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:subMotorHull:outCoverUnderwritingInfo']=200d
         expectedResultsPerPath['Podra:reinsurance:subContracts:subPropertyCxl:outCoverUnderwritingInfo']=100d
