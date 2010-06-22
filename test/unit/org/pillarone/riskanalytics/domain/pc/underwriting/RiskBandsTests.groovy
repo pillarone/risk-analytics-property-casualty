@@ -2,6 +2,9 @@ package org.pillarone.riskanalytics.domain.pc.underwriting
 
 import org.pillarone.riskanalytics.core.parameterization.AbstractMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
+import org.pillarone.riskanalytics.core.simulation.engine.IterationScope
+import org.pillarone.riskanalytics.core.components.IterationStore
+import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope
 
 class RiskBandsTests extends GroovyTestCase {
 
@@ -47,7 +50,13 @@ class RiskBandsTests extends GroovyTestCase {
                 ['maximum sum insured', 'average sum insured', 'premium', 'number of policies'],
         )
 
-        RiskBands bands = new RiskBands(parmUnderwritingInformation: underwritingInformation1)
+        IterationScope iterationScope = new IterationScope(periodScope: new PeriodScope())
+        iterationScope.prepareNextIteration()
+        RiskBands bands = new RiskBands(
+                parmUnderwritingInformation: underwritingInformation1,
+                iterationScope: iterationScope,
+                iterationStore: new IterationStore(iterationScope)
+        )
         bands.doCalculation()
 
         bands.outUnderwritingInfo.eachWithIndex {UnderwritingInfo underwritingInfo, idx ->
@@ -56,18 +65,6 @@ class RiskBandsTests extends GroovyTestCase {
             assertTrue "max sum insured info$idx", UnderwritingInfoUtilities.sameContent(uwInfo, underwritingInfo)
         }
 
-/*        assertEquals "attritional allocation table: max sum insured",
-            bands.outAttritionalTargetDistribution[0].table.getColumnByName('maximum sum insured'),
-            underwritingInformation2.getColumnByName('maximum sum insured')
-        assertEquals "attritional allocation table: premium",
-            bands.outAttritionalTargetDistribution[0].table.getColumnByName('portion'),
-            underwritingInformation2.getColumnByName('premium')
-        assertEquals "single allocation table: max sum insured",
-            bands.outSingleTargetDistribution[0].table.getColumnByName('maximum sum insured'),
-            underwritingInformation2.getColumnByName('maximum sum insured')
-        assertEquals "single allocation table: number of policies/risks",
-            bands.outSingleTargetDistribution[0].table.getColumnByName('portion'),
-            underwritingInformation2.getColumnByName('number of policies/risks')*/
     }
 
 
