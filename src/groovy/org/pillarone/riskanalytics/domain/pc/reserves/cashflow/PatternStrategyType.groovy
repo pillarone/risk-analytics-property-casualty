@@ -15,11 +15,11 @@ public class PatternStrategyType extends AbstractParameterObjectClassifier {
     public static final PatternStrategyType NONE = new PatternStrategyType('none', 'NONE', [:])
     public static final PatternStrategyType INCREMENTAL = new PatternStrategyType("incremental", "INCREMENTAL", [
             incrementalPattern :  new TableMultiDimensionalParameter([1d], ['Increments']),
-            calibrationPeriod : SimulationPeriod.QUARTERLY
+            calibrationPeriod : SimulationPeriod.ANNUALLY
     ])
     public static final PatternStrategyType CUMULATIVE = new PatternStrategyType("cumulative", "CUMULATIVE", [
             cumulativePattern :  new TableMultiDimensionalParameter([1d], ['Cumulative']),
-            calibrationPeriod : SimulationPeriod.QUARTERLY
+            calibrationPeriod : SimulationPeriod.ANNUALLY
     ])
 
     public static final all = [NONE, INCREMENTAL, CUMULATIVE]
