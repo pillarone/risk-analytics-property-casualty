@@ -15,7 +15,7 @@ import java.util.*;
  */
 public class ClaimFilterUtilities {
     /**
-     * @param claims list of claims to be filtered
+     * @param claims        list of claims to be filtered
      * @param coverCriteria components such as claims generators, lines of business
      * @return a claim is added to the list of filtered claims it the originalClaim references an element of
      *         the cover criteria or if the originalClaim property is null the origin property is evaluated.
@@ -28,8 +28,7 @@ public class ClaimFilterUtilities {
                     if (coverCriteria.contains(claim.origin)) {
                         filteredClaims.add(claim);
                     }
-                }
-                else {
+                } else {
                     if (coverCriteria.contains(claim.getOriginalClaim())) {
                         filteredClaims.add(claim);
                     }
@@ -69,22 +68,19 @@ public class ClaimFilterUtilities {
         List<Claim> filteredClaims = new ArrayList<Claim>();
         if ((coveredOrigin == null || coveredOrigin.size() == 0) && (coveredOriginal == null || coveredOriginal.size() == 0)) {
             filteredClaims.addAll(claims);
-        }
-        else if (coveredOrigin.size() > 0 && coveredOriginal.size() > 0) {
+        } else if (coveredOrigin.size() > 0 && coveredOriginal.size() > 0) {
             for (Claim claim : claims) {
                 if (coveredOrigin.contains(claim.origin) && coveredOriginal.contains(claim.getOriginalClaim().origin)) {
                     filteredClaims.add(claim);
                 }
             }
-        }
-        else if (coveredOrigin.size() > 0) {
+        } else if (coveredOrigin.size() > 0) {
             for (Claim claim : claims) {
                 if (coveredOrigin.contains(claim.origin)) {
                     filteredClaims.add(claim);
                 }
             }
-        }
-        else if (coveredOriginal.size() > 0) {
+        } else if (coveredOriginal.size() > 0) {
             for (Claim claim : claims) {
                 if (coveredOriginal.contains(claim.getOriginalClaim().origin)) {
                     filteredClaims.add(claim);
@@ -98,22 +94,19 @@ public class ClaimFilterUtilities {
         List<Claim> filteredClaims = new ArrayList<Claim>();
         if ((coveredPerils == null || coveredPerils.size() == 0) && (coveredLinesOfBusiness == null || coveredLinesOfBusiness.size() == 0)) {
             filteredClaims.addAll(claims);
-        }
-        else if (coveredPerils.size() > 0 && coveredLinesOfBusiness.size() > 0) {
+        } else if (coveredPerils.size() > 0 && coveredLinesOfBusiness.size() > 0) {
             for (Claim claim : claims) {
                 if (coveredPerils.contains(claim.getPeril()) && coveredLinesOfBusiness.contains(claim.getLineOfBusiness())) {
                     filteredClaims.add(claim);
                 }
             }
-        }
-        else if (coveredPerils.size() > 0) {
+        } else if (coveredPerils.size() > 0) {
             for (Claim claim : claims) {
                 if (coveredPerils.contains(claim.getPeril())) {
                     filteredClaims.add(claim);
                 }
             }
-        }
-        else if (coveredLinesOfBusiness.size() > 0) {
+        } else if (coveredLinesOfBusiness.size() > 0) {
             for (Claim claim : claims) {
                 if (coveredLinesOfBusiness.contains(claim.getLineOfBusiness())) {
                     filteredClaims.add(claim);
@@ -129,7 +122,7 @@ public class ClaimFilterUtilities {
      * @param coveredLinesOfBusiness the LOB markers to filter by
      * @param coveredReserves        the reserve markers to filter by, if any; must be null if coveredPerils is given
      * @param connection             logical junction type (AND or OR), required for combined filter strategies
-     * @return                       the list of claims that passed through the filter
+     * @return the list of claims that passed through the filter
      */
     public static List<Claim> filterClaimsByPerilLobReserve(List<Claim> claims, List<PerilMarker> coveredPerils,
                                                             List<LobMarker> coveredLinesOfBusiness, List<IReserveMarker> coveredReserves,
@@ -140,56 +133,47 @@ public class ClaimFilterUtilities {
         boolean hasLinesOfBusiness = coveredLinesOfBusiness != null && coveredLinesOfBusiness.size() > 0;
         if (!(hasPerils || hasReserves || hasLinesOfBusiness)) {
             filteredClaims.addAll(claims);
-        }
-        else if (hasPerils && hasReserves) {
+        } else if (hasPerils && hasReserves) {
             throw new IllegalArgumentException("cannot filter simultaneously by perils and reserves");
-        }
-        else if (hasPerils && hasLinesOfBusiness && connection == LogicArguments.OR) {
+        } else if (hasPerils && hasLinesOfBusiness && connection == LogicArguments.OR) {
             for (Claim claim : claims) {
                 if (coveredPerils.contains(claim.getPeril()) || coveredLinesOfBusiness.contains(claim.getLineOfBusiness())) {
                     filteredClaims.add(claim);
                 }
             }
-        }
-        else if (hasPerils && hasLinesOfBusiness && connection == LogicArguments.AND) {
+        } else if (hasPerils && hasLinesOfBusiness && connection == LogicArguments.AND) {
             for (Claim claim : claims) {
                 if (coveredPerils.contains(claim.getPeril()) && coveredLinesOfBusiness.contains(claim.getLineOfBusiness())) {
                     filteredClaims.add(claim);
                 }
             }
-        }
-        else if (hasReserves && hasLinesOfBusiness && connection == LogicArguments.OR) {
+        } else if (hasReserves && hasLinesOfBusiness && connection == LogicArguments.OR) {
             for (Claim claim : claims) {
                 if (coveredReserves.contains(claim.getPeril()) || coveredLinesOfBusiness.contains(claim.getLineOfBusiness())) {
                     filteredClaims.add(claim);
                 }
             }
-        }
-        else if (hasReserves && hasLinesOfBusiness && connection == LogicArguments.AND) {
+        } else if (hasReserves && hasLinesOfBusiness && connection == LogicArguments.AND) {
             for (Claim claim : claims) {
                 if (coveredReserves.contains(claim.getPeril()) && coveredLinesOfBusiness.contains(claim.getLineOfBusiness())) {
                     filteredClaims.add(claim);
                 }
             }
-        }
-        else if (hasLinesOfBusiness && (hasPerils || hasReserves)) {
+        } else if (hasLinesOfBusiness && (hasPerils || hasReserves)) {
             throw new IllegalArgumentException("cannot combine filter criteria without specifying the logical connection type");
-        }
-        else if (hasPerils) {
+        } else if (hasPerils) {
             for (Claim claim : claims) {
                 if (coveredPerils.contains(claim.getPeril())) {
                     filteredClaims.add(claim);
                 }
             }
-        }
-        else if (hasReserves) {
+        } else if (hasReserves) {
             for (Claim claim : claims) {
                 if (coveredReserves.contains(claim.getPeril())) {
                     filteredClaims.add(claim);
                 }
             }
-        }
-        else if (hasLinesOfBusiness) {
+        } else if (hasLinesOfBusiness) {
             for (Claim claim : claims) {
                 if (coveredLinesOfBusiness.contains(claim.getLineOfBusiness())) {
                     filteredClaims.add(claim);
@@ -200,52 +184,55 @@ public class ClaimFilterUtilities {
     }
 
     /**
-     * @param claims                 the list of claims to filter
-     * @param coveredPerils          peril markers that the filter should select
-     * @param coveredContracts       reinsurance contracts the filter selects
-     * @param connection             logical junction type (AND or OR), required for combined filter strategies
-     * @return                       the list of claims that passed through the filter
+     * @param claims           the list of claims to filter
+     * @param coveredPerils    peril markers that the filter should select
+     * @param coveredContracts reinsurance contracts the filter selects
+     * @param connection       logical junction type (AND or OR), required for combined filter strategies
+     * @return the list of claims that passed through the filter
      */
     public static List<ClaimDevelopmentPacket> filterClaimsByPerilContract(
-                                                   List<ClaimDevelopmentPacket> claims,
-                                                   List<PerilMarker> coveredPerils,
-                                                   List<String> coveredContracts,
-                                                   LogicArguments connection) {
+            List<ClaimDevelopmentPacket> claims,
+            List<PerilMarker> coveredPerils,
+            List<String> coveredContracts,
+            LogicArguments connection) {
         List<ClaimDevelopmentPacket> filteredClaims = new ArrayList<ClaimDevelopmentPacket>();
         boolean hasPerils = coveredPerils != null && coveredPerils.size() > 0;
         boolean hasContracts = coveredContracts != null && coveredContracts.size() > 0;
         if (hasPerils && hasContracts && connection == LogicArguments.OR) {
             for (ClaimDevelopmentPacket claim : claims) {
-                if (coveredPerils.contains(claim.getPeril()) || coveredContracts.contains(claim.getReinsuranceContract().getNormalizedName())) {
+                if (coveredPerils.contains(claim.getPeril())) {
                     filteredClaims.add(claim);
+                } else if (claim.getReinsuranceContract() != null) {
+                    if (coveredContracts.contains(claim.getReinsuranceContract().getNormalizedName())) {
+                        filteredClaims.add(claim);
+                    }
                 }
             }
-        }
-        else if (hasPerils && hasContracts && connection == LogicArguments.AND) {
+        } else if (hasPerils && hasContracts && connection == LogicArguments.AND) {
             for (ClaimDevelopmentPacket claim : claims) {
-                if (coveredPerils.contains(claim.getPeril()) && coveredContracts.contains(claim.getReinsuranceContract().getNormalizedName())) {
-                    filteredClaims.add(claim);
+                if (coveredPerils.contains(claim.getPeril()) && claim.getReinsuranceContract() != null) {
+                    if (coveredContracts.contains(claim.getReinsuranceContract().getNormalizedName())) {
+                        filteredClaims.add(claim);
+                    }
                 }
             }
-        }
-        else if (hasPerils && hasContracts && connection == null) {
+        } else if (hasPerils && hasContracts && connection == null) {
             throw new IllegalArgumentException("cannot combine filter criteria without specifying the logical connection type");
-        }
-        else if (hasPerils) {
+        } else if (hasPerils) {
             for (ClaimDevelopmentPacket claim : claims) {
                 if (coveredPerils.contains(claim.getPeril())) {
                     filteredClaims.add(claim);
                 }
             }
-        }
-        else if (hasContracts) {
+        } else if (hasContracts) {
             for (ClaimDevelopmentPacket claim : claims) {
-                if (coveredContracts.contains(claim.getReinsuranceContract().getNormalizedName())) {
-                    filteredClaims.add(claim);
+                if (claim.getReinsuranceContract() != null) {
+                    if (coveredContracts.contains(claim.getReinsuranceContract().getNormalizedName())) {
+                        filteredClaims.add(claim);
+                    }
                 }
             }
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("filterClaimsByPerilContract requires a nonempty list of perils or contracts (or both) to filter claims by");
         }
         return filteredClaims;
@@ -254,8 +241,7 @@ public class ClaimFilterUtilities {
     public static List<Claim> filterClaimsByPeril(List<Claim> claims, List<PerilMarker> coveredPerils) {
         if (coveredPerils == null || coveredPerils.size() == 0) {
             return claims;
-        }
-        else {
+        } else {
             List<Claim> filteredClaims = new ArrayList<Claim>();
             for (Claim claim : claims) {
                 if (coveredPerils.contains(claim.getPeril())) {
@@ -308,7 +294,7 @@ public class ClaimFilterUtilities {
     }
 
     /**
-     * @param claims the list of claims to filter
+     * @param claims    the list of claims to filter
      * @param contracts the contract markers to filter by, if any; null means no filtering (all are returned)
      * @return the list of claims that passed through the filter (i.e. whose reinsurance contract is listed in contracts)
      */
@@ -316,8 +302,7 @@ public class ClaimFilterUtilities {
         List<Claim> filteredClaims = new ArrayList<Claim>();
         if (contracts == null || contracts.size() == 0) {
             filteredClaims.addAll(claims);
-        }
-        else {
+        } else {
             for (Claim claim : claims) {
                 if (contracts.contains(claim.getReinsuranceContract())) {
                     filteredClaims.add(claim);
