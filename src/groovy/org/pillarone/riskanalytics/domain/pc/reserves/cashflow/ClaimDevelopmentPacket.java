@@ -48,9 +48,7 @@ public class ClaimDevelopmentPacket extends Claim {
     public Claim getNetClaim(Claim cededClaim) {
         ClaimDevelopmentPacket netClaim = (ClaimDevelopmentPacket) copy();
         netClaim.minus(cededClaim);
-//        netClaim.setIncurred(netClaim.getIncurred() - ((ClaimDevelopmentPacket) cededClaim).getIncurred());
-//        netClaim.paid -= ((ClaimDevelopmentPacket) cededClaim).paid;
-//        netClaim.reserved -= ((ClaimDevelopmentPacket) cededClaim).reserved;
+        netClaim.setReinsuranceContract(cededClaim.getReinsuranceContract());
         return netClaim;
     }
 
