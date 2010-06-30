@@ -65,8 +65,14 @@ public class Claim extends MultiValuePacket {
     public Claim getNetClaim(Claim cededClaim) {
         Claim netClaim = copy();
         netClaim.ultimate -= cededClaim.ultimate;
-        netClaim.setReinsuranceContract(cededClaim.getReinsuranceContract());
+        if (cededClaim.notNull()) {
+            netClaim.setReinsuranceContract(cededClaim.getReinsuranceContract());
+        }
         return netClaim;
+    }
+
+    public boolean notNull() {
+        return ultimate != 0;
     }
 
     @Override

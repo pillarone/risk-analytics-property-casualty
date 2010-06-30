@@ -48,8 +48,15 @@ public class ClaimDevelopmentPacket extends Claim {
     public Claim getNetClaim(Claim cededClaim) {
         ClaimDevelopmentPacket netClaim = (ClaimDevelopmentPacket) copy();
         netClaim.minus(cededClaim);
-        netClaim.setReinsuranceContract(cededClaim.getReinsuranceContract());
+        if (cededClaim.notNull()) {
+            netClaim.setReinsuranceContract(cededClaim.getReinsuranceContract());
+        }
         return netClaim;
+    }
+
+    @Override
+    public boolean notNull() {
+        return (!(getIncurred() == 0 && paid == 0 && reserved == 0));
     }
 
     public double getIncurredDate() {
