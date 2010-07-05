@@ -58,12 +58,13 @@ public class ClaimFilterUtilities {
         return filteredClaims;
     }
 
-    /**
+    /*
      * @param claims
      * @param coveredOrigin
      * @param coveredOriginal
      * @return
      */
+
     public static List<Claim> filterClaims(List<Claim> claims, List coveredOrigin, List coveredOriginal) {
         List<Claim> filteredClaims = new ArrayList<Claim>();
         if ((coveredOrigin == null || coveredOrigin.size() == 0) && (coveredOriginal == null || coveredOriginal.size() == 0)) {
@@ -252,6 +253,20 @@ public class ClaimFilterUtilities {
         }
     }
 
+    public static List<ClaimDevelopmentPacket> filterDevelopedClaimsByPeril(List<ClaimDevelopmentPacket> claims, List<PerilMarker> coveredPerils) {
+        if (coveredPerils == null || coveredPerils.size() == 0) {
+            return claims;
+        } else {
+            List<ClaimDevelopmentPacket> filteredClaims = new ArrayList<ClaimDevelopmentPacket>();
+            for (ClaimDevelopmentPacket claim : claims) {
+                if (coveredPerils.contains(claim.getPeril())) {
+                    filteredClaims.add(claim);
+                }
+            }
+            return filteredClaims;
+        }
+    }
+
     public static List<Claim> filterClaimsByOrigin(List<Claim> claims, Component origin) {
         List<Claim> filteredClaims = new ArrayList<Claim>(claims.size());
         for (Claim claim : claims) {
@@ -306,6 +321,23 @@ public class ClaimFilterUtilities {
             for (Claim claim : claims) {
                 if (contracts.contains(claim.getReinsuranceContract())) {
                     filteredClaims.add(claim);
+                }
+            }
+        }
+        return filteredClaims;
+    }
+
+
+    public static List<ClaimDevelopmentPacket> filterDevelopedClaimsByContract(List<ClaimDevelopmentPacket> claims, List<String> contracts) {
+        List<ClaimDevelopmentPacket> filteredClaims = new ArrayList<ClaimDevelopmentPacket>();
+        if (contracts == null || contracts.size() == 0) {
+            // check with Stefan
+        } else {
+            for (ClaimDevelopmentPacket claim : claims) {
+                if (claim.getReinsuranceContract() != null) {
+                    if (contracts.contains(claim.getReinsuranceContract().getNormalizedName())) {
+                        filteredClaims.add(claim);
+                    }
                 }
             }
         }
