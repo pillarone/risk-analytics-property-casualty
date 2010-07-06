@@ -10,10 +10,16 @@ import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassif
 
 public class AssetLiabilityMismatchGeneratorStrategyType extends AbstractParameterObjectClassifier{
 
-    public static final AssetLiabilityMismatchGeneratorStrategyType ABSOLUTE =
-        new AssetLiabilityMismatchGeneratorStrategyType("absolute", "ABSOLUTE", [:])
+    public static final AssetLiabilityMismatchGeneratorStrategyType RESULTABSOLUTE =
+        new AssetLiabilityMismatchGeneratorStrategyType("result absolute", "RESULTABSOLUTE", [:])
+    public static final AssetLiabilityMismatchGeneratorStrategyType RESULTRELATIVETOINITIALVOLUME = 
+        new AssetLiabilityMismatchGeneratorStrategyType("result relative to initial volume", "RESULTRELATIVETOINITIALVOLUME", [:])
+    public static final AssetLiabilityMismatchGeneratorStrategyType VOLUMERELATIVETOINITIALVOLUME = 
+        new AssetLiabilityMismatchGeneratorStrategyType("volume relative to initial volume", "RELATIVETOINITIALVOLUME", [:])
+    public static final AssetLiabilityMismatchGeneratorStrategyType VOLUMEABSOLUTE = 
+        new AssetLiabilityMismatchGeneratorStrategyType("volume absolute", "VOLUMEABSOLUTE", [:])
 
-    public static final all = [ABSOLUTE]
+    public static final all = [RESULTABSOLUTE, RESULTRELATIVETOINITIALVOLUME, VOLUMEABSOLUTE, VOLUMERELATIVETOINITIALVOLUME]
 
     protected static Map types = [:]
     static {
@@ -43,10 +49,18 @@ public class AssetLiabilityMismatchGeneratorStrategyType extends AbstractParamet
     static IAssetLiabilityMismatchGeneratorStrategy getStrategy(AssetLiabilityMismatchGeneratorStrategyType type, Map parameters) {
         IAssetLiabilityMismatchGeneratorStrategy almGenerator;
         switch (type) {
-            case AssetLiabilityMismatchGeneratorStrategyType.ABSOLUTE:
-//              almGenerator = new AbsoluteAssetLiabilityMismatchGeneratorStrategy(type: AssetLiabilityMismatchGeneratorStrategyType.ABSOLUTE, parameters: [:])
-              almGenerator = new AbsoluteAssetLiabilityMismatchGeneratorStrategy()
-              break;
+            case AssetLiabilityMismatchGeneratorStrategyType.RESULTABSOLUTE:
+                almGenerator = new ResultAbsoluteAssetLiabilityMismatchGeneratorStrategy()
+                break;
+            case AssetLiabilityMismatchGeneratorStrategyType.RESULTRELATIVETOINITIALVOLUME:
+                almGenerator = new ResultRelativeToInitialVolumeAssetLiabilityMismatchGeneratorStrategy()
+                break;
+            case AssetLiabilityMismatchGeneratorStrategyType.VOLUMEABSOLUTE:
+                almGenerator = new VolumeAbsoluteAssetLiabilityMismatchGeneratorStrategy()
+                break;
+            case AssetLiabilityMismatchGeneratorStrategyType.VOLUMERELATIVETOINITIALVOLUME:
+                almGenerator = new VolumeRelativeToInitialVolumeAssetLiabilityMismatchGeneratorStrategy()
+                break;
         }
         return almGenerator;
     }

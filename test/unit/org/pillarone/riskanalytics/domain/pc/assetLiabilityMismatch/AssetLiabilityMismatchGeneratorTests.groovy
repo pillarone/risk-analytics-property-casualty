@@ -20,7 +20,7 @@ class AssetLiabilityMismatchGeneratorTests extends GroovyTestCase {
             parmModification: DistributionModifier.getStrategy(DistributionModifier.NONE, new HashMap()),
             parmInitialVolume: 110d,
             parmAssetLiabilityMismatchModel: AssetLiabilityMismatchGeneratorStrategyType.getStrategy(
-                    AssetLiabilityMismatchGeneratorStrategyType.ABSOLUTE, Collections.emptyMap())
+                    AssetLiabilityMismatchGeneratorStrategyType.RESULTRELATIVETOINITIALVOLUME, Collections.emptyMap())
     )
 
     assetLiabilityMismatchGenerator.periodScope = new PeriodScope();

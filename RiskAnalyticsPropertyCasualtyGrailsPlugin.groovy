@@ -59,10 +59,10 @@ class RiskAnalyticsPropertyCasualtyGrailsPlugin {
         ConstraintsFactory.registerConstraint(new ReservePortion())
         ConstraintsFactory.registerConstraint(new DoubleConstraints())
 
-        ValidatorRegistry.addValidator(new DistributionTypeValidator())
+//        ValidatorRegistry.addValidator(new DistributionTypeValidator())
 //        ValidatorRegistry.addValidator(new SurplusStrategyValidator())
-        ValidatorRegistry.addValidator(new CommissionStrategyTypeValidator())
-        ValidatorRegistry.addValidator(new ClaimsGeneratorStrategyValidator())
+//        ValidatorRegistry.addValidator(new CommissionStrategyTypeValidator())
+//        ValidatorRegistry.addValidator(new ClaimsGeneratorStrategyValidator())
         ValidatorRegistry.addValidator(new UnityPortionValidator())
     }
 

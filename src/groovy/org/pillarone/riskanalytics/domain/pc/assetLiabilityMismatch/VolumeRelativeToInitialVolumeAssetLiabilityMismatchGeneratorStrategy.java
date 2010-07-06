@@ -9,13 +9,13 @@ import java.util.Map;
 /**
  * @author shartmann (at) munichre (dot) com
  */
-public class AbsoluteAssetLiabilityMismatchGeneratorStrategy  implements IParameterObject, IAssetLiabilityMismatchGeneratorStrategy {
+public class VolumeRelativeToInitialVolumeAssetLiabilityMismatchGeneratorStrategy implements IParameterObject, IAssetLiabilityMismatchGeneratorStrategy {
 
-    public AbsoluteAssetLiabilityMismatchGeneratorStrategy() {
+    public VolumeRelativeToInitialVolumeAssetLiabilityMismatchGeneratorStrategy() {
     }
 
     public IParameterObjectClassifier getType() {
-        return AssetLiabilityMismatchGeneratorStrategyType.ABSOLUTE;
+        return AssetLiabilityMismatchGeneratorStrategyType.VOLUMERELATIVETOINITIALVOLUME;
     }
 
     public Map getParameters() {

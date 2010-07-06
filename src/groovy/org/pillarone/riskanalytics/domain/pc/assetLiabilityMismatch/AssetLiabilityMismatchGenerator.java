@@ -18,7 +18,6 @@ public class AssetLiabilityMismatchGenerator extends GeneratorCachingComponent i
     private PeriodScope periodScope;
 
     private PeriodStore periodStore;
-    private static final String ASSET_LIABILITY_MISMATCH = "asset liability mismatch";
 
     private PacketList<SingleValuePacket> outInitialVolume = new PacketList<SingleValuePacket>(SingleValuePacket.class);
     //todo sha: claim should be replaced with ALM result: claim currently used as result (POSITIVE)
@@ -30,7 +29,7 @@ public class AssetLiabilityMismatchGenerator extends GeneratorCachingComponent i
     private double parmInitialVolume = 1d;
     private IAssetLiabilityMismatchGeneratorStrategy parmAssetLiabilityMismatchModel =
             AssetLiabilityMismatchGeneratorStrategyType.getStrategy(
-                AssetLiabilityMismatchGeneratorStrategyType.ABSOLUTE, Collections.emptyMap());
+                AssetLiabilityMismatchGeneratorStrategyType.RESULTRELATIVETOINITIALVOLUME, Collections.emptyMap());
 
     protected void doCalculation() {
         Claim claim = new Claim();
@@ -43,10 +42,17 @@ public class AssetLiabilityMismatchGenerator extends GeneratorCachingComponent i
     private void setIncurred(Claim claim) {
         IRandomNumberGenerator generator = getCachedGenerator(getParmDistribution(), getParmModification());
         Double randomFactor = (Double) generator.nextValue();
-        if (parmInitialVolume != 0) {
+        if (parmAssetLiabilityMismatchModel instanceof ResultRelativeToInitialVolumeAssetLiabilityMismatchGeneratorStrategy) {
             claim.setUltimate(randomFactor * parmInitialVolume);
-        } else {
+        }
+        else if (parmAssetLiabilityMismatchModel instanceof ResultAbsoluteAssetLiabilityMismatchGeneratorStrategy) {
             claim.setUltimate(randomFactor);
+        }
+        else if (parmAssetLiabilityMismatchModel instanceof VolumeAbsoluteAssetLiabilityMismatchGeneratorStrategy) {
+            claim.setUltimate((randomFactor - 1) * parmInitialVolume);
+        }
+        else if (parmAssetLiabilityMismatchModel instanceof VolumeRelativeToInitialVolumeAssetLiabilityMismatchGeneratorStrategy) {
+            claim.setUltimate(randomFactor - parmInitialVolume);
         }
         SingleValuePacket initialVolume = new SingleValuePacket();
         initialVolume.setValue(parmInitialVolume);
