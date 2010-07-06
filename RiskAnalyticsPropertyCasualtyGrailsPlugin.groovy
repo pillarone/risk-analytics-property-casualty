@@ -13,6 +13,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.validation.
 import org.pillarone.riskanalytics.domain.pc.generators.claims.validation.ClaimsGeneratorStrategyValidator
 import org.pillarone.riskanalytics.domain.pc.constraints.validation.UnityPortionValidator
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.validation.SurplusStrategyValidator
+import org.pillarone.riskanalytics.domain.pc.validation.UnityDoubleValidator
 
 class RiskAnalyticsPropertyCasualtyGrailsPlugin {
     // the plugin version
@@ -64,6 +65,7 @@ class RiskAnalyticsPropertyCasualtyGrailsPlugin {
 //        ValidatorRegistry.addValidator(new CommissionStrategyTypeValidator())
 //        ValidatorRegistry.addValidator(new ClaimsGeneratorStrategyValidator())
         ValidatorRegistry.addValidator(new UnityPortionValidator())
+        ValidatorRegistry.addValidator(new UnityDoubleValidator())
     }
 
     def onChange = {event ->
