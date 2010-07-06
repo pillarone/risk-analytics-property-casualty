@@ -1,7 +1,7 @@
 package models.podra
 
 model = models.podra.PodraModel
-displayName = "Aggregated Overview 2"
+displayName = "Aggregated Overview"
 components {
 	claimsGenerators {
 		outClaimsLeanDevelopment = "AGGREGATED"

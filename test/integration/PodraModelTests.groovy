@@ -8,7 +8,7 @@ class PodraModelTests extends ModelTest {
     }
 
     String getResultConfigurationDisplayName() {
-        "Aggregated Overview 2"
+        "Aggregated Overview"
     }
 
     String getParameterDisplayName() {
