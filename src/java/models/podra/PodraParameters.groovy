@@ -63,7 +63,7 @@ components {
             parmModification[0] = org.pillarone.riskanalytics.domain.utils.DistributionModifier.getStrategy(org.pillarone.riskanalytics.domain.utils.DistributionModifier.NONE, [:])
             parmInitialVolume[0] = 0.0
             parmDistribution[0] = org.pillarone.riskanalytics.domain.utils.DistributionType.getStrategy(org.pillarone.riskanalytics.domain.utils.DistributionType.LOGNORMAL, [mean: 100000.0, stDev: 20000.0])
-            parmAssetLiabilityMismatchModel[0] = AssetLiabilityMismatchGeneratorStrategyType.getStrategy(AssetLiabilityMismatchGeneratorStrategyType.ABSOLUTE, [:])
+            parmAssetLiabilityMismatchModel[0] = AssetLiabilityMismatchGeneratorStrategyType.getStrategy(AssetLiabilityMismatchGeneratorStrategyType.RESULTRELATIVETOINITIALVOLUME, [:])
         }
     }
     dependencies {
