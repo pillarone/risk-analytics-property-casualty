@@ -14,7 +14,6 @@ import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensi
 import org.pillarone.riskanalytics.core.parameterization.IMultiDimensionalConstraints
 
 import org.pillarone.riskanalytics.domain.utils.constraints.IUnityPortion
-import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterObjectParameterHolder
 
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
@@ -49,11 +48,7 @@ class UnityPortionValidator implements IParameterizationValidator {
                     }
                 }
             }
-            // probably not needed here
-            else if (parameter instanceof ParameterObjectParameterHolder) {
-                errors.addAll(validate(parameter.classifierParameters.values().toList()))
-            }
-        }  // end for
+        }
         return errors
     }
 
@@ -75,7 +70,7 @@ class UnityPortionValidator implements IParameterizationValidator {
                     return ["portion.unity.error.portions.not.in.unity.interval", i, portions[i]]
                 }
             }
-            return true
+            return
         }
 
 
