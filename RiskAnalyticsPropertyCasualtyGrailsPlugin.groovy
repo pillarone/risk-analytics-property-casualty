@@ -17,7 +17,7 @@ import org.pillarone.riskanalytics.domain.pc.validation.UnityDoubleValidator
 
 class RiskAnalyticsPropertyCasualtyGrailsPlugin {
     // the plugin version
-    def version = "1.0-RC-1.1"
+    def version = "1.0-RC-2"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.2.0 > *"
     // the other plugins this plugin depends on
@@ -60,10 +60,10 @@ class RiskAnalyticsPropertyCasualtyGrailsPlugin {
         ConstraintsFactory.registerConstraint(new ReservePortion())
         ConstraintsFactory.registerConstraint(new DoubleConstraints())
 
-//        ValidatorRegistry.addValidator(new DistributionTypeValidator())
+        ValidatorRegistry.addValidator(new DistributionTypeValidator())
 //        ValidatorRegistry.addValidator(new SurplusStrategyValidator())
-//        ValidatorRegistry.addValidator(new CommissionStrategyTypeValidator())
-//        ValidatorRegistry.addValidator(new ClaimsGeneratorStrategyValidator())
+        ValidatorRegistry.addValidator(new CommissionStrategyTypeValidator())
+        ValidatorRegistry.addValidator(new ClaimsGeneratorStrategyValidator())
         ValidatorRegistry.addValidator(new UnityPortionValidator())
         ValidatorRegistry.addValidator(new UnityDoubleValidator())
     }
