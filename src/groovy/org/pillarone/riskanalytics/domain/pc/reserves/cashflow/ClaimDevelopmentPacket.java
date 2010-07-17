@@ -59,6 +59,18 @@ public class ClaimDevelopmentPacket extends Claim {
         return (!(getIncurred() == 0 && paid == 0 && reserved == 0));
     }
 
+    public boolean hasNoneTrivialDevelopment(boolean includeOriginalClaimCheck) {
+        if (payoutPattern != null && !payoutPattern.isTrivial()) {
+            return true;
+        }
+        else if (includeOriginalClaimCheck && getOriginalClaim() != null && getOriginalClaim() instanceof ClaimDevelopmentPacket) {
+            return (((ClaimDevelopmentPacket) getOriginalClaim()).hasNoneTrivialDevelopment(false));
+        }
+        else {
+            return false;
+        }
+    }
+
     public double getIncurredDate() {
         return originalPeriod + getFractionOfPeriod();
     }
@@ -127,6 +139,7 @@ public class ClaimDevelopmentPacket extends Claim {
         setReserved(claim.getReserved());
         setOriginalPeriod(claim.getOriginalPeriod());
         setChangeInReserves(claim.getChangeInReserves());
+        setOriginalClaim(claim.getOriginalClaim());
     }
 
     protected static final String INCURRED = "incurred";
