@@ -27,7 +27,7 @@ class RiskAnalyticsPropertyCasualtyGrailsPlugin {
     ]
 
     // TODO Fill in these fields
-    def author = "Intuitive Collaboration"
+    def author = "Intuitive Collaboration AG"
     def authorEmail = "info (at) intuitive-collaboration (dot) com"
     def title = "Property Casualty Library and Example Models"
     def description = '''\\
@@ -62,7 +62,7 @@ class RiskAnalyticsPropertyCasualtyGrailsPlugin {
         ValidatorRegistry.addValidator(new DistributionTypeValidator())
 //        ValidatorRegistry.addValidator(new SurplusStrategyValidator())
         ValidatorRegistry.addValidator(new CommissionStrategyTypeValidator())
-        ValidatorRegistry.addValidator(new ClaimsGeneratorStrategyValidator())
+//        ValidatorRegistry.addValidator(new ClaimsGeneratorStrategyValidator())
         ValidatorRegistry.addValidator(new UnityPortionValidator())
         ValidatorRegistry.addValidator(new UnityDoubleValidator())
     }
