@@ -10,11 +10,21 @@ import org.pillarone.riskanalytics.domain.pc.constraints.SegmentPortion;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
+import org.pillarone.riskanalytics.domain.utils.InputFormatConverter;
 
 import java.util.Arrays;
 import java.util.List;
 
 /**
+ * This components filters incoming packets and multiplies them by the portion specified in parmPortions,
+ * if their lineOfBusiness property corresponds to one of the selected segments in parmPortions.
+ * Each channel is treated individually. The component does not try to establish a relation between gross,
+ * ceded and net channel.<br/>
+ * Incoming claims have to be of type ClaimDevelopmentLeanPacket. Other claim types would lead to a
+ * java.lang.ClassCastException.
+ *
+ * Original specification: https://issuetracking.intuitive-collaboration.com/jira/browse/PMO-1031
+ *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 public class SegmentFilter extends Component {
@@ -64,7 +74,7 @@ public class SegmentFilter extends Component {
             for (Claim claim : allClaims) {
                 int row = segments.indexOf(claim.getLineOfBusiness().getNormalizedName());
                 if (row > -1) {
-                    double portion = portions.get(row);
+                    double portion = InputFormatConverter.getDouble(portions.get(row));
                     ClaimDevelopmentLeanPacket segmentClaim = (ClaimDevelopmentLeanPacket) claim.copy();
                     segmentClaim.scale(portion);
                     filterClaims.add(segmentClaim);
@@ -79,7 +89,7 @@ public class SegmentFilter extends Component {
             for (UnderwritingInfo underwritingInfo : allUnderwritingInfo) {
                 int row = segments.indexOf(underwritingInfo.getLineOfBusiness().getNormalizedName());
                 if (row > -1) {
-                    double portion = portions.get(row);
+                    double portion = InputFormatConverter.getDouble(portions.get(row));
                     UnderwritingInfo segmentUnderwritingInfo = underwritingInfo.copy();
                     segmentUnderwritingInfo.scale(portion);
                     filterUnderwritingInfo.add(segmentUnderwritingInfo);

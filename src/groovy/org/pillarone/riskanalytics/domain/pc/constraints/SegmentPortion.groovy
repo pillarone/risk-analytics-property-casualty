@@ -24,6 +24,6 @@ class SegmentPortion implements IMultiDimensionalConstraints {
     }
 
     Class getColumnType(int column) {
-        return column == 0 ? LobMarker : BigDecimal
+        return column == 0 ? LobMarker : Double
     }
 }
