@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.underwriting;
 
 
+import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
 
 import java.util.ArrayList;
@@ -35,7 +36,32 @@ public class UnderwritingInfoUtilities {
             summedUnderwritingInfo.plus(underwritingInfo);
             summedUnderwritingInfo.exposureDefinition = underwritingInfo.exposureDefinition;
         }
-        return summedUnderwritingInfo;
+        return correctMetaProperties(summedUnderwritingInfo, underwritingInfos);
+    }
+
+    static public UnderwritingInfo correctMetaProperties(UnderwritingInfo result, List<UnderwritingInfo> underwritingInfos) {
+        UnderwritingInfo verifiedResult = underwritingInfos.get(0).copy();
+        verifiedResult.scale(0);
+        verifiedResult.plus(result);
+        LobMarker lob = verifiedResult.getLineOfBusiness();
+        IReinsuranceContractMarker reinsuranceContract = verifiedResult.getReinsuranceContract();
+        boolean underwritingInfosOfDifferentLobs = lob == null;
+        boolean underwritingInfosOfDifferentContracts = reinsuranceContract == null;
+        for (UnderwritingInfo underwritingInfo : underwritingInfos) {
+            if (!underwritingInfosOfDifferentLobs && !lob.equals(underwritingInfo.getLineOfBusiness())) {
+                underwritingInfosOfDifferentLobs = true;
+            }
+            if (!underwritingInfosOfDifferentContracts && !reinsuranceContract.equals(underwritingInfo.getReinsuranceContract())) {
+                underwritingInfosOfDifferentContracts = true;
+            }
+        }
+        if (underwritingInfosOfDifferentLobs) {
+            verifiedResult.setLineOfBusiness(null);
+        }
+        if (underwritingInfosOfDifferentContracts) {
+            verifiedResult.setReinsuranceContract(null);
+        }
+        return verifiedResult;
     }
 
     static public UnderwritingInfo difference(UnderwritingInfo grossUnderwritingInfo, UnderwritingInfo cededUnderwritingInfo) {

@@ -10,6 +10,20 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
+ * The underwriting info merger calculates merged ceded underwriting info using the property original
+ * underwriting info. All ceded underwriting info having the same reference for originalUnderwritingInfo will
+ * be merged in one underwritingInfo object by aggregating the values and setting the
+ * origin to the ClaimsMerger (<code>this</code>).<br/>
+ * If the outUnderwritingInfoNet channel is connected  net underwritingInfo object are constructed
+ * too. For every gross underwritingInfo a net underwritingInfo is constructed subtracting
+ * the ultimate of the merged ceded underwritingInfo with the same originalUnderwritingInfo.<br/>
+ * <p/>
+ * <b>Usage:</b> If a gross underwritingInfo has different ways through the network of a
+ * model and is ceded in different places (parallel reinsurance contracts).
+ * <p/>
+ * <b>Cave:</b> The component will throw an IllegalArgumentException if it
+ * receives a gross claim twice.
+ *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 public class UnderwritingInfoMerger extends Component {

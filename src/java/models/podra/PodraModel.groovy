@@ -10,6 +10,7 @@ import org.pillarone.riskanalytics.domain.pc.lob.DynamicConfigurableLobsWithRese
 import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.ReinsuranceWithBouquetCommissionProgram
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.DynamicReservesGeneratorLean
 import org.pillarone.riskanalytics.domain.pc.underwriting.DynamicUnderwritingSegments
+import org.pillarone.riskanalytics.domain.pc.filter.DynamicSegmentFilters
 
 /**
  * @author shartmann (at) munichre (dot) com
@@ -25,6 +26,7 @@ class PodraModel extends StochasticModel {
     ReinsuranceWithBouquetCommissionProgram reinsurance
     DynamicAssetLiabilityMismatchGenerator almGenerators
     AlmResultAggregator aggregateFinancials
+    DynamicSegmentFilters structures
 
 
     void initComponents() {
@@ -37,6 +39,7 @@ class PodraModel extends StochasticModel {
         reinsurance = new ReinsuranceWithBouquetCommissionProgram()
         almGenerators = new DynamicAssetLiabilityMismatchGenerator()
         aggregateFinancials = new AlmResultAggregator()
+        structures = new DynamicSegmentFilters()
 
         addStartComponent underwritingSegments
         addStartComponent dependencies
@@ -60,6 +63,14 @@ class PodraModel extends StochasticModel {
             reinsurance.inClaims = linesOfBusiness.outClaimsGross
             linesOfBusiness.inUnderwritingInfoCeded = reinsurance.outCoverUnderwritingInfo
             linesOfBusiness.inClaimsCeded = reinsurance.outClaimsCeded
+            if (structures.subComponentCount() > 0) {
+                structures.inClaimsGross = reinsurance.outClaimsGross
+                structures.inClaimsCeded = linesOfBusiness.outClaimsCeded
+                structures.inClaimsNet = linesOfBusiness.outClaimsNet
+                structures.inUnderwritingInfoGross = reinsurance.outUnderwritingInfo
+                structures.inUnderwritingInfoCeded = linesOfBusiness.outUnderwritingInfoCeded
+                structures.inUnderwritingInfoNet = linesOfBusiness.outUnderwritingInfoNet
+            }
         }
         else {
             reinsurance.inUnderwritingInfo = underwritingSegments.outUnderwritingInfo

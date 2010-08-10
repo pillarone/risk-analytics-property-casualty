@@ -27,6 +27,27 @@ public class UnderwritingInfo extends ExposureInfo {
         super();
     }
 
+    @Override
+    public UnderwritingInfo copy() {
+        UnderwritingInfo copy = UnderwritingInfoPacketFactory.createPacket();
+        copy.set(this);
+        return copy;
+    }
+
+    public void set(UnderwritingInfo underwritingInfo) {
+        setOrigin(underwritingInfo.getOrigin());
+        setExposureDefinition(underwritingInfo.exposureDefinition);
+        setPremiumWrittenAsIf(underwritingInfo.getPremiumWrittenAsIf());
+        setNumberOfPolicies(underwritingInfo.getNumberOfPolicies());
+        setSumInsured(underwritingInfo.getSumInsured());
+        setMaxSumInsured(underwritingInfo.getMaxSumInsured());
+        setOriginalUnderwritingInfo(underwritingInfo.getOriginalUnderwritingInfo());
+        setPremiumWritten(underwritingInfo.premiumWritten);
+        setCommission(underwritingInfo.commission);
+        setLineOfBusiness(underwritingInfo.getLineOfBusiness());
+        setReinsuranceContract(underwritingInfo.getReinsuranceContract());
+    }
+
     /**
      * Warning: if the number or names of values is modified, UnderwritingBatchInsertDBCollector
      * has to be corrected accordingly.

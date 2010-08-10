@@ -13,6 +13,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.validation.
 import org.pillarone.riskanalytics.domain.pc.generators.claims.validation.ClaimsGeneratorStrategyValidator
 import org.pillarone.riskanalytics.domain.pc.constraints.validation.UnityPortionValidator
 import org.pillarone.riskanalytics.domain.pc.validation.UnityDoubleValidator
+import org.pillarone.riskanalytics.domain.pc.constraints.SegmentPortion
 
 class RiskAnalyticsPropertyCasualtyGrailsPlugin {
     // the plugin version
@@ -54,6 +55,7 @@ class RiskAnalyticsPropertyCasualtyGrailsPlugin {
 
         ConstraintsFactory.registerConstraint(new SimpleConstraint())
         ConstraintsFactory.registerConstraint(new PerilPortion())
+        ConstraintsFactory.registerConstraint(new SegmentPortion())
         ConstraintsFactory.registerConstraint(new CompanyPortion())
         ConstraintsFactory.registerConstraint(new UnderwritingPortion())
         ConstraintsFactory.registerConstraint(new ReservePortion())

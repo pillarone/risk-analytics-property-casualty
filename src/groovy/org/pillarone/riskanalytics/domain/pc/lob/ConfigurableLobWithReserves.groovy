@@ -5,9 +5,7 @@ import org.pillarone.riskanalytics.core.packets.PacketList
 import org.pillarone.riskanalytics.core.wiring.PortReplicatorCategory
 import org.pillarone.riskanalytics.core.wiring.WireCategory
 import org.pillarone.riskanalytics.core.wiring.WiringUtils
-import org.pillarone.riskanalytics.domain.pc.aggregators.UnderwritingInfoAggregator
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimsFilterByOriginalOrigin
-import org.pillarone.riskanalytics.domain.pc.claims.MarketClaimsMerger
 import org.pillarone.riskanalytics.domain.pc.claims.MarketToLineOfBusinessClaims
 import org.pillarone.riskanalytics.domain.pc.reserves.LineOfBusinessReserves
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket

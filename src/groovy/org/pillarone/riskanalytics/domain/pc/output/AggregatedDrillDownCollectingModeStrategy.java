@@ -7,6 +7,7 @@ import org.pillarone.riskanalytics.core.output.*;
 import org.pillarone.riskanalytics.core.packets.Packet;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType;
+import org.pillarone.riskanalytics.domain.pc.filter.SegmentFilter;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
@@ -119,15 +120,21 @@ public class AggregatedDrillDownCollectingModeStrategy implements ICollectingMod
                 String perilPathExtension = claim.getPeril().getName();
                 addToMap(claim, getComponentPath(), perilPathExtension, resultMap);
             }
-            if (claim.sender instanceof LobMarker && claim.getReinsuranceContract() != null) {
+            if ((claim.sender instanceof LobMarker
+                    || claim.sender instanceof SegmentFilter)
+                    && claim.getReinsuranceContract() != null) {
                 String contractPathExtension = claim.getReinsuranceContract().getName();
                 addToMap(claim, getComponentPath(), contractPathExtension, resultMap);
             }
-            if (claim.sender instanceof IReinsuranceContractMarker && claim.getLineOfBusiness() != null) {
+            if ((claim.sender instanceof IReinsuranceContractMarker
+                    || claim.sender instanceof SegmentFilter)
+                    && claim.getLineOfBusiness() != null) {
                 String lobPathExtension = claim.getLineOfBusiness().getName();
                 addToMap(claim, getComponentPath(), lobPathExtension, resultMap);
             }
-            if (claim.sender instanceof IReinsuranceContractMarker && claim.getPeril() != null) {
+            if ((claim.sender instanceof IReinsuranceContractMarker
+                    || claim.sender instanceof SegmentFilter)
+                    && claim.getPeril() != null) {
                 String perilPathExtension = claim.getPeril().getName();
                 addToMap(claim, getComponentPath(), perilPathExtension, resultMap);
             }
@@ -148,11 +155,15 @@ public class AggregatedDrillDownCollectingModeStrategy implements ICollectingMod
         for (UnderwritingInfo underwritingInfo : underwritingInfos) {
             String originPath = packetCollector.getSimulationScope().getStructureInformation().getPath(underwritingInfo);
             addToMap(underwritingInfo, originPath, resultMap);
-            if (underwritingInfo.sender instanceof LobMarker && underwritingInfo.getReinsuranceContract() != null) {
+            if ((underwritingInfo.sender instanceof LobMarker
+                    || underwritingInfo.sender instanceof SegmentFilter)
+                    && underwritingInfo.getReinsuranceContract() != null) {
                 String contractPathExtension = underwritingInfo.getReinsuranceContract().getName();
                 addToMap(underwritingInfo, getComponentPath(), contractPathExtension, resultMap);
             }
-            if (underwritingInfo.sender instanceof IReinsuranceContractMarker && underwritingInfo.getLineOfBusiness() != null) {
+            if ((underwritingInfo.sender instanceof IReinsuranceContractMarker
+                    || underwritingInfo.sender instanceof SegmentFilter)
+                    && underwritingInfo.getLineOfBusiness() != null) {
                 String lobPathExtension = underwritingInfo.getLineOfBusiness().getName();
                 addToMap(underwritingInfo, getComponentPath(), lobPathExtension, resultMap);
             }
