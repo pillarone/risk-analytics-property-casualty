@@ -10,13 +10,14 @@ import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope;
 /**
  * Utility class for date, time and period calculations that are either
  * domain-specific, or generic but not already provided by org.joda.time classes.
- *
+ * <p/>
  * ben (dot) ginsberg (at) intuitive-collaboration (dot) com
  */
 public class DateTimeUtilities {
 
     /**
      * Converts a string of the form YYYY-MM-DD (an ISO-2014 date or ISO-8601 calendar date) to a Joda DateTime
+     *
      * @param date
      * @return
      */
@@ -37,25 +38,26 @@ public class DateTimeUtilities {
      * where $t, t_0 \& d$ have continuous time units.
      * However, although periods have equal calendrical duration, the linear time
      * duration of periods vary due to, e.g., leap years or variable month lengths.
-     *
+     * <p/>
      * Periods may start anywhere within the calendar year, but they <b>must</b> last one year
      * (i.e. up to the same date on each following year, or each preceding year for negative periods).
-     * 
+     * <p/>
      * Usage://todo(bgi)
-     *   DateTime startOfPrevPeriod = new DateTime(2009,3,1,0,0,0,0);
-     *   DateTime startOfThisPeriod = new DateTime(2010,3,1,0,0,0,0);
-     *   DateTime startOfNextPeriod = new DateTime(2011,3,1,0,0,0,0);
-     *   DateTime lastPointInPrevPeriod = new DateTime(2010,2,28,23,59,59,999);
-     *   DateTime lastPointInThisPeriod = new DateTime(2011,2,28,23,59,59,999);
-     *   DateTime lastPointInNextPeriod = new DateTime(2012,2,29,23,59,59,999);
-     *   int
-     *   period = DateTimeUtilities.mapDateToPeriod(lastPointInNextPeriod, startOfThisPeriod) // 1
-     *   period = DateTimeUtilities.mapDateToPeriod(lastPointInPrevPeriod, startOfThisPeriod) // -1
-     *
+     * DateTime startOfPrevPeriod = new DateTime(2009,3,1,0,0,0,0);
+     * DateTime startOfThisPeriod = new DateTime(2010,3,1,0,0,0,0);
+     * DateTime startOfNextPeriod = new DateTime(2011,3,1,0,0,0,0);
+     * DateTime lastPointInPrevPeriod = new DateTime(2010,2,28,23,59,59,999);
+     * DateTime lastPointInThisPeriod = new DateTime(2011,2,28,23,59,59,999);
+     * DateTime lastPointInNextPeriod = new DateTime(2012,2,29,23,59,59,999);
+     * int
+     * period = DateTimeUtilities.mapDateToPeriod(lastPointInNextPeriod, startOfThisPeriod) // 1
+     * period = DateTimeUtilities.mapDateToPeriod(lastPointInPrevPeriod, startOfThisPeriod) // -1
+     * <p/>
      * // todo(bgi): treat non-year periods, e.g. quarterly, monthly (rename this method to mapDateToCalendarYear)
-     *  @param date
-     *  @param startDate
-     *  @return
+     *
+     * @param date
+     * @param startDate
+     * @return
      */
     public static int mapDateToPeriod(DateTime date, DateTime startDate) {
         Years years = Years.yearsBetween(startDate, date); // (today, yesterday) -> 'P0Y' (rounded integer!)
@@ -77,8 +79,7 @@ public class DateTimeUtilities {
                 MutableDateTime movedDate = new MutableDateTime(date);
                 movedDate.setYear(startYear);
                 if (movedDate.isAfter(startDate)) signedYearDiff--;
-            }
-            else {
+            } else {
                 /**
                  * Both dates are in the same calendar year, and we already know that date < startDate,
                  * so we know we need to apply the compensation
@@ -92,6 +93,7 @@ public class DateTimeUtilities {
     /**
      * Maps a date $t$ to a fraction of period $f \in [0,1)$ representing elapsed time since start of period.
      * Currently only supports periods beginning at the beginning of a given year.
+     *
      * @param date
      * @return
      */
@@ -116,8 +118,7 @@ public class DateTimeUtilities {
         if (periodLength.getMonths() > 0) {
             double months = new Period(simulationStart, date, PeriodType.months()).getMonths() / (double) periodLength.getMonths();
             return months < 0 ? (int) Math.floor(months) : (int) months;
-        }
-        else if (periodLength.getMonths() == 0 && periodLength.getYears() > 0) {
+        } else if (periodLength.getMonths() == 0 && periodLength.getYears() > 0) {
             return new Period(simulationStart, date).getYears();
         }
         throw new IllegalArgumentException("No rule implemented for " + simulationStart + ", " + periodLength + ", " + date);
@@ -146,10 +147,14 @@ public class DateTimeUtilities {
         }
         if (sign == 1) {
             shiftedDate = shiftedDate.plus(shift);
-        }
-        else {
+        } else {
             shiftedDate = shiftedDate.minus(shift);
         }
         return shiftedDate;
+    }
+
+    public static DateTime getDate(DateTime startDate, Period periodLength, double periodOffset) {
+        DateTime endOfFirstPeriod = startDate.plus(periodLength);
+        return getDate(startDate, endOfFirstPeriod, (int) Math.floor(periodOffset), periodOffset - Math.floor(periodOffset));
     }
 }
