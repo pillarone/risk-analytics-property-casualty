@@ -118,6 +118,7 @@ class RiskToBandAllocatorStrategy implements IRiskAllocatorStrategy, IParameterO
         for (Claim claim: claims) {
             for (Entry<Double, Double> entry: targetDistribution.entrySet()) {
                 Claim copy = claim.copy()
+                copy.originalClaim = copy
                 copy.scale(entry.value)
                 if (!lossToRiskMap.containsKey(entry.key)) {
                     lossToRiskMap[entry.key] = new ArrayList<Claim>()
