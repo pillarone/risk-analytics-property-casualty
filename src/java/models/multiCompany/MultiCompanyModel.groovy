@@ -12,6 +12,7 @@ import org.pillarone.riskanalytics.domain.pc.lob.DynamicCompanyConfigurableLobsW
 import org.pillarone.riskanalytics.domain.pc.company.DynamicCompany
 import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.ReinsuranceMarketWithBouquetCommissionProgram
 import org.pillarone.riskanalytics.domain.pc.assetLiabilityMismatch.DynamicCompanyConfigurableAssetLiabilityMismatchGenerator
+import org.pillarone.riskanalytics.domain.pc.filter.DynamicSegmentFilters
 
 /**
  * @author shartmann (at) munichre (dot) com
@@ -28,6 +29,7 @@ class MultiCompanyModel extends StochasticModel {
     ReinsuranceMarketWithBouquetCommissionProgram reinsuranceMarket
     DynamicCompanyConfigurableAssetLiabilityMismatchGenerator almGenerators
     AlmResultAggregator aggregateFinancials
+    DynamicSegmentFilters structures
 
 
     void initComponents() {
@@ -41,6 +43,7 @@ class MultiCompanyModel extends StochasticModel {
         reinsuranceMarket = new ReinsuranceMarketWithBouquetCommissionProgram()
         almGenerators = new DynamicCompanyConfigurableAssetLiabilityMismatchGenerator()
         aggregateFinancials = new AlmResultAggregator()
+        structures = new DynamicSegmentFilters()
 
         addStartComponent underwritingSegments
         addStartComponent dependencies
@@ -68,5 +71,13 @@ class MultiCompanyModel extends StochasticModel {
         aggregateFinancials.inClaims = reinsuranceMarket.outClaimsNet
         aggregateFinancials.inUnderwritingInfo = reinsuranceMarket.outNetAfterCoverUnderwritingInfo
         aggregateFinancials.inAlm = almGenerators.outAlmResult
+        if (structures.subComponentCount() > 0) {
+            structures.inClaimsGross = reinsuranceMarket.outClaimsGross
+            structures.inClaimsCeded = linesOfBusiness.outClaimsCeded
+            structures.inClaimsNet = linesOfBusiness.outClaimsNet
+            structures.inUnderwritingInfoGross = reinsuranceMarket.outUnderwritingInfo
+            structures.inUnderwritingInfoCeded = linesOfBusiness.outUnderwritingInfoCeded
+            structures.inUnderwritingInfoNet = linesOfBusiness.outUnderwritingInfoNet
+        }
     }
 }

@@ -29,4 +29,14 @@ components {
 			}
 		}
 	}
+	structures {
+		subsegmentFilter {
+			outClaimsCeded = "AGGREGATED_DRILL_DOWN"
+			outClaimsGross = "AGGREGATED_DRILL_DOWN"
+			outClaimsNet = "AGGREGATED_DRILL_DOWN"
+			outUnderwritingInfoCeded = "AGGREGATED_DRILL_DOWN"
+			outUnderwritingInfoGross = "AGGREGATED_DRILL_DOWN"
+			outUnderwritingInfoNet = "AGGREGATED_DRILL_DOWN"
+		}
+	}
 }
