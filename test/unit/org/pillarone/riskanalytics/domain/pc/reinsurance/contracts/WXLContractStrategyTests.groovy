@@ -20,6 +20,7 @@ class WXLContractStrategyTests extends GroovyTestCase {
                         ["attachmentPoint": 20,
                          "limit": 30,
                          "aggregateLimit": 100,
+                         "aggregateDeductible": 0,
                          "premiumBase": PremiumBase.ABSOLUTE,
                          "premium": 100,
                          "reinstatementPremiums": new TableMultiDimensionalParameter([0.2], ['Reinstatement Premium']),
@@ -33,6 +34,21 @@ class WXLContractStrategyTests extends GroovyTestCase {
                         ["attachmentPoint": 80,
                          "limit": 20,
                          "aggregateLimit": 50,
+                         "aggregateDeductible": 0,
+                         "premiumBase": PremiumBase.ABSOLUTE,
+                         "premium": 100,
+                         "reinstatementPremiums": new TableMultiDimensionalParameter([0.2], ['Reinstatement Premium']),
+                         "coveredByReinsurer": 1d]))
+    }
+
+    static ReinsuranceContract getContract2() {
+        return new ReinsuranceContract(
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
+                        ReinsuranceContractType.WXL,
+                        ["attachmentPoint": 20,
+                         "limit": 30,
+                         "aggregateLimit": 100,
+                         "aggregateDeductible": 50,
                          "premiumBase": PremiumBase.ABSOLUTE,
                          "premium": 100,
                          "reinstatementPremiums": new TableMultiDimensionalParameter([0.2], ['Reinstatement Premium']),
@@ -57,6 +73,26 @@ class WXLContractStrategyTests extends GroovyTestCase {
         assertEquals "wxl, ceded claim 60", 30, wxl.outCoveredClaims[2].ultimate
         assertEquals "wxl, ceded claim 100", 30, wxl.outCoveredClaims[3].ultimate
         assertEquals "wxl, ceded claim 100 (2)", 10, wxl.outCoveredClaims[4].ultimate  // smaller due to the aggregateLimit
+    }
+
+    void testCalculateCededClaimsAggregateDeductible() {
+        Claim attrClaim100 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 100d)
+        Claim largeClaim50 = new Claim(claimType: ClaimType.SINGLE, ultimate: 50d)
+        Claim largeClaim60 = new Claim(claimType: ClaimType.SINGLE, ultimate: 60d)
+        Claim largeClaim100 = new Claim(claimType: ClaimType.SINGLE, ultimate: 100d)
+
+        ReinsuranceContract wxl = getContract2()
+        wxl.inClaims << attrClaim100 << largeClaim50 << largeClaim60 << largeClaim100 << largeClaim100
+
+        wxl.doCalculation()
+
+        assertEquals "outClaimsNet.size()", 0, wxl.outUncoveredClaims.size()
+        assertEquals "outClaims.size()", 5, wxl.outCoveredClaims.size()
+        assertEquals "wxl, attritional claim 100", 0, wxl.outCoveredClaims[0].ultimate
+        assertEquals "wxl, ceded claim 50", 15, wxl.outCoveredClaims[1].ultimate
+        assertEquals "wxl, ceded claim 60", 15, wxl.outCoveredClaims[2].ultimate
+        assertEquals "wxl, ceded claim 100", 15, wxl.outCoveredClaims[3].ultimate
+        assertEquals "wxl, ceded claim 100 (2)", 5, wxl.outCoveredClaims[4].ultimate  // smaller due to the aggregateLimit
     }
 
     void testAttritionalClaims() {

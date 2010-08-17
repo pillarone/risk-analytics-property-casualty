@@ -3,6 +3,7 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -19,10 +20,15 @@ class WXLContractStrategy extends XLContractStrategy implements IReinsuranceCont
             double ceded = Math.min(Math.max(inClaim.ultimate - attachmentPoint, 0), limit) * coveredByReinsurer
             ceded = availableAggregateLimit > ceded ? ceded : availableAggregateLimit
             availableAggregateLimit -= ceded
-            return ceded
+            return ceded * deductibleFactor
         }
         else {
             return 0d
         }
+    }
+
+    void initBookkeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
+        super.initBookkeepingFigures(inClaims, coverUnderwritingInfo)
+        calculateDeductibleFactor(inClaims)
     }
 }

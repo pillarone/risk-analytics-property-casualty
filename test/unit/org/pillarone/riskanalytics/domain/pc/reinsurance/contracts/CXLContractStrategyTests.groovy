@@ -40,6 +40,7 @@ class CXLContractStrategyTests extends GroovyTestCase {
                         ["attachmentPoint": 20,
                          "limit": 30,
                          "aggregateLimit": 100,
+                         "aggregateDeductible": 0,
                          "premiumBase": PremiumBase.ABSOLUTE,
                          "premium": 100,
                          "reinstatementPremiums": new TableMultiDimensionalParameter([0.2], ['Reinstatement Premium']),
@@ -53,6 +54,21 @@ class CXLContractStrategyTests extends GroovyTestCase {
                         ["attachmentPoint": 80,
                          "limit": 20,
                          "aggregateLimit": 50,
+                         "aggregateDeductible": 0,
+                         "premiumBase": PremiumBase.ABSOLUTE,
+                         "premium": 100,
+                         "reinstatementPremiums": new TableMultiDimensionalParameter([0.2], ['Reinstatement Premium']),
+                         "coveredByReinsurer": 1d]))
+    }
+
+    static ReinsuranceContract getContract2() {
+        return new ReinsuranceContract(
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
+                        ReinsuranceContractType.CXL,
+                        ["attachmentPoint": 20,
+                         "limit": 30,
+                         "aggregateLimit": 100,
+                         "aggregateDeductible": 20,
                          "premiumBase": PremiumBase.ABSOLUTE,
                          "premium": 100,
                          "reinstatementPremiums": new TableMultiDimensionalParameter([0.2], ['Reinstatement Premium']),
@@ -112,6 +128,24 @@ class CXLContractStrategyTests extends GroovyTestCase {
         assertEquals("claim10Event1", claim10Event1.ultimate * 0.5, cxl.outCoveredClaims[4].ultimate)
         assertEquals("claim30Event2", claim30Event2.ultimate / 3, cxl.outCoveredClaims[7].ultimate)
         assertEquals("claim40Event3", claim40Event3.ultimate / 10, cxl.outCoveredClaims[9].ultimate)
+    }
+
+    void testEventClaimsAggregateDeductible() {
+        ReinsuranceContract cxl = getContract2()
+
+        cxl.inClaims << claim0Event0 << claim10Event0 << claim20Event0 << claim30Event0 << claim10Event1
+        cxl.inClaims << claim15Event1 << claim35Event1 << claim30Event2 << claim60Event2 << claim40Event3
+        cxl.inClaims << claim60Event3 << claim120Event4
+
+        def probeCXLnet = new TestProbe(cxl, "outUncoveredClaims")    // needed in order to trigger the calculation of net claims
+
+        cxl.doCalculation()
+        assertTrue "number of ceded claims", 12 == cxl.outCoveredClaims.size()  // claim0Event0 and claim120Event4 don't have a ceded part
+        // [id -1] as the first claim won't have any ceded part
+        assertEquals("claim10Event0", claim10Event0.ultimate * 0.4, cxl.outCoveredClaims[1].ultimate)
+        assertEquals("claim10Event1", claim10Event1.ultimate * 0.4, cxl.outCoveredClaims[4].ultimate)
+        assertEquals("claim30Event2", claim30Event2.ultimate / 3 * 0.8, cxl.outCoveredClaims[7].ultimate)
+        assertEquals("claim40Event3", claim40Event3.ultimate / 10 * 0.8, cxl.outCoveredClaims[9].ultimate)
     }
 
     void testGetCededUnderwritingInfoGNPI() {

@@ -23,11 +23,16 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
     AbstractMultiDimensionalParameter reinstatementPremiums = new TableMultiDimensionalParameter([0d], ['Reinstatement Premium'])
     double attachmentPoint
     double limit
+    double aggregateDeductible
     double aggregateLimit
     Map<UnderwritingInfo, Double> grossPremiumSharesPerBand = [:]
 
-    protected double availableAggregateLimit //  A field which may become relevant once the WORM will be available...
+    protected double availableAggregateLimit
     protected double reinstatements
+    /** The factor is calculated during initBookkeepingFigures() by applying the aggregateDeductible,
+     *  ceded claims will be multiplied by it to apply a positive aggregateDeductible proportionally
+     *  to every claim. */
+    protected double deductibleFactor = 1d
 
     public Map getParameters() {
         return ["premiumBase": premiumBase,
@@ -35,6 +40,7 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
             "reinstatementPremiums": reinstatementPremiums,
             "attachmentPoint": attachmentPoint,
             "limit": limit,
+            "aggregateDeductible": aggregateDeductible,
             "aggregateLimit": aggregateLimit,
             "coveredByReinsurer": coveredByReinsurer]
     }
@@ -75,6 +81,20 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
             for (UnderwritingInfo underwritingInfo: coverUnderwritingInfo) {
                 grossPremiumSharesPerBand.put(underwritingInfo, underwritingInfo.premiumWritten / totalPremium)
             }
+        }
+    }
+
+    protected void calculateDeductibleFactor(List<Claim> inClaims) {
+        if (aggregateDeductible > 0) {
+            double aggregateCededBeforeDeductible = 0
+            for (Claim claim : inClaims) {
+                aggregateCededBeforeDeductible += allocateCededClaim(claim)
+            }
+            double aggregateCededAfterDeductible = Math.max(0, aggregateCededBeforeDeductible - aggregateDeductible)
+            if (aggregateCededBeforeDeductible > 0) {
+                deductibleFactor = aggregateCededAfterDeductible / aggregateCededBeforeDeductible
+            }
+            availableAggregateLimit = aggregateLimit
         }
     }
 

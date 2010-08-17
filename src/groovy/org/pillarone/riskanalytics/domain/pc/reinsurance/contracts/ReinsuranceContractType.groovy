@@ -82,30 +82,30 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
     }
 
     private static IReinsuranceContractStrategy getWXL(double attachmentPoint, double limit, double aggregateLimit,
-                                                       PremiumBase premiumBase, double premium,
+                                                       double aggregateDeductible, PremiumBase premiumBase, double premium,
                                                        AbstractMultiDimensionalParameter reinstatementPremiums,
                                                        double coveredByReinsurer) {
         return new WXLContractStrategy(attachmentPoint: attachmentPoint, limit: limit, aggregateLimit: aggregateLimit,
-                premiumBase: premiumBase, premium: premium, reinstatementPremiums: reinstatementPremiums,
-                coveredByReinsurer: coveredByReinsurer)
+                aggregateDeductible: aggregateDeductible, premiumBase: premiumBase, premium: premium,
+                reinstatementPremiums: reinstatementPremiums, coveredByReinsurer: coveredByReinsurer)
     }
 
     private static IReinsuranceContractStrategy getCXL(double attachmentPoint, double limit, double aggregateLimit,
-                                                       PremiumBase premiumBase, double premium,
+                                                       double aggregateDeductible, PremiumBase premiumBase, double premium,
                                                        AbstractMultiDimensionalParameter reinstatementPremiums,
                                                        double coveredByReinsurer) {
         return new CXLContractStrategy(attachmentPoint: attachmentPoint, limit: limit, aggregateLimit: aggregateLimit,
-                premiumBase: premiumBase, premium: premium, reinstatementPremiums: reinstatementPremiums,
-                coveredByReinsurer: coveredByReinsurer)
+                aggregateDeductible: aggregateDeductible, premiumBase: premiumBase, premium: premium,
+                reinstatementPremiums: reinstatementPremiums, coveredByReinsurer: coveredByReinsurer)
     }
 
     private static IReinsuranceContractStrategy getWCXL(double attachmentPoint, double limit, double aggregateLimit,
-                                                        PremiumBase premiumBase, double premium,
+                                                        double aggregateDeductible, PremiumBase premiumBase, double premium,
                                                         AbstractMultiDimensionalParameter reinstatementPremiums,
                                                         double coveredByReinsurer) {
         return new WCXLContractStrategy(attachmentPoint: attachmentPoint, limit: limit, aggregateLimit: aggregateLimit,
-                premiumBase: premiumBase, premium: premium, reinstatementPremiums: reinstatementPremiums,
-                coveredByReinsurer: coveredByReinsurer)
+                aggregateDeductible: aggregateDeductible, premiumBase: premiumBase, premium: premium,
+                reinstatementPremiums: reinstatementPremiums, coveredByReinsurer: coveredByReinsurer)
     }
 
     private static IReinsuranceContractStrategy getLossPortfolioTransferContractStrategy(double quotaShare, LPTPremiumBase premiumBase,
@@ -154,6 +154,7 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
                         (double) parameters["attachmentPoint"],
                         (double) parameters["limit"],
                         (double) parameters["aggregateLimit"],
+                        (double) parameters["aggregateDeductible"] == null ? 0 : (double) parameters["aggregateDeductible"],
                         (PremiumBase) parameters["premiumBase"],
                         (double) parameters["premium"],
                         (AbstractMultiDimensionalParameter) parameters["reinstatementPremiums"],
@@ -164,6 +165,7 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
                         (double) parameters["attachmentPoint"],
                         (double) parameters["limit"],
                         (double) parameters["aggregateLimit"],
+                        (double) parameters["aggregateDeductible"] == null ? 0 : (double) parameters["aggregateDeductible"],
                         (PremiumBase) parameters["premiumBase"],
                         (double) parameters["premium"],
                         (AbstractMultiDimensionalParameter) parameters["reinstatementPremiums"],
@@ -174,6 +176,7 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
                         (double) parameters["attachmentPoint"],
                         (double) parameters["limit"],
                         (double) parameters["aggregateLimit"],
+                        (double) parameters["aggregateDeductible"] == null ? 0 : (double) parameters["aggregateDeductible"],
                         (PremiumBase) parameters["premiumBase"],
                         (double) parameters["premium"],
                         (AbstractMultiDimensionalParameter) parameters["reinstatementPremiums"],

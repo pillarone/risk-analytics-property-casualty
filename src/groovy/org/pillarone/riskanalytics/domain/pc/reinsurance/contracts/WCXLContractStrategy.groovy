@@ -24,14 +24,14 @@ class WCXLContractStrategy extends XLContractStrategy implements IReinsuranceCon
     double allocateCededClaim(Claim inClaim) {
         // todo (sku): work on clear definitions of ClaimType.EVENT and ClaimType.AGGREGATE_EVENT
         if (inClaim.claimType.equals(ClaimType.EVENT) || inClaim.claimType.equals(ClaimType.AGGREGATED_EVENT)) {
-            return inClaim.ultimate * cededShareByEvent.get(inClaim.event) * coveredByReinsurer
+            return inClaim.ultimate * cededShareByEvent.get(inClaim.event) * coveredByReinsurer * deductibleFactor
         }
         else {
             if (inClaim.claimType.equals(ClaimType.SINGLE) && availableAggregateLimit > 0) {
                 double ceded = Math.min(Math.max(inClaim.ultimate - attachmentPoint, 0), limit) * coveredByReinsurer
                 ceded = availableAggregateLimit > ceded ? ceded : availableAggregateLimit
                 availableAggregateLimit -= ceded
-                return ceded
+                return ceded * deductibleFactor
             }
             else {
                 return 0d
@@ -63,6 +63,7 @@ class WCXLContractStrategy extends XLContractStrategy implements IReinsuranceCon
             availableAggregateLimit -= ceded
             cededShareByEvent.put(claim.key, claim.value == 0 ? 0d : ceded / claim.value)
         }
+        calculateDeductibleFactor(inClaims)
     }
 
     public void resetMemberInstances() {

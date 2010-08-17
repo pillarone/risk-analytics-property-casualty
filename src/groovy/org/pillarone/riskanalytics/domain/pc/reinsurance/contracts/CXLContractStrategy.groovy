@@ -24,7 +24,7 @@ class CXLContractStrategy extends XLContractStrategy implements IReinsuranceCont
     double allocateCededClaim(Claim inClaim) {
         // todo (sku): work on clear definitions of ClaimType.EVENT and ClaimType.AGGREGATE_EVENT
         if (inClaim.claimType.equals(ClaimType.EVENT) || inClaim.claimType.equals(ClaimType.AGGREGATED_EVENT)) {
-            return inClaim.ultimate * cededShareByEvent.get(inClaim.event) * coveredByReinsurer
+            return inClaim.ultimate * cededShareByEvent.get(inClaim.event) * coveredByReinsurer * deductibleFactor
         }
         else {
             return 0d
@@ -54,6 +54,7 @@ class CXLContractStrategy extends XLContractStrategy implements IReinsuranceCont
             availableAggregateLimit -= ceded
             cededShareByEvent.put(claim.key, claim.value == 0 ? 0d : ceded / claim.value)
         }
+        calculateDeductibleFactor(inClaims)
     }
 
     public void resetMemberInstances() {
