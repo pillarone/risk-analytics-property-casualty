@@ -1,5 +1,5 @@
-<plugin name='risk-analytics-property-casualty' version='1.0.0.1' grailsVersion='1.2.0 &gt; *'>
-  <author>Intuitive Collaboration</author>
+<plugin name='risk-analytics-property-casualty' version='1.0.1' grailsVersion='1.2.0 &gt; *'>
+  <author>Intuitive Collaboration AG</author>
   <authorEmail>info (at) intuitive-collaboration (dot) com</authorEmail>
   <title>Property Casualty Library and Example Models</title>
   <description>\
