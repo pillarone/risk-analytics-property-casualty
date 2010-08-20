@@ -148,6 +148,46 @@ class CXLContractStrategyTests extends GroovyTestCase {
         assertEquals("claim40Event3", claim40Event3.ultimate / 10 * 0.8, cxl.outCoveredClaims[9].ultimate)
     }
 
+    void testEventClaimsAggregateDeductiblePMO_1092() {
+        ReinsuranceContract cxl = new ReinsuranceContract(
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
+                        ReinsuranceContractType.CXL,
+                        ["attachmentPoint": 25,
+                         "limit": 30,
+                         "aggregateLimit": 90,
+                         "aggregateDeductible": 4,
+                         "premiumBase": PremiumBase.ABSOLUTE,
+                         "premium": 1,
+                         "reinstatementPremiums": new TableMultiDimensionalParameter([1d, 1d], ['Reinstatement Premium']),
+                         "coveredByReinsurer": 1d]))
+
+
+        Claim claim30Event0 = new Claim(event: event0, claimType: ClaimType.EVENT, value: 30d)
+        Claim claim30Event1 = new Claim(event: event1, claimType: ClaimType.EVENT, value: 30d)
+        UnderwritingInfo underwritingInfo = new UnderwritingInfo(premiumWritten: 100)
+        cxl.inClaims << claim30Event0 << claim30Event1
+        cxl.inUnderwritingInfo << underwritingInfo
+
+        // needed in order to trigger the calculation of ceded uw info
+        def probeCXLCededUwInfo = new TestProbe(cxl, "outCoverUnderwritingInfo")
+
+        cxl.doCalculation()
+        assertTrue "number of ceded claims", 2 == cxl.outCoveredClaims.size()
+        assertEquals "claim10Event0", 3, cxl.outCoveredClaims[0].ultimate
+        assertEquals "claim10Event1", 3, cxl.outCoveredClaims[1].ultimate
+        assertEquals "underwriting info", 1.2, cxl.outCoverUnderwritingInfo[0].premiumWritten
+
+        // apply the same calculations twice to make sure everything is properly reset between periods/iterations
+        cxl.reset()
+        cxl.inClaims << claim30Event0 << claim30Event1
+        cxl.inUnderwritingInfo << underwritingInfo
+        cxl.doCalculation()
+        assertTrue "number of ceded claims", 2 == cxl.outCoveredClaims.size()
+        assertEquals "claim10Event0", 3, cxl.outCoveredClaims[0].ultimate
+        assertEquals "claim10Event1", 3, cxl.outCoveredClaims[1].ultimate
+        assertEquals "underwriting info", 1.2, cxl.outCoverUnderwritingInfo[0].premiumWritten
+    }
+
     void testGetCededUnderwritingInfoGNPI() {
         ReinsuranceContract cxl = getContract1()
         UnderwritingInfo grossUnderwritingInfo = UnderwritingInfoTests.getUnderwritingInfo()

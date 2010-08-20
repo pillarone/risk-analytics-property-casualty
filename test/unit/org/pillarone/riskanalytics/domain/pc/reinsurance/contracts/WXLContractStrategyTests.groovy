@@ -51,7 +51,7 @@ class WXLContractStrategyTests extends GroovyTestCase {
                          "aggregateDeductible": 50,
                          "premiumBase": PremiumBase.ABSOLUTE,
                          "premium": 100,
-                         "reinstatementPremiums": new TableMultiDimensionalParameter([0.2], ['Reinstatement Premium']),
+                         "reinstatementPremiums": new TableMultiDimensionalParameter([0.3], ['Reinstatement Premium']),
                          "coveredByReinsurer": 1d]))
     }
 
@@ -83,6 +83,11 @@ class WXLContractStrategyTests extends GroovyTestCase {
 
         ReinsuranceContract wxl = getContract2()
         wxl.inClaims << attrClaim100 << largeClaim50 << largeClaim60 << largeClaim100 << largeClaim100
+        UnderwritingInfo underwritingInfo = new UnderwritingInfo(premiumWritten: 100)
+        wxl.inUnderwritingInfo << underwritingInfo
+
+        // needed in order to trigger the calculation of ceded uw info
+        def probeCXLCededUwInfo = new TestProbe(wxl, "outCoverUnderwritingInfo")
 
         wxl.doCalculation()
 
@@ -92,7 +97,23 @@ class WXLContractStrategyTests extends GroovyTestCase {
         assertEquals "wxl, ceded claim 50", 15, wxl.outCoveredClaims[1].ultimate
         assertEquals "wxl, ceded claim 60", 15, wxl.outCoveredClaims[2].ultimate
         assertEquals "wxl, ceded claim 100", 15, wxl.outCoveredClaims[3].ultimate
-        assertEquals "wxl, ceded claim 100 (2)", 5, wxl.outCoveredClaims[4].ultimate  // smaller due to the aggregateLimit
+        assertEquals "wxl, ceded claim 100 (2)", 5, wxl.outCoveredClaims[4].ultimate
+        assertEquals "underwriting info", 150, wxl.outCoverUnderwritingInfo[0].premiumWritten
+
+        wxl.reset()
+        // apply the same calculations twice to make sure everything is properly reset between periods/iterations
+        wxl.inClaims << attrClaim100 << largeClaim50 << largeClaim60 << largeClaim100 << largeClaim100
+        wxl.inUnderwritingInfo << underwritingInfo
+        wxl.doCalculation()
+
+        assertEquals "outClaimsNet.size()", 0, wxl.outUncoveredClaims.size()
+        assertEquals "outClaims.size()", 5, wxl.outCoveredClaims.size()
+        assertEquals "wxl, attritional claim 100", 0, wxl.outCoveredClaims[0].ultimate
+        assertEquals "wxl, ceded claim 50", 15, wxl.outCoveredClaims[1].ultimate
+        assertEquals "wxl, ceded claim 60", 15, wxl.outCoveredClaims[2].ultimate
+        assertEquals "wxl, ceded claim 100", 15, wxl.outCoveredClaims[3].ultimate
+        assertEquals "wxl, ceded claim 100 (2)", 5, wxl.outCoveredClaims[4].ultimate
+        assertEquals "underwriting info", 150, wxl.outCoverUnderwritingInfo[0].premiumWritten
     }
 
     void testAttritionalClaims() {

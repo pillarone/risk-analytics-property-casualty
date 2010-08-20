@@ -30,5 +30,6 @@ class WXLContractStrategy extends XLContractStrategy implements IReinsuranceCont
     void initBookkeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
         super.initBookkeepingFigures(inClaims, coverUnderwritingInfo)
         calculateDeductibleFactor(inClaims)
+        availableAggregateLimit = aggregateLimit
     }
 }

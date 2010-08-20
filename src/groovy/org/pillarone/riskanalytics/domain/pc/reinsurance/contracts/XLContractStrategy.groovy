@@ -50,7 +50,7 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
     abstract double allocateCededClaim(Claim inClaim)
 
     protected double calculateUsedReinstatements() {
-        return Math.min((aggregateLimit - availableAggregateLimit) / limit, reinstatements)
+        return Math.min((aggregateLimit - availableAggregateLimit - aggregateDeductible) / limit, reinstatements)
     }
 
     protected double calculateReinstatementPremiums() {
@@ -85,6 +85,7 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
     }
 
     protected void calculateDeductibleFactor(List<Claim> inClaims) {
+        deductibleFactor = 1
         if (aggregateDeductible > 0) {
             double aggregateCededBeforeDeductible = 0
             for (Claim claim : inClaims) {
@@ -94,7 +95,6 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
             if (aggregateCededBeforeDeductible > 0) {
                 deductibleFactor = aggregateCededAfterDeductible / aggregateCededBeforeDeductible
             }
-            availableAggregateLimit = aggregateLimit
         }
     }
 
