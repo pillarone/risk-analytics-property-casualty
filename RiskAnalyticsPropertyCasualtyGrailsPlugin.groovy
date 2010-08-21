@@ -64,7 +64,7 @@ class RiskAnalyticsPropertyCasualtyGrailsPlugin {
         ValidatorRegistry.addValidator(new DistributionTypeValidator())
 //        ValidatorRegistry.addValidator(new SurplusStrategyValidator())
         ValidatorRegistry.addValidator(new CommissionStrategyTypeValidator())
-//        ValidatorRegistry.addValidator(new ClaimsGeneratorStrategyValidator())
+        ValidatorRegistry.addValidator(new ClaimsGeneratorStrategyValidator())
         ValidatorRegistry.addValidator(new UnityPortionValidator())
         ValidatorRegistry.addValidator(new UnityDoubleValidator())
     }
