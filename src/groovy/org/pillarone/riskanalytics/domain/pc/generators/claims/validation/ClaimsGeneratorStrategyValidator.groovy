@@ -10,12 +10,10 @@ import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterHolde
 import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterObjectParameterHolder
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 import org.pillarone.riskanalytics.domain.utils.DistributionModified
-import org.pillarone.riskanalytics.domain.utils.RandomDistribution
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
-import org.pillarone.riskanalytics.domain.pc.generators.claims.IClaimsGeneratorStrategy
 import org.pillarone.riskanalytics.domain.pc.generators.claims.ClaimsGeneratorType
 import umontreal.iro.lecuyer.probdist.Distribution
-import org.codehaus.groovy.runtime.InvokerInvocationException
+import umontreal.iro.lecuyer.probdist.ContinuousDistribution
 
 /**
  * This validator focuses on valid combinations of distributions and modifications.
@@ -93,6 +91,10 @@ class ClaimsGeneratorStrategyValidator implements IParameterizationValidator {
         if (!modification || modification.type == DistributionModifier.NONE ||
             modification.type == DistributionModifier.SHIFT) {
             return
+        }
+
+        if (!(distribution instanceof ContinuousDistribution)) {
+            return ["claims.model.error.modification.not.allowed.for.none.continuous.distributions"]
         }
 
         double leftBoundary = (Double) modification.getParameters().get("min");
