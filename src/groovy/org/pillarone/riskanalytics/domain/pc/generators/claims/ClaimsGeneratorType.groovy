@@ -26,7 +26,7 @@ public class ClaimsGeneratorType extends AbstractParameterObjectClassifier {
             claimsSizeDistribution: DistributionType.getStrategy(DistributionType.CONSTANT, ["constant": 0d]),
             claimsSizeModification: DistributionModifier.getStrategy(DistributionModifier.NONE, [:]),
             occurrenceDistribution: DistributionType.getStrategy(DistributionType.CONSTANT, ["constant": 0.5d])])
-    public static final ClaimsGeneratorType EXTERNAL_SEVERITY = new ClaimsGeneratorType("external severity", "EXTERNAL_SEVERITY", [
+    public static final ClaimsGeneratorType SEVERITY_OF_EVENT_GENERATOR = new ClaimsGeneratorType("external severity", "SEVERITY_OF_EVENT_GENERATOR", [
             claimsSizeBase: Exposure.ABSOLUTE,
             claimsSizeDistribution: DistributionType.getStrategy(DistributionType.CONSTANT, ["constant": 0d]),
             produceClaim: FrequencySeverityClaimType.AGGREGATED_EVENT])
@@ -55,7 +55,7 @@ public class ClaimsGeneratorType extends AbstractParameterObjectClassifier {
             occurrenceDistribution: DistributionType.getStrategy(DistributionType.UNIFORM, ["a": 0d, "b": 1d]),
             produceClaim: FrequencySeverityClaimType.SINGLE])
 
-    public static final all = [NONE, ATTRITIONAL, ATTRITIONAL_WITH_DATE, FREQUENCY_AVERAGE_ATTRITIONAL, FREQUENCY_SEVERITY, OCCURRENCE_AND_SEVERITY, EXTERNAL_SEVERITY]
+    public static final all = [NONE, ATTRITIONAL, ATTRITIONAL_WITH_DATE, FREQUENCY_AVERAGE_ATTRITIONAL, FREQUENCY_SEVERITY, OCCURRENCE_AND_SEVERITY, SEVERITY_OF_EVENT_GENERATOR]
 
     protected static Map types = [:]
     static {
@@ -129,7 +129,7 @@ public class ClaimsGeneratorType extends AbstractParameterObjectClassifier {
                         occurrenceDistribution: (RandomDistribution) parameters.get("occurrenceDistribution"),
                         produceClaim: (FrequencySeverityClaimType) parameters.get("produceClaim"))
                 break;
-            case ClaimsGeneratorType.EXTERNAL_SEVERITY:
+            case ClaimsGeneratorType.SEVERITY_OF_EVENT_GENERATOR:
                 claimsGenerator = new ExternalSeverityClaimsGeneratorStrategy(
                         claimsSizeBase: (Exposure) parameters.get("claimsSizeBase"),
                         claimsSizeDistribution: (RandomDistribution) parameters.get("claimsSizeDistribution"),

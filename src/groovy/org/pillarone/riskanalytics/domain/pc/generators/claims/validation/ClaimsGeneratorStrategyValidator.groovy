@@ -78,7 +78,7 @@ class ClaimsGeneratorStrategyValidator implements IParameterizationValidator {
         validationService.register(ClaimsGeneratorType.OCCURRENCE_AND_SEVERITY) {Map type ->
             return checkArea(type)
         }
-        validationService.register(ClaimsGeneratorType.EXTERNAL_SEVERITY) {Map type ->
+        validationService.register(ClaimsGeneratorType.SEVERITY_OF_EVENT_GENERATOR) {Map type ->
             return checkArea(type)
         }
     }

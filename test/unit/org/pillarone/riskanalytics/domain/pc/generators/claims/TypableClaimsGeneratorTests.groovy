@@ -17,7 +17,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.RiskBands
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
-import org.pillarone.riskanalytics.domain.utils.RandomDistribution
+
 import umontreal.iro.lecuyer.probdist.*
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -191,7 +191,7 @@ public class TypableClaimsGeneratorTests extends GroovyTestCase {
         uwInfoComboBox.comboBoxValues.put('motorHull', riskBands)
         claimsGenerator.setParmUnderwritingInformation(uwInfoComboBox)
         claimsGenerator.setParmClaimsModel ClaimsGeneratorType.getStrategy(
-                ClaimsGeneratorType.EXTERNAL_SEVERITY, [
+                ClaimsGeneratorType.SEVERITY_OF_EVENT_GENERATOR, [
                         //TODO(2): FrequencyBase.NUMBER_OF_POLICIES with Freq>1
                         "claimsSizeBase": Exposure.ABSOLUTE, //TODO(1): PREMIUM_WRITTEN for AttritionalCG
                         "claimsSizeDistribution": DistributionType.getStrategy(DistributionType.UNIFORM, ['a':0d, 'b':1d]),
@@ -221,7 +221,7 @@ public class TypableClaimsGeneratorTests extends GroovyTestCase {
         uwInfoComboBox.comboBoxValues.put('motorHull', riskBands)
         claimsGenerator.setParmUnderwritingInformation(uwInfoComboBox)
         claimsGenerator.setParmClaimsModel ClaimsGeneratorType.getStrategy(
-                ClaimsGeneratorType.EXTERNAL_SEVERITY, [
+                ClaimsGeneratorType.SEVERITY_OF_EVENT_GENERATOR, [
                         "claimsSizeBase": Exposure.PREMIUM_WRITTEN,
                         "claimsSizeDistribution": DistributionType.getStrategy(DistributionType.UNIFORM, ['a':0d, 'b':1d]),
                         "produceClaim": FrequencySeverityClaimType.AGGREGATED_EVENT, ])
@@ -248,7 +248,7 @@ public class TypableClaimsGeneratorTests extends GroovyTestCase {
 
         claimsGenerator.outClaims.clear()
         claimsGenerator.setParmClaimsModel ClaimsGeneratorType.getStrategy(
-                ClaimsGeneratorType.EXTERNAL_SEVERITY, [
+                ClaimsGeneratorType.SEVERITY_OF_EVENT_GENERATOR, [
                         "claimsSizeBase": Exposure.ABSOLUTE,
                         "claimsSizeDistribution": DistributionType.getStrategy(DistributionType.UNIFORM, ['a':0d, 'b':1d]),
                         "produceClaim": FrequencySeverityClaimType.AGGREGATED_EVENT, ])

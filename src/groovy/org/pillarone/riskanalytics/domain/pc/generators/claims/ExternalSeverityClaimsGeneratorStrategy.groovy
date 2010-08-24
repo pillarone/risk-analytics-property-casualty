@@ -18,7 +18,7 @@ public class ExternalSeverityClaimsGeneratorStrategy implements IParameterObject
     FrequencySeverityClaimType produceClaim = FrequencySeverityClaimType.AGGREGATED_EVENT
 
     public IParameterObjectClassifier getType() {
-        return ClaimsGeneratorType.EXTERNAL_SEVERITY
+        return ClaimsGeneratorType.SEVERITY_OF_EVENT_GENERATOR
     }
 
     public Map getParameters() {
