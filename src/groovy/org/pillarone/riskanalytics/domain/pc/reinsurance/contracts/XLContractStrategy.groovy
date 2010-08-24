@@ -49,22 +49,28 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
 
     abstract double allocateCededClaim(Claim inClaim)
 
-    protected double calculateUsedReinstatements() {
+    static double calculateUsedReinstatements(double aggregateLimit, double availableAggregateLimit,
+            double aggregateDeductible, double limit, double reinstatements) {
         return Math.min((aggregateLimit - availableAggregateLimit - aggregateDeductible) / limit, reinstatements)
     }
 
-    protected double calculateReinstatementPremiums() {
-        double usedReinstatements = calculateUsedReinstatements()
+    static double calculateReinstatementPremiums(double aggregateLimit, double availableAggregateLimit,
+            double aggregateDeductible, double limit, double reinstatements,
+            AbstractMultiDimensionalParameter reinstatementPremiums, double coveredByReinsurer) {
+        double usedReinstatements = calculateUsedReinstatements(aggregateLimit, availableAggregateLimit,
+            aggregateDeductible, limit, reinstatements)
         double reinstatementPremium = 0d
         for (int i = 1; i <= usedReinstatements; i++) {
-            reinstatementPremium += getReinstatementPremiumFactor(i)
+            reinstatementPremium += getReinstatementPremiumFactor(i, reinstatementPremiums, coveredByReinsurer)
         }
         double partialReinstatement = usedReinstatements - Math.floor(usedReinstatements)
-        reinstatementPremium += partialReinstatement * getReinstatementPremiumFactor(Math.ceil(usedReinstatements).toInteger())
+        reinstatementPremium += partialReinstatement * getReinstatementPremiumFactor(
+                Math.ceil(usedReinstatements).toInteger(), reinstatementPremiums, coveredByReinsurer)
         reinstatementPremium
     }
 
-    protected double getReinstatementPremiumFactor(int reinstatement) {
+    static double getReinstatementPremiumFactor(int reinstatement, AbstractMultiDimensionalParameter reinstatementPremiums,
+            double coveredByReinsurer) {
         reinstatementPremiums.values[Math.min(reinstatement, reinstatementPremiums.valueRowCount - 1)] * coveredByReinsurer
     }
 
@@ -121,7 +127,8 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
                 throw new IllegalArgumentException("Defining the premium base as number of policies is not suppported.")
         }
         // Increases premium written and premium written as if with the reinstatement premium
-        double factor = 1 + calculateReinstatementPremiums()
+        double factor = 1 + calculateReinstatementPremiums(aggregateLimit, availableAggregateLimit, aggregateDeductible,
+            limit, reinstatements, reinstatementPremiums, coveredByReinsurer)
         cededUnderwritingInfo.premiumWritten *= factor
         cededUnderwritingInfo.premiumWrittenAsIf *= factor
         return cededUnderwritingInfo

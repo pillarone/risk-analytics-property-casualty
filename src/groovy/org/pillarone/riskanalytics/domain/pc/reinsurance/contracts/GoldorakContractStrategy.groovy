@@ -8,6 +8,8 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities
 import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
+import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
+import org.pillarone.riskanalytics.core.parameterization.AbstractMultiDimensionalParameter
 
 /**
  *  In a first step claims are merged per event. Merged claims are ceded and afterwards the ceded part is
@@ -15,8 +17,19 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacket
  *
  * @author shartmann (at) munichre (dot) com
  */
-class GoldorakContractStrategy extends XLContractStrategy implements IReinsuranceContractStrategy, IParameterObject {
+class GoldorakContractStrategy extends AbstractContractStrategy implements IReinsuranceContractStrategy, IParameterObject {
+/** Premium can be expressed as a fraction of a base quantity.                 */
+    PremiumBase premiumBase = PremiumBase.ABSOLUTE
 
+    /** Premium as a percentage of the premium base                 */
+    double premium
+
+    /** As a percentage of premium.                 */
+    AbstractMultiDimensionalParameter reinstatementPremiums = new TableMultiDimensionalParameter([0d], ['Reinstatement Premium'])
+    double cxlAttachmentPoint
+    double cxlLimit
+    double cxlAggregateDeductible
+    double cxlAggregateLimit
     double slAttachmentPoint
     double slLimit
     double goldorakSlThreshold
@@ -24,9 +37,11 @@ class GoldorakContractStrategy extends XLContractStrategy implements IReinsuranc
 
     private double scaledGoldorakSlThreshold
     private double factor
+    private double cxlAvailableAggregateLimit
     private double aggregateGrossClaimAmount
     private Map<Event, Double> claimsValueMergedByEvent = [:]
     private Map<Event, Double> cededShareByEvent = [:]
+    private Map<UnderwritingInfo, Double> grossPremiumSharesPerBand = [:]
 
     ReinsuranceContractType getType() {
         ReinsuranceContractType.GOLDORAK
@@ -36,9 +51,10 @@ class GoldorakContractStrategy extends XLContractStrategy implements IReinsuranc
         return ["premiumBase": premiumBase,
                 "premium": premium,
                 "reinstatementPremiums": reinstatementPremiums,
-                "attachmentPoint": attachmentPoint,
-                "limit": limit,
-                "aggregateLimit": aggregateLimit,
+                "cxlAttachmentPoint": cxlAttachmentPoint,
+                "cxlLimit": cxlLimit,
+                "cxlAggregateDeductible": cxlAggregateDeductible,
+                "cxlAggregateLimit": cxlAggregateLimit,
                 "coveredByReinsurer": coveredByReinsurer,
                 "slAttachmentPoint": slAttachmentPoint,
                 "slLimit": slLimit,
@@ -65,13 +81,25 @@ class GoldorakContractStrategy extends XLContractStrategy implements IReinsuranc
 
     void initBookkeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
         super.initBookkeepingFigures(inClaims, coverUnderwritingInfo)
+        cxlAvailableAggregateLimit = cxlAggregateLimit
+        double totalPremium = coverUnderwritingInfo.premiumWritten.sum()
+        if (totalPremium == 0) {
+            for (UnderwritingInfo underwritingInfo: coverUnderwritingInfo) {
+                grossPremiumSharesPerBand.put(underwritingInfo, 0)
+            }
+        }
+        else {
+            for (UnderwritingInfo underwritingInfo: coverUnderwritingInfo) {
+                grossPremiumSharesPerBand.put(underwritingInfo, underwritingInfo.premiumWritten / totalPremium)
+            }
+        }
 
         aggregateGrossClaimAmount = 0.0
         for (Claim claim in inClaims) {
             aggregateGrossClaimAmount += claim.ultimate
         }
-        double scaledAttachmentPoint = attachmentPoint
-        double scaledLimit = limit
+        double scaledAttachmentPoint = cxlAttachmentPoint
+        double scaledLimit = cxlLimit
         double scaledSlLimit = slLimit
         double scaledAggregateGrossClaimAmount = aggregateGrossClaimAmount
         scaledGoldorakSlThreshold = goldorakSlThreshold
@@ -110,10 +138,10 @@ class GoldorakContractStrategy extends XLContractStrategy implements IReinsuranc
             for (MapEntry claim: claimsValueMergedByEvent.entrySet()) {
                 if ((claim.value > 0) && (gnpi > 0)) {
                     double scaledCeded = Math.min(Math.max(claim.value - scaledAttachmentPoint, 0), scaledLimit)
-                    double scaledAvailableAggregateLimit = availableAggregateLimit * gnpi
+                    double scaledAvailableAggregateLimit = cxlAvailableAggregateLimit * gnpi
                     scaledCeded = Math.min(scaledAvailableAggregateLimit, scaledCeded)
                     double ceded = scaledCeded / gnpi
-                    availableAggregateLimit -= ceded
+                    cxlAvailableAggregateLimit -= ceded
                     cededShareByEvent.put(claim.key, scaledCeded / claim.value)
                 }
                 else {
@@ -140,8 +168,8 @@ class GoldorakContractStrategy extends XLContractStrategy implements IReinsuranc
                     cededUnderwritingInfo.premiumWrittenAsIf = premium * grossUnderwritingInfo.premiumWrittenAsIf
                     break
                 case PremiumBase.RATE_ON_LINE:
-                    cededUnderwritingInfo.premiumWritten = premium * limit
-                    cededUnderwritingInfo.premiumWrittenAsIf = premium * limit
+                    cededUnderwritingInfo.premiumWritten = premium * cxlLimit
+                    cededUnderwritingInfo.premiumWrittenAsIf = premium * cxlLimit
                     break
                 case PremiumBase.NUMBER_OF_POLICIES:
                     throw new IllegalArgumentException("Defining the premium base as number of policies is not suppported.")
@@ -149,7 +177,7 @@ class GoldorakContractStrategy extends XLContractStrategy implements IReinsuranc
         }
         else {
             switch (premiumBase) {
-                case PremiumBase.ABSOLUTE:                                          //szu: this does not exist for stop-loss
+                case PremiumBase.ABSOLUTE:
                     cededUnderwritingInfo.premiumWritten = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
                     cededUnderwritingInfo.premiumWrittenAsIf = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
                     break
@@ -158,8 +186,8 @@ class GoldorakContractStrategy extends XLContractStrategy implements IReinsuranc
                     cededUnderwritingInfo.premiumWrittenAsIf = premium * grossUnderwritingInfo.premiumWrittenAsIf
                     break
                 case PremiumBase.RATE_ON_LINE:
-                    cededUnderwritingInfo.premiumWritten = premium * limit //must be CXL limit here
-                    cededUnderwritingInfo.premiumWrittenAsIf = premium * limit //must be CXL limit here
+                    cededUnderwritingInfo.premiumWritten = premium * cxlLimit
+                    cededUnderwritingInfo.premiumWrittenAsIf = premium * cxlLimit
                     break
                 case PremiumBase.NUMBER_OF_POLICIES:
                     throw new IllegalArgumentException("Defining the premium base as number of policies is not suppported.")
@@ -167,7 +195,9 @@ class GoldorakContractStrategy extends XLContractStrategy implements IReinsuranc
 
         }
         // Increases premium written and premium written as if with the reinstatement premium
-        double factor = 1 + calculateReinstatementPremiums()
+        double reinstatements = cxlAvailableAggregateLimit / cxlLimit - 1
+        double factor = 1 + XLContractStrategy.calculateReinstatementPremiums(cxlAggregateLimit, cxlAvailableAggregateLimit,
+            cxlAggregateDeductible, cxlLimit, reinstatements, reinstatementPremiums, coveredByReinsurer)
         cededUnderwritingInfo.premiumWritten *= factor
         cededUnderwritingInfo.premiumWrittenAsIf *= factor
         return cededUnderwritingInfo

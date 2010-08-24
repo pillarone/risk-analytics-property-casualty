@@ -18,9 +18,9 @@ class GoldorakContractStrategyTests extends GroovyTestCase {
         return new ReinsuranceContract(
                 parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.GOLDORAK,
-                        ["attachmentPoint": 100d,
-                                "limit": 200d,
-                                "aggregateLimit": 400d,
+                        ["cxlAttachmentPoint": 100d,
+                                "cxlLimit": 200d,
+                                "cxlAggregateLimit": 400d,
                                 "premiumBase": PremiumBase.ABSOLUTE,
                                 "premium": 20d,
                                 "coveredByReinsurer": 1d,
@@ -37,9 +37,9 @@ class GoldorakContractStrategyTests extends GroovyTestCase {
         return new ReinsuranceContract(
                 parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.GOLDORAK,
-                        ["attachmentPoint": 100d,
-                                "limit": 200d,
-                                "aggregateLimit": 400d,
+                        ["cxlAttachmentPoint": 100d,
+                                "cxlLimit": 200d,
+                                "cxlAggregateLimit": 400d,
                                 "premiumBase": PremiumBase.RATE_ON_LINE,
                                 "premium": 0.10d,
                                 "coveredByReinsurer": 1d,
@@ -57,9 +57,9 @@ class GoldorakContractStrategyTests extends GroovyTestCase {
         return new ReinsuranceContract(
                 parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.GOLDORAK,
-                        ["attachmentPoint": 0.10d,
-                                "limit": 0.20d,
-                                "aggregateLimit": 0.40d,
+                        ["cxlAttachmentPoint": 0.10d,
+                                "cxlLimit": 0.20d,
+                                "cxlAggregateLimit": 0.40d,
                                 "premiumBase": PremiumBase.GNPI,
                                 "premium": 0.05d,
                                 "coveredByReinsurer": 1d,

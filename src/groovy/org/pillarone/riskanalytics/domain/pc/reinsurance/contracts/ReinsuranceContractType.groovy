@@ -35,9 +35,10 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
         ["quotaShare": 0d, "premiumBase": LPTPremiumBase.ABSOLUTE, "premium": 0d, "coveredByReinsurer": 1d])
     public static final ReinsuranceContractType ADVERSEDEVELOPMENTCOVER = new ReinsuranceContractType("adverse development cover", "ADVERSEDEVELOPMENTCOVER",
         ["attachmentPoint": 0d, "limit": 0d, "stopLossContractBase": StopLossContractBase.ABSOLUTE, "premium": 0d, "coveredByReinsurer": 1d])
-    public static final ReinsuranceContractType GOLDORAK = new ReinsuranceContractType("goldorak", "GOLDORAK", ["attachmentPoint": 0d, "limit": 0d,
-        "aggregateLimit": 0d, "premiumBase": PremiumBase.ABSOLUTE, "premium": 0d, "coveredByReinsurer": 1d, "slAttachmentPoint": 0d,
-        "slLimit": 0d, "goldorakSlThreshold" : 0d, "reinstatementPremiums": new TableMultiDimensionalParameter([0.0], ['Reinstatement Premium'])])
+    public static final ReinsuranceContractType GOLDORAK = new ReinsuranceContractType("goldorak", "GOLDORAK", ["cxlAttachmentPoint": 0d, "cxlLimit": 0d,
+            "cxlAggregateDeductible": 0d, "cxlAggregateLimit": 0d, "premiumBase": PremiumBase.ABSOLUTE, "premium": 0d,
+            "coveredByReinsurer": 1d, "slAttachmentPoint": 0d, "slLimit": 0d, "goldorakSlThreshold" : 0d,
+            "reinstatementPremiums": new TableMultiDimensionalParameter([0.0], ['Reinstatement Premium'])])
 
     public static final all = [QUOTASHARE, SURPLUS, WXL, CXL,
         WCXL, STOPLOSS, TRIVIAL, AGGREGATEXL, LOSSPORTFOLIOTRANSFER, ADVERSEDEVELOPMENTCOVER, GOLDORAK]
@@ -123,12 +124,13 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
         return new TrivialContractStrategy()
     }
 
-    private static IReinsuranceContractStrategy getGoldorak(double attachmentPoint, double limit, double aggregateLimit,
-                                                       PremiumBase premiumBase, double premium,
+    private static IReinsuranceContractStrategy getGoldorak(double attachmentPoint, double limit, double cxlAggregateDeductible,
+                                                            double cxlAggregateLimit, PremiumBase premiumBase, double premium,
                                                        AbstractMultiDimensionalParameter reinstatementPremiums,
                                                        double coveredByReinsurer, double slAttachmentPoint,
                                                        double slLimit, double goldorakSlThreshold) {
-        return new GoldorakContractStrategy(attachmentPoint: attachmentPoint, limit: limit, aggregateLimit: aggregateLimit,
+        return new GoldorakContractStrategy(cxlAttachmentPoint: attachmentPoint, cxlLimit: limit, cxlAggregateDeductible:
+                cxlAggregateDeductible, cxlAggregateLimit: cxlAggregateLimit,
                 premiumBase: premiumBase, premium: premium, reinstatementPremiums: reinstatementPremiums,
                 coveredByReinsurer: coveredByReinsurer, slAttachmentPoint: slAttachmentPoint, slLimit: slLimit,
                 goldorakSlThreshold: goldorakSlThreshold)
@@ -217,9 +219,10 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
                 break
             case ReinsuranceContractType.GOLDORAK:
                 contract = getGoldorak(
-                        (double) parameters["attachmentPoint"],
-                        (double) parameters["limit"],
-                        (double) parameters["aggregateLimit"],
+                        (double) parameters["cxlAttachmentPoint"],
+                        (double) parameters["cxlLimit"],
+                        (double) parameters["cxlAggregateDeductible"] == null ? 0 : (double) parameters["cxlAggregateDeductible"],
+                        (double) parameters["cxlAggregateLimit"],
                         (PremiumBase) parameters["premiumBase"],
                         (double) parameters["premium"],
                         (AbstractMultiDimensionalParameter) parameters["reinstatementPremiums"],
