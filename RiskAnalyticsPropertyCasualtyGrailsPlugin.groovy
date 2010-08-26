@@ -3,7 +3,7 @@ import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
 import org.pillarone.riskanalytics.domain.pc.constraints.UnderwritingPortion
 import org.pillarone.riskanalytics.domain.pc.constraints.PerilPortion
 import org.pillarone.riskanalytics.core.parameterization.SimpleConstraint
-import org.pillarone.riskanalytics.domain.pc.output.AggregatedDrillDownCollectingModeStrategy
+import org.pillarone.riskanalytics.domain.pc.output.AggregateDrillDownCollectingModeStrategy
 import org.pillarone.riskanalytics.core.output.CollectingModeFactory
 import org.pillarone.riskanalytics.domain.utils.constraints.DoubleConstraints
 import org.pillarone.riskanalytics.domain.pc.constraints.CompanyPortion
@@ -52,7 +52,7 @@ class RiskAnalyticsPropertyCasualtyGrailsPlugin {
     }
 
     def doWithApplicationContext = {applicationContext ->
-        CollectingModeFactory.registerStrategy(new AggregatedDrillDownCollectingModeStrategy())
+        CollectingModeFactory.registerStrategy(new AggregateDrillDownCollectingModeStrategy())
 
         ConstraintsFactory.registerConstraint(new SimpleConstraint())
         ConstraintsFactory.registerConstraint(new PerilPortion())

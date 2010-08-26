@@ -18,11 +18,14 @@ import java.util.*;
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-public class AggregatedDrillDownCollectingModeStrategy implements ICollectingModeStrategy {
+public class AggregateDrillDownCollectingModeStrategy implements ICollectingModeStrategy {
 
-    protected static Log LOG = LogFactory.getLog(AggregatedDrillDownCollectingModeStrategy.class);
+    protected static Log LOG = LogFactory.getLog(AggregateDrillDownCollectingModeStrategy.class);
 
     static final String IDENTIFIER = "AGGREGATED_DRILL_DOWN";
+    private static final String PERILS = "claimsGenerators";
+    private static final String CONTRACTS = "reinsuranceContracts";
+    private static final String LOB = "linesOfBusiness";
     private static final String RESOURCE_BUNDLE = "org.pillarone.riskanalytics.domain.pc.application.applicationResources";
     private static final String PATH_SEPARATOR = ":";
     private String displayName;
@@ -116,27 +119,40 @@ public class AggregatedDrillDownCollectingModeStrategy implements ICollectingMod
         for (Claim claim : claims) {
             String originPath = packetCollector.getSimulationScope().getStructureInformation().getPath(claim);
             addToMap(claim, originPath, resultMap);
-            if (claim.sender instanceof LobMarker && claim.getPeril() != null) {
-                String perilPathExtension = claim.getPeril().getName();
-                addToMap(claim, getComponentPath(), perilPathExtension, resultMap);
+            String componentPath = getComponentPath();
+            String perilPathExtension = claim.getPeril() == null ? null : PERILS + PATH_SEPARATOR + claim.getPeril().getName();
+            String contractPathExtension = claim.getReinsuranceContract() == null
+                    ? null : CONTRACTS + PATH_SEPARATOR + claim.getReinsuranceContract().getName();
+            String lobPathExtension = claim.getLineOfBusiness() == null
+                    ? null : LOB + PATH_SEPARATOR + claim.getLineOfBusiness().getName();
+            if (claim.sender instanceof LobMarker) {
+                addToMap(claim, componentPath, perilPathExtension, resultMap);
+                addToMap(claim, componentPath, contractPathExtension, resultMap);
             }
-            if ((claim.sender instanceof LobMarker
-                    || claim.sender instanceof SegmentFilter)
-                    && claim.getReinsuranceContract() != null) {
-                String contractPathExtension = claim.getReinsuranceContract().getName();
-                addToMap(claim, getComponentPath(), contractPathExtension, resultMap);
+            if (claim.sender instanceof IReinsuranceContractMarker) {
+                addToMap(claim, componentPath, lobPathExtension, resultMap);
+                addToMap(claim, componentPath, perilPathExtension, resultMap);
             }
-            if ((claim.sender instanceof IReinsuranceContractMarker
-                    || claim.sender instanceof SegmentFilter)
-                    && claim.getLineOfBusiness() != null) {
-                String lobPathExtension = claim.getLineOfBusiness().getName();
-                addToMap(claim, getComponentPath(), lobPathExtension, resultMap);
-            }
-            if ((claim.sender instanceof IReinsuranceContractMarker
-                    || claim.sender instanceof SegmentFilter)
-                    && claim.getPeril() != null) {
-                String perilPathExtension = claim.getPeril().getName();
-                addToMap(claim, getComponentPath(), perilPathExtension, resultMap);
+            if (claim.sender instanceof SegmentFilter) {
+                addToMap(claim, componentPath, perilPathExtension, resultMap);
+                addToMap(claim, componentPath, lobPathExtension, resultMap);
+                addToMap(claim, componentPath, contractPathExtension, resultMap);
+                if (perilPathExtension != null && lobPathExtension != null) {
+                    String pathExtension = lobPathExtension + PATH_SEPARATOR + perilPathExtension;
+                    addToMap(claim, componentPath, pathExtension, resultMap);
+                }
+                if (perilPathExtension != null && contractPathExtension != null) {
+                    String pathExtension = contractPathExtension + PATH_SEPARATOR + perilPathExtension;
+                    addToMap(claim, componentPath, pathExtension, resultMap);
+                }
+                if (lobPathExtension != null && contractPathExtension != null) {
+                    String pathExtension = lobPathExtension + PATH_SEPARATOR + contractPathExtension;
+                    addToMap(claim, componentPath, pathExtension, resultMap);
+                }
+                if (perilPathExtension != null && lobPathExtension != null && contractPathExtension != null) {
+                    String pathExtension = lobPathExtension + PATH_SEPARATOR + contractPathExtension + PATH_SEPARATOR + perilPathExtension;
+                    addToMap(claim, componentPath, pathExtension, resultMap);
+                }
             }
         }
         return resultMap;
@@ -201,6 +217,7 @@ public class AggregatedDrillDownCollectingModeStrategy implements ICollectingMod
 
     // todo(sku): cache extended paths
     private void addToMap(Claim claim, String path, String pathExtension, Map<String, Packet> resultMap) {
+        if (pathExtension == null) return;
         StringBuilder composedPath = new StringBuilder(path);
         composedPath.append(PATH_SEPARATOR);
         composedPath.append(pathExtension);
