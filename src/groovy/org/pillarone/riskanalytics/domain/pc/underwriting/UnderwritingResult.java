@@ -10,6 +10,7 @@ public class UnderwritingResult extends MultiValuePacket {
     private double premium;
     private double claim;
     private double commission;
+    private double lossRatio;
 
     public double getResult() {
         return result;
@@ -41,5 +42,13 @@ public class UnderwritingResult extends MultiValuePacket {
 
     public void setCommission(double commission) {
         this.commission = commission;
+    }
+
+    public double getLossRatio() {
+        return lossRatio;
+    }
+
+    public void setLossRatio(double lossRatio) {
+        this.lossRatio = lossRatio;
     }
 }

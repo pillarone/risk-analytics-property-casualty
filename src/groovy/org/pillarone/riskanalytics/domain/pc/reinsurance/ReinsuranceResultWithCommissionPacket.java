@@ -10,6 +10,7 @@ public class ReinsuranceResultWithCommissionPacket extends MultiValuePacket {
     private double cededPremium;
     private double cededClaim;
     private double cededCommission;
+    private double cededLossRation;
 
     public double getCededPremium() {
         return cededPremium;
@@ -48,5 +49,13 @@ public class ReinsuranceResultWithCommissionPacket extends MultiValuePacket {
     public void setCededCommission(double cededCommission) {
         this.cededCommission = cededCommission;
         setResultingCosts();
+    }
+
+    public double getCededLossRation() {
+        return cededLossRation;
+    }
+
+    public void setCededLossRation(double cededLossRation) {
+        this.cededLossRation = cededLossRation;
     }
 }

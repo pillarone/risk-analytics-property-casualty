@@ -36,6 +36,7 @@ public class AlmResultAggregator extends Component {
         }
         if (underwritingInfo != null && aggregateClaim != null) {
             uwResult.setResult(uwResult.getPremium() + uwResult.getCommission() + uwResult.getClaim());
+            uwResult.setLossRatio(-uwResult.getClaim() / uwResult.getPremium());
             outUnderwriting.add(uwResult);
         }
 
