@@ -15,6 +15,7 @@ import org.pillarone.riskanalytics.domain.pc.constants.FrequencySeverityClaimTyp
 import org.pillarone.riskanalytics.domain.pc.generators.GeneratorCachingComponent;
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.DependenceStream;
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.EventDependenceStream;
+import org.pillarone.riskanalytics.domain.pc.generators.frequency.Frequency;
 import org.pillarone.riskanalytics.domain.pc.generators.severities.Event;
 import org.pillarone.riskanalytics.domain.pc.generators.severities.EventSeverity;
 import org.pillarone.riskanalytics.domain.pc.underwriting.IUnderwritingInfoMarker;
@@ -69,6 +70,8 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
      * claims which source is a covered line
      */
     private PacketList<Claim> outClaims = new PacketList<Claim>(Claim.class);
+
+    private PacketList<Frequency> outClaimsNumber = new PacketList<Frequency>(Frequency.class);
 
     /**
      * underwriting info of segments selected with parmUnderwritingInformation
@@ -171,6 +174,9 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
             }
         }
         outClaims.addAll(parmAssociateExposureInfo.getAllocatedClaims(claims, outUnderwritingInfo));
+        Frequency frequency = new Frequency();
+        frequency.setValue(outClaims.size());
+        outClaimsNumber.add(frequency);
     }
 
     protected void setFractionOfPeriod(ClaimType claimType, Claim claim) {
@@ -371,5 +377,13 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
 
     public void setSimulationScope(SimulationScope simulationScope) {
         this.simulationScope = simulationScope;
+    }
+
+    public PacketList<Frequency> getOutClaimsNumber() {
+        return outClaimsNumber;
+    }
+
+    public void setOutClaimsNumber(PacketList<Frequency> outClaimsNumber) {
+        this.outClaimsNumber = outClaimsNumber;
     }
 }
