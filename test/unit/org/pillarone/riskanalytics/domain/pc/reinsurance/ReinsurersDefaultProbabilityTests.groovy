@@ -25,14 +25,14 @@ public class ReinsurersDefaultProbabilityTests extends GroovyTestCase {
             (Rating.CCC): 0.15d,
             (Rating.CC): 0.25d,
             (Rating.C): 0.35d,
-            (Rating.D): 1d])
+            (Rating.DEFAULT): 1d])
 
     void testUsage() {
         ReinsurersDefaultProbability reinsurersDefaultProbability = new ReinsurersDefaultProbability()
         reinsurersDefaultProbability.parmEarthRe = Rating.A
         reinsurersDefaultProbability.parmJupiterRe = Rating.BBB
         reinsurersDefaultProbability.parmMarsRe = Rating.CC
-        reinsurersDefaultProbability.parmMercuryRe = Rating.D
+        reinsurersDefaultProbability.parmMercuryRe = Rating.DEFAULT
         reinsurersDefaultProbability.inDefaultProbability.add defaultProbabilities
 
         reinsurersDefaultProbability.doCalculation()
@@ -43,18 +43,18 @@ public class ReinsurersDefaultProbabilityTests extends GroovyTestCase {
 
     void testAllDefault() {
         ReinsurersDefaultProbability reinsurersDefaultProbability = new ReinsurersDefaultProbability()
-        reinsurersDefaultProbability.parmEarthRe = Rating.D
-        reinsurersDefaultProbability.parmJupiterRe = Rating.D
-        reinsurersDefaultProbability.parmMarsRe = Rating.D
-        reinsurersDefaultProbability.parmMercuryRe = Rating.D
-        reinsurersDefaultProbability.parmMercuryRe = Rating.D;
-        reinsurersDefaultProbability.parmVenusRe = Rating.D;
-        reinsurersDefaultProbability.parmEarthRe = Rating.D;
-        reinsurersDefaultProbability.parmMarsRe = Rating.D;
-        reinsurersDefaultProbability.parmJupiterRe = Rating.D;
-        reinsurersDefaultProbability.parmSaturnRe = Rating.D;
-        reinsurersDefaultProbability.parmUranusRe = Rating.D;
-        reinsurersDefaultProbability.parmNeptuneRe = Rating.D;
+        reinsurersDefaultProbability.parmEarthRe = Rating.DEFAULT
+        reinsurersDefaultProbability.parmJupiterRe = Rating.DEFAULT
+        reinsurersDefaultProbability.parmMarsRe = Rating.DEFAULT
+        reinsurersDefaultProbability.parmMercuryRe = Rating.DEFAULT
+        reinsurersDefaultProbability.parmMercuryRe = Rating.DEFAULT;
+        reinsurersDefaultProbability.parmVenusRe = Rating.DEFAULT;
+        reinsurersDefaultProbability.parmEarthRe = Rating.DEFAULT;
+        reinsurersDefaultProbability.parmMarsRe = Rating.DEFAULT;
+        reinsurersDefaultProbability.parmJupiterRe = Rating.DEFAULT;
+        reinsurersDefaultProbability.parmSaturnRe = Rating.DEFAULT;
+        reinsurersDefaultProbability.parmUranusRe = Rating.DEFAULT;
+        reinsurersDefaultProbability.parmNeptuneRe = Rating.DEFAULT;
         reinsurersDefaultProbability.inDefaultProbability.add defaultProbabilities
 
         reinsurersDefaultProbability.doCalculation()

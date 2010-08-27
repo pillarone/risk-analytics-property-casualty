@@ -1,12 +1,15 @@
 package org.pillarone.riskanalytics.domain.pc.company;
 
 import org.pillarone.riskanalytics.core.components.Component;
+import org.pillarone.riskanalytics.core.components.MultiPhaseComponent;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter;
 import org.pillarone.riskanalytics.domain.assets.constants.Rating;
 import org.pillarone.riskanalytics.domain.pc.assetLiabilityMismatch.CompanyConfigurableAssetLiabilityMismatchGenerator;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.constraints.CompanyPortion;
+import org.pillarone.riskanalytics.domain.pc.creditrisk.DefaultProbabilities;
+import org.pillarone.riskanalytics.domain.pc.creditrisk.ReinsurerDefault;
 import org.pillarone.riskanalytics.domain.pc.lob.CompanyConfigurableLobWithReserves;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
@@ -14,6 +17,9 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiCompanyC
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities;
+import org.pillarone.riskanalytics.domain.utils.IRandomNumberGenerator;
+import org.pillarone.riskanalytics.domain.utils.RandomNumberGeneratorFactory;
+import umontreal.iro.lecuyer.probdist.BinomialDist;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,12 +43,16 @@ import java.util.Map;
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-public class Company extends Component implements ICompanyMarker {
+public class Company extends MultiPhaseComponent implements ICompanyMarker {
+
+    private PacketList<DefaultProbabilities> inDefaultProbability = new PacketList<DefaultProbabilities>(DefaultProbabilities.class);
 
     private PacketList<Claim> inClaimsGross = new PacketList<Claim>(Claim.class);
     private PacketList<Claim> inClaimsCeded = new PacketList<Claim>(Claim.class);
     private PacketList<UnderwritingInfo> inUnderwritingInfoGross = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
     private PacketList<UnderwritingInfo> inUnderwritingInfoCeded = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
+
+    private PacketList<ReinsurerDefault> outReinsurersDefault = new PacketList<ReinsurerDefault>(ReinsurerDefault.class);
 
     private PacketList<Claim> outClaimsGross = new PacketList<Claim>(Claim.class);
     private PacketList<Claim> outClaimsGrossPrimaryInsurer = new PacketList<Claim>(Claim.class);
@@ -73,15 +83,40 @@ public class Company extends Component implements ICompanyMarker {
      * This parameter is currently not used for any calculation. It may be used for default modeling as in DCEM.
      * Reason for adding it: Components addable in a DynamicComposedComponent need at least one parameter.
      */
-    private Rating parmRating = Rating.BBB;
+    private Rating parmRating = Rating.NO_DEFAULT;
 
     /**
      * contains the covered portion of <tt>this</tt> company per contract
      */
     private Map<IReinsuranceContractMarker, Double> coveredPortionPerContract = new HashMap<IReinsuranceContractMarker, Double>();
+    
+    private IRandomNumberGenerator generator = RandomNumberGeneratorFactory.getBinomialGenerator();
+    private static final String PHASE_DEFAULT = "Phase Default";
+    private static final String PHASE_AGGREGATION = "Phase Aggregation";
 
     @Override
-    protected void doCalculation() {
+    public void doCalculation(String phase) {
+        if (phase.equals(PHASE_DEFAULT)) {
+            doCalculationDefault();
+        }
+        else if (phase.equals(PHASE_AGGREGATION)) {
+            doCalculationAggregation();
+        }
+    }
+    
+    private void doCalculationDefault() {
+        Map<Rating, Double> defaultProbabilities = inDefaultProbability.get(0).defaultProbability;
+        boolean isReinsurerDefault = defaultOfReinsurer(defaultProbabilities.get(parmRating));
+        ReinsurerDefault reinsurerDefault = new ReinsurerDefault(getNormalizedName(), isReinsurerDefault);
+        outReinsurersDefault.add(reinsurerDefault);
+    }
+    
+    private boolean defaultOfReinsurer(double probability) {
+        ((BinomialDist) generator.getDistribution()).setParams(1, probability);
+        return ((Integer) generator.nextValue()) == 1;
+    }
+    
+    private void doCalculationAggregation() {
         try {
             Claim aggregateClaimGrossPI;
             Claim aggregateClaimCeded;
@@ -262,6 +297,37 @@ public class Company extends Component implements ICompanyMarker {
             }
         }
         return portion;
+    }
+
+    public void allocateChannelsToPhases() {
+        setTransmitterPhaseInput(inDefaultProbability, PHASE_DEFAULT);
+        setTransmitterPhaseOutput(outReinsurersDefault, PHASE_DEFAULT);
+
+        setTransmitterPhaseInput(inClaimsCeded, PHASE_AGGREGATION);
+        setTransmitterPhaseInput(inClaimsGross, PHASE_AGGREGATION);
+        setTransmitterPhaseInput(inFinancialResults, PHASE_AGGREGATION);
+        setTransmitterPhaseInput(inUnderwritingInfoCeded, PHASE_AGGREGATION);
+        setTransmitterPhaseInput(inUnderwritingInfoGross, PHASE_AGGREGATION);
+
+        setTransmitterPhaseOutput(outClaimsCeded, PHASE_AGGREGATION);
+        setTransmitterPhaseOutput(outClaimsGross, PHASE_AGGREGATION);
+        setTransmitterPhaseOutput(outClaimsGrossPrimaryInsurer, PHASE_AGGREGATION);
+        setTransmitterPhaseOutput(outClaimsGrossReinsurer, PHASE_AGGREGATION);
+        setTransmitterPhaseOutput(outClaimsLeanDevelopmentCeded, PHASE_AGGREGATION);
+        setTransmitterPhaseOutput(outClaimsLeanDevelopmentGross, PHASE_AGGREGATION);
+        setTransmitterPhaseOutput(outClaimsLeanDevelopmentGrossPrimaryInsurer, PHASE_AGGREGATION);
+        setTransmitterPhaseOutput(outClaimsLeanDevelopmentGrossReinsurer, PHASE_AGGREGATION);
+        setTransmitterPhaseOutput(outClaimsLeanDevelopmentNet, PHASE_AGGREGATION);
+        setTransmitterPhaseOutput(outClaimsLeanDevelopmentNetPrimaryInsurer, PHASE_AGGREGATION);
+        setTransmitterPhaseOutput(outClaimsNet, PHASE_AGGREGATION);
+        setTransmitterPhaseOutput(outClaimsNetPrimaryInsurer, PHASE_AGGREGATION);
+        setTransmitterPhaseOutput(outFinancialResults, PHASE_AGGREGATION);
+        setTransmitterPhaseOutput(outUnderwritingInfoCeded, PHASE_AGGREGATION);
+        setTransmitterPhaseOutput(outUnderwritingInfoGross, PHASE_AGGREGATION);
+        setTransmitterPhaseOutput(outUnderwritingInfoGrossPrimaryInsurer, PHASE_AGGREGATION);
+        setTransmitterPhaseOutput(outUnderwritingInfoGrossReinsurer, PHASE_AGGREGATION);
+        setTransmitterPhaseOutput(outUnderwritingInfoNet, PHASE_AGGREGATION);
+        setTransmitterPhaseOutput(outUnderwritingInfoNetPrimaryInsurer, PHASE_AGGREGATION);
     }
 
     @Override
@@ -467,5 +533,21 @@ public class Company extends Component implements ICompanyMarker {
 
     public void setOutFinancialResults(PacketList<Claim> outFinancialResults) {
         this.outFinancialResults = outFinancialResults;
+    }
+
+    public PacketList<DefaultProbabilities> getInDefaultProbability() {
+        return inDefaultProbability;
+    }
+
+    public void setInDefaultProbability(PacketList<DefaultProbabilities> inDefaultProbability) {
+        this.inDefaultProbability = inDefaultProbability;
+    }
+
+    public PacketList<ReinsurerDefault> getOutReinsurersDefault() {
+        return outReinsurersDefault;
+    }
+
+    public void setOutReinsurersDefault(PacketList<ReinsurerDefault> outReinsurersDefault) {
+        this.outReinsurersDefault = outReinsurersDefault;
     }
 }

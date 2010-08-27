@@ -11,6 +11,22 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 abstract class AbstractContractStrategy implements IReinsuranceContractStrategy, IParameterObject {
 
     double coveredByReinsurer = 1d
+    Double parmCovered
+
+    double covered() {
+        coveredByReinsurer
+    }
+
+    void adjustCovered(double factor) {
+        if (!parmCovered) {
+            parmCovered = coveredByReinsurer
+        }
+        coveredByReinsurer *= factor
+    }
+
+    void resetCovered() {
+        coveredByReinsurer = parmCovered
+    }
 
     public void initBookkeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
     }

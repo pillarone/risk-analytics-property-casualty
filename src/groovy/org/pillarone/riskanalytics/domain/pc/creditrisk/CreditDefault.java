@@ -9,6 +9,7 @@ import org.pillarone.riskanalytics.core.packets.PacketList;
  */
 public class CreditDefault extends Component {
 
+    // preset values according to CEIOPS
     private double parmDefaultAAA = 0.001;
     private double parmDefaultAA = 0.002;
     private double parmDefaultA = 0.004;
@@ -20,18 +21,24 @@ public class CreditDefault extends Component {
     private double parmDefaultC = 0.9;
 
     private PacketList<DefaultProbabilities> outDefaultProbability = new PacketList<DefaultProbabilities>(DefaultProbabilities.class);
+    /** this packet is built during the first call of doCalculation() and sent out for each call */
+    private DefaultProbabilities probabilities;
 
     protected void doCalculation() {
-        DefaultProbabilities probabilities = new DefaultProbabilities();
-        probabilities.defaultProbability.put(Rating.AAA, parmDefaultAAA);
-        probabilities.defaultProbability.put(Rating.AA, parmDefaultAAA);
-        probabilities.defaultProbability.put(Rating.A, parmDefaultAAA);
-        probabilities.defaultProbability.put(Rating.BBB, parmDefaultBBB);
-        probabilities.defaultProbability.put(Rating.BB, parmDefaultBB);
-        probabilities.defaultProbability.put(Rating.B, parmDefaultB);
-        probabilities.defaultProbability.put(Rating.CCC, parmDefaultCCC);
-        probabilities.defaultProbability.put(Rating.CC, parmDefaultCC);
-        probabilities.defaultProbability.put(Rating.C, parmDefaultC);
+        if (probabilities == null) {
+            probabilities = new DefaultProbabilities();
+            probabilities.defaultProbability.put(Rating.AAA, parmDefaultAAA);
+            probabilities.defaultProbability.put(Rating.AA, parmDefaultAAA);
+            probabilities.defaultProbability.put(Rating.A, parmDefaultAAA);
+            probabilities.defaultProbability.put(Rating.BBB, parmDefaultBBB);
+            probabilities.defaultProbability.put(Rating.BB, parmDefaultBB);
+            probabilities.defaultProbability.put(Rating.B, parmDefaultB);
+            probabilities.defaultProbability.put(Rating.CCC, parmDefaultCCC);
+            probabilities.defaultProbability.put(Rating.CC, parmDefaultCC);
+            probabilities.defaultProbability.put(Rating.C, parmDefaultC);
+            probabilities.defaultProbability.put(Rating.DEFAULT, 1d);
+            probabilities.defaultProbability.put(Rating.NO_DEFAULT, 0d);
+        }
         outDefaultProbability.add(probabilities);
     }
 

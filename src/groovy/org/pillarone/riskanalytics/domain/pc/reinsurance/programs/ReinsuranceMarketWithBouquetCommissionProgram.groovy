@@ -14,11 +14,14 @@ import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopment
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.core.wiring.ITransmitter
 import org.pillarone.riskanalytics.core.wiring.Transmitter
+import org.pillarone.riskanalytics.domain.pc.creditrisk.ReinsurerDefault
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 class ReinsuranceMarketWithBouquetCommissionProgram extends ComposedComponent {
+
+    PacketList<ReinsurerDefault> inReinsurersDefault = new PacketList<ReinsurerDefault>(ReinsurerDefault)
 
     PacketList<Claim> inClaims = new PacketList(Claim)
 
@@ -54,6 +57,7 @@ class ReinsuranceMarketWithBouquetCommissionProgram extends ComposedComponent {
                 financialsAggregator.inClaimsCeded = subContracts.outClaimsCeded
             }
             WiringUtils.use(PortReplicatorCategory) {
+                subContracts.inReinsurersDefault = this.inReinsurersDefault
                 subContracts.inClaims = this.inClaims
                 subContracts.inUnderwritingInfo = this.inUnderwritingInfo
                 this.outClaimsNet = subContracts.outClaimsNet

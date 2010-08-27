@@ -69,7 +69,7 @@ class CompanyTests extends GroovyTestCase {
 
         companyVenusRe.inClaimsGross << claimG100V << claimG500M << claimG200V << claimG600P << claimG300M
         companyVenusRe.inClaimsCeded << claimC50V << claimC200M << claimC180V << claimC150M
-        companyVenusRe.doCalculation()
+        companyVenusRe.doCalculation(Company.PHASE_AGGREGATION)
         assertEquals 'number of gross claim for company venus re', 1, companyVenusRe.outClaimsGross.size()
         assertEquals 'number of gross claim for primary insurer venus re', 1, companyVenusRe.outClaimsGrossPrimaryInsurer.size()
         assertEquals 'number of gross claim for reinsurer venus re', 1, companyVenusRe.outClaimsGrossReinsurer.size()
@@ -94,7 +94,7 @@ class CompanyTests extends GroovyTestCase {
 
         companyMarsRe.inClaimsGross << claimG100V << claimG500M << claimG200V << claimG600P << claimG300M
         companyMarsRe.inClaimsCeded << claimC50V << claimC200M << claimC180V << claimC150M
-        companyMarsRe.doCalculation()
+        companyMarsRe.doCalculation(Company.PHASE_AGGREGATION)
         assertEquals 'number of gross claims for company mars re', 1, companyMarsRe.outClaimsGross.size()
         assertEquals 'number of gross claims for primary insurer mars re', 1, companyMarsRe.outClaimsGrossPrimaryInsurer.size()
         assertEquals 'number of gross claims for reinsurer mars re', 1, companyMarsRe.outClaimsGrossReinsurer.size()
@@ -118,7 +118,7 @@ class CompanyTests extends GroovyTestCase {
 
         companyPlutoRe.inClaimsGross << claimG100V << claimG500M << claimG200V << claimG600P << claimG300M
         companyPlutoRe.inClaimsCeded << claimC50V << claimC200M << claimC180V << claimC150M
-        companyPlutoRe.doCalculation()
+        companyPlutoRe.doCalculation(Company.PHASE_AGGREGATION)
         assertEquals 'number of gross claims for company Pluto re', 1, companyPlutoRe.outClaimsGross.size()
         assertEquals 'number of gross claims for primary insurer Pluto re', 1, companyPlutoRe.outClaimsGrossPrimaryInsurer.size()
         assertEquals 'number of gross claims for reinsurer Pluto re', 1, companyPlutoRe.outClaimsGrossReinsurer.size()
@@ -168,7 +168,7 @@ class CompanyTests extends GroovyTestCase {
         //Venus Re
         companyVenusRe.inUnderwritingInfoGross << uwInfo1 << uwInfo2 << uwInfo3 << uwInfo4 << uwInfo8
         companyVenusRe.inUnderwritingInfoCeded << uwInfo5 << uwInfo6 << uwInfo7 << uwInfo9
-        companyVenusRe.doCalculation()
+        companyVenusRe.doCalculation(Company.PHASE_AGGREGATION)
         assertEquals 'number of gross underwriting Info for company venus re', 1, companyVenusRe.outUnderwritingInfoGross.size()
         assertEquals 'number of gross underwriting Info for primary insurer venus re', 1, companyVenusRe.outUnderwritingInfoGrossPrimaryInsurer.size()
         assertEquals 'number of gross underwriting Info for reinsurer venus re', 1, companyVenusRe.outUnderwritingInfoGrossReinsurer.size()
@@ -242,7 +242,7 @@ class CompanyTests extends GroovyTestCase {
         // Mars Re
         companyMarsRe.inUnderwritingInfoGross << uwInfo1 << uwInfo2 << uwInfo3 << uwInfo4 << uwInfo8
         companyMarsRe.inUnderwritingInfoCeded << uwInfo5 << uwInfo6 << uwInfo7 << uwInfo9
-        companyMarsRe.doCalculation()
+        companyMarsRe.doCalculation(Company.PHASE_AGGREGATION)
         assertEquals 'number of gross underwriting Info for company mars re', 1, companyMarsRe.outUnderwritingInfoGross.size()
         assertEquals 'number of gross underwriting Info for primary insurer mars re', 1, companyMarsRe.outUnderwritingInfoGrossPrimaryInsurer.size()
         assertEquals 'number of gross underwriting Info for reinsurer mars re', 1, companyMarsRe.outUnderwritingInfoGrossReinsurer.size()
@@ -319,7 +319,7 @@ class CompanyTests extends GroovyTestCase {
         // pluto re
         companyPlutoRe.inUnderwritingInfoGross << uwInfo1 << uwInfo2 << uwInfo3 << uwInfo4 << uwInfo8
         companyPlutoRe.inUnderwritingInfoCeded << uwInfo5 << uwInfo6 << uwInfo7 << uwInfo9
-        companyPlutoRe.doCalculation()
+        companyPlutoRe.doCalculation(Company.PHASE_AGGREGATION)
         assertEquals 'number of gross underwriting Info for company pluto re', 1, companyPlutoRe.outUnderwritingInfoGross.size()
         assertEquals 'number of gross underwriting Info for primary insurer pluto re', 1, companyPlutoRe.outUnderwritingInfoGrossPrimaryInsurer.size()
         assertEquals 'number of gross underwriting Info for reinsurer pluto re', 1, companyPlutoRe.outUnderwritingInfoGrossReinsurer.size()
@@ -395,21 +395,21 @@ class CompanyTests extends GroovyTestCase {
 
 
         companyVenusRe.inFinancialResults << almResult100V << almResult500M << almResult200V << almResult600P << almResult300M
-        companyVenusRe.doCalculation()
+        companyVenusRe.doCalculation(Company.PHASE_AGGREGATION)
         assertEquals 'number of alm results for company venus re', 1, companyVenusRe.outFinancialResults.size()
         assertEquals('correct aggregated financial result for company venus re', almResult100V.ultimate + almResult200V.ultimate,
                 companyVenusRe.outFinancialResults[0].ultimate)
 
 
         companyMarsRe.inFinancialResults << almResult100V << almResult500M << almResult200V << almResult600P << almResult300M
-        companyMarsRe.doCalculation()
+        companyMarsRe.doCalculation(Company.PHASE_AGGREGATION)
         assertEquals 'number of alm results for company mars re', 1, companyMarsRe.outFinancialResults.size()
         assertEquals('correct aggregate financial result for company mars re',
                 almResult500M.ultimate + almResult300M.ultimate, companyMarsRe.outFinancialResults[0].ultimate)
 
 
         companyPlutoRe.inFinancialResults << almResult100V << almResult500M << almResult200V << almResult600P << almResult300M
-        companyPlutoRe.doCalculation()
+        companyPlutoRe.doCalculation(Company.PHASE_AGGREGATION)
         assertEquals 'number of alm results for company Pluto re', 1, companyPlutoRe.outFinancialResults.size()
         assertEquals('correct aggregate financial result for company Pluto re',
                 almResult600P.ultimate, companyPlutoRe.outFinancialResults[0].ultimate)

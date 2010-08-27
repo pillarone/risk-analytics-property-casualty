@@ -24,4 +24,13 @@ interface IReinsuranceContractStrategy {
     UnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossInfo, double initialReserves);
 
     void resetMemberInstances();
+
+    /** returns the current value of coveredByReinsurer */
+    double covered();
+
+    /** multiplies coveredByReinsurer with the factor */
+    void adjustCovered(double factor);
+
+    /** resets coveredByReinsurer to the original value */
+    void resetCovered();
 }

@@ -12,12 +12,14 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceCo
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.CoverAttributeStrategyType
 import org.pillarone.riskanalytics.domain.pc.underwriting.MarketUnderwritingInfoMerger
+import org.pillarone.riskanalytics.domain.pc.creditrisk.ReinsurerDefault
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 public class ReinsuranceMarket extends DynamicReinsuranceProgram {
 
+    PacketList<ReinsurerDefault> inReinsurersDefault = new PacketList<ReinsurerDefault>(ReinsurerDefault)
     PacketList<ReinsuranceResultWithCommissionPacket> outContractFinancials = new PacketList<ReinsuranceResultWithCommissionPacket>(ReinsuranceResultWithCommissionPacket.class);
 
     public MultiCompanyCoverAttributeReinsuranceContract createDefaultSubComponent() {
@@ -31,6 +33,7 @@ public class ReinsuranceMarket extends DynamicReinsuranceProgram {
 
     void wire() {
         super.wire()
+        replicateInChannels this, 'inReinsurersDefault'
         replicateOutChannels this, 'outContractFinancials'
     }
 
