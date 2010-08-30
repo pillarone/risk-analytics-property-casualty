@@ -56,7 +56,6 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
                 'Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded',
                 'Podra:linesOfBusiness:outClaimsDevelopmentLeanGross',
                 'Podra:linesOfBusiness:outClaimsDevelopmentLeanNet',
-                'Podra:linesOfBusiness:outUnderwritingInfoCeded',
                 'Podra:linesOfBusiness:subMotorHull:claimsGenerators:subMotorHullAttritional:outClaimsDevelopmentLeanCeded',
                 'Podra:linesOfBusiness:subMotorHull:claimsGenerators:subMotorHullAttritional:outClaimsDevelopmentLeanGross',
                 'Podra:linesOfBusiness:subMotorHull:claimsGenerators:subMotorHullAttritional:outClaimsDevelopmentLeanNet',
@@ -66,11 +65,8 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
                 'Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded',
                 'Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross',
                 'Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet',
-                'Podra:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded',
                 'Podra:linesOfBusiness:subMotorHull:reinsuranceContracts:subMotorHullWxl:outClaimsDevelopmentLeanCeded',
                 'Podra:linesOfBusiness:subMotorHull:reinsuranceContracts:subPropertyQuotaShare:outClaimsDevelopmentLeanCeded',
-                'Podra:linesOfBusiness:subMotorHull:subMotorHullWxl:outUnderwritingInfoCeded',
-                'Podra:linesOfBusiness:subMotorHull:subPropertyQuotaShare:outUnderwritingInfoCeded',
                 'Podra:linesOfBusiness:subProperty:claimsGenerators:subPropertyAttritional:outClaimsDevelopmentLeanCeded',
                 'Podra:linesOfBusiness:subProperty:claimsGenerators:subPropertyAttritional:outClaimsDevelopmentLeanGross',
                 'Podra:linesOfBusiness:subProperty:claimsGenerators:subPropertyAttritional:outClaimsDevelopmentLeanNet',
@@ -83,15 +79,11 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
                 'Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded',
                 'Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross',
                 'Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet',
-                'Podra:linesOfBusiness:subProperty:outUnderwritingInfoCeded',
                 'Podra:linesOfBusiness:subProperty:reinsuranceContracts:subPropertyCxl:outClaimsDevelopmentLeanCeded',
                 'Podra:linesOfBusiness:subProperty:reinsuranceContracts:subPropertyQuotaShare:outClaimsDevelopmentLeanCeded',
-                'Podra:linesOfBusiness:subProperty:subPropertyCxl:outUnderwritingInfoCeded',
-                'Podra:linesOfBusiness:subProperty:subPropertyQuotaShare:outUnderwritingInfoCeded',
                 'Podra:reinsurance:outClaimsDevelopmentLeanCeded',
                 'Podra:reinsurance:outClaimsDevelopmentLeanGross',
                 'Podra:reinsurance:outClaimsDevelopmentLeanNet',
-                'Podra:reinsurance:outCoverUnderwritingInfo',
                 'Podra:reinsurance:subContracts:subMotorHullWxl:claimsGenerators:subMotorHullAttritional:outClaimsDevelopmentLeanCeded',
                 'Podra:reinsurance:subContracts:subMotorHullWxl:claimsGenerators:subMotorHullAttritional:outClaimsDevelopmentLeanGross',
                 'Podra:reinsurance:subContracts:subMotorHullWxl:claimsGenerators:subMotorHullAttritional:outClaimsDevelopmentLeanNet',
@@ -104,8 +96,6 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
                 'Podra:reinsurance:subContracts:subMotorHullWxl:outClaimsDevelopmentLeanCeded',
                 'Podra:reinsurance:subContracts:subMotorHullWxl:outClaimsDevelopmentLeanGross',
                 'Podra:reinsurance:subContracts:subMotorHullWxl:outClaimsDevelopmentLeanNet',
-                'Podra:reinsurance:subContracts:subMotorHullWxl:outCoverUnderwritingInfo',
-                'Podra:reinsurance:subContracts:subMotorHullWxl:subMotorHull:outCoverUnderwritingInfo',
                 'Podra:reinsurance:subContracts:subPropertyCxl:claimsGenerators:subPropertyAttritional:outClaimsDevelopmentLeanCeded',
                 'Podra:reinsurance:subContracts:subPropertyCxl:claimsGenerators:subPropertyAttritional:outClaimsDevelopmentLeanGross',
                 'Podra:reinsurance:subContracts:subPropertyCxl:claimsGenerators:subPropertyAttritional:outClaimsDevelopmentLeanNet',
@@ -121,8 +111,6 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
                 'Podra:reinsurance:subContracts:subPropertyCxl:outClaimsDevelopmentLeanCeded',
                 'Podra:reinsurance:subContracts:subPropertyCxl:outClaimsDevelopmentLeanGross',
                 'Podra:reinsurance:subContracts:subPropertyCxl:outClaimsDevelopmentLeanNet',
-                'Podra:reinsurance:subContracts:subPropertyCxl:outCoverUnderwritingInfo',
-                'Podra:reinsurance:subContracts:subPropertyCxl:subProperty:outCoverUnderwritingInfo',
                 'Podra:reinsurance:subContracts:subPropertyQuotaShare:claimsGenerators:subMotorHullAttritional:outClaimsDevelopmentLeanCeded',
                 'Podra:reinsurance:subContracts:subPropertyQuotaShare:claimsGenerators:subMotorHullAttritional:outClaimsDevelopmentLeanGross',
                 'Podra:reinsurance:subContracts:subPropertyQuotaShare:claimsGenerators:subMotorHullAttritional:outClaimsDevelopmentLeanNet',
@@ -147,13 +135,9 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
                 'Podra:reinsurance:subContracts:subPropertyQuotaShare:outClaimsDevelopmentLeanCeded',
                 'Podra:reinsurance:subContracts:subPropertyQuotaShare:outClaimsDevelopmentLeanGross',
                 'Podra:reinsurance:subContracts:subPropertyQuotaShare:outClaimsDevelopmentLeanNet',
-                'Podra:reinsurance:subContracts:subPropertyQuotaShare:outCoverUnderwritingInfo',
-                'Podra:reinsurance:subContracts:subPropertyQuotaShare:subMotorHull:outCoverUnderwritingInfo',
-                'Podra:reinsurance:subContracts:subPropertyQuotaShare:subProperty:outCoverUnderwritingInfo',
                 'Podra:reinsurance:subContracts:subriContract:outClaimsDevelopmentLeanCeded',
                 'Podra:reinsurance:subContracts:subriContract:outClaimsDevelopmentLeanGross',
                 'Podra:reinsurance:subContracts:subriContract:outClaimsDevelopmentLeanNet',
-                'Podra:reinsurance:subContracts:subriContract:outCoverUnderwritingInfo',
                 'Podra:structures:subFrance:claimsGenerators:subMotorHullAttritional:outClaimsCeded',
                 'Podra:structures:subFrance:claimsGenerators:subMotorHullAttritional:outClaimsGross',
                 'Podra:structures:subFrance:claimsGenerators:subMotorHullAttritional:outClaimsNet',
@@ -207,9 +191,6 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
                 'Podra:structures:subFrance:outClaimsCeded',
                 'Podra:structures:subFrance:outClaimsGross',
                 'Podra:structures:subFrance:outClaimsNet',
-                'Podra:structures:subFrance:outUnderwritingInfoCeded',
-                'Podra:structures:subFrance:outUnderwritingInfoGross',
-                'Podra:structures:subFrance:outUnderwritingInfoNet',
                 'Podra:structures:subFrance:reinsuranceContracts:subMotorHullWxl:claimsGenerators:subMotorHullAttritional:outClaimsCeded',
                 'Podra:structures:subFrance:reinsuranceContracts:subMotorHullWxl:claimsGenerators:subMotorHullSingle:outClaimsCeded',
                 'Podra:structures:subFrance:reinsuranceContracts:subMotorHullWxl:outClaimsCeded',
@@ -223,15 +204,6 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
                 'Podra:structures:subFrance:reinsuranceContracts:subPropertyQuotaShare:claimsGenerators:subPropertyEarthquake:outClaimsCeded',
                 'Podra:structures:subFrance:reinsuranceContracts:subPropertyQuotaShare:claimsGenerators:subPropertySingle:outClaimsCeded',
                 'Podra:structures:subFrance:reinsuranceContracts:subPropertyQuotaShare:outClaimsCeded',
-                'Podra:structures:subFrance:subMotorHull:outUnderwritingInfoCeded',
-                'Podra:structures:subFrance:subMotorHull:outUnderwritingInfoGross',
-                'Podra:structures:subFrance:subMotorHull:outUnderwritingInfoNet',
-                'Podra:structures:subFrance:subMotorHullWxl:outUnderwritingInfoCeded',
-                'Podra:structures:subFrance:subProperty:outUnderwritingInfoCeded',
-                'Podra:structures:subFrance:subProperty:outUnderwritingInfoGross',
-                'Podra:structures:subFrance:subProperty:outUnderwritingInfoNet',
-                'Podra:structures:subFrance:subPropertyCxl:outUnderwritingInfoCeded',
-                'Podra:structures:subFrance:subPropertyQuotaShare:outUnderwritingInfoCeded',
                 'Podra:structures:subSuisse:claimsGenerators:subMotorHullAttritional:outClaimsCeded',
                 'Podra:structures:subSuisse:claimsGenerators:subMotorHullAttritional:outClaimsGross',
                 'Podra:structures:subSuisse:claimsGenerators:subMotorHullAttritional:outClaimsNet',
@@ -285,9 +257,6 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
                 'Podra:structures:subSuisse:outClaimsCeded',
                 'Podra:structures:subSuisse:outClaimsGross',
                 'Podra:structures:subSuisse:outClaimsNet',
-                'Podra:structures:subSuisse:outUnderwritingInfoCeded',
-                'Podra:structures:subSuisse:outUnderwritingInfoGross',
-                'Podra:structures:subSuisse:outUnderwritingInfoNet',
                 'Podra:structures:subSuisse:reinsuranceContracts:subMotorHullWxl:claimsGenerators:subMotorHullAttritional:outClaimsCeded',
                 'Podra:structures:subSuisse:reinsuranceContracts:subMotorHullWxl:claimsGenerators:subMotorHullSingle:outClaimsCeded',
                 'Podra:structures:subSuisse:reinsuranceContracts:subMotorHullWxl:outClaimsCeded',
@@ -301,21 +270,60 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
                 'Podra:structures:subSuisse:reinsuranceContracts:subPropertyQuotaShare:claimsGenerators:subPropertyEarthquake:outClaimsCeded',
                 'Podra:structures:subSuisse:reinsuranceContracts:subPropertyQuotaShare:claimsGenerators:subPropertySingle:outClaimsCeded',
                 'Podra:structures:subSuisse:reinsuranceContracts:subPropertyQuotaShare:outClaimsCeded',
-                'Podra:structures:subSuisse:subMotorHull:outUnderwritingInfoCeded',
-                'Podra:structures:subSuisse:subMotorHull:outUnderwritingInfoGross',
-                'Podra:structures:subSuisse:subMotorHull:outUnderwritingInfoNet',
-                'Podra:structures:subSuisse:subMotorHullWxl:outUnderwritingInfoCeded',
-                'Podra:structures:subSuisse:subProperty:outUnderwritingInfoCeded',
-                'Podra:structures:subSuisse:subProperty:outUnderwritingInfoGross',
-                'Podra:structures:subSuisse:subProperty:outUnderwritingInfoNet',
-                'Podra:structures:subSuisse:subPropertyCxl:outUnderwritingInfoCeded',
-                'Podra:structures:subSuisse:subPropertyQuotaShare:outUnderwritingInfoCeded',
                 'Podra:structures:subsegmentFilter:outClaimsCeded',
                 'Podra:structures:subsegmentFilter:outClaimsGross',
                 'Podra:structures:subsegmentFilter:outClaimsNet',
+                'Podra:linesOfBusiness:outUnderwritingInfoCeded',
+                'Podra:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded',
+                'Podra:linesOfBusiness:subMotorHull:reinsuranceContracts:subMotorHullWxl:outUnderwritingInfoCeded',
+                'Podra:linesOfBusiness:subMotorHull:reinsuranceContracts:subPropertyQuotaShare:outUnderwritingInfoCeded',
+                'Podra:linesOfBusiness:subProperty:outUnderwritingInfoCeded',
+                'Podra:linesOfBusiness:subProperty:reinsuranceContracts:subPropertyCxl:outUnderwritingInfoCeded',
+                'Podra:linesOfBusiness:subProperty:reinsuranceContracts:subPropertyQuotaShare:outUnderwritingInfoCeded',
+                'Podra:reinsurance:outCoverUnderwritingInfo',
+                'Podra:reinsurance:subContracts:subMotorHullWxl:linesOfBusiness:subMotorHull:outCoverUnderwritingInfo',
+                'Podra:reinsurance:subContracts:subMotorHullWxl:outCoverUnderwritingInfo',
+                'Podra:reinsurance:subContracts:subPropertyCxl:linesOfBusiness:subProperty:outCoverUnderwritingInfo',
+                'Podra:reinsurance:subContracts:subPropertyCxl:outCoverUnderwritingInfo',
+                'Podra:reinsurance:subContracts:subPropertyQuotaShare:linesOfBusiness:subMotorHull:outCoverUnderwritingInfo',
+                'Podra:reinsurance:subContracts:subPropertyQuotaShare:linesOfBusiness:subProperty:outCoverUnderwritingInfo',
+                'Podra:reinsurance:subContracts:subPropertyQuotaShare:outCoverUnderwritingInfo',
+                'Podra:reinsurance:subContracts:subriContract:outCoverUnderwritingInfo',
+                'Podra:structures:subFrance:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded',
+                'Podra:structures:subFrance:linesOfBusiness:subMotorHull:outUnderwritingInfoGross',
+                'Podra:structures:subFrance:linesOfBusiness:subMotorHull:outUnderwritingInfoNet',
+                'Podra:structures:subFrance:linesOfBusiness:subMotorHull:reinsuranceContracts:subMotorHullWxl:outUnderwritingInfoCeded',
+                'Podra:structures:subFrance:linesOfBusiness:subMotorHull:reinsuranceContracts:subPropertyQuotaShare:outUnderwritingInfoCeded',
+                'Podra:structures:subFrance:linesOfBusiness:subProperty:outUnderwritingInfoCeded',
+                'Podra:structures:subFrance:linesOfBusiness:subProperty:outUnderwritingInfoGross',
+                'Podra:structures:subFrance:linesOfBusiness:subProperty:outUnderwritingInfoNet',
+                'Podra:structures:subFrance:linesOfBusiness:subProperty:reinsuranceContracts:subPropertyCxl:outUnderwritingInfoCeded',
+                'Podra:structures:subFrance:linesOfBusiness:subProperty:reinsuranceContracts:subPropertyQuotaShare:outUnderwritingInfoCeded',
+                'Podra:structures:subFrance:outUnderwritingInfoCeded',
+                'Podra:structures:subFrance:outUnderwritingInfoGross',
+                'Podra:structures:subFrance:outUnderwritingInfoNet',
+                'Podra:structures:subFrance:reinsuranceContracts:subMotorHullWxl:outUnderwritingInfoCeded',
+                'Podra:structures:subFrance:reinsuranceContracts:subPropertyCxl:outUnderwritingInfoCeded',
+                'Podra:structures:subFrance:reinsuranceContracts:subPropertyQuotaShare:outUnderwritingInfoCeded',
                 'Podra:structures:subsegmentFilter:outUnderwritingInfoCeded',
                 'Podra:structures:subsegmentFilter:outUnderwritingInfoGross',
-                'Podra:structures:subsegmentFilter:outUnderwritingInfoNet'
+                'Podra:structures:subsegmentFilter:outUnderwritingInfoNet',
+                'Podra:structures:subSuisse:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded',
+                'Podra:structures:subSuisse:linesOfBusiness:subMotorHull:outUnderwritingInfoGross',
+                'Podra:structures:subSuisse:linesOfBusiness:subMotorHull:outUnderwritingInfoNet',
+                'Podra:structures:subSuisse:linesOfBusiness:subMotorHull:reinsuranceContracts:subMotorHullWxl:outUnderwritingInfoCeded',
+                'Podra:structures:subSuisse:linesOfBusiness:subMotorHull:reinsuranceContracts:subPropertyQuotaShare:outUnderwritingInfoCeded',
+                'Podra:structures:subSuisse:linesOfBusiness:subProperty:outUnderwritingInfoCeded',
+                'Podra:structures:subSuisse:linesOfBusiness:subProperty:outUnderwritingInfoGross',
+                'Podra:structures:subSuisse:linesOfBusiness:subProperty:outUnderwritingInfoNet',
+                'Podra:structures:subSuisse:linesOfBusiness:subProperty:reinsuranceContracts:subPropertyCxl:outUnderwritingInfoCeded',
+                'Podra:structures:subSuisse:linesOfBusiness:subProperty:reinsuranceContracts:subPropertyQuotaShare:outUnderwritingInfoCeded',
+                'Podra:structures:subSuisse:outUnderwritingInfoCeded',
+                'Podra:structures:subSuisse:outUnderwritingInfoGross',
+                'Podra:structures:subSuisse:outUnderwritingInfoNet',
+                'Podra:structures:subSuisse:reinsuranceContracts:subMotorHullWxl:outUnderwritingInfoCeded',
+                'Podra:structures:subSuisse:reinsuranceContracts:subPropertyCxl:outUnderwritingInfoCeded',
+                'Podra:structures:subSuisse:reinsuranceContracts:subPropertyQuotaShare:outUnderwritingInfoCeded',
         ]
         def collectedPaths = PathMapping.list()     //.sort{ it.pathName }
         // there are 6 paths of the dynamic containers itself, in the following for loop they are ignored.
@@ -585,17 +593,17 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
 
         expectedResultsPerPath['Podra:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded']=-160d
         expectedResultsPerPath['Podra:linesOfBusiness:subProperty:outUnderwritingInfoCeded']=-140d
-        expectedResultsPerPath['Podra:linesOfBusiness:subMotorHull:subPropertyQuotaShare:outUnderwritingInfoCeded']=-160d
-        expectedResultsPerPath['Podra:linesOfBusiness:subMotorHull:subMotorHullWxl:outUnderwritingInfoCeded']=0d
-        expectedResultsPerPath['Podra:linesOfBusiness:subProperty:subPropertyCxl:outUnderwritingInfoCeded']=-20d
-        expectedResultsPerPath['Podra:linesOfBusiness:subProperty:subPropertyQuotaShare:outUnderwritingInfoCeded']=-120d
+        expectedResultsPerPath['Podra:linesOfBusiness:subMotorHull:reinsuranceContracts:subPropertyQuotaShare:outUnderwritingInfoCeded']=-160d
+        expectedResultsPerPath['Podra:linesOfBusiness:subMotorHull:reinsuranceContracts:subMotorHullWxl:outUnderwritingInfoCeded']=0d
+        expectedResultsPerPath['Podra:linesOfBusiness:subProperty:reinsuranceContracts:subPropertyCxl:outUnderwritingInfoCeded']=-20d
+        expectedResultsPerPath['Podra:linesOfBusiness:subProperty:reinsuranceContracts:subPropertyQuotaShare:outUnderwritingInfoCeded']=-120d
         expectedResultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:outCoverUnderwritingInfo']=-0d
-        expectedResultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:subMotorHull:outCoverUnderwritingInfo']=-0d
+        expectedResultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:linesOfBusiness:subMotorHull:outCoverUnderwritingInfo']=-0d
         expectedResultsPerPath['Podra:reinsurance:subContracts:subPropertyCxl:outCoverUnderwritingInfo']=-20d
-        expectedResultsPerPath['Podra:reinsurance:subContracts:subPropertyCxl:subProperty:outCoverUnderwritingInfo']=-20d
+        expectedResultsPerPath['Podra:reinsurance:subContracts:subPropertyCxl:linesOfBusiness:subProperty:outCoverUnderwritingInfo']=-20d
         expectedResultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:outCoverUnderwritingInfo']=-280d
-        expectedResultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:subMotorHull:outCoverUnderwritingInfo']=-160
-        expectedResultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:subProperty:outCoverUnderwritingInfo']=-120
+        expectedResultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:linesOfBusiness:subMotorHull:outCoverUnderwritingInfo']=-160
+        expectedResultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:linesOfBusiness:subProperty:outCoverUnderwritingInfo']=-120
 
         Map<String, Double> collectedResultsPerPath = new HashMap<String, Double>()
         def results = SingleValueResult.list()
@@ -618,42 +626,42 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
         Map<String, Double> expectedResultsPerPath = new LinkedHashMap<String, Double>()
         expectedResultsPerPath['Podra:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded']=1800d
         expectedResultsPerPath['Podra:linesOfBusiness:subProperty:outUnderwritingInfoCeded']=1300d
-        expectedResultsPerPath['Podra:linesOfBusiness:subMotorHull:subPropertyQuotaShare:outUnderwritingInfoCeded']=1600d
-        expectedResultsPerPath['Podra:linesOfBusiness:subMotorHull:subMotorHullWxl:outUnderwritingInfoCeded']=200d
-        expectedResultsPerPath['Podra:linesOfBusiness:subProperty:subPropertyCxl:outUnderwritingInfoCeded']=100d
-        expectedResultsPerPath['Podra:linesOfBusiness:subProperty:subPropertyQuotaShare:outUnderwritingInfoCeded']=1200d
+        expectedResultsPerPath['Podra:linesOfBusiness:subMotorHull:reinsuranceContracts:subPropertyQuotaShare:outUnderwritingInfoCeded']=1600d
+        expectedResultsPerPath['Podra:linesOfBusiness:subMotorHull:reinsuranceContracts:subMotorHullWxl:outUnderwritingInfoCeded']=200d
+        expectedResultsPerPath['Podra:linesOfBusiness:subProperty:reinsuranceContracts:subPropertyCxl:outUnderwritingInfoCeded']=100d
+        expectedResultsPerPath['Podra:linesOfBusiness:subProperty:reinsuranceContracts:subPropertyQuotaShare:outUnderwritingInfoCeded']=1200d
         expectedResultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:outCoverUnderwritingInfo']=200d
-        expectedResultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:subMotorHull:outCoverUnderwritingInfo']=200d
+        expectedResultsPerPath['Podra:reinsurance:subContracts:subMotorHullWxl:linesOfBusiness:subMotorHull:outCoverUnderwritingInfo']=200d
         expectedResultsPerPath['Podra:reinsurance:subContracts:subPropertyCxl:outCoverUnderwritingInfo']=100d
-        expectedResultsPerPath['Podra:reinsurance:subContracts:subPropertyCxl:subProperty:outCoverUnderwritingInfo']=100d
+        expectedResultsPerPath['Podra:reinsurance:subContracts:subPropertyCxl:linesOfBusiness:subProperty:outCoverUnderwritingInfo']=100d
         expectedResultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:outCoverUnderwritingInfo']=2800d
-        expectedResultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:subMotorHull:outCoverUnderwritingInfo']=1600
-        expectedResultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:subProperty:outCoverUnderwritingInfo']=1200
+        expectedResultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:linesOfBusiness:subMotorHull:outCoverUnderwritingInfo']=1600
+        expectedResultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:linesOfBusiness:subProperty:outCoverUnderwritingInfo']=1200
 
-        expectedResultsPerPath['Podra:structures:subFrance:subPropertyQuotaShare:outUnderwritingInfoCeded']=1320d
-        expectedResultsPerPath['Podra:structures:subFrance:subPropertyCxl:outUnderwritingInfoCeded']=30d
-        expectedResultsPerPath['Podra:structures:subFrance:subMotorHull:outUnderwritingInfoCeded']=1080d
-        expectedResultsPerPath['Podra:structures:subFrance:subProperty:outUnderwritingInfoCeded']=390d
-        expectedResultsPerPath['Podra:structures:subFrance:subMotorHullWxl:outUnderwritingInfoCeded']=120d
+        expectedResultsPerPath['Podra:structures:subFrance:reinsuranceContracts:subPropertyQuotaShare:outUnderwritingInfoCeded']=1320d
+        expectedResultsPerPath['Podra:structures:subFrance:reinsuranceContracts:subPropertyCxl:outUnderwritingInfoCeded']=30d
+        expectedResultsPerPath['Podra:structures:subFrance:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded']=1080d
+        expectedResultsPerPath['Podra:structures:subFrance:linesOfBusiness:subProperty:outUnderwritingInfoCeded']=390d
+        expectedResultsPerPath['Podra:structures:subFrance:reinsuranceContracts:subMotorHullWxl:outUnderwritingInfoCeded']=120d
         expectedResultsPerPath['Podra:structures:subFrance:outUnderwritingInfoCeded']=1470d
-        expectedResultsPerPath['Podra:structures:subFrance:subMotorHull:outUnderwritingInfoGross']=4800d
+        expectedResultsPerPath['Podra:structures:subFrance:linesOfBusiness:subMotorHull:outUnderwritingInfoGross']=4800d
         expectedResultsPerPath['Podra:structures:subFrance:outUnderwritingInfoGross']=6600d
-        expectedResultsPerPath['Podra:structures:subFrance:subProperty:outUnderwritingInfoGross']=1800d
+        expectedResultsPerPath['Podra:structures:subFrance:linesOfBusiness:subProperty:outUnderwritingInfoGross']=1800d
         expectedResultsPerPath['Podra:structures:subFrance:outUnderwritingInfoNet']=5130d
-        expectedResultsPerPath['Podra:structures:subFrance:subProperty:outUnderwritingInfoNet']=1410d
-        expectedResultsPerPath['Podra:structures:subFrance:subMotorHull:outUnderwritingInfoNet']=3720d
+        expectedResultsPerPath['Podra:structures:subFrance:linesOfBusiness:subProperty:outUnderwritingInfoNet']=1410d
+        expectedResultsPerPath['Podra:structures:subFrance:linesOfBusiness:subMotorHull:outUnderwritingInfoNet']=3720d
         expectedResultsPerPath['Podra:structures:subSuisse:outUnderwritingInfoCeded']=1630d
-        expectedResultsPerPath['Podra:structures:subSuisse:subProperty:outUnderwritingInfoCeded']=910d
-        expectedResultsPerPath['Podra:structures:subSuisse:subPropertyCxl:outUnderwritingInfoCeded']=70d
-        expectedResultsPerPath['Podra:structures:subSuisse:subMotorHull:outUnderwritingInfoCeded']=720d
-        expectedResultsPerPath['Podra:structures:subSuisse:subMotorHullWxl:outUnderwritingInfoCeded']=80d
-        expectedResultsPerPath['Podra:structures:subSuisse:subPropertyQuotaShare:outUnderwritingInfoCeded']=1480d
+        expectedResultsPerPath['Podra:structures:subSuisse:linesOfBusiness:subProperty:outUnderwritingInfoCeded']=910d
+        expectedResultsPerPath['Podra:structures:subSuisse:reinsuranceContracts:subPropertyCxl:outUnderwritingInfoCeded']=70d
+        expectedResultsPerPath['Podra:structures:subSuisse:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded']=720d
+        expectedResultsPerPath['Podra:structures:subSuisse:reinsuranceContracts:subMotorHullWxl:outUnderwritingInfoCeded']=80d
+        expectedResultsPerPath['Podra:structures:subSuisse:reinsuranceContracts:subPropertyQuotaShare:outUnderwritingInfoCeded']=1480d
         expectedResultsPerPath['Podra:structures:subSuisse:outUnderwritingInfoGross']=7400d
-        expectedResultsPerPath['Podra:structures:subSuisse:subProperty:outUnderwritingInfoGross']=4200d
-        expectedResultsPerPath['Podra:structures:subSuisse:subMotorHull:outUnderwritingInfoGross']=3200d
+        expectedResultsPerPath['Podra:structures:subSuisse:linesOfBusiness:subProperty:outUnderwritingInfoGross']=4200d
+        expectedResultsPerPath['Podra:structures:subSuisse:linesOfBusiness:subMotorHull:outUnderwritingInfoGross']=3200d
         expectedResultsPerPath['Podra:structures:subSuisse:outUnderwritingInfoNet']=5770d
-        expectedResultsPerPath['Podra:structures:subSuisse:subProperty:outUnderwritingInfoNet']=3290d
-        expectedResultsPerPath['Podra:structures:subSuisse:subMotorHull:outUnderwritingInfoNet']=2480d
+        expectedResultsPerPath['Podra:structures:subSuisse:linesOfBusiness:subProperty:outUnderwritingInfoNet']=3290d
+        expectedResultsPerPath['Podra:structures:subSuisse:linesOfBusiness:subMotorHull:outUnderwritingInfoNet']=2480d
 
         Map<String, Double> collectedResultsPerPath = new HashMap<String, Double>()
         def results = SingleValueResult.list()

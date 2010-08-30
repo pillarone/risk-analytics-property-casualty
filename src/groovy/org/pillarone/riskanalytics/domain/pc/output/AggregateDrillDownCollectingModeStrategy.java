@@ -169,20 +169,28 @@ public class AggregateDrillDownCollectingModeStrategy implements ICollectingMode
         }
 
         for (UnderwritingInfo underwritingInfo : underwritingInfos) {
+            String componentPath = getComponentPath();
+            String contractPathExtension = underwritingInfo.getReinsuranceContract() == null
+                ? null : CONTRACTS + PATH_SEPARATOR + underwritingInfo.getReinsuranceContract().getName();
+            String lobPathExtension = underwritingInfo.getLineOfBusiness() == null
+                ? null : LOB + PATH_SEPARATOR + underwritingInfo.getLineOfBusiness().getName();
             String originPath = packetCollector.getSimulationScope().getStructureInformation().getPath(underwritingInfo);
             addToMap(underwritingInfo, originPath, resultMap);
-            if ((underwritingInfo.sender instanceof LobMarker
-                    || underwritingInfo.sender instanceof SegmentFilter)
-                    && underwritingInfo.getReinsuranceContract() != null) {
-                String contractPathExtension = underwritingInfo.getReinsuranceContract().getName();
-                addToMap(underwritingInfo, getComponentPath(), contractPathExtension, resultMap);
+            if (underwritingInfo.sender instanceof LobMarker) {
+                addToMap(underwritingInfo, componentPath, contractPathExtension, resultMap);
             }
-            if ((underwritingInfo.sender instanceof IReinsuranceContractMarker
-                    || underwritingInfo.sender instanceof SegmentFilter)
-                    && underwritingInfo.getLineOfBusiness() != null) {
-                String lobPathExtension = underwritingInfo.getLineOfBusiness().getName();
-                addToMap(underwritingInfo, getComponentPath(), lobPathExtension, resultMap);
+            if (underwritingInfo.sender instanceof IReinsuranceContractMarker) {
+                addToMap(underwritingInfo, componentPath, lobPathExtension, resultMap);
             }
+            if (underwritingInfo.sender instanceof SegmentFilter) {
+                addToMap(underwritingInfo, componentPath, contractPathExtension, resultMap);
+                addToMap(underwritingInfo, componentPath, lobPathExtension, resultMap);
+                if (lobPathExtension != null && contractPathExtension != null) {
+                    String pathExtension = lobPathExtension + PATH_SEPARATOR + contractPathExtension;
+                    addToMap(underwritingInfo, componentPath, pathExtension, resultMap);
+                }
+            }
+
         }
         return resultMap;
     }
@@ -228,6 +236,7 @@ public class AggregateDrillDownCollectingModeStrategy implements ICollectingMode
 
     // todo(sku): cache extended paths
     private void addToMap(UnderwritingInfo underwritingInfo, String path, String pathExtension, Map<String, Packet> resultMap) {
+        if (pathExtension == null) return;
         StringBuilder composedPath = new StringBuilder(path);
         composedPath.append(PATH_SEPARATOR);
         composedPath.append(pathExtension);
