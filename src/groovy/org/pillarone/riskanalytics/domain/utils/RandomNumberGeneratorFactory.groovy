@@ -20,7 +20,7 @@ class RandomNumberGeneratorFactory {
 
     static IRandomNumberGenerator getUniformGenerator() {
         IRandomNumberGenerator uniformGenerator
-        UniformGen generator = new UniformGen(MathUtils.RANDOM_NUMBER_GENERATOR_INSTANCE, new UniformDist(0, 1))
+        UniformGen generator = new UniformGen(MathUtils.getRandomStreamBase(), new UniformDist(0, 1))
         uniformGenerator = new RandomNumberGenerator(generator: generator)
         return uniformGenerator
     }
@@ -34,13 +34,13 @@ class RandomNumberGeneratorFactory {
 
     static IRandomNumberGenerator getBinomialGenerator() {
         IRandomNumberGenerator binomialGenerator
-        BinomialGen generator = new BinomialGen(MathUtils.RANDOM_NUMBER_GENERATOR_INSTANCE, new BinomialDist(1, 1))
+        BinomialGen generator = new BinomialGen(MathUtils.getRandomStreamBase(), new BinomialDist(1, 1))
         binomialGenerator = new RandomNumberGenerator(generator: generator)
         return binomialGenerator
     }
 
     static IRandomNumberGenerator getGenerator(RandomDistribution distribution) {
-        RandomVariateGen generator = new RandomVariateGen(MathUtils.RANDOM_NUMBER_GENERATOR_INSTANCE, distribution.distribution)
+        RandomVariateGen generator = new RandomVariateGen(MathUtils.getRandomStreamBase(), distribution.distribution)
         return new RandomNumberGenerator(generator: generator, type: distribution.type, parameters: distribution.parameters)
     }
 
@@ -51,7 +51,7 @@ class RandomNumberGeneratorFactory {
     }
 
     static IRandomNumberGenerator getGenerator(RandomDistribution distribution, DistributionModified modifier) {
-        return getGenerator(distribution, modifier, MathUtils.RANDOM_NUMBER_GENERATOR_INSTANCE)
+        return getGenerator(distribution, modifier, MathUtils.getRandomStreamBase())
     }
 
     static IRandomNumberGenerator getGenerator(RandomDistribution distribution, DistributionModified modifier, RandomStreamBase randomStream) {

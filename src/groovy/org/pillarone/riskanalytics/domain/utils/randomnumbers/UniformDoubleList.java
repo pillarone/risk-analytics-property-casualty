@@ -15,7 +15,7 @@ public class UniformDoubleList {
 
 
     public static List<Double> getDoubles(int number, boolean sorted) {
-        return getDoubles(number, sorted, MathUtils.RANDOM_NUMBER_GENERATOR_INSTANCE);
+        return getDoubles(number, sorted, MathUtils.getRandomStreamBase());
     }
 
     public static List<Double> getDoubles(int number, boolean sorted, RandomStreamBase stream) {

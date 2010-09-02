@@ -47,7 +47,7 @@ class DependencyType extends AbstractParameterObjectClassifier {
             case DependencyType.NORMAL:
                 generator = new MultiRandomNumberGenerator(
                     generator: new MultinormalCholeskyGen(
-                        new NormalGen(MathUtils.RANDOM_NUMBER_GENERATOR_INSTANCE, new NormalDist(0d, 1d)),
+                        new NormalGen(MathUtils.getRandomStreamBase(), new NormalDist(0d, 1d)),
                         (double[]) parameters["meanVector"],
                         (double[][]) parameters["sigmaMatrix"]))
                 break
