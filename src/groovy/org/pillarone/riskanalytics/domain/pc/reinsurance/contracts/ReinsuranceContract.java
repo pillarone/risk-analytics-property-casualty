@@ -82,7 +82,9 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
                 result.setCededCommission(-underwritingInfo.getCommission());
             }
             result.setCededClaim(ClaimUtilities.aggregateClaims(outCoveredClaims, this).getUltimate());
-            result.setCededLossRation(result.getCededClaim() / -result.getCededPremium());
+            if (result.getCededPremium() != 0) {
+                result.setCededLossRatio(result.getCededClaim() / -result.getCededPremium());
+            }
             outContractFinancials.add(result);
         }
         parmContractStrategy.resetMemberInstances();

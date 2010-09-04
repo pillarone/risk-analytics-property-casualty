@@ -91,7 +91,12 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
                 result.setCededPremium(-underwritingInfo.getPremiumWritten());
                 result.setCededCommission(-underwritingInfo.getCommission());
             }
-            result.setCededClaim(ClaimUtilities.aggregateClaims(outCoveredClaims, this).getUltimate());
+            if (outCoveredClaims.size() > 0) {
+                result.setCededClaim(ClaimUtilities.aggregateClaims(outCoveredClaims, this).getUltimate());
+            }
+            if (result.getCededPremium() != 0) {
+                result.setCededLossRatio(result.getCededClaim() / -result.getCededPremium());
+            }
             outContractFinancials.add(result);
         }
 
