@@ -85,6 +85,14 @@ class ReinsuranceMarketWithBouquetCommissionProgram extends ComposedComponent {
                 ITransmitter transmitterWithModifiedSource = new Transmitter(transmitter.getSender(), inUnderwritingInfo, transmitter.getReceiver(), transmitter.getTarget())
                 replaceTransmitters.put(i, transmitterWithModifiedSource)
             }
+            // checking equality on list instances won't work, as all lists with size 0 have 0 as hashCode
+            else if (transmitter.getSource().is(inReinsurersDefault)) {
+                allInputTransmitter.remove(transmitter)
+            }
+            // checking equality on list instances won't work, as all lists with size 0 have 0 as hashCode
+            else if (transmitter.getSource().is(outContractFinancials)) {
+                allOutputTransmitter.remove(transmitter)
+            }
         }
         for (Map.Entry<Integer, ITransmitter> entry : replaceTransmitters) {
             allOutputTransmitter.set(entry.key, entry.value);
