@@ -15,10 +15,11 @@ import org.pillarone.riskanalytics.domain.pc.constraints.validation.UnityPortion
 import org.pillarone.riskanalytics.domain.pc.validation.UnityDoubleValidator
 import org.pillarone.riskanalytics.domain.pc.constraints.SegmentPortion
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.validation.XLStrategyValidator
+import org.pillarone.riskanalytics.domain.pc.filter.SegmentFilterValidator
 
 class RiskAnalyticsPropertyCasualtyGrailsPlugin {
     // the plugin version
-    def version = "1.0.3"
+    def version = "1.0.4"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.2.0 > *"
     // the other plugins this plugin depends on
@@ -69,6 +70,7 @@ class RiskAnalyticsPropertyCasualtyGrailsPlugin {
         ValidatorRegistry.addValidator(new UnityPortionValidator())
         ValidatorRegistry.addValidator(new UnityDoubleValidator())
         ValidatorRegistry.addValidator(new XLStrategyValidator())
+        ValidatorRegistry.addValidator(new SegmentFilterValidator())
     }
 
     def onChange = {event ->
