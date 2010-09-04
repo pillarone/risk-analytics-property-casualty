@@ -55,6 +55,10 @@ class MultiCompanyModel extends StochasticModel {
     }
 
     void wireComponents() {
+        boolean hasReinsuranceContracts = reinsuranceMarket.subContracts.subComponentCount() > 0
+        // todo(sku): allow parametrizations without any reinsurance contracts
+        if (!hasReinsuranceContracts) throw new IllegalArgumentException("This model requires at least one reinsurance contract!")
+        boolean hasStructures = structures.subComponentCount() > 0
         claimsGenerators.inUnderwritingInfo = underwritingSegments.outUnderwritingInfo
         claimsGenerators.inProbabilities = dependencies.outProbabilities
         claimsGenerators.inEventSeverities = eventGenerators.outEventSeverities
@@ -62,28 +66,41 @@ class MultiCompanyModel extends StochasticModel {
         reserveGenerators.inClaims = claimsGenerators.outClaims
         linesOfBusiness.inClaimsGross = claimsGenerators.outClaims
         linesOfBusiness.inClaimsGross = reserveGenerators.outClaimsDevelopment
-        reinsuranceMarket.inUnderwritingInfo = linesOfBusiness.outUnderwritingInfoGross
-        reinsuranceMarket.inClaims = linesOfBusiness.outClaimsGross
-        reinsuranceMarket.inReinsurersDefault = companies.outReinsurersDefault
-        linesOfBusiness.inUnderwritingInfoCeded = reinsuranceMarket.outCoverUnderwritingInfo
-        linesOfBusiness.inClaimsCeded = reinsuranceMarket.outClaimsCeded
         companies.inDefaultProbability = creditDefault.outDefaultProbability
-        companies.inClaimsGross = reinsuranceMarket.outClaimsGross
-        companies.inClaimsCeded = reinsuranceMarket.outClaimsCeded
-        companies.inUnderwritingInfoGross = reinsuranceMarket.outUnderwritingInfo
-        companies.inUnderwritingInfoCeded = reinsuranceMarket.outCoverUnderwritingInfo
         companies.inFinancialResults= almGenerators.outAlmResult
-        companies.outReinsurersDefault = reinsuranceMarket.inReinsurersDefault
-        aggregateFinancials.inClaims = reinsuranceMarket.outClaimsNet
-        aggregateFinancials.inUnderwritingInfo = reinsuranceMarket.outNetAfterCoverUnderwritingInfo
         aggregateFinancials.inAlm = almGenerators.outAlmResult
-        if (structures.subComponentCount() > 0) {
-            structures.inClaimsGross = reinsuranceMarket.outClaimsGross
-            structures.inClaimsCeded = linesOfBusiness.outClaimsCeded
-            structures.inClaimsNet = linesOfBusiness.outClaimsNet
-            structures.inUnderwritingInfoGross = reinsuranceMarket.outUnderwritingInfo
-            structures.inUnderwritingInfoCeded = linesOfBusiness.outUnderwritingInfoCeded
-            structures.inUnderwritingInfoNet = linesOfBusiness.outUnderwritingInfoNet
+        if (hasReinsuranceContracts) {
+            reinsuranceMarket.inUnderwritingInfo = linesOfBusiness.outUnderwritingInfoGross
+            reinsuranceMarket.inClaims = linesOfBusiness.outClaimsGross
+            reinsuranceMarket.inReinsurersDefault = companies.outReinsurersDefault
+            linesOfBusiness.inUnderwritingInfoCeded = reinsuranceMarket.outCoverUnderwritingInfo
+            linesOfBusiness.inClaimsCeded = reinsuranceMarket.outClaimsCeded
+            companies.inClaimsGross = reinsuranceMarket.outClaimsGross
+            companies.inClaimsCeded = reinsuranceMarket.outClaimsCeded
+            companies.inUnderwritingInfoGross = reinsuranceMarket.outUnderwritingInfo
+            companies.inUnderwritingInfoCeded = reinsuranceMarket.outCoverUnderwritingInfo
+            aggregateFinancials.inClaims = reinsuranceMarket.outClaimsNet
+            aggregateFinancials.inUnderwritingInfo = reinsuranceMarket.outNetAfterCoverUnderwritingInfo
+        }
+        else {
+            companies.inClaimsGross = linesOfBusiness.outClaimsGross
+            companies.inUnderwritingInfoGross = linesOfBusiness.outUnderwritingInfoGross
+            aggregateFinancials.inClaims = linesOfBusiness.outClaimsGross
+            aggregateFinancials.inUnderwritingInfo = linesOfBusiness.outUnderwritingInfoGross
+        }
+        if (hasStructures) {
+            if (hasReinsuranceContracts) {
+                structures.inClaimsGross = reinsuranceMarket.outClaimsGross
+                structures.inClaimsCeded = linesOfBusiness.outClaimsCeded
+                structures.inClaimsNet = linesOfBusiness.outClaimsNet
+                structures.inUnderwritingInfoGross = reinsuranceMarket.outUnderwritingInfo
+                structures.inUnderwritingInfoCeded = linesOfBusiness.outUnderwritingInfoCeded
+                structures.inUnderwritingInfoNet = linesOfBusiness.outUnderwritingInfoNet
+            }
+            else {
+                structures.inClaimsGross = linesOfBusiness.outClaimsGross
+                structures.inUnderwritingInfoGross = linesOfBusiness.outUnderwritingInfoGross
+            }
         }
     }
 }

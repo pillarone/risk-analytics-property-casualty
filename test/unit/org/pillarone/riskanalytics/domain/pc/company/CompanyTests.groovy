@@ -11,6 +11,7 @@ import org.pillarone.riskanalytics.domain.pc.assetLiabilityMismatch.CompanyConfi
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedString
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiCompanyCoverAttributeReinsuranceContract
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
+import org.pillarone.riskanalytics.core.components.PeriodStore
 
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
@@ -18,9 +19,9 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 
 class CompanyTests extends GroovyTestCase {
 
-    Company companyVenusRe = new Company(name: 'venus re')
-    Company companyMarsRe = new Company(name: 'mars re')
-    Company companyPlutoRe = new Company(name: 'pluto re')
+    Company companyVenusRe = new Company(name: 'venus re', periodStore: new PeriodStore(null))
+    Company companyMarsRe = new Company(name: 'mars re', periodStore: new PeriodStore(null))
+    Company companyPlutoRe = new Company(name: 'pluto re', periodStore: new PeriodStore(null))
 
     ConstrainedString parmCompanyVenusRe = new ConstrainedString(ICompanyMarker, 'venus re')
     ConstrainedString parmCompanyMarsRe = new ConstrainedString(ICompanyMarker, 'mars re')

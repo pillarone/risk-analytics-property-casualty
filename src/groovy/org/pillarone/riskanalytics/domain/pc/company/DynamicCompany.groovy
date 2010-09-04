@@ -32,13 +32,13 @@ class DynamicCompany extends DynamicMultiPhaseComposedComponent {
     }
 
     void wire() {
-        replicateInChannels this, 'inDefaultProbability'
-        replicateInChannels this, 'inClaimsGross'
-        replicateInChannels this, 'inClaimsCeded'
-        replicateInChannels this, 'inUnderwritingInfoGross'
-        replicateInChannels this, 'inUnderwritingInfoCeded'
-        replicateInChannels this, 'inFinancialResults'
-        replicateOutChannels this, 'outReinsurersDefault'
+        replicateInChannels this, inDefaultProbability
+        replicateInChannels this, inClaimsGross
+        replicateInChannels this, inClaimsCeded
+        replicateInChannels this, inUnderwritingInfoGross
+        replicateInChannels this, inUnderwritingInfoCeded
+        replicateInChannels this, inFinancialResults
+        replicateOutChannels this, outReinsurersDefault
     }
 
     void allocateChannelsToPhases() {

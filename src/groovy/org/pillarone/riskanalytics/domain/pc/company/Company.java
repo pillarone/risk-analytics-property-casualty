@@ -1,7 +1,9 @@
 package org.pillarone.riskanalytics.domain.pc.company;
 
+import org.pillarone.riskanalytics.core.components.AbstractStore;
 import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.core.components.MultiPhaseComponent;
+import org.pillarone.riskanalytics.core.components.PeriodStore;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter;
 import org.pillarone.riskanalytics.domain.assets.constants.Rating;
@@ -94,6 +96,9 @@ public class Company extends MultiPhaseComponent implements ICompanyMarker {
     private static final String PHASE_DEFAULT = "Phase Default";
     private static final String PHASE_AGGREGATION = "Phase Aggregation";
 
+    private PeriodStore periodStore;
+    private static final String IS_DEFAULT = "IS_DEFAULT";
+
     @Override
     public void doCalculation(String phase) {
         if (phase.equals(PHASE_DEFAULT)) {
@@ -112,8 +117,13 @@ public class Company extends MultiPhaseComponent implements ICompanyMarker {
     }
     
     private boolean defaultOfReinsurer(double probability) {
-        ((BinomialDist) generator.getDistribution()).setParams(1, probability);
-        return ((Integer) generator.nextValue()) == 1;
+        Boolean isDefault = (Boolean) periodStore.get(IS_DEFAULT, AbstractStore.LAST_PERIOD);
+        if (isDefault == null || !isDefault) {
+            ((BinomialDist) generator.getDistribution()).setParams(1, probability);
+            isDefault = ((Integer) generator.nextValue()) == 1;
+        }
+        periodStore.put(IS_DEFAULT, isDefault);
+        return isDefault;        
     }
     
     private void doCalculationAggregation() {
@@ -549,5 +559,13 @@ public class Company extends MultiPhaseComponent implements ICompanyMarker {
 
     public void setOutReinsurersDefault(PacketList<ReinsurerDefault> outReinsurersDefault) {
         this.outReinsurersDefault = outReinsurersDefault;
+    }
+
+    public PeriodStore getPeriodStore() {
+        return periodStore;
+    }
+
+    public void setPeriodStore(PeriodStore periodStore) {
+        this.periodStore = periodStore;
     }
 }
