@@ -88,7 +88,7 @@ class XLStrategyValidator implements IParameterizationValidator {
                 || type['aggregateLimit'] == null || type['limit'] == null) return
         int valueRows = (((TableMultiDimensionalParameter) type['reinstatementPremiums']).rowCount
                 - ((TableMultiDimensionalParameter) type['reinstatementPremiums']).titleRowCount)
-        if (valueRows > type['aggregateLimit'] / type['limit']) {
+        if (valueRows > type['aggregateLimit'] / type['limit'] - 1) {   // -1 as the aggregate limit contains the base layer
             return ["mismatching.reinstatement.premiums.and.aggregate.limit"]
         }
         return

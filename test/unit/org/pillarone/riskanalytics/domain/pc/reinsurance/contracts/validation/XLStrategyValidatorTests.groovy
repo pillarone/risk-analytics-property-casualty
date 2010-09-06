@@ -47,7 +47,7 @@ class XLStrategyValidatorTests extends GroovyTestCase {
 
         contract = getContractStrategy(ReinsuranceContractType.CXL, 1000, 0, new TableMultiDimensionalParameter([], ['Reinstatement Premium']))
         errors = validator.validate(contract.getType(), contract.getParameters())
-        assertEquals 1, errors.size()
+        assertEquals 2, errors.size()
 
         contract = getContractStrategy(ReinsuranceContractType.CXL, 1000, 0)
         errors = validator.validate(contract.getType(), contract.getParameters())
@@ -65,7 +65,7 @@ class XLStrategyValidatorTests extends GroovyTestCase {
 
         contract = getContractStrategy(ReinsuranceContractType.WXL, 1000, 0, new TableMultiDimensionalParameter([], ['Reinstatement Premium']))
         errors = validator.validate(contract.getType(), contract.getParameters())
-        assertEquals 1, errors.size()
+        assertEquals 2, errors.size()
 
         contract = getContractStrategy(ReinsuranceContractType.WXL, 1000, 0)
         errors = validator.validate(contract.getType(), contract.getParameters())
@@ -83,7 +83,7 @@ class XLStrategyValidatorTests extends GroovyTestCase {
 
         contract = getContractStrategy(ReinsuranceContractType.WCXL, 1000, 0, new TableMultiDimensionalParameter([], ['Reinstatement Premium']))
         errors = validator.validate(contract.getType(), contract.getParameters())
-        assertEquals 1, errors.size()
+        assertEquals 2, errors.size()
 
         contract = getContractStrategy(ReinsuranceContractType.WCXL, 1000, 0)
         errors = validator.validate(contract.getType(), contract.getParameters())
