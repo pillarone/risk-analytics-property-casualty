@@ -275,5 +275,32 @@ class WXLContractStrategyTests extends GroovyTestCase {
                 wxl.outCoverUnderwritingInfo[0].premiumWritten, 1e-6
     }
 
+    void testZeroCoverPremiumOnly() {
+        ReinsuranceContract wxl = new ReinsuranceContract(
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
+                        ReinsuranceContractType.WXL,
+                        ["attachmentPoint": 0,
+                         "limit": 0,
+                         "aggregateLimit": 0,
+                         "aggregateDeductible": 0,
+                         "premiumBase": PremiumBase.ABSOLUTE,
+                         "premium": 100,
+                         "reinstatementPremiums": new TableMultiDimensionalParameter([0.3], ['Reinstatement Premium']),
+                         "coveredByReinsurer": 1d]))
 
+        wxl.inUnderwritingInfo << UnderwritingInfoTests.getUnderwritingInfo()
+
+        Claim claim35 = new Claim(claimType: ClaimType.SINGLE, value: 35d)
+        Claim claim65 = new Claim(claimType: ClaimType.SINGLE, value: 65d)
+
+        wxl.inClaims << claim65 << claim35
+
+        def probeWXL = new TestProbe(wxl, "outCoverUnderwritingInfo")    // needed in order to trigger the calculation of cover underwriting info
+
+        wxl.doCalculation()
+        assertEquals "# ceded claims", 2, wxl.outCoveredClaims.size()
+        assertEquals "claim35 ceded", 0, wxl.outCoveredClaims[0].ultimate
+        assertEquals "claim65 ceded", 0, wxl.outCoveredClaims[1].ultimate
+        assertEquals "premium written", 100, wxl.outCoverUnderwritingInfo[0].premiumWritten
+    }
 }

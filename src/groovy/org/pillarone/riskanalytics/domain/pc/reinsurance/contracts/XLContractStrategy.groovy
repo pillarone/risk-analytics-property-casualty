@@ -51,7 +51,8 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
 
     static double calculateUsedReinstatements(double aggregateLimit, double availableAggregateLimit,
             double aggregateDeductible, double limit, double reinstatements) {
-        return Math.min((aggregateLimit - availableAggregateLimit - aggregateDeductible) / limit, reinstatements)
+        double usedReinstatements = limit == 0d ? 0d : (aggregateLimit - availableAggregateLimit - aggregateDeductible) / limit
+        return Math.min(usedReinstatements, reinstatements)
     }
 
     static double calculateReinstatementPremiums(double aggregateLimit, double availableAggregateLimit,
@@ -76,7 +77,7 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
 
     void initBookkeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
         availableAggregateLimit = aggregateLimit
-        reinstatements = availableAggregateLimit / limit - 1
+        reinstatements = limit == 0d ? 0d : availableAggregateLimit / limit - 1
         double totalPremium = coverUnderwritingInfo.premiumWritten.sum()
         if (totalPremium == 0) {
             for (UnderwritingInfo underwritingInfo: coverUnderwritingInfo) {
