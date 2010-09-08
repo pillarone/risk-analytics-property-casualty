@@ -4,6 +4,10 @@ import org.pillarone.riskanalytics.core.packets.SingleValuePacket;
 
 public class Severity extends SingleValuePacket {
 
+    public Severity() {
+        super();
+    }
+
     public Severity(double value) {
         super();
         setValue(value);
