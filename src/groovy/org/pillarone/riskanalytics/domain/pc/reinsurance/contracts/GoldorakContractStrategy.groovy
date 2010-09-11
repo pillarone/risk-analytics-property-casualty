@@ -160,16 +160,16 @@ class GoldorakContractStrategy extends AbstractContractStrategy implements IRein
             // CXL case
             switch (premiumBase) {
                 case PremiumBase.ABSOLUTE:
-                    cededUnderwritingInfo.premiumWritten = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
-                    cededUnderwritingInfo.premiumWrittenAsIf = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
+                    cededUnderwritingInfo.premiumWritten = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo) * coveredByReinsurer
+                    cededUnderwritingInfo.premiumWrittenAsIf = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo) * coveredByReinsurer
                     break
                 case PremiumBase.GNPI:
-                    cededUnderwritingInfo.premiumWritten = premium * grossUnderwritingInfo.premiumWritten
-                    cededUnderwritingInfo.premiumWrittenAsIf = premium * grossUnderwritingInfo.premiumWrittenAsIf
+                    cededUnderwritingInfo.premiumWritten = premium * grossUnderwritingInfo.premiumWritten * coveredByReinsurer
+                    cededUnderwritingInfo.premiumWrittenAsIf = premium * grossUnderwritingInfo.premiumWrittenAsIf * coveredByReinsurer
                     break
                 case PremiumBase.RATE_ON_LINE:
-                    cededUnderwritingInfo.premiumWritten = premium * cxlLimit
-                    cededUnderwritingInfo.premiumWrittenAsIf = premium * cxlLimit
+                    cededUnderwritingInfo.premiumWritten = premium * cxlLimit * coveredByReinsurer
+                    cededUnderwritingInfo.premiumWrittenAsIf = premium * cxlLimit * coveredByReinsurer
                     break
                 case PremiumBase.NUMBER_OF_POLICIES:
                     throw new IllegalArgumentException("Defining the premium base as number of policies is not suppported.")
@@ -178,16 +178,16 @@ class GoldorakContractStrategy extends AbstractContractStrategy implements IRein
         else {
             switch (premiumBase) {
                 case PremiumBase.ABSOLUTE:
-                    cededUnderwritingInfo.premiumWritten = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
-                    cededUnderwritingInfo.premiumWrittenAsIf = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
+                    cededUnderwritingInfo.premiumWritten = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo) * coveredByReinsurer
+                    cededUnderwritingInfo.premiumWrittenAsIf = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo) * coveredByReinsurer
                     break
                 case PremiumBase.GNPI:
-                    cededUnderwritingInfo.premiumWritten = premium * grossUnderwritingInfo.premiumWritten
-                    cededUnderwritingInfo.premiumWrittenAsIf = premium * grossUnderwritingInfo.premiumWrittenAsIf
+                    cededUnderwritingInfo.premiumWritten = premium * grossUnderwritingInfo.premiumWritten * coveredByReinsurer
+                    cededUnderwritingInfo.premiumWrittenAsIf = premium * grossUnderwritingInfo.premiumWrittenAsIf * coveredByReinsurer
                     break
                 case PremiumBase.RATE_ON_LINE:
-                    cededUnderwritingInfo.premiumWritten = premium * cxlLimit
-                    cededUnderwritingInfo.premiumWrittenAsIf = premium * cxlLimit
+                    cededUnderwritingInfo.premiumWritten = premium * cxlLimit * coveredByReinsurer
+                    cededUnderwritingInfo.premiumWrittenAsIf = premium * cxlLimit * coveredByReinsurer
                     break
                 case PremiumBase.NUMBER_OF_POLICIES:
                     throw new IllegalArgumentException("Defining the premium base as number of policies is not suppported.")
