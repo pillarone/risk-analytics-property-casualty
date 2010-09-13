@@ -76,7 +76,7 @@ class XLStrategyValidator implements IParameterizationValidator {
     }
 
     private def correctAggregateLimit(Map type, String limit, String aggregateLimit) {
-        if (type.size() == 0 || type[limit] == null || type[aggregateLimit]) return
+        if (type.size() == 0 || type[limit] == null || type[aggregateLimit] == null) return
         if (type[limit] > type[aggregateLimit]) {
             return ["aggregateLimit.lower.than.limit"]
         }
@@ -88,6 +88,7 @@ class XLStrategyValidator implements IParameterizationValidator {
                 || type['aggregateLimit'] == null || type['limit'] == null) return
         int valueRows = (((TableMultiDimensionalParameter) type['reinstatementPremiums']).rowCount
                 - ((TableMultiDimensionalParameter) type['reinstatementPremiums']).titleRowCount)
+        if (valueRows == 1 && ((TableMultiDimensionalParameter) type['reinstatementPremiums']).getValueAt(1, 0) == 0) return
         if (valueRows > type['aggregateLimit'] / type['limit'] - 1) {   // -1 as the aggregate limit contains the base layer
             return ["mismatching.reinstatement.premiums.and.aggregate.limit"]
         }

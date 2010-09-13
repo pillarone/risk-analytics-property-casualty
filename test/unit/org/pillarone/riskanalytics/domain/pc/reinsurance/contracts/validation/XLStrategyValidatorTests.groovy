@@ -51,7 +51,7 @@ class XLStrategyValidatorTests extends GroovyTestCase {
 
         contract = getContractStrategy(ReinsuranceContractType.CXL, 1000, 0)
         errors = validator.validate(contract.getType(), contract.getParameters())
-        assertEquals 2, errors.size()
+        assertEquals 1, errors.size()
     }
 
     void testWXL() {
@@ -69,7 +69,7 @@ class XLStrategyValidatorTests extends GroovyTestCase {
 
         contract = getContractStrategy(ReinsuranceContractType.WXL, 1000, 0)
         errors = validator.validate(contract.getType(), contract.getParameters())
-        assertEquals 2, errors.size()
+        assertEquals 1, errors.size()
     }
 
     void testWCXL() {
@@ -87,7 +87,7 @@ class XLStrategyValidatorTests extends GroovyTestCase {
 
         contract = getContractStrategy(ReinsuranceContractType.WCXL, 1000, 0)
         errors = validator.validate(contract.getType(), contract.getParameters())
-        assertEquals 2, errors.size()
+        assertEquals 1, errors.size()
     }
 
     void testGoldorak() {
