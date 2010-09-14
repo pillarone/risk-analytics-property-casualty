@@ -11,8 +11,8 @@ class FrequencyClaimsGeneratorDecomposedModel extends StochasticModel {
 
     PacketList<UnderwritingInfo> inUnderwritingInfo = new PacketList(UnderwritingInfo)
 
-    final FrequencyGenerator frequencyGenerator
-    final SingleClaimsGenerator claimsGenerator
+    FrequencyGenerator frequencyGenerator
+    SingleClaimsGenerator claimsGenerator
 
     PacketList<Claim> outClaims = new PacketList(Claim)
 

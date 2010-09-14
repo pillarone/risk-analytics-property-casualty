@@ -1,4 +1,4 @@
-<plugin name='risk-analytics-property-casualty' version='1.0.4.1' grailsVersion='1.2.0 &gt; *'>
+<plugin name='risk-analytics-property-casualty' version='1.0.4.2' grailsVersion='1.3.4 &gt; *'>
   <author>Intuitive Collaboration AG</author>
   <authorEmail>info (at) intuitive-collaboration (dot) com</authorEmail>
   <title>Property Casualty Library and Example Models</title>
@@ -12,10 +12,6 @@
     <resource>DataSource</resource>
     <resource>UrlMappings</resource>
   </resources>
-  <dependencies>
-    <resolvers>
-      <resolver type='grailsPlugins' name='grailsPlugins' />
-    </resolvers>
-  </dependencies>
+  <dependencies />
   <behavior />
 </plugin>

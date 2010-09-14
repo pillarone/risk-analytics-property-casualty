@@ -5,7 +5,7 @@ import org.pillarone.riskanalytics.domain.pc.generators.claims.FrequencyClaimsGe
 
 class FrequencyClaimsGeneratorModel extends StochasticModel {
 
-    final FrequencyClaimsGenerator frequencyClaimsGenerator
+    FrequencyClaimsGenerator frequencyClaimsGenerator
 
     public void initComponents() {
         frequencyClaimsGenerator = new FrequencyClaimsGenerator()

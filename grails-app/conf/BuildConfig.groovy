@@ -1,5 +1,19 @@
-grails.plugin.repos.discovery.pillarone ="https://readplugins:readplugins@svn.intuitive-collaboration.com/GrailsPlugins/"
-grails.plugin.repos.resolveOrder = ['pillarone', 'default', 'core']
+import org.apache.ivy.plugins.resolver.URLResolver
+
+grails.project.dependency.resolution = {
+    inherits "global" // inherit Grails' default dependencies
+    log "warn"
+
+    repositories {
+        grailsHome()
+        grailsCentral()
+    }
+
+    def myResolver = new URLResolver()
+    myResolver.addArtifactPattern "https://svn.intuitive-collaboration.com/GrailsPlugins/grails-[artifact]/tags/LATEST_RELEASE/grails-[artifact]-[revision].[ext]"
+
+    resolver myResolver
+}
 
 coverage {
     exclusions = [
@@ -22,4 +36,3 @@ coverage {
             '**TagLib**'
     ]
 }
-//grails.plugin.location.'risk-analytics-core' = "../RiskAnalyticsCore"

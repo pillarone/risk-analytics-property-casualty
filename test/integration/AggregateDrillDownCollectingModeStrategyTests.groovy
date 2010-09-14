@@ -436,7 +436,7 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
         resultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:claimsGenerators:subPropertySingle:outClaimsDevelopmentLeanCeded']=180d
         resultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:claimsGenerators:subPropertySingle:outClaimsDevelopmentLeanGross']=900d
         resultsPerPath['Podra:reinsurance:subContracts:subPropertyQuotaShare:claimsGenerators:subPropertySingle:outClaimsDevelopmentLeanNet']=720d
-        
+
         resultsPerPath['Podra:structures:subFrance:claimsGenerators:subMotorHullAttritional:outClaimsCeded']=12d
         resultsPerPath['Podra:structures:subFrance:claimsGenerators:subMotorHullAttritional:outClaimsGross']=60d
         resultsPerPath['Podra:structures:subFrance:claimsGenerators:subMotorHullAttritional:outClaimsNet']=48d
@@ -618,7 +618,7 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
 //            if (result.value != collectedResultsPerPath.get(result.key) && collectedResultsPerPath.get(result.key) != null) {
 //                println "$result.key commission ${result.value} ${collectedResultsPerPath.get(result.key)}"
 //            }
-            assertEquals "$result.key commission", result.value, collectedResultsPerPath.get(result.key)
+            assertEquals "$result.key commission", result.value, collectedResultsPerPath.get(result.key), 1E-14
         }
     }
 

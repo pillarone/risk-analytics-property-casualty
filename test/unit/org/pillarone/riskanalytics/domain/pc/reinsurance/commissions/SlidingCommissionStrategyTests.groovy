@@ -23,26 +23,26 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
             LossRatios = bands.keySet().asList().sort()
             Commissions = LossRatios.collect {bands.get(it)}
         } else {
-            // default commission bands if none specified 
+            // default commission bands if none specified
             LossRatios = [0.0d, 0.1d, 0.2d, 0.5d]
             Commissions = [0.2d, 0.10d, 0.05d, 0d]
         }
         ICommissionStrategy commissionStrategy = CommissionStrategyType.getStrategy(
-            CommissionStrategyType.SLIDINGCOMMISSION,
-            ['commissionBands': new ConstrainedMultiDimensionalParameter(
-                [LossRatios, Commissions],
-                [SlidingCommissionStrategy.LOSS_RATIO, SlidingCommissionStrategy.COMMISSION],
-                ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))])
+                CommissionStrategyType.SLIDINGCOMMISSION,
+                ['commissionBands': new ConstrainedMultiDimensionalParameter(
+                        [LossRatios, Commissions],
+                        [SlidingCommissionStrategy.LOSS_RATIO, SlidingCommissionStrategy.COMMISSION],
+                        ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))])
         return commissionStrategy
     }
 
     void setUp() {
         // default values for test cases below (e.g. for those that don't use the above method's default bands)
         commissionStrategy = getSlidingCommissionStrategy([
-                 0.1d: 0.07d, // 7% on 10-40%, i.e., Commission is 7% if LossRatio is in [0.1, 0.4)
-                 0.4d: 0.05d, // 5% on 40-50%, i.e., Commission is 5% if LossRatio is in [0.4, 0.5)
-                 0.5d: 0.03d, // 3% on 50-60%, i.e., Commission is 3% if LossRatio is in [0.5, 0.6)
-                 0.6d: 0d,    // 0% from 60%, i.e., Commission is 0% if LossRatio is in [0.6, +Infinity)
+                0.1d: 0.07d, // 7% on 10-40%, i.e., Commission is 7% if LossRatio is in [0.1, 0.4)
+                0.4d: 0.05d, // 5% on 40-50%, i.e., Commission is 5% if LossRatio is in [0.4, 0.5)
+                0.5d: 0.03d, // 3% on 50-60%, i.e., Commission is 3% if LossRatio is in [0.5, 0.6)
+                0.6d: 0d,    // 0% from 60%, i.e., Commission is 0% if LossRatio is in [0.6, +Infinity)
         ])
         uwInfo = [new UnderwritingInfo(premiumWritten: 100)]
         claims = [new Claim(value: 0)]
@@ -74,8 +74,8 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
         commissionStrategy.calculateCommission claims, underwritingInfos, false, false
 
         assertEquals '# outUnderwritingInfo packets', 2, underwritingInfos.size()
-        assertEquals 'underwritingInfo200', -200*0.2, underwritingInfos[0].commission
-        assertEquals 'underwritingInfo100', -100*0.2, underwritingInfos[1].commission
+        assertEquals 'underwritingInfo200', -200 * 0.2, underwritingInfos[0].commission
+        assertEquals 'underwritingInfo100', -100 * 0.2, underwritingInfos[1].commission
     }
 
     void testAdditiveUsage() {
@@ -91,13 +91,13 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
         // Nota bene: this is the "additive" usage!
 
         assertEquals '# outUnderwritingInfo packets', 1, underwritingInfo.size()
-        assertEquals 'underwritingInfo200', -50-200*0.1, underwritingInfo[0].commission
+        assertEquals 'underwritingInfo200', -50 - 200 * 0.1, underwritingInfo[0].commission
     }
 
     /**
      * Test cases testPercentageSelectionCaseX (for X in {0a,0b,0c,1,2,3a,3b,4})
      * correspond to the spreadsheet found in Jira here:
-     *  
+     *
      */
     void testPercentageSelectionCase0a() {
         claims[0].value = -1e-6
@@ -112,7 +112,7 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
         commissionStrategy.calculateCommission claims, uwInfo, false, false
         double lossRatio = claims.value.sum() / uwInfo.premiumWritten.sum() * 1E2
         assertEquals '# outUnderwritingInfo packets', 1, uwInfo.size()
-        assertEquals "Underwriting Commission (%) resulting from Loss Ratio of ${lossRatio}%", 0d, uwInfo[0].commission
+        assertEquals "Underwriting Commission (%) resulting from Loss Ratio of ${lossRatio}%", 0d, uwInfo[0].commission, 1E-14
     }
 
     void testPercentageSelectionCase0c() {
@@ -120,7 +120,7 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
         commissionStrategy.calculateCommission claims, uwInfo, false, false
         double lossRatio = claims.value.sum() / uwInfo.premiumWritten.sum() * 1E2
         assertEquals '# outUnderwritingInfo packets', 1, uwInfo.size()
-        assertEquals "Underwriting Commission (%) resulting from Loss Ratio of ${lossRatio}%", 0d, uwInfo[0].commission
+        assertEquals "Underwriting Commission (%) resulting from Loss Ratio of ${lossRatio}%", 0d, uwInfo[0].commission, 1E-14
     }
 
     void testPercentageSelectionCase1() {
@@ -160,6 +160,6 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
         commissionStrategy.calculateCommission claims, uwInfo, false, false
         double lossRatio = claims.value.sum() / uwInfo.premiumWritten.sum() * 1E2
         assertEquals '# outUnderwritingInfo packets', 1, uwInfo.size()
-        assertEquals "Underwriting Commission (%) resulting from Loss Ratio of ${lossRatio}%", 0, uwInfo[0].commission
+        assertEquals "Underwriting Commission (%) resulting from Loss Ratio of ${lossRatio}%", 0, uwInfo[0].commission, 1E-14
     }
 }
