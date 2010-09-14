@@ -38,7 +38,7 @@ public class ClaimDevelopment extends Component implements IReserveMarker {
         Arrays.asList(""), Arrays.asList("peril"), PerilMarker.class);
     private IPatternStrategy parmPayoutPattern = PatternStrategyType.getStrategy(PatternStrategyType.NONE, Collections.emptyMap());
     private IPatternStrategy parmReportedPattern = PatternStrategyType.getStrategy(PatternStrategyType.NONE, Collections.emptyMap());
-    private IHistoricClaimsStrategy parmHistoricClaims = HistoricClaimsStrategyType.getStrategy(HistoricClaimsStrategyType.NONE, Collections.emptyMap());
+    private IHistoricClaimsStrategy parmActualClaims = HistoricClaimsStrategyType.getStrategy(HistoricClaimsStrategyType.NONE, Collections.emptyMap());
 
 
     protected void doCalculation() {
@@ -67,20 +67,20 @@ public class ClaimDevelopment extends Component implements IReserveMarker {
     }
 
     private void processHistoricClaims(Pattern payoutPattern, Pattern reportedPattern) {
-        if (parmHistoricClaims.getType().equals(HistoricClaimsStrategyType.NONE)) {
+        if (parmActualClaims.getType().equals(HistoricClaimsStrategyType.NONE)) {
             return;
         }
-        if (parmHistoricClaims.getType().equals(HistoricClaimsStrategyType.LAST_REPORTED)) {
+        if (parmActualClaims.getType().equals(HistoricClaimsStrategyType.LAST_REPORTED)) {
             processHistoricLastReportedClaims(payoutPattern, reportedPattern);
         }
-        else if (parmHistoricClaims.getType().equals(HistoricClaimsStrategyType.LAST_PAID)) {
+        else if (parmActualClaims.getType().equals(HistoricClaimsStrategyType.LAST_PAID)) {
             processHistoricLastPaidClaims(payoutPattern, reportedPattern);
         }
     }
 
     private void processHistoricLastPaidClaims(Pattern payoutPattern, Pattern reportedPattern) {
         if (!reportedPattern.isTrivial()) {
-            for (Map.Entry<Integer, Double> entry : parmHistoricClaims.getDiagonalValues().entrySet()) {
+            for (Map.Entry<Integer, Double> entry : parmActualClaims.getDiagonalValues().entrySet()) {
                 int developmentPeriod = entry.getKey();
                 double incrementalPaid = entry.getValue();
                 double incurredClaim = 0;
@@ -104,7 +104,7 @@ public class ClaimDevelopment extends Component implements IReserveMarker {
         if (!developmentWithIBNR) {
             throw new IllegalArgumentException("Mismatch of historic claims and available patterns!");
         }
-        for (Map.Entry<Integer, Double> entry : parmHistoricClaims.getDiagonalValues().entrySet()) {
+        for (Map.Entry<Integer, Double> entry : parmActualClaims.getDiagonalValues().entrySet()) {
             int developmentPeriod = entry.getKey();
             double reported = entry.getValue();
             double incurredClaim = reported / reportedPattern.cumulativeFactor(developmentPeriod-1);
@@ -344,12 +344,12 @@ public class ClaimDevelopment extends Component implements IReserveMarker {
         this.outClaimsDevelopmentWithIBNR = outClaimsDevelopmentWithIBNR;
     }
 
-    public IHistoricClaimsStrategy getParmHistoricClaims() {
-        return parmHistoricClaims;
+    public IHistoricClaimsStrategy getParmActualClaims() {
+        return parmActualClaims;
     }
 
-    public void setParmHistoricClaims(IHistoricClaimsStrategy parmHistoricClaims) {
-        this.parmHistoricClaims = parmHistoricClaims;
+    public void setParmActualClaims(IHistoricClaimsStrategy parmActualClaims) {
+        this.parmActualClaims = parmActualClaims;
     }
 
     public ComboBoxTableMultiDimensionalParameter getParmAppliedOnPerils() {

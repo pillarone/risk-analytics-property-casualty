@@ -27,10 +27,10 @@ components {
 		parmPayoutPattern[1]=PatternStrategyType.getStrategy(PatternStrategyType.NONE, [:])
 		parmPayoutPattern[3]=PatternStrategyType.getStrategy(PatternStrategyType.NONE, [:])
 		parmPayoutPattern[2]=PatternStrategyType.getStrategy(PatternStrategyType.NONE, [:])
-		parmHistoricClaims[0]=HistoricClaimsStrategyType.getStrategy(HistoricClaimsStrategyType.NONE, [:])
-		parmHistoricClaims[2]=HistoricClaimsStrategyType.getStrategy(HistoricClaimsStrategyType.NONE, [:])
-		parmHistoricClaims[1]=HistoricClaimsStrategyType.getStrategy(HistoricClaimsStrategyType.NONE, [:])
-		parmHistoricClaims[3]=HistoricClaimsStrategyType.getStrategy(HistoricClaimsStrategyType.NONE, [:])
+		parmActualClaims[0]=HistoricClaimsStrategyType.getStrategy(HistoricClaimsStrategyType.NONE, [:])
+		parmActualClaims[2]=HistoricClaimsStrategyType.getStrategy(HistoricClaimsStrategyType.NONE, [:])
+		parmActualClaims[1]=HistoricClaimsStrategyType.getStrategy(HistoricClaimsStrategyType.NONE, [:])
+		parmActualClaims[3]=HistoricClaimsStrategyType.getStrategy(HistoricClaimsStrategyType.NONE, [:])
 	}
 	claimsGenerators {
 		subAttritional {

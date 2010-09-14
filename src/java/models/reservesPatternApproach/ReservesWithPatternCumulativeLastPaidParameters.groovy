@@ -19,12 +19,12 @@ displayName='Cumulative Pattern, Historic Last Paid Claims'
 periodLabels=["2009","2010","2011","2012"]
 components {
 	claimDevelopment {
-		parmHistoricClaims[2]=HistoricClaimsStrategyType.getStrategy(HistoricClaimsStrategyType.NONE, [:])
-		parmHistoricClaims[1]=HistoricClaimsStrategyType.getStrategy(HistoricClaimsStrategyType.NONE, [:])
-		parmHistoricClaims[0]=HistoricClaimsStrategyType.getStrategy(HistoricClaimsStrategyType.LAST_PAID, ["paidByDevelopmentPeriod":new TableMultiDimensionalParameter([[320.0,62.0],
+		parmActualClaims[2]=HistoricClaimsStrategyType.getStrategy(HistoricClaimsStrategyType.NONE, [:])
+		parmActualClaims[1]=HistoricClaimsStrategyType.getStrategy(HistoricClaimsStrategyType.NONE, [:])
+		parmActualClaims[0]=HistoricClaimsStrategyType.getStrategy(HistoricClaimsStrategyType.LAST_PAID, ["paidByDevelopmentPeriod":new TableMultiDimensionalParameter([[320.0,62.0],
 [1,2]
 ],["Paids","Development Periods"]),])
-		parmHistoricClaims[3]=HistoricClaimsStrategyType.getStrategy(HistoricClaimsStrategyType.NONE, [:])
+		parmActualClaims[3]=HistoricClaimsStrategyType.getStrategy(HistoricClaimsStrategyType.NONE, [:])
 		parmPayoutPattern[2]=PatternStrategyType.getStrategy(PatternStrategyType.NONE, [:])
 		parmPayoutPattern[0]=PatternStrategyType.getStrategy(PatternStrategyType.CUMULATIVE, ["cumulativePattern":new TableMultiDimensionalParameter([0.4,0.7,0.9,1.0],["Cumulative"]),])
 		parmPayoutPattern[1]=PatternStrategyType.getStrategy(PatternStrategyType.NONE, [:])

@@ -226,7 +226,7 @@ public class ClaimDevelopmentTests extends GroovyTestCase {
         ClaimDevelopment claimDevelopment = new ClaimDevelopment(
                 parmPayoutPattern : PatternStrategyType.getStrategy(PatternStrategyType.CUMULATIVE, ["cumulativePattern":new TableMultiDimensionalParameter([0.4d, 0.7d, 0.9d, 1d],["Cumulative"]),]),
                 parmReportedPattern : PatternStrategyType.getStrategy(PatternStrategyType.CUMULATIVE, ["cumulativePattern":new TableMultiDimensionalParameter([0.8d, 0.9d, 0.95d, 1d],["Cumulative"]),]),
-                parmHistoricClaims : HistoricClaimsStrategyType.getStrategy(HistoricClaimsStrategyType.LAST_PAID,
+                parmActualClaims : HistoricClaimsStrategyType.getStrategy(HistoricClaimsStrategyType.LAST_PAID,
                     [paidByDevelopmentPeriod :  new TableMultiDimensionalParameter([[320d, 62d],[1, 2]], ['Paid', 'Development Periods']),]),
                 parmAppliedOnPerils : new ComboBoxTableMultiDimensionalParameter(
                         Collections.emptyList(), Arrays.asList("peril"), PerilMarker)
@@ -288,7 +288,7 @@ public class ClaimDevelopmentTests extends GroovyTestCase {
         ClaimDevelopment claimDevelopment = new ClaimDevelopment(
                 parmPayoutPattern : PatternStrategyType.getStrategy(PatternStrategyType.CUMULATIVE, ["cumulativePattern":new TableMultiDimensionalParameter([0.4d, 0.7d, 0.9d, 1d],["Cumulative"]),]),
                 parmReportedPattern : PatternStrategyType.getStrategy(PatternStrategyType.CUMULATIVE, ["cumulativePattern":new TableMultiDimensionalParameter([0.8d, 0.9d, 0.95d, 1d],["Cumulative"]),]),
-                parmHistoricClaims : HistoricClaimsStrategyType.getStrategy(HistoricClaimsStrategyType.LAST_REPORTED,
+                parmActualClaims : HistoricClaimsStrategyType.getStrategy(HistoricClaimsStrategyType.LAST_REPORTED,
                     [reportedByDevelopmentPeriod :  new TableMultiDimensionalParameter([[800d, 180d],[1, 2]], ['Paid', 'Development Periods']),]),
                 parmAppliedOnPerils : new ComboBoxTableMultiDimensionalParameter(
                         Collections.emptyList(), Arrays.asList("peril"), PerilMarker)
