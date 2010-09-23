@@ -97,9 +97,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
                 if (this.isReceiverWired(inProbabilities)) {
                     List<Double> probabilities = filterProbabilities();
                     if (probabilities.size() > 1) {
-                        throw new IllegalArgumentException("An attritional claims model accepts at most one probability.\n" +
-                            "There is currently more than one correlation component sending a probability for " +
-                            "the claims generator " + this.getNormalizedName() + ".");
+                        throw new IllegalArgumentException("['TypableClaimsGenerator.attritionalClaims','"+this.getNormalizedName()+"']");
                     } else {
                         claimValues = calculateClaimsValues(
                             probabilities,
