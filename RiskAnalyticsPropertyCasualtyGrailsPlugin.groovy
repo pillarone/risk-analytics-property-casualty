@@ -19,7 +19,7 @@ import org.pillarone.riskanalytics.domain.pc.filter.SegmentFilterValidator
 
 class RiskAnalyticsPropertyCasualtyGrailsPlugin {
     // the plugin version
-    def version = "1.0.4.2"
+    def version = "1.0.4.3"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.3.4 > *"
     // the other plugins this plugin depends on
