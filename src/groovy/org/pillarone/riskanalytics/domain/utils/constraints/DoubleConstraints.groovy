@@ -21,5 +21,7 @@ class DoubleConstraints implements IMultiDimensionalConstraints {
         Double
     }
 
-
+    Integer getColumnIndex(Class marker) {
+        null
+    }
 }

@@ -37,4 +37,14 @@ class UnderwritingPortion implements IMultiDimensionalConstraints, IUnityPortion
     int getComponentNameColumnIndex() {
         return UNDERWRITING_COLUMN_INDEX
     }
+
+    Integer getColumnIndex(Class marker) {
+        if (IUnderwritingInfoMarker.isAssignableFrom(marker)) {
+            return 0
+        }
+        else if (BigDecimal.isAssignableFrom(marker)) {
+            return 1
+        }
+        return null;
+    }
 }

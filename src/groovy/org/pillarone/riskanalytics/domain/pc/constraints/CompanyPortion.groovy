@@ -37,4 +37,14 @@ class CompanyPortion implements IMultiDimensionalConstraints, IUnityPortion {
     int getComponentNameColumnIndex() {
         return COMPANY_COLUMN_INDEX
     }
+
+    Integer getColumnIndex(Class marker) {
+        if (ICompanyMarker.isAssignableFrom(marker)) {
+            return 0
+        }
+        else if (BigDecimal.isAssignableFrom(marker)) {
+            return 1
+        }
+        return null;
+    }
 }

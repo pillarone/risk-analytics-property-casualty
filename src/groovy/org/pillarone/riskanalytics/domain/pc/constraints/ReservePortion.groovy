@@ -37,4 +37,14 @@ class ReservePortion implements IMultiDimensionalConstraints, IUnityPortion {
     int getComponentNameColumnIndex() {
         return RESERVES_COLUMN_INDEX
     }
+
+     Integer getColumnIndex(Class marker) {
+        if (IReserveMarker.isAssignableFrom(marker)) {
+            return 0
+        }
+        else if (BigDecimal.isAssignableFrom(marker)) {
+            return 1
+        }
+        return null;
+    }
 }
