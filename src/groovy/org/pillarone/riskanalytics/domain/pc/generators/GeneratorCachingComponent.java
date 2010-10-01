@@ -26,7 +26,13 @@ public abstract class GeneratorCachingComponent extends Component {
         if (generators.containsKey(key)) {
             generator = generators.get(key);
         } else {
-            generator = RandomNumberGeneratorFactory.getGenerator(distribution, modifier);
+            try {
+                generator = RandomNumberGeneratorFactory.getGenerator(distribution, modifier);
+            }
+            catch (IllegalArgumentException ex) {
+                throw new IllegalArgumentException("['GeneratorCachingComponent.illegalDistributionDistributionModifier','"
+                        +this.getNormalizedName()+"','"+ex.getLocalizedMessage()+"']");
+            }
             generators.put(key, generator);
         }
         return generator;
