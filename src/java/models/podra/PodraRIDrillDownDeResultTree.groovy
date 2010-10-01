@@ -4,8 +4,8 @@ package models.podra
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 model = PodraModel
-displayName = "Reinsurance Contracts (Drill down)"
-language = "en"
+displayName = "de: Reinsurance Contracts (Drill down)"
+language = "de"
 mappings = [
         "Podra:reinsuranceContracts:Financials:[%contract%]": "Podra:reinsurance:subContracts:[%contract%]:outContractFinancials:result",
         "Podra:reinsuranceContracts:Financials:[%contract%]:premium": "Podra:reinsurance:subContracts:[%contract%]:outContractFinancials:premium",

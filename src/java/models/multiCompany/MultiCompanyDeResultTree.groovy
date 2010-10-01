@@ -4,8 +4,8 @@ package models.multiCompany
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 model = MultiCompanyModel
-displayName = "Company View"
-language = "en"
+displayName = "de: Company View"
+language = "de"
 mappings = [
         "MultiCompany:[%company%]": "MultiCompany:companies:[%company%]:outFinancialResults:ultimate",
         "MultiCompany:[%company%]:net:premium": "MultiCompany:companies:[%company%]:outUnderwritingInfoNet:premium",

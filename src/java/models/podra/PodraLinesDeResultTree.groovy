@@ -4,8 +4,8 @@ package models.podra
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 model = PodraModel
-displayName = "Lines of Business"
-language = "en"
+displayName = "de: Lines of Business"
+language = "de"
 
 mappings = [
         "Podra:claims:net:incurred": "Podra:linesOfBusiness:outClaimsDevelopmentLeanNet:incurred",

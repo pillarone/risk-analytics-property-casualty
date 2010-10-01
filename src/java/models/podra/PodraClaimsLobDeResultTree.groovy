@@ -4,8 +4,8 @@ package models.podra
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 model = PodraModel
-displayName = "Claims by Lines of Business (drill down)"
-language = "en"
+displayName = "de: Claims by Lines of Business (drill down)"
+language = "de"
 mappings = [
         "Podra:claims:paid": "Podra:linesOfBusiness:outClaimsDevelopmentLeanNet:paid",
         "Podra:claims:paid:[%lineOfBusiness%]": "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanNet:paid",
@@ -20,12 +20,12 @@ mappings = [
         "Podra:claims:incurred:[%lineOfBusiness%]:gross:[%claimsGenerator%]": "Podra:linesOfBusiness:[%lineOfBusiness%]:claimsGenerators:[%claimsGenerator%]:outClaimsDevelopmentLeanGross:incurred",
         "Podra:claims:incurred:[%lineOfBusiness%]:ceded": "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanCeded:incurred",
         "Podra:claims:incurred:[%lineOfBusiness%]:ceded:[%contract%]": "Podra:linesOfBusiness:[%lineOfBusiness%]:reinsuranceContracts:[%contract%]:outClaimsDevelopmentLeanCeded:incurred",
- 
+
         "Podra:claims:reserved": "Podra:linesOfBusiness:outClaimsDevelopmentLeanNet:reserved",
         "Podra:claims:reserved:[%lineOfBusiness%]": "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanNet:reserved",
         "Podra:claims:reserved:[%lineOfBusiness%]:gross": "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanGross:reserved",
         "Podra:claims:reserved:[%lineOfBusiness%]:gross:[%claimsGenerator%]": "Podra:linesOfBusiness:[%lineOfBusiness%]:claimsGenerators:[%claimsGenerator%]:outClaimsDevelopmentLeanGross:reserved",
         "Podra:claims:reserved:[%lineOfBusiness%]:ceded": "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanCeded:reserved",
         "Podra:claims:reserved:[%lineOfBusiness%]:ceded:[%contract%]": "Podra:linesOfBusiness:[%lineOfBusiness%]:reinsuranceContracts:[%contract%]:outClaimsDevelopmentLeanCeded:reserved",
-        
+
 ]
