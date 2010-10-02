@@ -4,28 +4,28 @@ package models.podra
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 model = PodraModel
-displayName = "de: Claims by Lines of Business (drill down)"
+displayName = "Schäden nach Sparten (aufgeschlüsselt)"
 language = "de"
 mappings = [
-        "Podra:claims:paid": "Podra:linesOfBusiness:outClaimsDevelopmentLeanNet:paid",
-        "Podra:claims:paid:[%lineOfBusiness%]": "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanNet:paid",
-        "Podra:claims:paid:[%lineOfBusiness%]:gross": "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanGross:paid",
-        "Podra:claims:paid:[%lineOfBusiness%]:gross:[%claimsGenerator%]": "Podra:linesOfBusiness:[%lineOfBusiness%]:claimsGenerators:[%claimsGenerator%]:outClaimsDevelopmentLeanGross:paid",
-        "Podra:claims:paid:[%lineOfBusiness%]:ceded": "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanCeded:paid",
-        "Podra:claims:paid:[%lineOfBusiness%]:ceded:[%contract%]": "Podra:linesOfBusiness:[%lineOfBusiness%]:reinsuranceContracts:[%contract%]:outClaimsDevelopmentLeanCeded:paid",
+        "Podra:Schäden:bezahlt": "Podra:linesOfBusiness:outClaimsDevelopmentLeanNet:paid",
+        "Podra:Schäden:bezahlt:[%lineOfBusiness%]": "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanNet:paid",
+        "Podra:Schäden:bezahlt:[%lineOfBusiness%]:brutto": "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanGross:paid",
+        "Podra:Schäden:bezahlt:[%lineOfBusiness%]:brutto:[%claimsGenerator%]": "Podra:linesOfBusiness:[%lineOfBusiness%]:claimsGenerators:[%claimsGenerator%]:outClaimsDevelopmentLeanGross:paid",
+        "Podra:Schäden:bezahlt:[%lineOfBusiness%]:zediert": "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanCeded:paid",
+        "Podra:Schäden:bezahlt:[%lineOfBusiness%]:zediert:[%contract%]": "Podra:linesOfBusiness:[%lineOfBusiness%]:reinsuranceContracts:[%contract%]:outClaimsDevelopmentLeanCeded:paid",
 
-        "Podra:claims:incurred": "Podra:linesOfBusiness:outClaimsDevelopmentLeanNet:incurred",
-        "Podra:claims:incurred:[%lineOfBusiness%]": "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanNet:incurred",
-        "Podra:claims:incurred:[%lineOfBusiness%]:gross": "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanGross:incurred",
-        "Podra:claims:incurred:[%lineOfBusiness%]:gross:[%claimsGenerator%]": "Podra:linesOfBusiness:[%lineOfBusiness%]:claimsGenerators:[%claimsGenerator%]:outClaimsDevelopmentLeanGross:incurred",
-        "Podra:claims:incurred:[%lineOfBusiness%]:ceded": "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanCeded:incurred",
-        "Podra:claims:incurred:[%lineOfBusiness%]:ceded:[%contract%]": "Podra:linesOfBusiness:[%lineOfBusiness%]:reinsuranceContracts:[%contract%]:outClaimsDevelopmentLeanCeded:incurred",
+        "Podra:Schäden:eingetreten": "Podra:linesOfBusiness:outClaimsDevelopmentLeanNet:incurred",
+        "Podra:Schäden:eingetreten:[%lineOfBusiness%]": "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanNet:incurred",
+        "Podra:Schäden:eingetreten:[%lineOfBusiness%]:brutto": "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanGross:incurred",
+        "Podra:Schäden:eingetreten:[%lineOfBusiness%]:brutto:[%claimsGenerator%]": "Podra:linesOfBusiness:[%lineOfBusiness%]:claimsGenerators:[%claimsGenerator%]:outClaimsDevelopmentLeanGross:incurred",
+        "Podra:Schäden:eingetreten:[%lineOfBusiness%]:zediert": "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanCeded:incurred",
+        "Podra:Schäden:eingetreten:[%lineOfBusiness%]:zediert:[%contract%]": "Podra:linesOfBusiness:[%lineOfBusiness%]:reinsuranceContracts:[%contract%]:outClaimsDevelopmentLeanCeded:incurred",
 
-        "Podra:claims:reserved": "Podra:linesOfBusiness:outClaimsDevelopmentLeanNet:reserved",
-        "Podra:claims:reserved:[%lineOfBusiness%]": "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanNet:reserved",
-        "Podra:claims:reserved:[%lineOfBusiness%]:gross": "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanGross:reserved",
-        "Podra:claims:reserved:[%lineOfBusiness%]:gross:[%claimsGenerator%]": "Podra:linesOfBusiness:[%lineOfBusiness%]:claimsGenerators:[%claimsGenerator%]:outClaimsDevelopmentLeanGross:reserved",
-        "Podra:claims:reserved:[%lineOfBusiness%]:ceded": "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanCeded:reserved",
-        "Podra:claims:reserved:[%lineOfBusiness%]:ceded:[%contract%]": "Podra:linesOfBusiness:[%lineOfBusiness%]:reinsuranceContracts:[%contract%]:outClaimsDevelopmentLeanCeded:reserved",
+        "Podra:Schäden:reserviert": "Podra:linesOfBusiness:outClaimsDevelopmentLeanNet:reserved",
+        "Podra:Schäden:reserviert:[%lineOfBusiness%]": "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanNet:reserved",
+        "Podra:Schäden:reserviert:[%lineOfBusiness%]:brutto": "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanGross:reserved",
+        "Podra:Schäden:reserviert:[%lineOfBusiness%]:brutto:[%claimsGenerator%]": "Podra:linesOfBusiness:[%lineOfBusiness%]:claimsGenerators:[%claimsGenerator%]:outClaimsDevelopmentLeanGross:reserved",
+        "Podra:Schäden:reserviert:[%lineOfBusiness%]:zediert": "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanCeded:reserved",
+        "Podra:Schäden:reserviert:[%lineOfBusiness%]:zediert:[%contract%]": "Podra:linesOfBusiness:[%lineOfBusiness%]:reinsuranceContracts:[%contract%]:outClaimsDevelopmentLeanCeded:reserved",
 
 ]

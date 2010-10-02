@@ -4,17 +4,17 @@ package models.multiCompany
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 model = MultiCompanyModel
-displayName = "de: Company View"
+displayName = "Firmen"
 language = "de"
 mappings = [
-        "MultiCompany:[%company%]": "MultiCompany:companies:[%company%]:outFinancialResults:ultimate",
-        "MultiCompany:[%company%]:net:premium": "MultiCompany:companies:[%company%]:outUnderwritingInfoNet:premium",
-        "MultiCompany:[%company%]:net:commission": "MultiCompany:companies:[%company%]:outUnderwritingInfoNet:commission",
-        "MultiCompany:[%company%]:net:claimsPaid": "MultiCompany:companies:[%company%]:outClaimsLeanDevelopmentNet:paid",
-        "MultiCompany:[%company%]:gross:premium": "MultiCompany:companies:[%company%]:outUnderwritingInfoGross:premium",
-        "MultiCompany:[%company%]:gross:commission": "MultiCompany:companies:[%company%]:outUnderwritingInfoGross:commission",
-        "MultiCompany:[%company%]:gross:claimsPaid": "MultiCompany:companies:[%company%]:outClaimsLeanDevelopmentGross:paid",
-        "MultiCompany:[%company%]:ceded:premium": "MultiCompany:companies:[%company%]:outUnderwritingInfoCeded:premium",
-        "MultiCompany:[%company%]:ceded:commission": "MultiCompany:companies:[%company%]:outUnderwritingInfoCeded:commission",
-        "MultiCompany:[%company%]:ceded:claimsPaid": "MultiCompany:companies:[%company%]:outClaimsLeanDevelopmentCeded:paid",
+        "Gruppen Modell:[%company%]": "MultiCompany:companies:[%company%]:outFinancialResults:ultimate",
+        "Gruppen Modell:[%company%]:Netto:Prämie": "MultiCompany:companies:[%company%]:outUnderwritingInfoNet:premium",
+        "Gruppen Modell:[%company%]:Netto:Provision": "MultiCompany:companies:[%company%]:outUnderwritingInfoNet:commission",
+        "Gruppen Modell:[%company%]:Netto:Schäden bezahlt": "MultiCompany:companies:[%company%]:outClaimsLeanDevelopmentNet:paid",
+        "Gruppen Modell:[%company%]:Brutto:Prämie": "MultiCompany:companies:[%company%]:outUnderwritingInfoGross:premium",
+        "Gruppen Modell:[%company%]:Brutto:Provision": "MultiCompany:companies:[%company%]:outUnderwritingInfoGross:commission",
+        "Gruppen Modell:[%company%]:Brutto:Schäden bezahlt": "MultiCompany:companies:[%company%]:outClaimsLeanDevelopmentGross:paid",
+        "Gruppen Modell:[%company%]:Zediert:Prämie": "MultiCompany:companies:[%company%]:outUnderwritingInfoCeded:premium",
+        "Gruppen Modell:[%company%]:Zediert:Provision": "MultiCompany:companies:[%company%]:outUnderwritingInfoCeded:commission",
+        "Gruppen Modell:[%company%]:Zediert:Schäden bezahlt": "MultiCompany:companies:[%company%]:outClaimsLeanDevelopmentCeded:paid",
 ]
