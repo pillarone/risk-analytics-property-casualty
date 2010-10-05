@@ -2,7 +2,6 @@ package org.pillarone.riskanalytics.domain.pc.constraints
 
 import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
 import org.pillarone.riskanalytics.core.parameterization.IMultiDimensionalConstraints
-import org.pillarone.riskanalytics.core.components.IComponentMarker;
 
 /**
  * @author fouad.jaada@intuitive-collaboration.com
