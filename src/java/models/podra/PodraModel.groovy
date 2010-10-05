@@ -59,6 +59,7 @@ class PodraModel extends StochasticModel {
             linesOfBusiness.inUnderwritingInfoGross = underwritingSegments.outUnderwritingInfo
             linesOfBusiness.inClaimsGross = claimsGenerators.outClaims
             linesOfBusiness.inClaimsGross = reserveGenerators.outClaimsDevelopment
+            linesOfBusiness.inInitialReserves = reserveGenerators.outInitialReserves
             reinsurance.inUnderwritingInfo = linesOfBusiness.outUnderwritingInfoGross
             reinsurance.inClaims = linesOfBusiness.outClaimsGross
             linesOfBusiness.inUnderwritingInfoCeded = reinsurance.outCoverUnderwritingInfo

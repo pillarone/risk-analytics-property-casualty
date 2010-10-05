@@ -5,6 +5,7 @@ import org.pillarone.riskanalytics.core.packets.PacketList
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
+import org.pillarone.riskanalytics.core.packets.SingleValuePacket
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -16,6 +17,7 @@ public class DynamicConfigurableLobsWithReserves extends MultiPhaseDynamicCompos
     PacketList<UnderwritingInfo> inUnderwritingInfoCeded = new PacketList(UnderwritingInfo)
     PacketList<Claim> inClaimsGross = new PacketList(Claim)
     PacketList<Claim> inClaimsCeded = new PacketList(Claim)
+    PacketList<SingleValuePacket> inInitialReserves = new PacketList<SingleValuePacket>(SingleValuePacket)
 
     PacketList<Claim> outClaimsNet = new PacketList(Claim)
     PacketList<Claim> outClaimsGross = new PacketList(Claim)
@@ -35,6 +37,7 @@ public class DynamicConfigurableLobsWithReserves extends MultiPhaseDynamicCompos
         replicateInChannels this, 'inUnderwritingInfoCeded'
         replicateInChannels this, 'inClaimsGross'
         replicateInChannels this, 'inClaimsCeded'
+        replicateInChannels this, 'inInitialReserves'
         replicateOutChannels this, 'outUnderwritingInfoGross'
         replicateOutChannels this, 'outUnderwritingInfoCeded'
         replicateOutChannels this, 'outUnderwritingInfoNet'
@@ -57,6 +60,7 @@ public class DynamicConfigurableLobsWithReserves extends MultiPhaseDynamicCompos
     public void allocateChannelsToPhases() {
         setTransmitterPhaseInput(inUnderwritingInfoGross, MultiPhaseDynamicComposedComponent.PHASE_START)
         setTransmitterPhaseInput(inClaimsGross, MultiPhaseDynamicComposedComponent.PHASE_START)
+        setTransmitterPhaseInput(inInitialReserves, MultiPhaseDynamicComposedComponent.PHASE_START)
         setTransmitterPhaseInput(inUnderwritingInfoCeded, MultiPhaseDynamicComposedComponent.PHASE_DO_CALCULATION)
         setTransmitterPhaseInput(inClaimsCeded, MultiPhaseDynamicComposedComponent.PHASE_DO_CALCULATION)
         setTransmitterPhaseOutput(outUnderwritingInfoGross, MultiPhaseDynamicComposedComponent.PHASE_START)

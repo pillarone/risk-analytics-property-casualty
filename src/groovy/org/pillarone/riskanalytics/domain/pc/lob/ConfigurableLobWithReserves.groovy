@@ -15,47 +15,50 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.aggregators.UnderwritingInfoNetCalculator
 import org.pillarone.riskanalytics.domain.pc.claims.MarketGrossNetClaimsMerger
+import org.pillarone.riskanalytics.core.packets.SingleValuePacket
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 public class ConfigurableLobWithReserves extends MultipleCalculationPhaseComposedComponent implements LobMarker {
 
-    PacketList<UnderwritingInfo> inUnderwritingInfoGross = new PacketList(UnderwritingInfo.class);
-    PacketList<UnderwritingInfo> inUnderwritingInfoCeded = new PacketList(UnderwritingInfo.class);
-    PacketList<Claim> inClaimsGross = new PacketList(Claim.class);
-    PacketList<Claim> inClaimsCeded = new PacketList(Claim.class);
+    PacketList<UnderwritingInfo> inUnderwritingInfoGross = new PacketList(UnderwritingInfo)
+    PacketList<UnderwritingInfo> inUnderwritingInfoCeded = new PacketList(UnderwritingInfo)
+    PacketList<Claim> inClaimsGross = new PacketList(Claim)
+    PacketList<Claim> inClaimsCeded = new PacketList(Claim)
+    PacketList<SingleValuePacket> inInitialReserves = new PacketList<SingleValuePacket>(SingleValuePacket)
 
-    PacketList<Claim> outClaimsNet = new PacketList<Claim>(Claim.class);
-    PacketList<Claim> outClaimsGross = new PacketList<Claim>(Claim.class);
-    PacketList<Claim> outClaimsCeded = new PacketList<Claim>(Claim.class);
+    PacketList<Claim> outClaimsNet = new PacketList<Claim>(Claim)
+    PacketList<Claim> outClaimsGross = new PacketList<Claim>(Claim)
+    PacketList<Claim> outClaimsCeded = new PacketList<Claim>(Claim)
+    PacketList<SingleValuePacket> outInitialReserves = new PacketList<SingleValuePacket>(SingleValuePacket)
 
     // todo(sku): remove the following and related lines as soon as PMO-648 is resolved
     PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanNet = new PacketList(ClaimDevelopmentLeanPacket)
     PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanGross = new PacketList(ClaimDevelopmentLeanPacket)
     PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanCeded = new PacketList(ClaimDevelopmentLeanPacket)
 
-    PacketList<UnderwritingInfo> outUnderwritingInfoNet = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
-    PacketList<UnderwritingInfo> outUnderwritingInfoGross = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
-    PacketList<UnderwritingInfo> outUnderwritingInfoCeded = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
+    PacketList<UnderwritingInfo> outUnderwritingInfoNet = new PacketList<UnderwritingInfo>(UnderwritingInfo)
+    PacketList<UnderwritingInfo> outUnderwritingInfoGross = new PacketList<UnderwritingInfo>(UnderwritingInfo)
+    PacketList<UnderwritingInfo> outUnderwritingInfoCeded = new PacketList<UnderwritingInfo>(UnderwritingInfo)
 
-    MarketToLineOfBusinessClaims subClaimsFilter;
-    LineOfBusinessReserves subReservesFilter;
-    UnderwritingLineOfBusinessComposer subUnderwritingFilter;
+    MarketToLineOfBusinessClaims subClaimsFilter
+    LineOfBusinessReserves subReservesFilter
+    UnderwritingLineOfBusinessComposer subUnderwritingFilter
 
-    ClaimsFilterByOriginalOrigin subClaimsFilterCeded;
-    MarketGrossNetClaimsMerger subClaimsAggregator;
-    UnderwritingFilterByOriginalOrigin subUnderwritingInfoFilterCeded;
-    UnderwritingInfoNetCalculator subUnderwritingInfoAggregator;
+    ClaimsFilterByOriginalOrigin subClaimsFilterCeded
+    MarketGrossNetClaimsMerger subClaimsAggregator
+    UnderwritingFilterByOriginalOrigin subUnderwritingInfoFilterCeded
+    UnderwritingInfoNetCalculator subUnderwritingInfoAggregator
 
     ConfigurableLobWithReserves() {
-        subClaimsFilter = new MarketToLineOfBusinessClaims();
-        subReservesFilter = new LineOfBusinessReserves();
-        subUnderwritingFilter = new UnderwritingLineOfBusinessComposer();
-        subClaimsFilterCeded = new ClaimsFilterByOriginalOrigin();
-        subClaimsAggregator = new MarketGrossNetClaimsMerger();
-        subUnderwritingInfoFilterCeded = new UnderwritingFilterByOriginalOrigin();
-        subUnderwritingInfoAggregator = new UnderwritingInfoNetCalculator();
+        subClaimsFilter = new MarketToLineOfBusinessClaims()
+        subReservesFilter = new LineOfBusinessReserves()
+        subUnderwritingFilter = new UnderwritingLineOfBusinessComposer()
+        subClaimsFilterCeded = new ClaimsFilterByOriginalOrigin()
+        subClaimsAggregator = new MarketGrossNetClaimsMerger()
+        subUnderwritingInfoFilterCeded = new UnderwritingFilterByOriginalOrigin()
+        subUnderwritingInfoAggregator = new UnderwritingInfoNetCalculator()
     }
 
     public void wire() {
@@ -73,11 +76,13 @@ public class ConfigurableLobWithReserves extends MultipleCalculationPhaseCompose
             subUnderwritingFilter.inUnderwritingInfo = this.inUnderwritingInfoGross
             subClaimsFilter.inClaims = this.inClaimsGross
             subReservesFilter.inClaims = this.inClaimsGross
+            subReservesFilter.inInitialReserves = this.inInitialReserves
 
             this.outUnderwritingInfoGross = subUnderwritingFilter.outUnderwritingInfo
             this.outClaimsGross = subClaimsFilter.outClaims
             this.outClaimsDevelopmentLeanGross = subClaimsFilter.outClaimsDevelopmentLean
             this.outClaimsGross = subReservesFilter.outClaims
+            this.outInitialReserves = subReservesFilter.outInitialReserves
             this.outClaimsDevelopmentLeanGross = subReservesFilter.outClaimsDevelopmentLean
 
             subUnderwritingInfoFilterCeded.inUnderwritingInfoCeded = this.inUnderwritingInfoCeded
@@ -96,6 +101,8 @@ public class ConfigurableLobWithReserves extends MultipleCalculationPhaseCompose
         setTransmitterPhaseInput(inUnderwritingInfoGross, MultipleCalculationPhaseComposedComponent.PHASE_START);
         setTransmitterPhaseOutput(outUnderwritingInfoGross, MultipleCalculationPhaseComposedComponent.PHASE_START);
         setTransmitterPhaseInput(inClaimsGross, MultipleCalculationPhaseComposedComponent.PHASE_START);
+        setTransmitterPhaseInput(inInitialReserves, MultipleCalculationPhaseComposedComponent.PHASE_START);
+        setTransmitterPhaseOutput(outInitialReserves, MultipleCalculationPhaseComposedComponent.PHASE_START);
         setTransmitterPhaseOutput(outClaimsGross, MultipleCalculationPhaseComposedComponent.PHASE_START);
         setTransmitterPhaseOutput(outClaimsDevelopmentLeanGross, MultipleCalculationPhaseComposedComponent.PHASE_START);
         setTransmitterPhaseInput(inUnderwritingInfoCeded, MultipleCalculationPhaseComposedComponent.PHASE_DO_CALCULATION);

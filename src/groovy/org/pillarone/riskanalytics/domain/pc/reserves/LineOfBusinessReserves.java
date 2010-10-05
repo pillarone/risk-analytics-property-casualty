@@ -2,6 +2,7 @@ package org.pillarone.riskanalytics.domain.pc.reserves;
 
 import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.core.packets.PacketList;
+import org.pillarone.riskanalytics.core.packets.SingleValuePacket;
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter;
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory;
 import org.pillarone.riskanalytics.core.util.GroovyUtils;
@@ -25,7 +26,9 @@ public class LineOfBusinessReserves extends Component {
     private static final String PORTION = "Portion of Claims";
 
     private PacketList<Claim> inClaims = new PacketList<Claim>(Claim.class);
+    private PacketList<SingleValuePacket> inInitialReserves = new PacketList<SingleValuePacket>(SingleValuePacket.class);
     private PacketList<Claim> outClaims = new PacketList<Claim>(Claim.class);
+    private PacketList<SingleValuePacket> outInitialReserves = new PacketList<SingleValuePacket>(SingleValuePacket.class);
     // todo(sku): remove the following and related lines as soon as PMO-648 is resolved
     private PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLean = new PacketList<ClaimDevelopmentLeanPacket>(ClaimDevelopmentLeanPacket.class);
     private ConstrainedMultiDimensionalParameter parmPortions = new ConstrainedMultiDimensionalParameter(
@@ -50,6 +53,16 @@ public class LineOfBusinessReserves extends Component {
                     lobClaim.scale((Double) parmPortions.getValueAt(row + 1, portionColumn));
                     lobClaims.add(lobClaim);
                     outClaimsDevelopmentLean.add((ClaimDevelopmentLeanPacket) lobClaim);
+                }
+            }
+            for (SingleValuePacket initialReserves : inInitialReserves) {
+                String originName = initialReserves.origin.getNormalizedName();
+                int row = parmPortions.getColumnByName(RESERVES).indexOf(originName);
+                if (row > -1) {
+                    SingleValuePacket lobInitialReserve = (SingleValuePacket) initialReserves.copy();
+                    lobInitialReserve.origin = lineOfBusiness;
+                    lobInitialReserve.value *= (Double) parmPortions.getValueAt(row + 1, portionColumn);
+                    outInitialReserves.add(lobInitialReserve);
                 }
             }
             Collections.sort(lobClaims, SortClaimsByFractionOfPeriod.getInstance());
@@ -87,5 +100,21 @@ public class LineOfBusinessReserves extends Component {
 
     public void setOutClaimsDevelopmentLean(PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLean) {
         this.outClaimsDevelopmentLean = outClaimsDevelopmentLean;
+    }
+
+    public PacketList<SingleValuePacket> getInInitialReserves() {
+        return inInitialReserves;
+    }
+
+    public void setInInitialReserves(PacketList<SingleValuePacket> inInitialReserves) {
+        this.inInitialReserves = inInitialReserves;
+    }
+
+    public PacketList<SingleValuePacket> getOutInitialReserves() {
+        return outInitialReserves;
+    }
+
+    public void setOutInitialReserves(PacketList<SingleValuePacket> outInitialReserves) {
+        this.outInitialReserves = outInitialReserves;
     }
 }
