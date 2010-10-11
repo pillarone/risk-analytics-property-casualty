@@ -85,8 +85,8 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
     private int lastPeriodYear;
 
     public void doCalculation() {
-        if (parmContractStrategy == null) throw new IllegalArgumentException("A contract strategy must be set");
-        if (parmCover == null) throw new IllegalStateException("A cover attribute strategy must be set");
+        if (parmContractStrategy == null) throw new IllegalArgumentException("MultiLinesPerilsReinsuranceContract.missingContractStrategy");
+        if (parmCover == null) throw new IllegalStateException("MultiLinesPerilsReinsuranceContract.missingCoverStrategy");
 
         IterationScope iterationScope = simulationScope.getIterationScope();
         PeriodScope periodScope = iterationScope.getPeriodScope();
@@ -174,7 +174,7 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
                 // same instance: may occur if one period parameterization is applied for several periods
             }
             else {
-                throw new IllegalArgumentException("Only one nontrivial strategy per contract is allowed");
+                throw new IllegalArgumentException("MultiLinesPerilsReinsuranceContract.invalidNoOfStrategies");
             }
         }
     }
@@ -235,7 +235,8 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
                 }
             }
             else {
-                throw new NotImplementedException(claim.getClass().toString());
+                throw new NotImplementedException("['MultiLinesPerilsReinsuranceContract.notImplemented','"
+                        +claim.getClass().toString()+"']");
             }
         }
     }

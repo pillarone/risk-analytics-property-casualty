@@ -22,7 +22,7 @@ public class UnderwritingInfoAggregator extends Component {
 
     public void doCalculation() {
         if (inUnderwritingInfoGross.isEmpty() && !inUnderwritingInfoCeded.isEmpty()) {
-            throw new IllegalStateException("Only ceded underwriting found!");
+            throw new IllegalStateException("UnderwritingInfoAggregator.onlyCededUnderwritingInfo");
         }
 
         UnderwritingInfo grossAggregateUnderwritingInfo = UnderwritingInfoPacketFactory.createPacket();

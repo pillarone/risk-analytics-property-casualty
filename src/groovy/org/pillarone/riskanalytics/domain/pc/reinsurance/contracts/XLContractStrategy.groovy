@@ -125,7 +125,7 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
                 cededUnderwritingInfo.premiumWrittenAsIf = premium * limit * coveredByReinsurer
                 break
             case PremiumBase.NUMBER_OF_POLICIES:
-                throw new IllegalArgumentException("Defining the premium base as number of policies is not suppported.")
+                throw new IllegalArgumentException("XLContractStrategy.invalidPremiumBase")
         }
         // Increases premium written and premium written as if with the reinstatement premium
         double factor = 1 + calculateReinstatementPremiums(aggregateLimit, availableAggregateLimit, aggregateDeductible,

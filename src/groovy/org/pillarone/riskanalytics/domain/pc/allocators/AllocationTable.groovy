@@ -15,7 +15,7 @@ class AllocationTable extends Packet {
             int keyIdx = table.columnNames.indexOf(keyName)
             int valueIdx = table.columnNames.indexOf(valueName)
             if (keyIdx < 0 || valueIdx < 0) {
-                throw new IllegalArgumentException("key or value column not found!")
+                throw new IllegalArgumentException("AllocationTable.noKeyValue")
             }
 
             // check whether all the values are positive
@@ -23,7 +23,7 @@ class AllocationTable extends Packet {
             double sum = 0d
             for (Double value: table.values[valueIdx]) {
                 if (value < 0) {
-                    throw new IllegalArgumentException("Negative values found in the data used in allocation table. Data with only positive values are allowed.")
+                    throw new IllegalArgumentException("AllocationTable.negativeValuesInData")
                 }
                 sum += value
             }

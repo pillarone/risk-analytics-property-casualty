@@ -39,13 +39,13 @@ public class FrequencyGenerator extends GeneratorCachingComponent {
 
     public void validateParameterization() {
         if (parmDistribution == null) {
-            throw new IllegalStateException("A distribution must be set");
+            throw new IllegalStateException("FrequencyGenerator.missingDistribution");
         }
         if (!parmBase.equals(FrequencyBase.ABSOLUTE) && !isReceiverWired(inUnderwritingInfo)) {
-            throw new IllegalStateException("As no underwriting information is provided, only 'absolute' is allowed as base.");
+            throw new IllegalStateException("FrequencyGenerator.invalidFrequencyBase");
         }
         if (parmBase.equals(FrequencyBase.NUMBER_OF_POLICIES) && !isReceiverWired(inUnderwritingInfo)) {
-            throw new IllegalStateException("As no underwriting information is provided, number of policies is not possible as base.");
+            throw new IllegalStateException("FrequencyGenerator.invalidFreqeuncyBaseNoOfPolicies");
         }
         super.validateParameterization();
     }

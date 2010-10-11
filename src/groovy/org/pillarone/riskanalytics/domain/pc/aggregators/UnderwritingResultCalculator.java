@@ -19,7 +19,7 @@ public class UnderwritingResultCalculator extends Component {
 
     public void validateWiring() {
         if (!(isReceiverWired(inClaims) && isReceiverWired(inUnderwritingInfo))) {
-            throw new IllegalStateException("[UnderwritingResultCalculator] Wiring error: inClaims and inUnderwritingInfo have to be wired!");
+            throw new IllegalStateException("UnderwritingResultCalculator.missingWiring");
         }
         super.validateWiring();
     }

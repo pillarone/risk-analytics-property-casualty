@@ -50,7 +50,7 @@ public class MultiLineReinsuranceContract extends ReinsuranceContract {
 
     public void doCalculation() {
         if (parmContractStrategy == null) {
-            throw new IllegalStateException("A contract strategy must be set");
+            throw new IllegalStateException("MultiLineReinsuranceContract.missingContractStrategy");
         }
         filterInChannels();
         // initialize contract details

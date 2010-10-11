@@ -24,7 +24,7 @@ public enum SimulationPeriod {
             case MONTHLY:
                 return new Period(0, 1, 0,0,0,0,0,0, PeriodType.months());
             default:
-                throw new IllegalArgumentException(period + " not implemented.");
+                throw new IllegalArgumentException("['SimulationPeriod.notImplemented','"+period+"']");
         }
     }
 }

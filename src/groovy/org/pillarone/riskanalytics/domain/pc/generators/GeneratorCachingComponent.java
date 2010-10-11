@@ -20,7 +20,7 @@ public abstract class GeneratorCachingComponent extends Component {
 //            double quantileOfMax = distribution.getDistribution().cdf((Double) modifier.getParameters().get("max"));
 //            double quantileOfMin = distribution.getDistribution().cdf((Double) modifier.getParameters().get("min"));
 //            if (quantileOfMax - quantileOfMin < 1E-4) {
-//                throw new IllegalArgumentException("the specified truncation limits have insufficient support");
+//                throw new IllegalArgumentException("GeneratorCachingComponent.insufficientSupport");
 //            }
 //        }
         if (generators.containsKey(key)) {

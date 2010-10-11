@@ -22,7 +22,7 @@ public class ClaimsAggregator extends Component {
 
     public void doCalculation() {
         if (inClaimsGross.size() == 0 && inClaimsCeded.size() > 0) {
-            throw new IllegalStateException("Only ceded claims found!");
+            throw new IllegalStateException("ClaimsAggregator.onlyCededClaims");
         }
 
         Claim grossAggregateClaim = new Claim();

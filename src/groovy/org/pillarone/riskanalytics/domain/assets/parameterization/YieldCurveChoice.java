@@ -18,7 +18,7 @@ public class YieldCurveChoice extends Component {
 
     protected void doCalculation() {
         if (getParmModellingStrategy() == null) {
-            throw new IllegalStateException("A curve has to be chosen");
+            throw new IllegalStateException("YieldCurveChoice.missingCurve");
         }
 
         if (parmModellingStrategy.getType() == TermStructureType.CIR) {
@@ -35,7 +35,7 @@ public class YieldCurveChoice extends Component {
             packet.setYieldCurveType((TermStructureType) parmModellingStrategy.getType());
             packet.setRate((Double) parmModellingStrategy.getParameters().get("rate"));
         } else {
-            throw new IllegalArgumentException("not yet implemented or doesn't exist" + parmModellingStrategy.getType());
+            throw new IllegalArgumentException("['YieldCurveChoice.notImplemented','"+ parmModellingStrategy.getType()+"']");
         }
     }
 

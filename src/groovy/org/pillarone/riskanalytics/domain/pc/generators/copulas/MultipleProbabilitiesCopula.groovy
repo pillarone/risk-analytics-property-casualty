@@ -30,7 +30,7 @@ public class MultipleProbabilitiesCopula extends GeneratorCachingComponent {
 
     public void validateParameterization() {
         if (parmFrequencyDistribution == null) {
-            throw new IllegalStateException("A distribution must be set");
+            throw new IllegalStateException("MultipleProbabilitiesCopula.missingDistribution");
         }
         super.validateParameterization();
     }

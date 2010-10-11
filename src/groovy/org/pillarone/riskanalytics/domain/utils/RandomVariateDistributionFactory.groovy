@@ -22,7 +22,8 @@ class RandomVariateDistributionFactory {
                 )
         )
         if (mu == Double.NaN || sigma == Double.NaN) {
-            throw new IllegalArgumentException("A lognormal distribution for mean: $mean and stDev: $stDev does not exist")
+            throw new IllegalArgumentException("['RandomVariateDistributionFactory.NaNParameter','"
+                        +mean+"','"+stDev+"']")
         }
         return new RandomVariateDistribution(distribution: new LognormalDist(mu, sigma))
     }

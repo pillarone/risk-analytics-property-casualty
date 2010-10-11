@@ -31,15 +31,15 @@ class PiecewiseLinearDistribution implements Distribution {
         val = []
         cdft = []
         if (values.size() != cumulProb.size())
-            throw new IllegalArgumentException("Nonmatching length of values and cdf in PieceWiseLinearDistribution");
-        if (cumulProb[0] != 0) throw new IllegalArgumentException("First value has not cdf=0 in PieceWiseLinearDistribution");
+            throw new IllegalArgumentException("PiecewiseLinearDistribution.invalidNumberOfArguments");
+        if (cumulProb[0] != 0) throw new IllegalArgumentException("PiecewiseLinearDistribution.invalidFirstFunctionValue");
         val.add(values[0]); cdft.add(cumulProb[0]);
-        if (cumulProb[last] != 1) throw new IllegalArgumentException("Last value has not cdf=1 in PieceWiseLinearDistribution");
+        if (cumulProb[last] != 1) throw new IllegalArgumentException("PiecewiseLinearDistribution.invalidLastFunctionValue");
         for (int i = 1; i <= last; i++) {
             if (values[i] <= values[i - 1])
-                throw new IllegalArgumentException("Nonincreasing values in PieceWiseLinearDistribution");
+                throw new IllegalArgumentException("PiecewiseLinearDistribution.nonincreasingArguments");
             if (cumulProb[i] <= cumulProb[i - 1]) {
-                throw new IllegalArgumentException("Nonincreasing cdf in PieceWiseLinearDistribution");
+                throw new IllegalArgumentException("PiecewiseLinearDistribution.nonincreasingFunctionValues");
             }
             val.add(values[i]);
             cdft.add(cumulProb[i]);
@@ -69,7 +69,7 @@ class PiecewiseLinearDistribution implements Distribution {
     */
 
     double inverseF(double u) {
-        if ((u < 0) || (u > 1)) throw new IllegalArgumentException("Got probability argument outside [0,1] PieceWiseLinearDistribution");
+        if ((u < 0) || (u > 1)) throw new IllegalArgumentException("PiecewiseLinearDistribution.invalidArgumentsInverse");
         int i = 1;                                     //first piece of cdft containing u
         while (u > cdft[i]) {i++}                       //now we have cdft[i-1]<=u<=cdft[i]    (even cdft[i-1]<u for u>0)
         double pos = (u - cdft[i - 1]) / (cdft[i] - cdft[i - 1])    //pos is relative location of u in that interval
@@ -95,7 +95,7 @@ class PiecewiseLinearDistribution implements Distribution {
     double getStandardDeviation() {return stdDev}
 
     double[] getParams() {
-        throw new IllegalArgumentException("PieceWiseLinearDistribution does not implement getParams");
+        throw new IllegalArgumentException("PiecewiseLinearDistribution.invalidMethodgetParams");
         // return []    //that's another lazy alternative implementation
     }
 

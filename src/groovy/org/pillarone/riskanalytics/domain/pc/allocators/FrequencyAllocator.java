@@ -32,17 +32,17 @@ public class FrequencyAllocator extends Component {
 
     public void validateWiring() {
         if (wiredReceivers(inUnderwritingInfo) != 1) {
-            throw new IllegalArgumentException("Wiring error: More than one underwriting information source is wired!");
+            throw new IllegalArgumentException("FrequencyAllocator.invalidWiringUnderwriting");
         }
         if (wiredReceivers(inFrequency) != 1) {
-            throw new IllegalArgumentException("Wiring error: More than one frequency source is wired!");
+            throw new IllegalArgumentException("FrequencyAllocator.invalidWiringFrequency");
         }
         super.validateWiring();
     }
 
     protected void doCalculation() {
         if (inFrequency.size() != 1) {
-            throw new IllegalArgumentException("More than one frequency packet received!");
+            throw new IllegalArgumentException("FrequencyAllocator.invalidNoOfFrequencyPackets");
         }
         int numberOfUnderwritingInfos = inUnderwritingInfo.size();
         double[] limits = new double[numberOfUnderwritingInfos];

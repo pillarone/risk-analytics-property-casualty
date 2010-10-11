@@ -18,14 +18,14 @@ class LossTableGenerator extends ClaimsGenerator {
 
     public void validateWiring() {
         if (!maxOneSenderWired(inUnderwritingInfo)) {
-            throw new IllegalStateException("Wiring error: More than one underwriting information source is wired!")
+            throw new IllegalStateException("LossTableGenerator.invalidWiring")
         }
         super.validateWiring();
     }
 
     public void validateParameterization() {
         if (!parmBase.equals(Exposure.ABSOLUTE) && !isReceiverWired(inUnderwritingInfo)) {
-            throw new IllegalStateException("As no underwriting information is provided, only 'absolute' is allowed as base.")
+            throw new IllegalStateException("LossTableGenerator.noUnderwritingInfo")
         }
         super.validateParameterization();
     }

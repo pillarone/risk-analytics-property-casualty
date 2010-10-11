@@ -21,7 +21,7 @@ public class InputFormatConverter {
             return false;
         }
         else {
-            throw new IllegalArgumentException(b + " can't be converted to a boolean.");
+            throw new IllegalArgumentException("['InputFromatConverter.convertionProblem','"+b+"']");
         }
     }
 

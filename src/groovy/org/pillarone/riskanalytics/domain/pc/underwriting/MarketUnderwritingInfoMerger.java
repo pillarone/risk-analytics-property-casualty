@@ -22,7 +22,7 @@ public class MarketUnderwritingInfoMerger extends Component {
 
     public void doCalculation() {
         if (inUnderwritingInfoGross.isEmpty() && !inUnderwritingInfoCeded.isEmpty()) {
-            throw new IllegalStateException("Only ceded underwriting info found!");
+            throw new IllegalStateException("MarketUnderwritingInfoMerger.onlyCededUnderwritingInfo");
         }
 
         /* The map contains the gross UwInfo as keys and the ceded as values */
@@ -32,7 +32,7 @@ public class MarketUnderwritingInfoMerger extends Component {
             for (UnderwritingInfo grossUnderwritingInfo : inUnderwritingInfoGross) {
                 // use the originalUnderwritingInfo property from each (gross in-) UI packet as unique identifier for merging
                 if (grossMergedCededPairs.containsKey(grossUnderwritingInfo.getOriginalUnderwritingInfo())) {
-                    throw new IllegalArgumentException("MarketUnderwritingInfoMerger.inUnderwritingInfoGross contained two packets with the same origin!");
+                    throw new IllegalArgumentException("MarketUnderwritingInfoMerger.doubleInformation");
                 }
                 grossMergedCededPairs.put(grossUnderwritingInfo.getOriginalUnderwritingInfo(), new GrossCededUnderwritingInfoPair(grossUnderwritingInfo));
                 outUnderwritingInfoGross.add(grossUnderwritingInfo);

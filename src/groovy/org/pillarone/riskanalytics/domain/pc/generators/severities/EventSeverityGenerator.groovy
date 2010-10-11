@@ -30,7 +30,7 @@ class EventSeverityGenerator extends GeneratorCachingComponent {
 
     public void validateParameterization() {
         if (parmDistribution == null) {
-            throw new IllegalStateException("A distribution must be set");
+            throw new IllegalStateException("EventSeverityGenerator.missingDistribution");
         }
         super.validateParameterization();
     }

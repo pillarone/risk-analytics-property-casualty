@@ -67,7 +67,7 @@ class LossPortfolioTransferContractStrategy extends AbstractContractStrategy imp
                     initialReserves * quotaShare * coveredByReinsurer * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
                 break
             default:
-                throw new IllegalArgumentException("$premiumBase type is not suppported.")
+                throw new IllegalArgumentException("['LossPortfolioTransferContractStrategy.invalidPremiumBaseType','"+premiumBase+"']")
         }
         cededUnderwritingInfo.premiumWrittenAsIf =  cededUnderwritingInfo.premiumWritten
 

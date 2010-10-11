@@ -146,7 +146,7 @@ class QuotaShareContractStrategy extends AbstractContractStrategy implements IRe
             case NoneLimitStrategy:
                 break
             default:
-                throw new NotImplementedException(limit.getClass().getName() + " limits are not implemented for quota share.");
+                throw new NotImplementedException("['QuotaShareContractStrategy.nonImplementedLimits','"+limit.getClass().getName()+"']");
         }
     }
 }

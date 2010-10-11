@@ -17,7 +17,7 @@ public class InitialCash extends Component {
 
     protected void doCalculation() {
         if (parmMaximumCashLevel < parmInitialCash || parmMinimumCashLevel > parmInitialCash) {
-            throw new IllegalArgumentException("error: improper setting of the parameter, minimum and maximum must respectively be inferior and superior to the initial amount of cash");
+            throw new IllegalArgumentException("InitialCash.parameterMismatch");
         }
         CashParameters packet = new CashParameters();
         packet.setInitialCash(getParmInitialCash());

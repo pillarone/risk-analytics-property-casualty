@@ -21,7 +21,7 @@ public class ClaimDevelopmentLeanAggregator extends Component {
 
     public void doCalculation() {
         if (inClaimsGross.size() == 0 && inClaimsCeded.size() > 0) {
-            throw new IllegalStateException("Only ceded claims found!");
+            throw new IllegalStateException("ClaimDevelopmentLeanAggregator.onlyCededClaims");
         }
 
         ClaimDevelopmentLeanPacket grossAggregateClaim = ClaimDevelopmentLeanPacketFactory.createPacket();

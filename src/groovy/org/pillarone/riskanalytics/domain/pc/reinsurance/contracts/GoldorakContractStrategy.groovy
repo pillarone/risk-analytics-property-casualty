@@ -172,7 +172,7 @@ class GoldorakContractStrategy extends AbstractContractStrategy implements IRein
                     cededUnderwritingInfo.premiumWrittenAsIf = premium * cxlLimit * coveredByReinsurer
                     break
                 case PremiumBase.NUMBER_OF_POLICIES:
-                    throw new IllegalArgumentException("Defining the premium base as number of policies is not suppported.")
+                    throw new IllegalArgumentException("GoldorakContractStrategy.premiumBaseNoOfPolicies")
             }
         }
         else {
@@ -190,7 +190,7 @@ class GoldorakContractStrategy extends AbstractContractStrategy implements IRein
                     cededUnderwritingInfo.premiumWrittenAsIf = premium * cxlLimit * coveredByReinsurer
                     break
                 case PremiumBase.NUMBER_OF_POLICIES:
-                    throw new IllegalArgumentException("Defining the premium base as number of policies is not suppported.")
+                    throw new IllegalArgumentException("GoldorakContractStrategy.premiumBaseNoOfPolicies")
             }
 
         }

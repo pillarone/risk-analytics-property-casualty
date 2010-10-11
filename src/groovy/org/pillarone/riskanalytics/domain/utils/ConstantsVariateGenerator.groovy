@@ -18,7 +18,7 @@ class ConstantsVariateGenerator extends RandomVariateGen {
     public ConstantsVariateGenerator(List<Double> constants) {
         this.constants = constants
         length = this.constants.size()
-        if (length == 0) throw new IllegalArgumentException("constants variate generator requires a nonempty list of constants")
+        if (length == 0) throw new IllegalArgumentException("ConstantsVariateGenerator.emptyList")
         resetStartStream()
         this.dist = new ConstantsDistribution(constants as double[])
     }

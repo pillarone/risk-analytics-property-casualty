@@ -54,7 +54,7 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
     protected int parmInuringPriority = 0;
 
     public void doCalculation() {
-        if (parmContractStrategy == null) throw new IllegalStateException("A contract strategy must be set");
+        if (parmContractStrategy == null) throw new IllegalStateException("ReinsuranceContract.missingContractStrategy");
 
         parmContractStrategy.initBookkeepingFigures(inClaims, inUnderwritingInfo);
 

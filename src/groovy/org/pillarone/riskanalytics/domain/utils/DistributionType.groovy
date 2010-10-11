@@ -128,7 +128,8 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
         double sigma = Math.sqrt(t)
         double mu = Math.log(mean) - 0.5 * t
         if (mu == Double.NaN || sigma == Double.NaN) {
-            throw new IllegalArgumentException("A lognormal distribution for mean: $mean and stDev: $stDev does not exist")
+            throw new IllegalArgumentException("['DistributionType.NaNParameter','"
+                        +mean+"','"+stDev+"']")
         }
         return new LognormalDist(mu, sigma)
     }

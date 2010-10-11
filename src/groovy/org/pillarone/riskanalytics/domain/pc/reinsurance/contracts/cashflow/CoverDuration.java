@@ -26,7 +26,7 @@ public class CoverDuration {
 
     public boolean isCovered(double fractionOfPeriod) {
         if (fractionOfPeriod < 0 || fractionOfPeriod > 1) {
-            throw new IllegalArgumentException("fraction of period has to be in range 0..1, was " + fractionOfPeriod);
+            throw new IllegalArgumentException("['CoverDuration.outOfInterval','"+fractionOfPeriod+"']");
         }
         return start <= fractionOfPeriod && fractionOfPeriod <= end;
     }

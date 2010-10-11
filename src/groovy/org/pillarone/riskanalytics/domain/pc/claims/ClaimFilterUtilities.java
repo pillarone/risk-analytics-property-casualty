@@ -135,7 +135,7 @@ public class ClaimFilterUtilities {
         if (!(hasPerils || hasReserves || hasLinesOfBusiness)) {
             filteredClaims.addAll(claims);
         } else if (hasPerils && hasReserves) {
-            throw new IllegalArgumentException("cannot filter simultaneously by perils and reserves");
+            throw new IllegalArgumentException("ClaimFilterUtilities.informationMismatch");
         } else if (hasPerils && hasLinesOfBusiness && connection == LogicArguments.OR) {
             for (Claim claim : claims) {
                 if (coveredPerils.contains(claim.getPeril()) || coveredLinesOfBusiness.contains(claim.getLineOfBusiness())) {
@@ -161,7 +161,7 @@ public class ClaimFilterUtilities {
                 }
             }
         } else if (hasLinesOfBusiness && (hasPerils || hasReserves)) {
-            throw new IllegalArgumentException("cannot combine filter criteria without specifying the logical connection type");
+            throw new IllegalArgumentException("ClaimFilterUtilities.missingConnection");
         } else if (hasPerils) {
             for (Claim claim : claims) {
                 if (coveredPerils.contains(claim.getPeril())) {
@@ -218,7 +218,7 @@ public class ClaimFilterUtilities {
                 }
             }
         } else if (hasPerils && hasContracts && connection == null) {
-            throw new IllegalArgumentException("cannot combine filter criteria without specifying the logical connection type");
+            throw new IllegalArgumentException("ClaimFilterUtilities.missingConnection");
         } else if (hasPerils) {
             for (ClaimDevelopmentPacket claim : claims) {
                 if (coveredPerils.contains(claim.getPeril())) {
@@ -234,7 +234,7 @@ public class ClaimFilterUtilities {
                 }
             }
         } else {
-            throw new IllegalArgumentException("filterClaimsByPerilContract requires a nonempty list of perils or contracts (or both) to filter claims by");
+            throw new IllegalArgumentException("ClaimFilterUtilities.missingInformation");
         }
         return filteredClaims;
     }

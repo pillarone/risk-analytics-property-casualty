@@ -34,7 +34,7 @@ public class ClaimsMerger extends Component {
 
     public void doCalculation() {
         if (inClaimsGross.isEmpty() && !inClaimsCeded.isEmpty()) {
-            throw new IllegalStateException("Only ceded claims found!");
+            throw new IllegalStateException("ClaimsMerger.onlyCededClaims");
         }
 
         /* The map contains the gross claims as keys and the ceded as values */
@@ -44,7 +44,7 @@ public class ClaimsMerger extends Component {
             Map<Claim, Claim> grossMergedCededPairs = new LinkedHashMap<Claim, Claim>(inClaimsGross.size());
             for (Claim grossClaim : inClaimsGross) {
                 if (grossMergedCededPairs.containsKey(grossClaim)) {
-                    throw new IllegalArgumentException("ClaimsMerger.inClaimsGross contains twice the same claim!");
+                    throw new IllegalArgumentException("ClaimsMerger.doubleClaimInformation");
                 }
                 grossMergedCededPairs.put(grossClaim, null);
                 outClaimsGross.add(grossClaim);

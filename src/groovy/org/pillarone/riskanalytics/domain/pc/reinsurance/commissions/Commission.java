@@ -71,7 +71,7 @@ public class Commission extends Component {
                 outUnderwritingInfoModified.addAll(inUnderwritingInfo);
             }
             else {
-                throw new NotImplementedException(parmApplicableStrategy.toString() + " type is not yet implemented.");
+                throw new NotImplementedException("['Commission.notImplemented','"+parmApplicableStrategy.toString()+"']");
             }
         }
     }

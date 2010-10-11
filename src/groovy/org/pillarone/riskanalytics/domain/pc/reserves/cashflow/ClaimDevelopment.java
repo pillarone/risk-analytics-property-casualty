@@ -102,7 +102,7 @@ public class ClaimDevelopment extends Component implements IReserveMarker {
 
     private void processHistoricLastReportedClaims(Pattern payoutPattern, Pattern reportedPattern) {
         if (!developmentWithIBNR) {
-            throw new IllegalArgumentException("Mismatch of historic claims and available patterns!");
+            throw new IllegalArgumentException("ClaimDevelopment.mismatchHistoricClaimsAndPatterns");
         }
         for (Map.Entry<Integer, Double> entry : parmActualClaims.getDiagonalValues().entrySet()) {
             int developmentPeriod = entry.getKey();

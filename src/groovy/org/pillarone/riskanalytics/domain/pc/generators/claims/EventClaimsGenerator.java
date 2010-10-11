@@ -30,7 +30,7 @@ public class EventClaimsGenerator extends ClaimsGenerator {
 
     public void doCalculation() {
         if (parmDistribution == null) {
-            throw new IllegalStateException("A RandomVariateDistribution must be set");
+            throw new IllegalStateException("EventClaimsGenerator.missingRandomVariateDistribution");
         }
 
         for (EventSeverity severity : inSeverities) {

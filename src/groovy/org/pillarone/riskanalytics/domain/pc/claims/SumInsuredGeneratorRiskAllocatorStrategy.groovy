@@ -46,7 +46,7 @@ class SumInsuredGeneratorRiskAllocatorStrategy implements IRiskAllocatorStrategy
         PacketList<Claim> allocatedClaims = new PacketList(Claim)
         // calculate/construct exposure for each claim
         for (Claim claim : claims) {
-            if (claim.hasExposureInfo()) throw new IllegalArgumentException("Can't re-define claim's exposure")
+            if (claim.hasExposureInfo()) throw new IllegalArgumentException("SumInsuredGeneratorRiskAllocatorStrategy.noExposureRedefinition")
             ExposureInfo exposure = new ExposureInfo()
             exposure.exposureDefinition = Exposure.ABSOLUTE
 //            if (claim.claimType == ClaimType.SINGLE) {

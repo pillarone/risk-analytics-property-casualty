@@ -49,17 +49,17 @@ public class AttritionalClaimsGenerator extends ClaimsGenerator {
 
     public void validateWiring() {
         if (!maxOneSenderWired(getInUnderwritingInfo())) {
-            throw new IllegalStateException("Wiring error: More than one underwriting information source is wired!");
+            throw new IllegalStateException("AttritionalClaimsGenerator.invalidWiring");
         }
         super.validateWiring();
     }
 
     public void validateParameterization() {
         if (parmDistribution == null) {
-            throw new IllegalStateException("A distribution must be set");
+            throw new IllegalStateException("AttritionalClaimsGenerator.missingDistribution");
         }
         if (!getParmBase().equals(Exposure.ABSOLUTE) && !isReceiverWired(getInUnderwritingInfo())) {
-            throw new IllegalStateException("As no underwriting information is provided, only 'absolute' is allowed as base.");
+            throw new IllegalStateException("AttritionalClaimsGenerator.invalidExposureBase");
         }
         super.validateParameterization();
     }
@@ -71,7 +71,7 @@ public class AttritionalClaimsGenerator extends ClaimsGenerator {
         double scalingFactor = getScalingFactor();
 
         if (inMultiplier.size() > 1) {
-            throw new IllegalStateException("Exactly one multiplier packet is acceptable");
+            throw new IllegalStateException("AttritionalClaimsGenerator.invalidNoOfMultiplierPackets");
         }
         if (inMultiplier.size() == 1) {
             scalingFactor *= inMultiplier.get(0).value;
@@ -79,7 +79,7 @@ public class AttritionalClaimsGenerator extends ClaimsGenerator {
         double claimSize = 0;
         if (this.isReceiverWired(inProbability)) {
             if (inProbability.size() > 1) {
-                throw new IllegalStateException("Exactly one probability packet is acceptable");
+                throw new IllegalStateException("AttritionalClaimsGenerator.invalidNoOfProbabilityPackets");
             }
             double probability;
             if (inProbability.size() == 1) {

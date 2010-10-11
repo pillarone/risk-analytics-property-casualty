@@ -80,7 +80,7 @@ class ConstantsDistribution implements Distribution {
     }
 
     double inverseF(double u) {
-        if ((u < 0) || (u > 1)) throw new IllegalArgumentException("ConstantsDistribution got probability argument outside [0,1]");
+        if ((u < 0) || (u > 1)) throw new IllegalArgumentException("ConstantsDistribution.invalidArguments");
         if (u <= cdft[0]) return sortedValues[0]
         if (u >= cdft[distinctValueCount-1]) return sortedValues[distinctValueCount-1]
         // find the least i so that u <= cdft[i]

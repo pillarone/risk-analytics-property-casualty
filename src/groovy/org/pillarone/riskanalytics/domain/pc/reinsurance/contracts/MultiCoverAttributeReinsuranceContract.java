@@ -47,10 +47,10 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
 
     public void doCalculation() {
         if (parmContractStrategy == null) {
-            throw new IllegalStateException("A contract strategy must be set");
+            throw new IllegalStateException("MultiCoverAttributeReinsuranceContract.missingContractStrategy");
         }
         if (parmCover == null) {
-            throw new IllegalStateException("A cover attribute strategy must be set");
+            throw new IllegalStateException("MultiCoverAttributeReinsuranceContract.missingCoverStrategy");
         }
         filterInChannels();
         // initialize contract details

@@ -43,10 +43,10 @@ class SingleClaimsGenerator extends ClaimsGenerator implements PerilMarker {
 
     public void validateParameterization() {
         if (!parmDistribution) {
-            throw new IllegalStateException("A RandomNumberGenerator must be set")
+            throw new IllegalStateException("SingleClaimsGenerator.noRandomNumberGenerator")
         }
         if (!parmBase.equals(Exposure.ABSOLUTE) && !isReceiverWired(inUnderwritingInfo)) {
-            throw new IllegalStateException("As no underwriting information is provided, only 'absolute' is allowed as base.")
+            throw new IllegalStateException("SingleClaimsGenerator.invalidExposureBase")
         }
 
         super.validateParameterization();

@@ -50,7 +50,7 @@ class RiskToBandAllocatorStrategy implements IRiskAllocatorStrategy, IParameterO
             for (Entry<Double, List<Claim>> entry: largeClaimsAllocation.entrySet()) {
                 ExposureInfo exposure = riskMap[entry.key]
                 for (Claim claim: entry.value) {
-                    if (claim.hasExposureInfo()) throw new IllegalArgumentException("Can't remap claim's exposure")
+                    if (claim.hasExposureInfo()) throw new IllegalArgumentException("RiskToBandAllocatorStrategy.impossibleExposureRemap")
                     claim.exposure = exposure
                     allocatedClaims << claim
                 }
@@ -72,7 +72,7 @@ class RiskToBandAllocatorStrategy implements IRiskAllocatorStrategy, IParameterO
         for (Entry<Double, List<Claim>> entry: aggrEventClaimsAllocation.entrySet()) {
             ExposureInfo exposure = riskMap[entry.key]
             for (Claim claim: entry.value) {
-                if (claim.hasExposureInfo()) throw new IllegalArgumentException("Can't remap claim's exposure")
+                if (claim.hasExposureInfo()) throw new IllegalArgumentException("RiskToBandAllocatorStrategy.impossibleExposureRemap")
                 claim.exposure = exposure
                 allocatedClaims << claim
             }
@@ -186,7 +186,7 @@ class RiskToBandAllocatorStrategy implements IRiskAllocatorStrategy, IParameterO
             double maxSumInsured = exposure.maxSumInsured
             if (maxSumInsured > 0) {
                 if (riskMap.containsKey(maxSumInsured)) {
-                    throw new IllegalStateException("List with the exposure infos seems not to lead to disjoint risk bands.")
+                    throw new IllegalStateException("RiskToBandAllocatorStrategy.noDisjointRiskBands")
                 }
                 riskMap[maxSumInsured] = exposure
             }

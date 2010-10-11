@@ -121,7 +121,8 @@ public class DateTimeUtilities {
         } else if (periodLength.getMonths() == 0 && periodLength.getYears() > 0) {
             return new Period(simulationStart, date).getYears();
         }
-        throw new IllegalArgumentException("No rule implemented for " + simulationStart + ", " + periodLength + ", " + date);
+        throw new IllegalArgumentException("['DateTimeUtilities.notImplemented','"
+                        +simulationStart+"','"+periodLength+"','"+date+"']");
     }
 
     public static double dateAsDouble(DateTime simulationStart, DateTime endOfFirstPeriod, DateTime date) {

@@ -76,7 +76,7 @@ class DistributionModifier extends AbstractParameterObjectClassifier {
                 distributionModified = new DistributionModified(type: DistributionModifier.SHIFT, parameters: parameters)
                 break
             default:
-                throw new NotImplementedException("DistributionModifier ${modifier.typeName} is not implemented.")
+                throw new NotImplementedException("['DistributionModifier.notImplemented','"+modifier.typeName+"']")
                 break
         }
         return distributionModified

@@ -140,10 +140,10 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
                     claimValues = calculateEventClaimsValues(filteredEventSeverities, parmClaimsModel.getClaimsSizeDistribution());
                     events = extractEvents(filteredEventSeverities);
                 } else {
-                    throw new IllegalArgumentException("As inProbabilities is not wired, the selected claims model is not supported");
+                    throw new IllegalArgumentException("TypableClaimsGenerator.externalSeverityClaims");
                 }
             } else {
-                throw new NotImplementedException(parmClaimsModel.toString());
+                throw new NotImplementedException("['TypableClaimsGenerator.notImplemented','"+parmClaimsModel.toString()+"']");
             }
             if (events.size() == 0) {
                 if (claimValues.size() == 0) {
@@ -249,7 +249,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
 
     protected List<Double> generateClaimsValues(int number, RandomDistribution distribution, DistributionModified modification) {
         if (distribution == null) {
-            throw new IllegalStateException("A distribution must be set");
+            throw new IllegalStateException("TypableClaimsGenerator.missingDistribution");
         }
         IRandomNumberGenerator generator = getCachedGenerator(distribution, modification);
         List<Double> claimValues = new ArrayList<Double>(number);

@@ -90,7 +90,7 @@ class RandomNumberGeneratorFactory {
                                                 (double) modifier.parameters["max"])))
                     }
                     else {
-                        throw new IllegalArgumentException("The distribution ${distribution.distribution} is not a ContinuousDistribution! Truncation option is therefore not available.")
+                        throw new IllegalArgumentException("['RandomNumberGeneratorFactory.noTruncation','"+distribution.distribution+"']")
                     }
                     break
                 case DistributionModifier.TRUNCATEDSHIFT:
@@ -103,7 +103,7 @@ class RandomNumberGeneratorFactory {
                                         (double) modifier.parameters["shift"]))
                     }
                     else {
-                        throw new IllegalArgumentException("The distribution ${distribution.distribution} is not a ContinuousDistribution! Truncation option is therefore not available.")
+                        throw new IllegalArgumentException("['RandomNumberGeneratorFactory.noTruncation','"+distribution.distribution+"']")
                     }
                     break
                 case DistributionModifier.LEFTTRUNCATEDRIGHTCENSORED:
@@ -117,7 +117,7 @@ class RandomNumberGeneratorFactory {
                                         (double) modifier.parameters["max"]))
                     }
                     else {
-                        throw new IllegalArgumentException("The distribution ${distribution.distribution} is not a ContinuousDistribution! Truncation option is therefore not available.")
+                        throw new IllegalArgumentException("['RandomNumberGeneratorFactory.noTruncation','"+distribution.distribution+"']")
                     }
                     break
 

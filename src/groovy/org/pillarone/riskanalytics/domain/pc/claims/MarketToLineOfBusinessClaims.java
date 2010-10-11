@@ -36,7 +36,7 @@ public class MarketToLineOfBusinessClaims extends Component {
             int portionColumn = parmPortions.getColumnIndex(PORTION);
             Component lineOfBusiness = inClaims.get(0).sender;
             if (!(lineOfBusiness instanceof LobMarker)) {
-                throw new IllegalArgumentException("MarketToLineOfBusinessClaims component may be used only within a line of business component");
+                throw new IllegalArgumentException("MarketToLineOfBusinessClaims.componentMismatch");
             }
             for (Claim marketClaim : inClaims) {
                 String originName = marketClaim.origin.getNormalizedName();

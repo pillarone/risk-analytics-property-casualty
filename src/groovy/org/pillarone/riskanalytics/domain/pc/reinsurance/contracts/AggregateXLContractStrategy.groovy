@@ -5,6 +5,8 @@ import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
 
 /**
  * @author Michael-Noe (at) Web (dot) de
@@ -97,9 +99,9 @@ class AggregateXLContractStrategy extends AbstractContractStrategy implements IR
                 cededUnderwritingInfo.premiumWrittenAsIf = premium * grossUnderwritingInfo.premiumWrittenAsIf
                 break
             case PremiumBase.RATE_ON_LINE:
-                throw new IllegalArgumentException("Defining the premium base as RoL is not suppported.")
+                throw new IllegalArgumentException("AggregateXLContractStrategy.PremiumBaseAsRoL")
             case PremiumBase.NUMBER_OF_POLICIES:
-                throw new IllegalArgumentException("Defining the premium base as number of policies is not suppported.")
+                throw new IllegalArgumentException("AggregateXLContractStrategy.PremiumBaseAsNoOfPolicies")
         }
         cededUnderwritingInfo
     }

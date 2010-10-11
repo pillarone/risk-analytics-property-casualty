@@ -48,8 +48,7 @@ public class AggregateDrillDownCollectingModeStrategy implements ICollectingMode
 //                  todo(sku): remove
             }
         } else {
-            throw new NotImplementedException("The aggregate drill down mode is only available for claims and underwriting info.\n" +
-                    "Please adjust the selected result template or select another one.");
+            throw new NotImplementedException("AggregateDrillDownCollectingModeStrategy.notImplemented");
         }
         return null;
     }

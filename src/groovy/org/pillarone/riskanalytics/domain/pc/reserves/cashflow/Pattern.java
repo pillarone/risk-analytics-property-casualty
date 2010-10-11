@@ -30,7 +30,7 @@ public class Pattern {
             cumulativeValues.add(1d);
         }
         else {
-            throw new IllegalArgumentException("Unknown strategy: " + strategy.getClass());
+            throw new IllegalArgumentException("['Pattern.unknownStrategy','"+strategy.getClass()+"']");
         }
     }
 
