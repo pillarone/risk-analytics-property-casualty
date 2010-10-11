@@ -70,6 +70,22 @@ class XLStrategyValidatorTests extends GroovyTestCase {
         contract = getContractStrategy(ReinsuranceContractType.WXL, 1000, 0)
         errors = validator.validate(contract.getType(), contract.getParameters())
         assertEquals 1, errors.size()
+
+        contract = getContractStrategy(ReinsuranceContractType.WXL, 20, 40, new TableMultiDimensionalParameter([1d, 1d], ['Reinstatement Premium']))
+        errors = validator.validate(contract.getType(), contract.getParameters())
+        assertEquals 1, errors.size()
+
+        contract = getContractStrategy(ReinsuranceContractType.WXL, 20, 41, new TableMultiDimensionalParameter([1d, 1d], ['Reinstatement Premium']))
+        errors = validator.validate(contract.getType(), contract.getParameters())
+        assertEquals 0, errors.size()
+
+        contract = getContractStrategy(ReinsuranceContractType.WXL, 20, 60, new TableMultiDimensionalParameter([1d, 1d], ['Reinstatement Premium']))
+        errors = validator.validate(contract.getType(), contract.getParameters())
+        assertEquals 0, errors.size()
+
+        contract = getContractStrategy(ReinsuranceContractType.WXL, 20, 61, new TableMultiDimensionalParameter([1d, 1d], ['Reinstatement Premium']))
+        errors = validator.validate(contract.getType(), contract.getParameters())
+        assertEquals 1, errors.size()
     }
 
     void testWCXL() {
