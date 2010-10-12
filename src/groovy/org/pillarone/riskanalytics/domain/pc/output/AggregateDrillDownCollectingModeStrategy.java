@@ -3,15 +3,21 @@ package org.pillarone.riskanalytics.domain.pc.output;
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.pillarone.riskanalytics.core.components.ComposedComponent;
+import org.pillarone.riskanalytics.core.components.DynamicComposedComponent;
+import org.pillarone.riskanalytics.core.components.IComponentMarker;
 import org.pillarone.riskanalytics.core.output.*;
 import org.pillarone.riskanalytics.core.packets.Packet;
 import org.pillarone.riskanalytics.core.packets.PacketList;
+import org.pillarone.riskanalytics.core.simulation.engine.MappingCache;
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType;
 import org.pillarone.riskanalytics.domain.pc.filter.SegmentFilter;
+import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
+import org.pillarone.riskanalytics.domain.utils.MarkerKeyPair;
 
 import java.util.*;
 
@@ -32,7 +38,28 @@ public class AggregateDrillDownCollectingModeStrategy implements ICollectingMode
 
     private PacketCollector packetCollector;
 
+    // the following variables are used for caching purposes
+    private SimulationRun simulationRun;
+    private String componentPath;
+    private Map<IComponentMarker, PathMapping> markerPaths;
+    private Map<MarkerKeyPair, PathMapping> markerComposedPaths;
+    private MappingCache mappingCache;
+    private int iteration = 0;
+    private int period = 0;
+
+    private void initSimulation() {
+        if (simulationRun != null) return;
+        simulationRun = packetCollector.getSimulationScope().getSimulation().getSimulationRun();
+        componentPath = getComponentPath();
+        markerPaths = new HashMap<IComponentMarker, PathMapping>();
+        markerComposedPaths = new HashMap<MarkerKeyPair, PathMapping>();
+        mappingCache = packetCollector.getSimulationScope().getMappingCache();
+    }
+
     public List<SingleValueResultPOJO> collect(PacketList packets) {
+        initSimulation();
+        iteration = packetCollector.getSimulationScope().getIterationScope().getCurrentIteration();
+        period = packetCollector.getSimulationScope().getIterationScope().getPeriodScope().getCurrentPeriod();
         if (packets.get(0) instanceof Claim) {
             try {
                 return createSingleValueResults(aggregateClaims(packets));
@@ -62,39 +89,37 @@ public class AggregateDrillDownCollectingModeStrategy implements ICollectingMode
      * @return
      * @throws IllegalAccessException
      */
-    private List<SingleValueResultPOJO> createSingleValueResults(Map<String, Packet> packets) throws IllegalAccessException {
+    private List<SingleValueResultPOJO> createSingleValueResults(Map<PathMapping, Packet> packets) throws IllegalAccessException {
         List<SingleValueResultPOJO> singleValueResults = new ArrayList<SingleValueResultPOJO>(packets.size());
         boolean firstPath = true;
-        for (Map.Entry<String, Packet> packetEntry : packets.entrySet()) {
-            String path = packetEntry.getKey();
+        for (Map.Entry<PathMapping, Packet> packetEntry : packets.entrySet()) {
+            PathMapping path = packetEntry.getKey();
             Packet packet = packetEntry.getValue();
             for (Map.Entry<String, Number> field : packet.getValuesToSave().entrySet()) {
                 String fieldName = field.getKey();
                 Double value = (Double) field.getValue();
                 if (value == Double.NaN || value == Double.NEGATIVE_INFINITY || value == Double.POSITIVE_INFINITY) {
-                    int currentPeriod = packetCollector.getSimulationScope().getIterationScope().getPeriodScope().getCurrentPeriod();
-                    int currentIteration = packetCollector.getSimulationScope().getIterationScope().getCurrentIteration();
                     if (LOG.isErrorEnabled()) {
                         StringBuilder message = new StringBuilder();
                         message.append(value).append(" collected at ").append(packetCollector.getPath());
-                        message.append(" (period ").append(currentPeriod).append(") in iteration ");
-                        message.append(currentIteration).append(" - ignoring.");
+                        message.append(" (period ").append(period).append(") in iteration ");
+                        message.append(iteration).append(" - ignoring.");
                         LOG.error(message);
                     }
                     continue;
                 }
                 SingleValueResultPOJO result = new SingleValueResultPOJO();
-                result.setSimulationRun(packetCollector.getSimulationScope().getSimulation().getSimulationRun());
-                result.setIteration(packetCollector.getSimulationScope().getIterationScope().getCurrentIteration());
-                result.setPeriod(packetCollector.getSimulationScope().getIterationScope().getPeriodScope().getCurrentPeriod());
-                result.setPath(packetCollector.getSimulationScope().getMappingCache().lookupPath(path));
-                if (firstPath) {
-                    result.setCollector(packetCollector.getSimulationScope().getMappingCache().lookupCollector("AGGREGATED"));
+                result.setSimulationRun(simulationRun);
+                result.setIteration(iteration);
+                result.setPeriod(period);
+                result.setPath(path);
+                if (firstPath) {    // todo(sku): might be completely removed
+                    result.setCollector(mappingCache.lookupCollector("AGGREGATED"));
                 }
                 else {
-                    result.setCollector(packetCollector.getSimulationScope().getMappingCache().lookupCollector(packetCollector.getMode().getIdentifier()));
+                    result.setCollector(mappingCache.lookupCollector(IDENTIFIER));
                 }
-                result.setField(packetCollector.getSimulationScope().getMappingCache().lookupField(fieldName));
+                result.setField(mappingCache.lookupField(fieldName));
                 result.setValueIndex(0);
                 result.setValue(value);
                 singleValueResults.add(result);
@@ -108,88 +133,146 @@ public class AggregateDrillDownCollectingModeStrategy implements ICollectingMode
      * @param claims
      * @return a map with paths as key
      */
-    private Map<String, Packet> aggregateClaims(List<Claim> claims) {
+    private Map<PathMapping, Packet> aggregateClaims(List<Claim> claims) {
         // has to be a LinkedHashMap to make sure the shortest path is the first in the map and gets AGGREGATED as collecting mode
-        Map<String, Packet> resultMap = new LinkedHashMap<String, Packet>(claims.size());
+        Map<PathMapping, Packet> resultMap = new LinkedHashMap<PathMapping, Packet>(claims.size());
         if (claims == null || claims.size() == 0) {
             return resultMap;
         }
 
         for (Claim claim : claims) {
             String originPath = packetCollector.getSimulationScope().getStructureInformation().getPath(claim);
-            addToMap(claim, originPath, resultMap);
-            String componentPath = getComponentPath();
-            String perilPathExtension = claim.getPeril() == null ? null : PERILS + PATH_SEPARATOR + claim.getPeril().getName();
-            String contractPathExtension = claim.getReinsuranceContract() == null
-                    ? null : CONTRACTS + PATH_SEPARATOR + claim.getReinsuranceContract().getName();
-            String lobPathExtension = claim.getLineOfBusiness() == null
-                    ? null : LOB + PATH_SEPARATOR + claim.getLineOfBusiness().getName();
+            PathMapping path = mappingCache.lookupPath(originPath);
+            addToMap(claim, path, resultMap);
+
+            PathMapping perilPath = getPathMapping(claim, claim.getPeril(), PERILS);
+            PathMapping lobPath = null;
+            if (!(claim.sender instanceof LobMarker)) {
+                lobPath = getPathMapping(claim, claim.getLineOfBusiness(), LOB);
+            }
+            PathMapping contractPath = null;
+            if (!(claim.sender instanceof IReinsuranceContractMarker)) {
+                contractPath = getPathMapping(claim, claim.getReinsuranceContract(), CONTRACTS);
+            }
             if (claim.sender instanceof LobMarker) {
-                addToMap(claim, componentPath, perilPathExtension, resultMap);
-                addToMap(claim, componentPath, contractPathExtension, resultMap);
+                addToMap(claim, perilPath, resultMap);
+                addToMap(claim, contractPath, resultMap);
             }
             if (claim.sender instanceof IReinsuranceContractMarker) {
-                addToMap(claim, componentPath, lobPathExtension, resultMap);
-                addToMap(claim, componentPath, perilPathExtension, resultMap);
+                addToMap(claim, lobPath, resultMap);
+                addToMap(claim, perilPath, resultMap);
             }
             if (claim.sender instanceof SegmentFilter) {
-                addToMap(claim, componentPath, perilPathExtension, resultMap);
-                addToMap(claim, componentPath, lobPathExtension, resultMap);
-                addToMap(claim, componentPath, contractPathExtension, resultMap);
-                if (perilPathExtension != null && lobPathExtension != null) {
-                    String pathExtension = lobPathExtension + PATH_SEPARATOR + perilPathExtension;
-                    addToMap(claim, componentPath, pathExtension, resultMap);
+                addToMap(claim, perilPath, resultMap);
+                addToMap(claim, lobPath, resultMap);
+                addToMap(claim, contractPath, resultMap);
+                if (perilPath != null && lobPath != null) {
+                    PathMapping lobPerilPath = getPathMapping(claim, claim.getLineOfBusiness(), LOB, claim.getPeril(), PERILS);
+                    addToMap(claim, lobPerilPath, resultMap);
                 }
-                if (perilPathExtension != null && contractPathExtension != null) {
-                    String pathExtension = contractPathExtension + PATH_SEPARATOR + perilPathExtension;
-                    addToMap(claim, componentPath, pathExtension, resultMap);
+                if (perilPath != null && contractPath != null) {
+                    PathMapping contractPerilPath = getPathMapping(claim, claim.getReinsuranceContract(), CONTRACTS,
+                            claim.getPeril(), PERILS);
+                    addToMap(claim, contractPerilPath, resultMap);
                 }
-                if (lobPathExtension != null && contractPathExtension != null) {
-                    String pathExtension = lobPathExtension + PATH_SEPARATOR + contractPathExtension;
-                    addToMap(claim, componentPath, pathExtension, resultMap);
+                if (lobPath != null && contractPath != null) {
+                    PathMapping lobContractPath = getPathMapping(claim, claim.getLineOfBusiness(), LOB,
+                            claim.getReinsuranceContract(), CONTRACTS);
+                    addToMap(claim, lobContractPath, resultMap);
                 }
-                if (perilPathExtension != null && lobPathExtension != null && contractPathExtension != null) {
-                    String pathExtension = lobPathExtension + PATH_SEPARATOR + contractPathExtension + PATH_SEPARATOR + perilPathExtension;
-                    addToMap(claim, componentPath, pathExtension, resultMap);
+                if (perilPath != null && lobPath != null && contractPath != null) {
+                    PathMapping lobContractPerilPath = getPathMapping(claim, claim.getLineOfBusiness(), LOB,
+                            claim.getReinsuranceContract(), CONTRACTS, claim.getPeril(), PERILS);
+                    addToMap(claim, lobContractPerilPath, resultMap);
                 }
             }
         }
         return resultMap;
     }
 
+    private PathMapping getPathMapping(Packet packet, IComponentMarker marker, String pathExtensionPrefix) {
+        PathMapping path = markerPaths.get(marker);
+        if (marker != null && path == null) {
+            String pathExtension = pathExtensionPrefix + PATH_SEPARATOR + marker.getName();
+            String pathExtended = getExtendedPath(packet, pathExtension);
+            path = mappingCache.lookupPath(pathExtended);
+            markerPaths.put(marker, path);
+        }
+        return path;
+    }
+
+    private PathMapping getPathMapping(Packet packet,
+                                       IComponentMarker firstMarker, String firstPathExtensionPrefix,
+                                       IComponentMarker secondMarker, String secondPathExtensionPrefix) {
+        MarkerKeyPair pair = new MarkerKeyPair(firstMarker, secondMarker);
+        PathMapping path = markerComposedPaths.get(pair);
+        if (firstMarker != null && path == null) {
+            String pathExtension = firstPathExtensionPrefix + PATH_SEPARATOR + firstMarker.getName()
+                    + PATH_SEPARATOR + secondPathExtensionPrefix + PATH_SEPARATOR + secondMarker.getName();
+            String pathExtended = getExtendedPath(packet, pathExtension);
+            path = mappingCache.lookupPath(pathExtended);
+            markerComposedPaths.put(pair, path);
+        }
+        return path;
+    }
+
+    private PathMapping getPathMapping(Packet packet,
+                                       IComponentMarker firstMarker, String firstPathExtensionPrefix,
+                                       IComponentMarker secondMarker, String secondPathExtensionPrefix,
+                                       IComponentMarker thirdMarker, String thirdPathExtensionPrefix) {
+        MarkerKeyPair pair = new MarkerKeyPair(firstMarker, secondMarker, thirdMarker);
+        PathMapping path = markerComposedPaths.get(pair);
+        if (firstMarker != null && path == null) {
+            String pathExtension = firstPathExtensionPrefix + PATH_SEPARATOR + firstMarker.getName()
+                    + PATH_SEPARATOR + secondPathExtensionPrefix + PATH_SEPARATOR + secondMarker.getName()
+                    + PATH_SEPARATOR + thirdPathExtensionPrefix + PATH_SEPARATOR + thirdMarker.getName();
+            String pathExtended = getExtendedPath(packet, pathExtension);
+            path = mappingCache.lookupPath(pathExtended);
+            markerComposedPaths.put(pair, path);
+        }
+        return path;
+    }
+
+
     /**
      * @param underwritingInfos
      * @return a map with paths as key
      */
-    private Map<String, Packet> aggregateUnderwritingInfo(List<UnderwritingInfo> underwritingInfos) {
-        Map<String, Packet> resultMap = new HashMap<String, Packet>(underwritingInfos.size());
+    private Map<PathMapping, Packet> aggregateUnderwritingInfo(List<UnderwritingInfo> underwritingInfos) {
+        Map<PathMapping, Packet> resultMap = new HashMap<PathMapping, Packet>(underwritingInfos.size());
         if (underwritingInfos == null || underwritingInfos.size() == 0) {
             return resultMap;
         }
 
         for (UnderwritingInfo underwritingInfo : underwritingInfos) {
-            String componentPath = getComponentPath();
-            String contractPathExtension = underwritingInfo.getReinsuranceContract() == null
-                ? null : CONTRACTS + PATH_SEPARATOR + underwritingInfo.getReinsuranceContract().getName();
-            String lobPathExtension = underwritingInfo.getLineOfBusiness() == null
-                ? null : LOB + PATH_SEPARATOR + underwritingInfo.getLineOfBusiness().getName();
             String originPath = packetCollector.getSimulationScope().getStructureInformation().getPath(underwritingInfo);
-            addToMap(underwritingInfo, originPath, resultMap);
+            PathMapping path = mappingCache.lookupPath(originPath);
+            addToMap(underwritingInfo, path, resultMap);
+
+            PathMapping lobPath = null;
+            if (!(underwritingInfo.sender instanceof LobMarker)) {
+                lobPath = getPathMapping(underwritingInfo, underwritingInfo.getLineOfBusiness(), LOB);
+            }
+            PathMapping contractPath = null;
+            if (!(underwritingInfo.sender instanceof IReinsuranceContractMarker)) {
+                contractPath = getPathMapping(underwritingInfo, underwritingInfo.getReinsuranceContract(), CONTRACTS);
+            }
             if (underwritingInfo.sender instanceof LobMarker) {
-                addToMap(underwritingInfo, componentPath, contractPathExtension, resultMap);
+                addToMap(underwritingInfo, contractPath, resultMap);
             }
             if (underwritingInfo.sender instanceof IReinsuranceContractMarker) {
-                addToMap(underwritingInfo, componentPath, lobPathExtension, resultMap);
+                addToMap(underwritingInfo, lobPath, resultMap);
             }
             if (underwritingInfo.sender instanceof SegmentFilter) {
-                addToMap(underwritingInfo, componentPath, contractPathExtension, resultMap);
-                addToMap(underwritingInfo, componentPath, lobPathExtension, resultMap);
-                if (lobPathExtension != null && contractPathExtension != null) {
-                    String pathExtension = lobPathExtension + PATH_SEPARATOR + contractPathExtension;
-                    addToMap(underwritingInfo, componentPath, pathExtension, resultMap);
+                addToMap(underwritingInfo, contractPath, resultMap);
+                addToMap(underwritingInfo, lobPath, resultMap);
+                if (lobPath != null && contractPath != null) {
+                    PathMapping lobContractPath = getPathMapping(underwritingInfo,
+                            underwritingInfo.getLineOfBusiness(), LOB,
+                            underwritingInfo.getReinsuranceContract(), CONTRACTS);
+                    addToMap(underwritingInfo, lobContractPath, resultMap);
                 }
             }
-
         }
         return resultMap;
     }
@@ -199,7 +282,8 @@ public class AggregateDrillDownCollectingModeStrategy implements ICollectingMode
         return packetCollector.getPath().substring(0, separatorPositionBeforeChannel);
     }
 
-    private void addToMap(Claim claim, String path, Map<String, Packet> resultMap) {
+    private void addToMap(Claim claim, PathMapping path, Map<PathMapping, Packet> resultMap) {
+        if (path == null) return;
         if (resultMap.containsKey(path)) {
             Claim aggregateClaim = (Claim) resultMap.get(path);
             aggregateClaim.plus(claim);
@@ -211,7 +295,8 @@ public class AggregateDrillDownCollectingModeStrategy implements ICollectingMode
         }
     }
 
-    private void addToMap(UnderwritingInfo underwritingInfo, String path, Map<String, Packet> resultMap) {
+    private void addToMap(UnderwritingInfo underwritingInfo, PathMapping path, Map<PathMapping, Packet> resultMap) {
+        if (path == null) return;
         if (resultMap.containsKey(path)) {
             UnderwritingInfo aggregateUnderwritingInfo = (UnderwritingInfo) resultMap.get(path);
             aggregateUnderwritingInfo.plus(underwritingInfo);
@@ -222,38 +307,15 @@ public class AggregateDrillDownCollectingModeStrategy implements ICollectingMode
         }
     }
 
-    // todo(sku): cache extended paths
-    private void addToMap(Claim claim, String path, String pathExtension, Map<String, Packet> resultMap) {
-        if (pathExtension == null) return;
-        StringBuilder composedPath = new StringBuilder(path);
+    private String getExtendedPath(Packet packet, String pathExtension) {
+        if (pathExtension == null) return null;
+        StringBuilder composedPath = new StringBuilder(componentPath);
         composedPath.append(PATH_SEPARATOR);
         composedPath.append(pathExtension);
         composedPath.append(PATH_SEPARATOR);
-        composedPath.append(claim.senderChannelName);
-        addToMap(claim, composedPath.toString(), resultMap);
+        composedPath.append(packet.senderChannelName);
+        return composedPath.toString();
     }
-
-    // todo(sku): cache extended paths
-    private void addToMap(UnderwritingInfo underwritingInfo, String path, String pathExtension, Map<String, Packet> resultMap) {
-        if (pathExtension == null) return;
-        StringBuilder composedPath = new StringBuilder(path);
-        composedPath.append(PATH_SEPARATOR);
-        composedPath.append(pathExtension);
-        composedPath.append(PATH_SEPARATOR);
-        composedPath.append(underwritingInfo.senderChannelName);
-        addToMap(underwritingInfo, composedPath.toString(), resultMap);
-    }
-
-//    PathMapping getPathMapping(String extendedPath) {
-//        PathMapping extendedPathMapping = packetCollector.getSimulationScope().getMappingCache().lookupPath(extendedPath);
-//        if (extendedPathMapping == null) {
-//            // todo(sku): discuss with msp
-//            extendedPathMapping = new PathMapping(extendedPath);
-//            assert extendedPathMapping.save();
-//        }
-//        return extendedPathMapping;
-////        return null;
-//    }
 
     public String getDisplayName(Locale locale) {
         if (displayName == null) {
