@@ -7,36 +7,68 @@ model = PodraModel
 displayName = "Lines of Business"
 language = "en"
 
-mappings = [
-        "Podra:claims:net:incurred": "Podra:linesOfBusiness:outClaimsDevelopmentLeanNet:incurred",
-        "Podra:claims:net:incurred:[%subcomponents%]": "Podra:linesOfBusiness:[%subcomponents%]:outClaimsDevelopmentLeanNet:incurred",
-        "Podra:claims:net:paid": "Podra:linesOfBusiness:outClaimsDevelopmentLeanNet:paid",
-        "Podra:claims:net:paid:[%subcomponents%]": "Podra:linesOfBusiness:[%subcomponents%]:outClaimsDevelopmentLeanNet:paid",
-        "Podra:claims:net:reserved": "Podra:linesOfBusiness:outClaimsDevelopmentLeanNet:reserved",
-        "Podra:claims:net:reserved:[%subcomponents%]": "Podra:linesOfBusiness:[%subcomponents%]:outClaimsDevelopmentLeanNet:reserved",
-        "Podra:claims:gross:incurred": "Podra:linesOfBusiness:outClaimsDevelopmentLeanGross:incurred",
-        "Podra:claims:gross:incurred:[%subcomponents%]": "Podra:linesOfBusiness:[%subcomponents%]:outClaimsDevelopmentLeanGross:incurred",
-        "Podra:claims:gross:paid": "Podra:linesOfBusiness:outClaimsDevelopmentLeanGross:paid",
-        "Podra:claims:gross:paid:[%subcomponents%]": "Podra:linesOfBusiness:[%subcomponents%]:outClaimsDevelopmentLeanGross:paid",
-        "Podra:claims:gross:reserved": "Podra:linesOfBusiness:outClaimsDevelopmentLeanGross:reserved",
-        "Podra:claims:gross:reserved:[%subcomponents%]": "Podra:linesOfBusiness:[%subcomponents%]:outClaimsDevelopmentLeanGross:reserved",
-        "Podra:claims:ceded:incurred": "Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded:incurred",
-        "Podra:claims:ceded:incurred:[%subcomponents%]": "Podra:linesOfBusiness:[%subcomponents%]:outClaimsDevelopmentLeanCeded:incurred",
-        "Podra:claims:ceded:paid": "Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded:paid",
-        "Podra:claims:ceded:paid:[%subcomponents%]": "Podra:linesOfBusiness:[%subcomponents%]:outClaimsDevelopmentLeanCeded:paid",
-        "Podra:claims:ceded:reserved": "Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded:reserved",
-        "Podra:claims:ceded:reserved:[%subcomponents%]": "Podra:linesOfBusiness:[%subcomponents%]:outClaimsDevelopmentLeanCeded:reserved",
-
-        "Podra:underwritingInfo:premium:net": "Podra.linesOfBusiness:outUnderwritingInfoNet.premiumWritten",
-        "Podra:underwritingInfo:premium:net:[%subcomponents%]": "Podra.linesOfBusiness:[%subcomponents%]:outUnderwritingInfoNet.commission",
-        "Podra:underwritingInfo:commission:net": "Podra.linesOfBusiness:outUnderwritingInfoNet.premiumWritten",
-        "Podra:underwritingInfo:commission:net:[%subcomponents%]": "Podra.linesOfBusiness:[%subcomponents%]:outUnderwritingInfoNet.commission",
-        "Podra:underwritingInfo:premium:gross": "Podra.linesOfBusiness:outUnderwritingInfoGross.premiumWritten",
-        "Podra:underwritingInfo:premium:gross:[%subcomponents%]": "Podra.linesOfBusiness:[%subcomponents%]:outUnderwritingInfoGross.commission",
-        "Podra:underwritingInfo:commission:gross": "Podra.linesOfBusiness:outUnderwritingInfoGross.premiumWritten",
-        "Podra:underwritingInfo:commission:gross:[%subcomponents%]": "Podra.linesOfBusiness:[%subcomponents%]:outUnderwritingInfoGross.commission",
-        "Podra:underwritingInfo:premium:ceded": "Podra.linesOfBusiness:outUnderwritingInfoCeded.premiumWritten",
-        "Podra:underwritingInfo:premium:ceded:[%subcomponents%]": "Podra.linesOfBusiness:[%subcomponents%]:outUnderwritingInfoCeded.commission",
-        "Podra:underwritingInfo:commission:ceded": "Podra.linesOfBusiness:outUnderwritingInfoCeded.premiumWritten",
-        "Podra:underwritingInfo:commission:ceded:[%subcomponents%]": "Podra.linesOfBusiness:[%subcomponents%]:outUnderwritingInfoCeded.commission",
-]
+mappings = {
+    "Podra" {
+        "claims" {
+            "net" {
+                "incurred" "Podra:linesOfBusiness:outClaimsDevelopmentLeanNet:incurred", {
+                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outClaimsDevelopmentLeanNet:incurred", {}
+                }
+                "paid" "Podra:linesOfBusiness:outClaimsDevelopmentLeanNet:paid", {
+                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outClaimsDevelopmentLeanNet:paid", {}
+                }
+                "reserved" "Podra:linesOfBusiness:outClaimsDevelopmentLeanNet:reserved", {
+                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outClaimsDevelopmentLeanNet:reserved", {}
+                }
+            }
+            "gross" {
+                "incurred" "Podra:linesOfBusiness:outClaimsDevelopmentLeanGross:incurred", {
+                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outClaimsDevelopmentLeanGross:incurred", {}
+                }
+                "paid" "Podra:linesOfBusiness:outClaimsDevelopmentLeanGross:paid", {
+                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outClaimsDevelopmentLeanGross:paid", {}
+                }
+                "reserved" "Podra:linesOfBusiness:outClaimsDevelopmentLeanGross:reserved", {
+                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outClaimsDevelopmentLeanGross:reserved", {}
+                }
+            }
+            "ceded" {
+                "incurred" "Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded:incurred", {
+                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outClaimsDevelopmentLeanCeded:incurred", {}
+                }
+                "paid" "Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded:paid", {
+                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outClaimsDevelopmentLeanCeded:paid", {}
+                }
+                "reserved" "Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded:reserved", {
+                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outClaimsDevelopmentLeanCeded:reserved", {}
+                }
+            }
+        }
+        "underwriting" {
+            "net" {
+                "premium" "Podra:linesOfBusiness:outUnderwritingInfoNet:premium", {
+                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outUnderwritingInfoNet:premium", {}
+                }
+                "commission" "Podra:linesOfBusiness:outUnderwritingInfoNet:commission", {
+                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outUnderwritingInfoNet:commission", {}
+                }
+            }
+            "gross" {
+                "premium" "Podra:linesOfBusiness:outUnderwritingInfoGross:premium", {
+                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outUnderwritingInfoGross:premium", {}
+                }
+                "commission" "Podra:linesOfBusiness:outUnderwritingInfoGross:commission", {
+                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outUnderwritingInfoGross:commission", {}
+                }
+            }
+            "ceded" {
+                "premium" "Podra:linesOfBusiness:outUnderwritingInfoCeded:premium", {
+                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outUnderwritingInfoCeded:premium", {}
+                }
+                "commission" "Podra:linesOfBusiness:outUnderwritingInfoCeded:commission", {
+                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outUnderwritingInfoCeded:commission", {}
+                }
+            }
+        }
+    }
+}
