@@ -27,15 +27,15 @@ components {
 			parmUnderwritingInformation[allPeriods]=new ComboBoxTableMultiDimensionalParameter([""],["Underwriting Information"], IUnderwritingInfoMarker)
 		}
 	}
-	reserveGenerators {
-		subAttrirional {
-			parmDistribution[allPeriods]=DistributionType.getStrategy(DistributionType.NORMAL, [mean:100.0, stDev:25.0])
-			parmInitialReserves[0]=500.0
-			parmInitialReserves[1..2]=0.0
-			parmModification[allPeriods]=DistributionModifier.getStrategy(DistributionModifier.NONE, [:])
-			parmPeriodPaymentPortion[allPeriods]=0.6
-			parmReservesModel[allPeriods]=ReservesGeneratorStrategyType.getStrategy(ReservesGeneratorStrategyType.PRIOR_PERIOD,
-                    ["basedOnClaimsGenerators":new ComboBoxTableMultiDimensionalParameter([],["Claims Generators"], PerilMarker),])
-		}
-	}
+//	reserveGenerators {
+//		subAttrirional {
+//			parmDistribution[allPeriods]=DistributionType.getStrategy(DistributionType.NORMAL, [mean:100.0, stDev:25.0])
+//			parmInitialReserves[0]=500.0
+//			parmInitialReserves[1..2]=0.0
+//			parmModification[allPeriods]=DistributionModifier.getStrategy(DistributionModifier.NONE, [:])
+//			parmPeriodPaymentPortion[allPeriods]=0.6
+//			parmReservesModel[allPeriods]=ReservesGeneratorStrategyType.getStrategy(ReservesGeneratorStrategyType.PRIOR_PERIOD,
+//                    ["basedOnClaimsGenerators":new ComboBoxTableMultiDimensionalParameter([],["Claims Generators"], PerilMarker),])
+//		}
+//	}
 }
