@@ -11,6 +11,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.QuotaShareCon
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.PremiumAllocationType
 
 model=models.onelobsurplus.OneLobSurplusModel
 periodCount=2
@@ -69,8 +70,8 @@ components {
 		parmInuringPriority[1]=0
 	}
 	wxl {
-		parmContractStrategy[0]=ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumBase":PremiumBase.ABSOLUTE,"premium":1000.0,"reinstatementPremiums":new TableMultiDimensionalParameter([0.5],["Reinstatement Premium"]),"attachmentPoint":2000.0,"limit":20000.0,"aggregateLimit":100000.0,"coveredByReinsurer":1.0,])
-		parmContractStrategy[1]=ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumBase":PremiumBase.ABSOLUTE,"premium":1000.0,"reinstatementPremiums":new TableMultiDimensionalParameter([0.5],["Reinstatement Premium"]),"attachmentPoint":2000.0,"limit":20000.0,"aggregateLimit":100000.0,"coveredByReinsurer":1.0,])
+		parmContractStrategy[0]=ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"premiumBase":PremiumBase.ABSOLUTE,"premium":1000.0,"reinstatementPremiums":new TableMultiDimensionalParameter([0.5],["Reinstatement Premium"]),"attachmentPoint":2000.0,"limit":20000.0,"aggregateLimit":100000.0,"coveredByReinsurer":1.0,])
+		parmContractStrategy[1]=ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"premiumBase":PremiumBase.ABSOLUTE,"premium":1000.0,"reinstatementPremiums":new TableMultiDimensionalParameter([0.5],["Reinstatement Premium"]),"attachmentPoint":2000.0,"limit":20000.0,"aggregateLimit":100000.0,"coveredByReinsurer":1.0,])
 		parmInuringPriority[0]=0
 		parmInuringPriority[1]=0
 	}

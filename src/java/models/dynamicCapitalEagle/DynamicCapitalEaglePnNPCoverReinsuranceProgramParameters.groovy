@@ -20,6 +20,7 @@ import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.core.parameterization.*
 import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.PremiumAllocationType
 
 model = models.dynamicCapitalEagle.DynamicCapitalEagleModel
 periodCount = 1
@@ -96,7 +97,7 @@ components {
     reinsurance {
         subPropertyCatXl {
             parmInuringPriority[0] = 0
-            parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.CXL, ["premiumBase": PremiumBase.GNPI, "premium": 0.0688, "reinstatementPremiums": new TableMultiDimensionalParameter([1.0, 1.0, 1.0], ["Reinstatement Premium"]), "attachmentPoint": 1000000.0, "limit": 1.4E7, "aggregateLimit": 5.6E7, "coveredByReinsurer": 1.0,])
+            parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.CXL, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"premiumBase": PremiumBase.GNPI, "premium": 0.0688, "reinstatementPremiums": new TableMultiDimensionalParameter([1.0, 1.0, 1.0], ["Reinstatement Premium"]), "attachmentPoint": 1000000.0, "limit": 1.4E7, "aggregateLimit": 5.6E7, "coveredByReinsurer": 1.0,])
             parmCoveredPerils[0] = new ComboBoxTableMultiDimensionalParameter([""], ["perils"], PerilMarker)
             parmCoveredLines[0] = new ComboBoxTableMultiDimensionalParameter(["property"], ["Covered Lines"], LobMarker)
             parmReinsurer[0] = new ConstrainedString(IReinsurerMarker, '')
@@ -118,7 +119,7 @@ components {
             parmInuringPriority[0] = 0
         }
         subWXLMotorThirdPartyLiability {
-            parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumBase": PremiumBase.GNPI, "premium": 0.0573, "reinstatementPremiums": new TableMultiDimensionalParameter([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], ["Reinstatement Premium"]), "attachmentPoint": 1000000.0, "limit": 9.9E7, "aggregateLimit": 9.9E8, "coveredByReinsurer": 1.0,])
+            parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"premiumBase": PremiumBase.GNPI, "premium": 0.0573, "reinstatementPremiums": new TableMultiDimensionalParameter([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], ["Reinstatement Premium"]), "attachmentPoint": 1000000.0, "limit": 9.9E7, "aggregateLimit": 9.9E8, "coveredByReinsurer": 1.0,])
             parmCoveredPerils[0] = new ComboBoxTableMultiDimensionalParameter([""], ["perils"], PerilMarker)
             parmInuringPriority[0] = 1
             parmCoveredLines[0] = new ComboBoxTableMultiDimensionalParameter(["motor third party liability"], ["Covered Lines"], LobMarker)
@@ -134,7 +135,7 @@ components {
         }
         subWxlPersonalAccident {
             parmInuringPriority[0] = 1
-            parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumBase": PremiumBase.GNPI, "premium": 0.0178, "reinstatementPremiums": new TableMultiDimensionalParameter([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], ["Reinstatement Premium"]), "attachmentPoint": 200000.0, "limit": 2800000.0, "aggregateLimit": 8400000.0, "coveredByReinsurer": 1.0,])
+            parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"premiumBase": PremiumBase.GNPI, "premium": 0.0178, "reinstatementPremiums": new TableMultiDimensionalParameter([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], ["Reinstatement Premium"]), "attachmentPoint": 200000.0, "limit": 2800000.0, "aggregateLimit": 8400000.0, "coveredByReinsurer": 1.0,])
             parmCoveredPerils[0] = new ComboBoxTableMultiDimensionalParameter([""], ["perils"], PerilMarker)
             parmCoveredLines[0] = new ComboBoxTableMultiDimensionalParameter(["personal accident"], ["Covered Lines"], LobMarker)
             parmReinsurer[0] = new ConstrainedString(IReinsurerMarker, '')
@@ -150,7 +151,7 @@ components {
         subWxlMotorHull {
             parmInuringPriority[0] = 1
             parmCoveredPerils[0] = new ComboBoxTableMultiDimensionalParameter([""], ["perils"], PerilMarker)
-            parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumBase": PremiumBase.GNPI, "premium": 0.043, "reinstatementPremiums": new TableMultiDimensionalParameter([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], ["Reinstatement Premium"]), "attachmentPoint": 500000.0, "limit": 1.95E7, "aggregateLimit": 1.95E8, "coveredByReinsurer": 1.0,])
+            parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"premiumBase": PremiumBase.GNPI, "premium": 0.043, "reinstatementPremiums": new TableMultiDimensionalParameter([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], ["Reinstatement Premium"]), "attachmentPoint": 500000.0, "limit": 1.95E7, "aggregateLimit": 1.95E8, "coveredByReinsurer": 1.0,])
             parmCoveredLines[0] = new ComboBoxTableMultiDimensionalParameter(["motor hull"], ["Covered Lines"], LobMarker)
             parmReinsurer[0] = new ConstrainedString(IReinsurerMarker, '')
         }

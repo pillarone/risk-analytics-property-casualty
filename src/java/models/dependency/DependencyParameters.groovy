@@ -10,6 +10,7 @@ import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.domain.utils.FrequencyDistributionType
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.PremiumAllocationType
 
 model = DependencyModel
 periodCount = 5
@@ -46,7 +47,7 @@ components {
     }
     cxl {
         parmContractStrategy[allPeriods] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.CXL,
-                ["reinstatementPremiums": new TableMultiDimensionalParameter([0.5], ["Reinstatement Premium"]), "limit": 10, "aggregateLimit": 10, "attachmentPoint": 10.0, "premium": 0, "premiumBase": PremiumBase.ABSOLUTE, "coveredByReinsurer": 1d])
+                ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"reinstatementPremiums": new TableMultiDimensionalParameter([0.5], ["Reinstatement Premium"]), "limit": 10, "aggregateLimit": 10, "attachmentPoint": 10.0, "premium": 0, "premiumBase": PremiumBase.ABSOLUTE, "coveredByReinsurer": 1d])
         parmInuringPriority[allPeriods] = 0
     }
 

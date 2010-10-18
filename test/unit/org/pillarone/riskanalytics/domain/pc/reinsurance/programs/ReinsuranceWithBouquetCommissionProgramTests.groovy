@@ -22,6 +22,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit.LimitSt
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingSegment
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.PremiumAllocationType
 
 /**
  * @author shartmann (at) munichre (dot) com
@@ -60,6 +61,7 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
                                 "limit": 20,
                                 "aggregateLimit": 20,
                                 "premiumBase": PremiumBase.ABSOLUTE,
+                                "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, new HashMap()),
                                 "premium": 100,
                                 "reinstatementPremiums": new TableMultiDimensionalParameter([0.2], ['Reinstatement Premium']),
                                 "coveredByReinsurer": 1d]),

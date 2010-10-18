@@ -9,6 +9,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceCo
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit.LimitStrategyType
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.PremiumAllocationType
 
 model = models.capitalEagle.CapitalEagleOneLobModel
 displayName = 'QS and NP Cover'
@@ -54,7 +55,7 @@ components {
                 parmInuringPriority[allPeriods] = 0
             }
             subContract2 {
-                parmContractStrategy[allPeriods] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumBase": PremiumBase.GNPI, "premium": 0.0573, "reinstatementPremiums": new TableMultiDimensionalParameter([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], ["Reinstatement Premium"]), "attachmentPoint": 1000000.0, "limit": 9.9E7, "aggregateLimit": 9.9E8, "coveredByReinsurer": 1d])
+                parmContractStrategy[allPeriods] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"premiumBase": PremiumBase.GNPI, "premium": 0.0573, "reinstatementPremiums": new TableMultiDimensionalParameter([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], ["Reinstatement Premium"]), "attachmentPoint": 1000000.0, "limit": 9.9E7, "aggregateLimit": 9.9E8, "coveredByReinsurer": 1d])
                 parmInuringPriority[allPeriods] = 0
             }
             subContract3 {

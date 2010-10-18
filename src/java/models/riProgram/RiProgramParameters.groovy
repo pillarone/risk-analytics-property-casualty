@@ -10,6 +10,7 @@ import org.pillarone.riskanalytics.domain.utils.ClaimSizeDistributionType
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.domain.utils.FrequencyDistributionType
 import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.PremiumAllocationType
 
 model = models.riProgram.RiProgramModel
 periodCount = 2
@@ -47,8 +48,8 @@ components {
             parmInuringPriority[1] = 1
         }
         subContract1 {
-            parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["limit": 100.0, "aggregateLimit": 3000.0, "attachmentPoint": 100.0, "premium": 70.0, "reinstatementPremiums": new TableMultiDimensionalParameter([0.5], ['Reinstatement Premium']), "premiumBase": PremiumBase.ABSOLUTE, "coveredByReinsurer": 1d])
-            parmContractStrategy[1] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["limit": 100.0, "aggregateLimit": 3000.0, "attachmentPoint": 100.0, "premium": 70.0, "reinstatementPremiums": new TableMultiDimensionalParameter([0.5], ['Reinstatement Premium']), "premiumBase": PremiumBase.ABSOLUTE, "coveredByReinsurer": 1d])
+            parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"limit": 100.0, "aggregateLimit": 3000.0, "attachmentPoint": 100.0, "premium": 70.0, "reinstatementPremiums": new TableMultiDimensionalParameter([0.5], ['Reinstatement Premium']), "premiumBase": PremiumBase.ABSOLUTE, "coveredByReinsurer": 1d])
+            parmContractStrategy[1] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"limit": 100.0, "aggregateLimit": 3000.0, "attachmentPoint": 100.0, "premium": 70.0, "reinstatementPremiums": new TableMultiDimensionalParameter([0.5], ['Reinstatement Premium']), "premiumBase": PremiumBase.ABSOLUTE, "coveredByReinsurer": 1d])
             parmInuringPriority[0] = 2
             parmInuringPriority[1] = 2
         }

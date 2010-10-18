@@ -18,6 +18,7 @@ import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.*
+import org.pillarone.riskanalytics.domain.pc.lob.ConfigurableLobWithReserves
 
 /**
  * These test cases don't totally match the situation as it is when the component is used in a model as the
@@ -32,29 +33,31 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
      */
     static MultiCoverAttributeReinsuranceContract getQuotaShare20FireLOB() {
         MultiCoverAttributeReinsuranceContract contract = new MultiCoverAttributeReinsuranceContract(
-            parmContractStrategy: ReinsuranceContractType.getStrategy(
-                ReinsuranceContractType.QUOTASHARE,
-                ["quotaShare": 0.2, "coveredByReinsurer": 1d]),
-            parmInuringPriority: 10,
-            parmCover: CoverAttributeStrategyType.getStrategy(
-                CoverAttributeStrategyType.LINESOFBUSINESS,
-                ['lines': new ComboBoxTableMultiDimensionalParameter(['fire'], ['Covered Lines'], LobMarker)])
+                parmContractStrategy: ReinsuranceContractType.getStrategy(
+                        ReinsuranceContractType.QUOTASHARE,
+                        ["quotaShare": 0.2, "coveredByReinsurer": 1d]),
+                parmInuringPriority: 10,
+                parmCover: CoverAttributeStrategyType.getStrategy(
+                        CoverAttributeStrategyType.LINESOFBUSINESS,
+                        ['lines': new ComboBoxTableMultiDimensionalParameter(['fire'], ['Covered Lines'], LobMarker)])
         )
-        SimulationScope simulationScope= new SimulationScope()
+        SimulationScope simulationScope = new SimulationScope()
         simulationScope.model = new VoidTestModel()
         contract.simulationScope = simulationScope
         return contract
+
     }
+
 
     static MultiCoverAttributeReinsuranceContract getMultiCoverAttributeReinsuranceContract(IReinsuranceContractStrategy contractStrategy,
                                                                                             ICoverAttributeStrategy coverStrategy,
                                                                                             int inuringPriority = 10) {
         MultiCoverAttributeReinsuranceContract contract = new MultiCoverAttributeReinsuranceContract(
-            parmContractStrategy: contractStrategy,
-            parmInuringPriority: inuringPriority,
-            parmCover: coverStrategy
+                parmContractStrategy: contractStrategy,
+                parmInuringPriority: inuringPriority,
+                parmCover: coverStrategy
         )
-        SimulationScope simulationScope= new SimulationScope()
+        SimulationScope simulationScope = new SimulationScope()
         simulationScope.model = new VoidTestModel()
         contract.simulationScope = simulationScope
         return contract
@@ -63,8 +66,8 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
     static IReinsuranceContractStrategy getQuotaShareContractStrategy(double quotaShare = 0.2,
                                                                       double coveredByReinsurer = 1d) {
         ReinsuranceContractType.getStrategy(
-            ReinsuranceContractType.QUOTASHARE,
-            ["quotaShare": quotaShare, "coveredByReinsurer": coveredByReinsurer]
+                ReinsuranceContractType.QUOTASHARE,
+                ["quotaShare": quotaShare, "coveredByReinsurer": coveredByReinsurer]
         )
     }
 
@@ -86,11 +89,11 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
 
         // return one of:
         hasLines && hasReserves ? CoverAttributeStrategyType.getStrategy(CoverAttributeStrategyType.LINESOFBUSINESSRESERVES, ['connection': LogicArguments.AND, 'lines': lines, 'reserves': reserves]) :
-        hasLines && hasPerils ? CoverAttributeStrategyType.getStrategy(CoverAttributeStrategyType.LINESOFBUSINESSPERILS, ['connection': LogicArguments.AND, 'lines': lines, 'perils': perils]) :
-        hasLines ? CoverAttributeStrategyType.getStrategy(CoverAttributeStrategyType.LINESOFBUSINESS, ['lines': lines]) :
-        hasReserves ? CoverAttributeStrategyType.getStrategy(CoverAttributeStrategyType.RESERVES, ['reserves': reserves]) :
-        hasPerils ? CoverAttributeStrategyType.getStrategy(CoverAttributeStrategyType.PERILS, ['perils': perils]) :
-        new NoneCoverAttributeStrategy()
+            hasLines && hasPerils ? CoverAttributeStrategyType.getStrategy(CoverAttributeStrategyType.LINESOFBUSINESSPERILS, ['connection': LogicArguments.AND, 'lines': lines, 'perils': perils]) :
+                hasLines ? CoverAttributeStrategyType.getStrategy(CoverAttributeStrategyType.LINESOFBUSINESS, ['lines': lines]) :
+                    hasReserves ? CoverAttributeStrategyType.getStrategy(CoverAttributeStrategyType.RESERVES, ['reserves': reserves]) :
+                        hasPerils ? CoverAttributeStrategyType.getStrategy(CoverAttributeStrategyType.PERILS, ['perils': perils]) :
+                            new NoneCoverAttributeStrategy()
     }
 
     /**
@@ -100,7 +103,7 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
      */
     static Map<String, TestLobComponent> createLobs(List<String> lobNames, Model model = null) {
         Map<String, TestLobComponent> lob = new HashMap()
-        for (String lobName : lobNames) {
+        for (String lobName: lobNames) {
             lob.put(lobName, new TestLobComponent(name: lobName))
             if (model != null) {
                 model.allComponents << lob[lobName]
@@ -110,6 +113,7 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
     }
 
     // code coverage
+
     void testGetStrategy() {
         ICoverAttributeStrategy coverStrategy = getCoverAttributeStrategy([:])
         assertTrue "cover strategy is None", coverStrategy instanceof NoneCoverAttributeStrategy
@@ -158,8 +162,8 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
          *  (This trick is needed to simulate a user choice in the GUI.)
          */
         MultiCoverAttributeReinsuranceContract contract = getMultiCoverAttributeReinsuranceContract(
-            getQuotaShareContractStrategy(),
-            getCoverAttributeStrategy(['lines': ['fire', 'flood', 'lightning', 'wind']], simulationScope.model)
+                getQuotaShareContractStrategy(),
+                getCoverAttributeStrategy(['lines': ['fire', 'flood', 'lightning', 'wind']], simulationScope.model)
         )
 
         Claim claimFire1000 = new Claim(peril: perilA, lineOfBusiness: lob['fire'], value: 1000d, fractionOfPeriod: 0.2, claimType: ClaimType.ATTRITIONAL)
@@ -187,8 +191,8 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
         assertEquals "# of (fire) filtered claims", 4, contract.outFilteredClaims.size()
         assertEquals "# of (fire) covered claims", 4, contract.outCoveredClaims.size()
         assertEquals "# of (fire) uncovered claims", 4, contract.outUncoveredClaims.size()
-        assertEquals "# of (fire) filtered UWInfo", 4, contract.outFilteredUnderwritingInfo.size()
-        assertEquals "# of (fire) cover UWInfo", 4, contract.outCoverUnderwritingInfo.size()
+        assertEquals "# of (fire) filtered UWInfo", 1, contract.outFilteredUnderwritingInfo.size()
+        assertEquals "# of (fire) cover UWInfo", 1, contract.outCoverUnderwritingInfo.size()
 
         assertEquals "covered, (fire) claim 0", 200, contract.outCoveredClaims[0].ultimate
         assertEquals "covered, (fire) claim 1", 260, contract.outCoveredClaims[1].ultimate
@@ -199,19 +203,14 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
         assertEquals "net, (fire) claim 1", 1040, contract.outUncoveredClaims[1].ultimate
         assertEquals "net, (fire) claim 2", 1120, contract.outUncoveredClaims[2].ultimate
         assertEquals "net, (fire) claim 3", 1200, contract.outUncoveredClaims[3].ultimate
-        
-        assertEquals "covered, (fire) uwinfo 0", 60, contract.outCoverUnderwritingInfo[0].premiumWritten
-        assertEquals "covered, (fire) uwinfo 1", 120, contract.outCoverUnderwritingInfo[1].premiumWritten
-        assertEquals "covered, (fire) uwinfo 2", 100, contract.outCoverUnderwritingInfo[2].premiumWritten
-        assertEquals "covered, (fire) uwinfo 3", 80, contract.outCoverUnderwritingInfo[3].premiumWritten
 
+        assertEquals "covered, (fire) uwinfo 0", 60, contract.outCoverUnderwritingInfo[0].premiumWritten
         assertEquals "net, (fire) uwinfo 0", 240, contract.outNetAfterCoverUnderwritingInfo[0].premiumWritten
-        assertEquals "net, (fire) uwinfo 1", 480, contract.outNetAfterCoverUnderwritingInfo[1].premiumWritten
-        assertEquals "net, (fire) uwinfo 2", 400, contract.outNetAfterCoverUnderwritingInfo[2].premiumWritten
-        assertEquals "net, (fire) uwinfo 3", 320, contract.outNetAfterCoverUnderwritingInfo[3].premiumWritten
+
     }
 
     // we expect everything to be filtered out
+
     void testUsageWithFilteringByImpossibleLobs() {
         SimulationScope simulationScope = new SimulationScope(model: new VoidTestModel())
 
@@ -224,8 +223,8 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
 
         // test LineOfBusinessCoverAttributeStrategy (filter should produce no results)
         MultiCoverAttributeReinsuranceContract contract = getMultiCoverAttributeReinsuranceContract(
-            getQuotaShareContractStrategy(),
-            getCoverAttributeStrategy(['lines': ['doomsday', 'supernova', 'blackhole', 'apocalypse']], simulationScope.model)
+                getQuotaShareContractStrategy(),
+                getCoverAttributeStrategy(['lines': ['doomsday', 'supernova', 'blackhole', 'apocalypse']], simulationScope.model)
         )
 
         Claim claimFire1000 = new Claim(peril: perilA, lineOfBusiness: lob['fire'], value: 1000d, fractionOfPeriod: 0.2, claimType: ClaimType.ATTRITIONAL)
@@ -270,8 +269,8 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
 
         // create contract; choose LineOfBusinessPerilsCoverAttributeStrategy
         MultiCoverAttributeReinsuranceContract contract = getMultiCoverAttributeReinsuranceContract(
-            getQuotaShareContractStrategy(),
-            getCoverAttributeStrategy(['lines': ['fire'], 'perils': ['peril b']], simulationScope.model)
+                getQuotaShareContractStrategy(),
+                getCoverAttributeStrategy(['lines': ['fire'], 'perils': ['peril b']], simulationScope.model)
         )
 
         Claim claimFire1000 = new Claim(peril: perilA, lineOfBusiness: lob['fire'], value: 1000d, fractionOfPeriod: 0.2, claimType: ClaimType.ATTRITIONAL)
@@ -307,18 +306,22 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
         assertEquals "net, (fire) claim 1", 1120, contract.outUncoveredClaims[1].ultimate
 
         // underwriting is filtered by lob but not by peril
-        assertEquals "covered, (fire) uwinfo 0", 0.2*300, contract.outCoverUnderwritingInfo[0].premiumWritten
-        assertEquals "covered, (fire) uwinfo 0", 0.2*200, contract.outCoverUnderwritingInfo[1].premiumWritten
-        assertEquals "net, (fire) uwinfo 0", 0.8*300, contract.outNetAfterCoverUnderwritingInfo[0].premiumWritten
-        assertEquals "net, (fire) uwinfo 0", 0.8*200, contract.outNetAfterCoverUnderwritingInfo[1].premiumWritten
+        assertEquals "covered, (fire) uwinfo 0", 2.7/5.2*0.2 * 300, contract.outCoverUnderwritingInfo[0].premiumWritten, 1E-5
+        assertEquals "covered, (fire) uwinfo 0",2.7/5.2* 0.2 * 200, contract.outCoverUnderwritingInfo[1].premiumWritten, 1E-5
+        assertEquals "net, (fire) uwinfo 0", 2.7/5.2*0.8 * 300, contract.outNetAfterCoverUnderwritingInfo[0].premiumWritten, 1E-5
+        assertEquals "net, (fire) uwinfo 0", 2.7/5.2*0.8 * 200, contract.outNetAfterCoverUnderwritingInfo[1].premiumWritten, 1E-5
         contract.reset()
     }
 
     void testDefaultUsageWithClaimDevelopmentLeanPackets() {
+
+        ConfigurableLobWithReserves fireLine = new ConfigurableLobWithReserves(name: 'fire')
         MultiCoverAttributeReinsuranceContract contract = getQuotaShare20FireLOB()
         SimulationScope simulationScope = new SimulationScope()
         simulationScope.model = new VoidTestModel()
         contract.simulationScope = simulationScope
+        contract.simulationScope.model.allComponents << fireLine
+        contract.parmCover.lines.setSimulationModel contract.simulationScope.model
         TestComponent origin = new TestComponent()
         TypableClaimsGenerator generator = new TypableClaimsGenerator()
         Event event1 = new Event()
@@ -327,32 +330,36 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
                 value: 10000,
                 event: event1,
                 fractionOfPeriod: 0.5,
+                lineOfBusiness: fireLine,
                 peril: generator,
                 claimType: ClaimType.ATTRITIONAL,
         )
         Claim originalClaim2 = new Claim(
                 value: 500,
                 event: event2,
+                lineOfBusiness: fireLine,
                 fractionOfPeriod: 0.5,
                 peril: generator,
                 claimType: ClaimType.ATTRITIONAL,
         )
         ClaimDevelopmentLeanPacket claimDevelopment1 = new ClaimDevelopmentLeanPacket(
-                        ultimate: 10,
-                        paid: 6,
-                        origin: origin,
-                        originalClaim: originalClaim1,
-                        event: event1,
-                        peril: generator,
-                        fractionOfPeriod: 0.5)
+                ultimate: 10,
+                paid: 6,
+                origin: origin,
+                originalClaim: originalClaim1,
+                lineOfBusiness: fireLine,
+                event: event1,
+                peril: generator,
+                fractionOfPeriod: 0.5)
         ClaimDevelopmentLeanPacket claimDevelopment2 = new ClaimDevelopmentLeanPacket(
-                        ultimate: 12,
-                        paid: 8,
-                        origin: origin,
-                        originalClaim: originalClaim2,
-                        event: event2,
-                        peril: generator,
-                        fractionOfPeriod: 0.5)
+                ultimate: 12,
+                paid: 8,
+                origin: origin,
+                originalClaim: originalClaim2,
+                lineOfBusiness: fireLine,
+                event: event2,
+                peril: generator,
+                fractionOfPeriod: 0.5)
         contract.inClaims << claimDevelopment1 << claimDevelopment2
 
         def probeCoveredClaims = new TestProbe(contract, "outCoveredClaims")
@@ -396,28 +403,28 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
                 claimType: ClaimType.ATTRITIONAL,
         )
         ClaimDevelopmentLeanPacket claimDevelopment1 = new ClaimDevelopmentLeanPacket(
-                        ultimate: 10,
-                        paid: 6,
-                        origin: origin,
-                        originalClaim: originalClaim1,
-                        event: event1,
-                        peril: generator,
-                        lineOfBusiness: lob['fire'],
-                        fractionOfPeriod: 0.4)
+                ultimate: 10,
+                paid: 6,
+                origin: origin,
+                originalClaim: originalClaim1,
+                event: event1,
+                peril: generator,
+                lineOfBusiness: lob['fire'],
+                fractionOfPeriod: 0.4)
         ClaimDevelopmentLeanPacket claimDevelopment2 = new ClaimDevelopmentLeanPacket(
-                        ultimate: 12,
-                        paid: 8,
-                        origin: origin,
-                        originalClaim: originalClaim2,
-                        event: event2,
-                        peril: generator,
-                        lineOfBusiness: lob['motor'],
-                        fractionOfPeriod: 0.7)
+                ultimate: 12,
+                paid: 8,
+                origin: origin,
+                originalClaim: originalClaim2,
+                event: event2,
+                peril: generator,
+                lineOfBusiness: lob['motor'],
+                fractionOfPeriod: 0.7)
 
         // create the contract (setting the simulation model in each cover attribute strategy to simulate GUI choice)
         MultiCoverAttributeReinsuranceContract contract = getMultiCoverAttributeReinsuranceContract(
-            getQuotaShareContractStrategy(),
-            getCoverAttributeStrategy(['lines': ['fire']], simulationScope.model)
+                getQuotaShareContractStrategy(),
+                getCoverAttributeStrategy(['lines': ['fire']], simulationScope.model)
         )
         contract.inClaims << claimDevelopment1 << claimDevelopment2
 

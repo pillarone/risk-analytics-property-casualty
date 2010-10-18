@@ -20,15 +20,16 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingFilterUtil
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 /**
- *  This component filters from the incoming claims and underwriting information
- *  the packets whose line is listed in parameter parmCoveredLines and provides
- *  them in the corresponding out Packetlists.
- *  If the parameter contains no line at all, all packets are sent as is to the
- *  next component. Packets are not modified.
+ * This component filters from the incoming claims and underwriting information
+ * the packets whose line is listed in parameter parmCoveredLines and provides
+ * them in the corresponding out Packetlists.
+ * If the parameter contains no line at all, all packets are sent as is to the
+ * next component. Packets are not modified.
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
@@ -40,7 +41,9 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
     private ICoverAttributeStrategy parmCover = CoverAttributeStrategyType.getStrategy(
             CoverAttributeStrategyType.ALL, ArrayUtils.toMap(new Object[][]{{"reserves", IncludeType.NOTINCLUDED}}));
 
-    /** claims whose source is a covered line         */
+    /**
+     * claims whose source is a covered line
+     */
     private PacketList<Claim> outFilteredClaims = new PacketList<Claim>(Claim.class);
 
     private PacketList<UnderwritingInfo> outFilteredUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
@@ -54,18 +57,26 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
         }
         filterInChannels();
         // initialize contract details
-        parmContractStrategy.initBookkeepingFigures(outFilteredClaims, outFilteredUnderwritingInfo);
+        List<UnderwritingInfo> modifiedUnderwritingInfo = new ArrayList<UnderwritingInfo>();
+        for (UnderwritingInfo underwritingInfo : outFilteredUnderwritingInfo) {
+            modifiedUnderwritingInfo.add(underwritingInfo);
+        }
+
+        if (parmContractStrategy instanceof XLContractStrategy) {
+            modifyPremiumWritten(modifiedUnderwritingInfo, outFilteredClaims);
+        }
+
+        parmContractStrategy.initBookkeepingFigures(outFilteredClaims, modifiedUnderwritingInfo);
 
         Collections.sort(outFilteredClaims, SortClaimsByFractionOfPeriod.getInstance());
         if (isSenderWired(getOutUncoveredClaims()) || isSenderWired(getOutClaimsDevelopmentLeanNet())) {
             calculateClaims(outFilteredClaims, outCoveredClaims, outUncoveredClaims, this);
-        }
-        else {
+        } else {
             calculateCededClaims(outFilteredClaims, outCoveredClaims, this);
         }
 
         if (isSenderWired(outCoverUnderwritingInfo) || isSenderWired(outContractFinancials) || isSenderWired(outNetAfterCoverUnderwritingInfo)) {
-            calculateCededUnderwritingInfos(outFilteredUnderwritingInfo, outCoverUnderwritingInfo);
+            calculateCededUnderwritingInfos(modifiedUnderwritingInfo, outCoverUnderwritingInfo);
         }
         parmCommissionStrategy.calculateCommission(outCoveredClaims, outCoverUnderwritingInfo, false, false);
         if (isSenderWired(outNetAfterCoverUnderwritingInfo)) {
@@ -108,12 +119,10 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
     protected void filterInChannels() {
         if (parmCover instanceof NoneCoverAttributeStrategy) {
             // leave outFiltered* lists void
-        }
-        else if (parmCover instanceof AllCoverAttributeStrategy) {
+        } else if (parmCover instanceof AllCoverAttributeStrategy) {
             outFilteredClaims.addAll(inClaims);
             outFilteredUnderwritingInfo.addAll(inUnderwritingInfo);
-        }
-        else {
+        } else {
             List<LobMarker> coveredLines = parmCover instanceof ILinesOfBusinessCoverAttributeStrategy
                     ? (List<LobMarker>) (((ILinesOfBusinessCoverAttributeStrategy) parmCover).getLines().getValuesAsObjects()) : null;
             List<PerilMarker> coveredPerils = parmCover instanceof IPerilCoverAttributeStrategy
@@ -123,10 +132,9 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
             LogicArguments connection = parmCover instanceof ICombinedCoverAttributeStrategy
                     ? ((ICombinedCoverAttributeStrategy) parmCover).getConnection() : null;
             outFilteredClaims.addAll(ClaimFilterUtilities.filterClaimsByPerilLobReserve(inClaims, coveredPerils, coveredLines, coveredReserves, connection));
-            if (coveredLines == null || coveredLines.size() == 0) {
-               coveredLines = ClaimFilterUtilities.getLineOfBusiness(outFilteredClaims);
-            }
-            outFilteredUnderwritingInfo.addAll(UnderwritingFilterUtilities.filterUnderwritingInfoByLob(inUnderwritingInfo, coveredLines));
+            // extend coveredLines such that they additionally consist of the segments which are associated with the selected perils
+            coveredLines = ClaimFilterUtilities.getLineOfBusiness(outFilteredClaims);
+            outFilteredUnderwritingInfo.addAll(UnderwritingFilterUtilities.filterUnderwritingInfoByLobAndScaleByPerilsInLob(inUnderwritingInfo, coveredLines, inClaims, coveredPerils));
         }
     }
 

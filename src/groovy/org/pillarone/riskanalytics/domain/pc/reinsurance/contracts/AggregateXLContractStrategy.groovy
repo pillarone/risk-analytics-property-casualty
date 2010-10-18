@@ -19,6 +19,9 @@ class AggregateXLContractStrategy extends AbstractContractStrategy implements IR
     /** Premium can be expressed as a fraction of a base quantity.           */
     PremiumBase premiumBase = PremiumBase.ABSOLUTE
 
+    /** Strategy to allocate the ceded premium to the different lines of business     */
+    IPremiumAllocationStrategy premiumAllocation = PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, new HashMap());
+
     /** Premium as a percentage of the premium base           */
     double premium
 
@@ -39,6 +42,7 @@ class AggregateXLContractStrategy extends AbstractContractStrategy implements IR
     Map getParameters() {
         ["premiumBase": premiumBase,
             "premium": premium,
+                "premiumAllocation": premiumAllocation,
             "attachmentPoint": attachmentPoint,
             "limit": limit,
             "coveredByReinsurer": coveredByReinsurer,

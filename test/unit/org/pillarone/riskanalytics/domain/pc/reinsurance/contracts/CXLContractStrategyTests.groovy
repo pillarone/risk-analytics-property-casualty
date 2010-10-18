@@ -30,7 +30,7 @@ class CXLContractStrategyTests extends GroovyTestCase {
     Claim claim30Event2 = new Claim(event: event2, claimType: ClaimType.EVENT, value: 30d)
     Claim claim60Event2 = new Claim(event: event2, claimType: ClaimType.EVENT, value: 60d)
     Claim claim40Event3 = new Claim(event: event3, claimType: ClaimType.EVENT, value: 40d)
-    Claim claim60Event3 = new Claim( event: event3, claimType: ClaimType.EVENT, value: 60d)
+    Claim claim60Event3 = new Claim(event: event3, claimType: ClaimType.EVENT, value: 60d)
     Claim claim120Event4 = new Claim(event: event4, claimType: ClaimType.EVENT, value: 120d)
 
     static ReinsuranceContract getContract0() {
@@ -38,13 +38,14 @@ class CXLContractStrategyTests extends GroovyTestCase {
                 parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.CXL,
                         ["attachmentPoint": 20,
-                         "limit": 30,
-                         "aggregateLimit": 100,
-                         "aggregateDeductible": 0,
-                         "premiumBase": PremiumBase.ABSOLUTE,
-                         "premium": 100,
-                         "reinstatementPremiums": new TableMultiDimensionalParameter([0.2], ['Reinstatement Premium']),
-                         "coveredByReinsurer": 1d]))
+                                "limit": 30,
+                                "aggregateLimit": 100,
+                                "aggregateDeductible": 0,
+                                "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, new HashMap()),
+                                "premiumBase": PremiumBase.ABSOLUTE,
+                                "premium": 100,
+                                "reinstatementPremiums": new TableMultiDimensionalParameter([0.2], ['Reinstatement Premium']),
+                                "coveredByReinsurer": 1d]))
     }
 
     static ReinsuranceContract getContract1() {
@@ -52,13 +53,14 @@ class CXLContractStrategyTests extends GroovyTestCase {
                 parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.CXL,
                         ["attachmentPoint": 80,
-                         "limit": 20,
-                         "aggregateLimit": 50,
-                         "aggregateDeductible": 0,
-                         "premiumBase": PremiumBase.ABSOLUTE,
-                         "premium": 100,
-                         "reinstatementPremiums": new TableMultiDimensionalParameter([0.2], ['Reinstatement Premium']),
-                         "coveredByReinsurer": 1d]))
+                                "limit": 20,
+                                "aggregateLimit": 50,
+                                "aggregateDeductible": 0,
+                                "premiumBase": PremiumBase.ABSOLUTE,
+                                "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, new HashMap()),
+                                "premium": 100,
+                                "reinstatementPremiums": new TableMultiDimensionalParameter([0.2], ['Reinstatement Premium']),
+                                "coveredByReinsurer": 1d]))
     }
 
     static ReinsuranceContract getContract2() {
@@ -66,13 +68,14 @@ class CXLContractStrategyTests extends GroovyTestCase {
                 parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.CXL,
                         ["attachmentPoint": 20,
-                         "limit": 30,
-                         "aggregateLimit": 100,
-                         "aggregateDeductible": 20,
-                         "premiumBase": PremiumBase.ABSOLUTE,
-                         "premium": 100,
-                         "reinstatementPremiums": new TableMultiDimensionalParameter([0.2], ['Reinstatement Premium']),
-                         "coveredByReinsurer": 1d]))
+                                "limit": 30,
+                                "aggregateLimit": 100,
+                                "aggregateDeductible": 20,
+                                "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, new HashMap()),
+                                "premiumBase": PremiumBase.ABSOLUTE,
+                                "premium": 100,
+                                "reinstatementPremiums": new TableMultiDimensionalParameter([0.2], ['Reinstatement Premium']),
+                                "coveredByReinsurer": 1d]))
     }
 
     void testAttritionalClaims() {
@@ -107,7 +110,7 @@ class CXLContractStrategyTests extends GroovyTestCase {
         assertTrue 0 == cxl.outCoveredClaims[0].ultimate
         assertTrue 0 == cxl.outCoveredClaims[1].ultimate
         assertTrue 0 == cxl.outCoveredClaims[2].ultimate
-        assertEquals "claim0",  claim0.ultimate, cxl.outUncoveredClaims[0].ultimate
+        assertEquals "claim0", claim0.ultimate, cxl.outUncoveredClaims[0].ultimate
         assertEquals "claim80", claim80.ultimate, cxl.outUncoveredClaims[1].ultimate
         assertEquals "claim90", claim90.ultimate, cxl.outUncoveredClaims[2].ultimate
     }
@@ -153,13 +156,14 @@ class CXLContractStrategyTests extends GroovyTestCase {
                 parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.CXL,
                         ["attachmentPoint": 25,
-                         "limit": 30,
-                         "aggregateLimit": 90,
-                         "aggregateDeductible": 4,
-                         "premiumBase": PremiumBase.ABSOLUTE,
-                         "premium": 1,
-                         "reinstatementPremiums": new TableMultiDimensionalParameter([1d, 1d], ['Reinstatement Premium']),
-                         "coveredByReinsurer": 1d]))
+                                "limit": 30,
+                                "aggregateLimit": 90,
+                                "aggregateDeductible": 4,
+                                "premiumBase": PremiumBase.ABSOLUTE,
+                                "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, new HashMap()),
+                                "premium": 1,
+                                "reinstatementPremiums": new TableMultiDimensionalParameter([1d, 1d], ['Reinstatement Premium']),
+                                "coveredByReinsurer": 1d]))
 
 
         Claim claim30Event0 = new Claim(event: event0, claimType: ClaimType.EVENT, value: 30d)
@@ -203,10 +207,13 @@ class CXLContractStrategyTests extends GroovyTestCase {
         ReinsuranceContract cxl = getContract1()
         UnderwritingInfo grossUnderwritingInfo = UnderwritingInfoTests.getUnderwritingInfo()
         cxl.parmContractStrategy.premiumBase = PremiumBase.RATE_ON_LINE
+        Map<UnderwritingInfo, Double> grossPremiumSharesPerBand = new HashMap<UnderwritingInfo, Double>(1);
+        grossPremiumSharesPerBand.put(grossUnderwritingInfo, 1);
+        cxl.parmContractStrategy.grossPremiumSharesPerBand = grossPremiumSharesPerBand
         UnderwritingInfo cededUnderwritingInfo = cxl.parmContractStrategy.calculateCoverUnderwritingInfo(grossUnderwritingInfo, 0d)
 
-        assertEquals "premium written", cxl.parmContractStrategy.premium * cxl.parmContractStrategy.limit, cededUnderwritingInfo.premiumWritten
-        assertEquals "premium written as if", cxl.parmContractStrategy.premium * cxl.parmContractStrategy.limit, cededUnderwritingInfo.premiumWrittenAsIf
+        assertEquals "premium written", cxl.parmContractStrategy.premium * cxl.parmContractStrategy.grossPremiumSharesPerBand.get(grossUnderwritingInfo) * cxl.parmContractStrategy.limit, cededUnderwritingInfo.premiumWritten
+        assertEquals "premium written as if", cxl.parmContractStrategy.premium * cxl.parmContractStrategy.grossPremiumSharesPerBand.get(grossUnderwritingInfo) * cxl.parmContractStrategy.limit, cededUnderwritingInfo.premiumWrittenAsIf
     }
 
     void testGetCededUnderwritingInfoIAE() {
@@ -262,7 +269,7 @@ class CXLContractStrategyTests extends GroovyTestCase {
 
         cxl.doCalculation()
 
-        double usedReinstatements = 1d/3d
+        double usedReinstatements = 1d / 3d
 
         assertEquals "premium written",
                 cxl.parmContractStrategy.premium * (1 + cxl.parmContractStrategy.reinstatementPremiums.values[0] * usedReinstatements),

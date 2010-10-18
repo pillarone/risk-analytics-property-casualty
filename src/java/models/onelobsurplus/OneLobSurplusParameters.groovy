@@ -13,6 +13,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.WXLContractSt
 import org.pillarone.riskanalytics.domain.utils.ClaimSizeDistributionType
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.domain.utils.FrequencyDistributionType
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.PremiumAllocationType
 
 model = OneLobSurplusModel
 periodCount = 2
@@ -56,6 +57,7 @@ components {
     }
     wxl {
         parmContractStrategy[allPeriods] = new WXLContractStrategy(
+                "premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),
                 'attachmentPoint': 2000d,
                 'limit': 20000d,
                 'aggregateLimit': 100000d,

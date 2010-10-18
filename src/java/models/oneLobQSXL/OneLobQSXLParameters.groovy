@@ -9,6 +9,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.WXLContractSt
 import org.pillarone.riskanalytics.domain.utils.ClaimSizeDistributionType
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.domain.utils.FrequencyDistributionType
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.PremiumAllocationType
 
 model = OneLobQSXLModel
 periodCount = 2
@@ -29,7 +30,7 @@ components {
 //        parmCommissionStrategy[allPeriods] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0d])
     }
     wxl {
-        parmContractStrategy[allPeriods] = new WXLContractStrategy(
+        parmContractStrategy[allPeriods] = new WXLContractStrategy("premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),
                 "attachmentPoint": 50, "limit": 10, "aggregateLimit": 100,
                 "premiumBase": PremiumBase.ABSOLUTE, "premium": 70,
                 "reinstatementPremiums": new TableMultiDimensionalParameter([0.5], ['Reinstatement Premium']),

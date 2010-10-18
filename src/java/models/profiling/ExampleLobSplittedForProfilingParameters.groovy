@@ -10,6 +10,7 @@ import org.pillarone.riskanalytics.domain.utils.ClaimSizeDistributionType
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.domain.utils.FrequencyDistributionType
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.PremiumAllocationType
 
 model=models.profiling.ExampleLobSplittedForProfilingModel
 periodCount=1
@@ -43,7 +44,7 @@ components {
         parmInuringPriority[0]=0
     }
     contract2 {
-        parmContractStrategy[0]=ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["reinstatementPremiums":new TableMultiDimensionalParameter([0.5],["Reinstatement Premium"]),"limit":9.9E7,"aggregateLimit":9.223372036854776E18,"attachmentPoint":1000000.0,"premium":1.0E7,"premiumBase":PremiumBase.ABSOLUTE, "coveredByReinsurer": 1d])
+        parmContractStrategy[0]=ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"reinstatementPremiums":new TableMultiDimensionalParameter([0.5],["Reinstatement Premium"]),"limit":9.9E7,"aggregateLimit":9.223372036854776E18,"attachmentPoint":1000000.0,"premium":1.0E7,"premiumBase":PremiumBase.ABSOLUTE, "coveredByReinsurer": 1d])
         parmInuringPriority[0]=0
     }
     contract3 {

@@ -3,9 +3,12 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts;
 import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.packets.SingleValuePacket;
+import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
+import org.pillarone.riskanalytics.domain.pc.claims.ClaimFilterUtilities;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimUtilities;
 import org.pillarone.riskanalytics.domain.pc.claims.SortClaimsByFractionOfPeriod;
+import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.ReinsuranceResultWithCommissionPacket;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.ICommissionStrategy;
@@ -14,8 +17,7 @@ import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopment
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -39,22 +41,25 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
 
     protected PacketList<ReinsuranceResultWithCommissionPacket> outContractFinancials = new PacketList<ReinsuranceResultWithCommissionPacket>(ReinsuranceResultWithCommissionPacket.class);
 
-    /** Defines the kind of contract and parametrization */
+    /**
+     * Defines the kind of contract and parametrization
+     */
     protected IReinsuranceContractStrategy parmContractStrategy = ReinsuranceContractType.getTrivial();
 
     protected ICommissionStrategy parmCommissionStrategy = CommissionStrategyType.getNoCommission();
-
+    private Map<LobMarker, Double> sharesPerLineOfBusiness = new HashMap<LobMarker, Double>();
     /**
-     *  Defines the claim and underwriting info the contract will receive.
-     *  Namely, the net after contracts with lower inuring priority.
-     *
-     *  Cave: Setting the inuring priority is not trivial. Make sure you have a
-     *  correct understanding before 'playing around' with it.
+     * Defines the claim and underwriting info the contract will receive.
+     * Namely, the net after contracts with lower inuring priority.
+     * <p/>
+     * Cave: Setting the inuring priority is not trivial. Make sure you have a
+     * correct understanding before 'playing around' with it.
      */
     protected int parmInuringPriority = 0;
 
     public void doCalculation() {
-        if (parmContractStrategy == null) throw new IllegalStateException("ReinsuranceContract.missingContractStrategy");
+        if (parmContractStrategy == null)
+            throw new IllegalStateException("ReinsuranceContract.missingContractStrategy");
 
         parmContractStrategy.initBookkeepingFigures(inClaims, inUnderwritingInfo);
 
@@ -65,8 +70,18 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
             calculateCededClaims(inClaims, outCoveredClaims, this);
         }
 
+        List<UnderwritingInfo> modifiedUnderwritingInfo = new ArrayList<UnderwritingInfo>();
+        for (UnderwritingInfo underwritingInfo : inUnderwritingInfo) {
+            modifiedUnderwritingInfo.add(underwritingInfo);
+        }
+
+        if (parmContractStrategy instanceof XLContractStrategy) {
+            modifyPremiumWritten(modifiedUnderwritingInfo, inClaims);
+        }
+
+
         if (isSenderWired(outCoverUnderwritingInfo) || isSenderWired(outNetAfterCoverUnderwritingInfo)) {
-            calculateCededUnderwritingInfos(inUnderwritingInfo, outCoverUnderwritingInfo);
+            calculateCededUnderwritingInfos(modifiedUnderwritingInfo, outCoverUnderwritingInfo);
         }
 
         parmCommissionStrategy.calculateCommission(outCoveredClaims, outCoverUnderwritingInfo, false, false);
@@ -130,40 +145,38 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
     /**
      * Calculates the ceded claim, with or without claim development information; for aggregate
      * covers with development information, the ceded part is allocated to each single claim.
-     *
+     * <p/>
      * //todo(bgi): see if we need to refactor, move ceded development allocation into the Strategies and Claim packets
-     * 
+     *
      * @param grossClaim A Claim packet, possibly with development info (ClaimDevelopmentPacket or ClaimDevelopmentLeanPacket).
      * @param origin
      * @return A Claim packet (or ClaimDevelopmentPacket or ClaimDevelopmentLeanPacket), of the same type as grossClaim.
      */
-    protected Claim getCoveredClaim(Claim grossClaim, Component origin){
+    protected Claim getCoveredClaim(Claim grossClaim, Component origin) {
         Claim claimCeded;
         double coveredLoss = parmContractStrategy.allocateCededClaim(grossClaim);
         boolean hasDevelopment = grossClaim instanceof ClaimDevelopmentPacket ||
-                                grossClaim instanceof ClaimDevelopmentLeanPacket;
+                grossClaim instanceof ClaimDevelopmentLeanPacket;
         // calculate ceded development info (paid/reserved/changeInReserves) as appropriate to the Claim packet type
         if (hasDevelopment && parmContractStrategy instanceof IReinsuranceContractStrategyWithClaimsDevelopment) {
             // ceded development info has a different (allocation) factor from ceded claims
             if (grossClaim instanceof ClaimDevelopmentLeanPacket) {
                 ClaimDevelopmentLeanPacket claim = new ClaimDevelopmentLeanPacket(grossClaim);
                 claim.setPaid(((IReinsuranceContractStrategyWithClaimsDevelopment)
-                    parmContractStrategy).allocateCededPaid((ClaimDevelopmentLeanPacket) grossClaim));
+                        parmContractStrategy).allocateCededPaid((ClaimDevelopmentLeanPacket) grossClaim));
 //                claim.setReserved(claim.getUltimate() - claim.getPaid()); // perhaps not necessary since CDLP.getReserved calculates the same difference
                 claim.setReserved(claim.getUltimate() - claim.getPaid()); // perhaps not necessary since CDLP.getReserved calculates the same difference
                 claimCeded = claim;
-            }
-            else { // (grossClaim instanceof ClaimDevelopmentPacket)
+            } else { // (grossClaim instanceof ClaimDevelopmentPacket)
                 ClaimDevelopmentPacket claim = new ClaimDevelopmentPacket(grossClaim);
                 claim.setPaid(((IReinsuranceContractStrategyWithClaimsDevelopment)
-                    parmContractStrategy).allocateCededPaid((ClaimDevelopmentPacket) grossClaim));
+                        parmContractStrategy).allocateCededPaid((ClaimDevelopmentPacket) grossClaim));
                 double reserved = claim.getUltimate() - claim.getPaid();
                 claim.setChangeInReserves(reserved - claim.getReserved());
                 claim.setReserved(reserved);
                 claimCeded = claim;
             }
-        }
-        else {
+        } else {
             // ceded development info uses the same (allocation) factor as ceded claims
             claimCeded = grossClaim.copy();
             double claimLoss = grossClaim.getUltimate();
@@ -177,27 +190,86 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
         return claimCeded;
     }
 
+
+    public void modifyPremiumWritten(List<UnderwritingInfo> underwritingInfos, List<Claim> claims){
+
+        if (((XLContractStrategy) parmContractStrategy).getPremiumAllocation().equals(PremiumAllocationType.CLAIMS_SHARES)) {
+                double aggregatedClaim = 0d;
+                for (Claim claim : claims) {
+                    aggregatedClaim += claim.getUltimate();
+                }
+                double aggregatedPremiumWritten = 0d;
+                for (UnderwritingInfo underwritingInfo : underwritingInfos) {
+                    aggregatedPremiumWritten += underwritingInfo.getPremiumWritten();
+                }
+
+                for (UnderwritingInfo underwritingInfo : underwritingInfos) {
+                    LobMarker coveredLine = underwritingInfo.getLineOfBusiness();
+                    List<Claim> lobClaims = ClaimFilterUtilities.filterClaimsByLine(claims, coveredLine);
+                    double aggregatedLobClaim = 0d;
+                    for (Claim claim : lobClaims) {
+                        aggregatedLobClaim += claim.getUltimate();
+                    }
+                    underwritingInfo.premiumWritten = aggregatedPremiumWritten * aggregatedLobClaim / aggregatedClaim;
+                    underwritingInfo.premiumWrittenAsIf = aggregatedPremiumWritten * aggregatedLobClaim / aggregatedClaim;
+                }
+
+            } else if (((XLContractStrategy) parmContractStrategy).getPremiumAllocation().equals(PremiumAllocationType.LINE_SHARES)) {
+
+                double aggregatedPremiumWritten = 0d;
+                for (UnderwritingInfo underwritingInfo : underwritingInfos) {
+                    aggregatedPremiumWritten += underwritingInfo.getPremiumWritten();
+                }
+
+                for (UnderwritingInfo underwritingInfo : underwritingInfos) {
+                    LobMarker coveredLine = underwritingInfo.getLineOfBusiness();
+                    underwritingInfo.premiumWritten = aggregatedPremiumWritten * getLineOfBusinessShare(coveredLine);
+                    underwritingInfo.premiumWrittenAsIf = aggregatedPremiumWritten * getLineOfBusinessShare(coveredLine);
+                }
+            }
+    }
+
+    private Double getLineOfBusinessShare(LobMarker coveredLine) {
+        Double share = sharesPerLineOfBusiness.get(coveredLine);
+        if (share == null) {
+            ConstrainedMultiDimensionalParameter lineOfBusinessShares =(ConstrainedMultiDimensionalParameter) ((LineSharesPremiumAllocationStrategy)
+                    ((XLContractStrategy) parmContractStrategy).getPremiumAllocation()).getLineOfBusinessShares();
+   
+            int numberOfLines = lineOfBusinessShares.getValueRowCount();
+            int firstRowWithLine = lineOfBusinessShares.getTitleRowCount();
+            for (int row = firstRowWithLine; row <= numberOfLines; row++) {
+                LobMarker line = (LobMarker) lineOfBusinessShares.getValueAt(row, 0);
+                share = (Double) lineOfBusinessShares.getValueAt(row, 1);
+                if (!line.equals(coveredLine)) {
+                    share = 0d;
+                }
+                sharesPerLineOfBusiness.put(coveredLine, share);
+                if (share > 0) break;   // stop, if equal names were found
+            }
+        }
+        return share;
+    }
+
     private void setClaimReferences(Claim claim, Claim grossClaim, Component origin) {
         claim.origin = origin;
         claim.setReinsuranceContract(this);
         if (grossClaim.getOriginalClaim() != null) {
             claim.setOriginalClaim(grossClaim.getOriginalClaim());
-        }
-        else {
+        } else {
             claim.setOriginalClaim(grossClaim);
         }
     }
 
     /**
      * the origin ceded values along a cascade of contracts should always point to the origin of the cascade
+     *
      * @param underwritingInfo
      * @param derivedUnderwritingInfo
      */
     protected void setOriginalUnderwritingInfo(UnderwritingInfo underwritingInfo, UnderwritingInfo derivedUnderwritingInfo) {
         if (underwritingInfo != null && underwritingInfo.originalUnderwritingInfo != null) {
             derivedUnderwritingInfo.originalUnderwritingInfo = underwritingInfo.originalUnderwritingInfo;
-        }
-        else {
+        } else {
             derivedUnderwritingInfo.originalUnderwritingInfo = underwritingInfo;
         }
     }
@@ -240,11 +312,12 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
 
     private double getTotalInitialReserves() {
         double totalInitialReserves = 0d;
-        for(SingleValuePacket initialReserve : inInitialReserves ) {
+        for (SingleValuePacket initialReserve : inInitialReserves) {
             totalInitialReserves += initialReserve.getValue();
         }
         return totalInitialReserves;
     }
+
     public IReinsuranceContractStrategy getParmContractStrategy() {
         return parmContractStrategy;
     }

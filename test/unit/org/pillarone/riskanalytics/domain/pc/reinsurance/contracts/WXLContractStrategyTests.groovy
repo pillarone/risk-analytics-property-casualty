@@ -18,13 +18,14 @@ class WXLContractStrategyTests extends GroovyTestCase {
                 parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.WXL,
                         ["attachmentPoint": 20,
-                         "limit": 30,
-                         "aggregateLimit": 100,
-                         "aggregateDeductible": 0,
-                         "premiumBase": PremiumBase.ABSOLUTE,
-                         "premium": 100,
-                         "reinstatementPremiums": new TableMultiDimensionalParameter([0.2], ['Reinstatement Premium']),
-                         "coveredByReinsurer": 1d]))
+                                "limit": 30,
+                                "aggregateLimit": 100,
+                                "aggregateDeductible": 0,
+                                "premiumBase": PremiumBase.ABSOLUTE,
+                                "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, new HashMap()),
+                                "premium": 100,
+                                "reinstatementPremiums": new TableMultiDimensionalParameter([0.2], ['Reinstatement Premium']),
+                                "coveredByReinsurer": 1d]))
     }
 
     static ReinsuranceContract getContract1() {
@@ -32,13 +33,14 @@ class WXLContractStrategyTests extends GroovyTestCase {
                 parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.WXL,
                         ["attachmentPoint": 80,
-                         "limit": 20,
-                         "aggregateLimit": 50,
-                         "aggregateDeductible": 0,
-                         "premiumBase": PremiumBase.ABSOLUTE,
-                         "premium": 100,
-                         "reinstatementPremiums": new TableMultiDimensionalParameter([0.2], ['Reinstatement Premium']),
-                         "coveredByReinsurer": 1d]))
+                                "limit": 20,
+                                "aggregateLimit": 50,
+                                "aggregateDeductible": 0,
+                                "premiumBase": PremiumBase.ABSOLUTE,
+                                "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, new HashMap()),
+                                "premium": 100,
+                                "reinstatementPremiums": new TableMultiDimensionalParameter([0.2], ['Reinstatement Premium']),
+                                "coveredByReinsurer": 1d]))
     }
 
     static ReinsuranceContract getContract2() {
@@ -46,13 +48,14 @@ class WXLContractStrategyTests extends GroovyTestCase {
                 parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.WXL,
                         ["attachmentPoint": 20,
-                         "limit": 30,
-                         "aggregateLimit": 100,
-                         "aggregateDeductible": 50,
-                         "premiumBase": PremiumBase.ABSOLUTE,
-                         "premium": 100,
-                         "reinstatementPremiums": new TableMultiDimensionalParameter([0.3], ['Reinstatement Premium']),
-                         "coveredByReinsurer": 1d]))
+                                "limit": 30,
+                                "aggregateLimit": 100,
+                                "aggregateDeductible": 50,
+                                "premiumBase": PremiumBase.ABSOLUTE,
+                                "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, new HashMap()),
+                                "premium": 100,
+                                "reinstatementPremiums": new TableMultiDimensionalParameter([0.3], ['Reinstatement Premium']),
+                                "coveredByReinsurer": 1d]))
     }
 
     void testCalculateCededClaimsOnly() {
@@ -176,10 +179,13 @@ class WXLContractStrategyTests extends GroovyTestCase {
         ReinsuranceContract wxl = getContract1()
         UnderwritingInfo grossUnderwritingInfo = UnderwritingInfoTests.getUnderwritingInfo()
         wxl.parmContractStrategy.premiumBase = PremiumBase.RATE_ON_LINE
+        Map<UnderwritingInfo, Double> grossPremiumSharesPerBand = new HashMap<UnderwritingInfo, Double>(1);
+        grossPremiumSharesPerBand.put(grossUnderwritingInfo, 1);
+        wxl.parmContractStrategy.grossPremiumSharesPerBand = grossPremiumSharesPerBand
         UnderwritingInfo cededUnderwritingInfo = wxl.parmContractStrategy.calculateCoverUnderwritingInfo(grossUnderwritingInfo, 0)
 
-        assertEquals "premium written", wxl.parmContractStrategy.premium * wxl.parmContractStrategy.limit, cededUnderwritingInfo.premiumWritten
-        assertEquals "premium written as if", wxl.parmContractStrategy.premium * wxl.parmContractStrategy.limit, cededUnderwritingInfo.premiumWrittenAsIf
+        assertEquals "premium written", wxl.parmContractStrategy.premium * wxl.parmContractStrategy.grossPremiumSharesPerBand.get(grossUnderwritingInfo)* wxl.parmContractStrategy.limit, cededUnderwritingInfo.premiumWritten
+        assertEquals "premium written as if", wxl.parmContractStrategy.premium * wxl.parmContractStrategy.grossPremiumSharesPerBand.get(grossUnderwritingInfo)* wxl.parmContractStrategy.limit, cededUnderwritingInfo.premiumWrittenAsIf
     }
 
 
@@ -280,13 +286,14 @@ class WXLContractStrategyTests extends GroovyTestCase {
                 parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.WXL,
                         ["attachmentPoint": 0,
-                         "limit": 0,
-                         "aggregateLimit": 0,
-                         "aggregateDeductible": 0,
-                         "premiumBase": PremiumBase.ABSOLUTE,
-                         "premium": 100,
-                         "reinstatementPremiums": new TableMultiDimensionalParameter([0.3], ['Reinstatement Premium']),
-                         "coveredByReinsurer": 1d]))
+                                "limit": 0,
+                                "aggregateLimit": 0,
+                                "aggregateDeductible": 0,
+                                "premiumBase": PremiumBase.ABSOLUTE,
+                                "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, new HashMap()),
+                                "premium": 100,
+                                "reinstatementPremiums": new TableMultiDimensionalParameter([0.3], ['Reinstatement Premium']),
+                                "coveredByReinsurer": 1d]))
 
         wxl.inUnderwritingInfo << UnderwritingInfoTests.getUnderwritingInfo()
 

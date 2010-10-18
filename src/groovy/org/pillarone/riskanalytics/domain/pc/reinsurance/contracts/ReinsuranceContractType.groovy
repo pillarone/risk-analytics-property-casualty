@@ -12,36 +12,40 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
 
 
     public static final ReinsuranceContractType QUOTASHARE = new ReinsuranceContractType("quota share", "QUOTASHARE",
-        ["quotaShare": 0d, "limit": LimitStrategyType.noLimit, "coveredByReinsurer": 1d])
+            ["quotaShare": 0d, "limit": LimitStrategyType.noLimit, "coveredByReinsurer": 1d])
     public static final ReinsuranceContractType SURPLUS = new ReinsuranceContractType("surplus", "SURPLUS", ["retention": 0d,
-        "lines": 0d, "defaultCededLossShare": 0d, "coveredByReinsurer": 1d])
+            "lines": 0d, "defaultCededLossShare": 0d, "coveredByReinsurer": 1d])
     public static final ReinsuranceContractType SURPLUS2 = new ReinsuranceContractType("surplus 2", "SURPLUS2",
-        ["retention": 0d, "lines": 0, "commission": 0d, "alpha": 0d, "beta": 0d, "coveredByReinsurer": 1d])
+            ["retention": 0d, "lines": 0, "commission": 0d, "alpha": 0d, "beta": 0d, "coveredByReinsurer": 1d])
     public static final ReinsuranceContractType WXL = new ReinsuranceContractType("wxl", "WXL", ["attachmentPoint": 0d, "limit": 0d,
-        "aggregateLimit": 0d, "premiumBase": PremiumBase.ABSOLUTE, "premium": 0d, "coveredByReinsurer": 1d,
-        "reinstatementPremiums": new TableMultiDimensionalParameter([0.0], ['Reinstatement Premium'])])
+            "aggregateLimit": 0d, "premiumBase": PremiumBase.ABSOLUTE, "premium": 0d,
+            "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]), "coveredByReinsurer": 1d,
+            "reinstatementPremiums": new TableMultiDimensionalParameter([0.0], ['Reinstatement Premium'])])
     public static final ReinsuranceContractType CXL = new ReinsuranceContractType("cxl", "CXL", ["attachmentPoint": 0d, "limit": 0d,
-        "aggregateLimit": 0d, "premiumBase": PremiumBase.ABSOLUTE, "premium": 0d, "coveredByReinsurer": 1d,
-        "reinstatementPremiums": new TableMultiDimensionalParameter([0.0], ['Reinstatement Premium'])])
+            "aggregateLimit": 0d, "premiumBase": PremiumBase.ABSOLUTE, "premium": 0d,
+            "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]), "coveredByReinsurer": 1d,
+            "reinstatementPremiums": new TableMultiDimensionalParameter([0.0], ['Reinstatement Premium'])])
     public static final ReinsuranceContractType WCXL = new ReinsuranceContractType("wcxl", "WCXL", ["attachmentPoint": 0d, "limit": 0d,
-        "aggregateLimit": 0d, "premiumBase": PremiumBase.ABSOLUTE, "premium": 0d, "coveredByReinsurer": 1d,
-        "reinstatementPremiums": new TableMultiDimensionalParameter([0.0], ['Reinstatement Premium'])])
+            "aggregateLimit": 0d, "premiumBase": PremiumBase.ABSOLUTE, "premium": 0d,
+            "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]), "coveredByReinsurer": 1d,
+            "reinstatementPremiums": new TableMultiDimensionalParameter([0.0], ['Reinstatement Premium'])])
     public static final ReinsuranceContractType STOPLOSS = new ReinsuranceContractType("stop loss", "STOPLOSS",
-        ["stopLossContractBase": StopLossContractBase.ABSOLUTE, "attachmentPoint": 0d, "limit": 0d, "premium": 0d, "coveredByReinsurer": 1d])
+            ["stopLossContractBase": StopLossContractBase.ABSOLUTE, "attachmentPoint": 0d, "limit": 0d, "premium": 0d, "coveredByReinsurer": 1d])
     public static final ReinsuranceContractType TRIVIAL = new ReinsuranceContractType("trivial", "TRIVIAL", [:])
     public static final ReinsuranceContractType AGGREGATEXL = new ReinsuranceContractType("aggregate xl", "AggregateXL",
-        ["attachmentPoint": 0d, "limit": 0d, "premiumBase": PremiumBase.ABSOLUTE, "premium": 0d, "coveredByReinsurer": 1d, "claimClass": ClaimType.AGGREGATED_EVENT])
+            ["attachmentPoint": 0d, "limit": 0d, "premiumBase": PremiumBase.ABSOLUTE,
+                    "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]), "premium": 0d, "coveredByReinsurer": 1d, "claimClass": ClaimType.AGGREGATED_EVENT])
     public static final ReinsuranceContractType LOSSPORTFOLIOTRANSFER = new ReinsuranceContractType("loss portfolio transfer", "LOSSPORTFOLIOTRANSFER",
-        ["quotaShare": 0d, "premiumBase": LPTPremiumBase.ABSOLUTE, "premium": 0d, "coveredByReinsurer": 1d])
+            ["quotaShare": 0d, "premiumBase": LPTPremiumBase.ABSOLUTE, "premium": 0d, "coveredByReinsurer": 1d])
     public static final ReinsuranceContractType ADVERSEDEVELOPMENTCOVER = new ReinsuranceContractType("adverse development cover", "ADVERSEDEVELOPMENTCOVER",
-        ["attachmentPoint": 0d, "limit": 0d, "stopLossContractBase": StopLossContractBase.ABSOLUTE, "premium": 0d, "coveredByReinsurer": 1d])
+            ["attachmentPoint": 0d, "limit": 0d, "stopLossContractBase": StopLossContractBase.ABSOLUTE, "premium": 0d, "coveredByReinsurer": 1d])
     public static final ReinsuranceContractType GOLDORAK = new ReinsuranceContractType("goldorak", "GOLDORAK", ["cxlAttachmentPoint": 0d, "cxlLimit": 0d,
             "cxlAggregateDeductible": 0d, "cxlAggregateLimit": 0d, "premiumBase": PremiumBase.ABSOLUTE, "premium": 0d,
-            "coveredByReinsurer": 1d, "slAttachmentPoint": 0d, "slLimit": 0d, "goldorakSlThreshold" : 0d,
+            "coveredByReinsurer": 1d, "slAttachmentPoint": 0d, "slLimit": 0d, "goldorakSlThreshold": 0d,
             "reinstatementPremiums": new TableMultiDimensionalParameter([0.0], ['Reinstatement Premium'])])
 
     public static final all = [QUOTASHARE, SURPLUS, WXL, CXL,
-        WCXL, STOPLOSS, TRIVIAL, AGGREGATEXL, LOSSPORTFOLIOTRANSFER, ADVERSEDEVELOPMENTCOVER, GOLDORAK]
+            WCXL, STOPLOSS, TRIVIAL, AGGREGATEXL, LOSSPORTFOLIOTRANSFER, ADVERSEDEVELOPMENTCOVER, GOLDORAK]
 
     protected static Map types = [:]
     static {
@@ -84,33 +88,36 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
 
     private static IReinsuranceContractStrategy getWXL(double attachmentPoint, double limit, double aggregateLimit,
                                                        double aggregateDeductible, PremiumBase premiumBase, double premium,
+                                                       IPremiumAllocationStrategy premiumAllocation,
                                                        AbstractMultiDimensionalParameter reinstatementPremiums,
                                                        double coveredByReinsurer) {
         return new WXLContractStrategy(attachmentPoint: attachmentPoint, limit: limit, aggregateLimit: aggregateLimit,
-                aggregateDeductible: aggregateDeductible, premiumBase: premiumBase, premium: premium,
+                aggregateDeductible: aggregateDeductible, premiumBase: premiumBase, premium: premium, premiumAllocation: premiumAllocation,
                 reinstatementPremiums: reinstatementPremiums, coveredByReinsurer: coveredByReinsurer)
     }
 
     private static IReinsuranceContractStrategy getCXL(double attachmentPoint, double limit, double aggregateLimit,
                                                        double aggregateDeductible, PremiumBase premiumBase, double premium,
+                                                       IPremiumAllocationStrategy premiumAllocation,
                                                        AbstractMultiDimensionalParameter reinstatementPremiums,
                                                        double coveredByReinsurer) {
         return new CXLContractStrategy(attachmentPoint: attachmentPoint, limit: limit, aggregateLimit: aggregateLimit,
                 aggregateDeductible: aggregateDeductible, premiumBase: premiumBase, premium: premium,
-                reinstatementPremiums: reinstatementPremiums, coveredByReinsurer: coveredByReinsurer)
+                premiumAllocation: premiumAllocation, reinstatementPremiums: reinstatementPremiums, coveredByReinsurer: coveredByReinsurer)
     }
 
     private static IReinsuranceContractStrategy getWCXL(double attachmentPoint, double limit, double aggregateLimit,
                                                         double aggregateDeductible, PremiumBase premiumBase, double premium,
+                                                        IPremiumAllocationStrategy premiumAllocation,
                                                         AbstractMultiDimensionalParameter reinstatementPremiums,
                                                         double coveredByReinsurer) {
         return new WCXLContractStrategy(attachmentPoint: attachmentPoint, limit: limit, aggregateLimit: aggregateLimit,
-                aggregateDeductible: aggregateDeductible, premiumBase: premiumBase, premium: premium,
+                aggregateDeductible: aggregateDeductible, premiumBase: premiumBase, premium: premium, premiumAllocation: premiumAllocation,
                 reinstatementPremiums: reinstatementPremiums, coveredByReinsurer: coveredByReinsurer)
     }
 
     private static IReinsuranceContractStrategy getLossPortfolioTransferContractStrategy(double quotaShare, LPTPremiumBase premiumBase,
-                        double premium, double coveredByReinsurer) {
+                                                                                         double premium, double coveredByReinsurer) {
         return new LossPortfolioTransferContractStrategy(quotaShare: quotaShare, premiumBase: premiumBase, premium: premium, coveredByReinsurer: coveredByReinsurer)
     }
 
@@ -126,11 +133,11 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
 
     private static IReinsuranceContractStrategy getGoldorak(double attachmentPoint, double limit, double cxlAggregateDeductible,
                                                             double cxlAggregateLimit, PremiumBase premiumBase, double premium,
-                                                       AbstractMultiDimensionalParameter reinstatementPremiums,
-                                                       double coveredByReinsurer, double slAttachmentPoint,
-                                                       double slLimit, double goldorakSlThreshold) {
+                                                            AbstractMultiDimensionalParameter reinstatementPremiums,
+                                                            double coveredByReinsurer, double slAttachmentPoint,
+                                                            double slLimit, double goldorakSlThreshold) {
         return new GoldorakContractStrategy(cxlAttachmentPoint: attachmentPoint, cxlLimit: limit, cxlAggregateDeductible:
-                cxlAggregateDeductible, cxlAggregateLimit: cxlAggregateLimit,
+        cxlAggregateDeductible, cxlAggregateLimit: cxlAggregateLimit,
                 premiumBase: premiumBase, premium: premium, reinstatementPremiums: reinstatementPremiums,
                 coveredByReinsurer: coveredByReinsurer, slAttachmentPoint: slAttachmentPoint, slLimit: slLimit,
                 goldorakSlThreshold: goldorakSlThreshold)
@@ -159,6 +166,7 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
                         (double) parameters["aggregateDeductible"] == null ? 0 : (double) parameters["aggregateDeductible"],
                         (PremiumBase) parameters["premiumBase"],
                         (double) parameters["premium"],
+                        (IPremiumAllocationStrategy) parameters["premiumAllocation"],
                         (AbstractMultiDimensionalParameter) parameters["reinstatementPremiums"],
                         (double) parameters["coveredByReinsurer"])
                 break
@@ -170,6 +178,7 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
                         (double) parameters["aggregateDeductible"] == null ? 0 : (double) parameters["aggregateDeductible"],
                         (PremiumBase) parameters["premiumBase"],
                         (double) parameters["premium"],
+                        (IPremiumAllocationStrategy) parameters["premiumAllocation"],
                         (AbstractMultiDimensionalParameter) parameters["reinstatementPremiums"],
                         (double) parameters["coveredByReinsurer"])
                 break
@@ -181,6 +190,7 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
                         (double) parameters["aggregateDeductible"] == null ? 0 : (double) parameters["aggregateDeductible"],
                         (PremiumBase) parameters["premiumBase"],
                         (double) parameters["premium"],
+                        (IPremiumAllocationStrategy) parameters["premiumAllocation"],
                         (AbstractMultiDimensionalParameter) parameters["reinstatementPremiums"],
                         (double) parameters["coveredByReinsurer"])
                 break

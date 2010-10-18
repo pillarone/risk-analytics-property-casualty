@@ -11,6 +11,7 @@ import org.pillarone.riskanalytics.domain.utils.ClaimSizeDistributionType
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.domain.utils.FrequencyDistributionType
 import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.PremiumAllocationType
 //import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
 
 model = QS_XL_SL_Model
@@ -35,7 +36,7 @@ components {
     }
     wxl {
         parmContractStrategy[allPeriods] = new WXLContractStrategy(
-                "attachmentPoint": 80, "limit": 50, "aggregateLimit": 200, "coveredByReinsurer": 1d,
+                "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]), "attachmentPoint": 80, "limit": 50, "aggregateLimit": 200, "coveredByReinsurer": 1d,
                 "premiumBase": PremiumBase.ABSOLUTE, "premium": 70, "reinstatementPremiums": new TableMultiDimensionalParameter([0.5], ['Reinstatement Premium']))
     }
     stopLoss {

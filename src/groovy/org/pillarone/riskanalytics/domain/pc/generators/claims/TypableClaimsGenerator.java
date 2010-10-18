@@ -4,6 +4,7 @@ import org.apache.commons.lang.NotImplementedException;
 import org.pillarone.riskanalytics.core.model.Model;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter;
+import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter;
 import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimPacketFactory;
@@ -34,7 +35,6 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- *
  * Typisierbare Schadengeneratoren in parmClaimsModel
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -57,7 +57,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
     private PacketList<EventDependenceStream> inEventSeverities = new PacketList<EventDependenceStream>(EventDependenceStream.class);
 
     private ComboBoxTableMultiDimensionalParameter parmUnderwritingInformation = new ComboBoxTableMultiDimensionalParameter(
-        Arrays.asList(""), Arrays.asList("Underwriting Information"), IUnderwritingInfoMarker.class);
+            Arrays.asList(""), Arrays.asList("Underwriting Information"), IUnderwritingInfoMarker.class);
 
     // attritional, frequency average attritional, ...
     private IClaimsGeneratorStrategy parmClaimsModel = ClaimsGeneratorType.getStrategy(ClaimsGeneratorType.ATTRITIONAL, new HashMap());
@@ -78,14 +78,16 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
      */
     private PacketList<UnderwritingInfo> outUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
 
-    /** used for date generation for single claims */
+    /**
+     * used for date generation for single claims
+     */
     private IRandomNumberGenerator dateGenerator = RandomNumberGeneratorFactory.getUniformGenerator();
 
     protected void doCalculation() {
         outUnderwritingInfo.addAll(
-            UnderwritingFilterUtilities.filterUnderwritingInfo(
-                inUnderwritingInfo,
-                parmUnderwritingInformation.getValuesAsObjects()));
+                UnderwritingFilterUtilities.filterUnderwritingInfo(
+                        inUnderwritingInfo,
+                        parmUnderwritingInformation.getValuesAsObjects()));
         List<Double> claimValues = new ArrayList<Double>();
         List<Event> events = new ArrayList<Event>();
         PacketList<Claim> claims = new PacketList<Claim>(Claim.class);
@@ -97,32 +99,32 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
                 if (this.isReceiverWired(inProbabilities)) {
                     List<Double> probabilities = filterProbabilities();
                     if (probabilities.size() > 1) {
-                        throw new IllegalArgumentException("['TypableClaimsGenerator.attritionalClaims','"+this.getNormalizedName()+"']");
+                        throw new IllegalArgumentException("['TypableClaimsGenerator.attritionalClaims','" + this.getNormalizedName() + "']");
                     } else {
                         claimValues = calculateClaimsValues(
-                            probabilities,
-                            parmClaimsModel.getClaimsSizeDistribution(),
-                            parmClaimsModel.getClaimsSizeModification());
+                                probabilities,
+                                parmClaimsModel.getClaimsSizeDistribution(),
+                                parmClaimsModel.getClaimsSizeModification());
                     }
                 }
                 if (claimValues == null || claimValues.size() == 0) {
                     claimValues = generateClaimsValues(1,
-                        parmClaimsModel.getClaimsSizeDistribution(),
-                        parmClaimsModel.getClaimsSizeModification());
+                            parmClaimsModel.getClaimsSizeDistribution(),
+                            parmClaimsModel.getClaimsSizeModification());
                 }
 
             } else if (parmClaimsModel instanceof IFrequencyClaimsGeneratorStrategy) {
                 double frequency = generateFrequency(
-                    ((IFrequencyClaimsGeneratorStrategy) parmClaimsModel).getFrequencyDistribution(),
-                    ((IFrequencyClaimsGeneratorStrategy) parmClaimsModel).getFrequencyModification(),
-                    ((IFrequencyClaimsGeneratorStrategy) parmClaimsModel).getFrequencyBase());
+                        ((IFrequencyClaimsGeneratorStrategy) parmClaimsModel).getFrequencyDistribution(),
+                        ((IFrequencyClaimsGeneratorStrategy) parmClaimsModel).getFrequencyModification(),
+                        ((IFrequencyClaimsGeneratorStrategy) parmClaimsModel).getFrequencyBase());
                 if (parmClaimsModel instanceof FrequencyAverageAttritionalClaimsGeneratorStrategy) {
                     claimType = ClaimType.ATTRITIONAL;
 
                     scalingFactor *= frequency;
                     claimValues = generateClaimsValues(1,
-                        parmClaimsModel.getClaimsSizeDistribution(),
-                        parmClaimsModel.getClaimsSizeModification());
+                            parmClaimsModel.getClaimsSizeDistribution(),
+                            parmClaimsModel.getClaimsSizeModification());
                 } else if (parmClaimsModel instanceof IFrequencySingleClaimsGeneratorStrategy) {
                     if (((IFrequencySingleClaimsGeneratorStrategy) parmClaimsModel).getProduceClaim().equals(FrequencySeverityClaimType.AGGREGATED_EVENT)) {
                         claimType = ClaimType.AGGREGATED_EVENT;
@@ -131,8 +133,8 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
                         claimType = ClaimType.SINGLE;
                     }
                     claimValues = generateClaimsValues((int) frequency,
-                        parmClaimsModel.getClaimsSizeDistribution(),
-                        parmClaimsModel.getClaimsSizeModification());
+                            parmClaimsModel.getClaimsSizeDistribution(),
+                            parmClaimsModel.getClaimsSizeModification());
                 }
             } else if (parmClaimsModel instanceof ExternalSeverityClaimsGeneratorStrategy) {
                 if (this.isReceiverWired(inEventSeverities)) {
@@ -142,8 +144,37 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
                 } else {
                     throw new IllegalArgumentException("TypableClaimsGenerator.externalSeverityClaims");
                 }
-            } else {
-                throw new NotImplementedException("['TypableClaimsGenerator.notImplemented','"+parmClaimsModel.toString()+"']");
+            } /*else if (parmClaimsModel instanceof PMLClaimsGeneratorStrategy) {
+                ConstrainedMultiDimensionalParameter tableWithReturnPeriodsAndClaims = ((PMLClaimsGeneratorStrategy) parmClaimsModel).getPmlData();
+                List<Double> returnPeriods = tableWithReturnPeriodsAndClaims.getColumnByName("return period");
+                final List<Double> observations = tableWithReturnPeriodsAndClaims.getColumnByName("maximum claim");
+                List<Double> frequencies = new ArrayList<Double>(returnPeriods.size());
+                for (Double period :returnPeriods){
+                    frequencies.add(1/period);
+                }
+                final List<Double> cumProbabilities = new ArrayList<Double>(observations.size());
+                for (Double frequency : frequencies){
+                    cumProbabilities.add(1d - frequency/frequencies.get(0));
+                }
+                RandomDistribution claimsSizeDistribution = (RandomDistribution) DistributionType.getStrategy(DistributionType.DISCRETEEMPIRICALCUMULATIVE,
+                     new HashMap<String, List<Double>>() {{
+                                put("observations",observations); put("cumulative probabilities",cumProbabilities);
+                            }});
+                if (parmClaimsModel.getClaimsSizeModification().equals(DistributionModifier.NONE)) {
+                    final Double lambda = 1 / returnPeriods.get(0);
+                    RandomDistribution frequencyDistribution = (RandomDistribution) FrequencyDistributionType.getStrategy(FrequencyDistributionType.POISSON,
+                            new HashMap<String, Double>() {{
+                                put("lambda",lambda);
+                            }});
+                    
+
+                } else {
+                    throw new IllegalArgumentException("Distribution modifications not yet implemented");
+                }
+
+            }  */
+            else {
+                throw new NotImplementedException("['TypableClaimsGenerator.notImplemented','" + parmClaimsModel.toString() + "']");
             }
             if (events.size() == 0) {
                 if (claimValues.size() == 0) {
@@ -181,12 +212,10 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
         if (parmClaimsModel instanceof IOccurrenceClaimsGeneratorStrategy) {
             IRandomNumberGenerator generator = getCachedGenerator(((IOccurrenceClaimsGeneratorStrategy) parmClaimsModel).getOccurrenceDistribution(), parmClaimsModel.getClaimsSizeModification());
             claim.setFractionOfPeriod((Double) generator.nextValue());
-        }
-        else {
+        } else {
             if (claimType.equals(ClaimType.ATTRITIONAL)) {
                 claim.setFractionOfPeriod(0.5d);
-            }
-            else {
+            } else {
                 claim.setFractionOfPeriod((Double) dateGenerator.nextValue());
             }
         }
@@ -271,13 +300,13 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
     }
 
     // todo(sku): refactor once the variate distributions are properly refactored
+
     protected List<Double> calculateClaimsValues(List<Double> probabilities, RandomDistribution distribution, DistributionModified modification) {
         Distribution dist = distribution.getDistribution();
         if (modification.getType().equals(DistributionModifier.CENSORED) || modification.getType().equals(DistributionModifier.CENSOREDSHIFT)) {
             dist = new CensoredDist(distribution.getDistribution(),
                     (Double) modification.getParameters().get("min"), (Double) modification.getParameters().get("max"));
-        }
-        else if (modification.getType().equals(DistributionModifier.TRUNCATED) || modification.getType().equals(DistributionModifier.TRUNCATEDSHIFT)) {
+        } else if (modification.getType().equals(DistributionModifier.TRUNCATED) || modification.getType().equals(DistributionModifier.TRUNCATEDSHIFT)) {
             Double leftBoundary = (Double) modification.getParameters().get("min");
             Double rightBoundary = (Double) modification.getParameters().get("max");
             dist = new TruncatedDist((ContinuousDistribution) distribution.getDistribution(), leftBoundary, rightBoundary);
@@ -335,7 +364,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
 
     public void setParmUnderwritingInformation(ComboBoxTableMultiDimensionalParameter parmUnderwritingInformation) {
         this.parmUnderwritingInformation = parmUnderwritingInformation;
-    }    
+    }
 
     public IClaimsGeneratorStrategy getParmClaimsModel() {
         return parmClaimsModel;

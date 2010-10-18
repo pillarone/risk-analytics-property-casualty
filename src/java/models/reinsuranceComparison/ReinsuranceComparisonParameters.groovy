@@ -11,6 +11,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceCo
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.PremiumAllocationType
 
 model = models.reinsuranceComparison.ReinsuranceComparisonModel
 periodCount = 1
@@ -53,7 +54,7 @@ components {
 				parmInuringPriority[0]=0
 			}
 			subContract2 {
-				parmContractStrategy[0]=ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumBase":PremiumBase.GNPI,"premium":0.0049,"reinstatementPremiums":new TableMultiDimensionalParameter([0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],["Reinstatement Premium"]),"attachmentPoint":5000000.0,"limit":9.5E7,"aggregateLimit":9.5E8, "coveredByReinsurer": 1d])
+				parmContractStrategy[0]=ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"premiumBase":PremiumBase.GNPI,"premium":0.0049,"reinstatementPremiums":new TableMultiDimensionalParameter([0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],["Reinstatement Premium"]),"attachmentPoint":5000000.0,"limit":9.5E7,"aggregateLimit":9.5E8, "coveredByReinsurer": 1d])
 				parmInuringPriority[0]=1
 			}
 			subContract3 {
@@ -67,7 +68,7 @@ components {
 				parmInuringPriority[0] = 0
 			}
 			subContract2 {
-				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumBase":PremiumBase.GNPI,"premium":0.0573,"reinstatementPremiums":new TableMultiDimensionalParameter([0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],["Reinstatement Premium"]),"attachmentPoint":1000000.0,"limit":9.9E7,"aggregateLimit":9.9E8, "coveredByReinsurer": 1d])
+				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"premiumBase":PremiumBase.GNPI,"premium":0.0573,"reinstatementPremiums":new TableMultiDimensionalParameter([0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],["Reinstatement Premium"]),"attachmentPoint":1000000.0,"limit":9.9E7,"aggregateLimit":9.9E8, "coveredByReinsurer": 1d])
 				parmInuringPriority[0] = 1
 			}
 			subContract3 {
@@ -82,7 +83,7 @@ components {
 				parmInuringPriority[0] = 0
 			}
 			subContract2 {
-				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumBase":PremiumBase.GNPI,"premium":0.0573,"reinstatementPremiums":new TableMultiDimensionalParameter([0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],["Reinstatement Premium"]),"attachmentPoint":1000000.0,"limit":9.9E7,"aggregateLimit":9.9E8, "coveredByReinsurer": 1d])
+				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"premiumBase":PremiumBase.GNPI,"premium":0.0573,"reinstatementPremiums":new TableMultiDimensionalParameter([0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],["Reinstatement Premium"]),"attachmentPoint":1000000.0,"limit":9.9E7,"aggregateLimit":9.9E8, "coveredByReinsurer": 1d])
 				parmInuringPriority[0] = 0
 			}
 			subContract3 {
@@ -97,7 +98,7 @@ components {
 				parmInuringPriority[0] = 0
 			}
 			subContract2 {
-				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumBase":PremiumBase.GNPI,"premium":0.0573,"reinstatementPremiums":new TableMultiDimensionalParameter([0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],["Reinstatement Premium"]),"attachmentPoint":1000000.0,"limit":9.9E7,"aggregateLimit":9.9E8, "coveredByReinsurer": 1d])
+				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"premiumBase":PremiumBase.GNPI,"premium":0.0573,"reinstatementPremiums":new TableMultiDimensionalParameter([0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],["Reinstatement Premium"]),"attachmentPoint":1000000.0,"limit":9.9E7,"aggregateLimit":9.9E8, "coveredByReinsurer": 1d])
 				parmInuringPriority[0] = 0
 			}
 			subContract3 {
@@ -135,7 +136,7 @@ components {
 				parmInuringPriority[0]=0
 			}
 			subContract2 {
-				parmContractStrategy[0]=ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumBase":PremiumBase.GNPI,"premium":0.01,"reinstatementPremiums":new TableMultiDimensionalParameter([0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],["Reinstatement Premium"]),"attachmentPoint":1.0E7,"limit":1.0E7,"aggregateLimit":1.0E8, "coveredByReinsurer": 1d])
+				parmContractStrategy[0]=ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"premiumBase":PremiumBase.GNPI,"premium":0.01,"reinstatementPremiums":new TableMultiDimensionalParameter([0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],["Reinstatement Premium"]),"attachmentPoint":1.0E7,"limit":1.0E7,"aggregateLimit":1.0E8, "coveredByReinsurer": 1d])
 				parmInuringPriority[0]=1
 			}
 			subContract3 {
@@ -149,7 +150,7 @@ components {
 				parmInuringPriority[0] = 0
 			}
 			subContract2 {
-				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumBase":PremiumBase.GNPI,"premium":0.043,"reinstatementPremiums":new TableMultiDimensionalParameter([0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],["Reinstatement Premium"]),"attachmentPoint":500000.0,"limit":1.95E7,"aggregateLimit":1.95E8, "coveredByReinsurer": 1d])
+				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"premiumBase":PremiumBase.GNPI,"premium":0.043,"reinstatementPremiums":new TableMultiDimensionalParameter([0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],["Reinstatement Premium"]),"attachmentPoint":500000.0,"limit":1.95E7,"aggregateLimit":1.95E8, "coveredByReinsurer": 1d])
 				parmInuringPriority[0] = 0
 			}
 			subContract3 {
@@ -163,7 +164,7 @@ components {
 				parmInuringPriority[0] = 0
 			}
 			subContract2 {
-				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumBase":PremiumBase.GNPI,"premium":0.043,"reinstatementPremiums":new TableMultiDimensionalParameter([0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],["Reinstatement Premium"]),"attachmentPoint":500000.0,"limit":1.95E7,"aggregateLimit":1.95E8, "coveredByReinsurer": 1d])
+				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"premiumBase":PremiumBase.GNPI,"premium":0.043,"reinstatementPremiums":new TableMultiDimensionalParameter([0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],["Reinstatement Premium"]),"attachmentPoint":500000.0,"limit":1.95E7,"aggregateLimit":1.95E8, "coveredByReinsurer": 1d])
 				parmInuringPriority[0] = 0
 			}
 			subContract3 {
@@ -178,7 +179,7 @@ components {
 				parmInuringPriority[0] = 0
 			}
 			subContract2 {
-				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumBase":PremiumBase.GNPI,"premium":0.043,"reinstatementPremiums":new TableMultiDimensionalParameter([0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],["Reinstatement Premium"]),"attachmentPoint":500000.0,"limit":1.95E7,"aggregateLimit":1.95E8, "coveredByReinsurer": 1d])
+				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"premiumBase":PremiumBase.GNPI,"premium":0.043,"reinstatementPremiums":new TableMultiDimensionalParameter([0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],["Reinstatement Premium"]),"attachmentPoint":500000.0,"limit":1.95E7,"aggregateLimit":1.95E8, "coveredByReinsurer": 1d])
 				parmInuringPriority[0] = 0
 			}
 			subContract3 {
@@ -224,7 +225,7 @@ components {
 				parmInuringPriority[0]=0
 			}
 			subContract2 {
-				parmContractStrategy[0]=ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumBase":PremiumBase.GNPI,"premium":0.0017,"reinstatementPremiums":new TableMultiDimensionalParameter([0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],["Reinstatement Premium"]),"attachmentPoint":2000000.0,"limit":1000000.0,"aggregateLimit":3000000.0, "coveredByReinsurer": 1d])
+				parmContractStrategy[0]=ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"premiumBase":PremiumBase.GNPI,"premium":0.0017,"reinstatementPremiums":new TableMultiDimensionalParameter([0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],["Reinstatement Premium"]),"attachmentPoint":2000000.0,"limit":1000000.0,"aggregateLimit":3000000.0, "coveredByReinsurer": 1d])
 				parmInuringPriority[0]=0
 			}
 			subContract3 {
@@ -238,7 +239,7 @@ components {
 				parmInuringPriority[0] = 0
 			}
 			subContract2 {
-				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumBase":PremiumBase.GNPI,"premium":0.0178,"reinstatementPremiums":new TableMultiDimensionalParameter([0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],["Reinstatement Premium"]),"attachmentPoint":200000.0,"limit":2800000.0,"aggregateLimit":8400000.0, "coveredByReinsurer": 1d])
+				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"premiumBase":PremiumBase.GNPI,"premium":0.0178,"reinstatementPremiums":new TableMultiDimensionalParameter([0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],["Reinstatement Premium"]),"attachmentPoint":200000.0,"limit":2800000.0,"aggregateLimit":8400000.0, "coveredByReinsurer": 1d])
 				parmInuringPriority[0] = 0
 			}
 			subContract3 {
@@ -252,7 +253,7 @@ components {
 				parmInuringPriority[0] = 0
 			}
 			subContract2 {
-				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumBase":PremiumBase.GNPI,"premium":0.0178,"reinstatementPremiums":new TableMultiDimensionalParameter([0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],["Reinstatement Premium"]),"attachmentPoint":200000.0,"limit":2800000.0,"aggregateLimit":8400000.0, "coveredByReinsurer": 1d])
+				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"premiumBase":PremiumBase.GNPI,"premium":0.0178,"reinstatementPremiums":new TableMultiDimensionalParameter([0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],["Reinstatement Premium"]),"attachmentPoint":200000.0,"limit":2800000.0,"aggregateLimit":8400000.0, "coveredByReinsurer": 1d])
 				parmInuringPriority[0] = 0
 			}
 			subContract3 {
@@ -267,7 +268,7 @@ components {
 				parmInuringPriority[0] = 0
 			}
 			subContract2 {
-				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumBase":PremiumBase.GNPI,"premium":0.0178,"reinstatementPremiums":new TableMultiDimensionalParameter([0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],["Reinstatement Premium"]),"attachmentPoint":200000.0,"limit":2800000.0,"aggregateLimit":8400000.0, "coveredByReinsurer": 1d])
+				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"premiumBase":PremiumBase.GNPI,"premium":0.0178,"reinstatementPremiums":new TableMultiDimensionalParameter([0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],["Reinstatement Premium"]),"attachmentPoint":200000.0,"limit":2800000.0,"aggregateLimit":8400000.0, "coveredByReinsurer": 1d])
 				parmInuringPriority[0] = 0
 			}
 			subContract3 {
@@ -358,7 +359,7 @@ components {
         }
 		subRiProgramA {
 			subContract1 {
-				parmContractStrategy[0]=ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumBase":PremiumBase.GNPI,"premium":0.1568,"reinstatementPremiums":new TableMultiDimensionalParameter([1.0],["Reinstatement Premium"]),"attachmentPoint":5000000.0,"limit":1.7E8,"aggregateLimit":3.4E8, "coveredByReinsurer": 1d])
+				parmContractStrategy[0]=ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"premiumBase":PremiumBase.GNPI,"premium":0.1568,"reinstatementPremiums":new TableMultiDimensionalParameter([1.0],["Reinstatement Premium"]),"attachmentPoint":5000000.0,"limit":1.7E8,"aggregateLimit":3.4E8, "coveredByReinsurer": 1d])
 				parmInuringPriority[0]=0
 			}
 			subContract2 {
@@ -372,7 +373,7 @@ components {
 		}
         subRiProgramB {
 			subContract1 {
-				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumBase":PremiumBase.GNPI,"premium":0.0688,"reinstatementPremiums":new TableMultiDimensionalParameter([1.0,1.0,1.0],["Reinstatement Premium"]),"attachmentPoint":1000000.0,"limit":1.4E7,"aggregateLimit":5.6E7, "coveredByReinsurer": 1d])
+				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"premiumBase":PremiumBase.GNPI,"premium":0.0688,"reinstatementPremiums":new TableMultiDimensionalParameter([1.0,1.0,1.0],["Reinstatement Premium"]),"attachmentPoint":1000000.0,"limit":1.4E7,"aggregateLimit":5.6E7, "coveredByReinsurer": 1d])
 				parmInuringPriority[0] = 0
 			}
 			subContract2 {
@@ -386,7 +387,7 @@ components {
 		}
         subRiProgramC {
 			subContract1 {
-				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumBase":PremiumBase.GNPI,"premium":0.0688,"reinstatementPremiums":new TableMultiDimensionalParameter([1.0,1.0,1.0],["Reinstatement Premium"]),"attachmentPoint":1000000.0,"limit":1.4E7,"aggregateLimit":5.6E7, "coveredByReinsurer": 1d])
+				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"premiumBase":PremiumBase.GNPI,"premium":0.0688,"reinstatementPremiums":new TableMultiDimensionalParameter([1.0,1.0,1.0],["Reinstatement Premium"]),"attachmentPoint":1000000.0,"limit":1.4E7,"aggregateLimit":5.6E7, "coveredByReinsurer": 1d])
 				parmInuringPriority[0] = 0
 			}
 			subContract2 {
@@ -400,7 +401,7 @@ components {
 		}
         subRiProgramD {
 			subContract1 {
-				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumBase":PremiumBase.GNPI,"premium":0.0688,"reinstatementPremiums":new TableMultiDimensionalParameter([1.0,1.0,1.0],["Reinstatement Premium"]),"attachmentPoint":1000000.0,"limit":1.4E7,"aggregateLimit":5.6E7, "coveredByReinsurer": 1d])
+				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"premiumBase":PremiumBase.GNPI,"premium":0.0688,"reinstatementPremiums":new TableMultiDimensionalParameter([1.0,1.0,1.0],["Reinstatement Premium"]),"attachmentPoint":1000000.0,"limit":1.4E7,"aggregateLimit":5.6E7, "coveredByReinsurer": 1d])
 				parmInuringPriority[0] = 0
 			}
 			subContract2 {

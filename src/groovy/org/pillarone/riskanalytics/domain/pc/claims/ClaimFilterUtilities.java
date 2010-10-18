@@ -39,6 +39,17 @@ public class ClaimFilterUtilities {
         return filteredClaims;
     }
 
+    public static List<Claim> filterClaimsByLine(List<Claim> claims,LobMarker coveredLine){
+        List<Claim> filteredClaims = new ArrayList<Claim>(claims.size());
+        for (Claim claim : claims) {
+                if (coveredLine.equals(claim.getLineOfBusiness())) {
+                    filteredClaims.add(claim);
+                }
+            }
+        return filteredClaims;
+    }
+
+
     /**
      * @param claims        to be filtered
      * @param coverCriteria components such as claims generators, lines of business

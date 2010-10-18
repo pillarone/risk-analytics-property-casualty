@@ -10,6 +10,10 @@ import org.pillarone.riskanalytics.domain.utils.DistributionModified
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.domain.utils.RandomDistribution
+import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
+import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
+import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
+import org.pillarone.riskanalytics.domain.utils.constraints.DoubleConstraints
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -54,8 +58,11 @@ public class ClaimsGeneratorType extends AbstractParameterObjectClassifier {
             claimsSizeModification: DistributionModifier.getStrategy(DistributionModifier.NONE, [:]),
             occurrenceDistribution: DistributionType.getStrategy(DistributionType.UNIFORM, ["a": 0d, "b": 1d]),
             produceClaim: FrequencySeverityClaimType.SINGLE])
+    public static final ClaimsGeneratorType PML = new ClaimsGeneratorType("PML curve", "PML", [
+            pmlData: new ConstrainedMultiDimensionalParameter([[0d], [0d]], Arrays.asList("return period", "maximum claim"), ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER)),
+            claimsSizeModification: DistributionModifier.getStrategy(DistributionModifier.NONE, [:])])
 
-    public static final all = [NONE, ATTRITIONAL, ATTRITIONAL_WITH_DATE, FREQUENCY_AVERAGE_ATTRITIONAL, FREQUENCY_SEVERITY, OCCURRENCE_AND_SEVERITY, SEVERITY_OF_EVENT_GENERATOR]
+    public static final all = [NONE, ATTRITIONAL, ATTRITIONAL_WITH_DATE, FREQUENCY_AVERAGE_ATTRITIONAL, FREQUENCY_SEVERITY, OCCURRENCE_AND_SEVERITY, SEVERITY_OF_EVENT_GENERATOR, PML]
 
     protected static Map types = [:]
     static {
@@ -134,8 +141,13 @@ public class ClaimsGeneratorType extends AbstractParameterObjectClassifier {
                         claimsSizeBase: (Exposure) parameters.get("claimsSizeBase"),
                         claimsSizeDistribution: (RandomDistribution) parameters.get("claimsSizeDistribution"),
                         produceClaim: (FrequencySeverityClaimType) parameters.get("produceClaim"))
+                break;
+            case ClaimsGeneratorType.PML:
+                claimsGenerator = new PMLClaimsGeneratorStrategy(
+                        pmlData: (ConstrainedMultiDimensionalParameter) parameters.get("pmlData"),
+                        claimsSizeModification: (DistributionModified) parameters.get("claimsSizeModification"))
         }
         return claimsGenerator;
     }
 
- }
+}
