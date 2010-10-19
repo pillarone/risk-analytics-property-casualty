@@ -193,7 +193,7 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
 
     public void modifyPremiumWritten(List<UnderwritingInfo> underwritingInfos, List<Claim> claims){
 
-        if (((XLContractStrategy) parmContractStrategy).getPremiumAllocation().equals(PremiumAllocationType.CLAIMS_SHARES)) {
+        if (((XLContractStrategy) parmContractStrategy).getPremiumAllocation() instanceof ClaimsSharesPremiumAllocationStrategy) {
                 double aggregatedClaim = 0d;
                 for (Claim claim : claims) {
                     aggregatedClaim += claim.getUltimate();
@@ -214,7 +214,7 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
                     underwritingInfo.premiumWrittenAsIf = aggregatedPremiumWritten * aggregatedLobClaim / aggregatedClaim;
                 }
 
-            } else if (((XLContractStrategy) parmContractStrategy).getPremiumAllocation().equals(PremiumAllocationType.LINE_SHARES)) {
+            } else if (((XLContractStrategy) parmContractStrategy).getPremiumAllocation() instanceof LineSharesPremiumAllocationStrategy) {
 
                 double aggregatedPremiumWritten = 0d;
                 for (UnderwritingInfo underwritingInfo : underwritingInfos) {
@@ -238,9 +238,9 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
             int numberOfLines = lineOfBusinessShares.getValueRowCount();
             int firstRowWithLine = lineOfBusinessShares.getTitleRowCount();
             for (int row = firstRowWithLine; row <= numberOfLines; row++) {
-                LobMarker line = (LobMarker) lineOfBusinessShares.getValueAt(row, 0);
+                String line = (String) lineOfBusinessShares.getValueAt(row, 0);
                 share = (Double) lineOfBusinessShares.getValueAt(row, 1);
-                if (!line.equals(coveredLine)) {
+                if (!line.equals(coveredLine.getNormalizedName())) {
                     share = 0d;
                 }
                 sharesPerLineOfBusiness.put(coveredLine, share);
