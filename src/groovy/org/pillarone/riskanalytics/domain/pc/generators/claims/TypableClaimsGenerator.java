@@ -5,6 +5,7 @@ import org.pillarone.riskanalytics.core.model.Model;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter;
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter;
+import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter;
 import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimPacketFactory;
@@ -29,10 +30,7 @@ import umontreal.iro.lecuyer.probdist.ContinuousDistribution;
 import umontreal.iro.lecuyer.probdist.Distribution;
 import umontreal.iro.lecuyer.probdist.TruncatedDist;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Typisierbare Schadengeneratoren in parmClaimsModel
@@ -144,36 +142,41 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
                 } else {
                     throw new IllegalArgumentException("TypableClaimsGenerator.externalSeverityClaims");
                 }
-            } /*else if (parmClaimsModel instanceof PMLClaimsGeneratorStrategy) {
+            } else if (parmClaimsModel instanceof PMLClaimsGeneratorStrategy) {
+
                 ConstrainedMultiDimensionalParameter tableWithReturnPeriodsAndClaims = ((PMLClaimsGeneratorStrategy) parmClaimsModel).getPmlData();
                 List<Double> returnPeriods = tableWithReturnPeriodsAndClaims.getColumnByName("return period");
                 final List<Double> observations = tableWithReturnPeriodsAndClaims.getColumnByName("maximum claim");
                 List<Double> frequencies = new ArrayList<Double>(returnPeriods.size());
-                for (Double period :returnPeriods){
-                    frequencies.add(1/period);
+                for (Double period : returnPeriods) {
+                    frequencies.add(1 / period);
                 }
+
                 final List<Double> cumProbabilities = new ArrayList<Double>(observations.size());
-                for (Double frequency : frequencies){
-                    cumProbabilities.add(1d - frequency/frequencies.get(0));
+                for (Double frequency : frequencies) {
+                    cumProbabilities.add(1d - frequency / frequencies.get(0));
                 }
-                RandomDistribution claimsSizeDistribution = (RandomDistribution) DistributionType.getStrategy(DistributionType.DISCRETEEMPIRICALCUMULATIVE,
-                     new HashMap<String, List<Double>>() {{
-                                put("observations",observations); put("cumulative probabilities",cumProbabilities);
-                            }});
-                if (parmClaimsModel.getClaimsSizeModification().equals(DistributionModifier.NONE)) {
-                    final Double lambda = 1 / returnPeriods.get(0);
-                    RandomDistribution frequencyDistribution = (RandomDistribution) FrequencyDistributionType.getStrategy(FrequencyDistributionType.POISSON,
-                            new HashMap<String, Double>() {{
-                                put("lambda",lambda);
-                            }});
-                    
+                DistributionModified modifier = DistributionModifier.getStrategy(DistributionModifier.NONE, new HashMap());
+                Map<String, TableMultiDimensionalParameter> parameters = new HashMap<String, TableMultiDimensionalParameter>();
+                TableMultiDimensionalParameter table = new TableMultiDimensionalParameter(Arrays.asList(observations,cumProbabilities),Arrays.asList("observations","cumulative probabilities"));
+                parameters.put("discreteEmpiricalCumulativeValues",table);
+
+                RandomDistribution claimsSizeDistribution = (RandomDistribution) DistributionType.getStrategy(DistributionType.DISCRETEEMPIRICALCUMULATIVE, parameters);
+
+                if (parmClaimsModel.getClaimsSizeModification().equals(modifier)) {
+                    Double lambda = 1 / returnPeriods.get(0);
+                    Map<String,Double> lambdaParam = new HashMap<String, Double>();
+                    lambdaParam.put("lambda",lambda);
+                    RandomDistribution frequencyDistribution = (RandomDistribution) FrequencyDistributionType.getStrategy(FrequencyDistributionType.POISSON, lambdaParam);
+                    double frequency = generateFrequency(frequencyDistribution, modifier, FrequencyBase.ABSOLUTE);
+                    claimValues = generateClaimsValues((int) frequency, frequencyDistribution, modifier);
+
 
                 } else {
                     throw new IllegalArgumentException("Distribution modifications not yet implemented");
                 }
 
-            }  */
-            else {
+            } else {
                 throw new NotImplementedException("['TypableClaimsGenerator.notImplemented','" + parmClaimsModel.toString() + "']");
             }
             if (events.size() == 0) {
