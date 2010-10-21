@@ -34,7 +34,7 @@ class NormalCopulaStrategyTests extends GroovyTestCase {
 
 
     void testDoCalculation() {
-        LobCopula copula = getCopula0()
+        LobCopula copula = getCopula1()
         copula.inNumber << new Frequency(value: 3)
         copula.doCalculation()
         copula.toString()

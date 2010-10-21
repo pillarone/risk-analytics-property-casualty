@@ -36,6 +36,7 @@ public class MultipleProbabilitiesCopula extends GeneratorCachingComponent {
     }
 
     public void doCalculation() {
+
         generator = getCachedGenerator(parmFrequencyDistribution, modifier);
         int frequency = generator.nextValue().intValue();
         List<Double> dates = UniformDoubleList.getDoubles(frequency, true);
