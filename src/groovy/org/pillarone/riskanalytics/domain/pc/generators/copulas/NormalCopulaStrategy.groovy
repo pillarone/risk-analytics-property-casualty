@@ -23,16 +23,23 @@ abstract class NormalCopulaStrategy extends AbstractCopulaStrategy {
     public List<Number> getRandomVector() {
 
         List<List<Double>> values = dependencyMatrix.getValues();
+        List<Double> diag = new ArrayList<Double>();
+        for (int i = 0; i < values.size(); i++) {
+            diag.add(values.get(i).get(i))
+        }
+        if (!(diag.min() == 1d && diag.max() == 1d)) {
+            throw new IllegalArgumentException("NormalCopulaStratey.dependencyMatrixInvalidDiagonal");
+        }
         DenseDoubleMatrix2D SIGMA = new DenseDoubleMatrix2D((double[][]) values);
         DoubleMatrix2D SIGMAtranspose = SIGMA.viewDice();
         if (!SIGMAtranspose.equals(SIGMA)){
-        //    throw new IllegalArgumentException("NormalCopulaStratey.dependencyMatrixNonSymmetric");
+            throw new IllegalArgumentException("NormalCopulaStratey.dependencyMatrixNonSymmetric");
         }
         EigenvalueDecomposition eigenvalueDecomp = new EigenvalueDecomposition(SIGMA);
         DoubleMatrix1D eigenvalues = eigenvalueDecomp.getRealEigenvalues();
         eigenvalues.viewSorted();
         if (eigenvalues.get(0) <= 0){
-     //       throw new IllegalArgumentException("NormalCopulaStratey.dependencyMatrixNonPosDef");
+            throw new IllegalArgumentException("NormalCopulaStratey.dependencyMatrixNonPosDef");
         }
 
         int size = dependencyMatrix.valueRowCount

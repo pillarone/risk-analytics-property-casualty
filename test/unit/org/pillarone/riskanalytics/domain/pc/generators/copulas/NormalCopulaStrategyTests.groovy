@@ -31,18 +31,24 @@ class NormalCopulaStrategyTests extends GroovyTestCase {
                                 ['fire', 'hull'], ['fire', 'hull'])]))
     }
 
-
+    static Copula getCopula2() {
+        return new LobCopula(
+                parmCopulaStrategy: CopulaStrategyFactory.getCopulaStrategy(
+                        LobCopulaType.NORMAL,
+                        ["dependencyMatrix": new MatrixMultiDimensionalParameter([[1.0, 0.0], [0.0, 1.0]],
+                                ['fire', 'hull'], ['fire', 'hull'])]))
+    }
 
     void testDoCalculation() {
-        LobCopula copula = getCopula1()
+        LobCopula copula = getCopula2()
         copula.inNumber << new Frequency(value: 3)
         copula.doCalculation()
         copula.toString()
     }
 
     void testCorrelations() {
-        def covariace = 2.0
-        def sigma = [[4.0, covariace], [covariace, 4.0]]
+        def covariance = 2.0
+        def sigma = [[4.0, covariance], [covariance, 4.0]]
         //int value = 10000
         int value = 2
         double tol = 0.1
@@ -53,7 +59,7 @@ class NormalCopulaStrategyTests extends GroovyTestCase {
         List<String> lines = ["Fire", "Hull"]
         List<Number> varList = []
 
-        Copula copula = getCopula1()
+        Copula copula = getCopula2()
 
         copula.inNumber << new Frequency(value: value)
         copula.doCalculation()

@@ -57,7 +57,7 @@ class UnityPortionValidator implements IParameterizationValidator {
         validationService.register(IUnityPortion) {ConstrainedMultiDimensionalParameter type ->
             int portionColumnIndex = type.constraints.getPortionColumnIndex()
             if (type.valueRowCount == 0) return true
-            double[] portions = type.getColumn(portionColumnIndex)
+            double[] portions =(double[]) type.getColumn(portionColumnIndex)
 
             int componentNameColumnIndex = type.constraints.getComponentNameColumnIndex()
             // list of portions empty and list of component references non-empty
@@ -72,10 +72,7 @@ class UnityPortionValidator implements IParameterizationValidator {
             }
             return
         }
-
-
     }
-
 }
 
 

@@ -28,6 +28,13 @@ abstract class TCopulaStrategy extends AbstractCopulaStrategy {
 
     public List<Number> getRandomVector() {
         List<List<Double>> values = dependencyMatrix.getValues();
+        List<Double> diag = new ArrayList<Double>();
+        for (int i = 0; i < values.size(); i++) {
+            diag.add(values.get(i).get(i))
+        }
+        if (!(diag.min() == 1d && diag.max() == 1d)) {
+            throw new IllegalArgumentException("TCopulaStratey.dependencyMatrixInvalidDiagonal");
+        }
         DenseDoubleMatrix2D SIGMA = new DenseDoubleMatrix2D((double[][]) values);
         DoubleMatrix2D SIGMAtranspose = SIGMA.viewDice();
         if (!SIGMAtranspose.equals(SIGMA)) {
