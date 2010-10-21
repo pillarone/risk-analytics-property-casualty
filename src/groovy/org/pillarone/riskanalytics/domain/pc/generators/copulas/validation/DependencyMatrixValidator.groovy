@@ -15,6 +15,7 @@ import cern.colt.matrix.DoubleMatrix2D
 import cern.colt.matrix.impl.DenseDoubleMatrix2D
 import cern.colt.matrix.linalg.EigenvalueDecomposition
 import cern.colt.matrix.DoubleMatrix1D
+import org.pillarone.riskanalytics.domain.pc.generators.copulas.LobCopulaType
 
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
@@ -22,6 +23,7 @@ import cern.colt.matrix.DoubleMatrix1D
 class DependencyMatrixValidator implements IParameterizationValidator {
 
     private static Log LOG = LogFactory.getLog(DependencyMatrixValidator)
+
     private AbstractParameterValidationService validationService
 
     public DependencyMatrixValidator() {
@@ -84,6 +86,7 @@ class DependencyMatrixValidator implements IParameterizationValidator {
             }
             return true
         }
+
         validationService.register(PerilCopulaType.NORMAL) {Map type ->
             List<List<Double>> values = type.dependencyMatrix.getValues();
             DenseDoubleMatrix2D SIGMA = new DenseDoubleMatrix2D((double[][]) values);
@@ -111,6 +114,61 @@ class DependencyMatrixValidator implements IParameterizationValidator {
             }
             return true
         }
+        validationService.register(LobCopulaType.T) {Map type ->
+                    List<List<Double>> values = type.dependencyMatrix.getValues();
+                    DenseDoubleMatrix2D SIGMA = new DenseDoubleMatrix2D((double[][]) values);
+                    DoubleMatrix2D SIGMAtranspose = SIGMA.viewDice();
+                    if (!SIGMAtranspose.equals(SIGMA)) {
+                        return ["t.copula.strategy.dependency.matrix.non.symmetric", values]
+                    }
+                    EigenvalueDecomposition eigenvalueDecomp = new EigenvalueDecomposition(SIGMA);
+                    DoubleMatrix1D eigenvalues = eigenvalueDecomp.getRealEigenvalues();
+                    eigenvalues.viewSorted();
+                    if (eigenvalues.get(0) <= 0) {
+                        return ["t.copula.strategy.dependency.matrix.non.positive.definite", values]
+                    }
+                    return true
+                }
+
+                validationService.register(LobCopulaType.T) {Map type ->
+                    List<List<Double>> values = type.dependencyMatrix.getValues();
+                    List<Double> diag = new ArrayList<Double>();
+                    for (int i = 0; i < values.size(); i++) {
+                        diag.add(values.get(i).get(i))
+                    }
+                    if (!(diag.min() == 1d && diag.max() == 1d)) {
+                        return ["t.copula.strategy.dependency.matrix.invalid.diagonal", values]
+                    }
+                    return true
+                }
+
+        validationService.register(LobCopulaType.NORMAL) {Map type ->
+                    List<List<Double>> values = type.dependencyMatrix.getValues();
+                    DenseDoubleMatrix2D SIGMA = new DenseDoubleMatrix2D((double[][]) values);
+                    DoubleMatrix2D SIGMAtranspose = SIGMA.viewDice();
+                    if (!SIGMAtranspose.equals(SIGMA)) {
+                        return ["normal.copula.strategy.dependency.matrix.non.symmetric", values]
+                    }
+                    EigenvalueDecomposition eigenvalueDecomp = new EigenvalueDecomposition(SIGMA);
+                    DoubleMatrix1D eigenvalues = eigenvalueDecomp.getRealEigenvalues();
+                    eigenvalues.viewSorted();
+                    if (eigenvalues.get(0) <= 0) {
+                        return ["normal.copula.strategy.dependency.matrix.non.positive.definite", values]
+                    }
+                    return true
+                }
+
+                validationService.register(LobCopulaType.NORMAL) {Map type ->
+                    List<List<Double>> values = type.dependencyMatrix.getValues();
+                    List<Double> diag = new ArrayList<Double>();
+                    for (int i = 0; i < values.size(); i++) {
+                        diag.add(values.get(i).get(i))
+                    }
+                    if (!(diag.min() == 1d && diag.max() == 1d)) {
+                        return ["normal.copula.strategy.dependency.matrix.invalid.diagonal", values]
+                    }
+                    return true
+                }
 
     }
 }
