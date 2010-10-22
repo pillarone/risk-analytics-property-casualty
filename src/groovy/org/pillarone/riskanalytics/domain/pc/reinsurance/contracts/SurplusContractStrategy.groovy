@@ -16,7 +16,7 @@ class SurplusContractStrategy extends AbstractContractStrategy implements IReins
     /* Line/Maximum $L$ */
     double retention
     /* number of lines $#L$ */
-    int lines
+    double lines
     /* surplus share for claims without sum insured information */
     double defaultCededLossShare
 
