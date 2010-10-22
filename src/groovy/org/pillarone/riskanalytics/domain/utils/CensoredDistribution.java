@@ -6,13 +6,13 @@ import umontreal.iro.lecuyer.probdist.Distribution;
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-public class CensoredDist implements Distribution {
+public class CensoredDistribution implements Distribution {
 
     Distribution distribution;
     double min;
     double max;
 
-    public CensoredDist(Distribution distribution, double min, double max) {
+    public CensoredDistribution(Distribution distribution, double min, double max) {
         this.distribution = distribution;
         this.min = min;
         this.max = max;
@@ -22,7 +22,7 @@ public class CensoredDist implements Distribution {
         if (v < min) {
             return 0;
         }
-        else if (v > max) {
+        else if (v >= max) {
             return 1;
         }
         else {
@@ -36,11 +36,11 @@ public class CensoredDist implements Distribution {
 
     public double inverseF(double v) {
         double minU = cdf(min);
-        double maxU = cdf(max);
-        if (v < minU) {
+        double maxU = distribution.cdf(max);
+        if (v <= minU) {
             return min;
         }
-        else if (v > maxU) {
+        else if (v >= maxU) {
             return max;
         }
         else {
@@ -49,15 +49,15 @@ public class CensoredDist implements Distribution {
     }
 
     public double getMean() {
-        throw new NotImplementedException("CensoredDist.noImplementationOfGetMean");
+        throw new NotImplementedException("CensoredDistribution.noImplementationOfGetMean");
     }
 
     public double getVariance() {
-        throw new NotImplementedException("CensoredDist.noImplementationOfGetVariance");
+        throw new NotImplementedException("CensoredDistribution.noImplementationOfGetVariance");
     }
 
     public double getStandardDeviation() {
-        throw new NotImplementedException("CensoredDist.noImplementationOfGetStandardDeviation");
+        throw new NotImplementedException("CensoredDistribution.noImplementationOfGetStandardDeviation");
     }
 
     public double[] getParams() {

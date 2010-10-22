@@ -307,7 +307,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
     protected List<Double> calculateClaimsValues(List<Double> probabilities, RandomDistribution distribution, DistributionModified modification) {
         Distribution dist = distribution.getDistribution();
         if (modification.getType().equals(DistributionModifier.CENSORED) || modification.getType().equals(DistributionModifier.CENSOREDSHIFT)) {
-            dist = new CensoredDist(distribution.getDistribution(),
+            dist = new CensoredDistribution(distribution.getDistribution(),
                     (Double) modification.getParameters().get("min"), (Double) modification.getParameters().get("max"));
         } else if (modification.getType().equals(DistributionModifier.TRUNCATED) || modification.getType().equals(DistributionModifier.TRUNCATEDSHIFT)) {
             Double leftBoundary = (Double) modification.getParameters().get("min");
@@ -317,7 +317,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
 //        else if (modification.getType().equals(DistributionModifier.LEFTTRUNCATEDRIGHTCENSORED)) {
 //            Double leftBoundary = (Double) modification.getParameters().get("min");
 //            Double rightBoundary = (Double) modification.getParameters().get("max");
-//            dist = new CensoredDist(new TruncatedDist((ContinuousDistribution) distribution.getDistribution(),
+//            dist = new CensoredDistribution(new TruncatedDist((ContinuousDistribution) distribution.getDistribution(),
 //                                        leftBoundary, (double) Double.POSITIVE_INFINITY),
 //                                    (double) Double.NEGATIVE_INFINITY, rightBoundary);
 //        }

@@ -89,19 +89,31 @@ class ClaimsGeneratorStrategyValidator implements IParameterizationValidator {
         DistributionModified modification = type.claimsSizeModification
 
         if (!modification || modification.type == DistributionModifier.NONE ||
-            modification.type == DistributionModifier.SHIFT) {
+                modification.type == DistributionModifier.SHIFT) {
             return
         }
 
         if (!(distribution instanceof ContinuousDistribution)) {
-            return ["claims.model.error.modification.not.allowed.for.none.continuous.distributions"]
+            return ["claims.model.error.modification.not.allowed.for.non.continuous.distributions"]
         }
 
         double leftBoundary = (Double) modification.getParameters().get("min");
         double rightBoundary = (Double) modification.getParameters().get("max");
+
+        if (leftBoundary >= rightBoundary) {
+            return ["claims.model.error.modification.left.Boundary.greater.than.right.Boundary"]
+        }
         // todo: if cdf is expensive, split truncated cases to use getArea (and censored..?)
-        if (Math.abs(distribution.cdf(rightBoundary) - distribution.cdf(leftBoundary)) < 1E-8) {
-            return ["claims.model.error.restricted.density.function.not.normalizable.for.claims.generator"]
+        if (DistributionModifier.TRUNCATED || DistributionModifier.TRUNCATEDSHIFT) {
+            if (Math.abs(distribution.cdf(rightBoundary) - distribution.cdf(leftBoundary)) < 1E-8) {
+                return ["claims.model.error.restricted.density.function.not.normalizable.for.claims.generator"]
+            }
+        }
+
+        if (DistributionModifier.LEFTTRUNCATEDRIGHTCENSORED){
+            if ((1d - distribution.cdf(leftBoundary)) < 1E-8) {
+                return ["claims.model.error.restricted.density.function.not.normalizable.for.claims.generator"]
+            }
         }
         return
     }
