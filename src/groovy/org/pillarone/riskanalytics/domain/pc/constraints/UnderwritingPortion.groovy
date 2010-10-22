@@ -18,7 +18,7 @@ class UnderwritingPortion implements IMultiDimensionalConstraints, IUnityPortion
             return value instanceof String
         }
         else {
-            return value instanceof Double || value instanceof BigDecimal
+            return value instanceof Double
         }
     }
 
@@ -27,7 +27,7 @@ class UnderwritingPortion implements IMultiDimensionalConstraints, IUnityPortion
     }
 
     Class getColumnType(int column) {
-        column == 0 ? IUnderwritingInfoMarker : BigDecimal
+        column == 0 ? IUnderwritingInfoMarker : Double
     }
 
     int getPortionColumnIndex() {
@@ -42,7 +42,7 @@ class UnderwritingPortion implements IMultiDimensionalConstraints, IUnityPortion
         if (IUnderwritingInfoMarker.isAssignableFrom(marker)) {
             return 0
         }
-        else if (BigDecimal.isAssignableFrom(marker)) {
+        else if (Double.isAssignableFrom(marker)) {
             return 1
         }
         return null;

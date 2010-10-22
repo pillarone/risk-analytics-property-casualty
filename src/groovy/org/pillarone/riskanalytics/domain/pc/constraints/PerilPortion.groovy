@@ -15,7 +15,7 @@ class PerilPortion implements IMultiDimensionalConstraints {
             return value instanceof String
         }
         else {
-            return value instanceof Number
+            return value instanceof Double
         }
     }
 
@@ -24,14 +24,14 @@ class PerilPortion implements IMultiDimensionalConstraints {
     }
 
     Class getColumnType(int column) {
-        return column == 0 ? PerilMarker : BigDecimal
+        return column == 0 ? PerilMarker : Double
     }
 
     Integer getColumnIndex(Class marker) {
         if (PerilMarker.isAssignableFrom(marker)) {
             return 0
         }
-        else if (BigDecimal.isAssignableFrom(marker)) {
+        else if (Double.isAssignableFrom(marker)) {
             return 1
         }
         return null;
