@@ -101,7 +101,7 @@ class ClaimsGeneratorStrategyValidator implements IParameterizationValidator {
         double rightBoundary = (Double) modification.getParameters().get("max");
 
         if (leftBoundary >= rightBoundary) {
-            return ["claims.model.error.modification.left.Boundary.greater.than.right.Boundary"]
+            return ["claims.model.error.modification.left.boundary.greater.than.right.boundary"]
         }
         // todo: if cdf is expensive, split truncated cases to use getArea (and censored..?)
         if (DistributionModifier.TRUNCATED || DistributionModifier.TRUNCATEDSHIFT) {
