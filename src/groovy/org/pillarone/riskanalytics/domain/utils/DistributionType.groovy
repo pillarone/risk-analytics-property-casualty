@@ -196,8 +196,7 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
                 break
             case DistributionType.DISCRETEEMPIRICALCUMULATIVE:
                 distribution.distribution = getDiscreteEmpiricalCumulativeDistribution(asDouble(parameters["discreteEmpiricalCumulativeValues"].getColumnByName("observations")), asDouble(parameters["discreteEmpiricalCumulativeValues"].getColumnByName("cumulative probabilities")))
-              //    distribution.distribution = getDiscreteEmpiricalCumulativeDistribution((double[]) parameters["observations"],(double[]) parameters["cumulative probabilities"])
-            break
+                break
             case DistributionType.PIECEWISELINEAREMPIRICAL:
                 distribution.distribution = new PiecewiseLinearEmpiricalDist((double[]) asDouble(parameters["observations"].getColumnByName("observations")))
                 break
