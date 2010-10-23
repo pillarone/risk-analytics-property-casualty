@@ -18,7 +18,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.PremiumAlloca
 model = OneLobSurplusModel
 periodCount = 2
 allPeriods = 0..<periodCount
-
+applicationVersion='1.1.1'
 components {
     underwriting {
         parmUnderwritingInformation[allPeriods] = new TableMultiDimensionalParameter(

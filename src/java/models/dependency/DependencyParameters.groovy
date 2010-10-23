@@ -17,7 +17,7 @@ periodCount = 5
 allPeriods = 0..<periodCount
 displayName = 'Dependency Model Comparison'
 periodLabels = ['Model 1', 'Model 2', 'Model 3', 'Model 4', 'Model 5']
-
+applicationVersion='1.1.1'
 components {
     frequencyGenerator {
         parmDistribution[allPeriods] = DistributionType.getStrategy(FrequencyDistributionType.CONSTANT, ["constant": 2d])

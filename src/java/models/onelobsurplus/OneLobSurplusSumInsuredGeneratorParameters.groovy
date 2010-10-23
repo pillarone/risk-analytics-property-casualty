@@ -16,6 +16,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.PremiumAlloca
 model=models.onelobsurplus.OneLobSurplusModel
 periodCount=2
 allPeriods=0..1
+applicationVersion='1.1.1'
 components {
 	underwriting {
 		parmUnderwritingInformation[0]=new TableMultiDimensionalParameter([[1000.0,10000.0,100000.0],[800.0,8000.0,80000.0],[50000.0,50000.0,50000.0],[1000,100,10],[''],['']],["maximum sum insured","average sum insured","premium","number of policies/risks","custom allocation number of single claims","custom allocation attritional claims"])

@@ -22,6 +22,7 @@ model = models.capitalEagle.CapitalEagleAttritionalDependenciesModel
 periodCount = 1
 allPeriods = 0..0
 displayName = 'One Reinsurance Program (attr correlated)'
+applicationVersion='1.1.1'
 components {
     personalAccident {
         subRiProgram {

@@ -5,7 +5,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.PremiumAlloca
 model=models.podra.PodraModel
 periodCount=1
 displayName='Structure Example'
-applicationVersion='1.1-ALPHA-1'
+applicationVersion='1.1.1'
 components {
 	claimsGenerators {
 		subPersonalAccidentSingle {

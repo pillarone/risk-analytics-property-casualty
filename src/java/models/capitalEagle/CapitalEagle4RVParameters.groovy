@@ -18,6 +18,7 @@ periodCount = 4
 allPeriods = 0..<periodCount
 displayName = 'Four Reinsurance Programs'
 periodLabels = ["Peak Risk", "NP Cover", "MTPL QS, NP Cover", "QS and NP Cover"]
+applicationVersion='1.1.1'
 components {
     personalAccident {
         subClaimsGenerator {

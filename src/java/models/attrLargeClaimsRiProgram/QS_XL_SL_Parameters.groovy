@@ -17,7 +17,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.PremiumAlloca
 model = QS_XL_SL_Model
 periodCount = 4
 allPeriods = 0..<periodCount
-
+applicationVersion='1.1.1'
 components {
     frequencyGenerator {
         parmDistribution[allPeriods] = DistributionType.getStrategy(FrequencyDistributionType.POISSON, ["lambda": 1])

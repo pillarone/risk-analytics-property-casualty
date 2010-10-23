@@ -5,7 +5,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.PremiumAlloca
 model=models.podra.PodraModel
 periodCount=1
 displayName='Drill Down Test Parameter'
-applicationVersion='1.0.2'
+applicationVersion='1.1.1'
 components {
 	linesOfBusiness {
 		subMotorHull {

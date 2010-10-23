@@ -15,7 +15,7 @@ model = models.capitalEagle.CapitalEagleOneLobModel
 displayName = 'QS and NP Cover'
 periodCount = 1
 allPeriods = 0..0
-
+applicationVersion='1.1.1'
 components {
     mtpl {
         subUnderwriting {

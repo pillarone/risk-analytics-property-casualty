@@ -21,6 +21,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.PremiumAlloca
 model = models.dynamicCapitalEagle.DynamicCapitalEagleModel
 periodCount = 1
 displayName = 'Peak Risk Reinsured'
+applicationVersion='1.1.1'
 components {
     claimsGenerators {
         subEarthquake {

@@ -25,6 +25,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.PremiumAlloca
 model = models.dynamicCapitalEagle.DynamicCapitalEagleModel
 periodCount = 1
 displayName = 'Reinsurance Program with Combined Cover'
+applicationVersion='1.1.1'
 components {
     defaultProbabilities {
         parmDefaultAA[0] = 0.0020

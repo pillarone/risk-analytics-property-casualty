@@ -17,6 +17,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.PremiumAlloca
 model = models.capitalEagle.CapitalEagleModel
 periodCount = 1
 displayName = 'One Reinsurance Program (constant)'
+applicationVersion='1.1.1'
 components {
     personalAccident {
         subRiProgram {

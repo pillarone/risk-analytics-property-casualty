@@ -5,7 +5,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.PremiumAlloca
 model=models.podra.PodraModel
 periodCount=1
 displayName='CapitalEagle CorrelatedAttritionals Reinsurance Program NP+ALL50'
-applicationVersion='1.0.3'
+applicationVersion='1.1.1'
 components {
 	reinsurance {
 		subContracts {

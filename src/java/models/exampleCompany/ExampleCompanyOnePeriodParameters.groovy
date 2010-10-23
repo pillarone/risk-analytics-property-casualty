@@ -17,7 +17,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.PremiumAlloca
 model=models.exampleCompany.ExampleCompanyModel
 periodCount=1
 allPeriods=0..0
-
+applicationVersion='1.1.1'
 components {
 	mtpl {
 		subUnderwriting {

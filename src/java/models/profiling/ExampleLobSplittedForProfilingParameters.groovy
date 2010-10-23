@@ -15,7 +15,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.PremiumAlloca
 model=models.profiling.ExampleLobSplittedForProfilingModel
 periodCount=1
 allPeriods=0..0
-
+applicationVersion='1.1.1'
 components {
     underwriting {
         parmPricePerExposureUnit[0]=100

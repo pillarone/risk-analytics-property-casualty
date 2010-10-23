@@ -17,6 +17,7 @@ model = models.capitalEagle.CapitalEagleModel
 periodCount = 1
 allPeriods = 0..0
 displayName = 'One Reinsurance Program'
+applicationVersion='1.1.1'
 components {
     motorHull {
         subAllocator {
