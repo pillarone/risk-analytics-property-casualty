@@ -213,7 +213,7 @@ components {
 	}
 	dependencies {
 		subAttritionals {
-			parmCopulaStrategy[0]=org.pillarone.riskanalytics.domain.pc.generators.copulas.CopulaStrategyFactory.getCopulaStrategy(org.pillarone.riskanalytics.domain.pc.generators.copulas.PerilCopulaType.NORMAL, ["dependencyMatrix":new org.pillarone.riskanalytics.core.parameterization.ComboBoxMatrixMultiDimensionalParameter(org.pillarone.riskanalytics.core.util.GroovyUtils.toList([[1.0, 0.5, 0.25, 0.25], [0.5, 1.0, 0.25, 0.25], [0.25, 0.25, 1.0, 0.25], [0.25, 0.25, 1.0, 0.25]]),["motor third party liability attritional","motor hull attritional","personal accident attritional","property attritional"],org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker),])
+			parmCopulaStrategy[0]=org.pillarone.riskanalytics.domain.pc.generators.copulas.CopulaStrategyFactory.getCopulaStrategy(org.pillarone.riskanalytics.domain.pc.generators.copulas.PerilCopulaType.NORMAL, ["dependencyMatrix":new org.pillarone.riskanalytics.core.parameterization.ComboBoxMatrixMultiDimensionalParameter(org.pillarone.riskanalytics.core.util.GroovyUtils.toList([[1.0, 0.5, 0.25, 0.25], [0.5, 1.0, 0.25, 0.25], [0.25, 0.25, 1.0, 0.25], [0.25, 0.25, 0.25, 1.0]]),["motor third party liability attritional","motor hull attritional","personal accident attritional","property attritional"],org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker),])
 		}
 	}
 }
