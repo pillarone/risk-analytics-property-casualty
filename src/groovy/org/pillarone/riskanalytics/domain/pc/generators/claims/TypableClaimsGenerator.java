@@ -136,6 +136,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
                 }
             } else if (parmClaimsModel instanceof ExternalSeverityClaimsGeneratorStrategy) {
                 if (this.isReceiverWired(inEventSeverities)) {
+                    claimType = ClaimType.AGGREGATED_EVENT;
                     List<EventSeverity> filteredEventSeverities = filterEvents();
                     claimValues = calculateEventClaimsValues(filteredEventSeverities, parmClaimsModel.getClaimsSizeDistribution());
                     events = extractEvents(filteredEventSeverities);
