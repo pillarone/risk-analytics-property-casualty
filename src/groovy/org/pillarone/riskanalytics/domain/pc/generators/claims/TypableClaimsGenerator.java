@@ -145,37 +145,61 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
                 }
             } else if (parmClaimsModel instanceof PMLClaimsGeneratorStrategy) {
 
-                ConstrainedMultiDimensionalParameter tableWithReturnPeriodsAndClaims = ((PMLClaimsGeneratorStrategy) parmClaimsModel).getPmlData();
-                List<Double> returnPeriods = tableWithReturnPeriodsAndClaims.getColumnByName("return period");
-                final List<Double> observations = tableWithReturnPeriodsAndClaims.getColumnByName("maximum claim");
+                ConstrainedMultiDimensionalParameter pmlData = ((PMLClaimsGeneratorStrategy) parmClaimsModel).getPmlData();
+                List<Double> returnPeriods = pmlData.getColumnByName("return period");
+                List<Double> observations = pmlData.getColumnByName("maximum claim");
                 List<Double> frequencies = new ArrayList<Double>(returnPeriods.size());
                 for (Double period : returnPeriods) {
                     frequencies.add(1 / period);
                 }
 
-                final List<Double> cumProbabilities = new ArrayList<Double>(observations.size());
+                List<Double> cumProbabilities = new ArrayList<Double>(observations.size());
                 for (Double frequency : frequencies) {
                     cumProbabilities.add(1d - frequency / frequencies.get(0));
                 }
-                DistributionModified modifier = DistributionModifier.getStrategy(DistributionModifier.NONE, new HashMap());
+                DistributionModified modification = ((PMLClaimsGeneratorStrategy) parmClaimsModel).getClaimsSizeModification();
                 Map<String, TableMultiDimensionalParameter> parameters = new HashMap<String, TableMultiDimensionalParameter>();
-                TableMultiDimensionalParameter table = new TableMultiDimensionalParameter(Arrays.asList(observations,cumProbabilities),Arrays.asList("observations","cumulative probabilities"));
-                parameters.put("discreteEmpiricalCumulativeValues",table);
+                TableMultiDimensionalParameter table = new TableMultiDimensionalParameter(Arrays.asList(observations, cumProbabilities), Arrays.asList("observations", "cumulative probabilities"));
+                parameters.put("discreteEmpiricalCumulativeValues", table);
 
                 RandomDistribution claimsSizeDistribution = (RandomDistribution) DistributionType.getStrategy(DistributionType.DISCRETEEMPIRICALCUMULATIVE, parameters);
+                Double lambda = 0d;
+                if (modification.getType().equals(DistributionModifier.NONE)||modification.getType().equals(DistributionModifier.SHIFT)) {
+                    lambda = frequencies.get(0);
+                } else if (modification.getType().equals(DistributionModifier.TRUNCATED)||modification.getType().equals(DistributionModifier.TRUNCATEDSHIFT)) {
+                    Double min = (Double) modification.getParameters().get("min");
+                    Double max = (Double) modification.getParameters().get("max");
+                    List<Double> observationsAndBoundaries = new ArrayList<Double>();
+                    observationsAndBoundaries.addAll(observations);
+                    observationsAndBoundaries.add(min);
+                    observationsAndBoundaries.add(max);
+                    Collections.sort(observationsAndBoundaries);
+                    int indexMin = observationsAndBoundaries.indexOf(min);
+                    int indexMax = observationsAndBoundaries.lastIndexOf(max);
+                    if ((indexMax-1) == observations.size()){
+                        lambda = frequencies.get(indexMin);
+                    }
+                    else {
+                    lambda = frequencies.get(indexMin) - frequencies.get(indexMax - 2);}
 
-                if (parmClaimsModel.getClaimsSizeModification().equals(modifier)) {
-                    Double lambda = 1 / returnPeriods.get(0);
-                    Map<String,Double> lambdaParam = new HashMap<String, Double>();
-                    lambdaParam.put("lambda",lambda);
-                    RandomDistribution frequencyDistribution = (RandomDistribution) FrequencyDistributionType.getStrategy(FrequencyDistributionType.POISSON, lambdaParam);
-                    double frequency = generateFrequency(frequencyDistribution, modifier, FrequencyBase.ABSOLUTE);
-                    claimValues = generateClaimsValues((int) frequency, frequencyDistribution, modifier);
+                } else if (modification.getType().equals(DistributionModifier.CENSORED)||modification.getType().equals(DistributionModifier.CENSOREDSHIFT)) {
+                    lambda = frequencies.get(0);
 
-
-                } else {
-                    throw new IllegalArgumentException("Distribution modifications not yet implemented");
+                } else if (modification.getType().equals(DistributionModifier.LEFTTRUNCATEDRIGHTCENSORED)) {
+                    Double min = (Double) modification.getParameters().get("min");
+                    List<Double> observationsAndMin = new ArrayList<Double>();
+                    observationsAndMin.addAll(observations);
+                    observationsAndMin.add(min);
+                    Collections.sort(observationsAndMin);
+                    int indexMin = observationsAndMin.indexOf(min);
+                    lambda = frequencies.get(indexMin);
                 }
+
+                Map<String, Double> lambdaParam = new HashMap<String, Double>();
+                lambdaParam.put("lambda", lambda);
+                RandomDistribution frequencyDistribution = (RandomDistribution) FrequencyDistributionType.getStrategy(FrequencyDistributionType.POISSON, lambdaParam);
+                double frequency = generateFrequency(frequencyDistribution, DistributionModifier.getStrategy(DistributionModifier.NONE, new HashMap()), FrequencyBase.ABSOLUTE);
+                claimValues = generateClaimsValues((int) frequency, claimsSizeDistribution, modification);
 
             } else {
                 throw new NotImplementedException("['TypableClaimsGenerator.notImplemented','" + parmClaimsModel.toString() + "']");

@@ -31,7 +31,7 @@ public class CensoredDistribution implements Distribution {
     }
 
     public double barF(double v) {
-        return 1 - cdf(v);
+        return 1d - cdf(v);
     }
 
     public double inverseF(double v) {

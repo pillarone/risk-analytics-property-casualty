@@ -26,9 +26,7 @@ class PremiumAllocationType extends AbstractParameterObjectClassifier {
     public static final PremiumAllocationType PREMIUM_SHARES = new PremiumAllocationType("Premium Shares", "PREMIUM_SHARES", [:])
     public static final PremiumAllocationType CLAIMS_SHARES = new PremiumAllocationType("Claims Shares", "CLAIMS_SHARES", [:])
     public static final PremiumAllocationType LINE_SHARES = new PremiumAllocationType("Segment Shares", "LINE_SHARES",
-            [lineOfBusinessShares: new ConstrainedMultiDimensionalParameter(
-                    GroovyUtils.toList("[[],[]]"),
-                    Arrays.asList(LINES, SHARES),
+            [lineOfBusinessShares: new ConstrainedMultiDimensionalParameter([[],[]], [LINES, SHARES],
                     ConstraintsFactory.getConstraints(SegmentPortion.IDENTIFIER))])
 
     public static final all = [PREMIUM_SHARES, CLAIMS_SHARES, LINE_SHARES]

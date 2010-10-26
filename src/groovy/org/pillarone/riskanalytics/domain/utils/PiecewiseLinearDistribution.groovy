@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.utils
 
 import umontreal.iro.lecuyer.probdist.Distribution
+import umontreal.iro.lecuyer.probdist.ContinuousDistribution
 
 /**
  * Implements the interface of SSJ (external university of Montreal) package
@@ -9,8 +10,9 @@ import umontreal.iro.lecuyer.probdist.Distribution
  * Date: 31.07.2008,  10:25:17
  * @author stefan.zumsteg@intuitive-collaboration.com
  */
-class PiecewiseLinearDistribution implements Distribution {
+class PiecewiseLinearDistribution extends ContinuousDistribution {
 
+    // todo(jwa): validator to check if values strongly monotonically increasing
     List<Double> val                //sortedValues contains a series of monotonically increasing values
     List<Double> cdft                //cdft[i] is probability that value of random variable is <=sortedValues[i]
     //cdft[0]=0, , cdft[last]= 1
@@ -18,6 +20,7 @@ class PiecewiseLinearDistribution implements Distribution {
     private double mean
     private double stdDev
     private double variance
+    List<Double> probabilities
 
     /** Constructor checks validity of arguments:
      *  - matching list length
@@ -30,10 +33,12 @@ class PiecewiseLinearDistribution implements Distribution {
         last = values.size() - 1;
         val = []
         cdft = []
+        probabilities = []
         if (values.size() != cumulProb.size())
             throw new IllegalArgumentException("PiecewiseLinearDistribution.invalidNumberOfArguments");
         if (cumulProb[0] != 0) throw new IllegalArgumentException("PiecewiseLinearDistribution.invalidFirstFunctionValue");
         val.add(values[0]); cdft.add(cumulProb[0]);
+        probabilities.add(cumulProb[0])
         if (cumulProb[last] != 1) throw new IllegalArgumentException("PiecewiseLinearDistribution.invalidLastFunctionValue");
         for (int i = 1; i <= last; i++) {
             if (values[i] <= values[i - 1])
@@ -43,6 +48,8 @@ class PiecewiseLinearDistribution implements Distribution {
             }
             val.add(values[i]);
             cdft.add(cumulProb[i]);
+            probabilities.add(cumulProb[i]-cumulProb[i-1])
+
         }
         computeDescriptiveStatVars()
     }
@@ -87,6 +94,14 @@ class PiecewiseLinearDistribution implements Distribution {
 
 
     double barF(double v) {return 1 - cdf(v)}
+
+    double density(double v){
+        if (v< val[0]) return 0.0
+        if (v >= val[last]) return 0.0
+        int i=1;
+        while (v > val[i]) {i++}
+        return probabilities[i-1] 
+    }
 
     double getMean() {return mean}
 

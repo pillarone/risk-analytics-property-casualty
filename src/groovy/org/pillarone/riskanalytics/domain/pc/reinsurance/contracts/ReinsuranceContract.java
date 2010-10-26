@@ -71,14 +71,11 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
         }
 
         List<UnderwritingInfo> modifiedUnderwritingInfo = new ArrayList<UnderwritingInfo>();
-        for (UnderwritingInfo underwritingInfo : inUnderwritingInfo) {
-            modifiedUnderwritingInfo.add(underwritingInfo);
-        }
+        modifiedUnderwritingInfo.addAll(inUnderwritingInfo);
 
         if (parmContractStrategy instanceof XLContractStrategy) {
             modifyPremiumWritten(modifiedUnderwritingInfo, inClaims);
         }
-
 
         if (isSenderWired(outCoverUnderwritingInfo) || isSenderWired(outNetAfterCoverUnderwritingInfo)) {
             calculateCededUnderwritingInfos(modifiedUnderwritingInfo, outCoverUnderwritingInfo);

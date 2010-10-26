@@ -137,6 +137,9 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
     private static Distribution getDiscreteEmpiricalDistribution(double[] obs, double[] prob) {
         double probSum = 0
         for (double value : prob) {probSum += value}
+        for (int i=0; i< prob.size(); i++){
+            prob[i] = prob[i]/probSum
+        }
         return new DiscreteDistribution(obs, prob, obs.length)
     }
 

@@ -19,6 +19,16 @@ import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 
 import umontreal.iro.lecuyer.probdist.*
+import org.pillarone.riskanalytics.domain.utils.DistributionModified
+import org.pillarone.riskanalytics.domain.utils.constraints.DoubleConstraints
+import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
+import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
+import org.pillarone.riskanalytics.domain.utils.randomnumbers.UniformDoubleList
+import org.pillarone.riskanalytics.core.util.MathUtils
+import umontreal.iro.lecuyer.rng.RandomStreamBase
+import org.pillarone.riskanalytics.domain.utils.RandomDistribution
+import org.pillarone.riskanalytics.domain.utils.FrequencyDistributionType
+import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
@@ -29,6 +39,7 @@ public class TypableClaimsGeneratorTests extends GroovyTestCase {
     RiskBands riskBands = new RiskBands()
 
     void setUp() {
+
         claimsGenerator = new TypableClaimsGenerator()
         ComboBoxTableMultiDimensionalParameter uwInfoComboBox = new ComboBoxTableMultiDimensionalParameter(
                 ["motor hull"], ["Underwriting Information"], IUnderwritingInfoMarker)
@@ -41,6 +52,7 @@ public class TypableClaimsGeneratorTests extends GroovyTestCase {
                         "claimsSizeModification": DistributionModifier.getStrategy(DistributionModifier.NONE, [:]),]))
         claimsGenerator.setParmAssociateExposureInfo(RiskAllocatorType.getStrategy(RiskAllocatorType.NONE, [:]))
         claimsGenerator.setSimulationScope(new SimulationScope(model: new ClaimsModel()))
+        ConstraintsFactory.registerConstraint(new DoubleConstraints())
     }
 
     void testUsage() {
@@ -84,7 +96,7 @@ public class TypableClaimsGeneratorTests extends GroovyTestCase {
                 ClaimsGeneratorType.ATTRITIONAL, [
                         "claimsSizeBase": Exposure.PREMIUM_WRITTEN,
                         "claimsSizeDistribution": DistributionType.getStrategy(DistributionType.CONSTANT, [constant: 123]),
-                        "claimsSizeModification": DistributionModifier.getStrategy(DistributionModifier.NONE, [:]), ])
+                        "claimsSizeModification": DistributionModifier.getStrategy(DistributionModifier.NONE, [:]),])
         claimsGenerator.setParmAssociateExposureInfo(RiskAllocatorType.getStrategy(RiskAllocatorType.NONE, [:]))
         claimsGenerator.setSimulationScope(new SimulationScope(model: new ClaimsModel()))
         claimsGenerator.doCalculation()
@@ -104,7 +116,7 @@ public class TypableClaimsGeneratorTests extends GroovyTestCase {
                         "claimsSizeBase": Exposure.PREMIUM_WRITTEN,
                         "claimsSizeDistribution": DistributionType.getStrategy(DistributionType.CONSTANT, [constant: 123]),
                         "occurrenceDistribution": DistributionType.getStrategy(DistributionType.CONSTANT, [constant: 0.957]),
-                        "claimsSizeModification": DistributionModifier.getStrategy(DistributionModifier.NONE, [:]), ])
+                        "claimsSizeModification": DistributionModifier.getStrategy(DistributionModifier.NONE, [:]),])
         claimsGenerator.setParmAssociateExposureInfo(RiskAllocatorType.getStrategy(RiskAllocatorType.NONE, [:]))
         claimsGenerator.setSimulationScope(new SimulationScope(model: new ClaimsModel()))
         claimsGenerator.doCalculation()
@@ -127,7 +139,7 @@ public class TypableClaimsGeneratorTests extends GroovyTestCase {
                         "frequencyModification": DistributionModifier.getStrategy(DistributionModifier.NONE, [:]),
                         "claimsSizeBase": Exposure.PREMIUM_WRITTEN,
                         "claimsSizeDistribution": DistributionType.getStrategy(DistributionType.CONSTANT, [constant: 123]),
-                        "claimsSizeModification": DistributionModifier.getStrategy(DistributionModifier.NONE, [:]), ])
+                        "claimsSizeModification": DistributionModifier.getStrategy(DistributionModifier.NONE, [:]),])
         claimsGenerator.setParmAssociateExposureInfo(RiskAllocatorType.getStrategy(RiskAllocatorType.NONE, [:]))
         claimsGenerator.setSimulationScope(new SimulationScope(model: new ClaimsModel()))
         claimsGenerator.doCalculation()
@@ -150,7 +162,7 @@ public class TypableClaimsGeneratorTests extends GroovyTestCase {
                         "claimsSizeBase": Exposure.PREMIUM_WRITTEN,
                         "claimsSizeDistribution": DistributionType.getStrategy(DistributionType.CONSTANT, [constant: 123]),
                         "claimsSizeModification": DistributionModifier.getStrategy(DistributionModifier.NONE, [:]),
-                        "produceClaim": FrequencySeverityClaimType.SINGLE, ])
+                        "produceClaim": FrequencySeverityClaimType.SINGLE,])
         claimsGenerator.setParmAssociateExposureInfo(RiskAllocatorType.getStrategy(RiskAllocatorType.NONE, [:]))
         claimsGenerator.setSimulationScope(new SimulationScope(model: new ClaimsModel()))
         claimsGenerator.doCalculation()
@@ -174,7 +186,7 @@ public class TypableClaimsGeneratorTests extends GroovyTestCase {
                         "claimsSizeDistribution": DistributionType.getStrategy(DistributionType.CONSTANT, [constant: 123]),
                         "occurrenceDistribution": DistributionType.getStrategy(DistributionType.CONSTANT, [constant: 0.957]),
                         "claimsSizeModification": DistributionModifier.getStrategy(DistributionModifier.NONE, [:]),
-                        "produceClaim": FrequencySeverityClaimType.SINGLE, ])
+                        "produceClaim": FrequencySeverityClaimType.SINGLE,])
         claimsGenerator.setParmAssociateExposureInfo(RiskAllocatorType.getStrategy(RiskAllocatorType.NONE, [:]))
         claimsGenerator.setSimulationScope(new SimulationScope(model: new ClaimsModel()))
         claimsGenerator.doCalculation()
@@ -194,8 +206,8 @@ public class TypableClaimsGeneratorTests extends GroovyTestCase {
                 ClaimsGeneratorType.SEVERITY_OF_EVENT_GENERATOR, [
                         //TODO(2): FrequencyBase.NUMBER_OF_POLICIES with Freq>1
                         "claimsSizeBase": Exposure.ABSOLUTE, //TODO(1): PREMIUM_WRITTEN for AttritionalCG
-                        "claimsSizeDistribution": DistributionType.getStrategy(DistributionType.UNIFORM, ['a':0d, 'b':1d]),
-                        "produceClaim": FrequencySeverityClaimType.AGGREGATED_EVENT, ])
+                        "claimsSizeDistribution": DistributionType.getStrategy(DistributionType.UNIFORM, ['a': 0d, 'b': 1d]),
+                        "produceClaim": FrequencySeverityClaimType.AGGREGATED_EVENT,])
         claimsGenerator.setParmAssociateExposureInfo(RiskAllocatorType.getStrategy(RiskAllocatorType.NONE, [:]))
         claimsGenerator.setSimulationScope(new SimulationScope(model: new ClaimsModel()))
         //TODO(): Test inUnderwritingInfo & inProbabilities (for Attritional) analogously to inEventSeverities
@@ -223,8 +235,8 @@ public class TypableClaimsGeneratorTests extends GroovyTestCase {
         claimsGenerator.setParmClaimsModel ClaimsGeneratorType.getStrategy(
                 ClaimsGeneratorType.SEVERITY_OF_EVENT_GENERATOR, [
                         "claimsSizeBase": Exposure.PREMIUM_WRITTEN,
-                        "claimsSizeDistribution": DistributionType.getStrategy(DistributionType.UNIFORM, ['a':0d, 'b':1d]),
-                        "produceClaim": FrequencySeverityClaimType.AGGREGATED_EVENT, ])
+                        "claimsSizeDistribution": DistributionType.getStrategy(DistributionType.UNIFORM, ['a': 0d, 'b': 1d]),
+                        "produceClaim": FrequencySeverityClaimType.AGGREGATED_EVENT,])
         claimsGenerator.setParmAssociateExposureInfo(RiskAllocatorType.getStrategy(RiskAllocatorType.NONE, [:]))
         claimsGenerator.setSimulationScope(new SimulationScope(model: new ClaimsModel()))
         // wire an external severity
@@ -238,7 +250,7 @@ public class TypableClaimsGeneratorTests extends GroovyTestCase {
         claimsGenerator.inEventSeverities << events
         def channelWired = new TestPretendInChannelWired(claimsGenerator, "inEventSeverities")
         // wire underwriting info
-        UnderwritingInfo underwritingInfo = new UnderwritingInfo(premiumWritten:1000d)
+        UnderwritingInfo underwritingInfo = new UnderwritingInfo(premiumWritten: 1000d)
         //underwritingInfo.originalUnderwritingInfo = underwritingInfo
         claimsGenerator.inUnderwritingInfo << underwritingInfo
         claimsGenerator.doCalculation()
@@ -250,8 +262,8 @@ public class TypableClaimsGeneratorTests extends GroovyTestCase {
         claimsGenerator.setParmClaimsModel ClaimsGeneratorType.getStrategy(
                 ClaimsGeneratorType.SEVERITY_OF_EVENT_GENERATOR, [
                         "claimsSizeBase": Exposure.ABSOLUTE,
-                        "claimsSizeDistribution": DistributionType.getStrategy(DistributionType.UNIFORM, ['a':0d, 'b':1d]),
-                        "produceClaim": FrequencySeverityClaimType.AGGREGATED_EVENT, ])
+                        "claimsSizeDistribution": DistributionType.getStrategy(DistributionType.UNIFORM, ['a': 0d, 'b': 1d]),
+                        "produceClaim": FrequencySeverityClaimType.AGGREGATED_EVENT,])
         claimsGenerator.doCalculation()
 
         assertEquals "one single claim (absolute)", 1, claimsGenerator.outClaims.size()
@@ -273,11 +285,11 @@ public class TypableClaimsGeneratorTests extends GroovyTestCase {
                         "claimsSizeDistribution": DistributionType.getStrategy(DistributionType.CONSTANT, [constant: 12.34d]),
                         "occurrenceDistribution": DistributionType.getStrategy(DistributionType.CONSTANT, [constant: 0.501d]),
                         "claimsSizeModification": DistributionModifier.getStrategy(DistributionModifier.NONE, [:]),
-                        "produceClaim": FrequencySeverityClaimType.SINGLE, ])
+                        "produceClaim": FrequencySeverityClaimType.SINGLE,])
         claimsGenerator.setParmAssociateExposureInfo(RiskAllocatorType.getStrategy(RiskAllocatorType.NONE, [:]))
         claimsGenerator.setSimulationScope(new SimulationScope(model: new ClaimsModel()))
         // wire underwriting info
-        UnderwritingInfo underwritingInfo = new UnderwritingInfo(premiumWritten:100d, numberOfPolicies:5d)
+        UnderwritingInfo underwritingInfo = new UnderwritingInfo(premiumWritten: 100d, numberOfPolicies: 5d)
         //underwritingInfo.originalUnderwritingInfo = underwritingInfo
         claimsGenerator.inUnderwritingInfo << underwritingInfo
         claimsGenerator.doCalculation()
@@ -297,7 +309,7 @@ public class TypableClaimsGeneratorTests extends GroovyTestCase {
                         "claimsSizeDistribution": DistributionType.getStrategy(DistributionType.CONSTANT, [constant: 12.34d]),
                         "occurrenceDistribution": DistributionType.getStrategy(DistributionType.CONSTANT, [constant: 0.501d]),
                         "claimsSizeModification": DistributionModifier.getStrategy(DistributionModifier.NONE, [:]),
-                        "produceClaim": FrequencySeverityClaimType.SINGLE, ])
+                        "produceClaim": FrequencySeverityClaimType.SINGLE,])
         claimsGenerator.doCalculation()
 
         assertEquals "one single claim (absolute)", 1, claimsGenerator.outClaims.size()
@@ -314,7 +326,7 @@ public class TypableClaimsGeneratorTests extends GroovyTestCase {
                         "claimsSizeDistribution": DistributionType.getStrategy(DistributionType.CONSTANT, [constant: 12.34d]),
                         "occurrenceDistribution": DistributionType.getStrategy(DistributionType.CONSTANT, [constant: 0.501d]),
                         "claimsSizeModification": DistributionModifier.getStrategy(DistributionModifier.NONE, [:]),
-                        "produceClaim": FrequencySeverityClaimType.SINGLE, ])
+                        "produceClaim": FrequencySeverityClaimType.SINGLE,])
 
         claimsGenerator.doCalculation()
 
@@ -335,7 +347,7 @@ public class TypableClaimsGeneratorTests extends GroovyTestCase {
                 ClaimsGeneratorType.ATTRITIONAL, [
                         "claimsSizeBase": Exposure.PREMIUM_WRITTEN,
                         "claimsSizeDistribution": DistributionType.getStrategy(DistributionType.CONSTANT, [constant: 123]),
-                        "claimsSizeModification": DistributionModifier.getStrategy(DistributionModifier.NONE, [:]), ])
+                        "claimsSizeModification": DistributionModifier.getStrategy(DistributionModifier.NONE, [:]),])
         claimsGenerator.setParmAssociateExposureInfo(RiskAllocatorType.getStrategy(RiskAllocatorType.NONE, [:]))
         claimsGenerator.setSimulationScope(new SimulationScope(model: new ClaimsModel()))
         // wire one inProbability
@@ -356,8 +368,8 @@ public class TypableClaimsGeneratorTests extends GroovyTestCase {
                 ClaimsGeneratorType.ATTRITIONAL, [
                         "claimsSizeBase": Exposure.PREMIUM_WRITTEN,
                         //"claimsSizeDistribution": DistributionType.getStrategy(DistributionType.CONSTANT, [constant: 123]),
-                        "claimsSizeDistribution": DistributionType.getStrategy(DistributionType.UNIFORM, [a:0d, b:1d]),
-                        "claimsSizeModification": DistributionModifier.getStrategy(DistributionModifier.NONE, [:]), ])
+                        "claimsSizeDistribution": DistributionType.getStrategy(DistributionType.UNIFORM, [a: 0d, b: 1d]),
+                        "claimsSizeModification": DistributionModifier.getStrategy(DistributionModifier.NONE, [:]),])
         probabilities.probabilities = [0.578d]
         probabilities.marginals = ['motor']
         claimsGenerator.name = 'motor'
@@ -386,7 +398,7 @@ public class TypableClaimsGeneratorTests extends GroovyTestCase {
                 ClaimsGeneratorType.ATTRITIONAL, [
                         "claimsSizeBase": Exposure.PREMIUM_WRITTEN,
                         "claimsSizeDistribution": DistributionType.getStrategy(DistributionType.CONSTANT, [constant: 123]),
-                        "claimsSizeModification": DistributionModifier.getStrategy(DistributionModifier.NONE, [:]), ])
+                        "claimsSizeModification": DistributionModifier.getStrategy(DistributionModifier.NONE, [:]),])
         claimsGenerator.setParmAssociateExposureInfo(RiskAllocatorType.getStrategy(RiskAllocatorType.NONE, [:]))
         claimsGenerator.setSimulationScope(new SimulationScope(model: new ClaimsModel()))
         // wire a first inProbability
@@ -425,14 +437,60 @@ public class TypableClaimsGeneratorTests extends GroovyTestCase {
 
         Distribution dist2 = DistributionType.getLognormalDistribution(1.0, 1.0)
         double partitionFunction2 = dist2.cdf(5) - dist2.cdf(2)
-        assertEquals "partition function on truncated interval", true,partitionFunction2>0 && partitionFunction2 < Double.POSITIVE_INFINITY
+        assertEquals "partition function on truncated interval", true, partitionFunction2 > 0 && partitionFunction2 < Double.POSITIVE_INFINITY
 
         Distribution dist2Truncated = new TruncatedDist((ContinuousDistribution) dist2, 2d, 5d)
         assertEquals " density left from interval", 0d, dist2Truncated.density(1)
-        assertEquals " density at left boundary", dist2.density(2)/partitionFunction2, dist2Truncated.density(2)
-        assertEquals " density within interval",dist2.density(3)/partitionFunction2 , dist2Truncated.density(3)
-        assertEquals " density at right boundary",dist2.density(5)/partitionFunction2 , dist2Truncated.density(5)
+        assertEquals " density at left boundary", dist2.density(2) / partitionFunction2, dist2Truncated.density(2)
+        assertEquals " density within interval", dist2.density(3) / partitionFunction2, dist2Truncated.density(3)
+        assertEquals " density at right boundary", dist2.density(5) / partitionFunction2, dist2Truncated.density(5)
         assertEquals " density right from interval", 0d, dist2Truncated.density(6)
-        assertEquals " inverse F(0.9)",true, dist2Truncated.inverseF(0.9)>2 && dist2Truncated.inverseF(0.9)<5
+        assertEquals " inverse F(0.9)", true, dist2Truncated.inverseF(0.9) > 2 && dist2Truncated.inverseF(0.9) < 5
     }
+
+    void testPMLData() {
+
+        ConstrainedMultiDimensionalParameter pmlData = new ConstrainedMultiDimensionalParameter(
+                [[0.1d, 0.2d, 0.3d, 0.4d, 0.7d, 1.5d, 2.2d, 4.0d, 5.0d], [0.1d, 45d, 200d, 500d, 600d, 800d, 1500d, 2016d, 4000d]], ["return period", "maximum claim"], ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))
+        DistributionModified claimsSizeModification = DistributionModifier.getStrategy(DistributionModifier.NONE, [:])
+        claimsGenerator.setParmClaimsModel(ClaimsGeneratorType.getStrategy(ClaimsGeneratorType.PML,
+                ["pmlData": pmlData, "claimsSizeModification": claimsSizeModification,]))
+
+
+        MathUtils.initRandomStreamBase(1531)
+        RandomStreamBase referenceStream = MathUtils.getRandomStream(MathUtils.getRandomStreamBase(), 0).clone()
+        List<Double> randomNumbers = UniformDoubleList.getDoubles((int) 300, false, referenceStream);
+        RandomDistribution poissonDist = (RandomDistribution) FrequencyDistributionType.getStrategy(FrequencyDistributionType.POISSON,
+                new HashMap<String, Double>() {
+                    {
+                        put("lambda", 10);
+                    }
+                });
+        double frequency = poissonDist.getDistribution().inverseF(randomNumbers[0]);
+        List<Double> cumProb = []; cumProb[0] = 0
+        double[] periods = [0.1d, 0.2d, 0.3d, 0.4d, 0.7d, 1.5d, 2.2d, 4.0d, 5.0d]
+        for (int i = 1; i < 9; i++) {
+            cumProb[i] = 1d - 0.1d / periods[i]
+        }
+        TableMultiDimensionalParameter cumValues = new TableMultiDimensionalParameter([[0.1d, 45d, 200d, 500d, 600d, 800d, 1500d, 2016d, 4000d], cumProb], ['observations', 'cumulative probabilities'])
+        Map distributionData = new HashMap();
+        distributionData.put("discreteEmpiricalCumulativeValues", cumValues);
+        RandomDistribution cumEmpiricalDistribution = DistributionType.getStrategy(DistributionType.DISCRETEEMPIRICALCUMULATIVE, distributionData);
+        List<Double> claimValues = new ArrayList<Double>();
+        for (int i = 0; i < frequency; i++) {
+            claimValues.add(cumEmpiricalDistribution.getDistribution().inverseF(randomNumbers[i + 1]));
+        }
+
+        claimsGenerator.doCalculation();
+
+        List<Double> outClaimsUltimate = []
+        for (int i = 0; i < claimsGenerator.outClaims.size(); i++) {
+            outClaimsUltimate[i] = claimsGenerator.outClaims.get(i).getUltimate()
+        }
+
+        assertEquals "number of claims", frequency, claimsGenerator.outClaims.size()
+        assertEquals "claims", true, claimValues.containsAll(outClaimsUltimate)
+
+    }
+
 }

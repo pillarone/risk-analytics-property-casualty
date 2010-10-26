@@ -1,11 +1,11 @@
 package org.pillarone.riskanalytics.domain.utils
 
-import umontreal.iro.lecuyer.probdist.Distribution
+import umontreal.iro.lecuyer.probdist.DiscreteDistribution
 
 /**
- *  @author stefan.kunz (at) intuitive-collaboration (dot) com
+ * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-class ConstantDistribution implements Distribution {
+class ConstantDistribution extends DiscreteDistribution {
 
     double constant
 
@@ -13,15 +13,20 @@ class ConstantDistribution implements Distribution {
         this.constant = constant
     }
 
-    public double cdf(double v) {
-        return constant
+    public double cdf(double x) {
+        if (x < constant) {
+            return 0
+        }
+        else {
+            return 1
+        }
     }
 
-    public double barF(double v) {
-        return constant
+    public double barF(double x) {
+        return 1-cdf(x)
     }
 
-    public double inverseF(double v) {
+    public double inverseF(double x) {
         return constant
     }
 
@@ -38,7 +43,7 @@ class ConstantDistribution implements Distribution {
     }
 
     public double[] getParams() {
-        return [constant]
+        return (double[]) [constant]
     }
 
 }

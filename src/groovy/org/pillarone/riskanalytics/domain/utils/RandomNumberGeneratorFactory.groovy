@@ -3,13 +3,15 @@ package org.pillarone.riskanalytics.domain.utils
 import org.pillarone.riskanalytics.core.util.MathUtils
 import umontreal.iro.lecuyer.probdist.BinomialDist
 import umontreal.iro.lecuyer.probdist.ContinuousDistribution
-import umontreal.iro.lecuyer.probdist.TruncatedDist
 import umontreal.iro.lecuyer.probdist.UniformDist
 import umontreal.iro.lecuyer.randvar.BinomialGen
 import umontreal.iro.lecuyer.randvar.RandomVariateGen
 import umontreal.iro.lecuyer.randvar.UniformGen
 import umontreal.iro.lecuyer.rng.RandomStream
 import umontreal.iro.lecuyer.rng.RandomStreamBase
+import umontreal.iro.lecuyer.probdist.DiscreteDistribution
+import umontreal.iro.lecuyer.probdist.DiscreteDistributionInt
+
 
 /**
  * Enables different streams for generators, and parametrization of streams.
@@ -82,43 +84,29 @@ class RandomNumberGeneratorFactory {
                                     (double) modifier.parameters["shift"]))
                     break
                 case DistributionModifier.TRUNCATED:
-                    if (distribution.distribution instanceof ContinuousDistribution) {
-                        generator = new RandomNumberGenerator(
+                generator = new RandomNumberGenerator(
                                 generator: new RandomVariateGen(randomStream,
-                                        new TruncatedDist((ContinuousDistribution) distribution.distribution,
+                                        new TruncatedDist(distribution.distribution,
                                                 (double) modifier.parameters["min"],
                                                 (double) modifier.parameters["max"])))
-                    }
-                    else {
-                        throw new IllegalArgumentException("['RandomNumberGeneratorFactory.noTruncation','"+distribution.distribution+"']")
-                    }
+
                     break
                 case DistributionModifier.TRUNCATEDSHIFT:
-                    if (distribution.distribution instanceof ContinuousDistribution) {
                         generator = new RandomNumberGenerator(
                                 generator: new ShiftedVariateGen(randomStream,
-                                        new TruncatedDist((ContinuousDistribution) distribution.distribution,
+                                        new TruncatedDist(distribution.distribution,
                                                 (double) modifier.parameters["min"],
                                                 (double) modifier.parameters["max"]),
                                         (double) modifier.parameters["shift"]))
-                    }
-                    else {
-                        throw new IllegalArgumentException("['RandomNumberGeneratorFactory.noTruncation','"+distribution.distribution+"']")
-                    }
                     break
                 case DistributionModifier.LEFTTRUNCATEDRIGHTCENSORED:
-                    if (distribution.distribution instanceof ContinuousDistribution) {
                         generator = new RandomNumberGenerator(
                                 generator: new CensoredVariateGen(randomStream,
-                                        new TruncatedDist((ContinuousDistribution) distribution.distribution,
+                                        new TruncatedDist(distribution.distribution,
                                                 (double) modifier.parameters["min"],
                                                 (double) Double.POSITIVE_INFINITY),
                                         (double) Double.NEGATIVE_INFINITY,
                                         (double) modifier.parameters["max"]))
-                    }
-                    else {
-                        throw new IllegalArgumentException("['RandomNumberGeneratorFactory.noTruncation','"+distribution.distribution+"']")
-                    }
                     break
 
             }

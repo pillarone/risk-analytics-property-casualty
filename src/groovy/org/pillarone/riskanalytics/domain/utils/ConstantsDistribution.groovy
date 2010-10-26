@@ -1,6 +1,6 @@
 package org.pillarone.riskanalytics.domain.utils
 
-import umontreal.iro.lecuyer.probdist.Distribution
+import umontreal.iro.lecuyer.probdist.DiscreteDistribution
 
 /**
  * This may actually not differ at all from a discrete (or discrete empirical) distribution; however,
@@ -12,7 +12,7 @@ import umontreal.iro.lecuyer.probdist.Distribution
  *
  * @author ben.ginsberg (at) intuitive-collaboration (dot) com
  */
-class ConstantsDistribution implements Distribution {
+class ConstantsDistribution extends DiscreteDistribution {
 
     List<Double> values // ordered list of values
     List<Double> sortedValues
@@ -25,12 +25,13 @@ class ConstantsDistribution implements Distribution {
     private double stdDev
     private double variance
     private double eventProbability
+    private List<Double> probabilities
 
     ConstantsDistribution(double[] constants) {
         length = constants.size();
         valueCount = new LinkedHashMap<Double, Double>(length)
         values = new ArrayList<Double>(length)
-        for (int i=0; i < length; i++) {
+        for (int i = 0; i < length; i++) {
             double value = constants[i]
             values.add(value)
             if (valueCount.containsKey(value)) {
@@ -40,6 +41,7 @@ class ConstantsDistribution implements Distribution {
                 valueCount.put(value, 1)
             }
         }
+
         computeDescriptiveStatistics()
         computeOrdinalStatistics()
         computeDistinctValueCount()
@@ -48,7 +50,7 @@ class ConstantsDistribution implements Distribution {
     private void computeDescriptiveStatistics() {
         mean = 0
         double meanSquare = 0
-        for (double value : values) {
+        for (double value: values) {
             mean += value
             meanSquare += value * value
         }
@@ -62,10 +64,12 @@ class ConstantsDistribution implements Distribution {
     private void computeOrdinalStatistics() {
         sortedValues = valueCount.keySet().sort()
         cdft = []
+        probabilities = []
         int cumCount = 0
-        for (double value : sortedValues) {
+        for (double value: sortedValues) {
             cumCount += valueCount.get(value)
             cdft.add(eventProbability * cumCount)
+            probabilities.add(eventProbability*valueCount.get(value))
         }
     }
 
@@ -82,7 +86,7 @@ class ConstantsDistribution implements Distribution {
     double inverseF(double u) {
         if ((u < 0) || (u > 1)) throw new IllegalArgumentException("ConstantsDistribution.invalidArguments");
         if (u <= cdft[0]) return sortedValues[0]
-        if (u >= cdft[distinctValueCount-1]) return sortedValues[distinctValueCount-1]
+        if (u >= cdft[distinctValueCount - 1]) return sortedValues[distinctValueCount - 1]
         // find the least i so that u <= cdft[i]
         // reformulate the problem: negate the test (test not <=u, but >u), invert the direction (take greatest, not least, i)
         int i = 0 // find the greatest cdft[i] < u; try all binary numbers i, looping on the bits from most to least significant
@@ -106,7 +110,6 @@ class ConstantsDistribution implements Distribution {
         return cdft[i]
     }
 
-
     double barF(double v) {return 1 - cdf(v)}
 
     double getMean() {return mean}
@@ -116,7 +119,7 @@ class ConstantsDistribution implements Distribution {
     double getStandardDeviation() {return stdDev}
 
     double[] getParams() {
-        values
+        return (double[]) [sortedValues.size(), sortedValues, probabilities]
     }
 
 }
