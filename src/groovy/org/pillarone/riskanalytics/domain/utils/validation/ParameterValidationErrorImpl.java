@@ -2,6 +2,7 @@ package org.pillarone.riskanalytics.domain.utils.validation;
 
 import org.pillarone.riskanalytics.core.parameterization.validation.ParameterValidationError;
 
+import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Locale;
 import java.util.MissingResourceException;
@@ -17,7 +18,7 @@ public class ParameterValidationErrorImpl extends ParameterValidationError {
     public String getLocalizedMessage(Locale locale) {
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("org.pillarone.riskanalytics.domain.pc.validation.distributionType", locale);
-            return bundle.getString(msg);
+            return MessageFormat.format(bundle.getString(msg),args);
         } catch (MissingResourceException e) {
             return msg;
         }
