@@ -10,6 +10,9 @@ import org.pillarone.riskanalytics.domain.pc.constants.ReinsuranceContractBase
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionTests
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiCoverAttributeReinsuranceContract
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
+import org.pillarone.riskanalytics.domain.pc.claims.TestLobComponent
+import org.pillarone.riskanalytics.core.model.Model
+import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope
 
 /**
  * @author ben.ginsberg (at) intuitive-collaboration (dot) com
@@ -18,16 +21,31 @@ class DynamicMultiCoverAttributeReinsuranceProgramTests extends GroovyTestCase {
 
     DynamicMultiCoverAttributeReinsuranceProgram program
 
-    Claim attrMarketClaim1000 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 1000d, fractionOfPeriod: 0d)
-    Claim largeMarketClaim600 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 600d, fractionOfPeriod: 0d)
+    SimulationScope simulationScope = new SimulationScope()
 
-    Claim attrClaim100 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 100d, fractionOfPeriod: 0d, originalClaim: attrMarketClaim1000)
-    Claim largeClaim60 = new Claim(claimType: ClaimType.SINGLE, ultimate: 60d, fractionOfPeriod: 0.1d, originalClaim: largeMarketClaim600)
+    static Map<String, TestLobComponent> createLobs(List<String> lobNames, Model model = null) {
+        Map<String, TestLobComponent> lob = new HashMap()
+        for (String lobName: lobNames) {
+            lob.put(lobName, new TestLobComponent(name: lobName))
+            if (model != null) {
+                model.allComponents << lob[lobName]
+            }
+        }
+        return lob
+    }
+
+    Map<String, TestLobComponent> lob = createLobs(['motor', 'property', 'legal'], simulationScope.model)
+
+    Claim attrMarketClaim1000 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 1000d, fractionOfPeriod: 0d, lineOfBusiness: lob['motor'])
+    Claim largeMarketClaim600 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 600d, fractionOfPeriod: 0d, lineOfBusiness: lob['motor'])
+
+    Claim attrClaim100 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 100d, fractionOfPeriod: 0d, originalClaim: attrMarketClaim1000, lineOfBusiness: lob['motor'])
+    Claim largeClaim60 = new Claim(claimType: ClaimType.SINGLE, ultimate: 60d, fractionOfPeriod: 0.1d, originalClaim: largeMarketClaim600, lineOfBusiness: lob['motor'])
 
     UnderwritingInfo underwritingInfo1 = CommissionTests.getUnderwritingInfoFromSelf(
-                                            origin: new TestComponent(),
-                                            premiumWritten: 2000, premiumWrittenAsIf: 2000,
-                                            numberOfPolicies: 100, exposureDefinition: Exposure.ABSOLUTE)
+            origin: new TestComponent(),
+            premiumWritten: 2000, premiumWrittenAsIf: 2000,
+            numberOfPolicies: 100, exposureDefinition: Exposure.ABSOLUTE, lineOfBusiness: lob['motor'])
 
     /**
      *  Contract qs2 is based on NET (default for any contract, required for first contracts at the start of a program),

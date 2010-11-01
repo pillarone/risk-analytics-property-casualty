@@ -6,6 +6,10 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
+import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
+import org.pillarone.riskanalytics.domain.pc.claims.ClaimFilterUtilities
+import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
+import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -17,24 +21,25 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
 
     static final ReinsuranceContractType type = ReinsuranceContractType.STOPLOSS
 
-    /** Premium, limit and attachmentPoint can be expressed as a fraction of a base quantity.            */
+    /** Premium, limit and attachmentPoint can be expressed as a fraction of a base quantity.               */
     StopLossContractBase stopLossContractBase = StopLossContractBase.ABSOLUTE
 
-    /** Premium as a percentage of the premium base            */
+    /** Premium as a percentage of the premium base               */
     double premium
 
-    /** Allocation of the premium to the affected lines of business   */
+    /** Allocation of the premium to the affected lines of business      */
     IPremiumAllocationStrategy premiumAllocation = PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, new HashMap());
 
-    /** attachment point is also expressed as a fraction of gnpi if premium base == GNPI            */
+    /** attachment point is also expressed as a fraction of gnpi if premium base == GNPI               */
     double attachmentPoint
 
-    /** attachment point is also expressed as a fraction of gnpi if premium base == GNPI         */
+    /** attachment point is also expressed as a fraction of gnpi if premium base == GNPI            */
     double limit
 
     private double factor
 
     Map<UnderwritingInfo, Double> grossPremiumSharesPerBand = [:]
+    Map<LobMarker, Double> sharesPerLineOfBusiness = [:]
 
     ReinsuranceContractType getType() {
         type
@@ -69,6 +74,7 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
         double aggregateCededClaimAmount = Math.min(Math.max(aggregateGrossClaimAmount - scaledAttachmentPoint, 0), scaledLimit)
         factor = (aggregateGrossClaimAmount != 0) ? aggregateCededClaimAmount / aggregateGrossClaimAmount : 1d
 
+        coverUnderwritingInfo = modifyPremiumByAllocationStrategy(inClaims, coverUnderwritingInfo)
         double totalPremium = coverUnderwritingInfo.premiumWritten.sum()
         if (totalPremium != 0) {
             for (UnderwritingInfo underwritingInfo: coverUnderwritingInfo) {
@@ -80,6 +86,63 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
                 grossPremiumSharesPerBand.put(underwritingInfo, 0)
             }
         }
+    }
+
+    protected List<UnderwritingInfo> modifyPremiumByAllocationStrategy(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
+        if (premiumAllocation instanceof ClaimsSharesPremiumAllocationStrategy) {
+            double aggregatedClaim = 0d;
+            for (Claim claim: inClaims) {
+                if (claim.getPeril() instanceof PerilMarker) {
+                    aggregatedClaim += claim.getUltimate();
+                }
+            }
+            double aggregatedPremiumWritten = 0d;
+            for (UnderwritingInfo underwritingInfo: coverUnderwritingInfo) {
+                aggregatedPremiumWritten += underwritingInfo.getPremiumWritten();
+            }
+            for (UnderwritingInfo underwritingInfo: coverUnderwritingInfo) {
+                LobMarker coveredLine = underwritingInfo.getLineOfBusiness();
+                List<Claim> lobClaims = ClaimFilterUtilities.filterClaimsByLine(inClaims, coveredLine, false);
+                double aggregatedLobClaim = 0d;
+                for (Claim claim: lobClaims) {
+                    aggregatedLobClaim += claim.getUltimate();
+                }
+                underwritingInfo.premiumWritten = aggregatedPremiumWritten * aggregatedLobClaim / aggregatedClaim;
+                underwritingInfo.premiumWrittenAsIf = aggregatedPremiumWritten * aggregatedLobClaim / aggregatedClaim;
+            }
+        }
+        else if (premiumAllocation instanceof LineSharesPremiumAllocationStrategy) {
+            double aggregatedPremiumWritten = 0d;
+            for (UnderwritingInfo underwritingInfo: coverUnderwritingInfo) {
+                aggregatedPremiumWritten += underwritingInfo.getPremiumWritten();
+            }
+            for (UnderwritingInfo underwritingInfo: coverUnderwritingInfo) {
+                LobMarker coveredLine = underwritingInfo.getLineOfBusiness();
+                underwritingInfo.premiumWritten = aggregatedPremiumWritten * getLineOfBusinessShare(coveredLine);
+                underwritingInfo.premiumWrittenAsIf = aggregatedPremiumWritten * getLineOfBusinessShare(coveredLine);
+            }
+        }
+        return coverUnderwritingInfo
+    }
+
+    private Double getLineOfBusinessShare(LobMarker coveredLine) {
+        Double share = sharesPerLineOfBusiness.get(coveredLine);
+        if (share == null) {
+            ConstrainedMultiDimensionalParameter lineOfBusinessShares = (ConstrainedMultiDimensionalParameter) ((LineSharesPremiumAllocationStrategy)
+            premiumAllocation).getLineOfBusinessShares();
+            int numberOfLines = lineOfBusinessShares.getValueRowCount();
+            int firstRowWithLine = lineOfBusinessShares.getTitleRowCount();
+            for (int row = firstRowWithLine; row <= numberOfLines; row++) {
+                String line = (String) lineOfBusinessShares.getValueAt(row, 0);
+                share = (Double) lineOfBusinessShares.getValueAt(row, 1);
+                if (!line.equals(coveredLine.getNormalizedName())) {
+                    share = 0d;
+                }
+                sharesPerLineOfBusiness.put(coveredLine, share);
+                if (share > 0) break;   // stop, if equal names were found
+            }
+        }
+        return share;
     }
 
     // todo: Are the definition for the as-if premium reasonable?

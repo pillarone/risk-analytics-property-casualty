@@ -71,6 +71,7 @@ public class UnderwritingFilterUtilities {
         return filterUnderwritingInfos;
     }
 
+
     /**
      * @param underwritingInfos underwriting info packets to be filtered
      * @param coveredLines      components such as RiskBands
@@ -106,6 +107,24 @@ public class UnderwritingFilterUtilities {
             }
         }
         return filteredAndScaledUnderwritingInfos;
+    }
+
+
+    /**
+     * same method as filterUnderwritingInfoByLob(), but the order in the result list is the same as in
+     * method filterUnderwritingInfoByLobAndScaleByPerilsInLob()
+     */
+    public static List<UnderwritingInfo> filterUnderwritingInfoByLobWithoutScaling(List<UnderwritingInfo> underwritingInfos, List<LobMarker> coveredLines) {
+
+        List<UnderwritingInfo> filteredUnderwritingInfos = new ArrayList<UnderwritingInfo>(underwritingInfos.size());
+        for (LobMarker coveredLine : coveredLines) {
+            for (UnderwritingInfo underwritingInfo : underwritingInfos) {
+                if (coveredLine.equals(underwritingInfo.getLineOfBusiness())) {
+                    filteredUnderwritingInfos.add(underwritingInfo);
+                }
+            }
+        }
+        return filteredUnderwritingInfos;
     }
 
     /**

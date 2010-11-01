@@ -57,14 +57,7 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
         }
         filterInChannels();
         // initialize contract details
-        List<UnderwritingInfo> modifiedUnderwritingInfo = new ArrayList<UnderwritingInfo>();
-        modifiedUnderwritingInfo.addAll(outFilteredUnderwritingInfo);
-
-        if (parmContractStrategy instanceof IReinsuranceContractStrategyWithPremiumAllocation) {
-            modifyPremiumWritten(modifiedUnderwritingInfo, outFilteredClaims);
-        }
-
-        parmContractStrategy.initBookkeepingFigures(outFilteredClaims, modifiedUnderwritingInfo);
+        parmContractStrategy.initBookkeepingFigures(outFilteredClaims, outFilteredUnderwritingInfo);
 
         Collections.sort(outFilteredClaims, SortClaimsByFractionOfPeriod.getInstance());
         if (isSenderWired(getOutUncoveredClaims()) || isSenderWired(getOutClaimsDevelopmentLeanNet())) {
@@ -74,11 +67,12 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
         }
 
         if (isSenderWired(outCoverUnderwritingInfo) || isSenderWired(outContractFinancials) || isSenderWired(outNetAfterCoverUnderwritingInfo)) {
-            calculateCededUnderwritingInfos(modifiedUnderwritingInfo, outCoverUnderwritingInfo);
+            calculateCededUnderwritingInfos(outFilteredUnderwritingInfo, outCoverUnderwritingInfo);
         }
         parmCommissionStrategy.calculateCommission(outCoveredClaims, outCoverUnderwritingInfo, false, false);
         if (isSenderWired(outNetAfterCoverUnderwritingInfo)) {
-            calculateNetUnderwritingInfos(outFilteredUnderwritingInfo, outCoverUnderwritingInfo, outNetAfterCoverUnderwritingInfo);
+            calculateNetUnderwritingInfos(UnderwritingFilterUtilities.filterUnderwritingInfoByLobWithoutScaling(inUnderwritingInfo, ClaimFilterUtilities.getLineOfBusiness(outFilteredClaims)),
+                    outCoverUnderwritingInfo, outNetAfterCoverUnderwritingInfo);
         }
         if (inClaims.size() > 0 && inClaims.get(0) instanceof ClaimDevelopmentLeanPacket) {
             for (Claim claim : outFilteredClaims) {

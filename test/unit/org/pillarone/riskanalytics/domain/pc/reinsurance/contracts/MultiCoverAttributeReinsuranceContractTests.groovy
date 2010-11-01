@@ -306,10 +306,10 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
         assertEquals "net, (fire) claim 1", 1120, contract.outUncoveredClaims[1].ultimate
 
         // underwriting is filtered by lob but not by peril
-        assertEquals "covered, (fire) uwinfo 0", 2.7/5.2*0.2 * 300, contract.outCoverUnderwritingInfo[0].premiumWritten, 1E-5
-        assertEquals "covered, (fire) uwinfo 0",2.7/5.2* 0.2 * 200, contract.outCoverUnderwritingInfo[1].premiumWritten, 1E-5
-        assertEquals "net, (fire) uwinfo 0", 2.7/5.2*0.8 * 300, contract.outNetAfterCoverUnderwritingInfo[0].premiumWritten, 1E-5
-        assertEquals "net, (fire) uwinfo 0", 2.7/5.2*0.8 * 200, contract.outNetAfterCoverUnderwritingInfo[1].premiumWritten, 1E-5
+        assertEquals "covered, (fire) uwinfo 0", 2.7 / 5.2 * 0.2 * 300, contract.outCoverUnderwritingInfo[0].premiumWritten, 1E-5
+        assertEquals "covered, (fire) uwinfo 0", 2.7 / 5.2 * 0.2 * 200, contract.outCoverUnderwritingInfo[1].premiumWritten, 1E-5
+        assertEquals "net, (fire) uwinfo 0", 300 - 2.7 / 5.2 * 0.2 * 300, contract.outNetAfterCoverUnderwritingInfo[0].premiumWritten, 1E-5
+        assertEquals "net, (fire) uwinfo 0", 200 - 2.7 / 5.2 * 0.2 * 200, contract.outNetAfterCoverUnderwritingInfo[1].premiumWritten, 1E-5
         contract.reset()
     }
 

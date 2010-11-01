@@ -258,6 +258,7 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         wxlContract1.inUnderwritingInfo << underwritingInfoMotor << underwritingInfoProperty << underwritingInfoLegal
 
         def outCoverUI = new TestProbe(wxlContract1, 'outCoverUnderwritingInfo')
+        def outNetUI = new TestProbe(wxlContract1, 'outNetAfterCoverUnderwritingInfo')
 
         wxlContract1.doCalculation()
 
@@ -266,6 +267,10 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         assertEquals "# of filtered UWInfo", 2, wxlContract1.outFilteredUnderwritingInfo.size()
         assertEquals "# of cover UWInfo", 2, wxlContract1.outCoverUnderwritingInfo.size()
 
+        List<Double> netPremiumWxl1 = []
+        for (UnderwritingInfo underwritingInfo in wxlContract1.outNetAfterCoverUnderwritingInfo) {
+            netPremiumWxl1.add(underwritingInfo.premiumWritten)
+        }
         List<Double> cededPremiumWxl1 = []
         for (UnderwritingInfo underwritingInfo in wxlContract1.outCoverUnderwritingInfo) {
             cededPremiumWxl1.add(underwritingInfo.premiumWritten)
@@ -276,6 +281,7 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         }
         assertEquals "ceded premium", true, cededPremiumWxl1.containsAll(new Double(1 / 9d * 5000), new Double(8 / 9d * 5000))
         assertEquals "commission", true, commissionWxl1.containsAll(new Double(-0.1 / 9d * 5000), new Double(-0.1 * 8 / 9d * 5000))
+        assertEquals "net premium", true, netPremiumWxl1.containsAll(new Double(1000 - 1 / 9d * 5000), new Double(10000 - 8 / 9d * 5000))
 
         MultiCoverAttributeReinsuranceContract cxlContract1 = getMultiCoverAttributeReinsuranceContract(cxlContract1,
                 getCoverAttributeStrategy(['lines': ['motor', 'property'], 'perils': ['peril a', 'peril b']], simulationScope.model),
@@ -368,6 +374,7 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         wxlContract2.inUnderwritingInfo << underwritingInfoMotor << underwritingInfoProperty << underwritingInfoLegal
 
         def outCoverUI = new TestProbe(wxlContract2, 'outCoverUnderwritingInfo')
+        def outNetUI = new TestProbe(wxlContract2, 'outNetAfterCoverUnderwritingInfo')
 
         wxlContract2.doCalculation()
 
@@ -384,7 +391,11 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         for (UnderwritingInfo underwritingInfo in wxlContract2.outCoverUnderwritingInfo) {
             commissionWxl2.add(underwritingInfo.commission)
         }
-
+        List<Double> netPremiumWxl2 = []
+        for (UnderwritingInfo underwritingInfo in wxlContract2.outNetAfterCoverUnderwritingInfo) {
+            netPremiumWxl2.add(underwritingInfo.premiumWritten)
+        }
+        assertEquals "net premium", true, netPremiumWxl2.containsAll(new Double(1000 - 2 / 9d * 5000), new Double(10000 - 7 / 9d * 5000))
         assertEquals "commission", true, commissionWxl2.containsAll(new Double(-0.2 / 9d * 5000), new Double(-0.1 * 7 / 9d * 5000))
         assertEquals "ceded premium", true, cededPremiumWxl2.containsAll(new Double(2 / 9d * 5000), new Double(7 / 9d * 5000))
 
@@ -465,6 +476,7 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         wxlContract3.inUnderwritingInfo << underwritingInfoMotor << underwritingInfoProperty << underwritingInfoLegal
 
         def outCoverUI = new TestProbe(wxlContract3, 'outCoverUnderwritingInfo')
+        def outNetUI = new TestProbe(wxlContract3, 'outNetAfterCoverUnderwritingInfo')
 
         wxlContract3.doCalculation()
 
@@ -481,7 +493,11 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         for (UnderwritingInfo underwritingInfo in wxlContract3.outCoverUnderwritingInfo) {
             commissionWxl3.add(underwritingInfo.commission)
         }
-
+        List<Double> netPremiumWxl3 = []
+        for (UnderwritingInfo underwritingInfo in wxlContract3.outNetAfterCoverUnderwritingInfo) {
+            netPremiumWxl3.add(underwritingInfo.premiumWritten)
+        }
+        assertEquals "net premium", true, netPremiumWxl3.containsAll(new Double(1000 - 0.4 * 5000), new Double(10000 - 0.6 * 5000))
         assertEquals "commission", true, commissionWxl3.containsAll(new Double(-0.1 * 0.4 * 5000), new Double(-0.1 * 0.6 * 5000))
         assertEquals "ceded premium", true, cededPremiumWxl3.containsAll(new Double(0.4 * 5000), new Double(0.6 * 5000))
 
