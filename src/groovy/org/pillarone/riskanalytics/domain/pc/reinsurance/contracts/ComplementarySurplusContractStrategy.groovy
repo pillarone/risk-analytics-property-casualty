@@ -2,6 +2,8 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts
 
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 
 /**
  * @author martin.melchior (at) fhnw (dot) ch
@@ -22,5 +24,18 @@ class ComplementarySurplusContractStrategy extends SurplusContractStrategy imple
         else {
             return inClaim.ultimate * (1 - (coveredByReinsurer * defaultCededLossShare))
         }
+    }
+
+    // todo: Are the definition for the as-if premium reasonable?
+    UnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double initialReserves) {
+        UnderwritingInfo cededUnderwritingInfo = UnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
+        cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo?.originalUnderwritingInfo ? grossUnderwritingInfo.originalUnderwritingInfo : grossUnderwritingInfo
+        double fractionCeded = 1 - (coveredByReinsurer * getFractionCeded(cededUnderwritingInfo.sumInsured))
+        cededUnderwritingInfo.premiumWritten *= fractionCeded
+        cededUnderwritingInfo.premiumWrittenAsIf *= fractionCeded
+        cededUnderwritingInfo.sumInsured *= fractionCeded
+        cededUnderwritingInfo.maxSumInsured *= fractionCeded
+        cededUnderwritingInfo.commission = 0
+        cededUnderwritingInfo
     }
 }
