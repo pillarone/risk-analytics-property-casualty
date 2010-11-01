@@ -32,7 +32,8 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
             "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]), "coveredByReinsurer": 1d,
             "reinstatementPremiums": new TableMultiDimensionalParameter([0.0], ['Reinstatement Premium'])])
     public static final ReinsuranceContractType STOPLOSS = new ReinsuranceContractType("stop loss", "STOPLOSS",
-            ["stopLossContractBase": StopLossContractBase.ABSOLUTE, "attachmentPoint": 0d, "limit": 0d, "premium": 0d, "coveredByReinsurer": 1d])
+            ["stopLossContractBase": StopLossContractBase.ABSOLUTE, "attachmentPoint": 0d, "limit": 0d, "premium": 0d,
+                    "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]), "coveredByReinsurer": 1d])
     public static final ReinsuranceContractType TRIVIAL = new ReinsuranceContractType("trivial", "TRIVIAL", [:])
     public static final ReinsuranceContractType AGGREGATEXL = new ReinsuranceContractType("aggregate xl", "AggregateXL",
             ["attachmentPoint": 0d, "limit": 0d, "premiumBase": PremiumBase.ABSOLUTE,
@@ -47,7 +48,7 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
             "reinstatementPremiums": new TableMultiDimensionalParameter([0.0], ['Reinstatement Premium'])])
 
     public static final all = [QUOTASHARE, SURPLUS, SURPLUSCOMPLEMENTARY, WXL, CXL,
-            WCXL, STOPLOSS, TRIVIAL, AGGREGATEXL, LOSSPORTFOLIOTRANSFER, ADVERSEDEVELOPMENTCOVER, GOLDORAK]
+            WCXL, STOPLOSS, TRIVIAL, LOSSPORTFOLIOTRANSFER, ADVERSEDEVELOPMENTCOVER, GOLDORAK]
 
     protected static Map types = [:]
     static {
@@ -77,9 +78,10 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
     }
 
     private static IReinsuranceContractStrategy getStopLoss(StopLossContractBase stopLossContractBase, double attachmentPoint, double limit,
-                                                            double premium, double coveredByReinsurer) {
+                                                            double premium, IPremiumAllocationStrategy premiumAllocation,
+                                                            double coveredByReinsurer) {
         return new StopLossContractStrategy(stopLossContractBase: stopLossContractBase, attachmentPoint: attachmentPoint, limit: limit,
-                premium: premium, coveredByReinsurer: coveredByReinsurer)
+                premium: premium, premiumAllocation: premiumAllocation, coveredByReinsurer: coveredByReinsurer)
     }
 
     private static IReinsuranceContractStrategy getSurplus(double retention, double lines,
@@ -208,6 +210,7 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
                         (double) parameters["attachmentPoint"],
                         (double) parameters["limit"],
                         (double) parameters["premium"],
+                        (IPremiumAllocationStrategy) parameters["premiumAllocation"],
                         (double) parameters["coveredByReinsurer"])
                 break
             case ReinsuranceContractType.SURPLUS:
