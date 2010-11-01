@@ -58,11 +58,9 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
         filterInChannels();
         // initialize contract details
         List<UnderwritingInfo> modifiedUnderwritingInfo = new ArrayList<UnderwritingInfo>();
-        for (UnderwritingInfo underwritingInfo : outFilteredUnderwritingInfo) {
-            modifiedUnderwritingInfo.add(underwritingInfo);
-        }
+        modifiedUnderwritingInfo.addAll(outFilteredUnderwritingInfo);
 
-        if (parmContractStrategy instanceof XLContractStrategy) {
+        if (parmContractStrategy instanceof IReinsuranceContractStrategyWithPremiumAllocation) {
             modifyPremiumWritten(modifiedUnderwritingInfo, outFilteredClaims);
         }
 

@@ -5,7 +5,7 @@ iteration	period	path	field	value
 1	0	PodraP:claimsGenerators:subMotorHullSingle:outClaims	ultimate	6347752.575917194
 1	0	PodraP:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaims	ultimate	1.6194372489841756E8
 1	0	PodraP:claimsGenerators:subMotorThirdPartyLiabilitySingle:outClaims	ultimate	7885020.766341288
-1	0	PodraP:claimsGenerators:subPersonalAccidentAttritional:outClaims	ultimate	2.781332164901437E7
+1	0	PodraP:claimsGenerators:subPersonalAccidentAttritional:outClaims	ultimate	2.7813321649014372E7
 1	0	PodraP:claimsGenerators:subPersonalAccidentSingle:outClaims	ultimate	1781064.2791849654
 1	0	PodraP:claimsGenerators:subPropertyAttritional:outClaims	ultimate	4.595080188122681E7
 1	0	PodraP:claimsGenerators:subPropertySingle:outClaims	ultimate	920171.0552351734
@@ -25,8 +25,8 @@ iteration	period	path	field	value
 1	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	premium	1.89242E8
 1	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	commission	0.0
 1	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsCeded	ultimate	0.0
-1	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsGross	ultimate	2.9594385928199336E7
-1	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsNet	ultimate	2.9594385928199336E7
+1	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsGross	ultimate	2.959438592819934E7
+1	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsNet	ultimate	2.959438592819934E7
 1	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	premium	5.3906E7
 1	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	commission	0.0
 1	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	premium	5.3906E7
@@ -99,7 +99,7 @@ iteration	period	path	field	value
 3	0	PodraP:claimsGenerators:subMotorHullSingle:outClaims	ultimate	0.0
 3	0	PodraP:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaims	ultimate	1.336368125473701E8
 3	0	PodraP:claimsGenerators:subMotorThirdPartyLiabilitySingle:outClaims	ultimate	5467955.985740526
-3	0	PodraP:claimsGenerators:subPersonalAccidentAttritional:outClaims	ultimate	1.5328176092100807E7
+3	0	PodraP:claimsGenerators:subPersonalAccidentAttritional:outClaims	ultimate	1.532817609210081E7
 3	0	PodraP:claimsGenerators:subPersonalAccidentSingle:outClaims	ultimate	224946.6137399896
 3	0	PodraP:claimsGenerators:subPropertyAttritional:outClaims	ultimate	4.173234667039228E7
 3	0	PodraP:claimsGenerators:subPropertySingle:outClaims	ultimate	1869323.401726746
@@ -119,8 +119,8 @@ iteration	period	path	field	value
 3	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	premium	1.89242E8
 3	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	commission	0.0
 3	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsCeded	ultimate	0.0
-3	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsGross	ultimate	1.5553122705840796E7
-3	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsNet	ultimate	1.5553122705840796E7
+3	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsGross	ultimate	1.55531227058408E7
+3	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsNet	ultimate	1.55531227058408E7
 3	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	premium	5.3906E7
 3	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	commission	0.0
 3	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	premium	5.3906E7
@@ -146,7 +146,7 @@ iteration	period	path	field	value
 4	0	PodraP:claimsGenerators:subMotorHullSingle:outClaims	ultimate	1.0297387855186163E7
 4	0	PodraP:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaims	ultimate	1.489260396479664E8
 4	0	PodraP:claimsGenerators:subMotorThirdPartyLiabilitySingle:outClaims	ultimate	1.4291804934688881E7
-4	0	PodraP:claimsGenerators:subPersonalAccidentAttritional:outClaims	ultimate	1.9950244229367662E7
+4	0	PodraP:claimsGenerators:subPersonalAccidentAttritional:outClaims	ultimate	1.9950244229367666E7
 4	0	PodraP:claimsGenerators:subPersonalAccidentSingle:outClaims	ultimate	2508034.3692645608
 4	0	PodraP:claimsGenerators:subPropertyAttritional:outClaims	ultimate	5.054424073845746E7
 4	0	PodraP:claimsGenerators:subPropertySingle:outClaims	ultimate	1110199.2750448931
@@ -193,7 +193,7 @@ iteration	period	path	field	value
 5	0	PodraP:claimsGenerators:subMotorHullSingle:outClaims	ultimate	0.0
 5	0	PodraP:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaims	ultimate	1.6393707077768964E8
 5	0	PodraP:claimsGenerators:subMotorThirdPartyLiabilitySingle:outClaims	ultimate	1.2440925061700173E7
-5	0	PodraP:claimsGenerators:subPersonalAccidentAttritional:outClaims	ultimate	2.4018109862113837E7
+5	0	PodraP:claimsGenerators:subPersonalAccidentAttritional:outClaims	ultimate	2.401810986211384E7
 5	0	PodraP:claimsGenerators:subPersonalAccidentSingle:outClaims	ultimate	3086961.1238715756
 5	0	PodraP:claimsGenerators:subPropertyAttritional:outClaims	ultimate	6.1130323565195225E7
 5	0	PodraP:claimsGenerators:subPropertySingle:outClaims	ultimate	1703366.9284705615
@@ -213,8 +213,8 @@ iteration	period	path	field	value
 5	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	premium	1.89242E8
 5	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	commission	0.0
 5	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsCeded	ultimate	0.0
-5	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsGross	ultimate	2.7105070985985413E7
-5	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsNet	ultimate	2.7105070985985413E7
+5	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsGross	ultimate	2.7105070985985417E7
+5	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsNet	ultimate	2.7105070985985417E7
 5	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	premium	5.3906E7
 5	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	commission	0.0
 5	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	premium	5.3906E7
@@ -240,7 +240,7 @@ iteration	period	path	field	value
 6	0	PodraP:claimsGenerators:subMotorHullSingle:outClaims	ultimate	669020.0628118613
 6	0	PodraP:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaims	ultimate	1.5878156156047523E8
 6	0	PodraP:claimsGenerators:subMotorThirdPartyLiabilitySingle:outClaims	ultimate	2.9408482045808733E7
-6	0	PodraP:claimsGenerators:subPersonalAccidentAttritional:outClaims	ultimate	2.385433497043567E7
+6	0	PodraP:claimsGenerators:subPersonalAccidentAttritional:outClaims	ultimate	2.3854334970435675E7
 6	0	PodraP:claimsGenerators:subPersonalAccidentSingle:outClaims	ultimate	767965.5694034732
 6	0	PodraP:claimsGenerators:subPropertyAttritional:outClaims	ultimate	4.70014627338888E7
 6	0	PodraP:claimsGenerators:subPropertySingle:outClaims	ultimate	2184242.612883791
@@ -260,8 +260,8 @@ iteration	period	path	field	value
 6	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	premium	1.89242E8
 6	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	commission	0.0
 6	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsCeded	ultimate	0.0
-6	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsGross	ultimate	2.4622300539839145E7
-6	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsNet	ultimate	2.4622300539839145E7
+6	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsGross	ultimate	2.462230053983915E7
+6	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsNet	ultimate	2.462230053983915E7
 6	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	premium	5.3906E7
 6	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	commission	0.0
 6	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	premium	5.3906E7
@@ -287,7 +287,7 @@ iteration	period	path	field	value
 7	0	PodraP:claimsGenerators:subMotorHullSingle:outClaims	ultimate	1283580.3589078484
 7	0	PodraP:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaims	ultimate	1.372270605704802E8
 7	0	PodraP:claimsGenerators:subMotorThirdPartyLiabilitySingle:outClaims	ultimate	1.0739584275424324E7
-7	0	PodraP:claimsGenerators:subPersonalAccidentAttritional:outClaims	ultimate	1.8033096648812003E7
+7	0	PodraP:claimsGenerators:subPersonalAccidentAttritional:outClaims	ultimate	1.803309664881201E7
 7	0	PodraP:claimsGenerators:subPersonalAccidentSingle:outClaims	ultimate	0.0
 7	0	PodraP:claimsGenerators:subPropertyAttritional:outClaims	ultimate	4.262021003358035E7
 7	0	PodraP:claimsGenerators:subPropertySingle:outClaims	ultimate	2242537.9762451313
@@ -307,8 +307,8 @@ iteration	period	path	field	value
 7	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	premium	1.89242E8
 7	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	commission	0.0
 7	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsCeded	ultimate	0.0
-7	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsGross	ultimate	1.8033096648812003E7
-7	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsNet	ultimate	1.8033096648812003E7
+7	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsGross	ultimate	1.803309664881201E7
+7	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsNet	ultimate	1.803309664881201E7
 7	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	premium	5.3906E7
 7	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	commission	0.0
 7	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	premium	5.3906E7

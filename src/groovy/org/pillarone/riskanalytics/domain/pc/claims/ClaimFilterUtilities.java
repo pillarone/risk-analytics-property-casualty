@@ -39,11 +39,18 @@ public class ClaimFilterUtilities {
         return filteredClaims;
     }
 
-    public static List<Claim> filterClaimsByLine(List<Claim> claims,LobMarker coveredLine){
+    public static List<Claim> filterClaimsByLine(List<Claim> claims,LobMarker coveredLine,boolean includingReserves){
         List<Claim> filteredClaims = new ArrayList<Claim>(claims.size());
         for (Claim claim : claims) {
                 if (coveredLine.equals(claim.getLineOfBusiness())) {
-                    filteredClaims.add(claim);
+                    if (includingReserves) {
+                        filteredClaims.add(claim);}
+                    else {
+                        if (claim.getPeril() instanceof PerilMarker){
+                          filteredClaims.add(claim);
+                        }
+                    }
+
                 }
             }
         return filteredClaims;

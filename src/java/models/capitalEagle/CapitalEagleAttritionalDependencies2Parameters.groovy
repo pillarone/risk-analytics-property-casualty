@@ -182,7 +182,7 @@ components {
             }
             subContract3 {
                 parmInuringPriority[0] = 0
-                parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["stopLossContractBase": StopLossContractBase.GNPI, "premium": 0.1207, "attachmentPoint": 3.3960398E7, "limit": 1.01881194E8, "coveredByReinsurer": 1.0,])
+                parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"stopLossContractBase": StopLossContractBase.GNPI, "premium": 0.1207, "attachmentPoint": 3.3960398E7, "limit": 1.01881194E8, "coveredByReinsurer": 1.0,])
             }
             subContract1 {
                 parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"premiumBase": PremiumBase.GNPI, "premium": 0.0688, "reinstatementPremiums": new TableMultiDimensionalParameter([1.0, 1.0, 1.0], ["Reinstatement Premium"]), "attachmentPoint": 1000000.0, "limit": 1.4E7, "aggregateLimit": 5.6E7, "coveredByReinsurer": 1.0,])

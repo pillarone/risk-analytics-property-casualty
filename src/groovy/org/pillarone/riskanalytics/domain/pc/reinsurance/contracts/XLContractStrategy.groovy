@@ -11,7 +11,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacket
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-abstract class XLContractStrategy extends AbstractContractStrategy implements IReinsuranceContractStrategy, IParameterObject {
+abstract class XLContractStrategy extends AbstractContractStrategy implements IReinsuranceContractStrategyWithPremiumAllocation, IParameterObject {
 
     /** Premium can be expressed as a fraction of a base quantity.                   */
     PremiumBase premiumBase = PremiumBase.ABSOLUTE

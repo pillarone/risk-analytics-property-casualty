@@ -54,8 +54,8 @@ components {
             parmInuringPriority[1] = 2
         }
         subContract2 {
-            parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["limit": 1000.0, "attachmentPoint": 800.0, "premium": 800.0, "stopLossContractBase": StopLossContractBase.ABSOLUTE, "coveredByReinsurer": 1d])
-            parmContractStrategy[1] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["limit": 1000.0, "attachmentPoint": 800.0, "premium": 800.0, "stopLossContractBase": StopLossContractBase.ABSOLUTE, "coveredByReinsurer": 1d])
+            parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"limit": 1000.0, "attachmentPoint": 800.0, "premium": 800.0, "stopLossContractBase": StopLossContractBase.ABSOLUTE, "coveredByReinsurer": 1d])
+            parmContractStrategy[1] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"limit": 1000.0, "attachmentPoint": 800.0, "premium": 800.0, "stopLossContractBase": StopLossContractBase.ABSOLUTE, "coveredByReinsurer": 1d])
             parmInuringPriority[0] = 3
             parmInuringPriority[1] = 3
         }

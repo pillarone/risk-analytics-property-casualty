@@ -8,6 +8,7 @@ import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimFilterUtilities;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimUtilities;
 import org.pillarone.riskanalytics.domain.pc.claims.SortClaimsByFractionOfPeriod;
+import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.ReinsuranceResultWithCommissionPacket;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType;
@@ -188,50 +189,52 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
     }
 
 
-    public void modifyPremiumWritten(List<UnderwritingInfo> underwritingInfos, List<Claim> claims){
+    public void modifyPremiumWritten(List<UnderwritingInfo> underwritingInfos, List<Claim> claims) {
 
-        if (((XLContractStrategy) parmContractStrategy).getPremiumAllocation() instanceof ClaimsSharesPremiumAllocationStrategy) {
-                double aggregatedClaim = 0d;
-                for (Claim claim : claims) {
+        if (((IReinsuranceContractStrategyWithPremiumAllocation) parmContractStrategy).getPremiumAllocation() instanceof ClaimsSharesPremiumAllocationStrategy) {
+            double aggregatedClaim = 0d;
+            for (Claim claim : claims) {
+                if (claim.getPeril() instanceof PerilMarker) {
                     aggregatedClaim += claim.getUltimate();
                 }
-                double aggregatedPremiumWritten = 0d;
-                for (UnderwritingInfo underwritingInfo : underwritingInfos) {
-                    aggregatedPremiumWritten += underwritingInfo.getPremiumWritten();
-                }
-
-                for (UnderwritingInfo underwritingInfo : underwritingInfos) {
-                    LobMarker coveredLine = underwritingInfo.getLineOfBusiness();
-                    List<Claim> lobClaims = ClaimFilterUtilities.filterClaimsByLine(claims, coveredLine);
-                    double aggregatedLobClaim = 0d;
-                    for (Claim claim : lobClaims) {
-                        aggregatedLobClaim += claim.getUltimate();
-                    }
-                    underwritingInfo.premiumWritten = aggregatedPremiumWritten * aggregatedLobClaim / aggregatedClaim;
-                    underwritingInfo.premiumWrittenAsIf = aggregatedPremiumWritten * aggregatedLobClaim / aggregatedClaim;
-                }
-
-            } else if (((XLContractStrategy) parmContractStrategy).getPremiumAllocation() instanceof LineSharesPremiumAllocationStrategy) {
-
-                double aggregatedPremiumWritten = 0d;
-                for (UnderwritingInfo underwritingInfo : underwritingInfos) {
-                    aggregatedPremiumWritten += underwritingInfo.getPremiumWritten();
-                }
-
-                for (UnderwritingInfo underwritingInfo : underwritingInfos) {
-                    LobMarker coveredLine = underwritingInfo.getLineOfBusiness();
-                    underwritingInfo.premiumWritten = aggregatedPremiumWritten * getLineOfBusinessShare(coveredLine);
-                    underwritingInfo.premiumWrittenAsIf = aggregatedPremiumWritten * getLineOfBusinessShare(coveredLine);
-                }
             }
+            double aggregatedPremiumWritten = 0d;
+            for (UnderwritingInfo underwritingInfo : underwritingInfos) {
+                aggregatedPremiumWritten += underwritingInfo.getPremiumWritten();
+            }
+
+            for (UnderwritingInfo underwritingInfo : underwritingInfos) {
+                LobMarker coveredLine = underwritingInfo.getLineOfBusiness();
+                List<Claim> lobClaims = ClaimFilterUtilities.filterClaimsByLine(claims, coveredLine, false);
+                double aggregatedLobClaim = 0d;
+                for (Claim claim : lobClaims) {
+                    aggregatedLobClaim += claim.getUltimate();
+                }
+                underwritingInfo.premiumWritten = aggregatedPremiumWritten * aggregatedLobClaim / aggregatedClaim;
+                underwritingInfo.premiumWrittenAsIf = aggregatedPremiumWritten * aggregatedLobClaim / aggregatedClaim;
+            }
+
+        } else if (((IReinsuranceContractStrategyWithPremiumAllocation) parmContractStrategy).getPremiumAllocation() instanceof LineSharesPremiumAllocationStrategy) {
+
+            double aggregatedPremiumWritten = 0d;
+            for (UnderwritingInfo underwritingInfo : underwritingInfos) {
+                aggregatedPremiumWritten += underwritingInfo.getPremiumWritten();
+            }
+
+            for (UnderwritingInfo underwritingInfo : underwritingInfos) {
+                LobMarker coveredLine = underwritingInfo.getLineOfBusiness();
+                underwritingInfo.premiumWritten = aggregatedPremiumWritten * getLineOfBusinessShare(coveredLine);
+                underwritingInfo.premiumWrittenAsIf = aggregatedPremiumWritten * getLineOfBusinessShare(coveredLine);
+            }
+        }
     }
 
     private Double getLineOfBusinessShare(LobMarker coveredLine) {
         Double share = sharesPerLineOfBusiness.get(coveredLine);
         if (share == null) {
-            ConstrainedMultiDimensionalParameter lineOfBusinessShares =(ConstrainedMultiDimensionalParameter) ((LineSharesPremiumAllocationStrategy)
-                    ((XLContractStrategy) parmContractStrategy).getPremiumAllocation()).getLineOfBusinessShares();
-   
+            ConstrainedMultiDimensionalParameter lineOfBusinessShares = (ConstrainedMultiDimensionalParameter) ((LineSharesPremiumAllocationStrategy)
+                    ((IReinsuranceContractStrategyWithPremiumAllocation) parmContractStrategy).getPremiumAllocation()).getLineOfBusinessShares();
+
             int numberOfLines = lineOfBusinessShares.getValueRowCount();
             int firstRowWithLine = lineOfBusinessShares.getTitleRowCount();
             for (int row = firstRowWithLine; row <= numberOfLines; row++) {

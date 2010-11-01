@@ -1,16 +1,18 @@
 package models.multiCompany
 
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.PremiumAllocationType
+
 model=models.multiCompany.MultiCompanyModel
 periodCount=1
 displayName='LE-CRTI: QS, Guarantee'
-applicationVersion='1.1-ALPHA-2'
+applicationVersion='1.1.1'
 components {
 	reinsuranceMarket {
 		subContracts {
 			subCrtiQuarantee {
 				parmInuringPriority[0]=1
 				parmBasedOn[0]=org.pillarone.riskanalytics.domain.pc.constants.ReinsuranceContractBase.NET
-				parmContractStrategy[0]=org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType.getStrategy(org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType.STOPLOSS, ["stopLossContractBase":org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase.ABSOLUTE,"premium":0.0,"attachmentPoint":40.0,"limit":50.0,"coveredByReinsurer":1.0,])
+				parmContractStrategy[0]=org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType.getStrategy(org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType.STOPLOSS, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"stopLossContractBase":org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase.ABSOLUTE,"premium":0.0,"attachmentPoint":40.0,"limit":50.0,"coveredByReinsurer":1.0,])
 				parmCommissionStrategy[0]=org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType.getStrategy(org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType.NOCOMMISSION, [:])
 				parmReinsurers[0]=new org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter(org.pillarone.riskanalytics.core.util.GroovyUtils.toList([["parent"], [1.0]]),["Reinsurer","Covered Portion"], org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory.getConstraints('COMPANY_PORTION'))
 				parmCover[0]=org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.CoverAttributeStrategyType.getStrategy(org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.CoverAttributeStrategyType.LINESOFBUSINESS, ["lines":new org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter(org.pillarone.riskanalytics.core.util.GroovyUtils.toList([["daughter"]]),["Covered Lines"], org.pillarone.riskanalytics.domain.pc.lob.LobMarker),])

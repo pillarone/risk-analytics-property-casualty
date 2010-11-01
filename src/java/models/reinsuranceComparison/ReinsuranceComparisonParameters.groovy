@@ -121,7 +121,7 @@ components {
 					parmBase[0]=Exposure.ABSOLUTE
 				}
 			}
-		
+
             subAttritionalClaimsGenerator {
 				parmDistribution[0]=DistributionType.getStrategy(DistributionType.LOGNORMAL, ["stDev":0.054, "mean":0.8])
 				parmBase[0]=Exposure.PREMIUM_WRITTEN
@@ -382,7 +382,7 @@ components {
 				parmInuringPriority[0] = 0
 			}
 			subContract3 {
-				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["stopLossContractBase":StopLossContractBase.GNPI,"premium":0.1207,"attachmentPoint":6.7920797E7,"limit":2.03762391E8, "coveredByReinsurer": 1d])
+				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"stopLossContractBase":StopLossContractBase.GNPI,"premium":0.1207,"attachmentPoint":6.7920797E7,"limit":2.03762391E8, "coveredByReinsurer": 1d])
 				parmInuringPriority[0] = 0
 			}
 		}
@@ -396,7 +396,7 @@ components {
 				parmInuringPriority[0] = 0
 			}
 			subContract3 {
-				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["stopLossContractBase":StopLossContractBase.GNPI,"premium":0.1207,"attachmentPoint":6.7920797E7,"limit":2.03762391E8, "coveredByReinsurer": 1d])
+				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"stopLossContractBase":StopLossContractBase.GNPI,"premium":0.1207,"attachmentPoint":6.7920797E7,"limit":2.03762391E8, "coveredByReinsurer": 1d])
 				parmInuringPriority[0] = 0
 			}
 		}
@@ -411,7 +411,7 @@ components {
 				parmInuringPriority[0] = 0
 			}
 			subContract3 {
-				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["stopLossContractBase":StopLossContractBase.GNPI,"premium":0.1207,"attachmentPoint":3.3960398E7,"limit":1.01881194E8, "coveredByReinsurer": 1d])
+				parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.STOPLOSS, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"stopLossContractBase":StopLossContractBase.GNPI,"premium":0.1207,"attachmentPoint":3.3960398E7,"limit":1.01881194E8, "coveredByReinsurer": 1d])
 				parmInuringPriority[0] = 0
 			}
 		}

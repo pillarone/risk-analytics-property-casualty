@@ -84,14 +84,13 @@ public class UnderwritingFilterUtilities {
                                                                                           List<Claim> claims, List<PerilMarker> coveredPerils) {
 
         List<UnderwritingInfo> filteredAndScaledUnderwritingInfos = new ArrayList<UnderwritingInfo>(underwritingInfos.size());
-        
+
         for (LobMarker coveredLine : coveredLines) {
-            List<Claim> lobClaims = ClaimFilterUtilities.filterClaimsByLine(claims, coveredLine);
+            List<Claim> lobClaims = ClaimFilterUtilities.filterClaimsByLine(claims, coveredLine, false);
             double aggregatedLobClaim = 0d;
             for (Claim claim : lobClaims) {
                 aggregatedLobClaim += claim.getUltimate();
             }
-            // todo(jwa): test case for the situation coveredPerils == null to ensure that all claims are selected then
             List<Claim> perilsInLobClaims = ClaimFilterUtilities.filterClaimsByPeril(lobClaims, coveredPerils);
             double aggregatedPerilsInLobClaim = 0d;
             for (Claim claim : perilsInLobClaims) {
