@@ -40,9 +40,6 @@
       </value>
     </option>
   </component>
-  <component name="SvnBranchConfigurationManager">
-    <option name="mySupportsUserInfoFilter" value="true" />
-  </component>
   <component name="WebServicesPlugin" addRequiredLibraries="true" />
   <component name="XPathView.XPathProjectComponent">
     <history />
