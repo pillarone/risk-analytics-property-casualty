@@ -3,18 +3,18 @@ package org.pillarone.riskanalytics.domain.pc.generators.severities;
 import org.pillarone.riskanalytics.core.packets.Packet;
 
 public class Event extends Packet {
-    private double date;
+    private double fractionOfPeriod;
 
     @Override
     public String toString() {
-        return new StringBuilder().append("date (fraction of period): ").append(date).toString();
+        return new StringBuilder().append("fractionOfPeriod (fraction of period): ").append(fractionOfPeriod).toString();
     }
 
-    public double getDate() {
-        return date;
+    public double getFractionOfPeriod() {
+        return fractionOfPeriod;
     }
 
-    public void setDate(double date) {
-        this.date = date;
+    public void setFractionOfPeriod(double fractionOfPeriod) {
+        this.fractionOfPeriod = fractionOfPeriod;
     }
 }

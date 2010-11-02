@@ -2,11 +2,13 @@ package org.pillarone.riskanalytics.domain.pc.claims;
 
 import org.pillarone.riskanalytics.core.components.IComponentMarker;
 import org.pillarone.riskanalytics.core.packets.MultiValuePacket;
+import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope;
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType;
 import org.pillarone.riskanalytics.domain.pc.generators.severities.Event;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
 import org.pillarone.riskanalytics.domain.pc.underwriting.ExposureInfo;
+import org.pillarone.riskanalytics.domain.utils.DateTimeUtilities;
 
 import java.util.*;
 
@@ -43,6 +45,7 @@ public class Claim extends MultiValuePacket {
         setOriginalClaim(claim.getOriginalClaim());
         setEvent(claim.getEvent());
         setFractionOfPeriod(claim.getFractionOfPeriod());
+        setDate(claim.getDate());
         setClaimType(claim.getClaimType());
         setPeril(claim.getPeril());
         setLineOfBusiness(claim.getLineOfBusiness());
@@ -73,6 +76,12 @@ public class Claim extends MultiValuePacket {
 
     public boolean notNull() {
         return ultimate != 0;
+    }
+
+    public void setDate(PeriodScope periodScope) {
+        if (periodScope != null && periodScope.getPeriodCounter() != null) {
+            setDate(DateTimeUtilities.getDate(periodScope, fractionOfPeriod));
+        }
     }
 
     @Override

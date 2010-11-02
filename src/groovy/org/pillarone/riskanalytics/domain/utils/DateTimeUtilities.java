@@ -158,4 +158,8 @@ public class DateTimeUtilities {
         DateTime endOfFirstPeriod = startDate.plus(periodLength);
         return getDate(startDate, endOfFirstPeriod, (int) Math.floor(periodOffset), periodOffset - Math.floor(periodOffset));
     }
+
+    public static DateTime getDate(PeriodScope periodScope, double fractionOfPeriod) {
+        return getDate(periodScope.getCurrentPeriodStartDate(), periodScope.getNextPeriodStartDate(), 0, fractionOfPeriod);
+    }
 }

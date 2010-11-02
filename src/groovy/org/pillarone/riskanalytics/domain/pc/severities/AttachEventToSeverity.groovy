@@ -23,7 +23,7 @@ class AttachEventToSeverity extends Component {
         for (DependenceStream stream: inProbabilities) {
             List<EventSeverity> eventSeverities = new ArrayList<EventSeverity>(stream.probabilities.size())
             for (Number number: stream.probabilities) {
-                eventSeverities << new EventSeverity(value: number, event: new Event(date: dates[counter]))
+                eventSeverities << new EventSeverity(value: number, event: new Event(fractionOfPeriod: dates[counter]))
             }
             counter++
             outEventSeverities << new EventDependenceStream(severities: eventSeverities, marginals: stream.marginals)

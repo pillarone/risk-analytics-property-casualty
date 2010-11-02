@@ -73,7 +73,7 @@ public class HistoricalClaims extends Component implements PerilMarker {
             if (paidDate.isBefore(startDate)) {
                 Event event = new Event();
                 double fractionOfPeriod = DateTimeUtilities.mapDateToFractionOfPeriod(incurredDate);
-                event.setDate(fractionOfPeriod);
+                event.setFractionOfPeriod(fractionOfPeriod);
                 ClaimDevelopmentPacket claim = new ClaimDevelopmentPacket();
                 claim.setEvent(event);
                 claim.setIncurred((Double) parmEventLosses.getValueAt(row, AMOUNT_INCURRED));

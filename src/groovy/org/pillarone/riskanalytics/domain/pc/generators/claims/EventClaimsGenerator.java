@@ -41,7 +41,7 @@ public class EventClaimsGenerator extends ClaimsGenerator {
             claim.setEvent(severity.event);
             claim.setClaimType(ClaimType.EVENT);
             claim.setUltimate(claimSize);
-            claim.setFractionOfPeriod(severity.getEvent().getDate());
+            claim.setFractionOfPeriod(severity.getEvent().getFractionOfPeriod());
 
             getOutClaims().add(claim);
         }
@@ -49,10 +49,10 @@ public class EventClaimsGenerator extends ClaimsGenerator {
             Claim claim = ClaimPacketFactory.createPacket();
             claim.origin = this;
             claim.setEvent(new Event());
-            claim.getEvent().setDate(0d);
+            claim.getEvent().setFractionOfPeriod(0d);
             claim.setClaimType(ClaimType.EVENT);
             claim.setUltimate(0d);
-            claim.setFractionOfPeriod(claim.getEvent().getDate());
+            claim.setFractionOfPeriod(claim.getEvent().getFractionOfPeriod());
             getOutClaims().add(claim);
         }
     }

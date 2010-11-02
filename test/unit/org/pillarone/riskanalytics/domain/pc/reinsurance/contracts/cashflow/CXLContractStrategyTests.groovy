@@ -24,8 +24,8 @@ class CXLContractStrategyTests extends GroovyTestCase {
         double coveredByReinsurer = 1
 //        cxl.initBookKeepingFiguresForIteration()
 
-        Event event0 = new Event(date: 0)
-        Event event1 = new Event(date: 0.2)
+        Event event0 = new Event(fractionOfPeriod: 0)
+        Event event1 = new Event(fractionOfPeriod: 0.2)
 
         ClaimDevelopmentPacket claim1P0 = new ClaimDevelopmentPacket(incurred: 200, paid: 100, reserved: 100, claimType: ClaimType.AGGREGATED_EVENT, event: event0)
         ClaimDevelopmentPacket claim2P0 = new ClaimDevelopmentPacket(incurred: 100, paid:  30, reserved:  70, claimType: ClaimType.AGGREGATED_EVENT, event: event1)
@@ -130,8 +130,8 @@ class CXLContractStrategyTests extends GroovyTestCase {
         double coveredByReinsurer = 1
 //        cxl.initBookKeepingFiguresForIteration()
 
-        Event event0 = new Event(date: 0)
-        Event event1 = new Event(date: 0.2)
+        Event event0 = new Event(fractionOfPeriod: 0)
+        Event event1 = new Event(fractionOfPeriod: 0.2)
 
         ClaimDevelopmentPacket claim1P0 = new ClaimDevelopmentPacket(incurred: 200, paid: 100, reserved: 100, claimType: ClaimType.AGGREGATED_EVENT, event: event0)
         ClaimDevelopmentPacket claim2P0 = new ClaimDevelopmentPacket(incurred: 100, paid:  30, reserved:  70, claimType: ClaimType.AGGREGATED_EVENT, event: event1)

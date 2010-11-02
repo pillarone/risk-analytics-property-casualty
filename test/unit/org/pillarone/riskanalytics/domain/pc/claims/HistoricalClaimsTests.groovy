@@ -37,7 +37,7 @@ class HistoricalClaimsTests extends GroovyTestCase {
         assertEquals 'claim 1 paid = 10%', 10, 100d*claim.paid/claim.ultimate
         assertEquals 'claim 1 original period = -2', -2, claim.getOriginalPeriod()
         assertEquals 'claim 1 fraction of period = 1-1/<366>', 366, 0.001d*Math.round(1000d/(1-fractionOfPeriod))
-        assertEquals 'claim 1 fraction of period same as in its event', fractionOfPeriod, claim.event.date
+        assertEquals 'claim 1 fraction of period same as in its event', fractionOfPeriod, claim.event.fractionOfPeriod
 
         claim = (ClaimDevelopmentPacket) historicalClaims.outClaims[1];
         fractionOfPeriod = claim.getFractionOfPeriod()
@@ -45,7 +45,7 @@ class HistoricalClaimsTests extends GroovyTestCase {
         assertEquals 'claim 2 paid = 10%', 10, 100d*claim.paid/claim.ultimate
         assertEquals 'claim 2 original period = -1', -1, claim.getOriginalPeriod()
         assertEquals 'claim 2 fraction of period = 0', 0, fractionOfPeriod
-        assertEquals 'claim 2 fraction of period same as in its event', fractionOfPeriod, claim.event.date
+        assertEquals 'claim 2 fraction of period same as in its event', fractionOfPeriod, claim.event.fractionOfPeriod
 
         claim = (ClaimDevelopmentPacket) historicalClaims.outClaims[2];
         fractionOfPeriod = claim.getFractionOfPeriod()
@@ -53,7 +53,7 @@ class HistoricalClaimsTests extends GroovyTestCase {
         assertEquals 'claim 3 paid = 10%', 10, 100d*claim.paid/claim.ultimate
         assertEquals 'claim 3 original period = -1', -1, claim.getOriginalPeriod()
         assertEquals 'claim 3 fraction of period = 1-1/<365>', 365, 0.001d*Math.round(1000d/(1-claim.getFractionOfPeriod()))
-        assertEquals 'claim 3 fraction of period same as in its event', fractionOfPeriod, claim.event.date
+        assertEquals 'claim 3 fraction of period same as in its event', fractionOfPeriod, claim.event.fractionOfPeriod
     }
 
 }

@@ -4,8 +4,6 @@ import org.apache.commons.lang.NotImplementedException;
 import org.pillarone.riskanalytics.core.model.Model;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter;
-import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter;
-import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter;
 import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimPacketFactory;
@@ -174,7 +172,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
                     claim.setClaimType(claimType);
                     claim.setUltimate(claimValues.get(i) * scalingFactor);
                     claim.setEvent(events.get(i));
-                    claim.setFractionOfPeriod(claim.getEvent().getDate());
+                    claim.setFractionOfPeriod(claim.getEvent().getFractionOfPeriod());
                     claims.add(claim);
                 }
             }
@@ -270,7 +268,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
         List<Event> events = new ArrayList<Event>(number);
         for (Double date : dates) {
             Event event = new Event();
-            event.setDate(date);
+            event.setFractionOfPeriod(date);
             events.add(event);
         }
         return events;

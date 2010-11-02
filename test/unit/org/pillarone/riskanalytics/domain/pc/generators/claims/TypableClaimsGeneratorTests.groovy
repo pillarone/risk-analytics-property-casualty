@@ -212,7 +212,7 @@ public class TypableClaimsGeneratorTests extends GroovyTestCase {
         claimsGenerator.setSimulationScope(new SimulationScope(model: new ClaimsModel()))
         //TODO(): Test inUnderwritingInfo & inProbabilities (for Attritional) analogously to inEventSeverities
         EventSeverity eventSeverity = new EventSeverity()
-        eventSeverity.event = new Event(date: 0.3d)
+        eventSeverity.event = new Event(fractionOfPeriod: 0.3d)
         eventSeverity.value = 0.7d
         EventDependenceStream events = new EventDependenceStream()
         events.severities = [eventSeverity]
@@ -241,7 +241,7 @@ public class TypableClaimsGeneratorTests extends GroovyTestCase {
         claimsGenerator.setSimulationScope(new SimulationScope(model: new ClaimsModel()))
         // wire an external severity
         EventSeverity eventSeverity = new EventSeverity()
-        eventSeverity.event = new Event(date: 0.3d)
+        eventSeverity.event = new Event(fractionOfPeriod: 0.3d)
         eventSeverity.value = 0.7d
         EventDependenceStream events = new EventDependenceStream()
         events.severities = [eventSeverity]

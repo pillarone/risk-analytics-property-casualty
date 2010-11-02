@@ -42,7 +42,7 @@ public class MultipleProbabilitiesCopula extends GeneratorCachingComponent {
         List<Double> dates = UniformDoubleList.getDoubles(frequency, true);
         for (int i = 0; i < frequency; i++) {
             outEventSeverities.add(new EventDependenceStream(
-                    severities: buildEventSeverity(new Event(date: dates.get(i))),
+                    severities: buildEventSeverity(new Event(fractionOfPeriod: dates.get(i))),
                     marginals: parmCopulaStrategy.getTargetNames()))
         }
         if (isSenderWired(outFrequency)) {

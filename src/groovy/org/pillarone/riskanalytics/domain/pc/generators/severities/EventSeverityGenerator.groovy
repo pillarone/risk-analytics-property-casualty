@@ -47,7 +47,7 @@ class EventSeverityGenerator extends GeneratorCachingComponent {
             for (int j = 0; j < inSeverityCount[i].value; j++) {
                 outSeverities << new EventSeverity(
                     value: (Double) generator.nextValue(),
-                    event: new Event(date: dates[counter])
+                    event: new Event(fractionOfPeriod: dates[counter])
                 )
             }
         }

@@ -75,7 +75,7 @@ class GoldorakContractStrategyTests extends GroovyTestCase {
 
 
     void testCedingClaimsAbsoluteCXL() {
-        Event event0 = new Event(date: 0)
+        Event event0 = new Event(fractionOfPeriod: 0)
         Claim claim1 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 600d)
         Claim claim2 = new Claim(claimType: ClaimType.AGGREGATED_EVENT, ultimate: 400d, event: event0)
         Claim claim3 = new Claim(claimType: ClaimType.SINGLE, ultimate: 100d)
@@ -106,7 +106,7 @@ class GoldorakContractStrategyTests extends GroovyTestCase {
     }
 
     void testCedingClaimsAbsoluteSL() {
-        Event event0 = new Event(date: 0)
+        Event event0 = new Event(fractionOfPeriod: 0)
         Claim claim1 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 800d)
         Claim claim2 = new Claim(claimType: ClaimType.AGGREGATED_EVENT, ultimate: 400d, event: event0)
         Claim claim3 = new Claim(claimType: ClaimType.SINGLE, ultimate: 100d)
@@ -145,7 +145,7 @@ class GoldorakContractStrategyTests extends GroovyTestCase {
     }
 
     void testCedingClaimsGnpiCXL() {
-        Event event0 = new Event(date: 0)
+        Event event0 = new Event(fractionOfPeriod: 0)
         Claim claim1 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 600d)
         Claim claim2 = new Claim(claimType: ClaimType.AGGREGATED_EVENT, ultimate: 400d, event: event0)
         Claim claim3 = new Claim(claimType: ClaimType.SINGLE, ultimate: 100d)
@@ -199,7 +199,7 @@ class GoldorakContractStrategyTests extends GroovyTestCase {
     }
 
     void testCedingClaimsRolCXL() {
-        Event event0 = new Event(date: 0)
+        Event event0 = new Event(fractionOfPeriod: 0)
         Claim claim1 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 600d)
         Claim claim2 = new Claim(claimType: ClaimType.AGGREGATED_EVENT, ultimate: 400d, event: event0)
         Claim claim3 = new Claim(claimType: ClaimType.SINGLE, ultimate: 100d)

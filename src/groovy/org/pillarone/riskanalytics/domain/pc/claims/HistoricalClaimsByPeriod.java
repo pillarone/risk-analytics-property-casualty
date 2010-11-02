@@ -69,7 +69,7 @@ public class HistoricalClaimsByPeriod extends Component implements PerilMarker {
             if (period <= 0) {
                 // filter: ignore claims after simulation start date
                 Event event = new Event();
-                event.setDate(DateTimeUtilities.mapDateToFractionOfPeriod(incurredDate));
+                event.setFractionOfPeriod(DateTimeUtilities.mapDateToFractionOfPeriod(incurredDate));
                 ClaimDevelopmentPacket claim = new ClaimDevelopmentPacket();
                 claim.setOriginalPeriod(period);
                 claim.setEvent(event);

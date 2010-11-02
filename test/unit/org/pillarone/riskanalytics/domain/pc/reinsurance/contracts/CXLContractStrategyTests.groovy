@@ -14,11 +14,11 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoTests
  */
 class CXLContractStrategyTests extends GroovyTestCase {
 
-    Event event0 = new Event(date: 0d)
-    Event event1 = new Event(date: 0.1d)
-    Event event2 = new Event(date: 0.2d)
-    Event event3 = new Event(date: 0.3d)
-    Event event4 = new Event(date: 0.4d)
+    Event event0 = new Event(fractionOfPeriod: 0d)
+    Event event1 = new Event(fractionOfPeriod: 0.1d)
+    Event event2 = new Event(fractionOfPeriod: 0.2d)
+    Event event3 = new Event(fractionOfPeriod: 0.3d)
+    Event event4 = new Event(fractionOfPeriod: 0.4d)
 
     Claim claim0Event0 = new Claim(event: event0, claimType: ClaimType.EVENT, value: 0d)
     Claim claim10Event0 = new Claim(event: event0, claimType: ClaimType.EVENT, value: 10d)
