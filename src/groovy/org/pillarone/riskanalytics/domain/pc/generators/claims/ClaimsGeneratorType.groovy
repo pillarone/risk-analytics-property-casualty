@@ -59,8 +59,10 @@ public class ClaimsGeneratorType extends AbstractParameterObjectClassifier {
             occurrenceDistribution: DistributionType.getStrategy(DistributionType.UNIFORM, ["a": 0d, "b": 1d]),
             produceClaim: FrequencySeverityClaimType.SINGLE])
     public static final ClaimsGeneratorType PML = new ClaimsGeneratorType("PML curve", "PML", [
-            pmlData: new ConstrainedMultiDimensionalParameter([[0d], [0d]], Arrays.asList("return period", "maximum claim"), ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER)),
-            claimsSizeModification: DistributionModifier.getStrategy(DistributionModifier.NONE, [:])])
+            pmlData: new ConstrainedMultiDimensionalParameter([[0d], [0d]], ["return period", "maximum claim"],
+                    ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER)),
+            claimsSizeModification: DistributionModifier.getStrategy(DistributionModifier.NONE, [:]),
+            produceClaim: FrequencySeverityClaimType.AGGREGATED_EVENT])
 
     public static final all = [NONE, ATTRITIONAL, ATTRITIONAL_WITH_DATE, FREQUENCY_AVERAGE_ATTRITIONAL, FREQUENCY_SEVERITY, OCCURRENCE_AND_SEVERITY, SEVERITY_OF_EVENT_GENERATOR, PML]
 
@@ -145,7 +147,8 @@ public class ClaimsGeneratorType extends AbstractParameterObjectClassifier {
             case ClaimsGeneratorType.PML:
                 claimsGenerator = new PMLClaimsGeneratorStrategy(
                         pmlData: (ConstrainedMultiDimensionalParameter) parameters.get("pmlData"),
-                        claimsSizeModification: (DistributionModified) parameters.get("claimsSizeModification"))
+                        claimsSizeModification: (DistributionModified) parameters.get("claimsSizeModification"),
+                        produceClaim : (FrequencySeverityClaimType) parameters.get("produceClaim"))
         }
         return claimsGenerator;
     }

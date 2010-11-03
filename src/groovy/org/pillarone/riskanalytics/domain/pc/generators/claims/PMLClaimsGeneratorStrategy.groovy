@@ -11,24 +11,28 @@ import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.utils.FrequencyDistributionType
 import org.pillarone.riskanalytics.domain.utils.DistributionType
-import org.pillarone.riskanalytics.domain.pc.constants.FrequencyBase
+import org.pillarone.riskanalytics.domain.pc.constants.FrequencySeverityClaimType
 
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
  */
 public class PMLClaimsGeneratorStrategy implements IClaimsGeneratorStrategy {
 
-    ConstrainedMultiDimensionalParameter pmlData = new ConstrainedMultiDimensionalParameter([[0d], [0d]], Arrays.asList("return period", "maximum claim"), ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))
+    ConstrainedMultiDimensionalParameter pmlData = new ConstrainedMultiDimensionalParameter([[0d], [0d]],
+            ['return period', 'maximum claim'], ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))
     DistributionModified claimsSizeModification = DistributionModifier.getStrategy(DistributionModifier.NONE, [:])
     RandomDistribution claimsSizeDistribution;
     RandomDistribution frequencyDistribution;
+    FrequencySeverityClaimType produceClaim = FrequencySeverityClaimType.AGGREGATED_EVENT
 
     public IParameterObjectClassifier getType() {
         return ClaimsGeneratorType.PML
     }
 
     public Map getParameters() {
-        ['pmlData': pmlData, 'claimsSizeModification': claimsSizeModification]
+        ['pmlData': pmlData,
+         'claimsSizeModification': claimsSizeModification,
+         'produceClaim': produceClaim]
     }
 
     public DistributionModified getClaimsSizeModification() {
@@ -43,14 +47,6 @@ public class PMLClaimsGeneratorStrategy implements IClaimsGeneratorStrategy {
 
     public RandomDistribution getFrequencyDistribution() {
         return frequencyDistribution
-    }
-
-    DistributionModified getFrequencyModification() {
-        return DistributionModifier.getStrategy(DistributionModifier.NONE, new HashMap())
-    }
-
-    FrequencyBase getFrequencyBase() {
-        return FrequencyBase.ABSOLUTE
     }
 
     void initDistributions() {
@@ -102,4 +98,7 @@ public class PMLClaimsGeneratorStrategy implements IClaimsGeneratorStrategy {
         frequencyDistribution = (RandomDistribution) FrequencyDistributionType.getStrategy(FrequencyDistributionType.POISSON, lambdaParam);
     }
 
+    public FrequencySeverityClaimType getProduceClaim() {
+        produceClaim
+    }
 }

@@ -4,6 +4,8 @@ import org.apache.commons.lang.NotImplementedException;
 import org.pillarone.riskanalytics.core.model.Model;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter;
+import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter;
+import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter;
 import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimPacketFactory;
@@ -140,14 +142,19 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
                     throw new IllegalArgumentException("TypableClaimsGenerator.externalSeverityClaims");
                 }
             } else if (parmClaimsModel instanceof PMLClaimsGeneratorStrategy) {
-
                 ((PMLClaimsGeneratorStrategy) parmClaimsModel).initDistributions();
                 RandomDistribution frequencyDistribution = ((PMLClaimsGeneratorStrategy) parmClaimsModel).getFrequencyDistribution();
                 RandomDistribution claimsSizeDistribution = parmClaimsModel.getClaimsSizeDistribution();
                 DistributionModified modification = parmClaimsModel.getClaimsSizeModification();
-                double frequency = generateFrequency(frequencyDistribution, DistributionModifier.getStrategy(DistributionModifier.NONE, new HashMap()), FrequencyBase.ABSOLUTE);
+                double frequency = generateFrequency(frequencyDistribution,
+                        DistributionModifier.getStrategy(DistributionModifier.NONE, new HashMap()), FrequencyBase.ABSOLUTE);
+                if (((PMLClaimsGeneratorStrategy) parmClaimsModel).getProduceClaim().equals(FrequencySeverityClaimType.AGGREGATED_EVENT)) {
+                    claimType = ClaimType.AGGREGATED_EVENT;
+                    events = generateEvents((int) frequency);
+                } else if (((PMLClaimsGeneratorStrategy) parmClaimsModel).getProduceClaim().equals(FrequencySeverityClaimType.SINGLE)) {
+                    claimType = ClaimType.SINGLE;
+                }
                 claimValues = generateClaimsValues((int) frequency, claimsSizeDistribution, modification);
-
             } else {
                 throw new NotImplementedException("['TypableClaimsGenerator.notImplemented','" + parmClaimsModel.toString() + "']");
             }

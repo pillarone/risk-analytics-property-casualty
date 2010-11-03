@@ -18,6 +18,7 @@ import org.pillarone.riskanalytics.core.util.MathUtils
 import umontreal.iro.lecuyer.rng.RandomStreamBase
 import org.pillarone.riskanalytics.domain.utils.randomnumbers.UniformDoubleList
 import org.pillarone.riskanalytics.domain.utils.FrequencyDistributionType
+import org.pillarone.riskanalytics.domain.pc.constants.FrequencySeverityClaimType
 
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
@@ -41,7 +42,7 @@ class PMLClaimsGeneratorStrategyTest extends GroovyTestCase {
                 [[0.1d, 0.2d, 0.3d, 0.4d, 0.7d, 1.5d, 2.2d, 4.0d, 5.0d], [0.1d, 45d, 200d, 500d, 600d, 800d, 1500d, 2016d, 4000d]], ["return period", "maximum claim"], ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))
         DistributionModified claimsSizeModification = DistributionModifier.getStrategy(DistributionModifier.NONE, [:])
         claimsGenerator.setParmClaimsModel(ClaimsGeneratorType.getStrategy(ClaimsGeneratorType.PML,
-                ["pmlData": pmlData, "claimsSizeModification": claimsSizeModification,]))
+                ["pmlData": pmlData, "claimsSizeModification": claimsSizeModification,'produceClaim': FrequencySeverityClaimType.SINGLE]))
 
 
         MathUtils.initRandomStreamBase(1531)
@@ -86,7 +87,7 @@ class PMLClaimsGeneratorStrategyTest extends GroovyTestCase {
                 [[0.1d, 0.2d, 0.3d, 0.4d, 0.7d, 1.5d, 2.2d, 4.0d, 5.0d], [0.1d, 45d, 200d, 500d, 600d, 800d, 1500d, 2016d, 4000d]], ["return period", "maximum claim"], ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))
         DistributionModified claimsSizeModification = DistributionModifier.getStrategy(DistributionModifier.SHIFT, ["shift": 1000])
         claimsGenerator.setParmClaimsModel(ClaimsGeneratorType.getStrategy(ClaimsGeneratorType.PML,
-                ["pmlData": pmlData, "claimsSizeModification": claimsSizeModification,]))
+                ["pmlData": pmlData, "claimsSizeModification": claimsSizeModification,'produceClaim': FrequencySeverityClaimType.SINGLE]))
 
         MathUtils.initRandomStreamBase(1731)
         RandomStreamBase referenceStream = MathUtils.getRandomStream(MathUtils.getRandomStreamBase(), 0).clone()
@@ -128,7 +129,7 @@ class PMLClaimsGeneratorStrategyTest extends GroovyTestCase {
                 [[0.01d, 0.05d, 0.1d, 0.2d, 0.7d, 1.5d, 2.2d, 4.0d, 5.0d], [0.1d, 45d, 200d, 500d, 600d, 800d, 1500d, 2016d, 4000d]], ["return period", "maximum claim"], ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))
         DistributionModified claimsSizeModification = DistributionModifier.getStrategy(DistributionModifier.TRUNCATED, ["min": 200d, "max": 8000d])
         claimsGenerator.setParmClaimsModel(ClaimsGeneratorType.getStrategy(ClaimsGeneratorType.PML,
-                ["pmlData": pmlData, "claimsSizeModification": claimsSizeModification,]))
+                ["pmlData": pmlData, "claimsSizeModification": claimsSizeModification,'produceClaim': FrequencySeverityClaimType.SINGLE]))
 
 
         MathUtils.initRandomStreamBase(1031)
@@ -177,7 +178,7 @@ class PMLClaimsGeneratorStrategyTest extends GroovyTestCase {
                 [[0.01d, 0.05d, 0.1d, 0.2d, 0.7d, 1.5d, 2.2d, 4.0d, 5.0d], [0.1d, 45d, 200d, 500d, 600d, 800d, 1500d, 2016d, 4000d]], ["return period", "maximum claim"], ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))
         DistributionModified claimsSizeModification = DistributionModifier.getStrategy(DistributionModifier.TRUNCATEDSHIFT, ["min": 200d, "max": 800d, "shift": 1000])
         claimsGenerator.setParmClaimsModel(ClaimsGeneratorType.getStrategy(ClaimsGeneratorType.PML,
-                ["pmlData": pmlData, "claimsSizeModification": claimsSizeModification,]))
+                ["pmlData": pmlData, "claimsSizeModification": claimsSizeModification,'produceClaim': FrequencySeverityClaimType.SINGLE]))
 
 
         MathUtils.initRandomStreamBase(5031)
@@ -226,7 +227,7 @@ class PMLClaimsGeneratorStrategyTest extends GroovyTestCase {
                 [[0.01d, 0.05d, 0.1d, 0.2d, 0.7d, 1.5d, 2.2d, 4.0d, 5.0d], [0.1d, 45d, 200d, 500d, 600d, 800d, 1500d, 2016d, 4000d]], ["return period", "maximum claim"], ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))
         DistributionModified claimsSizeModification = DistributionModifier.getStrategy(DistributionModifier.CENSORED, ["min": 0, "max": 800d])
         claimsGenerator.setParmClaimsModel(ClaimsGeneratorType.getStrategy(ClaimsGeneratorType.PML,
-                ["pmlData": pmlData, "claimsSizeModification": claimsSizeModification,]))
+                ["pmlData": pmlData, "claimsSizeModification": claimsSizeModification,'produceClaim': FrequencySeverityClaimType.SINGLE]))
 
 
         MathUtils.initRandomStreamBase(1037)
@@ -272,7 +273,7 @@ class PMLClaimsGeneratorStrategyTest extends GroovyTestCase {
                 [[0.01d, 0.05d, 0.1d, 0.2d, 0.7d, 1.5d, 2.2d, 4.0d, 5.0d], [0.1d, 45d, 200d, 500d, 600d, 800d, 1500d, 2016d, 4000d]], ["return period", "maximum claim"], ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))
         DistributionModified claimsSizeModification = DistributionModifier.getStrategy(DistributionModifier.CENSOREDSHIFT, ["min": 0, "max": 800d, "shift": 2000])
         claimsGenerator.setParmClaimsModel(ClaimsGeneratorType.getStrategy(ClaimsGeneratorType.PML,
-                ["pmlData": pmlData, "claimsSizeModification": claimsSizeModification,]))
+                ["pmlData": pmlData, "claimsSizeModification": claimsSizeModification,'produceClaim': FrequencySeverityClaimType.SINGLE]))
 
 
         MathUtils.initRandomStreamBase(10037)
@@ -318,7 +319,7 @@ class PMLClaimsGeneratorStrategyTest extends GroovyTestCase {
                 [[0.01d, 0.05d, 0.1d, 0.2d, 0.7d, 1.5d, 2.2d, 4.0d, 5.0d], [0.1d, 45d, 200d, 500d, 600d, 800d, 1500d, 2016d, 4000d]], ["return period", "maximum claim"], ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))
         DistributionModified claimsSizeModification = DistributionModifier.getStrategy(DistributionModifier.LEFTTRUNCATEDRIGHTCENSORED, ["min": 200d, "max": 800d])
         claimsGenerator.setParmClaimsModel(ClaimsGeneratorType.getStrategy(ClaimsGeneratorType.PML,
-                ["pmlData": pmlData, "claimsSizeModification": claimsSizeModification,]))
+                ["pmlData": pmlData, "claimsSizeModification": claimsSizeModification,'produceClaim': FrequencySeverityClaimType.SINGLE]))
 
 
         MathUtils.initRandomStreamBase(81031)

@@ -454,7 +454,7 @@ public class TypableClaimsGeneratorTests extends GroovyTestCase {
                 [[0.1d, 0.2d, 0.3d, 0.4d, 0.7d, 1.5d, 2.2d, 4.0d, 5.0d], [0.1d, 45d, 200d, 500d, 600d, 800d, 1500d, 2016d, 4000d]], ["return period", "maximum claim"], ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))
         DistributionModified claimsSizeModification = DistributionModifier.getStrategy(DistributionModifier.NONE, [:])
         claimsGenerator.setParmClaimsModel(ClaimsGeneratorType.getStrategy(ClaimsGeneratorType.PML,
-                ["pmlData": pmlData, "claimsSizeModification": claimsSizeModification,]))
+                ["pmlData": pmlData, "claimsSizeModification": claimsSizeModification, 'produceClaim': FrequencySeverityClaimType.SINGLE]))
 
 
         MathUtils.initRandomStreamBase(1531)
