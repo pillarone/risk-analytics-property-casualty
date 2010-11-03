@@ -1,37 +1,23 @@
 package org.pillarone.riskanalytics.domain.pc.reserves.cashflow;
 
-import java.util.List;
+import org.joda.time.Period;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
- * @author shartmann (at) munichre (dot) com
+ * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 public class Pattern {
     private List<Double> cumulativeValues;
+    private List<Period> cumulativePeriods;
 
     public Pattern() {
     }
 
     public Pattern(IPatternStrategy strategy) {
-        if (strategy instanceof CumulativePatternStrategy) {
-            cumulativeValues = strategy.getPatternValues();
-        }
-        else if (strategy instanceof IncrementalPatternStrategy) {
-            List<Double> incrementalValues = strategy.getPatternValues();
-            cumulativeValues = new ArrayList<Double>(incrementalValues.size());
-            double cumulative = 0d;
-            for (Double increment : incrementalValues) {
-                cumulative += increment;
-                cumulativeValues.add(cumulative);
-            }
-        }
-        else if (strategy instanceof NoPatternStrategy) {
-            cumulativeValues = new ArrayList<Double>(1);
-            cumulativeValues.add(1d);
-        }
-        else {
-            throw new IllegalArgumentException("['Pattern.unknownStrategy','"+strategy.getClass()+"']");
-        }
+        cumulativePeriods = strategy.getCumulativePeriods();
+        cumulativeValues = strategy.getCumulativePatternValues();
     }
 
     public int size() {
@@ -47,6 +33,10 @@ public class Pattern {
             return cumulativeValues.get(0);
         }
         return cumulativeValues.get(developmentPeriod) - cumulativeValues.get(developmentPeriod - 1);
+    }
+
+    public Period cumulativeLapseTime(int developmentPeriod) {
+        return cumulativePeriods.get(developmentPeriod);
     }
 
     public double cumulativeFactor(int developmentPeriod) {

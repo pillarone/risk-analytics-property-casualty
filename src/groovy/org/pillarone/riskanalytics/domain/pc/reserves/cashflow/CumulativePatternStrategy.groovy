@@ -3,6 +3,7 @@ package org.pillarone.riskanalytics.domain.pc.reserves.cashflow
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.pc.constants.SimulationPeriod
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
+import org.joda.time.Period
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -10,7 +11,9 @@ import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassif
 
 public class CumulativePatternStrategy extends AbstractPatternStrategy {
 
-    TableMultiDimensionalParameter cumulativePattern = new TableMultiDimensionalParameter([1d], ['Cumulative'])
+    public static final String CUMULATIVE = 'Cumulative'
+
+    TableMultiDimensionalParameter cumulativePattern = new TableMultiDimensionalParameter([1d], [CUMULATIVE])
     SimulationPeriod calibrationPeriod
 
     public IParameterObjectClassifier getType() {
@@ -31,5 +34,21 @@ public class CumulativePatternStrategy extends AbstractPatternStrategy {
 
     SimulationPeriod calibrationPeriod() {
         calibrationPeriod
+    }
+
+    List<Period> getCumulativePeriods() {
+        List<Period> periods = new ArrayList<Period>();
+        Period cumulatedPeriod = new Period();
+        periods.add(cumulatedPeriod)
+        Period period = SimulationPeriod.asPeriod(calibrationPeriod, null);
+        for (int row = cumulativePattern.getTitleRowCount(); row <= cumulativePattern.getRowCount(); row++) {
+            cumulatedPeriod = cumulatedPeriod.plus(period);
+            periods.add(cumulatedPeriod)
+        }
+        return periods;
+    }
+
+    List<Double> getCumulativePatternValues() {
+        return getPatternValues();
     }
 }

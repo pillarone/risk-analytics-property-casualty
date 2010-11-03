@@ -1,5 +1,6 @@
 package org.pillarone.riskanalytics.domain.pc.reserves.cashflow;
 
+import org.joda.time.DateTime;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimPacketFactory;
 
@@ -25,6 +26,7 @@ public class ClaimDevelopmentPacket extends Claim {
      * positive values correspond to the incurred period according to the simulation context
      */
     private int originalPeriod; // according to simulation period
+    private DateTime incurredDate;
 
     public ClaimDevelopmentPacket(){
     }
@@ -71,7 +73,7 @@ public class ClaimDevelopmentPacket extends Claim {
         }
     }
 
-    public double getIncurredDate() {
+    public double getIncurredFractionOfPeriod() {
         return originalPeriod + getFractionOfPeriod();
     }
 
@@ -229,5 +231,13 @@ public class ClaimDevelopmentPacket extends Claim {
 
     public void setChangeInReserves(double changeInReserves) {
         this.changeInReserves = changeInReserves;
+    }
+
+    public DateTime getIncurredDate() {
+        return incurredDate;
+    }
+
+    public void setIncurredDate(DateTime incurredDate) {
+        this.incurredDate = incurredDate;
     }
 }

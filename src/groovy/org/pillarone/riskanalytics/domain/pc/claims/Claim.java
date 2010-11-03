@@ -78,6 +78,10 @@ public class Claim extends MultiValuePacket {
         return ultimate != 0;
     }
 
+    /**
+     * To be called after fractionOfPeriod is set!
+     * @param periodScope
+     */
     public void setDate(PeriodScope periodScope) {
         if (periodScope != null && periodScope.getPeriodCounter() != null) {
             setDate(DateTimeUtilities.getDate(periodScope, fractionOfPeriod));
