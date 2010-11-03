@@ -5,7 +5,7 @@ import org.pillarone.riskanalytics.core.parameterization.IMultiDimensionalConstr
 import org.pillarone.riskanalytics.domain.utils.constraints.IUnityPortion
 
 /**
- * @author stefan.kunz@intuitive-collaboration.com
+ * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 class ReservePortion implements IMultiDimensionalConstraints, IUnityPortion {
 
