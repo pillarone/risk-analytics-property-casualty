@@ -57,7 +57,9 @@ public class MultiLineReinsuranceContractWithDefault extends MultiLineReinsuranc
 
     protected void calculateUnderwritingInfos(List<UnderwritingInfo> grossUnderwritingInfos,
                                               List<UnderwritingInfo> cededUnderwritingInfos,
-                                              List<UnderwritingInfo> netUnderwritingInfos) {
+                                              List<UnderwritingInfo> netUnderwritingInfos,
+                                              List<Claim> cededClaims) {
+        parmContractStrategy.initCededPremiumAllocation(cededClaims, grossUnderwritingInfos);
         if (defaultOccurred) {
             for (UnderwritingInfo underwritingInfo: grossUnderwritingInfos) {
                 UnderwritingInfo cededUnderwritingInfo = getCededUnderwritingInfoZero(underwritingInfo);
@@ -75,7 +77,9 @@ public class MultiLineReinsuranceContractWithDefault extends MultiLineReinsuranc
     }
 
     protected void calculateCededUnderwritingInfos(List<UnderwritingInfo> grossUnderwritingInfos,
-                                                   List<UnderwritingInfo> cededUnderwritingInfos) {
+                                                   List<UnderwritingInfo> cededUnderwritingInfos,
+                                                   List<Claim> cededClaims) {
+        parmContractStrategy.initCededPremiumAllocation(cededClaims, grossUnderwritingInfos);
         if (defaultOccurred) {
             for (UnderwritingInfo underwritingInfo: grossUnderwritingInfos) {
                 UnderwritingInfo cededUnderwritingInfo = getCededUnderwritingInfoZero(underwritingInfo);
@@ -84,7 +88,7 @@ public class MultiLineReinsuranceContractWithDefault extends MultiLineReinsuranc
             }
         }
         else {
-            super.calculateCededUnderwritingInfos(grossUnderwritingInfos, cededUnderwritingInfos);
+            super.calculateCededUnderwritingInfos(grossUnderwritingInfos, cededUnderwritingInfos, cededClaims);
         }
     }
 

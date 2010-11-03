@@ -1,7 +1,9 @@
-package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts
+package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts;
 
-import org.pillarone.riskanalytics.domain.pc.claims.Claim
+import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
+
+import java.util.List;
 
 /**
  *  Common methods to calculate the effects of a reinsurance contract
@@ -9,10 +11,12 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-interface IReinsuranceContractStrategy {
+public interface IReinsuranceContractStrategy {
 
     /** cave: current implementation works only for periods of one year length */
     void initBookkeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo);
+
+    void initCededPremiumAllocation(List<Claim> cededClaims, List<UnderwritingInfo> grossUnderwritingInfos);
 
     /**
      *  Calculates the claim covered of the loss net after contracts with

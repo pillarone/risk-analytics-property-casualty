@@ -17,14 +17,14 @@ import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensi
 // todo: not yet efficient since the aggregate gross underwriting info is calculated twice
 // (in the calculation of the book-keeping figures (implicitly) in the calculation of the ceded underwriting info
 
-class StopLossContractStrategy extends AbstractContractStrategy implements IReinsuranceContractStrategyWithPremiumAllocation, IParameterObject {
+class StopLossContractStrategy extends AbstractContractStrategy implements IReinsuranceContractStrategy, IParameterObject {
 
     static final ReinsuranceContractType type = ReinsuranceContractType.STOPLOSS
 
-    /** Premium, limit and attachmentPoint can be expressed as a fraction of a base quantity.               */
+    /** Premium, limit and attachmentPoint can be expressed as a fraction of a base quantity. */
     StopLossContractBase stopLossContractBase = StopLossContractBase.ABSOLUTE
 
-    /** Premium as a percentage of the premium base               */
+    /** Premium as a percentage of the premium base */
     double premium
 
     /** Allocation of the premium to the affected lines of business      */
@@ -39,7 +39,6 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
     private double factor
 
     Map<UnderwritingInfo, Double> grossPremiumSharesPerBand = [:]
-    Map<LobMarker, Double> sharesPerLineOfBusiness = [:]
 
     ReinsuranceContractType getType() {
         type
@@ -74,7 +73,6 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
         double aggregateCededClaimAmount = Math.min(Math.max(aggregateGrossClaimAmount - scaledAttachmentPoint, 0), scaledLimit)
         factor = (aggregateGrossClaimAmount != 0) ? aggregateCededClaimAmount / aggregateGrossClaimAmount : 1d
 
-        coverUnderwritingInfo = modifyPremiumByAllocationStrategy(inClaims, coverUnderwritingInfo)
         double totalPremium = coverUnderwritingInfo.premiumWritten.sum()
         if (totalPremium != 0) {
             for (UnderwritingInfo underwritingInfo: coverUnderwritingInfo) {
@@ -88,77 +86,24 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
         }
     }
 
-    protected List<UnderwritingInfo> modifyPremiumByAllocationStrategy(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
-        if (premiumAllocation instanceof ClaimsSharesPremiumAllocationStrategy) {
-            double aggregatedClaim = 0d;
-            for (Claim claim: inClaims) {
-                if (claim.getPeril() instanceof PerilMarker) {
-                    aggregatedClaim += claim.getUltimate();
-                }
-            }
-            double aggregatedPremiumWritten = 0d;
-            for (UnderwritingInfo underwritingInfo: coverUnderwritingInfo) {
-                aggregatedPremiumWritten += underwritingInfo.getPremiumWritten();
-            }
-            for (UnderwritingInfo underwritingInfo: coverUnderwritingInfo) {
-                LobMarker coveredLine = underwritingInfo.getLineOfBusiness();
-                List<Claim> lobClaims = ClaimFilterUtilities.filterClaimsByLine(inClaims, coveredLine, false);
-                double aggregatedLobClaim = 0d;
-                for (Claim claim: lobClaims) {
-                    aggregatedLobClaim += claim.getUltimate();
-                }
-                underwritingInfo.premiumWritten = aggregatedPremiumWritten * aggregatedLobClaim / aggregatedClaim;
-                underwritingInfo.premiumWrittenAsIf = aggregatedPremiumWritten * aggregatedLobClaim / aggregatedClaim;
-            }
-        }
-        else if (premiumAllocation instanceof LineSharesPremiumAllocationStrategy) {
-            double aggregatedPremiumWritten = 0d;
-            for (UnderwritingInfo underwritingInfo: coverUnderwritingInfo) {
-                aggregatedPremiumWritten += underwritingInfo.getPremiumWritten();
-            }
-            for (UnderwritingInfo underwritingInfo: coverUnderwritingInfo) {
-                LobMarker coveredLine = underwritingInfo.getLineOfBusiness();
-                underwritingInfo.premiumWritten = aggregatedPremiumWritten * getLineOfBusinessShare(coveredLine);
-                underwritingInfo.premiumWrittenAsIf = aggregatedPremiumWritten * getLineOfBusinessShare(coveredLine);
-            }
-        }
-        return coverUnderwritingInfo
-    }
-
-    private Double getLineOfBusinessShare(LobMarker coveredLine) {
-        Double share = sharesPerLineOfBusiness.get(coveredLine);
-        if (share == null) {
-            ConstrainedMultiDimensionalParameter lineOfBusinessShares = (ConstrainedMultiDimensionalParameter) ((LineSharesPremiumAllocationStrategy)
-            premiumAllocation).getLineOfBusinessShares();
-            int numberOfLines = lineOfBusinessShares.getValueRowCount();
-            int firstRowWithLine = lineOfBusinessShares.getTitleRowCount();
-            for (int row = firstRowWithLine; row <= numberOfLines; row++) {
-                String line = (String) lineOfBusinessShares.getValueAt(row, 0);
-                share = (Double) lineOfBusinessShares.getValueAt(row, 1);
-                if (!line.equals(coveredLine.getNormalizedName())) {
-                    share = 0d;
-                }
-                sharesPerLineOfBusiness.put(coveredLine, share);
-                if (share > 0) break;   // stop, if equal names were found
-            }
-        }
-        return share;
+    void initCededPremiumAllocation(List<Claim> cededClaims, List<UnderwritingInfo> grossUnderwritingInfos) {
+        premiumAllocation.initSegmentShares cededClaims, grossUnderwritingInfos
     }
 
     // todo: Are the definition for the as-if premium reasonable?
-
     UnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double initialReserves) {
         UnderwritingInfo cededUnderwritingInfo = UnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
         cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo?.originalUnderwritingInfo ? grossUnderwritingInfo.originalUnderwritingInfo : grossUnderwritingInfo
         cededUnderwritingInfo.commission = 0d
+        double factor = premiumAllocation.getShare(grossUnderwritingInfo.getLineOfBusiness()) * coveredByReinsurer
         switch (stopLossContractBase) {
             case StopLossContractBase.ABSOLUTE:
-                cededUnderwritingInfo.premiumWritten = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo) * coveredByReinsurer
-                cededUnderwritingInfo.premiumWrittenAsIf = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo) * coveredByReinsurer
+                cededUnderwritingInfo.premiumWritten = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo) * factor
+                cededUnderwritingInfo.premiumWrittenAsIf = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo) * factor
                 break
             case StopLossContractBase.GNPI:
-                cededUnderwritingInfo.premiumWritten = premium * grossUnderwritingInfo.premiumWritten * coveredByReinsurer
-                cededUnderwritingInfo.premiumWrittenAsIf = premium * grossUnderwritingInfo.premiumWrittenAsIf * coveredByReinsurer
+                cededUnderwritingInfo.premiumWritten = premium * grossUnderwritingInfo.premiumWritten * factor
+                cededUnderwritingInfo.premiumWrittenAsIf = premium * grossUnderwritingInfo.premiumWrittenAsIf * factor
                 break
         }
         cededUnderwritingInfo

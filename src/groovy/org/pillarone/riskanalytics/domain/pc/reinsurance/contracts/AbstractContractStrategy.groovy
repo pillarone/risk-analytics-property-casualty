@@ -31,6 +31,9 @@ abstract class AbstractContractStrategy implements IReinsuranceContractStrategy,
     public void initBookkeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
     }
 
+    void initCededPremiumAllocation(List<Claim> cededClaims, List<UnderwritingInfo> grossUnderwritingInfos) {
+    }
+
     public void resetMemberInstances() {
     }
 }

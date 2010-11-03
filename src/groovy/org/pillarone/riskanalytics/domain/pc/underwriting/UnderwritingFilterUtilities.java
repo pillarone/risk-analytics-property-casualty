@@ -87,6 +87,7 @@ public class UnderwritingFilterUtilities {
         List<UnderwritingInfo> filteredAndScaledUnderwritingInfos = new ArrayList<UnderwritingInfo>(underwritingInfos.size());
 
         for (LobMarker coveredLine : coveredLines) {
+            if (coveredLine == null) continue;
             List<Claim> lobClaims = ClaimFilterUtilities.filterClaimsByLine(claims, coveredLine, false);
             double aggregatedLobClaim = 0d;
             for (Claim claim : lobClaims) {

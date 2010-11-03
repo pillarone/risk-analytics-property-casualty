@@ -18,10 +18,11 @@ class StopLossContractStrategyTests extends GroovyTestCase {
                 parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.STOPLOSS,
                         ["stopLossContractBase": StopLossContractBase.GNPI,
-                                "attachmentPoint": 1.20,
-                                "limit": 0.40,
-                                "premium": 0.20,
-                                "coveredByReinsurer": 1d]))
+                         "attachmentPoint": 1.20,
+                         "limit": 0.40,
+                         "premium": 0.20,
+                         "coveredByReinsurer": 1d,
+                         "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),]))
     }
 
     static ReinsuranceContract getContractSL1() {
@@ -29,10 +30,11 @@ class StopLossContractStrategyTests extends GroovyTestCase {
                 parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.STOPLOSS,
                         ["stopLossContractBase": StopLossContractBase.GNPI,
-                                "attachmentPoint": 1.15,
-                                "limit": 0.15,
-                                "premium": 0.1,
-                                "coveredByReinsurer": 1d]))
+                         "attachmentPoint": 1.15,
+                         "limit": 0.15,
+                         "premium": 0.1,
+                         "coveredByReinsurer": 1d,
+                         "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),]))
     }
 
     static ReinsuranceContract getContractSLAbs0() {
@@ -40,10 +42,11 @@ class StopLossContractStrategyTests extends GroovyTestCase {
                 parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.STOPLOSS,
                         ["stopLossContractBase": StopLossContractBase.ABSOLUTE,
-                                "attachmentPoint": 2400,
-                                "limit": 800,
-                                "premium": 400,
-                                "coveredByReinsurer": 1d]))
+                         "attachmentPoint": 2400,
+                         "limit": 800,
+                         "premium": 400,
+                         "coveredByReinsurer": 1d,
+                         "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),]))
     }
 
 
