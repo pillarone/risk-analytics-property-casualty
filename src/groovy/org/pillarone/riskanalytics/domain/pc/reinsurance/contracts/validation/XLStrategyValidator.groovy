@@ -9,7 +9,6 @@ import org.pillarone.riskanalytics.core.parameterization.validation.ParameterVal
 import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterHolder
 import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterObjectParameterHolder
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.CXLContractStrategy
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
 
@@ -90,8 +89,11 @@ class XLStrategyValidator implements IParameterizationValidator {
                 - ((TableMultiDimensionalParameter) type['reinstatementPremiums']).titleRowCount)
         if (valueRows == 1 && ((TableMultiDimensionalParameter) type['reinstatementPremiums']).getValueAt(1, 0) == 0) return
         double numberOfReinstatements = type['aggregateLimit'] / type['limit'] - 1  // -1 as the aggregate limit contains the base layer
-        if (valueRows < numberOfReinstatements || valueRows > Math.ceil(numberOfReinstatements)) {
-            return ["mismatching.reinstatement.premiums.and.aggregate.limit"]
+        if (valueRows < numberOfReinstatements) {
+            return ["mismatching.reinstatement.premiums.and.aggregate.limit.beyond"]
+        }
+        else if (valueRows > Math.ceil(numberOfReinstatements)) {
+            return ["mismatching.reinstatement.premiums.and.aggregate.limit.below"]
         }
         return
     }
