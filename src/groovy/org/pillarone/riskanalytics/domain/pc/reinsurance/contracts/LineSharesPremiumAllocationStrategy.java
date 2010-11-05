@@ -16,12 +16,12 @@ import java.util.Map;
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
  */
-public class LineSharesPremiumAllocationStrategy implements IPremiumAllocationStrategy {
+public class LineSharesPremiumAllocationStrategy extends AbstractPremiumAllocation {
 
-    private static final String LINES = "Business Lines";
-    private static final String SHARES = "shares";
+    private static final String LINES = "Segment";
+    private static final String SHARES = "Share";
 
-    private Map<LobMarker, Double> segmentShares = new HashMap<LobMarker, Double>();
+
 
     ConstrainedMultiDimensionalParameter lineOfBusinessShares = new ConstrainedMultiDimensionalParameter(
             GroovyUtils.toList("[[],[]]"),
@@ -50,17 +50,23 @@ public class LineSharesPremiumAllocationStrategy implements IPremiumAllocationSt
             if (underwritingInfo.getLineOfBusiness() == null) continue;
             segmentNameMapping.put(underwritingInfo.getLineOfBusiness().getNormalizedName(), underwritingInfo.getLineOfBusiness());
         }
-        segmentShares = new HashMap<LobMarker, Double>();
+        Map<LobMarker, Double> segmentShares = new HashMap<LobMarker, Double>();
+        double totalShare = 0;
         for (int row = lineOfBusinessShares.getTitleRowCount(); row < lineOfBusinessShares.getRowCount(); row++) {
             String segmentName = (String) lineOfBusinessShares.getValueAt(row, lineOfBusinessShares.getColumnIndex(LINES));
             LobMarker segment = segmentNameMapping.get(segmentName);
+            if (segment == null) continue;  // map only to available lines
             Double share = (Double) lineOfBusinessShares.getValueAt(row, lineOfBusinessShares.getColumnIndex(SHARES));
+            totalShare += share;
             segmentShares.put(segment, share);
         }
-    }
+        // normalize entered segment shares to 1
+        if (totalShare != 1.0) {
+            for (Map.Entry<LobMarker, Double> segmentShare : segmentShares.entrySet()) {
+                segmentShares.put(segmentShare.getKey(), (segmentShare.getValue() / totalShare));
+            }
+        }
 
-    public double getShare(LobMarker segment) {
-        Double share = segmentShares.get(segment);
-        return share == null ? 1d : share;
+        initUnderwritingInfoShares(grossUnderwritingInfos, segmentShares);
     }
 }

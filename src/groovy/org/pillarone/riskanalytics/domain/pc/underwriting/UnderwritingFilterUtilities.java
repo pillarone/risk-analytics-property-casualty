@@ -98,12 +98,18 @@ public class UnderwritingFilterUtilities {
             for (Claim claim : perilsInLobClaims) {
                 aggregatedPerilsInLobClaim += claim.getUltimate();
             }
+            double perilShareInLob = aggregatedLobClaim == 0 ? 1d : aggregatedPerilsInLobClaim / aggregatedLobClaim;
             for (UnderwritingInfo underwritingInfo : underwritingInfos) {
                 if (coveredLine.equals(underwritingInfo.getLineOfBusiness())) {
-                    UnderwritingInfo scaledUnderwritingInfo = underwritingInfo.copy();
-                    scaledUnderwritingInfo.premiumWritten *= aggregatedPerilsInLobClaim / aggregatedLobClaim;
-                    scaledUnderwritingInfo.premiumWrittenAsIf *= aggregatedPerilsInLobClaim / aggregatedLobClaim;
-                    filteredAndScaledUnderwritingInfos.add(scaledUnderwritingInfo);
+                    if (perilShareInLob == 1) {
+                        filteredAndScaledUnderwritingInfos.add(underwritingInfo);
+                    }
+                    else {
+                        UnderwritingInfo scaledUnderwritingInfo = underwritingInfo.copy();
+                        scaledUnderwritingInfo.premiumWritten *= perilShareInLob;
+                        scaledUnderwritingInfo.premiumWrittenAsIf *= perilShareInLob;
+                        filteredAndScaledUnderwritingInfos.add(scaledUnderwritingInfo);
+                    }
                 }
             }
         }

@@ -85,17 +85,6 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
     void initBookkeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
         availableAggregateLimit = aggregateLimit
         reinstatements = limit == 0d ? 0d : availableAggregateLimit / limit - 1
-        double totalPremium = coverUnderwritingInfo.premiumWritten.sum()
-        if (totalPremium == 0) {
-            for (UnderwritingInfo underwritingInfo: coverUnderwritingInfo) {
-                grossPremiumSharesPerBand.put(underwritingInfo, 0)
-            }
-        }
-        else {
-            for (UnderwritingInfo underwritingInfo: coverUnderwritingInfo) {
-                grossPremiumSharesPerBand.put(underwritingInfo, underwritingInfo.premiumWritten / totalPremium)
-            }
-        }
     }
 
     protected void calculateDeductibleFactor(List<Claim> inClaims) {
@@ -120,28 +109,26 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
     // todo(sku): try to move it in an upper class
     UnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double initialReserves) {
         UnderwritingInfo cededUnderwritingInfo = UnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
-        cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo?.originalUnderwritingInfo ? grossUnderwritingInfo.originalUnderwritingInfo : grossUnderwritingInfo
         cededUnderwritingInfo.commission = 0d
         switch (premiumBase) {
             case PremiumBase.ABSOLUTE:
-                cededUnderwritingInfo.premiumWritten = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
-                cededUnderwritingInfo.premiumWrittenAsIf = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
+                cededUnderwritingInfo.premiumWritten = premium * premiumAllocation.getShare(grossUnderwritingInfo)
+                cededUnderwritingInfo.premiumWrittenAsIf = premium * premiumAllocation.getShare(grossUnderwritingInfo)
                 break
             case PremiumBase.GNPI:
                 cededUnderwritingInfo.premiumWritten = premium * grossUnderwritingInfo.premiumWritten
                 cededUnderwritingInfo.premiumWrittenAsIf = premium * grossUnderwritingInfo.premiumWrittenAsIf
                 break
             case PremiumBase.RATE_ON_LINE:
-                cededUnderwritingInfo.premiumWritten = premium * limit
-                cededUnderwritingInfo.premiumWrittenAsIf = premium * limit
+                cededUnderwritingInfo.premiumWritten = premium * limit * premiumAllocation.getShare(grossUnderwritingInfo)
+                cededUnderwritingInfo.premiumWrittenAsIf = premium * limit * premiumAllocation.getShare(grossUnderwritingInfo)
                 break
             case PremiumBase.NUMBER_OF_POLICIES:
                 throw new IllegalArgumentException("XLContractStrategy.invalidPremiumBase")
         }
         // Increases premium written and premium written as if with the reinstatement premium
         double factor = 1 + calculateReinstatementPremiums(aggregateLimit, availableAggregateLimit, aggregateDeductible,
-            limit, reinstatements, reinstatementPremiums, coveredByReinsurer)
-        factor *= premiumAllocation.getShare(grossUnderwritingInfo.getLineOfBusiness()) * coveredByReinsurer
+            limit, reinstatements, reinstatementPremiums, coveredByReinsurer) * coveredByReinsurer
         cededUnderwritingInfo.premiumWritten *= factor
         cededUnderwritingInfo.premiumWrittenAsIf *= factor
         return cededUnderwritingInfo

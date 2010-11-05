@@ -19,8 +19,8 @@ class PremiumAllocationType extends AbstractParameterObjectClassifier {
         }
     }
 
-    private static final String LINES = "Business Lines";
-    private static final String SHARES = "shares";
+    private static final String LINES = "Segment";
+    private static final String SHARES = "Share";
 
     public static final PremiumAllocationType PREMIUM_SHARES = new PremiumAllocationType("Premium Shares", "PREMIUM_SHARES", [:])
     public static final PremiumAllocationType CLAIMS_SHARES = new PremiumAllocationType("Claims Shares", "CLAIMS_SHARES", [:])

@@ -12,9 +12,7 @@ import java.util.Map;
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
  */
-public class ClaimsSharesPremiumAllocationStrategy implements IPremiumAllocationStrategy {
-
-    private Map<LobMarker, Double> segmentShares = new HashMap<LobMarker, Double>();
+public class ClaimsSharesPremiumAllocationStrategy extends AbstractPremiumAllocation {
 
     public PremiumAllocationType getType() {
         return PremiumAllocationType.CLAIMS_SHARES;
@@ -30,7 +28,7 @@ public class ClaimsSharesPremiumAllocationStrategy implements IPremiumAllocation
      * @param grossUnderwritingInfos not used within this strategy
      */
     public void initSegmentShares(List<Claim> cededClaims, List<UnderwritingInfo> grossUnderwritingInfos) {
-        segmentShares = new HashMap<LobMarker, Double>();
+        Map<LobMarker, Double> segmentShares = new HashMap<LobMarker, Double>();
         double totalCededClaim = 0d;
         for (Claim cededClaim : cededClaims) {
             LobMarker segment = cededClaim.getLineOfBusiness();
@@ -48,14 +46,11 @@ public class ClaimsSharesPremiumAllocationStrategy implements IPremiumAllocation
             segmentShares.clear();
         }
         else {
-            for (Double totalCededSegmentClaim : segmentShares.values()) {
-                totalCededSegmentClaim /= totalCededClaim;
+            for (Map.Entry<LobMarker, Double> totalCededSegmentClaim : segmentShares.entrySet()) {
+                segmentShares.put(totalCededSegmentClaim.getKey(), totalCededSegmentClaim.getValue() / totalCededClaim);
             }
         }
+        initUnderwritingInfoShares(grossUnderwritingInfos, segmentShares);
     }
 
-    public double getShare(LobMarker segment) {
-        Double share = segmentShares.get(segment);
-        return share == null ? 1d : share;
-    }
 }

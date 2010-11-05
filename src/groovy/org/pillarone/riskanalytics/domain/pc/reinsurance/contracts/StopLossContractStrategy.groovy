@@ -95,7 +95,7 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
         UnderwritingInfo cededUnderwritingInfo = UnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
         cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo?.originalUnderwritingInfo ? grossUnderwritingInfo.originalUnderwritingInfo : grossUnderwritingInfo
         cededUnderwritingInfo.commission = 0d
-        double factor = premiumAllocation.getShare(grossUnderwritingInfo.getLineOfBusiness()) * coveredByReinsurer
+        double factor = premiumAllocation.getShare(grossUnderwritingInfo) * coveredByReinsurer
         switch (stopLossContractBase) {
             case StopLossContractBase.ABSOLUTE:
                 cededUnderwritingInfo.premiumWritten = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo) * factor
