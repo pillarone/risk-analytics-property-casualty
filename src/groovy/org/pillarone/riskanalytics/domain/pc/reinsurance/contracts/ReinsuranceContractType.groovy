@@ -15,7 +15,7 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
             ["quotaShare": 0d, "limit": LimitStrategyType.noLimit, "coveredByReinsurer": 1d])
     public static final ReinsuranceContractType SURPLUS = new ReinsuranceContractType("surplus", "SURPLUS", ["retention": 0d,
             "lines": 0d, "defaultCededLossShare": 0d, "coveredByReinsurer": 1d])
-    public static final ReinsuranceContractType SURPLUSCOMPLEMENTARY = new ReinsuranceContractType("surplus complementary", "SURPLUSCOMPLEMENTARY", ["retention": 0d,
+    public static final ReinsuranceContractType SURPLUSREVERSE = new ReinsuranceContractType("reverse surplus", "SURPLUSREVERSE", ["retention": 0d,
             "lines": 0d, "defaultCededLossShare": 0d, "coveredByReinsurer": 1d])
     public static final ReinsuranceContractType SURPLUS2 = new ReinsuranceContractType("surplus 2", "SURPLUS2",
             ["retention": 0d, "lines": 0, "commission": 0d, "alpha": 0d, "beta": 0d, "coveredByReinsurer": 1d])
@@ -47,7 +47,7 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
             "coveredByReinsurer": 1d, "slAttachmentPoint": 0d, "slLimit": 0d, "goldorakSlThreshold": 0d,
             "reinstatementPremiums": new TableMultiDimensionalParameter([0.0], ['Reinstatement Premium'])])
 
-    public static final all = [QUOTASHARE, SURPLUS, SURPLUSCOMPLEMENTARY, WXL, CXL,
+    public static final all = [QUOTASHARE, SURPLUS, SURPLUSREVERSE, WXL, CXL,
             WCXL, STOPLOSS, TRIVIAL, LOSSPORTFOLIOTRANSFER, ADVERSEDEVELOPMENTCOVER, GOLDORAK]
 
     protected static Map types = [:]
@@ -92,7 +92,7 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
 
     private static IReinsuranceContractStrategy getComplementarySurplus(double retention, double lines,
                                                            double defaultCededLossShare, double coveredByReinsurer) {
-        return new ComplementarySurplusContractStrategy(retention: retention, lines: lines,
+        return new ReverseSurplusContractStrategy(retention: retention, lines: lines,
                 defaultCededLossShare: defaultCededLossShare, coveredByReinsurer: coveredByReinsurer)
     }
 
@@ -163,10 +163,6 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
                 else {
                     contract = getQuotaShare((double) parameters["quotaShare"], (ILimitStrategy) LimitStrategyType.noLimit, (double) parameters["coveredByReinsurer"])
                 }
-//                contract = getQuotaShare(
-//                        (double) parameters["quotaShare"],
-//                        (ILimitStrategy) (parameters.containsKey("limit") ? parameters["limit"] : LimitStrategyType.noLimit),
-//                        (double) parameters["coveredByReinsurer"])
                 break
             case ReinsuranceContractType.WXL:
                 contract = getWXL(
@@ -220,7 +216,7 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
                         (double) parameters["defaultCededLossShare"],
                         (double) parameters["coveredByReinsurer"])
                 break
-            case ReinsuranceContractType.SURPLUSCOMPLEMENTARY:
+            case ReinsuranceContractType.SURPLUSREVERSE:
                 contract = getComplementarySurplus(
                         (double) parameters["retention"],
                         (double) parameters["lines"],
