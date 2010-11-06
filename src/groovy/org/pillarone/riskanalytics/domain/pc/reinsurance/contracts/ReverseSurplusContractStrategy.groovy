@@ -9,9 +9,9 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
  * @author martin.melchior (at) fhnw (dot) ch
  * @author Michael-Noe (at) Web (dot) de
  */
-class ComplementarySurplusContractStrategy extends SurplusContractStrategy implements IReinsuranceContractStrategy, IParameterObject {
+class ReverseSurplusContractStrategy extends SurplusContractStrategy implements IReinsuranceContractStrategy, IParameterObject {
 
-    static final ReinsuranceContractType type = ReinsuranceContractType.SURPLUSCOMPLEMENTARY
+    static final ReinsuranceContractType type = ReinsuranceContractType.SURPLUSREVERSE
 
     ReinsuranceContractType getType() {
         type

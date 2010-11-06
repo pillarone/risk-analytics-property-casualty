@@ -9,14 +9,14 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  * @author Michael-Noe (at) Web (dot) de
  */
-class ComplementarySurplusContractStrategyTests extends GroovyTestCase {
+class ReverseSurplusContractStrategyTests extends GroovyTestCase {
 
     static final double EPSILON = 1E-10
 
     static ReinsuranceContract getContract0() {
         return new ReinsuranceContract(
                 parmContractStrategy: ReinsuranceContractType.getStrategy(
-                        ReinsuranceContractType.SURPLUSCOMPLEMENTARY,
+                        ReinsuranceContractType.SURPLUSREVERSE,
                         ["retention": 100,
                          "lines": 5,
                          "defaultCededLossShare": 0d,
@@ -26,7 +26,7 @@ class ComplementarySurplusContractStrategyTests extends GroovyTestCase {
     static ReinsuranceContract getContract1() {
         return new ReinsuranceContract(
                 parmContractStrategy: ReinsuranceContractType.getStrategy(
-                    ReinsuranceContractType.SURPLUSCOMPLEMENTARY,
+                    ReinsuranceContractType.SURPLUSREVERSE,
                     ["retention": 100,
                      "lines": 5,
                      "coveredByReinsurer": 1d,
