@@ -18,10 +18,11 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.validation.XL
 import org.pillarone.riskanalytics.domain.pc.filter.SegmentFilterValidator
 import org.pillarone.riskanalytics.core.util.ResourceBundleRegistry
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.validation.DependencyMatrixValidator
+import org.pillarone.riskanalytics.domain.utils.constraints.DateTimeConstraints
 
 class RiskAnalyticsPropertyCasualtyGrailsPlugin {
     // the plugin version
-    def version = "1.1"
+    def version = "1.1.1.1"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.3.4 > *"
     // the other plugins this plugin depends on
@@ -64,6 +65,7 @@ class RiskAnalyticsPropertyCasualtyGrailsPlugin {
         ConstraintsFactory.registerConstraint(new UnderwritingPortion())
         ConstraintsFactory.registerConstraint(new ReservePortion())
         ConstraintsFactory.registerConstraint(new DoubleConstraints())
+        ConstraintsFactory.registerConstraint(new DateTimeConstraints())
 
         ValidatorRegistry.addValidator(new DistributionTypeValidator())
 //        ValidatorRegistry.addValidator(new SurplusStrategyValidator())
