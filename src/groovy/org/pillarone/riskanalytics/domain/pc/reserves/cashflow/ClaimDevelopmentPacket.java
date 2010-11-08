@@ -4,6 +4,7 @@ import org.joda.time.DateTime;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimPacketFactory;
 
+import java.text.SimpleDateFormat;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Arrays;
@@ -181,6 +182,7 @@ public class ClaimDevelopmentPacket extends Claim {
         if (getPeril() != null) result.append(getPeril().getName()).append(separator);
         if (getReinsuranceContract() != null) result.append(getReinsuranceContract().getName()).append(separator);
         result.append(", original period: ").append(originalPeriod);
+        if (getDate() != null) result.append(", date: ").append(new SimpleDateFormat("yyyy-MM-dd").format(getDate().toDate()));
         return result.toString();
     }
 
