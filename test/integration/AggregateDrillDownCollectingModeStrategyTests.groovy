@@ -43,13 +43,14 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
         assertNotNull new CollectorMapping(collectorName: AggregatedCollectingModeStrategy.IDENTIFIER).save()
     }
 
-    void postSimulationEvaluation() {
-        correctPaths()
-        correctFields(['incurred', 'paid', 'reserved','commission', 'premium'])
-        correctPaidClaimsResults()
-        correctCommissionsResults()
-        correctPremiumResults()
-    }
+    // KTI-21
+//    void postSimulationEvaluation() {
+//        correctPaths()
+//        correctFields(['incurred', 'paid', 'reserved','commission', 'premium'])
+//        correctPaidClaimsResults()
+//        correctCommissionsResults()
+//        correctPremiumResults()
+//    }
 
     void correctPaths() {
         List<String> paths = [

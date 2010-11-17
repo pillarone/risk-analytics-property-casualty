@@ -7,8 +7,9 @@ class ReinsuranceComparisonModelTests extends ModelTest {
         ReinsuranceComparisonModel
     }
 
-    protected boolean shouldCompareResults() {
-        true
-    }
+    // KTI-21
+//    protected boolean shouldCompareResults() {
+//        true
+//    }
 
 }

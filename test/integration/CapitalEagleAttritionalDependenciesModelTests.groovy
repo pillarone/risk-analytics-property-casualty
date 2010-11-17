@@ -19,7 +19,8 @@ class CapitalEagleAttritionalDependenciesModelTests extends ModelTest {
         return "CapitalEagleAttritionalDependencies4Parameters"
     }
 
-    protected boolean shouldCompareResults() {
-        true
-    }
+    // KTI-21
+//    protected boolean shouldCompareResults() {
+//        true
+//    }
 }

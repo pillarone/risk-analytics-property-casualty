@@ -15,7 +15,8 @@ class PodraPModelTests extends ModelTest {
         "No Reinsurance Contracts"
     }
 
-    protected boolean shouldCompareResults() {
-        true
-    }
+    // KTI-21
+//    protected boolean shouldCompareResults() {
+//        true
+//    }
 }
