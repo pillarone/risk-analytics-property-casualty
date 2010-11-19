@@ -293,7 +293,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
             Double rightBoundary = (Double) modification.getParameters().get("max");
             dist = new TruncatedDist((ContinuousDistribution) distribution.getDistribution(), leftBoundary, rightBoundary);
         }
-//        else if (modification.getType().equals(DistributionModifier.LEFTTRUNCATEDRIGHTCENSORED)) {
+//        else if (modification.getType().equals(DistributionModifier.LEFTTRUNCATEDRIGHTCENSOREDSHIFT)) {
 //            Double leftBoundary = (Double) modification.getParameters().get("min");
 //            Double rightBoundary = (Double) modification.getParameters().get("max");
 //            dist = new CensoredDistribution(new TruncatedDist((ContinuousDistribution) distribution.getDistribution(),

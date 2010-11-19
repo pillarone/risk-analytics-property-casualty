@@ -110,7 +110,7 @@ class ClaimsGeneratorStrategyValidator implements IParameterizationValidator {
             }
         }
 
-        if (DistributionModifier.LEFTTRUNCATEDRIGHTCENSORED){
+        if (DistributionModifier.LEFTTRUNCATEDRIGHTCENSOREDSHIFT){
             if ((1d - distribution.cdf(leftBoundary)) < 1E-8) {
                 return ["claims.model.error.restricted.density.function.not.normalizable.for.claims.generator"]
             }

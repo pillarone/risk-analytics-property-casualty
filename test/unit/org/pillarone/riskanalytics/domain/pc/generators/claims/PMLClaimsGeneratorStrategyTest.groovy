@@ -317,7 +317,7 @@ class PMLClaimsGeneratorStrategyTest extends GroovyTestCase {
 
         ConstrainedMultiDimensionalParameter pmlData = new ConstrainedMultiDimensionalParameter(
                 [[0.01d, 0.05d, 0.1d, 0.2d, 0.7d, 1.5d, 2.2d, 4.0d, 5.0d], [0.1d, 45d, 200d, 500d, 600d, 800d, 1500d, 2016d, 4000d]], ["return period", "maximum claim"], ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))
-        DistributionModified claimsSizeModification = DistributionModifier.getStrategy(DistributionModifier.LEFTTRUNCATEDRIGHTCENSORED, ["min": 200d, "max": 800d])
+        DistributionModified claimsSizeModification = DistributionModifier.getStrategy(DistributionModifier.LEFTTRUNCATEDRIGHTCENSOREDSHIFT, ["min": 200d, "max": 800d, "shift": 10d])
         claimsGenerator.setParmClaimsModel(ClaimsGeneratorType.getStrategy(ClaimsGeneratorType.PML,
                 ["pmlData": pmlData, "claimsSizeModification": claimsSizeModification,'produceClaim': FrequencySeverityClaimType.SINGLE]))
 
@@ -345,7 +345,7 @@ class PMLClaimsGeneratorStrategyTest extends GroovyTestCase {
         RandomDistribution cumEmpiricalDistribution = DistributionType.getStrategy(DistributionType.DISCRETEEMPIRICALCUMULATIVE, distributionData);
         List<Double> claimValues = new ArrayList<Double>();
         for (int i = 0; i < frequency; i++) {
-            claimValues.add(Math.min(cumEmpiricalDistribution.getDistribution().inverseF(randomNumbers[i + 1]), 800d));
+            claimValues.add(Math.min(cumEmpiricalDistribution.getDistribution().inverseF(randomNumbers[i + 1]), 800d)+10);
         }
 
         claimsGenerator.doCalculation();

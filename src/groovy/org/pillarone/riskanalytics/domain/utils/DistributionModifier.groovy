@@ -18,14 +18,14 @@ class DistributionModifier extends AbstractParameterObjectClassifier {
             "truncated shift", "TRUNCATEDSHIFT", ["min": 0d, "max": 1E100, "shift": 0d])
     public static final DistributionModifier CENSORED = new DistributionModifier(
             "censored", "CENSORED", ["min": 0d, "max": 1E100])
-    public static final DistributionModifier LEFTTRUNCATEDRIGHTCENSORED = new DistributionModifier(
-            "left truncated, right censored", "LEFTTRUNCATEDRIGHTCENSORED", ["min": -1E100, "max": 1E100])
+    public static final DistributionModifier LEFTTRUNCATEDRIGHTCENSOREDSHIFT = new DistributionModifier(
+            "left truncated, right censored, shift", "LEFTTRUNCATEDRIGHTCENSOREDSHIFT", ["min": -1E100, "max": 1E100, "shift": 0d])
     public static final DistributionModifier CENSOREDSHIFT = new DistributionModifier(
             "censored shift", "CENSOREDSHIFT", ["min": 0d, "max": 1E100, "shift": 0d])
     public static final DistributionModifier SHIFT = new DistributionModifier(
             "shift", "SHIFT", ["shift": 0d])
 
-    public static final all = [NONE, TRUNCATED, TRUNCATEDSHIFT, CENSORED, CENSOREDSHIFT, SHIFT, LEFTTRUNCATEDRIGHTCENSORED]
+    public static final all = [NONE, TRUNCATED, TRUNCATEDSHIFT, CENSORED, CENSOREDSHIFT, SHIFT, LEFTTRUNCATEDRIGHTCENSOREDSHIFT]
 
     protected static Map types = [:]
 
@@ -66,8 +66,8 @@ class DistributionModifier extends AbstractParameterObjectClassifier {
             case DistributionModifier.TRUNCATED:
                 distributionModified = new DistributionModified(type: DistributionModifier.TRUNCATED, parameters: parameters)
                 break
-            case DistributionModifier.LEFTTRUNCATEDRIGHTCENSORED:
-                distributionModified = new DistributionModified(type: DistributionModifier.LEFTTRUNCATEDRIGHTCENSORED, parameters: parameters)
+            case DistributionModifier.LEFTTRUNCATEDRIGHTCENSOREDSHIFT:
+                distributionModified = new DistributionModified(type: DistributionModifier.LEFTTRUNCATEDRIGHTCENSOREDSHIFT, parameters: parameters)
                 break
             case DistributionModifier.TRUNCATEDSHIFT:
                 distributionModified = new DistributionModified(type: DistributionModifier.TRUNCATEDSHIFT, parameters: parameters)
