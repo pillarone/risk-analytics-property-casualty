@@ -39,7 +39,9 @@ public class PMLClaimsGeneratorStrategy implements IClaimsGeneratorStrategy {
         return claimsSizeModification
     }
 
-    Exposure getClaimsSizeBase() {}
+    Exposure getClaimsSizeBase() {
+        return Exposure.ABSOLUTE
+    }
 
     public RandomDistribution getClaimsSizeDistribution() {
         return claimsSizeDistribution
@@ -84,7 +86,7 @@ public class PMLClaimsGeneratorStrategy implements IClaimsGeneratorStrategy {
                 lambda = frequencies[indexMin] - frequencies[indexMax - 2];
             }
         }
-        else if (claimsSizeModification.getType().equals(DistributionModifier.LEFTTRUNCATEDRIGHTCENSORED)) {
+        else if (claimsSizeModification.getType().equals(DistributionModifier.LEFTTRUNCATEDRIGHTCENSOREDSHIFT)) {
             double min = (Double) claimsSizeModification.getParameters().get("min");
             List<Double> observationsAndMin = new ArrayList<Double>();
             observationsAndMin.addAll(observations);
