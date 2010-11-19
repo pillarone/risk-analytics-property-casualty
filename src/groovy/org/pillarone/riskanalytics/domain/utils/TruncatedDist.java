@@ -64,9 +64,11 @@ public class TruncatedDist implements Distribution {
     public double cdf(double x) {
         if (x < a) {
             return 0;
-        } else if (x >= b) {
+        }
+        else if (x >= b) {
             return 1;
-        } else {
+        }
+        else {
             return (distribution.cdf(x) - cdfLeftBoundary) / (distribution.cdf(b) - cdfLeftBoundary);
         }
     }
@@ -79,6 +81,25 @@ public class TruncatedDist implements Distribution {
         return distribution.inverseF(y * (distribution.cdf(b) - cdfLeftBoundary) + cdfLeftBoundary);
     }
 
+
+    public double density(double x) {
+        if (!(distribution instanceof ContinuousDistribution)) {
+            throw new IllegalArgumentException("TruncatedDist.densityForContinuousDistributionOnly");
+        }
+        if (x < a || x > b)
+            return 0d;
+        return ((ContinuousDistribution) distribution).density(x) / (distribution.cdf(b) - cdfLeftBoundary);
+    }
+
+    public double prob(int x) {
+        if (distribution instanceof ContinuousDistribution) {
+            throw new IllegalArgumentException("TruncatedDist.probForDiscreteDistributionsOnly");
+        }
+        if (x < a || x > b) return 0d;
+        if (distribution instanceof DiscreteDistribution)
+            return ((DiscreteDistribution) distribution).prob(x) / (distribution.cdf(b) - cdfLeftBoundary);
+        return ((DiscreteDistributionInt) distribution).prob(x) / (distribution.cdf(b) - cdfLeftBoundary);
+    }
 
     public double getMean() {
         throw new NotImplementedException("TruncatedDist.noImplementationOfGetMean");
@@ -93,7 +114,7 @@ public class TruncatedDist implements Distribution {
     }
 
     // todo(jwa): implement getParams() depending of instance of distribution
-    // implement prob
+    // implement prob, respectively density
 
     public double[] getParams() {
         return new double[0];  //To change body of implemented methods use File | Settings | File Templates.
