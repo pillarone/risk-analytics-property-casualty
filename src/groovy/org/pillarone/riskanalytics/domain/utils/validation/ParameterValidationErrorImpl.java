@@ -18,7 +18,7 @@ public class ParameterValidationErrorImpl extends ParameterValidationError {
     public String getLocalizedMessage(Locale locale) {
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("org.pillarone.riskanalytics.domain.pc.validation.distributionType", locale);
-            return MessageFormat.format(bundle.getString(msg),args);
+            return MessageFormat.format(bundle.getString(msg), args != null ? args.toArray() : null);
         } catch (MissingResourceException e) {
             return msg;
         }

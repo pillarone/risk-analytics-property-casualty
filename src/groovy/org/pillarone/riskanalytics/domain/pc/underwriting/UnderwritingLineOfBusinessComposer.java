@@ -7,6 +7,7 @@ import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory;
 import org.pillarone.riskanalytics.core.util.GroovyUtils;
 import org.pillarone.riskanalytics.domain.pc.constraints.UnderwritingPortion;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
+import org.pillarone.riskanalytics.domain.utils.InputFormatConverter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,11 +41,11 @@ public class UnderwritingLineOfBusinessComposer extends Component {
                     UnderwritingInfo lobUnderwritingInfo = UnderwritingInfoPacketFactory.copy(underwritingInfo);
                     // error message in MarketUnderwritingInfoMerger (reinsurance program) if reference to same underwritingInfo
                     lobUnderwritingInfo.setOriginalUnderwritingInfo(lobUnderwritingInfo);
-                    lobUnderwritingInfo.premiumWritten *= (Double) parmPortions.getValueAt(row + 1, portionColumn);
-                    lobUnderwritingInfo.premiumWrittenAsIf *= (Double) parmPortions.getValueAt(row + 1, portionColumn);
-                    lobUnderwritingInfo.sumInsured *= (Double) parmPortions.getValueAt(row + 1, portionColumn);
-                    lobUnderwritingInfo.maxSumInsured *= (Double) parmPortions.getValueAt(row + 1, portionColumn);
-                    lobUnderwritingInfo.commission *= (Double) parmPortions.getValueAt(row + 1, portionColumn);
+                    lobUnderwritingInfo.premiumWritten *= InputFormatConverter.getDouble(parmPortions.getValueAt(row + 1, portionColumn));
+                    lobUnderwritingInfo.premiumWrittenAsIf *= InputFormatConverter.getDouble(parmPortions.getValueAt(row + 1, portionColumn));
+                    lobUnderwritingInfo.sumInsured *= InputFormatConverter.getDouble(parmPortions.getValueAt(row + 1, portionColumn));
+                    lobUnderwritingInfo.maxSumInsured *= InputFormatConverter.getDouble(parmPortions.getValueAt(row + 1, portionColumn));
+                    lobUnderwritingInfo.commission *= InputFormatConverter.getDouble(parmPortions.getValueAt(row + 1, portionColumn));
                     lobUnderwritingInfo.origin = lineOfBusiness;
                     lobUnderwritingInfo.setLineOfBusiness((LobMarker) lineOfBusiness);
                     lobUnderwritingInfos.add(lobUnderwritingInfo);

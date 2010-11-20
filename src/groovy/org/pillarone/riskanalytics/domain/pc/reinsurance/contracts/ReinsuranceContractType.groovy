@@ -19,15 +19,18 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
             "lines": 0d, "defaultCededLossShare": 0d, "coveredByReinsurer": 1d])
     public static final ReinsuranceContractType SURPLUS2 = new ReinsuranceContractType("surplus 2", "SURPLUS2",
             ["retention": 0d, "lines": 0, "commission": 0d, "alpha": 0d, "beta": 0d, "coveredByReinsurer": 1d])
-    public static final ReinsuranceContractType WXL = new ReinsuranceContractType("wxl", "WXL", ["attachmentPoint": 0d, "limit": 0d,
+    public static final ReinsuranceContractType WXL = new ReinsuranceContractType("wxl", "WXL", [
+            "aggregateDeductible":0d, "attachmentPoint": 0d, "limit": 0d,
             "aggregateLimit": 0d, "premiumBase": PremiumBase.ABSOLUTE, "premium": 0d,
             "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]), "coveredByReinsurer": 1d,
             "reinstatementPremiums": new TableMultiDimensionalParameter([0.0], ['Reinstatement Premium'])])
-    public static final ReinsuranceContractType CXL = new ReinsuranceContractType("cxl", "CXL", ["attachmentPoint": 0d, "limit": 0d,
+    public static final ReinsuranceContractType CXL = new ReinsuranceContractType("cxl", "CXL", [
+            "aggregateDeductible":0d, "attachmentPoint": 0d, "limit": 0d,
             "aggregateLimit": 0d, "premiumBase": PremiumBase.ABSOLUTE, "premium": 0d,
             "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]), "coveredByReinsurer": 1d,
             "reinstatementPremiums": new TableMultiDimensionalParameter([0.0], ['Reinstatement Premium'])])
-    public static final ReinsuranceContractType WCXL = new ReinsuranceContractType("wcxl", "WCXL", ["attachmentPoint": 0d, "limit": 0d,
+    public static final ReinsuranceContractType WCXL = new ReinsuranceContractType("wcxl", "WCXL", [
+            "aggregateDeductible":0d, "attachmentPoint": 0d, "limit": 0d,
             "aggregateLimit": 0d, "premiumBase": PremiumBase.ABSOLUTE, "premium": 0d,
             "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]), "coveredByReinsurer": 1d,
             "reinstatementPremiums": new TableMultiDimensionalParameter([0.0], ['Reinstatement Premium'])])
