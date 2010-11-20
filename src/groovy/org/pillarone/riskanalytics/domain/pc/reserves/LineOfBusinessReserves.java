@@ -11,6 +11,7 @@ import org.pillarone.riskanalytics.domain.pc.claims.SortClaimsByFractionOfPeriod
 import org.pillarone.riskanalytics.domain.pc.constraints.ReservePortion;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
+import org.pillarone.riskanalytics.domain.utils.InputFormatConverter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,7 +51,7 @@ public class LineOfBusinessReserves extends Component {
                     lobClaim.setOriginalClaim(lobClaim);
                     lobClaim.origin = lineOfBusiness;
                     lobClaim.setLineOfBusiness((LobMarker) lineOfBusiness);
-                    lobClaim.scale((Double) parmPortions.getValueAt(row + 1, portionColumn));
+                    lobClaim.scale(InputFormatConverter.getDouble(parmPortions.getValueAt(row + 1, portionColumn)));
                     lobClaims.add(lobClaim);
                     outClaimsDevelopmentLean.add((ClaimDevelopmentLeanPacket) lobClaim);
                 }
@@ -61,7 +62,7 @@ public class LineOfBusinessReserves extends Component {
                 if (row > -1) {
                     SingleValuePacket lobInitialReserve = (SingleValuePacket) initialReserves.copy();
                     lobInitialReserve.origin = lineOfBusiness;
-                    lobInitialReserve.value *= (Double) parmPortions.getValueAt(row + 1, portionColumn);
+                    lobInitialReserve.value *= InputFormatConverter.getDouble(parmPortions.getValueAt(row + 1, portionColumn));
                     outInitialReserves.add(lobInitialReserve);
                 }
             }
