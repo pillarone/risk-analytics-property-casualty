@@ -19,10 +19,11 @@ import org.pillarone.riskanalytics.domain.pc.filter.SegmentFilterValidator
 import org.pillarone.riskanalytics.core.util.ResourceBundleRegistry
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.validation.DependencyMatrixValidator
 import org.pillarone.riskanalytics.domain.utils.constraints.DateTimeConstraints
+import org.pillarone.riskanalytics.domain.pc.underwriting.validation.RiskBandsValidator
 
 class RiskAnalyticsPropertyCasualtyGrailsPlugin {
     // the plugin version
-    def version = "1.1.1.1"
+    def version = "1.1.1.4"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.3.4 > *"
     // the other plugins this plugin depends on
@@ -76,6 +77,7 @@ class RiskAnalyticsPropertyCasualtyGrailsPlugin {
         ValidatorRegistry.addValidator(new XLStrategyValidator())
         ValidatorRegistry.addValidator(new SegmentFilterValidator())
         ValidatorRegistry.addValidator(new DependencyMatrixValidator())
+        ValidatorRegistry.addValidator(new RiskBandsValidator())
 
         // add bundle resource name
         ResourceBundleRegistry.addResourceBundle("org.pillarone.riskanalytics.exceptionResources")

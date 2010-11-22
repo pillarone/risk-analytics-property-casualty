@@ -40,11 +40,11 @@ public class RiskBands extends Component implements IUnderwritingInfoMarker {
     private IterationScope iterationScope;
     private IterationStore iterationStore;
 
-    private static final String UNDERWRITING_INFOS = "underwriting infos";
-    private static final String MAXIMUM_SUM_INSURED = "maximum sum insured";
-    private static final String AVERAGE_SUM_INSURED = "average sum insured";
-    private static final String PREMIUM = "premium";
-    private static final String NUMBER_OF_POLICIES = "number of policies";
+    public static final String UNDERWRITING_INFOS = "underwriting infos";
+    public static final String MAXIMUM_SUM_INSURED = "maximum sum insured";
+    public static final String AVERAGE_SUM_INSURED = "average sum insured";
+    public static final String PREMIUM = "premium";
+    public static final String NUMBER_OF_POLICIES = "number of policies";
 
     private Integer numberOfSegments;
     private int columnIndexMaxSumInsured;
