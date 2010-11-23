@@ -14,14 +14,14 @@ class MathUtilsTests extends GroovyTestCase {
         assertEquals 0, MathUtils.calculatePercentile((double[]) [0, 10, 20], 0)
         assertEquals 10, MathUtils.calculatePercentile((double[]) [0, 10, 20], 50)
         assertEquals 20, MathUtils.calculatePercentile((double[]) [0, 10, 20], 100)
-        assertEquals 15, MathUtils.calculatePercentile((double[]) [0, 10, 20], 75)
-        assertEquals 18, MathUtils.calculatePercentile((double[]) [0, 10, 20], 90)
+        assertEquals 18.3333333333333, MathUtils.calculatePercentile((double[]) [0, 10, 20], 75), 1E-8
+        assertEquals 20, MathUtils.calculatePercentile((double[]) [0, 10, 20], 90)
     }
 
 
     void testVar() {
         assertEquals 0, MathUtils.calculateVar((double[]) [0, 10, 20], 50)
-        assertEquals 8, MathUtils.calculateVar((double[]) [0, 10, 20], 90)
+        assertEquals 10, MathUtils.calculateVar((double[]) [0, 10, 20], 90)
     }
 
     void testTvar() {
