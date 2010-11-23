@@ -8,6 +8,7 @@ import org.pillarone.riskanalytics.core.util.GroovyUtils;
 import org.pillarone.riskanalytics.domain.pc.constraints.PerilPortion;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
+import org.pillarone.riskanalytics.domain.utils.InputFormatConverter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,7 +48,7 @@ public class MarketToLineOfBusinessClaims extends Component {
                     lobClaim.setOriginalClaim(lobClaim);
                     lobClaim.origin = lineOfBusiness;
                     lobClaim.setLineOfBusiness((LobMarker) lineOfBusiness);
-                    lobClaim.scale((Double) parmPortions.getValueAt(row + 1, portionColumn));
+                    lobClaim.scale(InputFormatConverter.getDouble(parmPortions.getValueAt(row + 1, portionColumn)));
                     lobClaims.add(lobClaim);
                     if (lobClaim instanceof ClaimDevelopmentLeanPacket) {
                         outClaimsDevelopmentLean.add((ClaimDevelopmentLeanPacket) lobClaim);
