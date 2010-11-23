@@ -45,15 +45,17 @@ abstract public class AbstractPremiumAllocation implements IPremiumAllocationStr
 
     protected void proportionalAllocation(List<UnderwritingInfo> grossUnderwritingInfos) {
         cededPremiumSharePerGrossUnderwritingInfo = new HashMap<UnderwritingInfo, Double>();
-        double totalPremium = UnderwritingInfoUtilities.aggregate(grossUnderwritingInfos).premiumWritten;
-        if (totalPremium == 0) {
-            for (UnderwritingInfo underwritingInfo: grossUnderwritingInfos) {
-                cededPremiumSharePerGrossUnderwritingInfo.put(underwritingInfo, 0d);
+        if (grossUnderwritingInfos.size() > 0) {
+            double totalPremium = UnderwritingInfoUtilities.aggregate(grossUnderwritingInfos).premiumWritten;
+            if (totalPremium == 0) {
+                for (UnderwritingInfo underwritingInfo: grossUnderwritingInfos) {
+                    cededPremiumSharePerGrossUnderwritingInfo.put(underwritingInfo, 0d);
+                }
             }
-        }
-        else {
-            for (UnderwritingInfo underwritingInfo: grossUnderwritingInfos) {
-                cededPremiumSharePerGrossUnderwritingInfo.put(underwritingInfo, underwritingInfo.premiumWritten / totalPremium);
+            else {
+                for (UnderwritingInfo underwritingInfo: grossUnderwritingInfos) {
+                    cededPremiumSharePerGrossUnderwritingInfo.put(underwritingInfo, underwritingInfo.premiumWritten / totalPremium);
+                }
             }
         }
     }
