@@ -51,7 +51,7 @@ public class MultiCompanyCoverAttributeReinsuranceContract extends ReinsuranceCo
 
     private ConstrainedMultiDimensionalParameter parmReinsurers = new ConstrainedMultiDimensionalParameter(
             GroovyUtils.convertToListOfList(new Object[]{"", 1d}),
-            Arrays.asList(getReinsurer(), getPortion()),
+            Arrays.asList(REINSURER, PORTION),
             ConstraintsFactory.getConstraints(CompanyPortion.IDENTIFIER));
 
     private static final String REINSURER = "Reinsurer";
@@ -76,8 +76,8 @@ public class MultiCompanyCoverAttributeReinsuranceContract extends ReinsuranceCo
         }
         double coveredByReinsurers = 0d;
         for (int row = parmReinsurers.getTitleRowCount(); row < parmReinsurers.getRowCount(); row++) {
-            double portion = InputFormatConverter.getDouble(parmReinsurers.getValueAt(row, parmReinsurers.getColumnIndex(getPortion())));
-            String reinsurer = InputFormatConverter.getString(parmReinsurers.getValueAt(row, parmReinsurers.getColumnIndex(getReinsurer())));
+            double portion = InputFormatConverter.getDouble(parmReinsurers.getValueAt(row, parmReinsurers.getColumnIndex(PORTION)));
+            String reinsurer = InputFormatConverter.getString(parmReinsurers.getValueAt(row, parmReinsurers.getColumnIndex(REINSURER)));
             double reinsurerDefault = reinsurersDefault.get(reinsurer) == null ? 1d : reinsurersDefault.get(reinsurer);
             coveredByReinsurers += portion * reinsurerDefault;
         }
@@ -229,11 +229,4 @@ public class MultiCompanyCoverAttributeReinsuranceContract extends ReinsuranceCo
         this.outFilteredUnderwritingInfo = outFilteredUnderwritingInfo;
     }
 
-    public static String getReinsurer() {
-        return REINSURER;
-    }
-
-    public static String getPortion() {
-        return PORTION;
-    }
 }
