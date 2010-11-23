@@ -37,7 +37,7 @@ public class MultiLineReinsuranceContractWithDefault extends MultiLineReinsuranc
         List<PerilMarker> coveredPerils = parmCoveredPerils.getValuesAsObjects()
         outFilteredClaims.addAll(ClaimFilterUtilities.filterClaimsByPerilAndLob(inClaims, coveredPerils, coveredLines))
         if (coveredLines.size() == 0) {
-            coveredLines = ClaimFilterUtilities.getLineOfBusiness(outFilteredClaims)
+            coveredLines = ClaimFilterUtilities.getLinesOfBusiness(outFilteredClaims)
         }
         outFilteredUnderwritingInfo.addAll(UnderwritingFilterUtilities.filterUnderwritingInfoByLob(inUnderwritingInfo, coveredLines))
     }

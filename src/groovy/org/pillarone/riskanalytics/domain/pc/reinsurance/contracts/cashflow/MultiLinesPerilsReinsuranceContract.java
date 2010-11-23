@@ -201,7 +201,7 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
                     ((ICombinedCoverAttributeStrategy) parmCover).getConnection();
             outFilteredClaims.addAll(ClaimFilterUtilities.filterClaimsByPerilLobReserve(inClaims, coveredPerils, coveredLines, null, connection));
             if (coveredLines == null || coveredLines.size() == 0) {
-                coveredLines = ClaimFilterUtilities.getLineOfBusiness(outFilteredClaims);
+                coveredLines = ClaimFilterUtilities.getLinesOfBusiness(outFilteredClaims);
             }
             outFilteredUnderwritingInfo.addAll(UnderwritingFilterUtilities.filterUnderwritingInfoByLob(inUnderwritingInfo, coveredLines));
         }

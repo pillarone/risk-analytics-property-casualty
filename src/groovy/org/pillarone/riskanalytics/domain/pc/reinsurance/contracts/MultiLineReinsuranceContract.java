@@ -108,7 +108,7 @@ public class MultiLineReinsuranceContract extends ReinsuranceContract {
         List<IReserveMarker> coveredReserves = parmCoveredReserves.getValuesAsObjects();
         outFilteredClaims.addAll(ClaimFilterUtilities.filterClaimsByPerilLobReserve(inClaims, coveredPerils, coveredLines, coveredReserves, LogicArguments.OR));
         if (coveredLines.size() == 0) {
-            coveredLines = ClaimFilterUtilities.getLineOfBusiness(outFilteredClaims);
+            coveredLines = ClaimFilterUtilities.getLinesOfBusiness(outFilteredClaims);
         }
         outFilteredUnderwritingInfo.addAll(UnderwritingFilterUtilities.filterUnderwritingInfoByLob(inUnderwritingInfo, coveredLines));
     }

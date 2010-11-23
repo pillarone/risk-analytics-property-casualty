@@ -10,9 +10,9 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiCompanyC
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiCoverAttributeReinsuranceContract
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContract
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.CoverAttributeStrategyType
 import org.pillarone.riskanalytics.domain.pc.underwriting.MarketUnderwritingInfoMerger
 import org.pillarone.riskanalytics.domain.pc.creditrisk.ReinsurerDefault
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.CompanyCoverAttributeStrategyType
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -26,8 +26,8 @@ public class ReinsuranceMarket extends DynamicReinsuranceProgram {
         MultiCompanyCoverAttributeReinsuranceContract contract = new MultiCompanyCoverAttributeReinsuranceContract(
                 parmInuringPriority: 0,
                 parmContractStrategy: ReinsuranceContractType.getStrategy(ReinsuranceContractType.TRIVIAL, [:]),
-                parmCover: CoverAttributeStrategyType.getStrategy(
-                            CoverAttributeStrategyType.ALL, ['reserves': IncludeType.NOTINCLUDED]))
+                parmCover: CompanyCoverAttributeStrategyType.getStrategy(
+                            CompanyCoverAttributeStrategyType.ALL, ['reserves': IncludeType.NOTINCLUDED]))
         return contract
     }
 

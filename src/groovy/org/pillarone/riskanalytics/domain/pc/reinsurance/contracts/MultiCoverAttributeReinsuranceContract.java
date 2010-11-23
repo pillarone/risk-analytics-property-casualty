@@ -20,7 +20,6 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingFilterUtil
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -72,7 +71,7 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
         parmCommissionStrategy.calculateCommission(outCoveredClaims, outCoverUnderwritingInfo, false, false);
         if (isSenderWired(outNetAfterCoverUnderwritingInfo)) {
             calculateNetUnderwritingInfos(UnderwritingFilterUtilities.filterUnderwritingInfoByLobWithoutScaling(
-                    inUnderwritingInfo, ClaimFilterUtilities.getLineOfBusiness(outFilteredClaims)),
+                    inUnderwritingInfo, ClaimFilterUtilities.getLinesOfBusiness(outFilteredClaims)),
                     outCoverUnderwritingInfo, outNetAfterCoverUnderwritingInfo, outCoveredClaims);
         }
         if (inClaims.size() > 0 && inClaims.get(0) instanceof ClaimDevelopmentLeanPacket) {
@@ -126,7 +125,7 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
                     ? ((ICombinedCoverAttributeStrategy) parmCover).getConnection() : null;
             outFilteredClaims.addAll(ClaimFilterUtilities.filterClaimsByPerilLobReserve(inClaims, coveredPerils, coveredLines, coveredReserves, connection));
             // extend coveredLines such that they additionally consist of the segments which are associated with the selected perils
-            coveredLines = ClaimFilterUtilities.getLineOfBusiness(outFilteredClaims);
+            coveredLines = ClaimFilterUtilities.getLinesOfBusiness(outFilteredClaims);
             outFilteredUnderwritingInfo.addAll(UnderwritingFilterUtilities.filterUnderwritingInfoByLobAndScaleByPerilsInLob(inUnderwritingInfo, coveredLines, inClaims, coveredPerils));
         }
     }
