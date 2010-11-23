@@ -33,7 +33,13 @@ class SurplusContractStrategy extends AbstractContractStrategy implements IReins
 
     public double allocateCededClaim(Claim inClaim) {
         if (inClaim.hasExposureInfo()) {
-            return inClaim.ultimate * coveredByReinsurer * getFractionCeded(inClaim.exposure.sumInsured)
+            if (inClaim.ultimate > inClaim.exposure.sumInsured) {
+                // handle a total loss according to https://issuetracking.intuitive-collaboration.com/jira/browse/PMO-1261
+                return inClaim.ultimate * coveredByReinsurer * getFractionCeded(inClaim.ultimate)
+            }
+            else {
+                return inClaim.ultimate * coveredByReinsurer * getFractionCeded(inClaim.exposure.sumInsured)
+            }
         }
         else {
             return inClaim.ultimate * coveredByReinsurer * defaultCededLossShare
