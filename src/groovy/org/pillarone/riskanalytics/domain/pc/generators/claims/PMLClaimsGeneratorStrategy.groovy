@@ -39,7 +39,9 @@ public class PMLClaimsGeneratorStrategy implements IClaimsGeneratorStrategy {
         return claimsSizeModification
     }
 
-    Exposure getClaimsSizeBase() {}
+    Exposure getClaimsSizeBase() {
+        return Exposure.ABSOLUTE
+    }
 
     public RandomDistribution getClaimsSizeDistribution() {
         return claimsSizeDistribution
