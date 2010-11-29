@@ -19,6 +19,8 @@ import umontreal.iro.lecuyer.rng.RandomStreamBase
 import org.pillarone.riskanalytics.domain.utils.randomnumbers.UniformDoubleList
 import org.pillarone.riskanalytics.domain.utils.FrequencyDistributionType
 import org.pillarone.riskanalytics.domain.pc.constants.FrequencySeverityClaimType
+import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope
+import org.pillarone.riskanalytics.core.simulation.engine.IterationScope
 
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
@@ -28,10 +30,9 @@ class PMLClaimsGeneratorStrategyTest extends GroovyTestCase {
     TypableClaimsGenerator claimsGenerator
 
     void setUp() {
-
         claimsGenerator = new TypableClaimsGenerator()
         claimsGenerator.setParmAssociateExposureInfo(RiskAllocatorType.getStrategy(RiskAllocatorType.NONE, [:]))
-        claimsGenerator.setSimulationScope(new SimulationScope(model: new ClaimsModel()))
+        claimsGenerator.setSimulationScope(new SimulationScope(model: new ClaimsModel(), iterationScope: new IterationScope(periodScope: new PeriodScope())))
         ConstraintsFactory.registerConstraint(new DoubleConstraints())
     }
 
