@@ -34,7 +34,7 @@ import java.util.List;
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract {
+public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract implements IReinsuranceContractMarker {
 
     private SimulationScope simulationScope;
 
