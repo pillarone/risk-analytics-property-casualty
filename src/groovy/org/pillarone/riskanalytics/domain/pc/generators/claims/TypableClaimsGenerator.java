@@ -142,7 +142,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
                     throw new IllegalArgumentException("TypableClaimsGenerator.externalSeverityClaims");
                 }
             } else if (parmClaimsModel instanceof PMLClaimsGeneratorStrategy) {
-                ((PMLClaimsGeneratorStrategy) parmClaimsModel).initDistributions();
+                ((PMLClaimsGeneratorStrategy) parmClaimsModel).initDistributions(simulationScope.getIterationScope().getPeriodScope());
                 RandomDistribution frequencyDistribution = ((PMLClaimsGeneratorStrategy) parmClaimsModel).getFrequencyDistribution();
                 RandomDistribution claimsSizeDistribution = parmClaimsModel.getClaimsSizeDistribution();
                 DistributionModified modification = parmClaimsModel.getClaimsSizeModification();

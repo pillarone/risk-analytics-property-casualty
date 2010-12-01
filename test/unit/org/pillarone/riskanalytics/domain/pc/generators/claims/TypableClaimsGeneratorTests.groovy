@@ -29,6 +29,8 @@ import umontreal.iro.lecuyer.rng.RandomStreamBase
 import org.pillarone.riskanalytics.domain.utils.RandomDistribution
 import org.pillarone.riskanalytics.domain.utils.FrequencyDistributionType
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
+import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope
+import org.pillarone.riskanalytics.core.simulation.engine.IterationScope
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
@@ -51,7 +53,7 @@ public class TypableClaimsGeneratorTests extends GroovyTestCase {
                         "claimsSizeDistribution": DistributionType.getStrategy(DistributionType.CONSTANT, [constant: 123]),
                         "claimsSizeModification": DistributionModifier.getStrategy(DistributionModifier.NONE, [:]),]))
         claimsGenerator.setParmAssociateExposureInfo(RiskAllocatorType.getStrategy(RiskAllocatorType.NONE, [:]))
-        claimsGenerator.setSimulationScope(new SimulationScope(model: new ClaimsModel()))
+        claimsGenerator.setSimulationScope(new SimulationScope(model: new ClaimsModel(), iterationScope: new IterationScope(periodScope: new PeriodScope())))
         ConstraintsFactory.registerConstraint(new DoubleConstraints())
     }
 
