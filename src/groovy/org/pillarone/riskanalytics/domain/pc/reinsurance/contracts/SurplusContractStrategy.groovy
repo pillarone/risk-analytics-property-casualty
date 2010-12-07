@@ -26,9 +26,9 @@ class SurplusContractStrategy extends AbstractContractStrategy implements IReins
 
     public Map getParameters() {
         return ["retention": retention,
-            "lines": lines,
-            "defaultCededLossShare": defaultCededLossShare,
-            "coveredByReinsurer": coveredByReinsurer]
+                "lines": lines,
+                "defaultCededLossShare": defaultCededLossShare,
+                "coveredByReinsurer": coveredByReinsurer]
     }
 
     public double allocateCededClaim(Claim inClaim) {
@@ -53,12 +53,14 @@ class SurplusContractStrategy extends AbstractContractStrategy implements IReins
     double getFractionCeded(double sumInsured) {
         if (sumInsured > 0) {
             return Math.min(Math.max(sumInsured - retention, 0), lines * retention) / sumInsured
-        } else {
+        }
+        else {
             return 0
         }
     }
 
     // todo: Are the definition for the as-if premium reasonable?
+
     UnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double initialReserves) {
         UnderwritingInfo cededUnderwritingInfo = UnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
         cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo?.originalUnderwritingInfo ? grossUnderwritingInfo.originalUnderwritingInfo : grossUnderwritingInfo
