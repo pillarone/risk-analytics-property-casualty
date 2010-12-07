@@ -13,15 +13,15 @@ class DistributionModifier extends AbstractParameterObjectClassifier {
     public static final DistributionModifier NONE = new DistributionModifier(
             "none", "NONE", [:])
     public static final DistributionModifier TRUNCATED = new DistributionModifier(
-            "truncated", "TRUNCATED", ["min": 0d, "max": 1E100])
+            "truncated", "TRUNCATED", ["min": 0d, "max": 0d])
     public static final DistributionModifier TRUNCATEDSHIFT = new DistributionModifier(
-            "truncated shift", "TRUNCATEDSHIFT", ["min": 0d, "max": 1E100, "shift": 0d])
+            "truncated shift", "TRUNCATEDSHIFT", ["min": 0d, "max": 0d, "shift": 0d])
     public static final DistributionModifier CENSORED = new DistributionModifier(
-            "censored", "CENSORED", ["min": 0d, "max": 1E100])
+            "censored", "CENSORED", ["min": 0d, "max": 0d])
     public static final DistributionModifier LEFTTRUNCATEDRIGHTCENSOREDSHIFT = new DistributionModifier(
-            "left truncated, right censored, shift", "LEFTTRUNCATEDRIGHTCENSOREDSHIFT", ["min": -1E100, "max": 1E100, "shift": 0d])
+            "left truncated, right censored, shift", "LEFTTRUNCATEDRIGHTCENSOREDSHIFT", ["min": 0d, "max": 0d, "shift": 0d])
     public static final DistributionModifier CENSOREDSHIFT = new DistributionModifier(
-            "censored shift", "CENSOREDSHIFT", ["min": 0d, "max": 1E100, "shift": 0d])
+            "censored shift", "CENSOREDSHIFT", ["min": 0d, "max": 0, "shift": 0d])
     public static final DistributionModifier SHIFT = new DistributionModifier(
             "shift", "SHIFT", ["shift": 0d])
 
