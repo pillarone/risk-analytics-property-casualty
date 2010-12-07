@@ -39,9 +39,8 @@ public class CumulativePatternStrategy extends AbstractPatternStrategy {
     List<Period> getCumulativePeriods() {
         List<Period> periods = new ArrayList<Period>();
         Period cumulatedPeriod = new Period();
-        periods.add(cumulatedPeriod)
         Period period = SimulationPeriod.asPeriod(calibrationPeriod, null);
-        for (int row = cumulativePattern.getTitleRowCount(); row <= cumulativePattern.getRowCount(); row++) {
+        for (int row = cumulativePattern.getTitleRowCount(); row < cumulativePattern.getRowCount(); row++) {
             cumulatedPeriod = cumulatedPeriod.plus(period);
             periods.add(cumulatedPeriod)
         }

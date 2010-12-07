@@ -2,11 +2,12 @@ package org.pillarone.riskanalytics.domain.utils
 
 import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObjectClassifier
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
-import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import umontreal.iro.lecuyer.probdist.*
-
 import static org.pillarone.riskanalytics.core.util.GroovyUtils.asDouble
+import org.pillarone.riskanalytics.domain.utils.constraints.DoubleConstraints
+import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
+import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
 
 class DistributionType extends AbstractParameterObjectClassifier implements Serializable {
 
@@ -17,9 +18,14 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
     public static final DistributionType NEGATIVEBINOMIAL = new DistributionType(
             "negative binomial", "NEGATIVEBINOMIAL", ["gamma": 1d, "p": 1d])
     public static final DistributionType DISCRETEEMPIRICAL = new DistributionType(
-            "discrete empirical", "DISCRETEEMPIRICAL", ["discreteEmpiricalValues": new TableMultiDimensionalParameter([[0.0], [1.0]], ['observations', 'probabilities'])])
+//            "discrete empirical", "DISCRETEEMPIRICAL", ["discreteEmpiricalValues": new TableMultiDimensionalParameter([[0.0], [1.0]], ['observations', 'probabilities'])])
+            "discrete empirical", "DISCRETEEMPIRICAL", ["discreteEmpiricalValues": new ConstrainedMultiDimensionalParameter([[0.0], [1.0]],
+                    ['observations', 'probabilities'], ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))])
     public static final DistributionType DISCRETEEMPIRICALCUMULATIVE = new DistributionType(
-            "discrete empirical cumulative", "DISCRETEEMPIRICALCUMULATIVE", ["discreteEmpiricalCumulativeValues": new TableMultiDimensionalParameter([[0.0], [1.0]], ['observations', 'cumulative probabilities'])])
+//            "discrete empirical cumulative", "DISCRETEEMPIRICALCUMULATIVE", ["discreteEmpiricalCumulativeValues": new TableMultiDimensionalParameter([[0.0], [1.0]], ['observations', 'cumulative probabilities'])])
+            "discrete empirical cumulative", "DISCRETEEMPIRICALCUMULATIVE", ["discreteEmpiricalCumulativeValues":
+                new ConstrainedMultiDimensionalParameter([[0.0], [1.0]], ['observations', 'cumulative probabilities'],
+                ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))])
     public static final DistributionType NORMAL = new DistributionType(
             "normal", "NORMAL", ["mean": 0d, "stDev": 1d])
     public static final DistributionType LOGNORMAL = new DistributionType(
@@ -35,9 +41,13 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
     public static final DistributionType CONSTANT = new DistributionType(
             "constant", "CONSTANT", ["constant": 0d])
     public static final DistributionType PIECEWISELINEAREMPIRICAL = new DistributionType(
-            "piecewise linear empirical", "PIECEWISELINEAREMPIRICAL", ["observations": new TableMultiDimensionalParameter([0d, 1d], ['observations'])])
+//            "piecewise linear empirical", "PIECEWISELINEAREMPIRICAL", ["observations": new TableMultiDimensionalParameter([0d, 1d], ['observations'])])
+            "piecewise linear empirical", "PIECEWISELINEAREMPIRICAL", ["observations": new ConstrainedMultiDimensionalParameter([0d, 1d],
+                    ['observations'], ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))])
     public static final DistributionType PIECEWISELINEAR = new DistributionType(
-            "piecewise linear", "PIECEWISELINEAR", ["supportPoints": new TableMultiDimensionalParameter([[0d, 1d], [0d, 1d]], ['values', 'cumulative probabilities'])])
+//            "piecewise linear", "PIECEWISELINEAR", ["supportPoints": new TableMultiDimensionalParameter([[0d, 1d], [0d, 1d]], ['values', 'cumulative probabilities'])])
+            "piecewise linear", "PIECEWISELINEAR", ["supportPoints": new ConstrainedMultiDimensionalParameter([[0d, 1d], [0d, 1d]],
+                    ['values', 'cumulative probabilities'], ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))])
     public static final DistributionType TRIANGULARDIST = new DistributionType(
             "triangular dist", "TRIANGULARDIST", ["a": 0d, "b": 1d, "m": 0.01])
     public static final DistributionType CHISQUAREDIST = new DistributionType(
@@ -49,7 +59,9 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
     public static final DistributionType INVERSEGAUSSIANDIST = new DistributionType(
             "inverse gaussian dist", "INVERSEGAUSSIANDIST", ["mu": 1d, "lambda": 1d])
     public static final DistributionType CONSTANTS = new DistributionType(
-            "constant values", "CONSTANTS", ["constants": new TableMultiDimensionalParameter([0d, 1d], ['constants'])])
+//            "constant values", "CONSTANTS", ["constants": new TableMultiDimensionalParameter([0d, 1d], ['constants'])])
+            "constant values", "CONSTANTS", ["constants": new ConstrainedMultiDimensionalParameter([0d, 1d],
+                    ['constants'], ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))])
     public static final DistributionType GAMMA = new DistributionType(
             "gamma", "GAMMA", ["alpha": 2d, "lambda": 2d])
     public static final DistributionType GUMBEL = new DistributionType(

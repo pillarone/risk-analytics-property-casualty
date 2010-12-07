@@ -10,6 +10,7 @@ import org.pillarone.riskanalytics.domain.pc.claims.SortClaimsByFractionOfPeriod
 import org.pillarone.riskanalytics.domain.pc.constants.IncludeType;
 import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments;
 import org.pillarone.riskanalytics.domain.pc.constants.ReinsuranceContractBase;
+import org.pillarone.riskanalytics.domain.pc.constants.ReinsuranceContractPremiumBase;
 import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.ReinsuranceResultWithCommissionPacket;
@@ -37,6 +38,7 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
     private SimulationScope simulationScope;
 
     private ReinsuranceContractBase parmBasedOn = ReinsuranceContractBase.NET;
+    private ReinsuranceContractPremiumBase parmPremiumBase = ReinsuranceContractPremiumBase.COMPLETESEGMENT;
     private ICoverAttributeStrategy parmCover = CoverAttributeStrategyType.getStrategy(
             CoverAttributeStrategyType.ALL, ArrayUtils.toMap(new Object[][]{{"reserves", IncludeType.NOTINCLUDED}}));
 
@@ -70,9 +72,15 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
         }
         parmCommissionStrategy.calculateCommission(outCoveredClaims, outCoverUnderwritingInfo, false, false);
         if (isSenderWired(outNetAfterCoverUnderwritingInfo)) {
-            calculateNetUnderwritingInfos(UnderwritingFilterUtilities.filterUnderwritingInfoByLobWithoutScaling(
-                    inUnderwritingInfo, ClaimFilterUtilities.getLinesOfBusiness(outFilteredClaims)),
-                    outCoverUnderwritingInfo, outNetAfterCoverUnderwritingInfo, outCoveredClaims);
+            if (parmPremiumBase.equals(ReinsuranceContractPremiumBase.COMPLETESEGMENT)) {
+                calculateNetUnderwritingInfos(outFilteredUnderwritingInfo, outCoverUnderwritingInfo,
+                        outNetAfterCoverUnderwritingInfo, outCoveredClaims);
+            }
+            else if (parmPremiumBase.equals(ReinsuranceContractPremiumBase.PROPORTIONALTOCOVEREDCLAIMS)) {
+                calculateNetUnderwritingInfos(UnderwritingFilterUtilities.filterUnderwritingInfoByLobWithoutScaling(
+                        inUnderwritingInfo, ClaimFilterUtilities.getLineOfBusiness(outFilteredClaims)),
+                        outCoverUnderwritingInfo, outNetAfterCoverUnderwritingInfo, outCoveredClaims);
+            }
         }
         if (inClaims.size() > 0 && inClaims.get(0) instanceof ClaimDevelopmentLeanPacket) {
             for (Claim claim : outFilteredClaims) {
@@ -124,9 +132,17 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
             LogicArguments connection = parmCover instanceof ICombinedCoverAttributeStrategy
                     ? ((ICombinedCoverAttributeStrategy) parmCover).getConnection() : null;
             outFilteredClaims.addAll(ClaimFilterUtilities.filterClaimsByPerilLobReserve(inClaims, coveredPerils, coveredLines, coveredReserves, connection));
-            // extend coveredLines such that they additionally consist of the segments which are associated with the selected perils
-            coveredLines = ClaimFilterUtilities.getLinesOfBusiness(outFilteredClaims);
-            outFilteredUnderwritingInfo.addAll(UnderwritingFilterUtilities.filterUnderwritingInfoByLobAndScaleByPerilsInLob(inUnderwritingInfo, coveredLines, inClaims, coveredPerils));
+            if (parmPremiumBase.equals(ReinsuranceContractPremiumBase.COMPLETESEGMENT)) {
+                if (coveredLines == null || coveredLines.size() == 0) {
+                    coveredLines = ClaimFilterUtilities.getLineOfBusiness(outFilteredClaims);
+                }
+                outFilteredUnderwritingInfo.addAll(UnderwritingFilterUtilities.filterUnderwritingInfoByLob(inUnderwritingInfo, coveredLines));
+            }
+            else if (parmPremiumBase.equals(ReinsuranceContractPremiumBase.PROPORTIONALTOCOVEREDCLAIMS)) {
+                // extend coveredLines such that they additionally consist of the segments which are associated with the selected perils
+                coveredLines = ClaimFilterUtilities.getLineOfBusiness(outFilteredClaims);
+                outFilteredUnderwritingInfo.addAll(UnderwritingFilterUtilities.filterUnderwritingInfoByLobAndScaleByPerilsInLob(inUnderwritingInfo, coveredLines, inClaims, coveredPerils));
+            }
         }
     }
 
@@ -176,5 +192,13 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
 
     public void setParmBasedOn(ReinsuranceContractBase parmBasedOn) {
         this.parmBasedOn = parmBasedOn;
+    }
+
+    public ReinsuranceContractPremiumBase getParmPremiumBase() {
+        return parmPremiumBase;
+    }
+
+    public void setParmPremiumBase(ReinsuranceContractPremiumBase parmPremiumBase) {
+        this.parmPremiumBase = parmPremiumBase;
     }
 }

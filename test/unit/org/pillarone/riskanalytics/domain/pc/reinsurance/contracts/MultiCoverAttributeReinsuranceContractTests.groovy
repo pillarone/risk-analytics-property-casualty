@@ -19,6 +19,7 @@ import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopment
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.*
 import org.pillarone.riskanalytics.domain.pc.lob.ConfigurableLobWithReserves
+import org.pillarone.riskanalytics.domain.pc.constants.ReinsuranceContractPremiumBase
 
 /**
  * These test cases don't totally match the situation as it is when the component is used in a model as the
@@ -165,6 +166,7 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
                 getQuotaShareContractStrategy(),
                 getCoverAttributeStrategy(['lines': ['fire', 'flood', 'lightning', 'wind']], simulationScope.model)
         )
+        contract.parmPremiumBase = ReinsuranceContractPremiumBase.PROPORTIONALTOCOVEREDCLAIMS
 
         Claim claimFire1000 = new Claim(peril: perilA, lineOfBusiness: lob['fire'], value: 1000d, fractionOfPeriod: 0.2, claimType: ClaimType.ATTRITIONAL)
         Claim claimHull1100 = new Claim(peril: perilA, lineOfBusiness: lob['hull'], value: 1100d, fractionOfPeriod: 0.3, claimType: ClaimType.SINGLE)
@@ -272,6 +274,7 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
                 getQuotaShareContractStrategy(),
                 getCoverAttributeStrategy(['lines': ['fire'], 'perils': ['peril b']], simulationScope.model)
         )
+        contract.parmPremiumBase = ReinsuranceContractPremiumBase.PROPORTIONALTOCOVEREDCLAIMS
 
         Claim claimFire1000 = new Claim(peril: perilA, lineOfBusiness: lob['fire'], value: 1000d, fractionOfPeriod: 0.2, claimType: ClaimType.ATTRITIONAL)
         Claim claimHull1100 = new Claim(peril: perilA, lineOfBusiness: lob['hull'], value: 1100d, fractionOfPeriod: 0.3, claimType: ClaimType.SINGLE)
