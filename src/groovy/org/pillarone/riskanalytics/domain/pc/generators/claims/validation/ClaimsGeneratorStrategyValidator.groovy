@@ -93,10 +93,6 @@ class ClaimsGeneratorStrategyValidator implements IParameterizationValidator {
             return
         }
 
-        if (!(distribution instanceof ContinuousDistribution)) {
-            return ["claims.model.error.modification.not.allowed.for.non.continuous.distributions"]
-        }
-
         double leftBoundary = (Double) modification.getParameters().get("min");
         double rightBoundary = (Double) modification.getParameters().get("max");
 

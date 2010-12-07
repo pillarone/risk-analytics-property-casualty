@@ -6,6 +6,7 @@ import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassif
 import org.pillarone.riskanalytics.core.util.GroovyUtils;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
+import org.pillarone.riskanalytics.domain.utils.InputFormatConverter;
 import org.pillarone.riskanalytics.domain.utils.constraints.DoubleConstraints;
 
 import java.util.*;
@@ -15,7 +16,7 @@ import java.util.*;
  * Assigns a commission rate and calculates the commission on ceded premium based on the loss ratio
  * (total losses / total premium).
  *
- * The commission rate is a left-countinuous step-function of the loss ratio, with a finite number of jumps.
+ * The commission rate is a left-continuous step-function of the loss ratio, with a finite number of jumps.
  * Each step interval, or "commission band", is realized internally as a key-value pair in a Java Map object.
  * Each map entry's key is the interval's left endpoint, and the map's value is the commission rate that
  * applies for loss ratios in the interval. Because the interval's right endpoint is not stored in the map,
@@ -100,8 +101,8 @@ public class SlidingCommissionStrategy implements ICommissionStrategy {
         lowerBandLimits.add(previousLossRatio);
         commissionRates.put(previousLossRatio, 0d);
         for (int row = 1; row <= numberOfBands; row++) {
-            double lossRatio = (Double) commissionBands.getValueAt(row, columnLossRatio);
-            double commission = (Double) commissionBands.getValueAt(row, columnCommission);
+            double lossRatio = InputFormatConverter.getDouble(commissionBands.getValueAt(row, columnLossRatio));
+            double commission = InputFormatConverter.getDouble(commissionBands.getValueAt(row, columnCommission));
             lowerBandLimits.add(lossRatio);
             commissionRates.put(lossRatio, commission);
             previousLossRatio = lossRatio;
