@@ -16,7 +16,7 @@ import java.util.*;
  * Assigns a commission rate and calculates the commission on ceded premium based on the loss ratio
  * (total losses / total premium).
  *
- * The commission rate is a left-countinuous step-function of the loss ratio, with a finite number of jumps.
+ * The commission rate is a left-continuous step-function of the loss ratio, with a finite number of jumps.
  * Each step interval, or "commission band", is realized internally as a key-value pair in a Java Map object.
  * Each map entry's key is the interval's left endpoint, and the map's value is the commission rate that
  * applies for loss ratios in the interval. Because the interval's right endpoint is not stored in the map,
