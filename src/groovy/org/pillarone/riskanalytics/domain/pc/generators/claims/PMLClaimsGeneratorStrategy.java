@@ -2,17 +2,13 @@ package org.pillarone.riskanalytics.domain.pc.generators.claims;
 
 import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope;
 import org.pillarone.riskanalytics.core.util.GroovyUtils;
-import org.pillarone.riskanalytics.domain.utils.DistributionModified;
-import org.pillarone.riskanalytics.domain.utils.DistributionModifier;
+import org.pillarone.riskanalytics.domain.utils.*;
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier;
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter;
-import org.pillarone.riskanalytics.domain.utils.RandomDistribution;
 import org.pillarone.riskanalytics.domain.pc.constants.Exposure;
 import org.pillarone.riskanalytics.domain.utils.constraints.DoubleConstraints;
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory;
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter;
-import org.pillarone.riskanalytics.domain.utils.FrequencyDistributionType;
-import org.pillarone.riskanalytics.domain.utils.DistributionType;
 import org.pillarone.riskanalytics.domain.pc.constants.FrequencySeverityClaimType;
 
 import java.util.*;
@@ -21,6 +17,9 @@ import java.util.*;
  * @author jessika.walter (at) intuitive-collaboration (dot) com
  */
 public class PMLClaimsGeneratorStrategy implements IClaimsGeneratorStrategy {
+
+    public static final String RETURN_PERIOD = "return period";
+    public static final String MAX_CLAIM = "maximum claim";
 
     ConstrainedMultiDimensionalParameter pmlData = new ConstrainedMultiDimensionalParameter(
             GroovyUtils.toList("[[0d], [0d]]"), Arrays.asList("return period", "maximum claim"),
@@ -62,16 +61,19 @@ public class PMLClaimsGeneratorStrategy implements IClaimsGeneratorStrategy {
     void initDistributions(PeriodScope periodScope) {
         currentPeriod = periodScope.getCurrentPeriod();
         if (claimsSizeDistribution.get(currentPeriod) == null) {
-            List<Double> returnPeriods = pmlData.getColumnByName("return period");
-            List<Double> observations = pmlData.getColumnByName("maximum claim");
+            List<Double> observations = new ArrayList<Double>(pmlData.getValueRowCount());
             List<Double> frequencies = new ArrayList<Double>();
-            for (Double period: returnPeriods) {
-                frequencies.add(1 / period);
-            }
             List<Double> cumProbabilities = new ArrayList<Double>();
-            for (Double frequency: frequencies) {
+            int columnIndexReturnPeriod = pmlData.getColumnIndex(RETURN_PERIOD);
+            int columnIndexMaxClaim = pmlData.getColumnIndex(MAX_CLAIM);
+            for (int row = pmlData.getTitleRowCount(); row < pmlData.getRowCount(); row++) {
+                observations.add(InputFormatConverter.getDouble(pmlData.getValueAt(row, columnIndexMaxClaim)));
+                double returnPeriod = InputFormatConverter.getDouble(pmlData.getValueAt(row, columnIndexReturnPeriod));
+                double frequency = 1 / returnPeriod;
+                frequencies.add(frequency);
                 cumProbabilities.add(1d - frequency / frequencies.get(0));
             }
+
             Map<String, TableMultiDimensionalParameter> parameters = new HashMap<String, TableMultiDimensionalParameter>();
             TableMultiDimensionalParameter table = new TableMultiDimensionalParameter(
                     Arrays.asList(observations, cumProbabilities),
