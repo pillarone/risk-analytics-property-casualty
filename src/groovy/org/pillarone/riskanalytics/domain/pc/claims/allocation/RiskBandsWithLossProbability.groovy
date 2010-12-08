@@ -6,6 +6,7 @@ import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalPa
 import org.pillarone.riskanalytics.domain.pc.allocators.AllocationTable
 import org.pillarone.riskanalytics.domain.pc.constants.RiskBandAllocationBase
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoWithLossProbability
+import org.pillarone.riskanalytics.domain.utils.InputFormatConverter
 
 /**
  * @author: Michael-Noe (at) Web (dot) de
@@ -60,17 +61,30 @@ class RiskBandsWithLossProbability extends RiskBands {
             outUnderwritingInfoWithLossProbability << underwritingInfoWLP
         }
 
+        int index = parmUnderwritingInformation.getColumnIndex('maximum sum insured')
+        List<Double> sumInsuredList = new ArrayList<Double>()
+        for (int i = 1; i < parmUnderwritingInformation.getRowCount(); i++) {
+            sumInsuredList.add(InputFormatConverter.getDouble(parmUnderwritingInformation.getValueAt(i, index)))
+        }
+        index = parmUnderwritingInformation.getColumnIndex(singleAllocationBaseColumnName.get(parmAllocationBaseSingleClaims))
+        List<Double> portionList = new ArrayList<Double>()
+        for (int i = 1; i < parmUnderwritingInformation.getRowCount(); i++) {
+            portionList.add(InputFormatConverter.getDouble(parmUnderwritingInformation.getValueAt(i, index)))
+        }
         AbstractMultiDimensionalParameter singleAllocationTable = new TableMultiDimensionalParameter(
-            [parmUnderwritingInformation.getColumnByName('maximum sum insured'),
-                parmUnderwritingInformation.getColumnByName(singleAllocationBaseColumnName.get(parmAllocationBaseSingleClaims))],
-            ['maximum sum insured', 'portion']
+                [sumInsuredList, portionList],
+                ['maximum sum insured', 'portion']
         )
         outSingleTargetDistribution << new AllocationTable(table: singleAllocationTable)
 
+        index = parmUnderwritingInformation.getColumnIndex(attritionalAllocationBaseColumnName.get(parmAllocationBaseAttritionalClaims))
+        portionList = new ArrayList<Double>()
+        for (int i = 1; i < parmUnderwritingInformation.getRowCount(); i++) {
+            portionList.add(InputFormatConverter.getDouble(parmUnderwritingInformation.getValueAt(i, index)))
+        }
         AbstractMultiDimensionalParameter attritionalAllocationTable = new TableMultiDimensionalParameter(
-            [parmUnderwritingInformation.getColumnByName('maximum sum insured'),
-                parmUnderwritingInformation.getColumnByName(attritionalAllocationBaseColumnName.get(parmAllocationBaseAttritionalClaims))],
-            ['maximum sum insured', 'portion']
+                [sumInsuredList, portionList],
+                ['maximum sum insured', 'portion']
         )
         outAttritionalTargetDistribution << new AllocationTable(table: attritionalAllocationTable)
     }
