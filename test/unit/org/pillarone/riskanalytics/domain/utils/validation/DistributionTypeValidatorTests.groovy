@@ -134,7 +134,7 @@ class DistributionTypeValidatorTests extends GroovyTestCase {
 
     void testTriangularValidator() {
         def validDistribution = DistributionType.TRIANGULARDIST
-        assertEquals 0, validator.validate(validDistribution, ['a': 1d, 'b': 1d, 'm': 1d]).size()
+        assertEquals 0, validator.validate(validDistribution, ['a': 0.9d, 'b': 1d, 'm': 1d]).size()
     }
 
     void testFailingTriangularValidator() {

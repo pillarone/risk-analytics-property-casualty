@@ -78,8 +78,8 @@ class DistributionTypeValidator implements IParameterizationValidator {
                 return ["distribution.type.error.discreteempirical.observations.empty"]
             }
             for (int i = 1; i < values.length; i++) {
-                if (values[i - 1] > values[i]) {
-                    return ["distribution.type.error.discreteempirical.observations.nonincreasing", i, values[i - 1], values[i]]
+                if (values[i - 1] >= values[i]) {
+                    return ["distribution.type.error.discreteempirical.observations.not.strictly.increasing", i, values[i - 1], values[i]]
                 }
             }
             return true
@@ -107,8 +107,8 @@ class DistributionTypeValidator implements IParameterizationValidator {
                 return ["distribution.type.error.discreteempirical.cumulative.observations.empty"]
             }
             for (int i = 1; i < values.length; i++) {
-                if (values[i - 1] > values[i]) {
-                    return ["distribution.type.error.discreteempirical.cumulative.observations.nonincreasing", i, values[i - 1], values[i]]
+                if (values[i - 1] >= values[i]) {
+                    return ["distribution.type.error.discreteempirical.cumulative.observations.not.strictly.increasing", i, values[i - 1], values[i]]
                 }
             }
             return true
@@ -155,7 +155,7 @@ class DistributionTypeValidator implements IParameterizationValidator {
         }
         validationService.register(DistributionType.UNIFORM) {Map type ->
             if (type.a < type.b) return true
-            ["distribution.type.error.uniform.limits.nonincreasing", type.a, type.b]
+            ["distribution.type.error.uniform.limits.not.strictly.increasing", type.a, type.b]
         }
         validationService.register(DistributionType.PIECEWISELINEAR) {Map type ->
             double[] values = new double[type.supportPoints.getRowCount()-1];
@@ -167,10 +167,12 @@ class DistributionTypeValidator implements IParameterizationValidator {
                 return ["distribution.type.error.piecewiselinear.values.empty"]
             }
             for (int i = 1; i < values.length; i++) {
-                if (values[i - 1] > values[i]) {
-                    return ["distribution.type.error.piecewiselinear.values.nonincreasing", i, values[i - 1], values[i]]
+                if (values[i - 1] >= values[i]) {
+                    return ["distribution.type.error.piecewiselinear.values.not.strictly.increasing", i, values[i - 1], values[i]]
                 }
             }
+            if (values.length <=1)
+            return ["distribution.type.error.piecewiselinear.number.values.smaller.or.equal.1", values.length]
             return true
         }
         validationService.register(DistributionType.PIECEWISELINEAR) {Map type ->
@@ -197,6 +199,7 @@ class DistributionTypeValidator implements IParameterizationValidator {
         }
         validationService.register(DistributionType.PIECEWISELINEAREMPIRICAL) {Map type ->
             double[] values = new double[type.observations.getRowCount()-1];
+            Arrays.sort(values);
             int index = type.observations.getColumnIndex('observations')
             for (int i = 1; i < type.observations.getRowCount(); i++) {
                 values[i - 1] = InputFormatConverter.getDouble(type.observations.getValueAt(i, index))
@@ -205,15 +208,20 @@ class DistributionTypeValidator implements IParameterizationValidator {
                 return ["distribution.type.error.piecewiselinear.empirical.observations.empty"]
             }
             for (int i = 1; i < values.length; i++) {
-                if (values[i - 1] > values[i]) {
-                    return ["distribution.type.error.piecewiselinear.empirical.observations.nonincreasing", i, values[i - 1], values[i]]
+                if (values[i - 1] == values[i]) {
+                    return ["distribution.type.error.piecewiselinear.empirical.equal.observations", i, values[i - 1], values[i]]
                 }
             }
+            if (values.length <=1)
+            return ["distribution.type.error.piecewiselinear.empirical.number.observations.smaller.or.equal.1", values.length]
             return true
         }
         validationService.register(DistributionType.TRIANGULARDIST) {Map type ->
-            if (type.a <= type.m && type.m <= type.b) return true
-            ["distribution.type.error.triangular.abscissa.nonincreasing", type.a, type.b, type.m]
+            if (!(type.a <= type.m && type.m <= type.b))
+            return ["distribution.type.error.triangular.abscissa.nonincreasing", type.a, type.b, type.m]
+            if (type.a == type.b)
+            return ["distribution.type.error.triangular.a.equals.b", type.a, type.b]
+            return true
         }
         validationService.register(DistributionType.CHISQUAREDIST) {Map type ->
             if (type.n > 0) return true

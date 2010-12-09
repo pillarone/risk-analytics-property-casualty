@@ -71,7 +71,7 @@ class UnityPortionValidator implements IParameterizationValidator {
 
             for (int i = 0; i < portions.size(); i++) {
                 if (portions[i] < 0 || portions[i] > 1) {
-                    return ["portion.unity.error.portions.not.in.unity.interval", i, portions[i]]
+                    return ["portion.unity.error.portions.not.in.unity.interval", i+1, portions[i]]
                 }
             }
             return

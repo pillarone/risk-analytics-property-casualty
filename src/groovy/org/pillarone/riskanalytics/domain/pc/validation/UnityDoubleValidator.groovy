@@ -56,7 +56,7 @@ class UnityDoubleValidator implements IParameterizationValidator {
         validationService.register(String) {Double type ->
 
             if (type < 0 || type > 1) {
-                return ["double.unity.error.double.not.in.unity.interval"]
+                return ["double.unity.error.double.not.in.unity.interval", type]
             }
             return true
         }
