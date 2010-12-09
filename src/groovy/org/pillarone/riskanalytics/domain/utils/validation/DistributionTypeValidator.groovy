@@ -93,9 +93,9 @@ class DistributionTypeValidator implements IParameterizationValidator {
             if (!values) {
                 return ["distribution.type.error.discreteempirical.probabilities.empty"]
             }
-            double sum = values.inject(0) {temp, it -> temp + it }
+           /* double sum = values.inject(0) {temp, it -> temp + it }
             if (isCloseEnough(sum, 1d)) return true
-            ["distribution.type.error.discreteempirical.probabilities.sum.not.one", sum, values]
+            ["distribution.type.error.discreteempirical.probabilities.sum.not.one", sum, values]  */
         }
         validationService.register(DistributionType.DISCRETEEMPIRICALCUMULATIVE) {Map type ->
             double[] values = new double[type.discreteEmpiricalCumulativeValues.getRowCount()-1];
@@ -127,9 +127,9 @@ class DistributionTypeValidator implements IParameterizationValidator {
                     return ["distribution.type.error.discreteempirical.cumulative.probabilities.nonincreasing", i, values[i - 1], values[i]]
                 }
             }
-            if (!isCloseEnough(values[-1], 1d)) {
+          /*  if (!isCloseEnough(values[-1], 1d)) {
                 return ["distribution.type.error.discreteempirical.cumulative.probability.last.value.not.1", values[values.length - 1]]
-            }
+            }*/
             return true
         }
         validationService.register(DistributionType.NORMAL) {Map type ->
