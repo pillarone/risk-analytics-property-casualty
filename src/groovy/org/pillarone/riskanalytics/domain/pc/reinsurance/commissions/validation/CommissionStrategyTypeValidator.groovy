@@ -10,7 +10,8 @@ import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterHolde
 import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterObjectParameterHolder
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
-import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.SlidingCommissionStrategy;
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.SlidingCommissionStrategy
+import org.pillarone.riskanalytics.domain.utils.InputFormatConverter;
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -55,8 +56,12 @@ public class CommissionStrategyTypeValidator implements IParameterizationValidat
             ["commission.sliding.error.first.supporting.point.not.zero", firstLossRatio]
         }
         validationService.register(CommissionStrategyType.SLIDINGCOMMISSION) {Map type ->
-            double[] lossRatios = type.commissionBands.getColumnByName(SlidingCommissionStrategy.LOSS_RATIO)
-            if (lossRatios.length==0) {
+            double[] lossRatios = new double[type.commissionBands.getRowCount()-1];
+            int index = type.commissionBands.getColumnIndex(SlidingCommissionStrategy.LOSS_RATIO)
+            for (int i = 1; i < type.commissionBands.getRowCount(); i++) {
+                lossRatios[i - 1] = InputFormatConverter.getDouble(type.commissionBands.getValueAt(i, index))
+            }
+            if (lossRatios.length == 0) {
                 return ["commission.sliding.error.loss.ratios.empty"]
             }
             for (int i = 1; i < lossRatios.length; i++) {
@@ -68,8 +73,12 @@ public class CommissionStrategyTypeValidator implements IParameterizationValidat
         }
 
         validationService.register(CommissionStrategyType.SLIDINGCOMMISSION) {Map type ->
-            double[] commissions = type.commissionBands.getColumnByName(SlidingCommissionStrategy.COMMISSION)
-            if (commissions.length==0) {
+            double[] commissions = new double[type.commissionBands.getRowCount()-1];
+            int index = type.commissionBands.getColumnIndex(SlidingCommissionStrategy.COMMISSION)
+            for (int i = 1; i < type.commissionBands.getRowCount(); i++) {
+                commissions[i - 1] = InputFormatConverter.getDouble(type.commissionBands.getValueAt(i, index))
+            }
+            if (commissions.length == 0) {
                 return ["commission.sliding.error.commissions.empty"]
             }
             for (int i = 0; i < commissions.length; i++) {
@@ -81,8 +90,12 @@ public class CommissionStrategyTypeValidator implements IParameterizationValidat
         }
 
         validationService.register(CommissionStrategyType.SLIDINGCOMMISSION) {Map type ->
-            double[] commissions = type.commissionBands.getColumnByName(SlidingCommissionStrategy.COMMISSION)
-            if (commissions.length==0) {
+            double[] commissions = new double[type.commissionBands.getRowCount()-1];
+            int index = type.commissionBands.getColumnIndex(SlidingCommissionStrategy.COMMISSION)
+            for (int i = 1; i < type.commissionBands.getRowCount(); i++) {
+                commissions[i - 1] = InputFormatConverter.getDouble(type.commissionBands.getValueAt(i, index))
+            }
+            if (commissions.length == 0) {
                 return ["commission.sliding.error.commissions.empty"]
             }
             for (int i = 1; i < commissions.length; i++) {
@@ -92,7 +105,5 @@ public class CommissionStrategyTypeValidator implements IParameterizationValidat
             }
             return true
         }
-
-
     }
 }

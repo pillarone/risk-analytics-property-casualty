@@ -12,6 +12,7 @@ import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopment
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.utils.InputFormatConverter;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,7 +23,7 @@ import java.util.List;
  * ceded and net channel.<br/>
  * Incoming claims have to be of type ClaimDevelopmentLeanPacket. Other claim types would lead to a
  * java.lang.ClassCastException.
- *
+ * <p/>
  * Original specification: https://issuetracking.intuitive-collaboration.com/jira/browse/PMO-1031
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -52,13 +53,17 @@ public class SegmentFilter extends Component {
             ConstraintsFactory.getConstraints(SegmentPortion.IDENTIFIER));
 
     private List<LobMarker> segments;
-    private List<Double> portions;
+    private List<Double> portions = new ArrayList<Double>();
 
 
     @Override
     protected void doCalculation() {
+
         segments = parmPortions.getColumnByName(SEGMENT);
-        portions = parmPortions.getColumnByName(PORTION);
+        int indexPortions = parmPortions.getColumnIndex(PORTION);
+        for (int i = parmPortions.getTitleRowCount(); i < parmPortions.getRowCount(); i++) {
+            portions.add(InputFormatConverter.getDouble(parmPortions.getValueAt(i, indexPortions)));
+        }
         if (segments.size() > 0) {
             filterSegmentClaims(inClaimsGross, outClaimsGross);
             filterSegmentClaims(inClaimsCeded, outClaimsCeded);

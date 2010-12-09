@@ -14,6 +14,7 @@ import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensi
 import org.pillarone.riskanalytics.core.parameterization.IMultiDimensionalConstraints
 
 import org.pillarone.riskanalytics.domain.utils.constraints.IUnityPortion
+import org.pillarone.riskanalytics.domain.utils.InputFormatConverter
 
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
@@ -57,15 +58,18 @@ class UnityPortionValidator implements IParameterizationValidator {
         validationService.register(IUnityPortion) {ConstrainedMultiDimensionalParameter type ->
             int portionColumnIndex = type.constraints.getPortionColumnIndex()
             if (type.valueRowCount == 0) return true
-            double[] portions =(double[]) type.getColumn(portionColumnIndex)
-
+            List<Double> portions = new ArrayList<Double>();
+            for (int i = 1; i < type.getRowCount(); i++) {
+                if (!type.getValueAt(i, portionColumnIndex).equals("")) {
+                    portions.add(InputFormatConverter.getDouble(type.getValueAt(i, portionColumnIndex)))}
+            }
             int componentNameColumnIndex = type.constraints.getComponentNameColumnIndex()
             // list of portions empty and list of component references non-empty
-            if (!type.getColumn(componentNameColumnIndex).isEmpty() && portions.length == 0) {
+            if (!type.getColumn(componentNameColumnIndex).isEmpty() && portions.size() == 0) {
                 return ["portion.unity.error.portions.empty"]
             }
 
-            for (int i = 0; i < portions.length; i++) {
+            for (int i = 0; i < portions.size(); i++) {
                 if (portions[i] < 0 || portions[i] > 1) {
                     return ["portion.unity.error.portions.not.in.unity.interval", i, portions[i]]
                 }
