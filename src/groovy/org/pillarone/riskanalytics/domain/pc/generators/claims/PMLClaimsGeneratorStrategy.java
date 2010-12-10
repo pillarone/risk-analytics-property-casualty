@@ -67,11 +67,12 @@ public class PMLClaimsGeneratorStrategy implements IClaimsGeneratorStrategy {
             int columnIndexReturnPeriod = pmlData.getColumnIndex(RETURN_PERIOD);
             int columnIndexMaxClaim = pmlData.getColumnIndex(MAX_CLAIM);
             for (int row = pmlData.getTitleRowCount(); row < pmlData.getRowCount(); row++) {
+                if (!observations.contains(InputFormatConverter.getDouble(pmlData.getValueAt(row, columnIndexMaxClaim)))){
                 observations.add(InputFormatConverter.getDouble(pmlData.getValueAt(row, columnIndexMaxClaim)));
                 double returnPeriod = InputFormatConverter.getDouble(pmlData.getValueAt(row, columnIndexReturnPeriod));
                 double frequency = 1 / returnPeriod;
                 frequencies.add(frequency);
-                cumProbabilities.add(1d - frequency / frequencies.get(0));
+                cumProbabilities.add(1d - frequency / frequencies.get(0));}
             }
 
             Map<String, TableMultiDimensionalParameter> parameters = new HashMap<String, TableMultiDimensionalParameter>();

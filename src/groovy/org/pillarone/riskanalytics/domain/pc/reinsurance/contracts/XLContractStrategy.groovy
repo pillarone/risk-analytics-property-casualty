@@ -116,7 +116,7 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
                 cededUnderwritingInfo.premiumWrittenAsIf = premium * premiumAllocation.getShare(grossUnderwritingInfo)
                 break
             case PremiumBase.GNPI:
-                cededUnderwritingInfo.premiumWritten = premium * grossUnderwritingInfo.premiumWritten
+                cededUnderwritingInfo.premiumWritten = premium * grossUnderwritingInfo.premiumWritten // todo (jwa): premiumAllocation as is done in StopLoss??
                 cededUnderwritingInfo.premiumWrittenAsIf = premium * grossUnderwritingInfo.premiumWrittenAsIf
                 break
             case PremiumBase.RATE_ON_LINE:
