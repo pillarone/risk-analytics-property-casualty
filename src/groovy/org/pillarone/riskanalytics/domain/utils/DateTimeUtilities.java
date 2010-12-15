@@ -5,6 +5,7 @@ import org.joda.time.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import org.pillarone.riskanalytics.core.simulation.NotInProjectionHorizon;
 import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope;
 
 /**
@@ -161,5 +162,16 @@ public class DateTimeUtilities {
 
     public static DateTime getDate(PeriodScope periodScope, double fractionOfPeriod) {
         return getDate(periodScope.getCurrentPeriodStartDate(), periodScope.getNextPeriodStartDate(), 0, fractionOfPeriod);
+    }
+
+    public static DateTime getDate(PeriodScope periodScope, int period, double fractionOfPeriod) {
+        try {
+            DateTime beginOfPeriod = periodScope.getPeriodCounter().startOfPeriod(period);
+            DateTime endOfPeriod = periodScope.getPeriodCounter().endOfPeriod(period);
+            return getDate(beginOfPeriod, endOfPeriod, 0, fractionOfPeriod);
+        }
+        catch (NotInProjectionHorizon ex) {
+            throw new IllegalArgumentException("Period " + period + " is not within projection horizon.");
+        }
     }
 }

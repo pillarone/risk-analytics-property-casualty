@@ -143,6 +143,7 @@ public class ClaimDevelopmentPacket extends Claim {
         setOriginalPeriod(claim.getOriginalPeriod());
         setChangeInReserves(claim.getChangeInReserves());
         setOriginalClaim(claim.getOriginalClaim());
+        setPayoutPattern(claim.getPayoutPattern());
     }
 
     protected static final String INCURRED = "incurred";
