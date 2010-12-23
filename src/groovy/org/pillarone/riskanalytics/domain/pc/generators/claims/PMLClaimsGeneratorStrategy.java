@@ -100,7 +100,7 @@ public class PMLClaimsGeneratorStrategy implements IClaimsGeneratorStrategy {
                     lambda = frequencies.get(indexMin) - frequencies.get(indexMax - 2);
                 }
             }
-            else if (claimsSizeModification.getType().equals(DistributionModifier.LEFTTRUNCATEDRIGHTCENSORED)) {
+            else if (claimsSizeModification.getType().equals(DistributionModifier.LEFTTRUNCATEDRIGHTCENSOREDSHIFT)) {
                 double min = (Double) claimsSizeModification.getParameters().get("min");
                 List<Double> observationsAndMin = new ArrayList<Double>();
                 observationsAndMin.addAll(observations);

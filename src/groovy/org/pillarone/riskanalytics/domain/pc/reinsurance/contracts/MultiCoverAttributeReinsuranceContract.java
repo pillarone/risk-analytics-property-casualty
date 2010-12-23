@@ -78,7 +78,7 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
             }
             else if (parmPremiumBase.equals(ReinsuranceContractPremiumBase.PROPORTIONALTOCOVEREDCLAIMS)) {
                 calculateNetUnderwritingInfos(UnderwritingFilterUtilities.filterUnderwritingInfoByLobWithoutScaling(
-                        inUnderwritingInfo, ClaimFilterUtilities.getLineOfBusiness(outFilteredClaims)),
+                        inUnderwritingInfo, ClaimFilterUtilities.getLinesOfBusiness(outFilteredClaims)),
                         outCoverUnderwritingInfo, outNetAfterCoverUnderwritingInfo, outCoveredClaims);
             }
         }
@@ -134,13 +134,13 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
             outFilteredClaims.addAll(ClaimFilterUtilities.filterClaimsByPerilLobReserve(inClaims, coveredPerils, coveredLines, coveredReserves, connection));
             if (parmPremiumBase.equals(ReinsuranceContractPremiumBase.COMPLETESEGMENT)) {
                 if (coveredLines == null || coveredLines.size() == 0) {
-                    coveredLines = ClaimFilterUtilities.getLineOfBusiness(outFilteredClaims);
+                    coveredLines = ClaimFilterUtilities.getLinesOfBusiness(outFilteredClaims);
                 }
                 outFilteredUnderwritingInfo.addAll(UnderwritingFilterUtilities.filterUnderwritingInfoByLob(inUnderwritingInfo, coveredLines));
             }
             else if (parmPremiumBase.equals(ReinsuranceContractPremiumBase.PROPORTIONALTOCOVEREDCLAIMS)) {
                 // extend coveredLines such that they additionally consist of the segments which are associated with the selected perils
-                coveredLines = ClaimFilterUtilities.getLineOfBusiness(outFilteredClaims);
+                coveredLines = ClaimFilterUtilities.getLinesOfBusiness(outFilteredClaims);
                 outFilteredUnderwritingInfo.addAll(UnderwritingFilterUtilities.filterUnderwritingInfoByLobAndScaleByPerilsInLob(inUnderwritingInfo, coveredLines, inClaims, coveredPerils));
             }
         }
