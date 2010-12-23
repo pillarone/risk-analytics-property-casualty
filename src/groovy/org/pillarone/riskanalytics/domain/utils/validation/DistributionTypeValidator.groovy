@@ -9,6 +9,7 @@ import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterObjec
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.core.parameterization.validation.ParameterValidationError
 import org.pillarone.riskanalytics.core.parameterization.validation.AbstractParameterValidationService
+import org.pillarone.riskanalytics.domain.utils.InputFormatConverter
 
 class DistributionTypeValidator implements IParameterizationValidator {
 
@@ -68,40 +69,56 @@ class DistributionTypeValidator implements IParameterizationValidator {
             ["distribution.tpye.error.negativebinomial.p.out.of.range", type.p]
         }
         validationService.register(DistributionType.DISCRETEEMPIRICAL) {Map type ->
-            double[] values = type.discreteEmpiricalValues.getColumnByName('observations')
+            double[] values = new double[type.discreteEmpiricalValues.getRowCount()-1];
+            int index = type.discreteEmpiricalValues.getColumnIndex('observations')
+            for (int i = 1; i < type.discreteEmpiricalValues.getRowCount(); i++) {
+                values[i - 1] = InputFormatConverter.getDouble(type.discreteEmpiricalValues.getValueAt(i, index))
+            }
             if (!values) {
                 return ["distribution.type.error.discreteempirical.observations.empty"]
             }
             for (int i = 1; i < values.length; i++) {
-                if (values[i - 1] > values[i]) {
-                    return ["distribution.type.error.discreteempirical.observations.nonincreasing", i, values[i - 1], values[i]]
+                if (values[i - 1] >= values[i]) {
+                    return ["distribution.type.error.discreteempirical.observations.not.strictly.increasing", i, values[i - 1], values[i]]
                 }
             }
             return true
         }
         validationService.register(DistributionType.DISCRETEEMPIRICAL) {Map type ->
-            double[] values = type.discreteEmpiricalValues.getColumnByName('probabilities')
+            double[] values = new double[type.discreteEmpiricalValues.getRowCount()-1];
+            int index = type.discreteEmpiricalValues.getColumnIndex('probabilities')
+            for (int i = 1; i < type.discreteEmpiricalValues.getRowCount(); i++) {
+                values[i - 1] = InputFormatConverter.getDouble(type.discreteEmpiricalValues.getValueAt(i, index))
+            }
             if (!values) {
                 return ["distribution.type.error.discreteempirical.probabilities.empty"]
             }
-            double sum = values.inject(0) {temp, it -> temp + it }
+           /* double sum = values.inject(0) {temp, it -> temp + it }
             if (isCloseEnough(sum, 1d)) return true
-            ["distribution.type.error.discreteempirical.probabilities.sum.not.one", sum, values]
+            ["distribution.type.error.discreteempirical.probabilities.sum.not.one", sum, values]  */
         }
         validationService.register(DistributionType.DISCRETEEMPIRICALCUMULATIVE) {Map type ->
-            double[] values = type.discreteEmpiricalCumulativeValues.getColumnByName('observations')
+            double[] values = new double[type.discreteEmpiricalCumulativeValues.getRowCount()-1];
+            int index = type.discreteEmpiricalCumulativeValues.getColumnIndex('observations')
+            for (int i = 1; i < type.discreteEmpiricalCumulativeValues.getRowCount(); i++) {
+                values[i - 1] = InputFormatConverter.getDouble(type.discreteEmpiricalCumulativeValues.getValueAt(i, index))
+            }
             if (!values) {
                 return ["distribution.type.error.discreteempirical.cumulative.observations.empty"]
             }
             for (int i = 1; i < values.length; i++) {
-                if (values[i - 1] > values[i]) {
-                    return ["distribution.type.error.discreteempirical.cumulative.observations.nonincreasing", i, values[i - 1], values[i]]
+                if (values[i - 1] >= values[i]) {
+                    return ["distribution.type.error.discreteempirical.cumulative.observations.not.strictly.increasing", i, values[i - 1], values[i]]
                 }
             }
             return true
         }
         validationService.register(DistributionType.DISCRETEEMPIRICALCUMULATIVE) {Map type ->
-            double[] values = type.discreteEmpiricalCumulativeValues.getColumnByName('cumulative probabilities')
+            double[] values = new double[type.discreteEmpiricalCumulativeValues.getRowCount()-1];
+            int index = type.discreteEmpiricalCumulativeValues.getColumnIndex('cumulative probabilities')
+            for (int i = 1; i < type.discreteEmpiricalCumulativeValues.getRowCount(); i++) {
+                values[i - 1] = InputFormatConverter.getDouble(type.discreteEmpiricalCumulativeValues.getValueAt(i, index))
+            }
             if (!values) {
                 return ["distribution.type.error.discreteempirical.cumulative.probabilities.empty"]
             }
@@ -110,9 +127,9 @@ class DistributionTypeValidator implements IParameterizationValidator {
                     return ["distribution.type.error.discreteempirical.cumulative.probabilities.nonincreasing", i, values[i - 1], values[i]]
                 }
             }
-            if (!isCloseEnough(values[-1], 1d)) {
+          /*  if (!isCloseEnough(values[-1], 1d)) {
                 return ["distribution.type.error.discreteempirical.cumulative.probability.last.value.not.1", values[values.length - 1]]
-            }
+            }*/
             return true
         }
         validationService.register(DistributionType.NORMAL) {Map type ->
@@ -138,22 +155,32 @@ class DistributionTypeValidator implements IParameterizationValidator {
         }
         validationService.register(DistributionType.UNIFORM) {Map type ->
             if (type.a < type.b) return true
-            ["distribution.type.error.uniform.limits.nonincreasing", type.a, type.b]
+            ["distribution.type.error.uniform.limits.not.strictly.increasing", type.a, type.b]
         }
         validationService.register(DistributionType.PIECEWISELINEAR) {Map type ->
-            double[] values = type.supportPoints.getColumnByName('values')
+            double[] values = new double[type.supportPoints.getRowCount()-1];
+            int index = type.supportPoints.getColumnIndex('values')
+            for (int i = 1; i < type.supportPoints.getRowCount(); i++) {
+                values[i - 1] = InputFormatConverter.getDouble(type.supportPoints.getValueAt(i, index))
+            }
             if (!values) {
                 return ["distribution.type.error.piecewiselinear.values.empty"]
             }
             for (int i = 1; i < values.length; i++) {
-                if (values[i - 1] > values[i]) {
-                    return ["distribution.type.error.piecewiselinear.values.nonincreasing", i, values[i - 1], values[i]]
+                if (values[i - 1] >= values[i]) {
+                    return ["distribution.type.error.piecewiselinear.values.not.strictly.increasing", i, values[i - 1], values[i]]
                 }
             }
+            if (values.length <=1)
+            return ["distribution.type.error.piecewiselinear.number.values.smaller.or.equal.1", values.length]
             return true
         }
         validationService.register(DistributionType.PIECEWISELINEAR) {Map type ->
-            double[] cdf = type.supportPoints.getColumnByName('cumulative probabilities')
+            double[] cdf = new double[type.supportPoints.getRowCount()-1];
+            int index = type.supportPoints.getColumnIndex('cumulative probabilities')
+            for (int i = 1; i < type.supportPoints.getRowCount(); i++) {
+                cdf[i - 1] = InputFormatConverter.getDouble(type.supportPoints.getValueAt(i, index))
+            }
             if (!cdf) {
                 return ["distribution.type.error.piecewiselinear.cdf.probabilities.empty"]
             }
@@ -171,20 +198,30 @@ class DistributionTypeValidator implements IParameterizationValidator {
             return true
         }
         validationService.register(DistributionType.PIECEWISELINEAREMPIRICAL) {Map type ->
-            double[] values = type.observations.getColumnByName('observations')
+            double[] values = new double[type.observations.getRowCount()-1];
+            Arrays.sort(values);
+            int index = type.observations.getColumnIndex('observations')
+            for (int i = 1; i < type.observations.getRowCount(); i++) {
+                values[i - 1] = InputFormatConverter.getDouble(type.observations.getValueAt(i, index))
+            }
             if (!values) {
                 return ["distribution.type.error.piecewiselinear.empirical.observations.empty"]
             }
             for (int i = 1; i < values.length; i++) {
-                if (values[i - 1] > values[i]) {
-                    return ["distribution.type.error.piecewiselinear.empirical.observations.nonincreasing", i, values[i - 1], values[i]]
+                if (values[i - 1] == values[i]) {
+                    return ["distribution.type.error.piecewiselinear.empirical.equal.observations", i, values[i - 1], values[i]]
                 }
             }
+            if (values.length <=1)
+            return ["distribution.type.error.piecewiselinear.empirical.number.observations.smaller.or.equal.1", values.length]
             return true
         }
         validationService.register(DistributionType.TRIANGULARDIST) {Map type ->
-            if (type.a <= type.m && type.m <= type.b) return true
-            ["distribution.type.error.triangular.abscissa.nonincreasing", type.a, type.b, type.m]
+            if (!(type.a <= type.m && type.m <= type.b))
+            return ["distribution.type.error.triangular.abscissa.nonincreasing", type.a, type.b, type.m]
+            if (type.a == type.b)
+            return ["distribution.type.error.triangular.a.equals.b", type.a, type.b]
+            return true
         }
         validationService.register(DistributionType.CHISQUAREDIST) {Map type ->
             if (type.n > 0) return true
@@ -211,7 +248,11 @@ class DistributionTypeValidator implements IParameterizationValidator {
             ["distribution.type.error.inversegaussian.lambda.nonpositive", type.lambda]
         }
         validationService.register(DistributionType.CONSTANTS) {Map type ->
-            double[] values = type.constants.getColumnByName('constants')
+            double[] values = new double[type.constants.getRowCount()-1];
+            int index = type.constants.getColumnIndex('constants')
+            for (int i = 1; i < type.constants.getRowCount(); i++) {
+                values[i - 1] = InputFormatConverter.getDouble(type.constants.getValueAt(i, index))
+            }
             if (values && values.size() > 0) return true
             ["distribution.type.error.constants.empty", values]
         }
