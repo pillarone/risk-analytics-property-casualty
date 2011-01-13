@@ -20,6 +20,7 @@ public class Claim extends MultiValuePacket {
     private double ultimate;
     private Claim originalClaim;
     private Event event;
+    @Deprecated
     private Double fractionOfPeriod = 0d;
     private ClaimType claimType;
     /** contains the claims or reserve generator in which the claim object was instantiated */
