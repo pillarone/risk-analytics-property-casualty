@@ -32,7 +32,7 @@ class CXLContractStrategyTests extends GroovyTestCase {
         ClaimDevelopmentPacket claim3P0 = new ClaimDevelopmentPacket(incurred: 150, paid:  80, reserved:  70, claimType: ClaimType.AGGREGATED_EVENT, event: event1)
         List claimsP0 = [claim1P0, claim2P0, claim3P0]
         List underwritingInfos = []
-        underwritingInfos << new UnderwritingInfo(premiumWritten: 0)
+        underwritingInfos << new UnderwritingInfo(premium: 0)
 
         cxl.initBookKeepingFiguresForIteration(claimsP0, underwritingInfos)
 
@@ -138,7 +138,7 @@ class CXLContractStrategyTests extends GroovyTestCase {
         ClaimDevelopmentPacket claim3P0 = new ClaimDevelopmentPacket(incurred: 150, paid:  80, reserved:  70, claimType: ClaimType.AGGREGATED_EVENT, event: event1)
         List claimsP0 = [claim1P0, claim2P0, claim3P0]
         List underwritingInfos = []
-        underwritingInfos << new UnderwritingInfo(premiumWritten: 0)
+        underwritingInfos << new UnderwritingInfo(premium: 0)
 
         cxl.initBookKeepingFiguresForIteration(claimsP0, underwritingInfos,)
 

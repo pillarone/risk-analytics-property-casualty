@@ -3,13 +3,9 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts;
 import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.packets.SingleValuePacket;
-import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
-import org.pillarone.riskanalytics.domain.pc.claims.ClaimFilterUtilities;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimUtilities;
 import org.pillarone.riskanalytics.domain.pc.claims.SortClaimsByFractionOfPeriod;
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.ReinsuranceResultWithCommissionPacket;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.ICommissionStrategy;
@@ -83,7 +79,7 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
             ReinsuranceResultWithCommissionPacket result = new ReinsuranceResultWithCommissionPacket();
             UnderwritingInfo underwritingInfo = UnderwritingInfoUtilities.aggregate(outCoverUnderwritingInfo);
             if (underwritingInfo != null) {
-                result.setCededPremium(-underwritingInfo.getPremiumWritten());
+                result.setCededPremium(-underwritingInfo.getPremium());
                 result.setCededCommission(-underwritingInfo.getCommission());
             }
             result.setCededClaim(ClaimUtilities.aggregateClaims(outCoveredClaims, this).getUltimate());
@@ -197,10 +193,10 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
      * @param derivedUnderwritingInfo
      */
     protected void setOriginalUnderwritingInfo(UnderwritingInfo underwritingInfo, UnderwritingInfo derivedUnderwritingInfo) {
-        if (underwritingInfo != null && underwritingInfo.originalUnderwritingInfo != null) {
-            derivedUnderwritingInfo.originalUnderwritingInfo = underwritingInfo.originalUnderwritingInfo;
+        if (underwritingInfo != null && underwritingInfo.getOriginalUnderwritingInfo() != null) {
+            derivedUnderwritingInfo.setOriginalUnderwritingInfo(underwritingInfo.getOriginalUnderwritingInfo());
         } else {
-            derivedUnderwritingInfo.originalUnderwritingInfo = underwritingInfo;
+            derivedUnderwritingInfo.setOriginalUnderwritingInfo(underwritingInfo);
         }
     }
 

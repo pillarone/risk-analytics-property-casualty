@@ -5,10 +5,10 @@ import java.util.Map;
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-public enum IncludeType {
-    INCLUDED, NOTINCLUDED, ONLY;
+public enum ReinsuranceContractPremiumBase {
+     COMPLETESEGMENT, PROPORTIONALTOCOVEREDCLAIMS;
 
-    public Object getConstructionString(Map parameters) {
+     public Object getConstructionString(Map parameters) {
         return getClass().getName() + "." + this;
     }
 }

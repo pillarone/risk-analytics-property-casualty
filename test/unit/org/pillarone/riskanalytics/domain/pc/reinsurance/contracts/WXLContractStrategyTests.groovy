@@ -86,7 +86,7 @@ class WXLContractStrategyTests extends GroovyTestCase {
 
         ReinsuranceContract wxl = getContract2()
         wxl.inClaims << attrClaim100 << largeClaim50 << largeClaim60 << largeClaim100 << largeClaim100
-        UnderwritingInfo underwritingInfo = new UnderwritingInfo(premiumWritten: 100)
+        UnderwritingInfo underwritingInfo = new UnderwritingInfo(premium: 100)
         wxl.inUnderwritingInfo << underwritingInfo
 
         // needed in order to trigger the calculation of ceded uw info
@@ -101,7 +101,7 @@ class WXLContractStrategyTests extends GroovyTestCase {
         assertEquals "wxl, ceded claim 60", 15, wxl.outCoveredClaims[2].ultimate
         assertEquals "wxl, ceded claim 100", 15, wxl.outCoveredClaims[3].ultimate
         assertEquals "wxl, ceded claim 100 (2)", 5, wxl.outCoveredClaims[4].ultimate
-        assertEquals "underwriting info", 150, wxl.outCoverUnderwritingInfo[0].premiumWritten
+        assertEquals "underwriting info", 150, wxl.outCoverUnderwritingInfo[0].premium
 
         wxl.reset()
         // apply the same calculations twice to make sure everything is properly reset between periods/iterations
@@ -116,7 +116,7 @@ class WXLContractStrategyTests extends GroovyTestCase {
         assertEquals "wxl, ceded claim 60", 15, wxl.outCoveredClaims[2].ultimate
         assertEquals "wxl, ceded claim 100", 15, wxl.outCoveredClaims[3].ultimate
         assertEquals "wxl, ceded claim 100 (2)", 5, wxl.outCoveredClaims[4].ultimate
-        assertEquals "underwriting info", 150, wxl.outCoverUnderwritingInfo[0].premiumWritten
+        assertEquals "underwriting info", 150, wxl.outCoverUnderwritingInfo[0].premium
     }
 
     void testAttritionalClaims() {
@@ -171,8 +171,7 @@ class WXLContractStrategyTests extends GroovyTestCase {
         wxl.parmContractStrategy.premiumBase = PremiumBase.GNPI
         UnderwritingInfo cededUnderwritingInfo = wxl.parmContractStrategy.calculateCoverUnderwritingInfo(grossUnderwritingInfo, 0)
 
-        assertEquals "premium written", wxl.parmContractStrategy.premium * grossUnderwritingInfo.premiumWritten, cededUnderwritingInfo.premiumWritten
-        assertEquals "premium written as if", wxl.parmContractStrategy.premium * grossUnderwritingInfo.premiumWrittenAsIf, cededUnderwritingInfo.premiumWrittenAsIf
+        assertEquals "premium written", wxl.parmContractStrategy.premium * grossUnderwritingInfo.premium, cededUnderwritingInfo.premium
     }
 
     void testGetCededUnderwritingInfoROE() {
@@ -184,8 +183,7 @@ class WXLContractStrategyTests extends GroovyTestCase {
         wxl.parmContractStrategy.grossPremiumSharesPerBand = grossPremiumSharesPerBand
         UnderwritingInfo cededUnderwritingInfo = wxl.parmContractStrategy.calculateCoverUnderwritingInfo(grossUnderwritingInfo, 0)
 
-        assertEquals "premium written", wxl.parmContractStrategy.premium * wxl.parmContractStrategy.grossPremiumSharesPerBand.get(grossUnderwritingInfo)* wxl.parmContractStrategy.limit, cededUnderwritingInfo.premiumWritten
-        assertEquals "premium written as if", wxl.parmContractStrategy.premium * wxl.parmContractStrategy.grossPremiumSharesPerBand.get(grossUnderwritingInfo)* wxl.parmContractStrategy.limit, cededUnderwritingInfo.premiumWrittenAsIf
+        assertEquals "premium written", wxl.parmContractStrategy.premium * wxl.parmContractStrategy.grossPremiumSharesPerBand.get(grossUnderwritingInfo)* wxl.parmContractStrategy.limit, cededUnderwritingInfo.premium
     }
 
 
@@ -218,7 +216,7 @@ class WXLContractStrategyTests extends GroovyTestCase {
         double usedReinstatements = 7 / 3
 
         assertEquals "premium written", wxl.parmContractStrategy.premium * (1 + wxl.parmContractStrategy.reinstatementPremiums.values[0] * usedReinstatements),
-                wxl.outCoverUnderwritingInfo[0].premiumWritten, 1e-6
+                wxl.outCoverUnderwritingInfo[0].premium, 1e-6
     }
 
     void testReinstatementPremiumNoneUsed() {
@@ -239,7 +237,7 @@ class WXLContractStrategyTests extends GroovyTestCase {
         double usedReinstatements = 0d
 
         assertEquals "premium written", wxl.parmContractStrategy.premium * (1 + wxl.parmContractStrategy.reinstatementPremiums.values[0] * usedReinstatements),
-                wxl.outCoverUnderwritingInfo[0].premiumWritten, 1e-6
+                wxl.outCoverUnderwritingInfo[0].premium, 1e-6
     }
 
     void testReinstatementPremiumOneUsed() {
@@ -259,7 +257,7 @@ class WXLContractStrategyTests extends GroovyTestCase {
         double usedReinstatements = 1d
 
         assertEquals "premium written", wxl.parmContractStrategy.premium * (1 + wxl.parmContractStrategy.reinstatementPremiums.values[0] * usedReinstatements),
-                wxl.outCoverUnderwritingInfo[0].premiumWritten, 1e-6
+                wxl.outCoverUnderwritingInfo[0].premium, 1e-6
     }
 
     void testReinstatementPremiumOneAndAHalfUsed() {
@@ -278,7 +276,7 @@ class WXLContractStrategyTests extends GroovyTestCase {
         double usedReinstatements = 1.5
 
         assertEquals "premium written", wxl.parmContractStrategy.premium * (1 + wxl.parmContractStrategy.reinstatementPremiums.values[0] * usedReinstatements),
-                wxl.outCoverUnderwritingInfo[0].premiumWritten, 1e-6
+                wxl.outCoverUnderwritingInfo[0].premium, 1e-6
     }
 
     void testZeroCoverPremiumOnly() {
@@ -308,6 +306,6 @@ class WXLContractStrategyTests extends GroovyTestCase {
         assertEquals "# ceded claims", 2, wxl.outCoveredClaims.size()
         assertEquals "claim35 ceded", 0, wxl.outCoveredClaims[0].ultimate
         assertEquals "claim65 ceded", 0, wxl.outCoveredClaims[1].ultimate
-        assertEquals "premium written", 100, wxl.outCoverUnderwritingInfo[0].premiumWritten
+        assertEquals "premium written", 100, wxl.outCoverUnderwritingInfo[0].premium
     }
 }

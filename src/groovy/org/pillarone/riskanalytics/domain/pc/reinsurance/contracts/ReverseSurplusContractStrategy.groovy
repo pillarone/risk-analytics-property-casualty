@@ -9,20 +9,20 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
  * @author martin.melchior (at) fhnw (dot) ch
  * @author Michael-Noe (at) Web (dot) de
  */
-class ComplementarySurplusContractStrategy extends SurplusContractStrategy implements IReinsuranceContractStrategy, IParameterObject {
+class ReverseSurplusContractStrategy extends SurplusContractStrategy implements IReinsuranceContractStrategy, IParameterObject {
 
-    static final ReinsuranceContractType type = ReinsuranceContractType.SURPLUSCOMPLEMENTARY
+    static final ReinsuranceContractType type = ReinsuranceContractType.SURPLUSREVERSE
 
     ReinsuranceContractType getType() {
         type
     }
 
     public double allocateCededClaim(Claim inClaim) {
-        if (inClaim.hasExposureInfo()) {
-            return inClaim.ultimate * (1 - (coveredByReinsurer * getFractionCeded(inClaim.exposure.sumInsured)))
+        if (inClaim.hasExposureInfo()) { 
+            return inClaim.ultimate * coveredByReinsurer * (1 - getFractionCeded(inClaim.exposure.sumInsured))
         }
         else {
-            return inClaim.ultimate * (1 - (coveredByReinsurer * defaultCededLossShare))
+            return inClaim.ultimate * coveredByReinsurer * (1 - defaultCededLossShare)
         }
     }
 
@@ -30,16 +30,15 @@ class ComplementarySurplusContractStrategy extends SurplusContractStrategy imple
     UnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double initialReserves) {
         UnderwritingInfo cededUnderwritingInfo = UnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
         cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo?.originalUnderwritingInfo ? grossUnderwritingInfo.originalUnderwritingInfo : grossUnderwritingInfo
-        double fractionCeded = 1 - (coveredByReinsurer * getFractionCeded(cededUnderwritingInfo.sumInsured))
-        cededUnderwritingInfo.premiumWritten *= fractionCeded
-        cededUnderwritingInfo.premiumWrittenAsIf *= fractionCeded
+        double fractionCeded = coveredByReinsurer * (1 - getFractionCeded(cededUnderwritingInfo.sumInsured))
+        cededUnderwritingInfo.premium *= fractionCeded
         cededUnderwritingInfo.sumInsured *= fractionCeded
         cededUnderwritingInfo.maxSumInsured *= fractionCeded
         cededUnderwritingInfo.commission = 0
         cededUnderwritingInfo.fixedCommission = 0d
         cededUnderwritingInfo.variableCommission = 0d
         cededUnderwritingInfo.variablePremium = 0d
-        cededUnderwritingInfo.fixedPremium = cededUnderwritingInfo.premiumWritten
+        cededUnderwritingInfo.fixedPremium = cededUnderwritingInfo.premium
 
         cededUnderwritingInfo
     }

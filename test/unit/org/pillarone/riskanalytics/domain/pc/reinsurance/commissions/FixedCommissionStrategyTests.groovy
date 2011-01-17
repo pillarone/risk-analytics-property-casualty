@@ -11,8 +11,8 @@ class FixedCommissionStrategyTests extends GroovyTestCase {
         ICommissionStrategy commissionStrategy =
         CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, [commission: 0.3d])
 
-        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: -50, fixedCommission: -40, variableCommission: -10)
-        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: -5, fixedCommission: -5)
+        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premium: 200, commission: -50, fixedCommission: -40, variableCommission: -10)
+        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premium: 100, commission: -5, fixedCommission: -5)
         List underwritingInfos = [underwritingInfo200, underwritingInfo100]
 
         commissionStrategy.calculateCommission null, underwritingInfos, false, false
@@ -35,8 +35,8 @@ class FixedCommissionStrategyTests extends GroovyTestCase {
         ICommissionStrategy commissionStrategy =
         CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, [commission: 0.3d])
 
-        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: -50, fixedCommission: -40, variableCommission: -10)
-        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: -5, fixedCommission: -5)
+        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premium: 200, commission: -50, fixedCommission: -40, variableCommission: -10)
+        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premium: 100, commission: -5, fixedCommission: -5)
         List underwritingInfos = [underwritingInfo200, underwritingInfo100]
 
         commissionStrategy.calculateCommission null, underwritingInfos, false, true

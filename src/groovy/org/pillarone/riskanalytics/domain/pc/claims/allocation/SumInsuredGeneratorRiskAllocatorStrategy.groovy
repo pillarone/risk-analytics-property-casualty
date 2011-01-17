@@ -53,7 +53,7 @@ class SumInsuredGeneratorRiskAllocatorStrategy implements IRiskAllocatorStrategy
         // calculate/construct exposure for each claim
         for (Claim claim : claims) {
             if (claim.hasExposureInfo()) throw new IllegalArgumentException("SumInsuredGeneratorRiskAllocatorStrategy.noExposureRedefinition")
-            ExposureInfo exposure = new ExposureInfo()
+            UnderwritingInfo exposure = new UnderwritingInfo()
             exposure.exposureDefinition = Exposure.ABSOLUTE
             if (claim.claimType == ClaimType.SINGLE) {
                 exposure.maxSumInsured = maxSumInsuredUWI

@@ -16,6 +16,6 @@ class PodraPCModelTests extends ModelTest {
     }
 
     protected boolean shouldCompareResults() {
-        true
+        false
     }
 }

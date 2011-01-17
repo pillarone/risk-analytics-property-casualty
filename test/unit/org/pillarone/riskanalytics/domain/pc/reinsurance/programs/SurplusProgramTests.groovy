@@ -16,25 +16,22 @@ class SurplusProgramTests extends GroovyTestCase {
     private static List<UnderwritingInfo> getMockUnderwritingInfo() {
         // first band: ceded = 0
         UnderwritingInfo info0 = new UnderwritingInfo(
-                premiumWrittenAsIf: 5000,
                 numberOfPolicies: 1000,
                 sumInsured: 80,
                 maxSumInsured: 100,
-                premiumWritten: 5050)
+                premium: 5050)
         // second band: ceded = (200-100)/200 = 0.5
         UnderwritingInfo info1 = new UnderwritingInfo(
-                premiumWrittenAsIf: 2000,
                 numberOfPolicies: 100,
                 sumInsured: 200,
                 maxSumInsured: 400,
-                premiumWritten: 2050)
+                premium: 2050)
         // third band: ceded = (400-100)/500 = 0.6
         UnderwritingInfo info2 = new UnderwritingInfo(
-                premiumWrittenAsIf: 4000,
                 numberOfPolicies: 50,
                 sumInsured: 500,
                 maxSumInsured: 800,
-                premiumWritten: 4050)
+                premium: 4050)
         List<UnderwritingInfo> uwInfos = []
         uwInfos << info0 << info1 << info2
         return uwInfos
@@ -97,7 +94,7 @@ class SurplusProgramTests extends GroovyTestCase {
         Map<Double, List<Claim>> mapNetLarge = [:]
         Map<Double, Double> mapAggrNetLarge = [:]
         for (Claim claim: surplusNetClaims) {
-            ExposureInfo expInfo = claim.exposure
+            UnderwritingInfo expInfo = claim.exposure
             if (claim.claimType == ClaimType.ATTRITIONAL) {
                 if (!mapNetAttr.containsKey(expInfo.maxSumInsured)) {
                     mapNetAttr[expInfo.maxSumInsured] = []
@@ -124,7 +121,7 @@ class SurplusProgramTests extends GroovyTestCase {
         Map<Double, List<Claim>> mapCededLarge = [:]
         Map<Double, Double> mapAggrCededLarge = [:]
         for (Claim claim: surplusCededClaims) {
-            ExposureInfo expInfo = claim.exposure
+            UnderwritingInfo expInfo = claim.exposure
             if (claim.claimType == ClaimType.ATTRITIONAL) {
                 if (!mapCededAttr.containsKey(expInfo.maxSumInsured)) {
                     mapCededAttr[expInfo.maxSumInsured] = []
@@ -149,27 +146,27 @@ class SurplusProgramTests extends GroovyTestCase {
         assertTrue 4 == mapCededAttr[100d].size()
         assertTrue 4 == mapCededAttr[400d].size()
         assertTrue 4 == mapCededAttr[800d].size()
-        assertEquals "aggr ceded attr claim band 1", 237.5, mapAggrCededAttr[400d]
+        assertEquals "aggr ceded attr claim band 1", 250.0, mapAggrCededAttr[400d]
         assertEquals "aggr ceded attr claim band 2", 142.5, mapAggrCededAttr[800d]
 
         assertTrue 4 == mapNetAttr[100d].size()
         assertTrue 4 == mapNetAttr[400d].size()
         assertTrue 4 == mapNetAttr[800d].size()
-        assertEquals "aggr net attr claim band 0", 237.5, mapAggrNetAttr[100d]
-        assertEquals "aggr net attr claim band 1", 237.5, mapAggrNetAttr[400d]
+        assertEquals "aggr net attr claim band 0", 225.0, mapAggrNetAttr[100d]
+        assertEquals "aggr net attr claim band 1", 225.0, mapAggrNetAttr[400d]
         assertEquals "aggr net attr claim band 2", 95.0, mapAggrNetAttr[800d]
 
         assertTrue 1 == mapCededLarge[100d].size()
         assertTrue 2 == mapCededLarge[400d].size()
         assertTrue 1 == mapCededLarge[800d].size()
-        assertEquals "aggr ceded large claim band 1", 225.0, mapAggrCededLarge[400d]
+        assertEquals "aggr ceded large claim band 1", 275.0, mapAggrCededLarge[400d]
         assertEquals "aggr ceded large claim band 2", 270.0, mapAggrCededLarge[800d]
 
         assertTrue 1 == mapNetLarge[100d].size()
         assertTrue 2 == mapNetLarge[400d].size()
         assertTrue 1 == mapNetLarge[800d].size()
         assertEquals "aggr net large claim band 0", 50.0, mapAggrNetLarge[100d]
-        assertEquals "aggr net large claim band 1", 225.0, mapAggrNetLarge[400d]
+        assertEquals "aggr net large claim band 1", 175.0, mapAggrNetLarge[400d]
         assertEquals "aggr net large claim band 2", 180.0, mapAggrNetLarge[800d]
     }
 }

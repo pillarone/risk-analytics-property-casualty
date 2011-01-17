@@ -48,7 +48,6 @@ class CXLContractStrategy extends XLContractStrategy implements IReinsuranceCont
         for (Claim grossClaim: grossClaims) {
             if (grossClaim.claimType == ClaimType.EVENT || grossClaim.claimType == ClaimType.AGGREGATED_EVENT) {
                 Claim mergedClaim = grossClaimsAggregatedByEvent.get(grossClaim.event)
-                println "iBK event ${grossClaim.event}, (event hashCode ${grossClaim.event.hashCode()}), claim: ${grossClaim}"
                 if (mergedClaim != null) {
                     mergedClaim.plus(grossClaim)
 //                    grossClaimsAggregatedByEvent.put(grossClaim.event, mergedClaim)
@@ -75,7 +74,6 @@ class CXLContractStrategy extends XLContractStrategy implements IReinsuranceCont
                 ratio = new Claim()
                 ratio.ultimate = aggregateCededClaim.ultimate / aggregateGrossClaim.value.ultimate
             }
-            println "iBK event $aggregateGrossClaim.key, ratio $ratio (event hashCode ${aggregateGrossClaim.key.hashCode()})"
             cededRatiosByEvent.put(aggregateGrossClaim.key, ratio)
         }
     }

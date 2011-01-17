@@ -11,8 +11,8 @@ import java.util.Arrays;
  */
 public class UnderwritingFilterBySegment extends Component {
 
-    private PacketList<UnderwritingInfo> inUnderwritingInfo = new PacketList(UnderwritingInfo.class);
-    private PacketList<UnderwritingInfo> outUnderwritingInfo = new PacketList(UnderwritingInfo.class);
+    private PacketList<UnderwritingInfo> inUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
+    private PacketList<UnderwritingInfo> outUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
     private ComboBoxTableMultiDimensionalParameter parmUnderwritingSegments = new ComboBoxTableMultiDimensionalParameter(
             Arrays.asList(new String[]{""}),
             Arrays.asList(new String[]{"underwriting segment"}),

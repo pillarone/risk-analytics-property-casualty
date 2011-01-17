@@ -13,6 +13,7 @@ import org.pillarone.riskanalytics.domain.pc.constants.FrequencyBase;
 // todo (sku): discuss whether what properties might be different for gross and net
 // todo (sku): discuss segmentation and naming
 // todo (meli): how should the origin be set in the copy constructor?
+@Deprecated
 public class ExposureInfo extends MultiValuePacket {
 
     public ExposureInfo originalExposureInfo;

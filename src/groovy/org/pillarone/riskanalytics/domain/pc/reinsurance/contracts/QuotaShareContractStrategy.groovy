@@ -116,8 +116,7 @@ class QuotaShareContractStrategy extends AbstractContractStrategy implements IRe
     UnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double initialReserves) {
         UnderwritingInfo cededUnderwritingInfo = UnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
         cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo?.originalUnderwritingInfo ? grossUnderwritingInfo.originalUnderwritingInfo : grossUnderwritingInfo
-        cededUnderwritingInfo.premiumWritten *= quotaShare * coveredByReinsurer
-        cededUnderwritingInfo.premiumWrittenAsIf *= quotaShare * coveredByReinsurer
+        cededUnderwritingInfo.premium *= quotaShare * coveredByReinsurer
         cededUnderwritingInfo.sumInsured *= quotaShare * coveredByReinsurer
         cededUnderwritingInfo.maxSumInsured *= quotaShare * coveredByReinsurer
         cededUnderwritingInfo.commission = 0

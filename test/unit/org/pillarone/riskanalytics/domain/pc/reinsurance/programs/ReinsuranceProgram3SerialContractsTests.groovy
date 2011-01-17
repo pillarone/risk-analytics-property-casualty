@@ -25,7 +25,7 @@ class ReinsuranceProgram3SerialContractsTests extends GroovyTestCase {
         program.subContract3.parmContractStrategy = StopLossContractStrategyTests.getContractSL0().parmContractStrategy
 
         program.inClaims << attrClaim100 << largeClaim60
-        UnderwritingInfo underwritingInfo = new UnderwritingInfo(premiumWritten: 0)
+        UnderwritingInfo underwritingInfo = new UnderwritingInfo(premium: 0)
         underwritingInfo.originalUnderwritingInfo = underwritingInfo
         program.inUnderwritingInfo << underwritingInfo
 
@@ -70,7 +70,7 @@ class ReinsuranceProgram3SerialContractsTests extends GroovyTestCase {
         program.subContract3.parmContractStrategy = StopLossContractStrategyTests.getContractSL0().parmContractStrategy
 
         program.inClaims << attrClaim100 << largeClaim60
-        UnderwritingInfo underwritingInfo = new UnderwritingInfo(premiumWritten: 0)
+        UnderwritingInfo underwritingInfo = new UnderwritingInfo(premium: 0)
         underwritingInfo.originalUnderwritingInfo = underwritingInfo
         program.inUnderwritingInfo << underwritingInfo
 
@@ -91,7 +91,7 @@ class ReinsuranceProgram3SerialContractsTests extends GroovyTestCase {
     void testUnderwriting() {
         Claim attrClaim100 = new Claim(claimType: ClaimType.ATTRITIONAL, value: 100d)
         Claim largeClaim60 = new Claim(claimType: ClaimType.SINGLE, value: 60d)
-        UnderwritingInfo underwritingInfo = new UnderwritingInfo(premiumWritten: 1000, numberOfPolicies: 10,
+        UnderwritingInfo underwritingInfo = new UnderwritingInfo(premium: 1000, numberOfPolicies: 10,
                 exposureDefinition: Exposure.ABSOLUTE)
         underwritingInfo.originalUnderwritingInfo = underwritingInfo
 

@@ -8,6 +8,7 @@ import org.pillarone.riskanalytics.domain.pc.generators.severities.Event;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
 import org.pillarone.riskanalytics.domain.pc.underwriting.ExposureInfo;
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.utils.DateTimeUtilities;
 
 import java.util.*;
@@ -20,13 +21,14 @@ public class Claim extends MultiValuePacket {
     private double ultimate;
     private Claim originalClaim;
     private Event event;
+    @Deprecated
     private Double fractionOfPeriod = 0d;
     private ClaimType claimType;
     /** contains the claims or reserve generator in which the claim object was instantiated */
     private IComponentMarker peril;
     private LobMarker lineOfBusiness;
     private IReinsuranceContractMarker reinsuranceContract;
-    private ExposureInfo exposure;
+    private UnderwritingInfo exposure;
 
     private static final String ULTIMATE = "ultimate";
 
@@ -196,11 +198,11 @@ public class Claim extends MultiValuePacket {
         this.reinsuranceContract = reinsuranceContract;
     }
 
-    public ExposureInfo getExposure() {
+    public UnderwritingInfo getExposure() {
         return exposure;
     }
 
-    public void setExposure(ExposureInfo exposure) {
+    public void setExposure(UnderwritingInfo exposure) {
         this.exposure = exposure;
     }
 

@@ -4,7 +4,7 @@ import org.pillarone.riskanalytics.core.packets.PacketList
 import org.pillarone.riskanalytics.core.util.TestProbe
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
-import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
+
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoTests
@@ -79,7 +79,7 @@ class AdverseDevelopmentCoverContractStrategyTests extends GroovyTestCase {
         assertEquals "outClaims[2]", claim3.ultimate * 0.2, contract.outCoveredClaims[2].ultimate
 
         assertEquals "outClaimsNet.size", 0, contract.outUncoveredClaims.size()
-        assertEquals "contract, premium", 2000d * 0.2, contract.outCoverUnderwritingInfo[0].premiumWritten
+        assertEquals "contract, premium", 2000d * 0.2, contract.outCoverUnderwritingInfo[0].premium
         contract.reset()
         assertTrue contract.outCoveredClaims.isEmpty()
     }
@@ -103,7 +103,7 @@ class AdverseDevelopmentCoverContractStrategyTests extends GroovyTestCase {
         assertEquals "outClaims[2]", claim3.ultimate * 0.2, contract.outCoveredClaims[2].ultimate
 
         assertEquals "outClaimsNet.size", 0, contract.outUncoveredClaims.size()
-        assertEquals "contract, premium", 400d, contract.outCoverUnderwritingInfo[0].premiumWritten
+        assertEquals "contract, premium", 400d, contract.outCoverUnderwritingInfo[0].premium
         contract.reset()
         assertTrue contract.outCoveredClaims.isEmpty()
     }
@@ -122,8 +122,7 @@ class AdverseDevelopmentCoverContractStrategyTests extends GroovyTestCase {
         //============================================================ testGetCededUnderwriting
         UnderwritingInfo cededUnderwritingInfo = stopLoss.parmContractStrategy.calculateCoverUnderwritingInfo(grossUnderwritingInfo, 0d)
 
-        assertEquals "premium written", stopLoss.parmContractStrategy.premium * grossUnderwritingInfo.premiumWritten, cededUnderwritingInfo.premiumWritten
-        assertEquals "premium written as if", stopLoss.parmContractStrategy.premium * grossUnderwritingInfo.premiumWrittenAsIf, cededUnderwritingInfo.premiumWrittenAsIf
+        assertEquals "premium written", stopLoss.parmContractStrategy.premium * grossUnderwritingInfo.premium, cededUnderwritingInfo.premium
 
     }
 

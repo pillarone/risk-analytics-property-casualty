@@ -30,8 +30,7 @@ public class RiskToBandAllocatorStrategyTests extends GroovyTestCase {
         PacketList<UnderwritingInfo> underwritingInfos = []
         for (int i = 1; i <= n; i++) {
             underwritingInfos << new UnderwritingInfo(
-                    premiumWrittenAsIf: 100d * i,
-                    premiumWritten: 100d * i,
+                    premium: 100d * i,
                     numberOfPolicies: i,
                     sumInsured: 1000d * (2 * i - 1),
                     maxSumInsured: 1000d * 2 * i)
@@ -63,7 +62,7 @@ public class RiskToBandAllocatorStrategyTests extends GroovyTestCase {
     void testAllocateAttritionalClaims() {
         int n = 3;
         PacketList<UnderwritingInfo> underwritingInfos = getMockExposureData(n)
-        double totalPremium = underwritingInfos.premiumWritten.sum()
+        double totalPremium = underwritingInfos.premium.sum()
 
         double value = 1000d
         PacketList<Claim> claims = []
@@ -76,7 +75,7 @@ public class RiskToBandAllocatorStrategyTests extends GroovyTestCase {
         assertEquals(n, allocatedClaims.size())
         for (int i = 0; i < n; i++) {
             Claim claim = allocatedClaims[i]
-            assertEquals "ultimate $i", value * underwritingInfos[i].premiumWritten / totalPremium, claim.ultimate
+            assertEquals "ultimate $i", value * underwritingInfos[i].premium / totalPremium, claim.ultimate
             assertNotNull "exposure $i not null", claim.exposure
             assertEquals "exposure $i", claim.exposure, underwritingInfos[i]
         }
@@ -108,12 +107,12 @@ public class RiskToBandAllocatorStrategyTests extends GroovyTestCase {
     }
 
     // generate claims: Lower bands have more claims than higher bands
-    PacketList<Claim> getClaimsIncr(List<ExposureInfo> underwritingInfos, int multiplier) {
+    PacketList<Claim> getClaimsIncr(List<UnderwritingInfo> underwritingInfos, int multiplier) {
         int n = underwritingInfos.size()
         int numOfClaims = multiplier * n * (n + 1) / 2
         PacketList<Claim> claims = []
         for (int k = n; k > 0; k--) {
-            ExposureInfo exposure = underwritingInfos[n - k]
+            UnderwritingInfo exposure = underwritingInfos[n - k]
             double value = 0.5d * (exposure.sumInsured + exposure.maxSumInsured)
             for (int j = 0; j < k * multiplier; j++) {
                 claims << new Claim(claimType: ClaimType.SINGLE, value: value)
@@ -123,12 +122,12 @@ public class RiskToBandAllocatorStrategyTests extends GroovyTestCase {
     }
 
     // generate claims: Lower bands have less claims than higher bands
-    PacketList<Claim> getClaimsDecr(List<ExposureInfo> underwritingInfos, int multiplier) {
+    PacketList<Claim> getClaimsDecr(List<UnderwritingInfo> underwritingInfos, int multiplier) {
         int n = underwritingInfos.size()
         int numOfClaims = multiplier * n * (n + 1) / 2
         PacketList<Claim> claims = []
         for (int k = n; k > 0; k--) {
-            ExposureInfo exposure = underwritingInfos[k - 1]
+            UnderwritingInfo exposure = underwritingInfos[k - 1]
             double value = 0.5d * (exposure.sumInsured + exposure.maxSumInsured)
             for (int j = 0; j < k * multiplier; j++) {
                 claims << new Claim(claimType: ClaimType.SINGLE, value: value)

@@ -13,6 +13,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.claims.TestLobComponent
 import org.pillarone.riskanalytics.core.model.Model
 import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope
+import org.pillarone.riskanalytics.domain.pc.generators.claims.DevelopedTypableClaimsGenerator
 
 /**
  * @author ben.ginsberg (at) intuitive-collaboration (dot) com
@@ -20,6 +21,7 @@ import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope
 class DynamicMultiCoverAttributeReinsuranceProgramTests extends GroovyTestCase {
 
     DynamicMultiCoverAttributeReinsuranceProgram program
+    DevelopedTypableClaimsGenerator claimsGenerator = new DevelopedTypableClaimsGenerator()
 
     SimulationScope simulationScope = new SimulationScope()
 
@@ -36,15 +38,14 @@ class DynamicMultiCoverAttributeReinsuranceProgramTests extends GroovyTestCase {
 
     Map<String, TestLobComponent> lob = createLobs(['motor', 'property', 'legal'], simulationScope.model)
 
-    Claim attrMarketClaim1000 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 1000d, fractionOfPeriod: 0d, lineOfBusiness: lob['motor'])
-    Claim largeMarketClaim600 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 600d, fractionOfPeriod: 0d, lineOfBusiness: lob['motor'])
+    Claim attrMarketClaim1000 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 1000d, fractionOfPeriod: 0d, lineOfBusiness: lob['motor'], peril: claimsGenerator)
+    Claim largeMarketClaim600 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 600d, fractionOfPeriod: 0d, lineOfBusiness: lob['motor'], peril: claimsGenerator)
 
-    Claim attrClaim100 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 100d, fractionOfPeriod: 0d, originalClaim: attrMarketClaim1000, lineOfBusiness: lob['motor'])
-    Claim largeClaim60 = new Claim(claimType: ClaimType.SINGLE, ultimate: 60d, fractionOfPeriod: 0.1d, originalClaim: largeMarketClaim600, lineOfBusiness: lob['motor'])
+    Claim attrClaim100 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 100d, fractionOfPeriod: 0d, originalClaim: attrMarketClaim1000, lineOfBusiness: lob['motor'], peril: claimsGenerator)
+    Claim largeClaim60 = new Claim(claimType: ClaimType.SINGLE, ultimate: 60d, fractionOfPeriod: 0.1d, originalClaim: largeMarketClaim600, lineOfBusiness: lob['motor'], peril: claimsGenerator)
 
     UnderwritingInfo underwritingInfo1 = CommissionTests.getUnderwritingInfoFromSelf(
-            origin: new TestComponent(),
-            premiumWritten: 2000, premiumWrittenAsIf: 2000,
+            origin: new TestComponent(), premium: 2000,
             numberOfPolicies: 100, exposureDefinition: Exposure.ABSOLUTE, lineOfBusiness: lob['motor'])
 
     /**
@@ -143,19 +144,19 @@ class DynamicMultiCoverAttributeReinsuranceProgramTests extends GroovyTestCase {
         assertEquals "# quotaShare3 net uwinfo", 1, qs3UwInfoNet.size()
         assertEquals "# program net uwinfo", 1, endUwInfoNet.size()
 
-        assertEquals "quotaShare2 ceded premium", 200, qs2UwInfoCeded[0].premiumWritten
-        assertEquals "quotaShare2 net premium", 1800, qs2UwInfoNet[0].premiumWritten
+        assertEquals "quotaShare2 ceded premium", 200, qs2UwInfoCeded[0].premium
+        assertEquals "quotaShare2 net premium", 1800, qs2UwInfoNet[0].premium
 
-        assertEquals "quotaShare3 ceded premium", 30, qs3UwInfoCeded[0].premiumWritten
-        assertEquals "quotaShare3 net premium", 170, qs3UwInfoNet[0].premiumWritten
+        assertEquals "quotaShare3 ceded premium", 30, qs3UwInfoCeded[0].premium
+        assertEquals "quotaShare3 net premium", 170, qs3UwInfoNet[0].premium
 
-        assertEquals "quotaShare1 ceded premium", 46, qs1UwInfoCeded[0].premiumWritten
-        assertEquals "quotaShare1 net premium", 184, qs1UwInfoNet[0].premiumWritten
+        assertEquals "quotaShare1 ceded premium", 46, qs1UwInfoCeded[0].premium
+        assertEquals "quotaShare1 net premium", 184, qs1UwInfoNet[0].premium
 
-        assertEquals "program ceded premium from qs2 (ip1)", 200, endUwInfoCeded[0].premiumWritten
-        assertEquals "program ceded premium from qs3 (ip5)", 30, endUwInfoCeded[1].premiumWritten
-        assertEquals "program ceded premium from qs1 (ip9)", 46, endUwInfoCeded[2].premiumWritten
-        assertEquals "program net premium", 1724, endUwInfoNet[0].premiumWritten
+        assertEquals "program ceded premium from qs2 (ip1)", 200, endUwInfoCeded[0].premium
+        assertEquals "program ceded premium from qs3 (ip5)", 30, endUwInfoCeded[1].premium
+        assertEquals "program ceded premium from qs1 (ip9)", 46, endUwInfoCeded[2].premium
+        assertEquals "program net premium", 1724, endUwInfoNet[0].premium
     }
 
     /**
@@ -253,18 +254,18 @@ class DynamicMultiCoverAttributeReinsuranceProgramTests extends GroovyTestCase {
         assertEquals "# quotaShare3 net uwinfo", 1, qs3UwInfoNet.size()
         assertEquals "# program net uwinfo", 1, endUwInfoNet.size()
 
-        assertEquals "quotaShare2 ceded premium", 200, qs2UwInfoCeded[0].premiumWritten
-        assertEquals "quotaShare2 net premium", 1800, qs2UwInfoNet[0].premiumWritten
+        assertEquals "quotaShare2 ceded premium", 200, qs2UwInfoCeded[0].premium
+        assertEquals "quotaShare2 net premium", 1800, qs2UwInfoNet[0].premium
 
-        assertEquals "quotaShare3 ceded premium", 30, qs3UwInfoCeded[0].premiumWritten
-        assertEquals "quotaShare3 net premium", 170, qs3UwInfoNet[0].premiumWritten
+        assertEquals "quotaShare3 ceded premium", 30, qs3UwInfoCeded[0].premium
+        assertEquals "quotaShare3 net premium", 170, qs3UwInfoNet[0].premium
 
-        assertEquals "quotaShare1 ceded premium", 354, qs1UwInfoCeded[0].premiumWritten
-        assertEquals "quotaShare1 net premium", 1416, qs1UwInfoNet[0].premiumWritten
+        assertEquals "quotaShare1 ceded premium", 354, qs1UwInfoCeded[0].premium
+        assertEquals "quotaShare1 net premium", 1416, qs1UwInfoNet[0].premium
 
-        assertEquals "program ceded premium from qs2 (ip1)", 200, endUwInfoCeded[0].premiumWritten
-        assertEquals "program ceded premium from qs3 (ip5)", 30, endUwInfoCeded[1].premiumWritten
-        assertEquals "program ceded premium from qs1 (ip9)", 354, endUwInfoCeded[2].premiumWritten
-        assertEquals "program net premium", 1416, endUwInfoNet[0].premiumWritten
+        assertEquals "program ceded premium from qs2 (ip1)", 200, endUwInfoCeded[0].premium
+        assertEquals "program ceded premium from qs3 (ip5)", 30, endUwInfoCeded[1].premium
+        assertEquals "program ceded premium from qs1 (ip9)", 354, endUwInfoCeded[2].premium
+        assertEquals "program net premium", 1416, endUwInfoNet[0].premium
     }
 }

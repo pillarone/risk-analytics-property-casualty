@@ -26,14 +26,20 @@ class SurplusContractStrategy extends AbstractContractStrategy implements IReins
 
     public Map getParameters() {
         return ["retention": retention,
-            "lines": lines,
-            "defaultCededLossShare": defaultCededLossShare,
-            "coveredByReinsurer": coveredByReinsurer]
+                "lines": lines,
+                "defaultCededLossShare": defaultCededLossShare,
+                "coveredByReinsurer": coveredByReinsurer]
     }
 
     public double allocateCededClaim(Claim inClaim) {
         if (inClaim.hasExposureInfo()) {
-            return inClaim.ultimate * coveredByReinsurer * getFractionCeded(inClaim.exposure.sumInsured)
+            if (inClaim.ultimate > inClaim.exposure.sumInsured) {
+                // handle a total loss according to https://issuetracking.intuitive-collaboration.com/jira/browse/PMO-1261
+                return inClaim.ultimate * coveredByReinsurer * getFractionCeded(inClaim.ultimate)
+            }
+            else {
+                return inClaim.ultimate * coveredByReinsurer * getFractionCeded(inClaim.exposure.sumInsured)
+            }
         }
         else {
             return inClaim.ultimate * coveredByReinsurer * defaultCededLossShare
@@ -47,18 +53,19 @@ class SurplusContractStrategy extends AbstractContractStrategy implements IReins
     double getFractionCeded(double sumInsured) {
         if (sumInsured > 0) {
             return Math.min(Math.max(sumInsured - retention, 0), lines * retention) / sumInsured
-        } else {
+        }
+        else {
             return 0
         }
     }
 
     // todo: Are the definition for the as-if premium reasonable?
+
     UnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double initialReserves) {
         UnderwritingInfo cededUnderwritingInfo = UnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
         cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo?.originalUnderwritingInfo ? grossUnderwritingInfo.originalUnderwritingInfo : grossUnderwritingInfo
         double fractionCeded = getFractionCeded(cededUnderwritingInfo.sumInsured)
-        cededUnderwritingInfo.premiumWritten *= fractionCeded * coveredByReinsurer
-        cededUnderwritingInfo.premiumWrittenAsIf *= fractionCeded * coveredByReinsurer
+        cededUnderwritingInfo.premium *= fractionCeded * coveredByReinsurer
         cededUnderwritingInfo.sumInsured *= fractionCeded * coveredByReinsurer
         cededUnderwritingInfo.maxSumInsured *= fractionCeded * coveredByReinsurer
         cededUnderwritingInfo.commission = 0

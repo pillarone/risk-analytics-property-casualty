@@ -10,8 +10,7 @@ class UnderwritingInfoWithLossProbabilityTests extends GroovyTestCase {
 
     static UnderwritingInfoWithLossProbability getUnderwritingInfo() {
         return new UnderwritingInfoWithLossProbability(
-                premiumWritten: 2000,
-                premiumWrittenAsIf: 2000,
+                premium: 2000,
                 numberOfPolicies: 100,
                 lossProbability: 0.1,
                 exposureDefinition: Exposure.ABSOLUTE)
@@ -19,8 +18,7 @@ class UnderwritingInfoWithLossProbabilityTests extends GroovyTestCase {
 
     static UnderwritingInfoWithLossProbability getUnderwritingInfo2() {
         return new UnderwritingInfoWithLossProbability(
-                premiumWritten: 500,
-                premiumWrittenAsIf: 500,
+                premium: 500,
                 numberOfPolicies: 100,
                 lossProbability: 0.05,
                 exposureDefinition: Exposure.ABSOLUTE)
@@ -28,8 +26,7 @@ class UnderwritingInfoWithLossProbabilityTests extends GroovyTestCase {
 
     static UnderwritingInfoWithLossProbability getUnderwritingInfo3() {
         return new UnderwritingInfoWithLossProbability(
-                premiumWritten: 1500,
-                premiumWrittenAsIf: 1500,
+                premium: 1500,
                 numberOfPolicies: 100,
                 lossProbability: 0.03,
                 exposureDefinition: Exposure.ABSOLUTE)
@@ -46,15 +43,13 @@ class UnderwritingInfoWithLossProbabilityTests extends GroovyTestCase {
     void testAdd() {
         UnderwritingInfoWithLossProbability underwritingInfo0 = new UnderwritingInfoWithLossProbability()
         UnderwritingInfoWithLossProbability underwritingInfo1 = new UnderwritingInfoWithLossProbability(
-                premiumWritten: 2000,
-                premiumWrittenAsIf: 2000,
+                premium: 2000,
                 numberOfPolicies: 100,
                 lossProbability: 0.02,
                 exposureDefinition: Exposure.ABSOLUTE,
         )
         underwritingInfo0.plus underwritingInfo1
-        assertEquals "premium written", underwritingInfo1.premiumWritten, underwritingInfo0.premiumWritten
-        assertEquals "premium written as if", underwritingInfo1.premiumWrittenAsIf, underwritingInfo0.premiumWrittenAsIf
+        assertEquals "premium written", underwritingInfo1.premium, underwritingInfo0.premium
         assertEquals "numberOfPolicies", underwritingInfo1.numberOfPolicies, underwritingInfo0.numberOfPolicies
        // assertEquals "lossProbability", underwritingInfo1.lossProbability, underwritingInfo0.lossProbability
     }

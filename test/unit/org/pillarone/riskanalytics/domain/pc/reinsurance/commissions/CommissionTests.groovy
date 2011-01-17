@@ -54,14 +54,14 @@ class CommissionTests extends GroovyTestCase {
     }
 
     static UnderwritingInfo getUnderwritingInfo(double premiumWritten, double priorCommission=0) {
-        UnderwritingInfo parent = new UnderwritingInfo(premiumWritten: premiumWritten, commission: priorCommission)
+        UnderwritingInfo parent = new UnderwritingInfo(premium: premiumWritten, commission: priorCommission)
         UnderwritingInfo child = UnderwritingInfoPacketFactory.copy(parent)
         child.originalUnderwritingInfo = parent
         return child
     }
 
     static UnderwritingInfo getUnderwritingInfoFromOrigin(double premiumWritten, double priorCommission=0, Component origin=null) {
-        UnderwritingInfo parent = new UnderwritingInfo(premiumWritten: premiumWritten, commission: priorCommission,
+        UnderwritingInfo parent = new UnderwritingInfo(premium: premiumWritten, commission: priorCommission,
                                                        origin: origin ? origin : new TestComponent())
         UnderwritingInfo child = UnderwritingInfoPacketFactory.copy(parent)
         child.originalUnderwritingInfo = parent
@@ -69,7 +69,7 @@ class CommissionTests extends GroovyTestCase {
     }
 
     static UnderwritingInfo getUnderwritingInfoFromContract(double premiumWritten, double priorCommission=0, IReinsuranceContractMarker contract) {
-        UnderwritingInfo parent = new UnderwritingInfo(premiumWritten: premiumWritten, commission: priorCommission,
+        UnderwritingInfo parent = new UnderwritingInfo(premium: premiumWritten, commission: priorCommission,
                                                        reinsuranceContract: contract)
         UnderwritingInfo child = UnderwritingInfoPacketFactory.copy(parent)
         child.originalUnderwritingInfo = parent
@@ -92,8 +92,8 @@ class CommissionTests extends GroovyTestCase {
         SimulationScope simulationScope = getTestSimulationScope(2010)
         commission.setSimulationScope simulationScope
 
-        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: 50)
-        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: 5)
+        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premium: 200, commission: 50)
+        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premium: 100, commission: 5)
         commission.inUnderwritingInfo << underwritingInfo200 << underwritingInfo100
 
         commission.doCalculation()
@@ -116,8 +116,8 @@ class CommissionTests extends GroovyTestCase {
 
         commission.setSimulationScope getTestSimulationScope(2010)
 
-        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: -50)
-        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: -5)
+        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premium: 200, commission: -50)
+        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premium: 100, commission: -5)
         commission.inUnderwritingInfo << underwritingInfo200 << underwritingInfo100
 
         commission.doCalculation()
@@ -137,7 +137,7 @@ class CommissionTests extends GroovyTestCase {
         commission.inUnderwritingInfo << getUnderwritingInfo(50d, -0d)
         commission.inClaims << claim01
         commission.doCalculation()
-        assertEquals 'totalPremiumWritten', 50, commission.outUnderwritingInfoModified[0].premiumWritten
+        assertEquals 'totalPremiumWritten', 50, commission.outUnderwritingInfoModified[0].premium
         assertEquals 'underwritingInfo050 (1)', -50 * 0.2, commission.outUnderwritingInfoModified[0].commission, 1E-10
 
         commission = getSlidingCommission()
@@ -194,7 +194,7 @@ class CommissionTests extends GroovyTestCase {
 
         commission.inClaims << new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 50d)
 
-        commission.inUnderwritingInfo << new UnderwritingInfo(premiumWritten: 100, commission: -0)
+        commission.inUnderwritingInfo << new UnderwritingInfo(premium: 100, commission: -0)
 
         commission.doCalculation()
 

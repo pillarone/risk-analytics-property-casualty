@@ -23,6 +23,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingSegment
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.PremiumAllocationType
+import org.pillarone.riskanalytics.domain.pc.generators.claims.DevelopedTypableClaimsGenerator
 
 /**
  * @author shartmann (at) munichre (dot) com
@@ -32,10 +33,11 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
     ReinsuranceWithBouquetCommissionProgram program
     UnderwritingSegment underwritingSegment
 
-    Claim attrMarketClaim1000 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 1000d, fractionOfPeriod: 0d)
-    Claim largeMarketClaim600 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 600d, fractionOfPeriod: 0d)
-    Claim attrClaim100 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 100d, fractionOfPeriod: 0d, originalClaim: attrMarketClaim1000)
-    Claim largeClaim60 = new Claim(claimType: ClaimType.SINGLE, ultimate: 60d, fractionOfPeriod: 0.1d, originalClaim: largeMarketClaim600)
+    DevelopedTypableClaimsGenerator claimsGenerator = new DevelopedTypableClaimsGenerator()
+    Claim attrMarketClaim1000 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 1000d, fractionOfPeriod: 0d, peril: claimsGenerator)
+    Claim largeMarketClaim600 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 600d, fractionOfPeriod: 0d, peril: claimsGenerator)
+    Claim attrClaim100 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 100d, fractionOfPeriod: 0d, originalClaim: attrMarketClaim1000, peril: claimsGenerator)
+    Claim largeClaim60 = new Claim(claimType: ClaimType.SINGLE, ultimate: 60d, fractionOfPeriod: 0.1d, originalClaim: largeMarketClaim600, peril: claimsGenerator)
 
     static MultiCoverAttributeReinsuranceContract getQuotaShare(int quotaShare/*units=percent!*/, int priority, double limit = 0d) {
         new MultiCoverAttributeReinsuranceContract(
@@ -97,8 +99,7 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
         program.subContracts.addSubComponent(quotaShare3)
         program.inClaims << attrClaim100 << largeClaim60
         program.inUnderwritingInfo << CommissionTests.getUnderwritingInfoFromSelf(
-                                            premiumWritten: 2000, premiumWrittenAsIf: 2000,
-                                            numberOfPolicies: 100, exposureDefinition: Exposure.ABSOLUTE)
+                                            premium: 2000, numberOfPolicies: 100, exposureDefinition: Exposure.ABSOLUTE)
 
         program.internalWiring()
 
@@ -153,8 +154,7 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
         program.subContracts.addSubComponent(wxl20xs30)
         program.inClaims << attrClaim100 << largeClaim60
         program.inUnderwritingInfo << CommissionTests.getUnderwritingInfoFromSelf(
-                                            premiumWritten: 2000, premiumWrittenAsIf: 2000,
-                                            numberOfPolicies: 100, exposureDefinition: Exposure.ABSOLUTE)
+                                            premium: 2000, numberOfPolicies: 100, exposureDefinition: Exposure.ABSOLUTE)
 
         program.internalWiring()
 
@@ -224,12 +224,12 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
     }
 
     void testUsageQS_3WXL() {
-        Claim attrMarketClaim1000 = new Claim(claimType: ClaimType.ATTRITIONAL, value: 1000d, fractionOfPeriod: 0d)
-        Claim attrClaim100 = new Claim(claimType: ClaimType.ATTRITIONAL, value: 100d, fractionOfPeriod: 0d, originalClaim: attrMarketClaim1000)
-        Claim largeMarketClaim600 = new Claim(claimType: ClaimType.ATTRITIONAL, value: 600d, fractionOfPeriod: 0d)
-        Claim largeClaim60 = new Claim(claimType: ClaimType.SINGLE, value: 60d, fractionOfPeriod: 0.1d, originalClaim: largeMarketClaim600)
-        Claim largeClaim900 = new Claim(claimType: ClaimType.SINGLE, value: 900d, fractionOfPeriod: 0.2d)
-        Claim largeClaim90 = new Claim(claimType: ClaimType.SINGLE, value: 90d, fractionOfPeriod: 0.2d, originalClaim: largeClaim900)
+        Claim attrMarketClaim1000 = new Claim(claimType: ClaimType.ATTRITIONAL, value: 1000d, fractionOfPeriod: 0d, peril: claimsGenerator)
+        Claim attrClaim100 = new Claim(claimType: ClaimType.ATTRITIONAL, value: 100d, fractionOfPeriod: 0d, originalClaim: attrMarketClaim1000, peril: claimsGenerator)
+        Claim largeMarketClaim600 = new Claim(claimType: ClaimType.ATTRITIONAL, value: 600d, fractionOfPeriod: 0d, peril: claimsGenerator)
+        Claim largeClaim60 = new Claim(claimType: ClaimType.SINGLE, value: 60d, fractionOfPeriod: 0.1d, originalClaim: largeMarketClaim600, peril: claimsGenerator)
+        Claim largeClaim900 = new Claim(claimType: ClaimType.SINGLE, value: 900d, fractionOfPeriod: 0.2d, peril: claimsGenerator)
+        Claim largeClaim90 = new Claim(claimType: ClaimType.SINGLE, value: 90d, fractionOfPeriod: 0.2d, originalClaim: largeClaim900, peril: claimsGenerator)
 
         program = new ReinsuranceWithBouquetCommissionProgram()
 
@@ -248,8 +248,7 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
         program.subContracts.addSubComponent(wxl20xs30)
         program.inClaims << attrClaim100 << largeClaim60 << largeClaim90
         UnderwritingInfo underwritingInfo = CommissionTests.getUnderwritingInfoFromSelf(
-                                            premiumWritten: 2000, premiumWrittenAsIf: 2000,
-                                            numberOfPolicies: 100, exposureDefinition: Exposure.ABSOLUTE)
+                                            premium: 2000, numberOfPolicies: 100, exposureDefinition: Exposure.ABSOLUTE)
         underwritingInfo.originalUnderwritingInfo = underwritingInfo
         program.inUnderwritingInfo << underwritingInfo
 
@@ -377,8 +376,7 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
         // cf: CommissionTests.getUnderwritingInfoFromOrigin; here, we want the origin and its copy to have different fields (..AsIf, #ofPolicies, exposure).
         Component origin1 = new TestComponent()
         UnderwritingInfo uIOrigin1 = new UnderwritingInfo(origin: origin1,
-                                                          premiumWritten: 2000, premiumWrittenAsIf: 2000,
-                                                          numberOfPolicies: 100, exposureDefinition: Exposure.ABSOLUTE)
+                                                          premium: 2000, numberOfPolicies: 100, exposureDefinition: Exposure.ABSOLUTE)
         UnderwritingInfo uwInfo1 = UnderwritingInfoPacketFactory.copy(uIOrigin1)
         uwInfo1.originalUnderwritingInfo = uIOrigin1
         uwInfo1.origin = origin1
@@ -439,17 +437,17 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
             'program.Contracts.outClaimsGross': ['component': program.subContracts, 'channel': 'outClaimsGross', 'count': 2],
             'program.Contracts.outClaimsCeded': ['component': program.subContracts, 'channel': 'outClaimsCeded', 'count': 6],
             'program.Contracts.outClaimsNet': ['component': program.subContracts, 'channel': 'outClaimsNet', 'count': 2],
-            'program.Contracts.outCoverUnderwritingInfo': ['component': program.subContracts, 'channel': 'outCoverUnderwritingInfo', 'values': ['premiumWritten': [200,270,306], 'commission': [-20,-54,-30.6]], 'count': 3],
-            'program.Contracts.outNetAfterCoverUnderwritingInfo': ['component': program.subContracts, 'channel': 'outNetAfterCoverUnderwritingInfo', 'values': ['premiumWritten': [1224], 'commission': [0]], 'count': 1],
+            'program.Contracts.outCoverUnderwritingInfo': ['component': program.subContracts, 'channel': 'outCoverUnderwritingInfo', 'values': ['premium': [200,270,306], 'commission': [-20,-54,-30.6]], 'count': 3],
+            'program.Contracts.outNetAfterCoverUnderwritingInfo': ['component': program.subContracts, 'channel': 'outNetAfterCoverUnderwritingInfo', 'values': ['premium': [1224], 'commission': [0]], 'count': 1],
             'program.uwInfoMerger.outUnderwritingInfoGross': ['component': program.underwritingInfoMerger, 'channel': 'outUnderwritingInfoGross', 'count': 1],
             'program.uwInfoMerger.outUnderwritingInfoCeded': ['component': program.underwritingInfoMerger, 'channel': 'outUnderwritingInfoCeded', 'count': 1],
             'program.uwInfoMerger.outUnderwritingInfoNet': ['component': program.underwritingInfoMerger, 'channel': 'outUnderwritingInfoNet', 'count': 1],
-            'program.Commissions.outUnderwritingInfoModified': ['component': program.subCommissions, 'channel': 'outUnderwritingInfoModified', 'values': ['premiumWritten': [270,200,306], 'commission': [-54,-20,-30.6]], 'count': 3],
+            'program.Commissions.outUnderwritingInfoModified': ['component': program.subCommissions, 'channel': 'outUnderwritingInfoModified', 'values': ['premium': [270,200,306], 'commission': [-54,-20,-30.6]], 'count': 3],
             'program.Commissions.outUnderwritingInfoUnmodified': ['component': program.subCommissions, 'channel': 'outUnderwritingInfoUnmodified', 'count': 0],
             'program.financialsAggregator.outContractFinancials': ['component': program.financialsAggregator, 'channel': 'outContractFinancials', 'count': 1],
-            'program.outCoverUnderwritingInfo': ['component': program, 'channel': 'outCoverUnderwritingInfo', 'values': ['premiumWritten': [776], 'commission': [-104.6]], 'count': 1],
-            'program.outUnderwritingInfo': ['component': program, 'channel': 'outUnderwritingInfo', 'values': ['premiumWritten': [2000], 'commission': [0]], 'count': 1],
-            'program.outNetAfterCoverUnderwritingInfo': ['component': program, 'channel': 'outNetAfterCoverUnderwritingInfo', 'values': ['premiumWritten': [1224], 'commission': [104.6]], 'count': 1],
+            'program.outCoverUnderwritingInfo': ['component': program, 'channel': 'outCoverUnderwritingInfo', 'values': ['premium': [776], 'commission': [-104.6]], 'count': 1],
+            'program.outUnderwritingInfo': ['component': program, 'channel': 'outUnderwritingInfo', 'values': ['premium': [2000], 'commission': [0]], 'count': 1],
+            'program.outNetAfterCoverUnderwritingInfo': ['component': program, 'channel': 'outNetAfterCoverUnderwritingInfo', 'values': ['premium': [1224], 'commission': [104.6]], 'count': 1],
         ]
         for (Map.Entry<String, Map<String, Object>> entry : results.entrySet()) {
             Map<Component, String> map = (Map<Component, String>) entry.getValue()

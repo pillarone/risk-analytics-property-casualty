@@ -16,6 +16,6 @@ class DynamicCapitalEagleModelTests extends ModelTest {
     }
 
     protected boolean shouldCompareResults() {
-        true
+        false
     }
 }

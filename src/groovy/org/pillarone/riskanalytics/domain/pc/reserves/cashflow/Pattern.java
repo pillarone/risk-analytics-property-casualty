@@ -20,6 +20,34 @@ public class Pattern {
         cumulativeValues = strategy.getCumulativePatternValues();
     }
 
+    public double remainingPaid(int elapsedMonths) {
+        int indexAboveElapsedMonths = 0;
+        for (int i = 0; i < cumulativePeriods.size(); i++) {
+            if (elapsedMonths < cumulativePeriods.get(i).getMonths()) {
+                indexAboveElapsedMonths = i;
+                double periodRatio = (elapsedMonths - cumulativePeriods.get(indexAboveElapsedMonths - 1).getMonths())
+                    / (double) (cumulativePeriods.get(indexAboveElapsedMonths).getMonths() - cumulativePeriods.get(indexAboveElapsedMonths - 1).getMonths());
+                double paidPortion = (cumulativeValues.get(indexAboveElapsedMonths) - cumulativeValues.get(indexAboveElapsedMonths - 1)) * periodRatio;
+                return 1 - cumulativeValues.get(indexAboveElapsedMonths - 1) - paidPortion;
+            }
+            else if (elapsedMonths == cumulativePeriods.get(i).getMonths()) {
+                return 1 - cumulativeValues.get(i);
+            }
+        }
+        // elapseMonths is after latest period
+        return 0d;
+    }
+
+    public Integer nextPayoutIndex(int elapsedMonths) {
+        for (int i = 0; i < cumulativePeriods.size(); i++) {
+            if (elapsedMonths < cumulativePeriods.get(i).getMonths()) {
+                return i;
+            }
+        }
+        // elapseMonths is after latest period
+        return null;
+    }
+
     public int size() {
         return cumulativeValues.size();
     }

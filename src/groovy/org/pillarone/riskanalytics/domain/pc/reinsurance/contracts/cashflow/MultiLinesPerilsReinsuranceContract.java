@@ -276,11 +276,11 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
     }
 
     protected void setOriginalUnderwritingInfo(UnderwritingInfo underwritingInfo, UnderwritingInfo derivedUnderwritingInfo) {
-        if (underwritingInfo != null && underwritingInfo.originalUnderwritingInfo != null) {
-            derivedUnderwritingInfo.originalUnderwritingInfo = underwritingInfo.originalUnderwritingInfo;
+        if (underwritingInfo != null && underwritingInfo.getOriginalUnderwritingInfo() != null) {
+            derivedUnderwritingInfo.setOriginalUnderwritingInfo(underwritingInfo.getOriginalUnderwritingInfo());
         }
         else {
-            derivedUnderwritingInfo.originalUnderwritingInfo = underwritingInfo;
+            derivedUnderwritingInfo.setOriginalUnderwritingInfo(underwritingInfo);
         }
     }
 

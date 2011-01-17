@@ -46,7 +46,7 @@ public class InterpolatedSlidingCommissionStrategy implements ICommissionStrateg
             totalClaims += claim.getUltimate();
         }
         for (UnderwritingInfo underwritingInfo : underwritingInfos) {
-            totalPremium += underwritingInfo.getPremiumWritten();
+            totalPremium += underwritingInfo.getPremium();
         }
         double totalLossRatio = totalClaims / totalPremium;
         double commissionRate;
@@ -74,7 +74,7 @@ public class InterpolatedSlidingCommissionStrategy implements ICommissionStrateg
 
         if (isAdditive) {
             for (UnderwritingInfo underwritingInfo : underwritingInfos) {
-                double premiumWritten = underwritingInfo.getPremiumWritten();
+                double premiumWritten = underwritingInfo.getPremium();
                 underwritingInfo.setCommission(underwritingInfo.getCommission() - premiumWritten * commissionRate);
                 underwritingInfo.setFixedCommission(underwritingInfo.getFixedCommission() - premiumWritten * fixedCommissionRate);
                 underwritingInfo.setVariableCommission(underwritingInfo.getVariableCommission() - premiumWritten * (commissionRate - fixedCommissionRate));
@@ -82,7 +82,7 @@ public class InterpolatedSlidingCommissionStrategy implements ICommissionStrateg
         }
         else {
             for (UnderwritingInfo underwritingInfo : underwritingInfos) {
-                double premiumWritten = underwritingInfo.getPremiumWritten();
+                double premiumWritten = underwritingInfo.getPremium();
                 underwritingInfo.setCommission(-premiumWritten * commissionRate);
                 underwritingInfo.setFixedCommission(-premiumWritten * fixedCommissionRate);
                 underwritingInfo.setVariableCommission(-premiumWritten * (commissionRate - fixedCommissionRate));

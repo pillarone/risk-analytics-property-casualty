@@ -10,32 +10,29 @@ class RiskBandsWithLossProbabilityTests extends GroovyTestCase {
 
     static UnderwritingInfoWithLossProbability getUnderwritingInfo0() {
         return new UnderwritingInfoWithLossProbability(
-            premiumWrittenAsIf: 5000,
             numberOfPolicies: 1000,
             sumInsured: 80,
             maxSumInsured: 100,
             lossProbability: 0.1,
-            premiumWritten: 5000)
+            premium: 5000)
     }
     // second band: ceded = (200-100)/200 = 0.5
     static UnderwritingInfoWithLossProbability getUnderwritingInfo1() {
         return new UnderwritingInfoWithLossProbability(
-            premiumWrittenAsIf: 2000,
             numberOfPolicies: 100,
             sumInsured: 200,
             maxSumInsured: 400,
             lossProbability: 0.05,
-            premiumWritten: 2000)
+            premium: 2000)
     }
     // third band: ceded = (400-100)/500 = 0.6
     static UnderwritingInfoWithLossProbability getUnderwritingInfo2() {
         return new UnderwritingInfoWithLossProbability(
-            premiumWrittenAsIf: 4000,
             numberOfPolicies: 50,
             sumInsured: 500,
             maxSumInsured: 800,
             lossProbability: 0.01,
-            premiumWritten: 4000)
+            premium: 4000)
     }
 
     static List<UnderwritingInfoWithLossProbability> getUnderwritingInfos() {

@@ -16,6 +16,6 @@ class MultiCompanyModelTests extends ModelTest {
     }
 
     protected boolean shouldCompareResults() {
-        true
+        false
     }
 }

@@ -21,8 +21,7 @@ import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
 import org.pillarone.riskanalytics.domain.pc.constraints.SegmentPortion
-import org.pillarone.riskanalytics.domain.pc.claims.TestReserveComponent
-import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
+
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.ICommissionStrategy
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
 
@@ -244,8 +243,8 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         Claim claim3 = new Claim(peril: perilB, lineOfBusiness: lob['motor'], value: 200d, claimType: ClaimType.SINGLE)
         Claim claim4 = new Claim(peril: perilB, lineOfBusiness: lob['motor'], value: 400d, claimType: ClaimType.SINGLE)
 
-        UnderwritingInfo underwritingInfoMotor15000 = new UnderwritingInfo(premiumWritten: 15000, commission: 200, lineOfBusiness: lob['motor'])
-        UnderwritingInfo underwritingInfoMotor10000 = new UnderwritingInfo(premiumWritten: 10000, commission: 100, lineOfBusiness: lob['motor'])
+        UnderwritingInfo underwritingInfoMotor15000 = new UnderwritingInfo(premium: 15000, commission: 200, lineOfBusiness: lob['motor'])
+        UnderwritingInfo underwritingInfoMotor10000 = new UnderwritingInfo(premium: 10000, commission: 100, lineOfBusiness: lob['motor'])
 
         wxlContract1.inClaims << claim1 << claim2 << claim3 << claim4
         wxlContract1.inUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor10000
@@ -260,14 +259,14 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         assertEquals "# of filtered UWInfo", 2, wxlContract1.outFilteredUnderwritingInfo.size()
         assertEquals "# of cover UWInfo", 2, wxlContract1.outCoverUnderwritingInfo.size()
 
-        assertEquals "ceded underwriting info premium 15000", 3000, wxlContract1.outCoverUnderwritingInfo[0].premiumWritten
-        assertEquals "ceded underwriting info premium 10000", 2000, wxlContract1.outCoverUnderwritingInfo[1].premiumWritten
+        assertEquals "ceded underwriting info premium 15000", 3000, wxlContract1.outCoverUnderwritingInfo[0].premium
+        assertEquals "ceded underwriting info premium 10000", 2000, wxlContract1.outCoverUnderwritingInfo[1].premium
         // todo: fix commission calculation
 //        assertEquals "ceded underwriting info commission 15000", 0, wxlContract1.outCoverUnderwritingInfo[0].commission
 //        assertEquals "ceded underwriting info commission 10000", 0, wxlContract1.outCoverUnderwritingInfo[1].commission
 
-        assertEquals "net underwriting info premium 15000", 12000, wxlContract1.outNetAfterCoverUnderwritingInfo[0].premiumWritten
-        assertEquals "net underwriting info premium 10000", 8000, wxlContract1.outNetAfterCoverUnderwritingInfo[1].premiumWritten
+        assertEquals "net underwriting info premium 15000", 12000, wxlContract1.outNetAfterCoverUnderwritingInfo[0].premium
+        assertEquals "net underwriting info premium 10000", 8000, wxlContract1.outNetAfterCoverUnderwritingInfo[1].premium
         // todo: fix commission calculation
 //        assertEquals "net underwriting info commission 15000", 200, wxlContract1.outNetAfterCoverUnderwritingInfo[0].commission
 //        assertEquals "net underwriting info commission 10000", 100, wxlContract1.outNetAfterCoverUnderwritingInfo[1].commission
@@ -296,10 +295,10 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         Claim claim7 = new Claim(peril: perilB, lineOfBusiness: lob['property'], value: 200d, claimType: ClaimType.SINGLE)
         Claim claim8 = new Claim(peril: perilB, lineOfBusiness: lob['property'], value: 400d, claimType: ClaimType.SINGLE)
 
-        UnderwritingInfo underwritingInfoMotor15000 = new UnderwritingInfo(premiumWritten: 15000, commission: 200, lineOfBusiness: lob['motor'])
-        UnderwritingInfo underwritingInfoMotor5000 = new UnderwritingInfo(premiumWritten: 5000, commission: 100, lineOfBusiness: lob['motor'])
-        UnderwritingInfo underwritingInfoProperty3000 = new UnderwritingInfo(premiumWritten: 3000, commission: 100, lineOfBusiness: lob['property'])
-        UnderwritingInfo underwritingInfoProperty2000 = new UnderwritingInfo(premiumWritten: 2000, commission: 100, lineOfBusiness: lob['property'])
+        UnderwritingInfo underwritingInfoMotor15000 = new UnderwritingInfo(premium: 15000, commission: 200, lineOfBusiness: lob['motor'])
+        UnderwritingInfo underwritingInfoMotor5000 = new UnderwritingInfo(premium: 5000, commission: 100, lineOfBusiness: lob['motor'])
+        UnderwritingInfo underwritingInfoProperty3000 = new UnderwritingInfo(premium: 3000, commission: 100, lineOfBusiness: lob['property'])
+        UnderwritingInfo underwritingInfoProperty2000 = new UnderwritingInfo(premium: 2000, commission: 100, lineOfBusiness: lob['property'])
 
         wxlContract1.inClaims << claim1 << claim2 << claim3 << claim4 << claim5 << claim6 << claim7 << claim8
         wxlContract1.inUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor5000 << underwritingInfoProperty3000 <<underwritingInfoProperty2000
@@ -314,15 +313,15 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         assertEquals "# of filtered UWInfo", 4, wxlContract1.outFilteredUnderwritingInfo.size()
         assertEquals "# of cover UWInfo", 4, wxlContract1.outCoverUnderwritingInfo.size()
 
-        assertEquals "ceded underwriting info premium motor 15000", 3000, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor15000}.premiumWritten
-        assertEquals "ceded underwriting info premium motor 5000", 1000, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor5000}.premiumWritten
-        assertEquals "ceded underwriting info premium property 3000", 600, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty3000}.premiumWritten
-        assertEquals "ceded underwriting info premium property 2000", 400, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty2000}.premiumWritten
+        assertEquals "ceded underwriting info premium motor 15000", 3000, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor15000}.premium
+        assertEquals "ceded underwriting info premium motor 5000", 1000, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor5000}.premium
+        assertEquals "ceded underwriting info premium property 3000", 600, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty3000}.premium
+        assertEquals "ceded underwriting info premium property 2000", 400, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty2000}.premium
 
-        assertEquals "net underwriting info premium motor 15000", 12000, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor15000}.premiumWritten
-        assertEquals "net underwriting info premium motor 10000", 4000, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor5000}.premiumWritten
-        assertEquals "net underwriting info premium property 10000", 2400, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty3000}.premiumWritten
-        assertEquals "net underwriting info premium property 10000", 1600, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty2000}.premiumWritten
+        assertEquals "net underwriting info premium motor 15000", 12000, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor15000}.premium
+        assertEquals "net underwriting info premium motor 10000", 4000, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor5000}.premium
+        assertEquals "net underwriting info premium property 10000", 2400, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty3000}.premium
+        assertEquals "net underwriting info premium property 10000", 1600, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty2000}.premium
     }
 
     void testPremiumSharesNoCededClaims() {
@@ -347,10 +346,10 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         Claim claim7 = new Claim(peril: perilB, lineOfBusiness: lob['property'], value: 0d, claimType: ClaimType.SINGLE)
         Claim claim8 = new Claim(peril: perilB, lineOfBusiness: lob['property'], value: 0d, claimType: ClaimType.SINGLE)
 
-        UnderwritingInfo underwritingInfoMotor15000 = new UnderwritingInfo(premiumWritten: 15000, commission: 200, lineOfBusiness: lob['motor'])
-        UnderwritingInfo underwritingInfoMotor5000 = new UnderwritingInfo(premiumWritten: 5000, commission: 100, lineOfBusiness: lob['motor'])
-        UnderwritingInfo underwritingInfoProperty3000 = new UnderwritingInfo(premiumWritten: 3000, commission: 100, lineOfBusiness: lob['property'])
-        UnderwritingInfo underwritingInfoProperty2000 = new UnderwritingInfo(premiumWritten: 2000, commission: 100, lineOfBusiness: lob['property'])
+        UnderwritingInfo underwritingInfoMotor15000 = new UnderwritingInfo(premium: 15000, commission: 200, lineOfBusiness: lob['motor'])
+        UnderwritingInfo underwritingInfoMotor5000 = new UnderwritingInfo(premium: 5000, commission: 100, lineOfBusiness: lob['motor'])
+        UnderwritingInfo underwritingInfoProperty3000 = new UnderwritingInfo(premium: 3000, commission: 100, lineOfBusiness: lob['property'])
+        UnderwritingInfo underwritingInfoProperty2000 = new UnderwritingInfo(premium: 2000, commission: 100, lineOfBusiness: lob['property'])
 
         wxlContract1.inClaims << claim1 << claim2 << claim3 << claim4 << claim5 << claim6 << claim7 << claim8
         wxlContract1.inUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor5000 << underwritingInfoProperty3000 <<underwritingInfoProperty2000
@@ -365,15 +364,15 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         assertEquals "# of filtered UWInfo", 4, wxlContract1.outFilteredUnderwritingInfo.size()
         assertEquals "# of cover UWInfo", 4, wxlContract1.outCoverUnderwritingInfo.size()
 
-        assertEquals "ceded underwriting info premium motor 15000", 3000, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor15000}.premiumWritten
-        assertEquals "ceded underwriting info premium motor 5000", 1000, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor5000}.premiumWritten
-        assertEquals "ceded underwriting info premium property 3000", 600, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty3000}.premiumWritten
-        assertEquals "ceded underwriting info premium property 2000", 400, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty2000}.premiumWritten
+        assertEquals "ceded underwriting info premium motor 15000", 3000, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor15000}.premium
+        assertEquals "ceded underwriting info premium motor 5000", 1000, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor5000}.premium
+        assertEquals "ceded underwriting info premium property 3000", 600, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty3000}.premium
+        assertEquals "ceded underwriting info premium property 2000", 400, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty2000}.premium
 
-        assertEquals "net underwriting info premium motor 15000", 12000, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor15000}.premiumWritten
-        assertEquals "net underwriting info premium motor 10000", 4000, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor5000}.premiumWritten
-        assertEquals "net underwriting info premium property 3000", 2400, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty3000}.premiumWritten
-        assertEquals "net underwriting info premium property 2000", 1600, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty2000}.premiumWritten
+        assertEquals "net underwriting info premium motor 15000", 12000, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor15000}.premium
+        assertEquals "net underwriting info premium motor 10000", 4000, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor5000}.premium
+        assertEquals "net underwriting info premium property 3000", 2400, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty3000}.premium
+        assertEquals "net underwriting info premium property 2000", 1600, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty2000}.premium
     }
 
     void testLinesSharesOneLine() {
@@ -394,8 +393,8 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         Claim claim3 = new Claim(peril: perilB, lineOfBusiness: lob['motor'], value: 200d, claimType: ClaimType.SINGLE)
         Claim claim4 = new Claim(peril: perilB, lineOfBusiness: lob['motor'], value: 400d, claimType: ClaimType.SINGLE)
 
-        UnderwritingInfo underwritingInfoMotor15000 = new UnderwritingInfo(premiumWritten: 15000, commission: 200, lineOfBusiness: lob['motor'])
-        UnderwritingInfo underwritingInfoMotor10000 = new UnderwritingInfo(premiumWritten: 10000, commission: 100, lineOfBusiness: lob['motor'])
+        UnderwritingInfo underwritingInfoMotor15000 = new UnderwritingInfo(premium: 15000, commission: 200, lineOfBusiness: lob['motor'])
+        UnderwritingInfo underwritingInfoMotor10000 = new UnderwritingInfo(premium: 10000, commission: 100, lineOfBusiness: lob['motor'])
 
         wxlContract1.inClaims << claim1 << claim2 << claim3 << claim4
         wxlContract1.inUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor10000
@@ -410,14 +409,14 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         assertEquals "# of filtered UWInfo", 2, wxlContract1.outFilteredUnderwritingInfo.size()
         assertEquals "# of cover UWInfo", 2, wxlContract1.outCoverUnderwritingInfo.size()
 
-        assertEquals "ceded underwriting info premium 15000", 3000, wxlContract1.outCoverUnderwritingInfo[0].premiumWritten
-        assertEquals "ceded underwriting info premium 10000", 2000, wxlContract1.outCoverUnderwritingInfo[1].premiumWritten
+        assertEquals "ceded underwriting info premium 15000", 3000, wxlContract1.outCoverUnderwritingInfo[0].premium
+        assertEquals "ceded underwriting info premium 10000", 2000, wxlContract1.outCoverUnderwritingInfo[1].premium
         // todo: fix commission calculation
 //        assertEquals "ceded underwriting info commission 15000", 0, wxlContract1.outCoverUnderwritingInfo[0].commission
 //        assertEquals "ceded underwriting info commission 10000", 0, wxlContract1.outCoverUnderwritingInfo[1].commission
 
-        assertEquals "net underwriting info premium 15000", 12000, wxlContract1.outNetAfterCoverUnderwritingInfo[0].premiumWritten
-        assertEquals "net underwriting info premium 10000", 8000, wxlContract1.outNetAfterCoverUnderwritingInfo[1].premiumWritten
+        assertEquals "net underwriting info premium 15000", 12000, wxlContract1.outNetAfterCoverUnderwritingInfo[0].premium
+        assertEquals "net underwriting info premium 10000", 8000, wxlContract1.outNetAfterCoverUnderwritingInfo[1].premium
         // todo: fix commission calculation
 //        assertEquals "net underwriting info commission 15000", 200, wxlContract1.outNetAfterCoverUnderwritingInfo[0].commission
 //        assertEquals "net underwriting info commission 10000", 100, wxlContract1.outNetAfterCoverUnderwritingInfo[1].commission
@@ -446,10 +445,10 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         Claim claim7 = new Claim(peril: perilB, lineOfBusiness: lob['property'], value: 200d, claimType: ClaimType.SINGLE)
         Claim claim8 = new Claim(peril: perilB, lineOfBusiness: lob['property'], value: 400d, claimType: ClaimType.SINGLE)
 
-        UnderwritingInfo underwritingInfoMotor15000 = new UnderwritingInfo(premiumWritten: 15000, commission: 200, lineOfBusiness: lob['motor'])
-        UnderwritingInfo underwritingInfoMotor5000 = new UnderwritingInfo(premiumWritten: 5000, commission: 100, lineOfBusiness: lob['motor'])
-        UnderwritingInfo underwritingInfoProperty3000 = new UnderwritingInfo(premiumWritten: 3000, commission: 100, lineOfBusiness: lob['property'])
-        UnderwritingInfo underwritingInfoProperty2000 = new UnderwritingInfo(premiumWritten: 2000, commission: 100, lineOfBusiness: lob['property'])
+        UnderwritingInfo underwritingInfoMotor15000 = new UnderwritingInfo(premium: 15000, commission: 200, lineOfBusiness: lob['motor'])
+        UnderwritingInfo underwritingInfoMotor5000 = new UnderwritingInfo(premium: 5000, commission: 100, lineOfBusiness: lob['motor'])
+        UnderwritingInfo underwritingInfoProperty3000 = new UnderwritingInfo(premium: 3000, commission: 100, lineOfBusiness: lob['property'])
+        UnderwritingInfo underwritingInfoProperty2000 = new UnderwritingInfo(premium: 2000, commission: 100, lineOfBusiness: lob['property'])
 
         wxlContract1.inClaims << claim1 << claim2 << claim3 << claim4 << claim5 << claim6 << claim7 << claim8
         wxlContract1.inUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor5000 << underwritingInfoProperty3000 <<underwritingInfoProperty2000
@@ -464,15 +463,15 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         assertEquals "# of filtered UWInfo", 4, wxlContract1.outFilteredUnderwritingInfo.size()
         assertEquals "# of cover UWInfo", 4, wxlContract1.outCoverUnderwritingInfo.size()
 
-        assertEquals "ceded underwriting info premium motor 15000", 1500, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor15000}.premiumWritten, EPSILON
-        assertEquals "ceded underwriting info premium motor 5000", 500, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor5000}.premiumWritten
-        assertEquals "ceded underwriting info premium property 3000", 1800, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty3000}.premiumWritten
-        assertEquals "ceded underwriting info premium property 2000", 1200, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty2000}.premiumWritten
+        assertEquals "ceded underwriting info premium motor 15000", 1500, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor15000}.premium, EPSILON
+        assertEquals "ceded underwriting info premium motor 5000", 500, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor5000}.premium
+        assertEquals "ceded underwriting info premium property 3000", 1800, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty3000}.premium
+        assertEquals "ceded underwriting info premium property 2000", 1200, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty2000}.premium
 
-        assertEquals "net underwriting info premium motor 15000", 13500, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor15000}.premiumWritten, EPSILON
-        assertEquals "net underwriting info premium motor 5000", 4500, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor5000}.premiumWritten
-        assertEquals "net underwriting info premium property 3000", 1200, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty3000}.premiumWritten
-        assertEquals "net underwriting info premium property 2000", 800, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty2000}.premiumWritten
+        assertEquals "net underwriting info premium motor 15000", 13500, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor15000}.premium, EPSILON
+        assertEquals "net underwriting info premium motor 5000", 4500, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor5000}.premium
+        assertEquals "net underwriting info premium property 3000", 1200, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty3000}.premium
+        assertEquals "net underwriting info premium property 2000", 800, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty2000}.premium
     }
 
     void testLinesSharesNoCededClaims() {
@@ -497,10 +496,10 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         Claim claim7 = new Claim(peril: perilB, lineOfBusiness: lob['property'], value: 0d, claimType: ClaimType.SINGLE)
         Claim claim8 = new Claim(peril: perilB, lineOfBusiness: lob['property'], value: 0d, claimType: ClaimType.SINGLE)
 
-        UnderwritingInfo underwritingInfoMotor15000 = new UnderwritingInfo(premiumWritten: 15000, commission: 200, lineOfBusiness: lob['motor'])
-        UnderwritingInfo underwritingInfoMotor5000 = new UnderwritingInfo(premiumWritten: 5000, commission: 100, lineOfBusiness: lob['motor'])
-        UnderwritingInfo underwritingInfoProperty3000 = new UnderwritingInfo(premiumWritten: 3000, commission: 100, lineOfBusiness: lob['property'])
-        UnderwritingInfo underwritingInfoProperty2000 = new UnderwritingInfo(premiumWritten: 2000, commission: 100, lineOfBusiness: lob['property'])
+        UnderwritingInfo underwritingInfoMotor15000 = new UnderwritingInfo(premium: 15000, commission: 200, lineOfBusiness: lob['motor'])
+        UnderwritingInfo underwritingInfoMotor5000 = new UnderwritingInfo(premium: 5000, commission: 100, lineOfBusiness: lob['motor'])
+        UnderwritingInfo underwritingInfoProperty3000 = new UnderwritingInfo(premium: 3000, commission: 100, lineOfBusiness: lob['property'])
+        UnderwritingInfo underwritingInfoProperty2000 = new UnderwritingInfo(premium: 2000, commission: 100, lineOfBusiness: lob['property'])
 
         wxlContract1.inClaims << claim1 << claim2 << claim3 << claim4 << claim5 << claim6 << claim7 << claim8
         wxlContract1.inUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor5000 << underwritingInfoProperty3000 <<underwritingInfoProperty2000
@@ -515,15 +514,15 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         assertEquals "# of filtered UWInfo", 4, wxlContract1.outFilteredUnderwritingInfo.size()
         assertEquals "# of cover UWInfo", 4, wxlContract1.outCoverUnderwritingInfo.size()
 
-        assertEquals "ceded underwriting info premium motor 15000", 1500, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor15000}.premiumWritten, EPSILON
-        assertEquals "ceded underwriting info premium motor 5000", 500, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor5000}.premiumWritten
-        assertEquals "ceded underwriting info premium property 3000", 1800, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty3000}.premiumWritten
-        assertEquals "ceded underwriting info premium property 2000", 1200, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty2000}.premiumWritten
+        assertEquals "ceded underwriting info premium motor 15000", 1500, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor15000}.premium, EPSILON
+        assertEquals "ceded underwriting info premium motor 5000", 500, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor5000}.premium
+        assertEquals "ceded underwriting info premium property 3000", 1800, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty3000}.premium
+        assertEquals "ceded underwriting info premium property 2000", 1200, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty2000}.premium
 
-        assertEquals "net underwriting info premium motor 15000", 13500, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor15000}.premiumWritten, EPSILON
-        assertEquals "net underwriting info premium motor 5000", 4500, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor5000}.premiumWritten
-        assertEquals "net underwriting info premium property 3000", 1200, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty3000}.premiumWritten
-        assertEquals "net underwriting info premium property 2000", 800, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty2000}.premiumWritten
+        assertEquals "net underwriting info premium motor 15000", 13500, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor15000}.premium, EPSILON
+        assertEquals "net underwriting info premium motor 5000", 4500, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor5000}.premium
+        assertEquals "net underwriting info premium property 3000", 1200, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty3000}.premium
+        assertEquals "net underwriting info premium property 2000", 800, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty2000}.premium
     }
 
     
@@ -545,8 +544,8 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         Claim claim3 = new Claim(peril: perilB, lineOfBusiness: lob['motor'], value: 200d, claimType: ClaimType.SINGLE)
         Claim claim4 = new Claim(peril: perilB, lineOfBusiness: lob['motor'], value: 400d, claimType: ClaimType.SINGLE)
 
-        UnderwritingInfo underwritingInfoMotor15000 = new UnderwritingInfo(premiumWritten: 15000, commission: 200, lineOfBusiness: lob['motor'])
-        UnderwritingInfo underwritingInfoMotor10000 = new UnderwritingInfo(premiumWritten: 10000, commission: 100, lineOfBusiness: lob['motor'])
+        UnderwritingInfo underwritingInfoMotor15000 = new UnderwritingInfo(premium: 15000, commission: 200, lineOfBusiness: lob['motor'])
+        UnderwritingInfo underwritingInfoMotor10000 = new UnderwritingInfo(premium: 10000, commission: 100, lineOfBusiness: lob['motor'])
 
         wxlContract1.inClaims << claim1 << claim2 << claim3 << claim4
         wxlContract1.inUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor10000
@@ -561,14 +560,14 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         assertEquals "# of filtered UWInfo", 2, wxlContract1.outFilteredUnderwritingInfo.size()
         assertEquals "# of cover UWInfo", 2, wxlContract1.outCoverUnderwritingInfo.size()
 
-        assertEquals "ceded underwriting info premium 15000", 3000, wxlContract1.outCoverUnderwritingInfo[0].premiumWritten
-        assertEquals "ceded underwriting info premium 10000", 2000, wxlContract1.outCoverUnderwritingInfo[1].premiumWritten
+        assertEquals "ceded underwriting info premium 15000", 3000, wxlContract1.outCoverUnderwritingInfo[0].premium
+        assertEquals "ceded underwriting info premium 10000", 2000, wxlContract1.outCoverUnderwritingInfo[1].premium
         // todo: fix commission calculation
 //        assertEquals "ceded underwriting info commission 15000", 0, wxlContract1.outCoverUnderwritingInfo[0].commission
 //        assertEquals "ceded underwriting info commission 10000", 0, wxlContract1.outCoverUnderwritingInfo[1].commission
 
-        assertEquals "net underwriting info premium 15000", 12000, wxlContract1.outNetAfterCoverUnderwritingInfo[0].premiumWritten
-        assertEquals "net underwriting info premium 10000", 8000, wxlContract1.outNetAfterCoverUnderwritingInfo[1].premiumWritten
+        assertEquals "net underwriting info premium 15000", 12000, wxlContract1.outNetAfterCoverUnderwritingInfo[0].premium
+        assertEquals "net underwriting info premium 10000", 8000, wxlContract1.outNetAfterCoverUnderwritingInfo[1].premium
         // todo: fix commission calculation
 //        assertEquals "net underwriting info commission 15000", 200, wxlContract1.outNetAfterCoverUnderwritingInfo[0].commission
 //        assertEquals "net underwriting info commission 10000", 100, wxlContract1.outNetAfterCoverUnderwritingInfo[1].commission
@@ -597,10 +596,10 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         Claim claim7 = new Claim(peril: perilB, lineOfBusiness: lob['property'], value: 400d, claimType: ClaimType.SINGLE)
         Claim claim8 = new Claim(peril: perilB, lineOfBusiness: lob['property'], value: 900d, claimType: ClaimType.SINGLE)
 
-        UnderwritingInfo underwritingInfoMotor15000 = new UnderwritingInfo(premiumWritten: 15000, commission: 200, lineOfBusiness: lob['motor'])
-        UnderwritingInfo underwritingInfoMotor5000 = new UnderwritingInfo(premiumWritten: 5000, commission: 100, lineOfBusiness: lob['motor'])
-        UnderwritingInfo underwritingInfoProperty3000 = new UnderwritingInfo(premiumWritten: 3000, commission: 100, lineOfBusiness: lob['property'])
-        UnderwritingInfo underwritingInfoProperty2000 = new UnderwritingInfo(premiumWritten: 2000, commission: 100, lineOfBusiness: lob['property'])
+        UnderwritingInfo underwritingInfoMotor15000 = new UnderwritingInfo(premium: 15000, commission: 200, lineOfBusiness: lob['motor'])
+        UnderwritingInfo underwritingInfoMotor5000 = new UnderwritingInfo(premium: 5000, commission: 100, lineOfBusiness: lob['motor'])
+        UnderwritingInfo underwritingInfoProperty3000 = new UnderwritingInfo(premium: 3000, commission: 100, lineOfBusiness: lob['property'])
+        UnderwritingInfo underwritingInfoProperty2000 = new UnderwritingInfo(premium: 2000, commission: 100, lineOfBusiness: lob['property'])
 
         wxlContract1.inClaims << claim1 << claim2 << claim3 << claim4 << claim5 << claim6 << claim7 << claim8
         wxlContract1.inUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor5000 << underwritingInfoProperty3000 <<underwritingInfoProperty2000
@@ -615,15 +614,15 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         assertEquals "# of filtered UWInfo", 4, wxlContract1.outFilteredUnderwritingInfo.size()
         assertEquals "# of cover UWInfo", 4, wxlContract1.outCoverUnderwritingInfo.size()
 
-        assertEquals "ceded underwriting info premium motor 15000", 1500, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor15000}.premiumWritten, EPSILON
-        assertEquals "ceded underwriting info premium motor 5000", 500, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor5000}.premiumWritten
-        assertEquals "ceded underwriting info premium property 3000", 1800, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty3000}.premiumWritten
-        assertEquals "ceded underwriting info premium property 2000", 1200, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty2000}.premiumWritten
+        assertEquals "ceded underwriting info premium motor 15000", 1500, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor15000}.premium, EPSILON
+        assertEquals "ceded underwriting info premium motor 5000", 500, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor5000}.premium
+        assertEquals "ceded underwriting info premium property 3000", 1800, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty3000}.premium
+        assertEquals "ceded underwriting info premium property 2000", 1200, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty2000}.premium
 
-        assertEquals "net underwriting info premium motor 15000", 13500, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor15000}.premiumWritten, EPSILON
-        assertEquals "net underwriting info premium motor 5000", 4500, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor5000}.premiumWritten
-        assertEquals "net underwriting info premium property 3000", 1200, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty3000}.premiumWritten
-        assertEquals "net underwriting info premium property 2000", 800, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty2000}.premiumWritten
+        assertEquals "net underwriting info premium motor 15000", 13500, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor15000}.premium, EPSILON
+        assertEquals "net underwriting info premium motor 5000", 4500, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor5000}.premium
+        assertEquals "net underwriting info premium property 3000", 1200, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty3000}.premium
+        assertEquals "net underwriting info premium property 2000", 800, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty2000}.premium
     }
 
     void testClaimSharesNoCededClaims() {
@@ -648,10 +647,10 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         Claim claim7 = new Claim(peril: perilB, lineOfBusiness: lob['property'], value: 0d, claimType: ClaimType.SINGLE)
         Claim claim8 = new Claim(peril: perilB, lineOfBusiness: lob['property'], value: 0d, claimType: ClaimType.SINGLE)
 
-        UnderwritingInfo underwritingInfoMotor15000 = new UnderwritingInfo(premiumWritten: 15000, commission: 200, lineOfBusiness: lob['motor'])
-        UnderwritingInfo underwritingInfoMotor5000 = new UnderwritingInfo(premiumWritten: 5000, commission: 100, lineOfBusiness: lob['motor'])
-        UnderwritingInfo underwritingInfoProperty3000 = new UnderwritingInfo(premiumWritten: 3000, commission: 100, lineOfBusiness: lob['property'])
-        UnderwritingInfo underwritingInfoProperty2000 = new UnderwritingInfo(premiumWritten: 2000, commission: 100, lineOfBusiness: lob['property'])
+        UnderwritingInfo underwritingInfoMotor15000 = new UnderwritingInfo(premium: 15000, commission: 200, lineOfBusiness: lob['motor'])
+        UnderwritingInfo underwritingInfoMotor5000 = new UnderwritingInfo(premium: 5000, commission: 100, lineOfBusiness: lob['motor'])
+        UnderwritingInfo underwritingInfoProperty3000 = new UnderwritingInfo(premium: 3000, commission: 100, lineOfBusiness: lob['property'])
+        UnderwritingInfo underwritingInfoProperty2000 = new UnderwritingInfo(premium: 2000, commission: 100, lineOfBusiness: lob['property'])
 
         wxlContract1.inClaims << claim1 << claim2 << claim3 << claim4 << claim5 << claim6 << claim7 << claim8
         wxlContract1.inUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor5000 << underwritingInfoProperty3000 <<underwritingInfoProperty2000
@@ -666,14 +665,14 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         assertEquals "# of filtered UWInfo", 4, wxlContract1.outFilteredUnderwritingInfo.size()
         assertEquals "# of cover UWInfo", 4, wxlContract1.outCoverUnderwritingInfo.size()
 
-        assertEquals "ceded underwriting info premium motor 15000", 3000, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor15000}.premiumWritten
-        assertEquals "ceded underwriting info premium motor 5000", 1000, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor5000}.premiumWritten
-        assertEquals "ceded underwriting info premium property 3000", 600, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty3000}.premiumWritten
-        assertEquals "ceded underwriting info premium property 2000", 400, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty2000}.premiumWritten
+        assertEquals "ceded underwriting info premium motor 15000", 3000, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor15000}.premium
+        assertEquals "ceded underwriting info premium motor 5000", 1000, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor5000}.premium
+        assertEquals "ceded underwriting info premium property 3000", 600, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty3000}.premium
+        assertEquals "ceded underwriting info premium property 2000", 400, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty2000}.premium
 
-        assertEquals "net underwriting info premium motor 15000", 12000, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor15000}.premiumWritten
-        assertEquals "net underwriting info premium motor 10000", 4000, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor5000}.premiumWritten
-        assertEquals "net underwriting info premium property 3000", 2400, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty3000}.premiumWritten
-        assertEquals "net underwriting info premium property 2000", 1600, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty2000}.premiumWritten
+        assertEquals "net underwriting info premium motor 15000", 12000, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor15000}.premium
+        assertEquals "net underwriting info premium motor 10000", 4000, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor5000}.premium
+        assertEquals "net underwriting info premium property 3000", 2400, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty3000}.premium
+        assertEquals "net underwriting info premium property 2000", 1600, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty2000}.premium
     }
 }

@@ -6,7 +6,6 @@ import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
 import org.pillarone.riskanalytics.domain.pc.constants.RiskBandAllocationBaseLimited
-import org.pillarone.riskanalytics.domain.pc.underwriting.ExposureInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 
 /**
@@ -30,7 +29,7 @@ class RiskToBandAllocatorStrategy implements IRiskAllocatorStrategy, IParameterO
 
     public PacketList<Claim> getAllocatedClaims(List<Claim> claims, List<UnderwritingInfo> underwritingInfos) {
         // get risk map
-        Map<Double, ExposureInfo> riskMap = getRiskMap(underwritingInfos)
+        Map<Double, UnderwritingInfo> riskMap = getRiskMap(underwritingInfos)
 
         // allocate the claims
         Map<Double, Double> targetDistributionMaxSI = getTargetDistribution(underwritingInfos, allocationBase)
@@ -41,7 +40,7 @@ class RiskToBandAllocatorStrategy implements IRiskAllocatorStrategy, IParameterO
             Map<Double, List<Claim>> largeClaimsAllocation = allocateSingleClaims(
                     filterClaimsByType(claims, ClaimType.SINGLE), riskMap, targetDistributionMaxSI)
             for (Entry<Double, List<Claim>> entry: largeClaimsAllocation.entrySet()) {
-                ExposureInfo exposure = riskMap[entry.key]
+                UnderwritingInfo exposure = riskMap[entry.key]
                 for (Claim claim: entry.value) {
                     if (claim.hasExposureInfo()) throw new IllegalArgumentException("RiskToBandAllocatorStrategy.impossibleExposureRemap")
                     claim.exposure = exposure
@@ -59,13 +58,13 @@ class RiskToBandAllocatorStrategy implements IRiskAllocatorStrategy, IParameterO
         return allocatedClaims
     }
 
-    private List<Claim> getAllocatedClaims(List<Claim> claims, ClaimType claimType, Map<Double, ExposureInfo> riskMap, Map<Double, Double> targetDistribution) {
+    private List<Claim> getAllocatedClaims(List<Claim> claims, ClaimType claimType, Map<Double, UnderwritingInfo> riskMap, Map<Double, Double> targetDistribution) {
         Map<Double, List<Claim>> aggrAllocation = allocateClaims(
                 filterClaimsByType(claims, claimType), riskMap, targetDistribution
         )
         List<Claim> allocatedClaims = new ArrayList<Claim>(aggrAllocation.size());
         for (Entry<Double, List<Claim>> entry: aggrAllocation.entrySet()) {
-            ExposureInfo exposure = riskMap[entry.key]
+            UnderwritingInfo exposure = riskMap[entry.key]
             for (Claim claim: entry.value) {
 //                if (claim.hasExposureInfo()) throw new IllegalArgumentException("RiskToBandAllocatorStrategy.impossibleExposureRemap")
                 claim.exposure = exposure
@@ -83,7 +82,7 @@ class RiskToBandAllocatorStrategy implements IRiskAllocatorStrategy, IParameterO
                 targetDistribution.put(underwritingInfo.getMaxSumInsured(), underwritingInfo.getNumberOfPolicies())
             }
             else if (allocationBase.is(RiskBandAllocationBaseLimited.PREMIUM)) {
-                targetDistribution.put(underwritingInfo.getMaxSumInsured(), underwritingInfo.getPremiumWritten())
+                targetDistribution.put(underwritingInfo.getMaxSumInsured(), underwritingInfo.getPremium())
             }
         }
         Double sum = (Double) targetDistribution.values().sum()
@@ -112,7 +111,7 @@ class RiskToBandAllocatorStrategy implements IRiskAllocatorStrategy, IParameterO
     }
 
     private Map<Double, List<Claim>> allocateClaims(List<Claim> claims,
-                                                    Map<Double, ExposureInfo> riskMap,
+                                                    Map<Double, UnderwritingInfo> riskMap,
                                                     Map<Double, Double> targetDistribution) {
         Map<Double, List<Claim>> lossToRiskMap = [:]
         for (Claim claim: claims) {
@@ -130,7 +129,7 @@ class RiskToBandAllocatorStrategy implements IRiskAllocatorStrategy, IParameterO
     }
 
     private Map<Double, List<Claim>> allocateSingleClaims(List<Claim> claims,
-                                                          Map<Double, ExposureInfo> riskMap,
+                                                          Map<Double, UnderwritingInfo> riskMap,
                                                           Map<Double, Double> targetDistribution) {
         // initial allocation of the losses: just consider the bounds given in the risk map
         Map<Double, List<Claim>> lossToRiskMap = [:]
@@ -194,9 +193,9 @@ class RiskToBandAllocatorStrategy implements IRiskAllocatorStrategy, IParameterO
     /**
      * Populate a map with the upper boundaries of the risk bands as keys
      */
-    private static Map<Double, ExposureInfo> getRiskMap(List<ExposureInfo> exposures) {
-        Map<Double, ExposureInfo> riskMap = [:]
-        for (ExposureInfo exposure: exposures) {
+    private static Map<Double, UnderwritingInfo> getRiskMap(List<UnderwritingInfo> exposures) {
+        Map<Double, UnderwritingInfo> riskMap = [:]
+        for (UnderwritingInfo exposure: exposures) {
             double maxSumInsured = exposure.maxSumInsured
             if (maxSumInsured > 0) {
                 if (riskMap.containsKey(maxSumInsured)) {

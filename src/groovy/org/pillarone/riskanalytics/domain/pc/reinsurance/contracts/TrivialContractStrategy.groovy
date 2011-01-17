@@ -23,8 +23,7 @@ class TrivialContractStrategy extends AbstractContractStrategy implements IReins
     UnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double initialReserves) {
         UnderwritingInfo cededUnderwritingInfo = UnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
         cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo?.originalUnderwritingInfo ? grossUnderwritingInfo.originalUnderwritingInfo : grossUnderwritingInfo
-        cededUnderwritingInfo.premiumWritten = 0
-        cededUnderwritingInfo.premiumWrittenAsIf = 0
+        cededUnderwritingInfo.premium = 0
         cededUnderwritingInfo.sumInsured = 0
         cededUnderwritingInfo.maxSumInsured = 0
         cededUnderwritingInfo.commission = 0

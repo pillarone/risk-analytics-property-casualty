@@ -10,15 +10,15 @@ import org.pillarone.riskanalytics.core.packets.PacketList;
 public class CreditDefault extends Component {
 
     // preset values according to CEIOPS
-    private double parmDefaultAAA = 0.001;
-    private double parmDefaultAA = 0.002;
-    private double parmDefaultA = 0.004;
-    private double parmDefaultBBB = 0.1;
-    private double parmDefaultBB = 0.3;
-    private double parmDefaultB = 0.5;
-    private double parmDefaultCCC = 0.7;
-    private double parmDefaultCC = 0.8;
-    private double parmDefaultC = 0.9;
+    private double parmDefaultAAA = 0.00002;
+    private double parmDefaultAA  = 0.0001;
+    private double parmDefaultA   = 0.0005;
+    private double parmDefaultBBB = 0.0024;
+    private double parmDefaultBB  = 0.012;
+    private double parmDefaultB   = 0.04175;
+    private double parmDefaultCCC = 0.04175;
+    private double parmDefaultCC  = 0.04175;
+    private double parmDefaultC   = 0.04175;
 
     private PacketList<DefaultProbabilities> outDefaultProbability = new PacketList<DefaultProbabilities>(DefaultProbabilities.class);
     /** this packet is built during the first call of doCalculation() and sent out for each call */

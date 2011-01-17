@@ -6,10 +6,6 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
-import org.pillarone.riskanalytics.domain.pc.claims.ClaimFilterUtilities
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
-import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -38,7 +34,7 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
 
     private double factor
 
-    Map<UnderwritingInfo, Double> grossPremiumSharesPerBand = [:]
+    private double totalCededPremium
 
     ReinsuranceContractType getType() {
         type
@@ -65,25 +61,17 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
         double scaledAttachmentPoint = attachmentPoint
         double scaledLimit = limit
         if (stopLossContractBase == StopLossContractBase.GNPI) {
-            double gnpi = UnderwritingInfoUtilities.aggregate(coverUnderwritingInfo).premiumWritten
+            double gnpi = UnderwritingInfoUtilities.aggregate(coverUnderwritingInfo).premium
             scaledAttachmentPoint *= gnpi
             scaledLimit *= gnpi
+            totalCededPremium = coverUnderwritingInfo.premium.sum() * premium
+        }
+        else if (stopLossContractBase == StopLossContractBase.ABSOLUTE) {
+            totalCededPremium = premium
         }
 
         double aggregateCededClaimAmount = Math.min(Math.max(aggregateGrossClaimAmount - scaledAttachmentPoint, 0), scaledLimit)
         factor = (aggregateGrossClaimAmount != 0) ? aggregateCededClaimAmount / aggregateGrossClaimAmount : 1d
-
-        double totalPremium = coverUnderwritingInfo.premiumWritten.sum()
-        if (totalPremium != 0) {
-            for (UnderwritingInfo underwritingInfo: coverUnderwritingInfo) {
-                grossPremiumSharesPerBand.put(underwritingInfo, underwritingInfo.premiumWritten / totalPremium)
-            }
-        }
-        else {
-            for (UnderwritingInfo underwritingInfo: coverUnderwritingInfo) {
-                grossPremiumSharesPerBand.put(underwritingInfo, 0)
-            }
-        }
     }
 
     void initCededPremiumAllocation(List<Claim> cededClaims, List<UnderwritingInfo> grossUnderwritingInfos) {
@@ -96,20 +84,7 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
         cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo?.originalUnderwritingInfo ? grossUnderwritingInfo.originalUnderwritingInfo : grossUnderwritingInfo
         cededUnderwritingInfo.commission = 0d
         double factor = premiumAllocation.getShare(grossUnderwritingInfo) * coveredByReinsurer
-        switch (stopLossContractBase) {
-            case StopLossContractBase.ABSOLUTE:
-                cededUnderwritingInfo.premiumWritten = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo) * factor
-                cededUnderwritingInfo.premiumWrittenAsIf = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo) * factor
-                break
-            case StopLossContractBase.GNPI:
-                cededUnderwritingInfo.premiumWritten = premium * grossUnderwritingInfo.premiumWritten * factor
-                cededUnderwritingInfo.premiumWrittenAsIf = premium * grossUnderwritingInfo.premiumWrittenAsIf * factor
-                break
-        }
+        cededUnderwritingInfo.premium = totalCededPremium * factor
         cededUnderwritingInfo
-    }
-
-    public void resetMemberInstances() {
-        grossPremiumSharesPerBand.clear()
     }
 }

@@ -4,8 +4,6 @@ import org.apache.commons.lang.NotImplementedException;
 import org.pillarone.riskanalytics.core.model.Model;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter;
-import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter;
-import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter;
 import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimPacketFactory;
@@ -142,7 +140,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
                     throw new IllegalArgumentException("TypableClaimsGenerator.externalSeverityClaims");
                 }
             } else if (parmClaimsModel instanceof PMLClaimsGeneratorStrategy) {
-                ((PMLClaimsGeneratorStrategy) parmClaimsModel).initDistributions();
+                ((PMLClaimsGeneratorStrategy) parmClaimsModel).initDistributions(simulationScope.getIterationScope().getPeriodScope());
                 RandomDistribution frequencyDistribution = ((PMLClaimsGeneratorStrategy) parmClaimsModel).getFrequencyDistribution();
                 RandomDistribution claimsSizeDistribution = parmClaimsModel.getClaimsSizeDistribution();
                 DistributionModified modification = parmClaimsModel.getClaimsSizeModification();
@@ -249,7 +247,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
         if (frequencyBase.equals(FrequencyBase.NUMBER_OF_POLICIES)) {
             double scaleFactor = 0;
             for (UnderwritingInfo underwritingInfo : inUnderwritingInfo) {
-                scaleFactor += underwritingInfo.numberOfPolicies;
+                scaleFactor += underwritingInfo.getNumberOfPolicies();
             }
             frequency = ((Double) generator.nextValue()) * scaleFactor;
         } else {

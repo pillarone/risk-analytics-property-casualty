@@ -29,14 +29,14 @@ abstract public class AbstractPremiumAllocation implements IPremiumAllocationStr
             for (UnderwritingInfo underwritingInfo : grossUnderwritingInfos) {
                 Double aggregatedPremium = segmentPremium.get(underwritingInfo.getLineOfBusiness());
                 if (aggregatedPremium == null) {
-                    segmentPremium.put(underwritingInfo.getLineOfBusiness(), underwritingInfo.getPremiumWritten());
+                    segmentPremium.put(underwritingInfo.getLineOfBusiness(), underwritingInfo.getPremium());
                 }
                 else {
-                    segmentPremium.put(underwritingInfo.getLineOfBusiness(), underwritingInfo.getPremiumWritten() + aggregatedPremium);
+                    segmentPremium.put(underwritingInfo.getLineOfBusiness(), underwritingInfo.getPremium() + aggregatedPremium);
                 }
             }
             for (UnderwritingInfo underwritingInfo : grossUnderwritingInfos) {
-                double premiumShareInSegment = underwritingInfo.getPremiumWritten() / segmentPremium.get(underwritingInfo.getLineOfBusiness());
+                double premiumShareInSegment = underwritingInfo.getPremium() / segmentPremium.get(underwritingInfo.getLineOfBusiness());
                 Double segmentShare = segmentShares.get(underwritingInfo.getLineOfBusiness());
                 cededPremiumSharePerGrossUnderwritingInfo.put(underwritingInfo, premiumShareInSegment * (segmentShare == null ? 1 : segmentShare));
             }
@@ -45,15 +45,17 @@ abstract public class AbstractPremiumAllocation implements IPremiumAllocationStr
 
     protected void proportionalAllocation(List<UnderwritingInfo> grossUnderwritingInfos) {
         cededPremiumSharePerGrossUnderwritingInfo = new HashMap<UnderwritingInfo, Double>();
-        double totalPremium = UnderwritingInfoUtilities.aggregate(grossUnderwritingInfos).premiumWritten;
-        if (totalPremium == 0) {
-            for (UnderwritingInfo underwritingInfo: grossUnderwritingInfos) {
-                cededPremiumSharePerGrossUnderwritingInfo.put(underwritingInfo, 0d);
+        if (grossUnderwritingInfos.size() > 0) {
+            double totalPremium = UnderwritingInfoUtilities.aggregate(grossUnderwritingInfos).getPremium();
+            if (totalPremium == 0) {
+                for (UnderwritingInfo underwritingInfo: grossUnderwritingInfos) {
+                    cededPremiumSharePerGrossUnderwritingInfo.put(underwritingInfo, 0d);
+                }
             }
-        }
-        else {
-            for (UnderwritingInfo underwritingInfo: grossUnderwritingInfos) {
-                cededPremiumSharePerGrossUnderwritingInfo.put(underwritingInfo, underwritingInfo.premiumWritten / totalPremium);
+            else {
+                for (UnderwritingInfo underwritingInfo: grossUnderwritingInfos) {
+                    cededPremiumSharePerGrossUnderwritingInfo.put(underwritingInfo, underwritingInfo.getPremium() / totalPremium);
+                }
             }
         }
     }

@@ -15,7 +15,7 @@ public class PremiumWrittenExposureBaseStrategy extends DependingExposureBaseStr
     public double scaleFactor(List<UnderwritingInfo> underwritingInfos) {
         List<UnderwritingInfo> filteredUnderwritingInfos = UnderwritingFilterBySegment.filterUnderwritingInfo(underwritingInfos, underwritingInformation.getValuesAsObjects());
         if (filteredUnderwritingInfos) {
-            return filteredUnderwritingInfos.premiumWritten.sum();
+            return filteredUnderwritingInfos.premium.sum();
         }
         else {
             LOG.error "filteredUnderwritingInfos is null!"

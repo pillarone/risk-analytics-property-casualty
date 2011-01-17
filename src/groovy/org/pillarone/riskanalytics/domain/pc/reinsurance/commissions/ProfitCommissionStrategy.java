@@ -47,7 +47,7 @@ public class ProfitCommissionStrategy implements ICommissionStrategy {
         }
         double totalPremiumWritten = 0d;
         for (UnderwritingInfo underwritingInfo : underwritingInfos) {
-            totalPremiumWritten += underwritingInfo.getPremiumWritten();
+            totalPremiumWritten += underwritingInfo.getPremium();
         }
         double fixedCommission = commissionRatio * totalPremiumWritten; // calculate 'prior' fixed commission
         double currentProfit = totalPremiumWritten * (1d - costRatio) - fixedCommission - incurredClaims;
@@ -58,7 +58,7 @@ public class ProfitCommissionStrategy implements ICommissionStrategy {
 
         if (isAdditive) {
             for (UnderwritingInfo underwritingInfo : underwritingInfos) {
-                double premiumWritten = underwritingInfo.getPremiumWritten();
+                double premiumWritten = underwritingInfo.getPremium();
                 underwritingInfo.setCommission(-premiumWritten * totalCommission / totalPremiumWritten + underwritingInfo.getCommission());
                 underwritingInfo.setFixedCommission(-premiumWritten * fixedCommission / totalPremiumWritten + underwritingInfo.getFixedCommission());
                 underwritingInfo.setVariableCommission(-premiumWritten * variableCommission / totalPremiumWritten + underwritingInfo.getVariableCommission());
@@ -66,7 +66,7 @@ public class ProfitCommissionStrategy implements ICommissionStrategy {
         }
         else {
             for (UnderwritingInfo underwritingInfo : underwritingInfos) {
-                double premiumWritten = underwritingInfo.getPremiumWritten();
+                double premiumWritten = underwritingInfo.getPremium();
                 underwritingInfo.setCommission(-premiumWritten * totalCommission / totalPremiumWritten);
                 underwritingInfo.setFixedCommission(-premiumWritten * fixedCommission / totalPremiumWritten);
                 underwritingInfo.setVariableCommission(-premiumWritten * variableCommission / totalPremiumWritten);

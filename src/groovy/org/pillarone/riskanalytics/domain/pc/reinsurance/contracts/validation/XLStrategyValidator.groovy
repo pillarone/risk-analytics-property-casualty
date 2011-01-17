@@ -13,6 +13,8 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceCo
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
 
 /**
+ * This validator checks consistency of limit, aggregate limit and reinstatement premium parameters.
+ *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 class XLStrategyValidator implements IParameterizationValidator {
@@ -77,23 +79,30 @@ class XLStrategyValidator implements IParameterizationValidator {
     private def correctAggregateLimit(Map type, String limit, String aggregateLimit) {
         if (type.size() == 0 || type[limit] == null || type[aggregateLimit] == null) return
         if (type[limit] > type[aggregateLimit]) {
-            return ["aggregateLimit.lower.than.limit"]
+            return ["aggregateLimit.lower.than.limit", type[aggregateLimit], type[limit]]
         }
         return
     }
 
     private def correctReinstatementPremium(Map type) {
-        if (type.size() == 0 || type['reinstatementPremiums'] == null
-                || type['aggregateLimit'] == null || type['limit'] == null) return
-        int valueRows = (((TableMultiDimensionalParameter) type['reinstatementPremiums']).rowCount
-                - ((TableMultiDimensionalParameter) type['reinstatementPremiums']).titleRowCount)
-        if (valueRows == 1 && ((TableMultiDimensionalParameter) type['reinstatementPremiums']).getValueAt(1, 0) == 0) return
-        double numberOfReinstatements = type['aggregateLimit'] / type['limit'] - 1  // -1 as the aggregate limit contains the base layer
-        if (valueRows < numberOfReinstatements) {
-            return ["mismatching.reinstatement.premiums.and.aggregate.limit.beyond"]
+        if (type.size() == 0 || type['reinstatementPremiums'] == null) return
+        Double aggregateLimitParameter = (Double) type['aggregateLimit']
+        Double limit = (Double) type['limit']
+        if (aggregateLimitParameter == null || limit == null) return
+        TableMultiDimensionalParameter reinstatementPremiums = (TableMultiDimensionalParameter) type['reinstatementPremiums']
+        int numberOfReinstatementsBasedOnSpecifiedRIPremium = reinstatementPremiums.valueRowCount
+        boolean freeReinstatements = numberOfReinstatementsBasedOnSpecifiedRIPremium == 1 && reinstatementPremiums.getValueAt(1, 0) == 0
+        if (freeReinstatements) return
+        double numberOfReinstatements = aggregateLimitParameter / limit - 1  // -1 as the aggregate limit contains the base layer
+        double aggregateLimitCalculated = (numberOfReinstatementsBasedOnSpecifiedRIPremium + 1) * limit
+//        int usableReinstatements = (aggregateLimitParameter - limit) / limit
+        if (numberOfReinstatementsBasedOnSpecifiedRIPremium < numberOfReinstatements) {
+            return ["mismatching.reinstatement.premiums.and.aggregate.limit.beyond", aggregateLimitParameter, aggregateLimitCalculated]
         }
-        else if (valueRows > Math.ceil(numberOfReinstatements)) {
-            return ["mismatching.reinstatement.premiums.and.aggregate.limit.below"]
+        else if (numberOfReinstatementsBasedOnSpecifiedRIPremium > Math.ceil(numberOfReinstatements)) {
+            return ["mismatching.reinstatement.premiums.and.aggregate.limit.below",
+                    numberOfReinstatements, numberOfReinstatementsBasedOnSpecifiedRIPremium,
+                    aggregateLimitParameter, aggregateLimitCalculated]
         }
         return
     }

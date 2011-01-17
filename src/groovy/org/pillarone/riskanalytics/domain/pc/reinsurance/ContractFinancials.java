@@ -22,7 +22,7 @@ public class ContractFinancials extends Component {
         ReinsuranceResultWithCommissionPacket result = new ReinsuranceResultWithCommissionPacket();
         UnderwritingInfo underwritingInfo = UnderwritingInfoUtilities.aggregate(inUnderwritingInfoCeded);
         if (underwritingInfo != null) {
-            result.setCededPremium(-underwritingInfo.getPremiumWritten());
+            result.setCededPremium(-underwritingInfo.getPremium());
             result.setCededCommission(-underwritingInfo.getCommission());
         }
         if (inClaimsCeded.size() > 0) {
