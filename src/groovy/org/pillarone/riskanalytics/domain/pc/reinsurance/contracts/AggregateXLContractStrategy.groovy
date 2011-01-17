@@ -99,18 +99,16 @@ class AggregateXLContractStrategy extends AbstractContractStrategy implements IR
         switch (premiumBase) {
             case PremiumBase.ABSOLUTE:
                 cededUnderwritingInfo.premium = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
-                cededUnderwritingInfo.premiumWrittenAsIf = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
                 break
             case PremiumBase.GNPI:
                 cededUnderwritingInfo.premium = premium * grossUnderwritingInfo.premium
-                cededUnderwritingInfo.premiumWrittenAsIf = premium * grossUnderwritingInfo.premiumWrittenAsIf
                 break
             case PremiumBase.RATE_ON_LINE:
                 throw new IllegalArgumentException("AggregateXLContractStrategy.PremiumBaseAsRoL")
             case PremiumBase.NUMBER_OF_POLICIES:
                 throw new IllegalArgumentException("AggregateXLContractStrategy.PremiumBaseAsNoOfPolicies")
         }
-        cededUnderwritingInfo.setFixedPremium(cededUnderwritingInfo.getPremiumWritten())
+        cededUnderwritingInfo.setFixedPremium(cededUnderwritingInfo.getPremium())
         cededUnderwritingInfo
     }
 }

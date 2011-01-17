@@ -161,15 +161,12 @@ class GoldorakContractStrategy extends AbstractContractStrategy implements IRein
             switch (premiumBase) {
                 case PremiumBase.ABSOLUTE:
                     cededUnderwritingInfo.premium = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo) * coveredByReinsurer
-                    cededUnderwritingInfo.premiumWrittenAsIf = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo) * coveredByReinsurer
                     break
                 case PremiumBase.GNPI:
                     cededUnderwritingInfo.premium = premium * grossUnderwritingInfo.premium * coveredByReinsurer
-                    cededUnderwritingInfo.premiumWrittenAsIf = premium * grossUnderwritingInfo.premiumWrittenAsIf * coveredByReinsurer
                     break
                 case PremiumBase.RATE_ON_LINE:
                     cededUnderwritingInfo.premium = premium * cxlLimit * coveredByReinsurer
-                    cededUnderwritingInfo.premiumWrittenAsIf = premium * cxlLimit * coveredByReinsurer
                     break
                 case PremiumBase.NUMBER_OF_POLICIES:
                     throw new IllegalArgumentException("GoldorakContractStrategy.premiumBaseNoOfPolicies")
@@ -179,15 +176,12 @@ class GoldorakContractStrategy extends AbstractContractStrategy implements IRein
             switch (premiumBase) {
                 case PremiumBase.ABSOLUTE:
                     cededUnderwritingInfo.premium = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo) * coveredByReinsurer
-                    cededUnderwritingInfo.premiumWrittenAsIf = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo) * coveredByReinsurer
                     break
                 case PremiumBase.GNPI:
                     cededUnderwritingInfo.premium = premium * grossUnderwritingInfo.premium * coveredByReinsurer
-                    cededUnderwritingInfo.premiumWrittenAsIf = premium * grossUnderwritingInfo.premiumWrittenAsIf * coveredByReinsurer
                     break
                 case PremiumBase.RATE_ON_LINE:
                     cededUnderwritingInfo.premium = premium * cxlLimit * coveredByReinsurer
-                    cededUnderwritingInfo.premiumWrittenAsIf = premium * cxlLimit * coveredByReinsurer
                     break
                 case PremiumBase.NUMBER_OF_POLICIES:
                     throw new IllegalArgumentException("GoldorakContractStrategy.premiumBaseNoOfPolicies")
@@ -199,7 +193,6 @@ class GoldorakContractStrategy extends AbstractContractStrategy implements IRein
         double factor = 1 + XLContractStrategy.calculateReinstatementPremiums(cxlAggregateLimit, cxlAvailableAggregateLimit,
             cxlAggregateDeductible, cxlLimit, reinstatements, reinstatementPremiums, coveredByReinsurer)
         cededUnderwritingInfo.premium *= factor
-        cededUnderwritingInfo.premiumWrittenAsIf *= factor
         return cededUnderwritingInfo
     }
 
