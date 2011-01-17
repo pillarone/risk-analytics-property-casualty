@@ -28,12 +28,17 @@ public class FixedCommissionStrategy implements ICommissionStrategy {
     public void calculateCommission(List<Claim> claims, List<UnderwritingInfo> underwritingInfos, boolean isFirstPeriod, boolean isAdditive) {
         if (isAdditive) {
             for (UnderwritingInfo underwritingInfo : underwritingInfos) {
-                underwritingInfo.setCommission(underwritingInfo.getCommission() - underwritingInfo.getPremiumWritten() * commission);
+                double premiumWritten = underwritingInfo.getPremiumWritten();
+                underwritingInfo.setCommission(underwritingInfo.getCommission() - premiumWritten * commission);
+                underwritingInfo.setFixedCommission(underwritingInfo.getFixedCommission() - premiumWritten * commission);
+                underwritingInfo.setVariableCommission(underwritingInfo.getVariableCommission());
             }
         }
         else {
             for (UnderwritingInfo underwritingInfo : underwritingInfos) {
                 underwritingInfo.setCommission(-underwritingInfo.getPremiumWritten() * commission);
+                underwritingInfo.setFixedCommission(underwritingInfo.getCommission());
+                underwritingInfo.setVariableCommission(0d);
             }
         }
     }

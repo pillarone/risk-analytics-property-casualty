@@ -16,7 +16,11 @@ public class UnderwritingInfo extends ExposureInfo {
 
     public UnderwritingInfo originalUnderwritingInfo;
     public double premiumWritten;
+    private double fixedPremium;
+    private double variablePremium;
     public double commission;
+    private double fixedCommission;
+    private double variableCommission;
     private LobMarker lineOfBusiness;
     private IReinsuranceContractMarker reinsuranceContract;
     
@@ -43,7 +47,11 @@ public class UnderwritingInfo extends ExposureInfo {
         setMaxSumInsured(underwritingInfo.getMaxSumInsured());
         setOriginalUnderwritingInfo(underwritingInfo.getOriginalUnderwritingInfo());
         setPremiumWritten(underwritingInfo.premiumWritten);
+        setFixedPremium(underwritingInfo.fixedPremium);
+        setVariablePremium(underwritingInfo.variablePremium);
         setCommission(underwritingInfo.commission);
+        setFixedCommission(underwritingInfo.fixedCommission);
+        setVariableCommission(underwritingInfo.variableCommission);
         setLineOfBusiness(underwritingInfo.getLineOfBusiness());
         setReinsuranceContract(underwritingInfo.getReinsuranceContract());
     }
@@ -89,12 +97,20 @@ public class UnderwritingInfo extends ExposureInfo {
         super.plus(other);
         premiumWritten += other.premiumWritten;
         commission += other.commission;
+        fixedPremium += other.fixedPremium;
+        variablePremium += other.variablePremium;
+        fixedCommission += other.fixedCommission;
+        variableCommission += other.variableCommission;
     }
 
     public void minus(UnderwritingInfo other) {
         super.minus(other);
         premiumWritten -= other.premiumWritten;
         commission -= other.commission;
+        fixedPremium -= other.fixedPremium;
+        variablePremium -= other.variablePremium;
+        fixedCommission -= other.fixedCommission;
+        variableCommission -= other.variableCommission;
         if (premiumWritten == 0 && commission == 0 && sumInsured == 0) {
             numberOfPolicies = 0;
         }
@@ -104,6 +120,10 @@ public class UnderwritingInfo extends ExposureInfo {
         super.scale(factor);
         commission *= factor;
         premiumWritten *= factor;
+        fixedPremium *= factor;
+        variablePremium *= factor;
+        fixedCommission *= factor;
+        variableCommission *= factor;
     }
 
     public double getPremiumWritten() {
@@ -152,5 +172,37 @@ public class UnderwritingInfo extends ExposureInfo {
 
     public void setReinsuranceContract(IReinsuranceContractMarker reinsuranceContract) {
         this.reinsuranceContract = reinsuranceContract;
+    }
+
+    public double getFixedPremium() {
+        return fixedPremium;
+    }
+
+    public void setFixedPremium(double fixedPremium) {
+        this.fixedPremium = fixedPremium;
+    }
+
+    public double getVariablePremium() {
+        return variablePremium;
+    }
+
+    public void setVariablePremium(double variablePremium) {
+        this.variablePremium = variablePremium;
+    }
+
+    public double getFixedCommission() {
+        return fixedCommission;
+    }
+
+    public void setFixedCommission(double fixedCommission) {
+        this.fixedCommission = fixedCommission;
+    }
+
+    public double getVariableCommission() {
+        return variableCommission;
+    }
+
+    public void setVariableCommission(double variableCommission) {
+        this.variableCommission = variableCommission;
     }
 }

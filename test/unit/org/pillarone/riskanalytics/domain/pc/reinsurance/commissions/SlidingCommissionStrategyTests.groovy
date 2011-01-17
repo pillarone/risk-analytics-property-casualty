@@ -22,7 +22,8 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
         if (bands.size() > 0) {
             LossRatios = bands.keySet().asList().sort()
             Commissions = LossRatios.collect {bands.get(it)}
-        } else {
+        }
+        else {
             // default commission bands if none specified
             LossRatios = [0.0d, 0.1d, 0.2d, 0.5d]
             Commissions = [0.2d, 0.10d, 0.05d, 0d]
@@ -75,7 +76,23 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
 
         assertEquals '# outUnderwritingInfo packets', 2, underwritingInfos.size()
         assertEquals 'underwritingInfo200', -200 * 0.2, underwritingInfos[0].commission
+        assertEquals 'underwritingInfo200', -200 * 0.2, underwritingInfos[0].variableCommission
+        assertEquals 'underwritingInfo200', -0d, underwritingInfos[0].fixedCommission
         assertEquals 'underwritingInfo100', -100 * 0.2, underwritingInfos[1].commission
+        assertEquals 'underwritingInfo200', -100 * 0.2, underwritingInfos[1].variableCommission
+        assertEquals 'underwritingInfo200', -0d, underwritingInfos[1].fixedCommission
+
+        commissionStrategy = getSlidingCommissionStrategy([0.1d: 0.07d, 0.4d: 0.05d, 0.5d: 0.03d, 0.6d: 0.02d,])
+        UnderwritingInfo underwritingInfo300 = new UnderwritingInfo(premiumWritten: 300)
+        Claim claim180 = new Claim(value: 180)
+        underwritingInfos = [underwritingInfo300]
+        claims = [claim180]
+        commissionStrategy.calculateCommission claims, underwritingInfos, false, false
+
+        assertEquals "underwritingInfo600", -300 * 0.02, underwritingInfos[0].commission
+        assertEquals 'underwritingInfo200', -0d, underwritingInfos[0].variableCommission
+        assertEquals 'underwritingInfo200', -300 * 0.02, underwritingInfos[0].fixedCommission
+
     }
 
     void testAdditiveUsage() {
@@ -104,7 +121,7 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
         commissionStrategy.calculateCommission claims, uwInfo, false, false
         double lossRatio = claims.value.sum() / uwInfo.premiumWritten.sum() * 1E2
         assertEquals '# outUnderwritingInfo packets', 1, uwInfo.size()
-        assertEquals "Underwriting Commission (%) resulting from Loss Ratio of ${lossRatio}%", -0d, uwInfo[0].commission
+        assertEquals "Underwriting Commission (%) resulting from Loss Ratio of ${lossRatio}%", -7d, uwInfo[0].commission, 1E-14
     }
 
     void testPercentageSelectionCase0b() {
@@ -112,7 +129,7 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
         commissionStrategy.calculateCommission claims, uwInfo, false, false
         double lossRatio = claims.value.sum() / uwInfo.premiumWritten.sum() * 1E2
         assertEquals '# outUnderwritingInfo packets', 1, uwInfo.size()
-        assertEquals "Underwriting Commission (%) resulting from Loss Ratio of ${lossRatio}%", 0d, uwInfo[0].commission, 1E-14
+        assertEquals "Underwriting Commission (%) resulting from Loss Ratio of ${lossRatio}%", -7d, uwInfo[0].commission, 1E-14
     }
 
     void testPercentageSelectionCase0c() {
@@ -120,7 +137,7 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
         commissionStrategy.calculateCommission claims, uwInfo, false, false
         double lossRatio = claims.value.sum() / uwInfo.premiumWritten.sum() * 1E2
         assertEquals '# outUnderwritingInfo packets', 1, uwInfo.size()
-        assertEquals "Underwriting Commission (%) resulting from Loss Ratio of ${lossRatio}%", 0d, uwInfo[0].commission, 1E-14
+        assertEquals "Underwriting Commission (%) resulting from Loss Ratio of ${lossRatio}%", -7d, uwInfo[0].commission, 1E-14
     }
 
     void testPercentageSelectionCase1() {
@@ -161,5 +178,86 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
         double lossRatio = claims.value.sum() / uwInfo.premiumWritten.sum() * 1E2
         assertEquals '# outUnderwritingInfo packets', 1, uwInfo.size()
         assertEquals "Underwriting Commission (%) resulting from Loss Ratio of ${lossRatio}%", 0, uwInfo[0].commission, 1E-14
+    }
+
+    void testEqualLossRatios() {
+
+        ICommissionStrategy commissionStrategy = CommissionStrategyType.getStrategy(
+                CommissionStrategyType.SLIDINGCOMMISSION,
+                ['commissionBands': new ConstrainedMultiDimensionalParameter(
+                        [[0d, 0.0d, 0.1d, 0.1d, 0.1d, 0.2d, 0.2d], [0.7d, 0.6d, 0.6d, 0.5d, 0.4d, 0.35d, 0.3d]],
+                        [SlidingCommissionStrategy.LOSS_RATIO, SlidingCommissionStrategy.COMMISSION],
+                        ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))])
+
+        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: -50, fixedCommission: -20, variableCommission: -30)
+        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: -5, fixedCommission: -4, variableCommission: -1)
+
+        Claim claim15 = new Claim(value: 15)
+
+        List underwritingInfos = [underwritingInfo200, underwritingInfo100]
+        List claims = [claim15]
+
+        commissionStrategy.calculateCommission claims, underwritingInfos, false, true
+        assertEquals '# outUnderwritingInfo packets', 2, underwritingInfos.size()
+        assertEquals 'underwritingInfo200', -200 * 0.6 - 50, underwritingInfos[0].commission
+        assertEquals 'underwritingInfo200', -200 * 0.3 - 30, underwritingInfos[0].variableCommission
+        assertEquals 'underwritingInfo200', -200 * 0.3 - 20, underwritingInfos[0].fixedCommission
+        assertEquals 'underwritingInfo100', -100 * 0.6 - 5, underwritingInfos[1].commission
+        assertEquals 'underwritingInfo100', -100 * 0.3 - 1, underwritingInfos[1].variableCommission
+        assertEquals 'underwritingInfo100', -100 * 0.3 - 4, underwritingInfos[1].fixedCommission
+
+        commissionStrategy.calculateCommission claims, underwritingInfos, false, false
+        assertEquals '# outUnderwritingInfo packets', 2, underwritingInfos.size()
+        assertEquals 'underwritingInfo200', -200 * 0.6, underwritingInfos[0].commission
+        assertEquals 'underwritingInfo200', -200 * 0.3, underwritingInfos[0].variableCommission
+        assertEquals 'underwritingInfo200', -200 * 0.3, underwritingInfos[0].fixedCommission
+        assertEquals 'underwritingInfo100', -100 * 0.6, underwritingInfos[1].commission
+        assertEquals 'underwritingInfo100', -100 * 0.3, underwritingInfos[1].variableCommission
+        assertEquals 'underwritingInfo100', -100 * 0.3, underwritingInfos[1].fixedCommission
+
+        claims.add(new Claim(value: 15))
+
+        commissionStrategy.calculateCommission claims, underwritingInfos, false, false
+        assertEquals '# outUnderwritingInfo packets', 2, underwritingInfos.size()
+        assertEquals 'underwritingInfo200', -200 * 0.4, underwritingInfos[0].commission
+        assertEquals 'underwritingInfo200', -200 * 0.1, underwritingInfos[0].variableCommission, 1E-14
+        assertEquals 'underwritingInfo200', -200 * 0.3, underwritingInfos[0].fixedCommission, 1E-14
+        assertEquals 'underwritingInfo100', -100 * 0.4, underwritingInfos[1].commission, 1E-14
+        assertEquals 'underwritingInfo100', -100 * 0.1, underwritingInfos[1].variableCommission, 1E-14
+        assertEquals 'underwritingInfo100', -100 * 0.3, underwritingInfos[1].fixedCommission, 1E-14
+
+        claims.add(new Claim(value: 25))
+
+        commissionStrategy.calculateCommission claims, underwritingInfos, false, false
+        assertEquals '# outUnderwritingInfo packets', 2, underwritingInfos.size()
+        assertEquals 'underwritingInfo200', -200 * 0.4, underwritingInfos[0].commission, 1E-14
+        assertEquals 'underwritingInfo200', -200 * 0.1, underwritingInfos[0].variableCommission, 1E-14
+        assertEquals 'underwritingInfo200', -200 * 0.3, underwritingInfos[0].fixedCommission, 1E-14
+        assertEquals 'underwritingInfo100', -100 * 0.4, underwritingInfos[1].commission, 1E-14
+        assertEquals 'underwritingInfo100', -100 * 0.1, underwritingInfos[1].variableCommission, 1E-14
+        assertEquals 'underwritingInfo100', -100 * 0.3, underwritingInfos[1].fixedCommission, 1E-14
+
+        claims.add(new Claim(value: 5))
+
+        commissionStrategy.calculateCommission claims, underwritingInfos, false, false
+        assertEquals '# outUnderwritingInfo packets', 2, underwritingInfos.size()
+        assertEquals 'underwritingInfo200', -200 * 0.3, underwritingInfos[0].commission, 1E-14
+        assertEquals 'underwritingInfo200', -0d, underwritingInfos[0].variableCommission, 1E-14
+        assertEquals 'underwritingInfo200', -200 * 0.3, underwritingInfos[0].fixedCommission, 1E-14
+        assertEquals 'underwritingInfo100', -100 * 0.3, underwritingInfos[1].commission, 1E-14
+        assertEquals 'underwritingInfo100', -0d, underwritingInfos[1].variableCommission, 1E-14
+        assertEquals 'underwritingInfo100', -100 * 0.3, underwritingInfos[1].fixedCommission, 1E-14
+
+
+        claims.add(new Claim(value: 30))
+
+        commissionStrategy.calculateCommission claims, underwritingInfos, false, false
+        assertEquals '# outUnderwritingInfo packets', 2, underwritingInfos.size()
+        assertEquals 'underwritingInfo200', -200 * 0.3, underwritingInfos[0].commission, 1E-14
+        assertEquals 'underwritingInfo200', -0d, underwritingInfos[0].variableCommission, 1E-14
+        assertEquals 'underwritingInfo200', -200 * 0.3, underwritingInfos[0].fixedCommission, 1E-14
+        assertEquals 'underwritingInfo100', -100 * 0.3, underwritingInfos[1].commission, 1E-14
+        assertEquals 'underwritingInfo100', -0d, underwritingInfos[1].variableCommission, 1E-14
+        assertEquals 'underwritingInfo100', -100 * 0.3, underwritingInfos[1].fixedCommission, 1E-14
     }
 }

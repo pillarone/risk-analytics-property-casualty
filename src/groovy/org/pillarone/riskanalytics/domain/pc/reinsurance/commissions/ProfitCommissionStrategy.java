@@ -42,7 +42,7 @@ public class ProfitCommissionStrategy implements ICommissionStrategy {
             lossCarriedForward = initialLossCarriedForward;
         }
         double incurredClaims = 0d;
-        for (Claim claim: claims) {
+        for (Claim claim : claims) {
             incurredClaims += claim.getUltimate();
         }
         double totalPremiumWritten = 0d;
@@ -52,18 +52,24 @@ public class ProfitCommissionStrategy implements ICommissionStrategy {
         double fixedCommission = commissionRatio * totalPremiumWritten; // calculate 'prior' fixed commission
         double currentProfit = totalPremiumWritten * (1d - costRatio) - fixedCommission - incurredClaims;
         double commissionableProfit = Math.max(0d, currentProfit - lossCarriedForward);
-        double totalCommission =  fixedCommission + profitCommissionRatio * commissionableProfit;
+        double variableCommission = profitCommissionRatio * commissionableProfit;
+        double totalCommission = fixedCommission + variableCommission;
         lossCarriedForward = lossCarriedForwardEnabled ? Math.max(0d, lossCarriedForward - currentProfit) : 0d;
 
         if (isAdditive) {
             for (UnderwritingInfo underwritingInfo : underwritingInfos) {
-                underwritingInfo.setCommission(-underwritingInfo.getPremiumWritten() * totalCommission / totalPremiumWritten +
-                                               underwritingInfo.getCommission());
+                double premiumWritten = underwritingInfo.getPremiumWritten();
+                underwritingInfo.setCommission(-premiumWritten * totalCommission / totalPremiumWritten + underwritingInfo.getCommission());
+                underwritingInfo.setFixedCommission(-premiumWritten * fixedCommission / totalPremiumWritten + underwritingInfo.getFixedCommission());
+                underwritingInfo.setVariableCommission(-premiumWritten * variableCommission / totalPremiumWritten + underwritingInfo.getVariableCommission());
             }
         }
         else {
             for (UnderwritingInfo underwritingInfo : underwritingInfos) {
-                underwritingInfo.setCommission(-underwritingInfo.getPremiumWritten() * totalCommission / totalPremiumWritten);
+                double premiumWritten = underwritingInfo.getPremiumWritten();
+                underwritingInfo.setCommission(-premiumWritten * totalCommission / totalPremiumWritten);
+                underwritingInfo.setFixedCommission(-premiumWritten * fixedCommission / totalPremiumWritten);
+                underwritingInfo.setVariableCommission(-premiumWritten * variableCommission / totalPremiumWritten);
             }
         }
     }
