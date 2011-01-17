@@ -90,6 +90,4 @@ components {
 		}
 	}
 }
-comments=["""[path:'MultiCompany', period:-1, lastChange:new Date(1293101142427),user:null, comment: \"\"\"Quota Share 50% daughter -> son
-guarantee 50 xs 40 daughter -> parent
-no default therefore the guarantee never gets triggered and the quota share is equal to "LE-CRTI: QS, no default"\"\"\"]"""]
+
