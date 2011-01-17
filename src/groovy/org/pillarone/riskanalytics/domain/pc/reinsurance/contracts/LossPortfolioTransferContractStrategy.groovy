@@ -58,6 +58,9 @@ class LossPortfolioTransferContractStrategy extends AbstractContractStrategy imp
         cededUnderwritingInfo.sumInsured *= quotaShare * coveredByReinsurer
         cededUnderwritingInfo.maxSumInsured *= quotaShare * coveredByReinsurer
         cededUnderwritingInfo.commission = 0
+        cededUnderwritingInfo.fixedCommission = 0d
+        cededUnderwritingInfo.variableCommission = 0d
+        cededUnderwritingInfo.variablePremium = 0d
         switch (premiumBase) {
             case LPTPremiumBase.ABSOLUTE:
                 cededUnderwritingInfo.premium = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
@@ -69,7 +72,7 @@ class LossPortfolioTransferContractStrategy extends AbstractContractStrategy imp
             default:
                 throw new IllegalArgumentException("['LossPortfolioTransferContractStrategy.invalidPremiumBaseType','"+premiumBase+"']")
         }
-
+        cededUnderwritingInfo.fixedPremium = cededUnderwritingInfo.premium        
         cededUnderwritingInfo
     }
 }

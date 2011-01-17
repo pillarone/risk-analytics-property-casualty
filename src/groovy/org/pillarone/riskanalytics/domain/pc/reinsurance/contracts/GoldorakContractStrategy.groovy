@@ -156,6 +156,8 @@ class GoldorakContractStrategy extends AbstractContractStrategy implements IRein
         UnderwritingInfo cededUnderwritingInfo = UnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
         cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo?.originalUnderwritingInfo ? grossUnderwritingInfo.originalUnderwritingInfo : grossUnderwritingInfo
         cededUnderwritingInfo.commission = 0d
+        cededUnderwritingInfo.fixedCommission = 0d
+        cededUnderwritingInfo.variableCommission = 0d
         if (aggregateGrossClaimAmount < scaledGoldorakSlThreshold) {
             // CXL case
             switch (premiumBase) {
@@ -188,11 +190,11 @@ class GoldorakContractStrategy extends AbstractContractStrategy implements IRein
             }
 
         }
-        // Increases premium written and premium written as if with the reinstatement premium
         double reinstatements = cxlAvailableAggregateLimit / cxlLimit - 1
-        double factor = 1 + XLContractStrategy.calculateReinstatementPremiums(cxlAggregateLimit, cxlAvailableAggregateLimit,
-            cxlAggregateDeductible, cxlLimit, reinstatements, reinstatementPremiums, coveredByReinsurer)
-        cededUnderwritingInfo.premium *= factor
+        cededUnderwritingInfo.fixedPremium = cededUnderwritingInfo.premium
+        cededUnderwritingInfo.variablePremium = XLContractStrategy.calculateReinstatementPremiums(cxlAggregateLimit, cxlAvailableAggregateLimit,
+            cxlAggregateDeductible, cxlLimit, reinstatements, reinstatementPremiums, coveredByReinsurer) * cededUnderwritingInfo.premium
+        cededUnderwritingInfo.premium = cededUnderwritingInfo.fixedPremium + cededUnderwritingInfo.variablePremium
         return cededUnderwritingInfo
     }
 

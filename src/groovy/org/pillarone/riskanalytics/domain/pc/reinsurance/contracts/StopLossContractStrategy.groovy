@@ -83,8 +83,12 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
         UnderwritingInfo cededUnderwritingInfo = UnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
         cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo?.originalUnderwritingInfo ? grossUnderwritingInfo.originalUnderwritingInfo : grossUnderwritingInfo
         cededUnderwritingInfo.commission = 0d
+        cededUnderwritingInfo.fixedCommission = 0
+        cededUnderwritingInfo.variableCommission = 0
+        cededUnderwritingInfo.variablePremium = 0
         double factor = premiumAllocation.getShare(grossUnderwritingInfo) * coveredByReinsurer
         cededUnderwritingInfo.premium = totalCededPremium * factor
+        cededUnderwritingInfo.fixedPremium = cededUnderwritingInfo.premium
         cededUnderwritingInfo
     }
 }

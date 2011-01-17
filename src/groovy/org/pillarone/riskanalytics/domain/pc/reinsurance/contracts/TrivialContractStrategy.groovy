@@ -27,6 +27,10 @@ class TrivialContractStrategy extends AbstractContractStrategy implements IReins
         cededUnderwritingInfo.sumInsured = 0
         cededUnderwritingInfo.maxSumInsured = 0
         cededUnderwritingInfo.commission = 0
+        cededUnderwritingInfo.fixedCommission = 0
+        cededUnderwritingInfo.variableCommission = 0
+        cededUnderwritingInfo.fixedPremium = 0
+        cededUnderwritingInfo.variablePremium = 0
         return cededUnderwritingInfo
     }
 

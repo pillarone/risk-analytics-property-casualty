@@ -69,6 +69,10 @@ class SurplusContractStrategy extends AbstractContractStrategy implements IReins
         cededUnderwritingInfo.sumInsured *= fractionCeded * coveredByReinsurer
         cededUnderwritingInfo.maxSumInsured *= fractionCeded * coveredByReinsurer
         cededUnderwritingInfo.commission = 0
+        cededUnderwritingInfo.fixedCommission = 0
+        cededUnderwritingInfo.variableCommission = 0
+        cededUnderwritingInfo.fixedPremium = cededUnderwritingInfo.premium
+        cededUnderwritingInfo.variablePremium = 0
         cededUnderwritingInfo
     }
 }
