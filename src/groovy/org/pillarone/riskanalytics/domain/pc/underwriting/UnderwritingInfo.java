@@ -16,11 +16,11 @@ public class UnderwritingInfo extends ExposureInfo {
 
     public UnderwritingInfo originalUnderwritingInfo;
     public double premiumWritten;
-    private double fixedPremium;
-    private double variablePremium;
+    public double fixedPremium;
+    public double variablePremium;
     public double commission;
-    private double fixedCommission;
-    private double variableCommission;
+    public double fixedCommission;
+    public double variableCommission;
     private LobMarker lineOfBusiness;
     private IReinsuranceContractMarker reinsuranceContract;
     

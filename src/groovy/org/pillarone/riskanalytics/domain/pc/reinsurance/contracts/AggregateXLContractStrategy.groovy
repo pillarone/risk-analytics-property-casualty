@@ -93,6 +93,9 @@ class AggregateXLContractStrategy extends AbstractContractStrategy implements IR
         UnderwritingInfo cededUnderwritingInfo = UnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
         cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo?.originalUnderwritingInfo ? grossUnderwritingInfo.originalUnderwritingInfo : grossUnderwritingInfo
         cededUnderwritingInfo.commission = 0d
+        cededUnderwritingInfo.fixedCommission = 0d
+        cededUnderwritingInfo.variableCommission = 0d
+        cededUnderwritingInfo.variablePremium = 0d
         switch (premiumBase) {
             case PremiumBase.ABSOLUTE:
                 cededUnderwritingInfo.premiumWritten = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
@@ -107,6 +110,7 @@ class AggregateXLContractStrategy extends AbstractContractStrategy implements IR
             case PremiumBase.NUMBER_OF_POLICIES:
                 throw new IllegalArgumentException("AggregateXLContractStrategy.PremiumBaseAsNoOfPolicies")
         }
+        cededUnderwritingInfo.setFixedPremium(cededUnderwritingInfo.getPremiumWritten())
         cededUnderwritingInfo
     }
 }

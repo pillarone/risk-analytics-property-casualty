@@ -104,6 +104,9 @@ class AdverseDevelopmentCoverContractStrategy extends AbstractContractStrategy i
         UnderwritingInfo cededUnderwritingInfo = UnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
         cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo?.originalUnderwritingInfo ? grossUnderwritingInfo.originalUnderwritingInfo : grossUnderwritingInfo
         cededUnderwritingInfo.commission = 0d
+        cededUnderwritingInfo.fixedCommission = 0d
+        cededUnderwritingInfo.variableCommission = 0d
+        cededUnderwritingInfo.variablePremium = 0d
         switch (stopLossContractBase) {
             case StopLossContractBase.ABSOLUTE:                                         
                 cededUnderwritingInfo.premiumWritten = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
@@ -114,6 +117,7 @@ class AdverseDevelopmentCoverContractStrategy extends AbstractContractStrategy i
                 cededUnderwritingInfo.premiumWrittenAsIf = premium * grossUnderwritingInfo.premiumWrittenAsIf
                 break
         }
+        cededUnderwritingInfo.setFixedPremium(cededUnderwritingInfo.getPremiumWritten())
         cededUnderwritingInfo
     }
 

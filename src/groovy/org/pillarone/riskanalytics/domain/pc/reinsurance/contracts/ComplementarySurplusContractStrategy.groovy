@@ -36,6 +36,11 @@ class ComplementarySurplusContractStrategy extends SurplusContractStrategy imple
         cededUnderwritingInfo.sumInsured *= fractionCeded
         cededUnderwritingInfo.maxSumInsured *= fractionCeded
         cededUnderwritingInfo.commission = 0
+        cededUnderwritingInfo.fixedCommission = 0d
+        cededUnderwritingInfo.variableCommission = 0d
+        cededUnderwritingInfo.variablePremium = 0d
+        cededUnderwritingInfo.fixedPremium = cededUnderwritingInfo.premiumWritten
+
         cededUnderwritingInfo
     }
 }
