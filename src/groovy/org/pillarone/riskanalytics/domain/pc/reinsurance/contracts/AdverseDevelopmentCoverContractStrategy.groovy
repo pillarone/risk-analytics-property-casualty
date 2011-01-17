@@ -2,7 +2,7 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts
 
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
-import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
+
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities
@@ -74,7 +74,7 @@ class AdverseDevelopmentCoverContractStrategy extends AbstractContractStrategy i
         double scaledAttachmentPoint = attachmentPoint
         double scaledLimit = limit
         if (stopLossContractBase == StopLossContractBase.GNPI) {
-            double gnpi = UnderwritingInfoUtilities.aggregate(coverUnderwritingInfo).premiumWritten
+            double gnpi = UnderwritingInfoUtilities.aggregate(coverUnderwritingInfo).premium
             scaledAttachmentPoint *= gnpi
             scaledLimit *= gnpi
         }
@@ -87,10 +87,10 @@ class AdverseDevelopmentCoverContractStrategy extends AbstractContractStrategy i
         incurredAllocationFactor = (aggregateGrossClaim != 0) ? aggregateCededClaim / aggregateGrossClaim : 1d
         paidAllocationFactor = (aggregateGrossClaimPaid != 0) ? aggregateCededClaimPaid / aggregateGrossClaimPaid : 1d
 
-        double totalPremium = coverUnderwritingInfo.premiumWritten.sum()
+        double totalPremium = coverUnderwritingInfo.premium.sum()
         if (totalPremium != 0) {
             for (UnderwritingInfo underwritingInfo: coverUnderwritingInfo) {
-                grossPremiumSharesPerBand.put(underwritingInfo, underwritingInfo.premiumWritten / totalPremium)
+                grossPremiumSharesPerBand.put(underwritingInfo, underwritingInfo.premium / totalPremium)
             }
         }
         else {
@@ -106,12 +106,10 @@ class AdverseDevelopmentCoverContractStrategy extends AbstractContractStrategy i
         cededUnderwritingInfo.commission = 0d
         switch (stopLossContractBase) {
             case StopLossContractBase.ABSOLUTE:                                         
-                cededUnderwritingInfo.premiumWritten = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
-                cededUnderwritingInfo.premiumWrittenAsIf = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
+                cededUnderwritingInfo.premium = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
                 break
             case StopLossContractBase.GNPI:
-                cededUnderwritingInfo.premiumWritten = premium * grossUnderwritingInfo.premiumWritten
-                cededUnderwritingInfo.premiumWrittenAsIf = premium * grossUnderwritingInfo.premiumWrittenAsIf
+                cededUnderwritingInfo.premium = premium * grossUnderwritingInfo.premium
                 break
         }
         cededUnderwritingInfo

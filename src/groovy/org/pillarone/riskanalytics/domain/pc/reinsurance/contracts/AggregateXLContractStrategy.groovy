@@ -70,7 +70,7 @@ class AggregateXLContractStrategy extends AbstractContractStrategy implements IR
         double scaledAttachmentPoint = attachmentPoint
         double scaledLimit = limit
         if (premiumBase == PremiumBase.GNPI) {
-            double gnpi = UnderwritingInfoUtilities.aggregate(coverUnderwritingInfo).premiumWritten
+            double gnpi = UnderwritingInfoUtilities.aggregate(coverUnderwritingInfo).premium
             scaledAttachmentPoint *= gnpi
             scaledLimit *= gnpi
         }
@@ -82,9 +82,9 @@ class AggregateXLContractStrategy extends AbstractContractStrategy implements IR
         else {
             factor = 0d
         }
-        double totalPremium = coverUnderwritingInfo.premiumWritten.sum()
+        double totalPremium = coverUnderwritingInfo.premium.sum()
         for (UnderwritingInfo underwritingInfo: coverUnderwritingInfo) {
-            grossPremiumSharesPerBand.put(underwritingInfo, underwritingInfo.premiumWritten / totalPremium)
+            grossPremiumSharesPerBand.put(underwritingInfo, underwritingInfo.premium / totalPremium)
         }
     }
 
@@ -95,11 +95,11 @@ class AggregateXLContractStrategy extends AbstractContractStrategy implements IR
         cededUnderwritingInfo.commission = 0d
         switch (premiumBase) {
             case PremiumBase.ABSOLUTE:
-                cededUnderwritingInfo.premiumWritten = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
+                cededUnderwritingInfo.premium = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
                 cededUnderwritingInfo.premiumWrittenAsIf = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
                 break
             case PremiumBase.GNPI:
-                cededUnderwritingInfo.premiumWritten = premium * grossUnderwritingInfo.premiumWritten
+                cededUnderwritingInfo.premium = premium * grossUnderwritingInfo.premium
                 cededUnderwritingInfo.premiumWrittenAsIf = premium * grossUnderwritingInfo.premiumWrittenAsIf
                 break
             case PremiumBase.RATE_ON_LINE:

@@ -41,9 +41,8 @@ class UnderwritingInfoMergerTests extends GroovyTestCase {
 
         assertTrue "gross uw info not modified", UnderwritingInfoUtilities.sameContent(underwritingInfo, merger.outUnderwritingInfoGross[0])
         assertTrue "ceded uw info not modified", UnderwritingInfoUtilities.sameContent(underwritingInfoCeded, merger.outUnderwritingInfoCeded[0])
-        assertEquals "net premium written", underwritingInfo.premiumWritten - underwritingInfoCeded.premiumWritten, merger.outUnderwritingInfoNet[0].premiumWritten
+        assertEquals "net premium written", underwritingInfo.premium - underwritingInfoCeded.premium, merger.outUnderwritingInfoNet[0].premium
         assertEquals "net commission", underwritingInfo.commission - underwritingInfoCeded.commission, merger.outUnderwritingInfoNet[0].commission
-        assertEquals "net premium written as if", underwritingInfo.premiumWrittenAsIf - underwritingInfoCeded.premiumWrittenAsIf, merger.outUnderwritingInfoNet[0].premiumWrittenAsIf
         assertEquals "net sum insured", underwritingInfo.sumInsured - underwritingInfoCeded.sumInsured, merger.outUnderwritingInfoNet[0].sumInsured
         assertEquals "net max sum insured", underwritingInfo.maxSumInsured - underwritingInfoCeded.maxSumInsured, merger.outUnderwritingInfoNet[0].maxSumInsured
         assertEquals "net number of policies", underwritingInfo.numberOfPolicies, merger.outUnderwritingInfoNet[0].numberOfPolicies
@@ -75,7 +74,7 @@ class UnderwritingInfoMergerTests extends GroovyTestCase {
 
         assertTrue "gross premium written", UnderwritingInfoUtilities.sameContent(underwritingInfo0, merger.outUnderwritingInfoGross[0])
         assertTrue "ceded premium written", UnderwritingInfoUtilities.sameContent(underwritingInfoCeded0, merger.outUnderwritingInfoCeded[0])
-        assertEquals "net premium written", underwritingInfo0.premiumWritten - underwritingInfoCeded0.premiumWritten, merger.outUnderwritingInfoNet[0].premiumWritten
+        assertEquals "net premium written", underwritingInfo0.premium - underwritingInfoCeded0.premium, merger.outUnderwritingInfoNet[0].premium
         assertEquals "net number of policies", underwritingInfo0.numberOfPolicies, merger.outUnderwritingInfoNet[0].numberOfPolicies
     }
 }

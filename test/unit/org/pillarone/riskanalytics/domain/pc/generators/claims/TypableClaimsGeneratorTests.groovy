@@ -65,7 +65,7 @@ public class TypableClaimsGeneratorTests extends GroovyTestCase {
     }
 
     void testRelativeClaims() {
-        UnderwritingInfo underwritingInfo = new UnderwritingInfo(premiumWritten: 1000, numberOfPolicies: 20, origin: riskBands)
+        UnderwritingInfo underwritingInfo = new UnderwritingInfo(premium: 1000, numberOfPolicies: 20, origin: riskBands)
         claimsGenerator.inUnderwritingInfo.add(underwritingInfo)
 
         claimsGenerator.doCalculation()
@@ -252,7 +252,7 @@ public class TypableClaimsGeneratorTests extends GroovyTestCase {
         claimsGenerator.inEventSeverities << events
         def channelWired = new TestPretendInChannelWired(claimsGenerator, "inEventSeverities")
         // wire underwriting info
-        UnderwritingInfo underwritingInfo = new UnderwritingInfo(premiumWritten: 1000d)
+        UnderwritingInfo underwritingInfo = new UnderwritingInfo(premium: 1000d)
         //underwritingInfo.originalUnderwritingInfo = underwritingInfo
         claimsGenerator.inUnderwritingInfo << underwritingInfo
         claimsGenerator.doCalculation()
@@ -291,7 +291,7 @@ public class TypableClaimsGeneratorTests extends GroovyTestCase {
         claimsGenerator.setParmAssociateExposureInfo(RiskAllocatorType.getStrategy(RiskAllocatorType.NONE, [:]))
         claimsGenerator.setSimulationScope(new SimulationScope(model: new ClaimsModel()))
         // wire underwriting info
-        UnderwritingInfo underwritingInfo = new UnderwritingInfo(premiumWritten: 100d, numberOfPolicies: 5d)
+        UnderwritingInfo underwritingInfo = new UnderwritingInfo(premium: 100d, numberOfPolicies: 5d)
         //underwritingInfo.originalUnderwritingInfo = underwritingInfo
         claimsGenerator.inUnderwritingInfo << underwritingInfo
         claimsGenerator.doCalculation()

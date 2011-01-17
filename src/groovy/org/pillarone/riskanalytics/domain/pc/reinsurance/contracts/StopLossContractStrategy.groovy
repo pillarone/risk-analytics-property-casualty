@@ -6,10 +6,6 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
-import org.pillarone.riskanalytics.domain.pc.claims.ClaimFilterUtilities
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
-import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -65,10 +61,10 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
         double scaledAttachmentPoint = attachmentPoint
         double scaledLimit = limit
         if (stopLossContractBase == StopLossContractBase.GNPI) {
-            double gnpi = UnderwritingInfoUtilities.aggregate(coverUnderwritingInfo).premiumWritten
+            double gnpi = UnderwritingInfoUtilities.aggregate(coverUnderwritingInfo).premium
             scaledAttachmentPoint *= gnpi
             scaledLimit *= gnpi
-            totalCededPremium = coverUnderwritingInfo.premiumWritten.sum() * premium
+            totalCededPremium = coverUnderwritingInfo.premium.sum() * premium
         }
         else if (stopLossContractBase == StopLossContractBase.ABSOLUTE) {
             totalCededPremium = premium
@@ -88,8 +84,7 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
         cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo?.originalUnderwritingInfo ? grossUnderwritingInfo.originalUnderwritingInfo : grossUnderwritingInfo
         cededUnderwritingInfo.commission = 0d
         double factor = premiumAllocation.getShare(grossUnderwritingInfo) * coveredByReinsurer
-        cededUnderwritingInfo.premiumWritten = totalCededPremium * factor
-        cededUnderwritingInfo.premiumWrittenAsIf = totalCededPremium * factor
+        cededUnderwritingInfo.premium = totalCededPremium * factor
         cededUnderwritingInfo
     }
 }

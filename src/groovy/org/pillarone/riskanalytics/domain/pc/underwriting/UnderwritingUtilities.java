@@ -18,17 +18,17 @@ public class UnderwritingUtilities {
             double scaleFactor = 0d;
             if (base.equals(Exposure.PREMIUM_WRITTEN)) {
                 for (UnderwritingInfo underwritingInfo : underwritingInfos) {
-                    scaleFactor += underwritingInfo.premiumWritten;
+                    scaleFactor += underwritingInfo.getPremium();
                 }
             }
             else if (base.equals(Exposure.NUMBER_OF_POLICIES)) {
                 for (UnderwritingInfo underwritingInfo : underwritingInfos) {
-                    scaleFactor += underwritingInfo.numberOfPolicies;
+                    scaleFactor += underwritingInfo.getNumberOfPolicies();
                 }
             }
             else if (base.equals(Exposure.SUM_INSURED)) {
                 for (UnderwritingInfo underwritingInfo : underwritingInfos) {
-                    scaleFactor += underwritingInfo.sumInsured;
+                    scaleFactor += underwritingInfo.getSumInsured();
                 }
             }
             else if (base.equals(Exposure.ABSOLUTE)) {

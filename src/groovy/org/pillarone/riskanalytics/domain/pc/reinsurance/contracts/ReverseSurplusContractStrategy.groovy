@@ -31,8 +31,7 @@ class ReverseSurplusContractStrategy extends SurplusContractStrategy implements 
         UnderwritingInfo cededUnderwritingInfo = UnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
         cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo?.originalUnderwritingInfo ? grossUnderwritingInfo.originalUnderwritingInfo : grossUnderwritingInfo
         double fractionCeded = coveredByReinsurer * (1 - getFractionCeded(cededUnderwritingInfo.sumInsured))
-        cededUnderwritingInfo.premiumWritten *= fractionCeded
-        cededUnderwritingInfo.premiumWrittenAsIf *= fractionCeded
+        cededUnderwritingInfo.premium *= fractionCeded
         cededUnderwritingInfo.sumInsured *= fractionCeded
         cededUnderwritingInfo.maxSumInsured *= fractionCeded
         cededUnderwritingInfo.commission = 0

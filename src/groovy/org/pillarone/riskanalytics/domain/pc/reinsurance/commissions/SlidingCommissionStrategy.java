@@ -66,7 +66,7 @@ public class SlidingCommissionStrategy implements ICommissionStrategy {
             totalClaims += claim.getUltimate();
         }
         for (UnderwritingInfo uwInfo : underwritingInfos) {
-            totalPremium += uwInfo.getPremiumWritten();
+            totalPremium += uwInfo.getPremium();
         }
         double totalLossRatio = totalClaims / totalPremium;
         if (commissionRates == null) setCommissionRates(); // lazy initialization
@@ -81,12 +81,12 @@ public class SlidingCommissionStrategy implements ICommissionStrategy {
 
         if (isAdditive) {
             for (UnderwritingInfo uwInfo : underwritingInfos) {
-                uwInfo.setCommission(uwInfo.getCommission() - uwInfo.getPremiumWritten() * commission);
+                uwInfo.setCommission(uwInfo.getCommission() - uwInfo.getPremium() * commission);
             }
         }
         else {
             for (UnderwritingInfo uwInfo : underwritingInfos) {
-                uwInfo.setCommission(-uwInfo.getPremiumWritten() * commission);
+                uwInfo.setCommission(-uwInfo.getPremium() * commission);
             }
         }
     }

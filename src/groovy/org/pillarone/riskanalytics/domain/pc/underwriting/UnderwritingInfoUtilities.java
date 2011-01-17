@@ -3,6 +3,7 @@ package org.pillarone.riskanalytics.domain.pc.underwriting;
 
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
+import org.pillarone.riskanalytics.domain.utils.PacketUtilities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,20 +12,30 @@ import java.util.List;
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 public class UnderwritingInfoUtilities {
-    // todo(sku): use dko if there is a more general solution possible
     public static boolean sameContent(UnderwritingInfo uwInfo1, UnderwritingInfo uwInfo2) {
-        return (ExposureInfoUtilities.sameContent(uwInfo1, uwInfo2)
-                && uwInfo1.premiumWritten == uwInfo2.premiumWritten
-                && uwInfo1.commission == uwInfo2.commission);
+        return (PacketUtilities.sameContent(uwInfo1, uwInfo2)
+                && uwInfo1.getNumberOfPolicies() == uwInfo2.getNumberOfPolicies()
+                && uwInfo1.getSumInsured() == uwInfo2.getSumInsured()
+                && uwInfo1.getMaxSumInsured() == uwInfo2.getMaxSumInsured()
+                && PacketUtilities.equals(uwInfo2.getExposureDefinition(), uwInfo2.getExposureDefinition())
+                && uwInfo1.getPremium() == uwInfo2.getPremium()
+                && uwInfo1.getFixedPremium() == uwInfo2.getFixedPremium()
+                && uwInfo1.getVariablePremium() == uwInfo2.getVariablePremium()
+                && uwInfo1.getCommission() == uwInfo2.getCommission()
+                && uwInfo1.getFixedCommission() == uwInfo2.getFixedCommission()
+                && uwInfo1.getVariableCommission() == uwInfo2.getVariableCommission());
     }
 
     public static void setZero(UnderwritingInfo underwritingInfo) {
-        underwritingInfo.premiumWrittenAsIf = 0;
-        underwritingInfo.numberOfPolicies = 0;
-        underwritingInfo.sumInsured = 0;
-        underwritingInfo.maxSumInsured = 0;
-        underwritingInfo.premiumWritten = 0;
-        underwritingInfo.commission = 0;
+        underwritingInfo.setNumberOfPolicies(0);
+        underwritingInfo.setSumInsured(0);
+        underwritingInfo.setMaxSumInsured(0);
+        underwritingInfo.setPremium(0);
+        underwritingInfo.setFixedPremium(0);
+        underwritingInfo.setVariablePremium(0);
+        underwritingInfo.setCommission(0);
+        underwritingInfo.setFixedCommission(0);
+        underwritingInfo.setVariableCommission(0);
     }
 
     static public UnderwritingInfo aggregate(List<UnderwritingInfo> underwritingInfos) {
@@ -34,7 +45,7 @@ public class UnderwritingInfoUtilities {
         UnderwritingInfo summedUnderwritingInfo = UnderwritingInfoPacketFactory.createPacket();
         for (UnderwritingInfo underwritingInfo: underwritingInfos) {
             summedUnderwritingInfo.plus(underwritingInfo);
-            summedUnderwritingInfo.exposureDefinition = underwritingInfo.exposureDefinition;
+            summedUnderwritingInfo.setExposureDefinition(underwritingInfo.getExposureDefinition());
         }
         return correctMetaProperties(summedUnderwritingInfo, underwritingInfos);
     }
@@ -84,17 +95,17 @@ public class UnderwritingInfoUtilities {
      */
     // todo (jwa): assert in java has to be enabled explicitly !!! In my opinion it should not be used here for the number of policies!
     static public UnderwritingInfo calculateNet(UnderwritingInfo grossUnderwritingInfo, UnderwritingInfo cededUnderwritingInfo) {
-        assert grossUnderwritingInfo.numberOfPolicies == cededUnderwritingInfo.numberOfPolicies;
+        assert grossUnderwritingInfo.getNumberOfPolicies() == cededUnderwritingInfo.getNumberOfPolicies();
         UnderwritingInfo netUnderwritingInfo = (UnderwritingInfo) grossUnderwritingInfo.copy();
-        netUnderwritingInfo.originalUnderwritingInfo = cededUnderwritingInfo.originalUnderwritingInfo;
+        netUnderwritingInfo.setOriginalUnderwritingInfo(cededUnderwritingInfo.getOriginalUnderwritingInfo());
         netUnderwritingInfo.minus(cededUnderwritingInfo);
-        netUnderwritingInfo.numberOfPolicies = grossUnderwritingInfo.numberOfPolicies;
-        netUnderwritingInfo.sumInsured = grossUnderwritingInfo.sumInsured * grossUnderwritingInfo.numberOfPolicies - cededUnderwritingInfo.sumInsured * cededUnderwritingInfo.numberOfPolicies;
-        if (netUnderwritingInfo.numberOfPolicies > 0) {
-            netUnderwritingInfo.sumInsured = netUnderwritingInfo.sumInsured / netUnderwritingInfo.numberOfPolicies;
+        netUnderwritingInfo.setNumberOfPolicies(grossUnderwritingInfo.getNumberOfPolicies());
+        netUnderwritingInfo.setSumInsured(grossUnderwritingInfo.getSumInsured() * grossUnderwritingInfo.getNumberOfPolicies() - cededUnderwritingInfo.getSumInsured() * cededUnderwritingInfo.getNumberOfPolicies());
+        if (netUnderwritingInfo.getNumberOfPolicies() > 0) {
+            netUnderwritingInfo.setSumInsured(netUnderwritingInfo.getSumInsured() / netUnderwritingInfo.getNumberOfPolicies());
         }
-        if (netUnderwritingInfo.premiumWritten == 0 && netUnderwritingInfo.commission == 0 && netUnderwritingInfo.sumInsured == 0) {
-            netUnderwritingInfo.numberOfPolicies = 0;
+        if (netUnderwritingInfo.getPremium() == 0 && netUnderwritingInfo.getCommission() == 0 && netUnderwritingInfo.getSumInsured() == 0) {
+            netUnderwritingInfo.setNumberOfPolicies(0);
         }
         return netUnderwritingInfo;
     }
@@ -117,22 +128,6 @@ public class UnderwritingInfoUtilities {
         return aggregateUnderwritingInfo;
     }
 
-/*    static public List<UnderwritingInfo> calculateNet(List<UnderwritingInfo> minuendUwInfo, List<UnderwritingInfo> subtrahendUwInfo) {
-        assert minuendUwInfo.size() >= subtrahendUwInfo.size();
-        List<UnderwritingInfo> aggregateUnderwritingInfo = new ArrayList<UnderwritingInfo>(minuendUwInfo.size());
-        for (int i = 0; i < minuendUwInfo.size(); i++) {
-            UnderwritingInfo grossUnderwritingInfo = minuendUwInfo.get(i);
-            UnderwritingInfo cededUnderwritingInfo = findUnderwritingInfo(subtrahendUwInfo, minuendUwInfo.get(i).id)
-            if (cededUnderwritingInfo) {
-                aggregateUnderwritingInfo << calculateNet(grossUnderwritingInfo, cededUnderwritingInfo)
-            }
-            else {
-                aggregateUnderwritingInfo << new UnderwritingInfo(grossUnderwritingInfo)
-            }
-        }
-        return aggregateUnderwritingInfo
-    }
-*/
     static public List<UnderwritingInfo> calculateNet(List<UnderwritingInfo> minuendUwInfo, List<UnderwritingInfo> subtrahendUwInfo) {
         assert minuendUwInfo.size() == subtrahendUwInfo.size();
         List<UnderwritingInfo> difference = new ArrayList<UnderwritingInfo>(minuendUwInfo.size());
@@ -143,7 +138,7 @@ public class UnderwritingInfoUtilities {
             }
             else {
                 UnderwritingInfo netUnderwritingInfo = (UnderwritingInfo) grossUnderwritingInfo.copy();
-                netUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo;
+                netUnderwritingInfo.setOriginalUnderwritingInfo(grossUnderwritingInfo);
                 difference.add(netUnderwritingInfo);
             }
         }
@@ -162,7 +157,7 @@ public class UnderwritingInfoUtilities {
             }
             else {
                 UnderwritingInfo netUnderwritingInfo = (UnderwritingInfo) grossUnderwritingInfo.copy();
-                netUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo;
+                netUnderwritingInfo.setOriginalUnderwritingInfo(grossUnderwritingInfo);
                 difference.add(netUnderwritingInfo);
             }
         }
@@ -173,7 +168,7 @@ public class UnderwritingInfoUtilities {
         List<UnderwritingInfo> UnderwritingInfoGrossWithZeroCommission = new ArrayList<UnderwritingInfo>(UnderwritingInfoGross.size());
         for (UnderwritingInfo grossUnderwritingInfo : UnderwritingInfoGross) {
             UnderwritingInfo grossUnderwritingInfoWithZeroCommission = (UnderwritingInfo) grossUnderwritingInfo.copy();
-            grossUnderwritingInfoWithZeroCommission.commission = 0;
+            grossUnderwritingInfoWithZeroCommission.setCommission(0);
             UnderwritingInfoGrossWithZeroCommission.add(grossUnderwritingInfoWithZeroCommission);
         }
         return UnderwritingInfoGrossWithZeroCommission;
@@ -181,7 +176,8 @@ public class UnderwritingInfoUtilities {
 
     static public UnderwritingInfo findUnderwritingInfo(List<UnderwritingInfo> underwritingInfos, UnderwritingInfo refUwInfo) {
         for(UnderwritingInfo underwritingInfo : underwritingInfos) {
-            if (underwritingInfo.originalUnderwritingInfo.equals(refUwInfo) || underwritingInfo.originalUnderwritingInfo.equals(refUwInfo.originalUnderwritingInfo)) {
+            if (underwritingInfo.getOriginalUnderwritingInfo().equals(refUwInfo)
+                    || underwritingInfo.getOriginalUnderwritingInfo().equals(refUwInfo.getOriginalUnderwritingInfo())) {
                 return underwritingInfo;
             }
         }

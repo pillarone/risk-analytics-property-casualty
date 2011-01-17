@@ -47,7 +47,7 @@ class LossPortfolioTransferContractStrategyTests extends GroovyTestCase {
         assertEquals "outClaims.size", 2, contract.outCoveredClaims.size()
         assertEquals "quotaShare1, attritional ceded claim", 30, contract.outCoveredClaims[0].ultimate
         assertEquals "quotaShare1, large ceded claim", 18, contract.outCoveredClaims[1].ultimate
-        assertEquals "contract, premium", 100, contract.outCoverUnderwritingInfo[0].premiumWritten
+        assertEquals "contract, premium", 100, contract.outCoverUnderwritingInfo[0].premium
     }
 
     void testCalculateCoveredReserves() {
@@ -86,7 +86,7 @@ class LossPortfolioTransferContractStrategyTests extends GroovyTestCase {
                 +((ClaimDevelopmentLeanPacket) contract.outCoveredClaims[1]).reserved
                 +((ClaimDevelopmentLeanPacket) contract.outCoveredClaims[2]).reserved)
 
-        assertEquals "contract, premium", 100, contract.outCoverUnderwritingInfo[0].premiumWritten
+        assertEquals "contract, premium", 100, contract.outCoverUnderwritingInfo[0].premium
 
     }
 
@@ -104,7 +104,7 @@ class LossPortfolioTransferContractStrategyTests extends GroovyTestCase {
 
         assertEquals "outClaimsNet.size", 0, contract.outUncoveredClaims.size()
         assertEquals "outClaims.size", 2, contract.outCoveredClaims.size()
-        assertEquals "contract, premium", 0, contract.outCoverUnderwritingInfo[0].premiumWritten
+        assertEquals "contract, premium", 0, contract.outCoverUnderwritingInfo[0].premium
     }
 
     void testRelativeToCededReservesPremiumBase() {
@@ -123,7 +123,7 @@ class LossPortfolioTransferContractStrategyTests extends GroovyTestCase {
 
         assertEquals "outClaimsNet.size", 0, contract.outUncoveredClaims.size()
         assertEquals "outClaims.size", 2, contract.outCoveredClaims.size()
-        assertEquals "contract, premium", 1000d *0.8 * 0.3, contract.outCoverUnderwritingInfo[0].premiumWritten, 10E-8
+        assertEquals "contract, premium", 1000d *0.8 * 0.3, contract.outCoverUnderwritingInfo[0].premium, 10E-8
     }
 
 }

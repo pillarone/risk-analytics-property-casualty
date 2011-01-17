@@ -186,12 +186,12 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
         Claim claimFire1400 = new Claim(peril: perilB, lineOfBusiness: lob['fire'], value: 1400d, fractionOfPeriod: 0.5, claimType: ClaimType.SINGLE)
         Claim claimFire1500 = new Claim(peril: perilC, lineOfBusiness: lob['fire'], value: 1500d, fractionOfPeriod: 0.6, claimType: ClaimType.SINGLE)
 
-        UnderwritingInfo underwritingInfoFire = new UnderwritingInfo(premiumWritten: 300, commission: 10, lineOfBusiness: lob['fire'])
-        UnderwritingInfo underwritingInfoHull = new UnderwritingInfo(premiumWritten: 200, commission: 30, lineOfBusiness: lob['hull'])
-        UnderwritingInfo underwritingInfoLegal = new UnderwritingInfo(premiumWritten: 100, commission: 20, lineOfBusiness: lob['legal'])
-        UnderwritingInfo underwritingInfoFlood = new UnderwritingInfo(premiumWritten: 600, commission: 40, lineOfBusiness: lob['flood'])
-        UnderwritingInfo underwritingInfoBlitz = new UnderwritingInfo(premiumWritten: 500, commission: 60, lineOfBusiness: lob['lightning'])
-        UnderwritingInfo underwritingInfoWind = new UnderwritingInfo(premiumWritten: 400, commission: 50, lineOfBusiness: lob['wind'])
+        UnderwritingInfo underwritingInfoFire = new UnderwritingInfo(premium: 300, commission: 10, lineOfBusiness: lob['fire'])
+        UnderwritingInfo underwritingInfoHull = new UnderwritingInfo(premium: 200, commission: 30, lineOfBusiness: lob['hull'])
+        UnderwritingInfo underwritingInfoLegal = new UnderwritingInfo(premium: 100, commission: 20, lineOfBusiness: lob['legal'])
+        UnderwritingInfo underwritingInfoFlood = new UnderwritingInfo(premium: 600, commission: 40, lineOfBusiness: lob['flood'])
+        UnderwritingInfo underwritingInfoBlitz = new UnderwritingInfo(premium: 500, commission: 60, lineOfBusiness: lob['lightning'])
+        UnderwritingInfo underwritingInfoWind = new UnderwritingInfo(premium: 400, commission: 50, lineOfBusiness: lob['wind'])
 
         contract.inClaims << claimFire1000 << claimHull1100 << claimLegal1200 << claimFire1300 << claimFire1400 << claimFire1500
         contract.inUnderwritingInfo << underwritingInfoFire << underwritingInfoHull << underwritingInfoLegal << underwritingInfoFlood << underwritingInfoBlitz << underwritingInfoWind
@@ -217,8 +217,8 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
         assertEquals "net, (fire) claim 2", 1120, contract.outUncoveredClaims[2].ultimate
         assertEquals "net, (fire) claim 3", 1200, contract.outUncoveredClaims[3].ultimate
 
-        assertEquals "covered, (fire) uwinfo 0", 60, contract.outCoverUnderwritingInfo[0].premiumWritten
-        assertEquals "net, (fire) uwinfo 0", 240, contract.outNetAfterCoverUnderwritingInfo[0].premiumWritten
+        assertEquals "covered, (fire) uwinfo 0", 60, contract.outCoverUnderwritingInfo[0].premium
+        assertEquals "net, (fire) uwinfo 0", 240, contract.outNetAfterCoverUnderwritingInfo[0].premium
 
     }
 
@@ -247,12 +247,12 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
         Claim claimFire1400 = new Claim(peril: perilB, lineOfBusiness: lob['fire'], value: 1400d, fractionOfPeriod: 0.5, claimType: ClaimType.SINGLE)
         Claim claimFire1500 = new Claim(peril: perilC, lineOfBusiness: lob['fire'], value: 1500d, fractionOfPeriod: 0.6, claimType: ClaimType.SINGLE)
 
-        UnderwritingInfo underwritingInfoFire = new UnderwritingInfo(premiumWritten: 300, commission: 10, lineOfBusiness: lob['fire'])
-        UnderwritingInfo underwritingInfoHull = new UnderwritingInfo(premiumWritten: 200, commission: 30, lineOfBusiness: lob['hull'])
-        UnderwritingInfo underwritingInfoLegal = new UnderwritingInfo(premiumWritten: 100, commission: 20, lineOfBusiness: lob['legal'])
-        UnderwritingInfo underwritingInfoFlood = new UnderwritingInfo(premiumWritten: 600, commission: 40, lineOfBusiness: lob['flood'])
-        UnderwritingInfo underwritingInfoBlitz = new UnderwritingInfo(premiumWritten: 500, commission: 60, lineOfBusiness: lob['lightning'])
-        UnderwritingInfo underwritingInfoWind = new UnderwritingInfo(premiumWritten: 400, commission: 50, lineOfBusiness: lob['wind'])
+        UnderwritingInfo underwritingInfoFire = new UnderwritingInfo(premium: 300, commission: 10, lineOfBusiness: lob['fire'])
+        UnderwritingInfo underwritingInfoHull = new UnderwritingInfo(premium: 200, commission: 30, lineOfBusiness: lob['hull'])
+        UnderwritingInfo underwritingInfoLegal = new UnderwritingInfo(premium: 100, commission: 20, lineOfBusiness: lob['legal'])
+        UnderwritingInfo underwritingInfoFlood = new UnderwritingInfo(premium: 600, commission: 40, lineOfBusiness: lob['flood'])
+        UnderwritingInfo underwritingInfoBlitz = new UnderwritingInfo(premium: 500, commission: 60, lineOfBusiness: lob['lightning'])
+        UnderwritingInfo underwritingInfoWind = new UnderwritingInfo(premium: 400, commission: 50, lineOfBusiness: lob['wind'])
 
         def netUWInfoWired = new TestProbe(contract, 'outNetAfterCoverUnderwritingInfo')
         def netClaimsWired = new TestProbe(contract, 'outUncoveredClaims')
@@ -293,10 +293,10 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
         Claim claimFire1400 = new Claim(peril: perilB, lineOfBusiness: lob['fire'], value: 1400d, fractionOfPeriod: 0.5, claimType: ClaimType.SINGLE)
         Claim claimFire1500 = new Claim(peril: perilC, lineOfBusiness: lob['fire'], value: 1500d, fractionOfPeriod: 0.6, claimType: ClaimType.SINGLE)
 
-        UnderwritingInfo underwritingInfoFire = new UnderwritingInfo(origin: perilB, premiumWritten: 300, commission: 10, lineOfBusiness: lob['fire'])
-        UnderwritingInfo underwritingInfoHull = new UnderwritingInfo(origin: perilA, premiumWritten: 200, commission: 30, lineOfBusiness: lob['fire'])
-        UnderwritingInfo underwritingInfoLegal = new UnderwritingInfo(origin: perilB, premiumWritten: 100, commission: 20, lineOfBusiness: lob['hull'])
-        UnderwritingInfo underwritingInfoFlood = new UnderwritingInfo(origin: perilA, premiumWritten: 600, commission: 40, lineOfBusiness: lob['flood'])
+        UnderwritingInfo underwritingInfoFire = new UnderwritingInfo(origin: perilB, premium: 300, commission: 10, lineOfBusiness: lob['fire'])
+        UnderwritingInfo underwritingInfoHull = new UnderwritingInfo(origin: perilA, premium: 200, commission: 30, lineOfBusiness: lob['fire'])
+        UnderwritingInfo underwritingInfoLegal = new UnderwritingInfo(origin: perilB, premium: 100, commission: 20, lineOfBusiness: lob['hull'])
+        UnderwritingInfo underwritingInfoFlood = new UnderwritingInfo(origin: perilA, premium: 600, commission: 40, lineOfBusiness: lob['flood'])
 
         def netUWInfoWired = new TestProbe(contract, 'outNetAfterCoverUnderwritingInfo')
         def netClaimsWired = new TestProbe(contract, 'outUncoveredClaims')
@@ -319,10 +319,10 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
         assertEquals "net, (fire) claim 1", 1120, contract.outUncoveredClaims[1].ultimate
 
         // underwriting is filtered by lob but not by peril
-        assertEquals "covered, (fire) uwinfo 0", 2.7 / 5.2 * 0.2 * 300, contract.outCoverUnderwritingInfo[0].premiumWritten, 1E-5
-        assertEquals "covered, (fire) uwinfo 0", 2.7 / 5.2 * 0.2 * 200, contract.outCoverUnderwritingInfo[1].premiumWritten, 1E-5
-        assertEquals "net, (fire) uwinfo 0", 300 - 2.7 / 5.2 * 0.2 * 300, contract.outNetAfterCoverUnderwritingInfo[0].premiumWritten, 1E-5
-        assertEquals "net, (fire) uwinfo 0", 200 - 2.7 / 5.2 * 0.2 * 200, contract.outNetAfterCoverUnderwritingInfo[1].premiumWritten, 1E-5
+        assertEquals "covered, (fire) uwinfo 0", 2.7 / 5.2 * 0.2 * 300, contract.outCoverUnderwritingInfo[0].premium, 1E-5
+        assertEquals "covered, (fire) uwinfo 0", 2.7 / 5.2 * 0.2 * 200, contract.outCoverUnderwritingInfo[1].premium, 1E-5
+        assertEquals "net, (fire) uwinfo 0", 300 - 2.7 / 5.2 * 0.2 * 300, contract.outNetAfterCoverUnderwritingInfo[0].premium, 1E-5
+        assertEquals "net, (fire) uwinfo 0", 200 - 2.7 / 5.2 * 0.2 * 200, contract.outNetAfterCoverUnderwritingInfo[1].premium, 1E-5
         contract.reset()
     }
 
@@ -527,9 +527,9 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
         Claim claim5 = new Claim(lineOfBusiness: propertyC, value: 800d, peril: generator)
         Claim claim6 = new Claim(lineOfBusiness: motorA, value: 1000d, peril: reservesGenerator)
 
-        UnderwritingInfo underwritingInfo1 = new UnderwritingInfo(premiumWritten: 15000, commission: 200, lineOfBusiness: motorA)
-        UnderwritingInfo underwritingInfo2 = new UnderwritingInfo(premiumWritten: 10000, commission: 100, lineOfBusiness: motorB)
-        UnderwritingInfo underwritingInfo3 = new UnderwritingInfo(premiumWritten: 10000, commission: 100, lineOfBusiness: propertyC)
+        UnderwritingInfo underwritingInfo1 = new UnderwritingInfo(premium: 15000, commission: 200, lineOfBusiness: motorA)
+        UnderwritingInfo underwritingInfo2 = new UnderwritingInfo(premium: 10000, commission: 100, lineOfBusiness: motorB)
+        UnderwritingInfo underwritingInfo3 = new UnderwritingInfo(premium: 10000, commission: 100, lineOfBusiness: propertyC)
 
         contract.inClaims << claim1 << claim2 << claim3 << claim4 << claim5 << claim6
         contract.inUnderwritingInfo << underwritingInfo1 << underwritingInfo2 << underwritingInfo3
@@ -549,11 +549,11 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
         assertEquals "ceded claim 3", 40d, contract.outCoveredClaims[2].ultimate
         assertEquals "ceded claim 4", 120d, contract.outCoveredClaims[3].ultimate
 
-        assertEquals "ceded premium motorA", 3000d, contract.outCoverUnderwritingInfo[0].premiumWritten
-        assertEquals "ceded premium motorB", 2000d, contract.outCoverUnderwritingInfo[1].premiumWritten
+        assertEquals "ceded premium motorA", 3000d, contract.outCoverUnderwritingInfo[0].premium
+        assertEquals "ceded premium motorB", 2000d, contract.outCoverUnderwritingInfo[1].premium
 
-        assertEquals "net premium motorA", 12000d, contract.outNetAfterCoverUnderwritingInfo[0].premiumWritten
-        assertEquals "net premium motorB", 8000d, contract.outNetAfterCoverUnderwritingInfo[1].premiumWritten
+        assertEquals "net premium motorA", 12000d, contract.outNetAfterCoverUnderwritingInfo[0].premium
+        assertEquals "net premium motorB", 8000d, contract.outNetAfterCoverUnderwritingInfo[1].premium
 
     }
 }

@@ -34,32 +34,28 @@ class SurplusContractStrategyTests extends GroovyTestCase {
     private static List<UnderwritingInfo> getMockUnderwritingInfo() {
         // first band: ceded = 0
         UnderwritingInfo info0 = new UnderwritingInfo(
-                premiumWrittenAsIf: 5000,
                 numberOfPolicies: 1000,
                 sumInsured: 80,
                 maxSumInsured: 100,
-                premiumWritten: 5050)
+                premium: 5050)
         // second band: ceded = (200-100)/200 = 0.5
         UnderwritingInfo info1 = new UnderwritingInfo(
-                premiumWrittenAsIf: 2000,
                 numberOfPolicies: 100,
                 sumInsured: 200,
                 maxSumInsured: 1000,
-                premiumWritten: 2050)
+                premium: 2050)
         // third band: ceded = (500-100)/500 = 0.8
         UnderwritingInfo info2 = new UnderwritingInfo(
-                premiumWrittenAsIf: 4000,
                 numberOfPolicies: 50,
                 sumInsured: 500,
                 maxSumInsured: 800,
-                premiumWritten: 4050)
+                premium: 4050)
         // 4th band: ceded = 500/1500 = 0.333333333333333
         UnderwritingInfo info3 = new UnderwritingInfo(
-                premiumWrittenAsIf: 8000,
                 numberOfPolicies: 20,
                 sumInsured: 1500,
                 maxSumInsured: 1800,
-                premiumWritten: 8050)
+                premium: 8050)
         List<UnderwritingInfo> uwInfos = []
         uwInfos << info0 << info1 << info2 << info3
         return uwInfos
@@ -68,10 +64,9 @@ class SurplusContractStrategyTests extends GroovyTestCase {
  private static List<UnderwritingInfo> getMockUnderwritingInfo1() {
         //besser noch anders machen  (evtl statt UnderwrittingInfo ExposerInfo nehmen)
         UnderwritingInfo info4 = new UnderwritingInfo(
-                premiumWrittenAsIf: 0,
                 numberOfPolicies: 1,
                 sumInsured: 0,
-                premiumWritten: 0)
+                premium: 0)
         return getMockUnderwritingInfo() << info4
     }
 
@@ -168,9 +163,9 @@ class SurplusContractStrategyTests extends GroovyTestCase {
         }
 
         assertEquals "coverUnderwritingInfo.size", inUnderwritingInfos.size(), coverUnderwritingInfo.size()
-        assertEquals "premium written 0", 0d * inUnderwritingInfos[0].premiumWritten, coverUnderwritingInfo[0].premiumWritten
-        assertEquals "premium written 1", 0.5 * inUnderwritingInfos[1].premiumWritten, coverUnderwritingInfo[1].premiumWritten
-        assertEquals "premium written 2", 0.8 * inUnderwritingInfos[2].premiumWritten, coverUnderwritingInfo[2].premiumWritten
+        assertEquals "premium written 0", 0d * inUnderwritingInfos[0].premium, coverUnderwritingInfo[0].premium
+        assertEquals "premium written 1", 0.5 * inUnderwritingInfos[1].premium, coverUnderwritingInfo[1].premium
+        assertEquals "premium written 2", 0.8 * inUnderwritingInfos[2].premium, coverUnderwritingInfo[2].premium
     }
 
     void testGetCededUnderwritingInfo() {
@@ -182,9 +177,9 @@ class SurplusContractStrategyTests extends GroovyTestCase {
         }
 
         assertEquals "coverUnderwritingInfo.size", inUnderwritingInfos.size(), coverUnderwritingInfo.size()
-        assertEquals "premium written 0", 0d * inUnderwritingInfos[0].premiumWritten, coverUnderwritingInfo[0].premiumWritten
-        assertEquals "premium written 1", 0.5 * inUnderwritingInfos[1].premiumWritten, coverUnderwritingInfo[1].premiumWritten
-        assertEquals "premium written 2", 0.8 * inUnderwritingInfos[2].premiumWritten, coverUnderwritingInfo[2].premiumWritten
+        assertEquals "premium written 0", 0d * inUnderwritingInfos[0].premium, coverUnderwritingInfo[0].premium
+        assertEquals "premium written 1", 0.5 * inUnderwritingInfos[1].premium, coverUnderwritingInfo[1].premium
+        assertEquals "premium written 2", 0.8 * inUnderwritingInfos[2].premium, coverUnderwritingInfo[2].premium
         // todo (sku): finalize discussion with meli
         /*assertEquals "premium written as if 0", 0d * inUnderwritingInfos[0].premiumWrittenAsIf, coverUnderwritingInfo[0].premiumWrittenAsIf
         assertEquals "premium written as if 1", 0.5 * inUnderwritingInfos[0].premiumWrittenAsIf, coverUnderwritingInfo[0].premiumWrittenAsIf

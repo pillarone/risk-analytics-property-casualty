@@ -35,7 +35,7 @@ class LossPortfolioTransferContractStrategy extends AbstractContractStrategy imp
     }
 
     void initBookkeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
-        double totalPremium = coverUnderwritingInfo.premiumWritten.sum()
+        double totalPremium = coverUnderwritingInfo.premium.sum()
         if (totalPremium == 0) {
             for (UnderwritingInfo underwritingInfo: coverUnderwritingInfo) {
                 grossPremiumSharesPerBand.put(underwritingInfo, 0)
@@ -43,7 +43,7 @@ class LossPortfolioTransferContractStrategy extends AbstractContractStrategy imp
         }
         else {
             for (UnderwritingInfo underwritingInfo: coverUnderwritingInfo) {
-                grossPremiumSharesPerBand.put(underwritingInfo, underwritingInfo.premiumWritten / totalPremium)
+                grossPremiumSharesPerBand.put(underwritingInfo, underwritingInfo.premium / totalPremium)
             }
         }
     }
@@ -60,16 +60,15 @@ class LossPortfolioTransferContractStrategy extends AbstractContractStrategy imp
         cededUnderwritingInfo.commission = 0
         switch (premiumBase) {
             case LPTPremiumBase.ABSOLUTE:
-                cededUnderwritingInfo.premiumWritten = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
+                cededUnderwritingInfo.premium = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
                 break
             case LPTPremiumBase.RELATIVE_TO_CEDED_RESERVES_VOLUME:
-                cededUnderwritingInfo.premiumWritten =
+                cededUnderwritingInfo.premium =
                     initialReserves * quotaShare * coveredByReinsurer * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
                 break
             default:
                 throw new IllegalArgumentException("['LossPortfolioTransferContractStrategy.invalidPremiumBaseType','"+premiumBase+"']")
         }
-        cededUnderwritingInfo.premiumWrittenAsIf =  cededUnderwritingInfo.premiumWritten
 
         cededUnderwritingInfo
     }

@@ -52,14 +52,14 @@ public class UnderwritingInfoMerger extends Component {
             }
             if (isSenderWired(outUnderwritingInfoCeded) || isSenderWired(outUnderwritingInfoNet)) {
                 for (UnderwritingInfo cededUnderwritingInfo : inUnderwritingInfoCeded) {
-                    if (grossMergedCededPairs.containsKey(cededUnderwritingInfo.originalUnderwritingInfo)) {
-                        UnderwritingInfo aggregateCededUnderwritingInfo = grossMergedCededPairs.get(cededUnderwritingInfo.originalUnderwritingInfo);
+                    if (grossMergedCededPairs.containsKey(cededUnderwritingInfo.getOriginalUnderwritingInfo())) {
+                        UnderwritingInfo aggregateCededUnderwritingInfo = grossMergedCededPairs.get(cededUnderwritingInfo.getOriginalUnderwritingInfo());
                         if (aggregateCededUnderwritingInfo == null) {
-                            grossMergedCededPairs.put(cededUnderwritingInfo.originalUnderwritingInfo, UnderwritingInfoPacketFactory.copy(cededUnderwritingInfo));
+                            grossMergedCededPairs.put(cededUnderwritingInfo.getOriginalUnderwritingInfo(), UnderwritingInfoPacketFactory.copy(cededUnderwritingInfo));
                         }
                         else {
                             aggregateCededUnderwritingInfo.plus(cededUnderwritingInfo);
-                            aggregateCededUnderwritingInfo.numberOfPolicies = cededUnderwritingInfo.numberOfPolicies;
+                            aggregateCededUnderwritingInfo.setNumberOfPolicies(cededUnderwritingInfo.getNumberOfPolicies());
                             aggregateCededUnderwritingInfo.origin = this;
                         }
                     }
@@ -69,7 +69,7 @@ public class UnderwritingInfoMerger extends Component {
                     UnderwritingInfo grossUnderwritingInfo = entry.getKey();
                     UnderwritingInfo netUnderwritingInfo = UnderwritingInfoPacketFactory.copy(grossUnderwritingInfo);
                     netUnderwritingInfo.origin = this;
-                    netUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo;
+                    netUnderwritingInfo.setOriginalUnderwritingInfo(grossUnderwritingInfo);
 
                     UnderwritingInfo cededUnderwritingInfo = entry.getValue();
                     if (cededUnderwritingInfo == null) {

@@ -25,11 +25,11 @@ public class UnderwritingInfoFilter extends Component {
         for (UnderwritingInfo underwritingInfo: inUnderwritingInfo) {
             String packetLine;
             IStructureInformation structureInformation = simulationScope.getStructureInformation();
-            if (underwritingInfo.originalUnderwritingInfo == null) {
+            if (underwritingInfo.getOriginalUnderwritingInfo() == null) {
                 packetLine = structureInformation.getLine(underwritingInfo).toLowerCase();
             }
             else {
-                packetLine = structureInformation.getLine(underwritingInfo.originalUnderwritingInfo).toLowerCase();
+                packetLine = structureInformation.getLine(underwritingInfo.getOriginalUnderwritingInfo()).toLowerCase();
             }
             if (LOG.isDebugEnabled()) {
                 LOG.debug("UnderwritingInfoFilter matching: ${packetLine.equals(componentLine)}, packetLine: ${packetLine}, componentLine: ${componentLine}, path: ${structureInformation.getPath(underwritingInfo)}");

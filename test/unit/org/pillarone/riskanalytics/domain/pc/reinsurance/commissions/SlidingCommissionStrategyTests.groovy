@@ -44,7 +44,7 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
                 0.5d: 0.03d, // 3% on 50-60%, i.e., Commission is 3% if LossRatio is in [0.5, 0.6)
                 0.6d: 0d,    // 0% from 60%, i.e., Commission is 0% if LossRatio is in [0.6, +Infinity)
         ])
-        uwInfo = [new UnderwritingInfo(premiumWritten: 100)]
+        uwInfo = [new UnderwritingInfo(premium: 100)]
         claims = [new Claim(value: 0)]
     }
 
@@ -59,8 +59,8 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
         ICommissionStrategy commissionStrategy = getSlidingCommissionStrategy() // uses method's default bands
         // default commission bands: 20% Commission on [0,10%) LossRatio, 10% on [10%,20%), 5% on [20%,50%), 0% at or over 50% loss ratio
 
-        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: -50)
-        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: -5)
+        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premium: 200, commission: -50)
+        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premium: 100, commission: -5)
         // so total premium written is 300
 
         Claim claim05 = new Claim(value: 5)
@@ -82,7 +82,7 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
         ICommissionStrategy commissionStrategy = getSlidingCommissionStrategy()
         // default commission bands: 20% Commission on [0,10%) LossRatio, 10% on [10%,20%), 5% on [20%,50%), 0% at or over 50% loss ratio
 
-        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: -50)
+        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premium: 200, commission: -50)
         List underwritingInfo = [underwritingInfo200]
         List claims = [new Claim(value: 25)]
         // loss ratio is 25/200 = 12.5%, in [10%, 20%], so the commission should be 10%
@@ -102,7 +102,7 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
     void testPercentageSelectionCase0a() {
         claims[0].value = -1e-6
         commissionStrategy.calculateCommission claims, uwInfo, false, false
-        double lossRatio = claims.value.sum() / uwInfo.premiumWritten.sum() * 1E2
+        double lossRatio = claims.value.sum() / uwInfo.premium.sum() * 1E2
         assertEquals '# outUnderwritingInfo packets', 1, uwInfo.size()
         assertEquals "Underwriting Commission (%) resulting from Loss Ratio of ${lossRatio}%", -0d, uwInfo[0].commission
     }
@@ -110,7 +110,7 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
     void testPercentageSelectionCase0b() {
         claims[0].value = 0d
         commissionStrategy.calculateCommission claims, uwInfo, false, false
-        double lossRatio = claims.value.sum() / uwInfo.premiumWritten.sum() * 1E2
+        double lossRatio = claims.value.sum() / uwInfo.premium.sum() * 1E2
         assertEquals '# outUnderwritingInfo packets', 1, uwInfo.size()
         assertEquals "Underwriting Commission (%) resulting from Loss Ratio of ${lossRatio}%", 0d, uwInfo[0].commission, 1E-14
     }
@@ -118,7 +118,7 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
     void testPercentageSelectionCase0c() {
         claims[0].value = 10d - 1e-6
         commissionStrategy.calculateCommission claims, uwInfo, false, false
-        double lossRatio = claims.value.sum() / uwInfo.premiumWritten.sum() * 1E2
+        double lossRatio = claims.value.sum() / uwInfo.premium.sum() * 1E2
         assertEquals '# outUnderwritingInfo packets', 1, uwInfo.size()
         assertEquals "Underwriting Commission (%) resulting from Loss Ratio of ${lossRatio}%", 0d, uwInfo[0].commission, 1E-14
     }
@@ -126,7 +126,7 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
     void testPercentageSelectionCase1() {
         claims[0].value = 10d
         commissionStrategy.calculateCommission claims, uwInfo, false, false
-        double lossRatio = claims.value.sum() / uwInfo.premiumWritten.sum() * 1E2
+        double lossRatio = claims.value.sum() / uwInfo.premium.sum() * 1E2
         assertEquals '# outUnderwritingInfo packets', 1, uwInfo.size()
         assertEquals "Underwriting Commission (%) resulting from Loss Ratio of ${lossRatio}%", -7d, uwInfo[0].commission, 1E-14
     }
@@ -134,7 +134,7 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
     void testPercentageSelectionCase2() {
         claims[0].value = 40d
         commissionStrategy.calculateCommission claims, uwInfo, false, false
-        double lossRatio = claims.value.sum() / uwInfo.premiumWritten.sum() * 1E2
+        double lossRatio = claims.value.sum() / uwInfo.premium.sum() * 1E2
         assertEquals '# outUnderwritingInfo packets', 1, uwInfo.size()
         assertEquals "Underwriting Commission (%) resulting from Loss Ratio of ${lossRatio}%", -5d, uwInfo[0].commission
     }
@@ -142,7 +142,7 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
     void testPercentageSelectionCase3a() {
         claims[0].value = 50d
         commissionStrategy.calculateCommission claims, uwInfo, false, false
-        double lossRatio = claims.value.sum() / uwInfo.premiumWritten.sum() * 1E2
+        double lossRatio = claims.value.sum() / uwInfo.premium.sum() * 1E2
         assertEquals '# outUnderwritingInfo packets', 1, uwInfo.size()
         assertEquals "Underwriting Commission (%) resulting from Loss Ratio of ${lossRatio}%", -3d, uwInfo[0].commission
     }
@@ -150,7 +150,7 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
     void testPercentageSelectionCase3b() {
         claims[0].value = 60d - 1e-6
         commissionStrategy.calculateCommission claims, uwInfo, false, false
-        double lossRatio = claims.value.sum() / uwInfo.premiumWritten.sum() * 1E2
+        double lossRatio = claims.value.sum() / uwInfo.premium.sum() * 1E2
         assertEquals '# outUnderwritingInfo packets', 1, uwInfo.size()
         assertEquals "Underwriting Commission (%) resulting from Loss Ratio of ${lossRatio}%", -3d, uwInfo[0].commission
     }
@@ -158,7 +158,7 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
     void testPercentageSelectionCase4() {
         claims[0].value = 60d
         commissionStrategy.calculateCommission claims, uwInfo, false, false
-        double lossRatio = claims.value.sum() / uwInfo.premiumWritten.sum() * 1E2
+        double lossRatio = claims.value.sum() / uwInfo.premium.sum() * 1E2
         assertEquals '# outUnderwritingInfo packets', 1, uwInfo.size()
         assertEquals "Underwriting Commission (%) resulting from Loss Ratio of ${lossRatio}%", 0, uwInfo[0].commission, 1E-14
     }

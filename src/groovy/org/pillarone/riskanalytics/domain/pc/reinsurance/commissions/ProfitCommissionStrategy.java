@@ -47,7 +47,7 @@ public class ProfitCommissionStrategy implements ICommissionStrategy {
         }
         double totalPremiumWritten = 0d;
         for (UnderwritingInfo underwritingInfo : underwritingInfos) {
-            totalPremiumWritten += underwritingInfo.getPremiumWritten();
+            totalPremiumWritten += underwritingInfo.getPremium();
         }
         double fixedCommission = commissionRatio * totalPremiumWritten; // calculate 'prior' fixed commission
         double currentProfit = totalPremiumWritten * (1d - costRatio) - fixedCommission - incurredClaims;
@@ -57,13 +57,13 @@ public class ProfitCommissionStrategy implements ICommissionStrategy {
 
         if (isAdditive) {
             for (UnderwritingInfo underwritingInfo : underwritingInfos) {
-                underwritingInfo.setCommission(-underwritingInfo.getPremiumWritten() * totalCommission / totalPremiumWritten +
+                underwritingInfo.setCommission(-underwritingInfo.getPremium() * totalCommission / totalPremiumWritten +
                                                underwritingInfo.getCommission());
             }
         }
         else {
             for (UnderwritingInfo underwritingInfo : underwritingInfos) {
-                underwritingInfo.setCommission(-underwritingInfo.getPremiumWritten() * totalCommission / totalPremiumWritten);
+                underwritingInfo.setCommission(-underwritingInfo.getPremium() * totalCommission / totalPremiumWritten);
             }
         }
     }

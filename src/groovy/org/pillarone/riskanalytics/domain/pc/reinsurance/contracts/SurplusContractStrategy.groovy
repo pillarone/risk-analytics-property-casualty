@@ -65,8 +65,7 @@ class SurplusContractStrategy extends AbstractContractStrategy implements IReins
         UnderwritingInfo cededUnderwritingInfo = UnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
         cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo?.originalUnderwritingInfo ? grossUnderwritingInfo.originalUnderwritingInfo : grossUnderwritingInfo
         double fractionCeded = getFractionCeded(cededUnderwritingInfo.sumInsured)
-        cededUnderwritingInfo.premiumWritten *= fractionCeded * coveredByReinsurer
-        cededUnderwritingInfo.premiumWrittenAsIf *= fractionCeded * coveredByReinsurer
+        cededUnderwritingInfo.premium *= fractionCeded * coveredByReinsurer
         cededUnderwritingInfo.sumInsured *= fractionCeded * coveredByReinsurer
         cededUnderwritingInfo.maxSumInsured *= fractionCeded * coveredByReinsurer
         cededUnderwritingInfo.commission = 0

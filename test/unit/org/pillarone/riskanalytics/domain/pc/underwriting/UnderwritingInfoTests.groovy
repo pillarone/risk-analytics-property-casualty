@@ -8,32 +8,28 @@ class UnderwritingInfoTests extends GroovyTestCase {
 
     static UnderwritingInfo getUnderwritingInfo() {
         return new UnderwritingInfo(
-                premiumWritten: 2000,
-                premiumWrittenAsIf: 2000,
+                premium: 2000,
                 numberOfPolicies: 100,
                 exposureDefinition: Exposure.ABSOLUTE)
     }
 
     static UnderwritingInfo getUnderwritingInfo2() {
         return new UnderwritingInfo(
-                premiumWritten: 500,
-                premiumWrittenAsIf: 500,
+                premium: 500,
                 numberOfPolicies: 100,
                 exposureDefinition: Exposure.ABSOLUTE)
     }
 
     static UnderwritingInfo getUnderwritingInfo3() {
         return new UnderwritingInfo(
-                premiumWritten: 1500,
-                premiumWrittenAsIf: 1500,
+                premium: 1500,
                 numberOfPolicies: 100,
                 exposureDefinition: Exposure.ABSOLUTE)
     }
 
   static UnderwritingInfo getUnderwritingInfo4() {
       return new UnderwritingInfo(
-              premiumWritten: 1000,
-              premiumWrittenAsIf: 1000,
+              premium: 1000,
               numberOfPolicies: 100,
               exposureDefinition: Exposure.ABSOLUTE)
   }
@@ -49,14 +45,12 @@ class UnderwritingInfoTests extends GroovyTestCase {
     void testAdd() {
         UnderwritingInfo underwritingInfo0 = new UnderwritingInfo()
         UnderwritingInfo underwritingInfo1 = new UnderwritingInfo(
-                premiumWritten: 2000,
-                premiumWrittenAsIf: 2000,
+                premium: 2000,
                 numberOfPolicies: 100,
                 exposureDefinition: Exposure.ABSOLUTE,
         )
         underwritingInfo0.plus underwritingInfo1
-        assertEquals "premium written", underwritingInfo1.premiumWritten, underwritingInfo0.premiumWritten
-        assertEquals "premium written as if", underwritingInfo1.premiumWrittenAsIf, underwritingInfo0.premiumWrittenAsIf
+        assertEquals "premium written", underwritingInfo1.premium, underwritingInfo0.premium
         assertEquals "numberOfPolicies", underwritingInfo1.numberOfPolicies, underwritingInfo0.numberOfPolicies
     }
 }

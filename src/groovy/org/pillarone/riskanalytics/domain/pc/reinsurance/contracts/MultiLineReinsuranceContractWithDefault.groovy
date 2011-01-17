@@ -100,7 +100,7 @@ public class MultiLineReinsuranceContractWithDefault extends MultiLineReinsuranc
         else {
             cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo;
         }
-        cededUnderwritingInfo.premiumWritten = 0;
+        cededUnderwritingInfo.premium = 0;
         cededUnderwritingInfo.premiumWrittenAsIf = 0;
         cededUnderwritingInfo.sumInsured = 0;
         cededUnderwritingInfo.maxSumInsured = 0;

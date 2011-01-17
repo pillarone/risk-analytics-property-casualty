@@ -24,8 +24,8 @@ public class UnderwritingFilterUtilities {
         List<UnderwritingInfo> filterUnderwritingInfos = new ArrayList<UnderwritingInfo>(underwritingInfos.size());
         if (coverCriteria != null) {
             for (UnderwritingInfo underwritingInfo : underwritingInfos) {
-                if (underwritingInfo.originalUnderwritingInfo != null
-                        && coverCriteria.contains(underwritingInfo.originalUnderwritingInfo)
+                if (underwritingInfo.getOriginalUnderwritingInfo() != null
+                        && coverCriteria.contains(underwritingInfo.getOriginalUnderwritingInfo())
                         || coverCriteria.contains(underwritingInfo.origin)) {
                     filterUnderwritingInfos.add(underwritingInfo);
                 }
@@ -75,7 +75,7 @@ public class UnderwritingFilterUtilities {
     /**
      * @param underwritingInfos underwriting info packets to be filtered
      * @param coveredLines      components such as RiskBands
-     * @param claims            claims to be filtered by covered lines and covered perils to obtain share factor for premiumWritten
+     * @param claims            claims to be filtered by covered lines and covered perils to obtain share factor for premium
      * @param coveredPerils     Claims generator components
      * @return an underwriting info packet is added to the list of filtered underwriting info packets if the lineOfBusiness
      *         references an element of the coveredLinesOfBusiness. The premium is scaled according to the weight of covered perils in
@@ -106,8 +106,7 @@ public class UnderwritingFilterUtilities {
                     }
                     else {
                         UnderwritingInfo scaledUnderwritingInfo = underwritingInfo.copy();
-                        scaledUnderwritingInfo.premiumWritten *= perilShareInLob;
-                        scaledUnderwritingInfo.premiumWrittenAsIf *= perilShareInLob;
+                        scaledUnderwritingInfo.setPremium(scaledUnderwritingInfo.getPremium() * perilShareInLob);
                         filteredAndScaledUnderwritingInfos.add(scaledUnderwritingInfo);
                     }
                 }
@@ -144,7 +143,7 @@ public class UnderwritingFilterUtilities {
         List<UnderwritingInfo> filterUnderwritingInfos = new ArrayList<UnderwritingInfo>(underwritingInfos.size());
         if (coverCriteria != null) {
             for (UnderwritingInfo underwritingInfo : underwritingInfos) {
-                if (coverCriteria.contains(underwritingInfo.originalUnderwritingInfo.origin)) {
+                if (coverCriteria.contains(underwritingInfo.getOriginalUnderwritingInfo().origin)) {
                     filterUnderwritingInfos.add(underwritingInfo);
                 }
             }
@@ -158,7 +157,7 @@ public class UnderwritingFilterUtilities {
             filteredUnderwritingInfos.addAll(underwritingInfos);
         } else if (coveredOrigin.size() > 0 && coveredOriginal.size() > 0) {
             for (UnderwritingInfo underwritingInfo : underwritingInfos) {
-                if (coveredOrigin.contains(underwritingInfo.origin) && coveredOriginal.contains(underwritingInfo.originalUnderwritingInfo.origin)) {
+                if (coveredOrigin.contains(underwritingInfo.origin) && coveredOriginal.contains(underwritingInfo.getOriginalUnderwritingInfo().origin)) {
                     filteredUnderwritingInfos.add(underwritingInfo);
                 }
             }
@@ -170,7 +169,7 @@ public class UnderwritingFilterUtilities {
             }
         } else if (coveredOriginal.size() > 0) {
             for (UnderwritingInfo underwritingInfo : underwritingInfos) {
-                if (coveredOriginal.contains(underwritingInfo.originalUnderwritingInfo.origin)) {
+                if (coveredOriginal.contains(underwritingInfo.getOriginalUnderwritingInfo().origin)) {
                     filteredUnderwritingInfos.add(underwritingInfo);
                 }
             }
@@ -191,11 +190,11 @@ public class UnderwritingFilterUtilities {
     public static List<UnderwritingInfo> filterUnderwritingInfoByOriginalOrigin(List<UnderwritingInfo> underwritingInfosGross, List<UnderwritingInfo> underwritingInfosCeded) {
         List<Component> originalOrigins = new ArrayList<Component>();
         for (UnderwritingInfo underwritingInfoGross : underwritingInfosGross) {
-            originalOrigins.add(underwritingInfoGross.originalUnderwritingInfo.origin);
+            originalOrigins.add(underwritingInfoGross.getOriginalUnderwritingInfo().origin);
         }
         List<UnderwritingInfo> filteredUnderwritingInfos = new ArrayList<UnderwritingInfo>(underwritingInfosGross.size());
         for (UnderwritingInfo underwritingInfoCeded : underwritingInfosCeded) {
-            if (originalOrigins.contains(underwritingInfoCeded.originalUnderwritingInfo.origin)) {
+            if (originalOrigins.contains(underwritingInfoCeded.getOriginalUnderwritingInfo().origin)) {
                 filteredUnderwritingInfos.add(underwritingInfoCeded);
             }
         }

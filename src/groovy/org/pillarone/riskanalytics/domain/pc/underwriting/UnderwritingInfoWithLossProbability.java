@@ -18,7 +18,7 @@ public class UnderwritingInfoWithLossProbability extends UnderwritingInfo {
             case ABSOLUTE:
                 return 1d;
             case PREMIUM_WRITTEN:
-                return getPremiumWritten();
+                return getPremium();
             case NUMBER_OF_POLICIES:
                 return getNumberOfPolicies();
         }

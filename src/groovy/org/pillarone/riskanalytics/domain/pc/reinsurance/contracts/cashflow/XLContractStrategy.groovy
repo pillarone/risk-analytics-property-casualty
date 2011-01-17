@@ -1,7 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cashflow
 
 import org.pillarone.riskanalytics.core.parameterization.AbstractMultiDimensionalParameter
-import org.pillarone.riskanalytics.core.parameterization.IParameterObject
+
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
@@ -76,9 +76,9 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
     }
 
     void initBookKeepingFiguresOfPeriod(List<Claim> grossClaims, List<UnderwritingInfo> grossUnderwritingInfos, double coveredByReinsurer) {
-        double totalPremium = grossUnderwritingInfos.premiumWritten.sum()
+        double totalPremium = grossUnderwritingInfos.premium.sum()
         for (UnderwritingInfo underwritingInfo: grossUnderwritingInfos) {
-            grossPremiumSharesPerBand.put(underwritingInfo, underwritingInfo.premiumWritten / totalPremium)
+            grossPremiumSharesPerBand.put(underwritingInfo, underwritingInfo.premium / totalPremium)
         }
         priorPeriodUsedReinstatements = calculateUsedReinstatements()
         double usedAnnualLimitInPriorPeriod = annualLimit - availableAnnualLimit
@@ -129,16 +129,13 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
         cededUnderwritingInfo.commission = 0d
         switch (premiumBase) {
             case PremiumBase.ABSOLUTE:
-                cededUnderwritingInfo.premiumWritten = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
-                cededUnderwritingInfo.premiumWrittenAsIf = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
+                cededUnderwritingInfo.premium = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
                 break
             case PremiumBase.GNPI:
-                cededUnderwritingInfo.premiumWritten = premium * grossUnderwritingInfo.premiumWritten
-                cededUnderwritingInfo.premiumWrittenAsIf = premium * grossUnderwritingInfo.premiumWrittenAsIf
+                cededUnderwritingInfo.premium = premium * grossUnderwritingInfo.premium
                 break
             case PremiumBase.RATE_ON_LINE:
-                cededUnderwritingInfo.premiumWritten = premium * limit
-                cededUnderwritingInfo.premiumWrittenAsIf = premium * limit
+                cededUnderwritingInfo.premium = premium * limit
                 break
             case PremiumBase.NUMBER_OF_POLICIES:
                 throw new IllegalArgumentException("XLContractStrategy.invalidPremiumBase")
@@ -146,8 +143,7 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
         // Increases premium written and premium written as if with the reinstatement premium
         double factor = firstCoveredPeriod ? 1 + calculateReinstatementPremiums(coveredByReinsurer) : calculateReinstatementPremiums(coveredByReinsurer)
         firstCoveredPeriod = false
-        cededUnderwritingInfo.premiumWritten *= factor
-        cededUnderwritingInfo.premiumWrittenAsIf *= factor
+        cededUnderwritingInfo.premium *= factor
         return cededUnderwritingInfo
     }
 

@@ -91,7 +91,7 @@ public class MultiLineReinsuranceContract extends ReinsuranceContract {
             ReinsuranceResultWithCommissionPacket result = new ReinsuranceResultWithCommissionPacket();
             UnderwritingInfo underwritingInfo = UnderwritingInfoUtilities.aggregate(outCoverUnderwritingInfo);
             if (underwritingInfo != null) {
-                result.setCededPremium(-underwritingInfo.getPremiumWritten());
+                result.setCededPremium(-underwritingInfo.getPremium());
                 result.setCededCommission(underwritingInfo.getCommission());
             }
             Claim aggregateClaim = ClaimUtilities.aggregateClaims(outCoveredClaims, this);

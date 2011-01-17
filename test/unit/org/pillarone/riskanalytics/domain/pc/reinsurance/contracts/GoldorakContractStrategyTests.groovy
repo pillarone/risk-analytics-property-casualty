@@ -267,7 +267,7 @@ class GoldorakContractStrategyTests extends GroovyTestCase {
 //        //============================================================ testGetCededUnderwriting
 //        UnderwritingInfo cededUnderwritingInfo = stopLoss.parmContractStrategy.calculateCoverUnderwritingInfo(grossUnderwritingInfo, 0)
 //
-//        assertEquals "premium written", stopLoss.parmContractStrategy.premium * grossUnderwritingInfo.premiumWritten, cededUnderwritingInfo.premiumWritten
+//        assertEquals "premium written", stopLoss.parmContractStrategy.premium * grossUnderwritingInfo.premium, cededUnderwritingInfo.premium
 //        assertEquals "premium written as if", stopLoss.parmContractStrategy.premium * grossUnderwritingInfo.premiumWrittenAsIf, cededUnderwritingInfo.premiumWrittenAsIf
 //
 //    }

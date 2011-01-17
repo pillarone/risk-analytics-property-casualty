@@ -7,10 +7,6 @@ import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalPa
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
-import org.pillarone.riskanalytics.domain.pc.claims.ClaimFilterUtilities
-import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -112,16 +108,13 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
         cededUnderwritingInfo.commission = 0d
         switch (premiumBase) {
             case PremiumBase.ABSOLUTE:
-                cededUnderwritingInfo.premiumWritten = premium * premiumAllocation.getShare(grossUnderwritingInfo)
-                cededUnderwritingInfo.premiumWrittenAsIf = premium * premiumAllocation.getShare(grossUnderwritingInfo)
+                cededUnderwritingInfo.premium = premium * premiumAllocation.getShare(grossUnderwritingInfo)
                 break
             case PremiumBase.GNPI:
-                cededUnderwritingInfo.premiumWritten = premium * grossUnderwritingInfo.premiumWritten // todo (jwa): premiumAllocation as is done in StopLoss??
-                cededUnderwritingInfo.premiumWrittenAsIf = premium * grossUnderwritingInfo.premiumWrittenAsIf
+                cededUnderwritingInfo.premium = premium * grossUnderwritingInfo.premium // todo (jwa): premiumAllocation as is done in StopLoss??
                 break
             case PremiumBase.RATE_ON_LINE:
-                cededUnderwritingInfo.premiumWritten = premium * limit * premiumAllocation.getShare(grossUnderwritingInfo)
-                cededUnderwritingInfo.premiumWrittenAsIf = premium * limit * premiumAllocation.getShare(grossUnderwritingInfo)
+                cededUnderwritingInfo.premium = premium * limit * premiumAllocation.getShare(grossUnderwritingInfo)
                 break
             case PremiumBase.NUMBER_OF_POLICIES:
                 throw new IllegalArgumentException("XLContractStrategy.invalidPremiumBase")
@@ -129,8 +122,7 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
         // Increases premium written and premium written as if with the reinstatement premium
         double factor = 1 + calculateReinstatementPremiums(aggregateLimit, availableAggregateLimit, aggregateDeductible,
             limit, reinstatements, reinstatementPremiums, coveredByReinsurer) * coveredByReinsurer
-        cededUnderwritingInfo.premiumWritten *= factor
-        cededUnderwritingInfo.premiumWrittenAsIf *= factor
+        cededUnderwritingInfo.premium *= factor
         return cededUnderwritingInfo
     }
 

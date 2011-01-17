@@ -39,12 +39,12 @@ public class MarketUnderwritingInfoMerger extends Component {
             }
             if (isSenderWired(outUnderwritingInfoCeded) || isSenderWired(outUnderwritingInfoNet)) {
                 // now find all ceded in-UI packets with matching key (unique identifier = originalUnderwritingInfo property)
-                // and aggregate them by summing their UnderwritingInfo.{premiumWritten,commission} and ExposureInfo properties
+                // and aggregate them by summing their UnderwritingInfo.{premium,commission} and ExposureInfo properties
                 for (UnderwritingInfo cededUnderwritingInfo : inUnderwritingInfoCeded) {
                     // ceded in-UI packets whose originalUI key don't match any gross in-UI packet's key will be ignored
-                    if (grossMergedCededPairs.containsKey(cededUnderwritingInfo.originalUnderwritingInfo)) {
+                    if (grossMergedCededPairs.containsKey(cededUnderwritingInfo.getOriginalUnderwritingInfo())) {
                         // get the working copy of the aggregate of all ceded uwinfo packets matched so far (if any)
-                        GrossCededUnderwritingInfoPair underwritingInfoPair = grossMergedCededPairs.get(cededUnderwritingInfo.originalUnderwritingInfo);
+                        GrossCededUnderwritingInfoPair underwritingInfoPair = grossMergedCededPairs.get(cededUnderwritingInfo.getOriginalUnderwritingInfo());
                         UnderwritingInfo aggregateCededUnderwritingInfo = underwritingInfoPair.getUnderwritingInfoCeded();
                         if (aggregateCededUnderwritingInfo == null) {
                             // copy the first matched packet to the aggregate working copy
@@ -54,7 +54,7 @@ public class MarketUnderwritingInfoMerger extends Component {
                             // add subsequent matched packets to the aggregate working copy
                             aggregateCededUnderwritingInfo.plus(cededUnderwritingInfo);
                             // prevent ExposureInfo.plus from doubling the numberOfPolicies (since the packets come from just one source)!
-                            aggregateCededUnderwritingInfo.numberOfPolicies = cededUnderwritingInfo.numberOfPolicies;
+                            aggregateCededUnderwritingInfo.setNumberOfPolicies(cededUnderwritingInfo.getNumberOfPolicies());
                             aggregateCededUnderwritingInfo.origin = this;
                         }
                     }
@@ -65,7 +65,7 @@ public class MarketUnderwritingInfoMerger extends Component {
                     UnderwritingInfo grossUnderwritingInfo = entry.getValue().getUnderwritingInfoGross();
                     UnderwritingInfo netUnderwritingInfo = UnderwritingInfoPacketFactory.copy(grossUnderwritingInfo);
                     netUnderwritingInfo.origin = this;
-                    netUnderwritingInfo.originalUnderwritingInfo = entry.getKey();
+                    netUnderwritingInfo.setOriginalUnderwritingInfo(entry.getKey());
                     UnderwritingInfo cededUnderwritingInfo = entry.getValue().getUnderwritingInfoCeded();
                     if (cededUnderwritingInfo == null) {
                         cededUnderwritingInfo = UnderwritingInfoPacketFactory.copy(netUnderwritingInfo);

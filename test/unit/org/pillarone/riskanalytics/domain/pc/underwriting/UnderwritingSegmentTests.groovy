@@ -19,7 +19,7 @@ class UnderwritingSegmentTests extends GroovyTestCase {
 
         segment.doCalculation()
 
-        assertTrue "premiumWritten", pricePerExposureUnit * writtenExposure == segment.outUnderwritingInfo[0].premiumWritten
+        assertTrue "premium", pricePerExposureUnit * writtenExposure == segment.outUnderwritingInfo[0].premium
         assertTrue "numberOfPolicies (uw info)", Double.NaN == segment.outUnderwritingInfo[0].numberOfPolicies
     }
 }

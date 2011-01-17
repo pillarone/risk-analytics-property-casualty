@@ -20,8 +20,8 @@ class DynamicCommissionTests extends GroovyTestCase {
         Claim claim400 = new Claim(value: 400)
         dynamicCommission.inClaims << claim300 << claim400
 
-        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: -50)
-        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: -5)
+        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premium: 200, commission: -50)
+        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premium: 100, commission: -5)
         dynamicCommission.inUnderwritingInfo << underwritingInfo200 << underwritingInfo100
 
         dynamicCommission.internalWiring()
@@ -41,8 +41,8 @@ class DynamicCommissionTests extends GroovyTestCase {
         Claim claim400 = new Claim(value: 400)
         dynamicCommission.inClaims << claim300 << claim400
 
-        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: -50)
-        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: -5)
+        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premium: 200, commission: -50)
+        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premium: 100, commission: -5)
         dynamicCommission.inUnderwritingInfo << underwritingInfo200 << underwritingInfo100
 
         dynamicCommission.internalWiring()
@@ -71,8 +71,8 @@ class DynamicCommissionTests extends GroovyTestCase {
         Claim claim400 = new Claim(value: 400)
         dynamicCommission.inClaims << claim300 << claim400
 
-        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: -50)
-        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: -5)
+        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premium: 200, commission: -50)
+        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premium: 100, commission: -5)
         dynamicCommission.inUnderwritingInfo << underwritingInfo200 << underwritingInfo100
 
         dynamicCommission.internalWiring()
@@ -97,8 +97,8 @@ class DynamicCommissionTests extends GroovyTestCase {
                 simulationScope: CommissionTests.getTestSimulationScope(2010),
         )
 
-        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: -50)
-        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: -5)
+        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premium: 200, commission: -50)
+        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premium: 100, commission: -5)
         dynamicCommission.inUnderwritingInfo << underwritingInfo200 << underwritingInfo100
 
         dynamicCommission.internalWiring()
@@ -118,7 +118,7 @@ class DynamicCommissionTests extends GroovyTestCase {
          * where no contract belongs to commission 0, contract 1 belongs to commission 1,
          * contracts 2-3 belong to commission 2, and contracts 4-6 belong to commission 3.
          *
-         * Give each contract one UnderwritingInfo with premiumWritten 100 and prior commission
+         * Give each contract one UnderwritingInfo with premium 100 and prior commission
          * a distinct power of 2 (so contract 1 has UnderwritingInfo with prior commission 1,
          * contract 2 prior commission 2, contract 3 prior commission 4, 4:8, 5:16 & 6:32).
          * Assign commission j a rate of (10*j) percent. Expect the following total commissions:
@@ -143,12 +143,12 @@ class DynamicCommissionTests extends GroovyTestCase {
         simulationScope.model.allComponents << contract[0] << contract[1] << contract[2] << contract[3] << contract[4] << contract[5]
 
         List<UnderwritingInfo> underwritingInfo = new ArrayList<UnderwritingInfo>(6)
-        underwritingInfo.add new UnderwritingInfo(reinsuranceContract: contract[0], premiumWritten: 100d, commission: -1)
-        underwritingInfo.add new UnderwritingInfo(reinsuranceContract: contract[1], premiumWritten: 100d, commission: -2)
-        underwritingInfo.add new UnderwritingInfo(reinsuranceContract: contract[2], premiumWritten: 100d, commission: -4)
-        underwritingInfo.add new UnderwritingInfo(reinsuranceContract: contract[3], premiumWritten: 100d, commission: -8)
-        underwritingInfo.add new UnderwritingInfo(reinsuranceContract: contract[4], premiumWritten: 100d, commission: -16)
-        underwritingInfo.add new UnderwritingInfo(reinsuranceContract: contract[5], premiumWritten: 100d, commission: -32)
+        underwritingInfo.add new UnderwritingInfo(reinsuranceContract: contract[0], premium: 100d, commission: -1)
+        underwritingInfo.add new UnderwritingInfo(reinsuranceContract: contract[1], premium: 100d, commission: -2)
+        underwritingInfo.add new UnderwritingInfo(reinsuranceContract: contract[2], premium: 100d, commission: -4)
+        underwritingInfo.add new UnderwritingInfo(reinsuranceContract: contract[3], premium: 100d, commission: -8)
+        underwritingInfo.add new UnderwritingInfo(reinsuranceContract: contract[4], premium: 100d, commission: -16)
+        underwritingInfo.add new UnderwritingInfo(reinsuranceContract: contract[5], premium: 100d, commission: -32)
         dynamicCommission.inUnderwritingInfo << underwritingInfo[0] << underwritingInfo[1] << underwritingInfo[2]
         dynamicCommission.inUnderwritingInfo << underwritingInfo[3] << underwritingInfo[4] << underwritingInfo[5]
 

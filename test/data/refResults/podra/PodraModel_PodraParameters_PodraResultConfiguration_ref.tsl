@@ -31,12 +31,24 @@ iteration	period	path	field	value
 1	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	reserved	1.2410190832787972E7
 1	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	incurred	5.154367973117855E7
 1	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	paid	3.9133488898390576E7
+1	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variable commission	0.0
 1	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	premium	4.8507E7
+1	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixed premium	0.0
 1	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	commission	-0.0
+1	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixed commission	0.0
+1	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variable premium	0.0
+1	0	Podra:linesOfBusiness:outUnderwritingInfoGross	variable commission	0.0
 1	0	Podra:linesOfBusiness:outUnderwritingInfoGross	premium	9.7014E7
+1	0	Podra:linesOfBusiness:outUnderwritingInfoGross	fixed premium	0.0
 1	0	Podra:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
+1	0	Podra:linesOfBusiness:outUnderwritingInfoGross	fixed commission	0.0
+1	0	Podra:linesOfBusiness:outUnderwritingInfoGross	variable premium	0.0
+1	0	Podra:linesOfBusiness:outUnderwritingInfoNet	variable commission	0.0
 1	0	Podra:linesOfBusiness:outUnderwritingInfoNet	premium	4.8507E7
+1	0	Podra:linesOfBusiness:outUnderwritingInfoNet	fixed premium	0.0
 1	0	Podra:linesOfBusiness:outUnderwritingInfoNet	commission	0.0
+1	0	Podra:linesOfBusiness:outUnderwritingInfoNet	fixed commission	0.0
+1	0	Podra:linesOfBusiness:outUnderwritingInfoNet	variable premium	0.0
 1	0	Podra:claimsGenerators:outClaimsLeanDevelopment	reserved	2.4812256557178568E7
 1	0	Podra:claimsGenerators:outClaimsLeanDevelopment	incurred	1.0304673392037022E8
 1	0	Podra:claimsGenerators:outClaimsLeanDevelopment	paid	7.823447736319166E7
@@ -72,12 +84,24 @@ iteration	period	path	field	value
 2	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	reserved	1.1211864327655904E7
 2	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	incurred	4.98854709714205E7
 2	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	paid	3.867360664376459E7
+2	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variable commission	0.0
 2	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	premium	4.8507E7
+2	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixed premium	0.0
 2	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	commission	-0.0
+2	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixed commission	0.0
+2	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variable premium	0.0
+2	0	Podra:linesOfBusiness:outUnderwritingInfoGross	variable commission	0.0
 2	0	Podra:linesOfBusiness:outUnderwritingInfoGross	premium	9.7014E7
+2	0	Podra:linesOfBusiness:outUnderwritingInfoGross	fixed premium	0.0
 2	0	Podra:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
+2	0	Podra:linesOfBusiness:outUnderwritingInfoGross	fixed commission	0.0
+2	0	Podra:linesOfBusiness:outUnderwritingInfoGross	variable premium	0.0
+2	0	Podra:linesOfBusiness:outUnderwritingInfoNet	variable commission	0.0
 2	0	Podra:linesOfBusiness:outUnderwritingInfoNet	premium	4.8507E7
+2	0	Podra:linesOfBusiness:outUnderwritingInfoNet	fixed premium	0.0
 2	0	Podra:linesOfBusiness:outUnderwritingInfoNet	commission	0.0
+2	0	Podra:linesOfBusiness:outUnderwritingInfoNet	fixed commission	0.0
+2	0	Podra:linesOfBusiness:outUnderwritingInfoNet	variable premium	0.0
 2	0	Podra:claimsGenerators:outClaimsLeanDevelopment	reserved	2.241553804401844E7
 2	0	Podra:claimsGenerators:outClaimsLeanDevelopment	incurred	9.972998888637415E7
 2	0	Podra:claimsGenerators:outClaimsLeanDevelopment	paid	7.731445084235571E7
@@ -113,12 +137,24 @@ iteration	period	path	field	value
 3	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	reserved	8883678.078085938
 3	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	incurred	4.341396996735865E7
 3	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	paid	3.453029188927271E7
+3	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variable commission	0.0
 3	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	premium	4.8507E7
+3	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixed premium	0.0
 3	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	commission	-0.0
+3	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixed commission	0.0
+3	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variable premium	0.0
+3	0	Podra:linesOfBusiness:outUnderwritingInfoGross	variable commission	0.0
 3	0	Podra:linesOfBusiness:outUnderwritingInfoGross	premium	9.7014E7
+3	0	Podra:linesOfBusiness:outUnderwritingInfoGross	fixed premium	0.0
 3	0	Podra:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
+3	0	Podra:linesOfBusiness:outUnderwritingInfoGross	fixed commission	0.0
+3	0	Podra:linesOfBusiness:outUnderwritingInfoGross	variable premium	0.0
+3	0	Podra:linesOfBusiness:outUnderwritingInfoNet	variable commission	0.0
 3	0	Podra:linesOfBusiness:outUnderwritingInfoNet	premium	4.8507E7
+3	0	Podra:linesOfBusiness:outUnderwritingInfoNet	fixed premium	0.0
 3	0	Podra:linesOfBusiness:outUnderwritingInfoNet	commission	0.0
+3	0	Podra:linesOfBusiness:outUnderwritingInfoNet	fixed commission	0.0
+3	0	Podra:linesOfBusiness:outUnderwritingInfoNet	variable premium	0.0
 3	0	Podra:claimsGenerators:outClaimsLeanDevelopment	reserved	1.775788686231859E7
 3	0	Podra:claimsGenerators:outClaimsLeanDevelopment	incurred	8.678059346545087E7
 3	0	Podra:claimsGenerators:outClaimsLeanDevelopment	paid	6.902270660313228E7
@@ -154,12 +190,24 @@ iteration	period	path	field	value
 4	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	reserved	9365341.38228988
 4	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	incurred	4.2998674263167426E7
 4	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	paid	3.363333288087755E7
+4	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variable commission	0.0
 4	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	premium	4.8507E7
+4	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixed premium	0.0
 4	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	commission	-0.0
+4	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixed commission	0.0
+4	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variable premium	0.0
+4	0	Podra:linesOfBusiness:outUnderwritingInfoGross	variable commission	0.0
 4	0	Podra:linesOfBusiness:outUnderwritingInfoGross	premium	9.7014E7
+4	0	Podra:linesOfBusiness:outUnderwritingInfoGross	fixed premium	0.0
 4	0	Podra:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
+4	0	Podra:linesOfBusiness:outUnderwritingInfoGross	fixed commission	0.0
+4	0	Podra:linesOfBusiness:outUnderwritingInfoGross	variable premium	0.0
+4	0	Podra:linesOfBusiness:outUnderwritingInfoNet	variable commission	0.0
 4	0	Podra:linesOfBusiness:outUnderwritingInfoNet	premium	4.8507E7
+4	0	Podra:linesOfBusiness:outUnderwritingInfoNet	fixed premium	0.0
 4	0	Podra:linesOfBusiness:outUnderwritingInfoNet	commission	0.0
+4	0	Podra:linesOfBusiness:outUnderwritingInfoNet	fixed commission	0.0
+4	0	Podra:linesOfBusiness:outUnderwritingInfoNet	variable premium	0.0
 4	0	Podra:claimsGenerators:outClaimsLeanDevelopment	reserved	1.8721878371088732E7
 4	0	Podra:claimsGenerators:outClaimsLeanDevelopment	incurred	8.595332655887972E7
 4	0	Podra:claimsGenerators:outClaimsLeanDevelopment	paid	6.723144818779097E7
@@ -195,12 +243,24 @@ iteration	period	path	field	value
 5	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	reserved	8668574.925217135
 5	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	incurred	4.33428746260857E7
 5	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	paid	3.467429970086856E7
+5	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variable commission	0.0
 5	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	premium	4.8507E7
+5	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixed premium	0.0
 5	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	commission	-0.0
+5	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixed commission	0.0
+5	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variable premium	0.0
+5	0	Podra:linesOfBusiness:outUnderwritingInfoGross	variable commission	0.0
 5	0	Podra:linesOfBusiness:outUnderwritingInfoGross	premium	9.7014E7
+5	0	Podra:linesOfBusiness:outUnderwritingInfoGross	fixed premium	0.0
 5	0	Podra:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
+5	0	Podra:linesOfBusiness:outUnderwritingInfoGross	fixed commission	0.0
+5	0	Podra:linesOfBusiness:outUnderwritingInfoGross	variable premium	0.0
+5	0	Podra:linesOfBusiness:outUnderwritingInfoNet	variable commission	0.0
 5	0	Podra:linesOfBusiness:outUnderwritingInfoNet	premium	4.8507E7
+5	0	Podra:linesOfBusiness:outUnderwritingInfoNet	fixed premium	0.0
 5	0	Podra:linesOfBusiness:outUnderwritingInfoNet	commission	0.0
+5	0	Podra:linesOfBusiness:outUnderwritingInfoNet	fixed commission	0.0
+5	0	Podra:linesOfBusiness:outUnderwritingInfoNet	variable premium	0.0
 5	0	Podra:claimsGenerators:outClaimsLeanDevelopment	reserved	1.7330624458376557E7
 5	0	Podra:claimsGenerators:outClaimsLeanDevelopment	incurred	8.665312229188283E7
 5	0	Podra:claimsGenerators:outClaimsLeanDevelopment	paid	6.932249783350627E7
@@ -236,12 +296,24 @@ iteration	period	path	field	value
 6	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	reserved	1.027659552747288E7
 6	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	incurred	4.358995001527459E7
 6	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	paid	3.331335448780171E7
+6	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variable commission	0.0
 6	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	premium	4.8507E7
+6	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixed premium	0.0
 6	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	commission	-0.0
+6	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixed commission	0.0
+6	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variable premium	0.0
+6	0	Podra:linesOfBusiness:outUnderwritingInfoGross	variable commission	0.0
 6	0	Podra:linesOfBusiness:outUnderwritingInfoGross	premium	9.7014E7
+6	0	Podra:linesOfBusiness:outUnderwritingInfoGross	fixed premium	0.0
 6	0	Podra:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
+6	0	Podra:linesOfBusiness:outUnderwritingInfoGross	fixed commission	0.0
+6	0	Podra:linesOfBusiness:outUnderwritingInfoGross	variable premium	0.0
+6	0	Podra:linesOfBusiness:outUnderwritingInfoNet	variable commission	0.0
 6	0	Podra:linesOfBusiness:outUnderwritingInfoNet	premium	4.8507E7
+6	0	Podra:linesOfBusiness:outUnderwritingInfoNet	fixed premium	0.0
 6	0	Podra:linesOfBusiness:outUnderwritingInfoNet	commission	0.0
+6	0	Podra:linesOfBusiness:outUnderwritingInfoNet	fixed commission	0.0
+6	0	Podra:linesOfBusiness:outUnderwritingInfoNet	variable premium	0.0
 6	0	Podra:claimsGenerators:outClaimsLeanDevelopment	reserved	2.054519129896067E7
 6	0	Podra:claimsGenerators:outClaimsLeanDevelopment	incurred	8.713990125062373E7
 6	0	Podra:claimsGenerators:outClaimsLeanDevelopment	paid	6.659470995166306E7
@@ -277,12 +349,24 @@ iteration	period	path	field	value
 7	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	reserved	8151493.95505243
 7	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	incurred	3.771356080911101E7
 7	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	paid	2.9562066854058575E7
+7	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variable commission	0.0
 7	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	premium	4.8507E7
+7	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixed premium	0.0
 7	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	commission	-0.0
+7	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixed commission	0.0
+7	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variable premium	0.0
+7	0	Podra:linesOfBusiness:outUnderwritingInfoGross	variable commission	0.0
 7	0	Podra:linesOfBusiness:outUnderwritingInfoGross	premium	9.7014E7
+7	0	Podra:linesOfBusiness:outUnderwritingInfoGross	fixed premium	0.0
 7	0	Podra:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
+7	0	Podra:linesOfBusiness:outUnderwritingInfoGross	fixed commission	0.0
+7	0	Podra:linesOfBusiness:outUnderwritingInfoGross	variable premium	0.0
+7	0	Podra:linesOfBusiness:outUnderwritingInfoNet	variable commission	0.0
 7	0	Podra:linesOfBusiness:outUnderwritingInfoNet	premium	4.8507E7
+7	0	Podra:linesOfBusiness:outUnderwritingInfoNet	fixed premium	0.0
 7	0	Podra:linesOfBusiness:outUnderwritingInfoNet	commission	0.0
+7	0	Podra:linesOfBusiness:outUnderwritingInfoNet	fixed commission	0.0
+7	0	Podra:linesOfBusiness:outUnderwritingInfoNet	variable premium	0.0
 7	0	Podra:claimsGenerators:outClaimsLeanDevelopment	reserved	1.6296187168398578E7
 7	0	Podra:claimsGenerators:outClaimsLeanDevelopment	incurred	7.53931179096906E7
 7	0	Podra:claimsGenerators:outClaimsLeanDevelopment	paid	5.909693074129202E7
@@ -318,12 +402,24 @@ iteration	period	path	field	value
 8	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	reserved	7583674.4629497
 8	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	incurred	3.791837231474851E7
 8	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	paid	3.0334697851798814E7
+8	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variable commission	0.0
 8	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	premium	4.8507E7
+8	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixed premium	0.0
 8	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	commission	-0.0
+8	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixed commission	0.0
+8	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variable premium	0.0
+8	0	Podra:linesOfBusiness:outUnderwritingInfoGross	variable commission	0.0
 8	0	Podra:linesOfBusiness:outUnderwritingInfoGross	premium	9.7014E7
+8	0	Podra:linesOfBusiness:outUnderwritingInfoGross	fixed premium	0.0
 8	0	Podra:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
+8	0	Podra:linesOfBusiness:outUnderwritingInfoGross	fixed commission	0.0
+8	0	Podra:linesOfBusiness:outUnderwritingInfoGross	variable premium	0.0
+8	0	Podra:linesOfBusiness:outUnderwritingInfoNet	variable commission	0.0
 8	0	Podra:linesOfBusiness:outUnderwritingInfoNet	premium	4.8507E7
+8	0	Podra:linesOfBusiness:outUnderwritingInfoNet	fixed premium	0.0
 8	0	Podra:linesOfBusiness:outUnderwritingInfoNet	commission	0.0
+8	0	Podra:linesOfBusiness:outUnderwritingInfoNet	fixed commission	0.0
+8	0	Podra:linesOfBusiness:outUnderwritingInfoNet	variable premium	0.0
 8	0	Podra:claimsGenerators:outClaimsLeanDevelopment	reserved	1.5159047194684297E7
 8	0	Podra:claimsGenerators:outClaimsLeanDevelopment	incurred	7.579523597342151E7
 8	0	Podra:claimsGenerators:outClaimsLeanDevelopment	paid	6.063618877873722E7
@@ -359,12 +455,24 @@ iteration	period	path	field	value
 9	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	reserved	7836663.979062202
 9	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	incurred	3.8673614793281555E7
 9	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	paid	3.0836950814219356E7
+9	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variable commission	0.0
 9	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	premium	4.8507E7
+9	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixed premium	0.0
 9	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	commission	-0.0
+9	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixed commission	0.0
+9	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variable premium	0.0
+9	0	Podra:linesOfBusiness:outUnderwritingInfoGross	variable commission	0.0
 9	0	Podra:linesOfBusiness:outUnderwritingInfoGross	premium	9.7014E7
+9	0	Podra:linesOfBusiness:outUnderwritingInfoGross	fixed premium	0.0
 9	0	Podra:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
+9	0	Podra:linesOfBusiness:outUnderwritingInfoGross	fixed commission	0.0
+9	0	Podra:linesOfBusiness:outUnderwritingInfoGross	variable premium	0.0
+9	0	Podra:linesOfBusiness:outUnderwritingInfoNet	variable commission	0.0
 9	0	Podra:linesOfBusiness:outUnderwritingInfoNet	premium	4.8507E7
+9	0	Podra:linesOfBusiness:outUnderwritingInfoNet	fixed premium	0.0
 9	0	Podra:linesOfBusiness:outUnderwritingInfoNet	commission	0.0
+9	0	Podra:linesOfBusiness:outUnderwritingInfoNet	fixed commission	0.0
+9	0	Podra:linesOfBusiness:outUnderwritingInfoNet	variable premium	0.0
 9	0	Podra:claimsGenerators:outClaimsLeanDevelopment	reserved	1.5665347672180763E7
 9	0	Podra:claimsGenerators:outClaimsLeanDevelopment	incurred	7.73073281568449E7
 9	0	Podra:claimsGenerators:outClaimsLeanDevelopment	paid	6.164198048466414E7
@@ -400,12 +508,24 @@ iteration	period	path	field	value
 10	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	reserved	7596483.621616285
 10	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	incurred	3.76537490679265E7
 10	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	paid	3.0057265446310222E7
+10	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variable commission	0.0
 10	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	premium	4.8507E7
+10	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixed premium	0.0
 10	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	commission	-0.0
+10	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixed commission	0.0
+10	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variable premium	0.0
+10	0	Podra:linesOfBusiness:outUnderwritingInfoGross	variable commission	0.0
 10	0	Podra:linesOfBusiness:outUnderwritingInfoGross	premium	9.7014E7
+10	0	Podra:linesOfBusiness:outUnderwritingInfoGross	fixed premium	0.0
 10	0	Podra:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
+10	0	Podra:linesOfBusiness:outUnderwritingInfoGross	fixed commission	0.0
+10	0	Podra:linesOfBusiness:outUnderwritingInfoGross	variable premium	0.0
+10	0	Podra:linesOfBusiness:outUnderwritingInfoNet	variable commission	0.0
 10	0	Podra:linesOfBusiness:outUnderwritingInfoNet	premium	4.8507E7
+10	0	Podra:linesOfBusiness:outUnderwritingInfoNet	fixed premium	0.0
 10	0	Podra:linesOfBusiness:outUnderwritingInfoNet	commission	0.0
+10	0	Podra:linesOfBusiness:outUnderwritingInfoNet	fixed commission	0.0
+10	0	Podra:linesOfBusiness:outUnderwritingInfoNet	variable premium	0.0
 10	0	Podra:claimsGenerators:outClaimsLeanDevelopment	reserved	1.5186051525905564E7
 10	0	Podra:claimsGenerators:outClaimsLeanDevelopment	incurred	7.527291954921798E7
 10	0	Podra:claimsGenerators:outClaimsLeanDevelopment	paid	6.008686802331242E7

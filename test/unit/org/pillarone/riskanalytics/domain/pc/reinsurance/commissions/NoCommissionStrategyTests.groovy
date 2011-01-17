@@ -11,9 +11,9 @@ class NoCommissionStrategyTests extends GroovyTestCase {
         ICommissionStrategy commissionStrategy =
             CommissionStrategyType.getStrategy(CommissionStrategyType.NOCOMMISSION, [:])
 
-        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: 0)
-        UnderwritingInfo underwritingInfo100plus5 = new UnderwritingInfo(premiumWritten: 100, commission: 5)
-        UnderwritingInfo underwritingInfo200plus50 = new UnderwritingInfo(premiumWritten: 200, commission: 50)
+        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premium: 100, commission: 0)
+        UnderwritingInfo underwritingInfo100plus5 = new UnderwritingInfo(premium: 100, commission: 5)
+        UnderwritingInfo underwritingInfo200plus50 = new UnderwritingInfo(premium: 200, commission: 50)
         List underwritingInfos = [underwritingInfo100, underwritingInfo100plus5, underwritingInfo200plus50]
 
         commissionStrategy.calculateCommission null, underwritingInfos, false, false
@@ -32,9 +32,9 @@ class NoCommissionStrategyTests extends GroovyTestCase {
         ICommissionStrategy commissionStrategy =
             CommissionStrategyType.getStrategy(CommissionStrategyType.NOCOMMISSION, [:])
 
-        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: 0)
-        UnderwritingInfo underwritingInfo100plus5 = new UnderwritingInfo(premiumWritten: 100, commission: 5)
-        UnderwritingInfo underwritingInfo200plus50 = new UnderwritingInfo(premiumWritten: 200, commission: 50)
+        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premium: 100, commission: 0)
+        UnderwritingInfo underwritingInfo100plus5 = new UnderwritingInfo(premium: 100, commission: 5)
+        UnderwritingInfo underwritingInfo200plus50 = new UnderwritingInfo(premium: 200, commission: 50)
         List underwritingInfos = [underwritingInfo100, underwritingInfo100plus5, underwritingInfo200plus50]
 
         commissionStrategy.calculateCommission null, underwritingInfos, false, true

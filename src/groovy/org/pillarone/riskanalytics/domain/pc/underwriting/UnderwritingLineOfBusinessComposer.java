@@ -41,11 +41,10 @@ public class UnderwritingLineOfBusinessComposer extends Component {
                     UnderwritingInfo lobUnderwritingInfo = UnderwritingInfoPacketFactory.copy(underwritingInfo);
                     // error message in MarketUnderwritingInfoMerger (reinsurance program) if reference to same underwritingInfo
                     lobUnderwritingInfo.setOriginalUnderwritingInfo(lobUnderwritingInfo);
-                    lobUnderwritingInfo.premiumWritten *= InputFormatConverter.getDouble(parmPortions.getValueAt(row + 1, portionColumn));
-                    lobUnderwritingInfo.premiumWrittenAsIf *= InputFormatConverter.getDouble(parmPortions.getValueAt(row + 1, portionColumn));
-                    lobUnderwritingInfo.sumInsured *= InputFormatConverter.getDouble(parmPortions.getValueAt(row + 1, portionColumn));
-                    lobUnderwritingInfo.maxSumInsured *= InputFormatConverter.getDouble(parmPortions.getValueAt(row + 1, portionColumn));
-                    lobUnderwritingInfo.commission *= InputFormatConverter.getDouble(parmPortions.getValueAt(row + 1, portionColumn));
+                    lobUnderwritingInfo.setPremium(lobUnderwritingInfo.getPremium() * InputFormatConverter.getDouble(parmPortions.getValueAt(row + 1, portionColumn)));
+                    lobUnderwritingInfo.setSumInsured(lobUnderwritingInfo.getSumInsured() * InputFormatConverter.getDouble(parmPortions.getValueAt(row + 1, portionColumn)));
+                    lobUnderwritingInfo.setMaxSumInsured(lobUnderwritingInfo.getMaxSumInsured() * InputFormatConverter.getDouble(parmPortions.getValueAt(row + 1, portionColumn)));
+                    lobUnderwritingInfo.setCommission(lobUnderwritingInfo.getCommission() * InputFormatConverter.getDouble(parmPortions.getValueAt(row + 1, portionColumn)));
                     lobUnderwritingInfo.origin = lineOfBusiness;
                     lobUnderwritingInfo.setLineOfBusiness((LobMarker) lineOfBusiness);
                     lobUnderwritingInfos.add(lobUnderwritingInfo);
