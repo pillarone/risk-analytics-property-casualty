@@ -13,6 +13,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.claims.TestLobComponent
 import org.pillarone.riskanalytics.core.model.Model
 import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope
+import org.pillarone.riskanalytics.domain.pc.generators.claims.DevelopedTypableClaimsGenerator
 
 /**
  * @author ben.ginsberg (at) intuitive-collaboration (dot) com
@@ -20,6 +21,7 @@ import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope
 class DynamicMultiCoverAttributeReinsuranceProgramTests extends GroovyTestCase {
 
     DynamicMultiCoverAttributeReinsuranceProgram program
+    DevelopedTypableClaimsGenerator claimsGenerator = new DevelopedTypableClaimsGenerator()
 
     SimulationScope simulationScope = new SimulationScope()
 
@@ -36,11 +38,11 @@ class DynamicMultiCoverAttributeReinsuranceProgramTests extends GroovyTestCase {
 
     Map<String, TestLobComponent> lob = createLobs(['motor', 'property', 'legal'], simulationScope.model)
 
-    Claim attrMarketClaim1000 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 1000d, fractionOfPeriod: 0d, lineOfBusiness: lob['motor'])
-    Claim largeMarketClaim600 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 600d, fractionOfPeriod: 0d, lineOfBusiness: lob['motor'])
+    Claim attrMarketClaim1000 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 1000d, fractionOfPeriod: 0d, lineOfBusiness: lob['motor'], peril: claimsGenerator)
+    Claim largeMarketClaim600 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 600d, fractionOfPeriod: 0d, lineOfBusiness: lob['motor'], peril: claimsGenerator)
 
-    Claim attrClaim100 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 100d, fractionOfPeriod: 0d, originalClaim: attrMarketClaim1000, lineOfBusiness: lob['motor'])
-    Claim largeClaim60 = new Claim(claimType: ClaimType.SINGLE, ultimate: 60d, fractionOfPeriod: 0.1d, originalClaim: largeMarketClaim600, lineOfBusiness: lob['motor'])
+    Claim attrClaim100 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 100d, fractionOfPeriod: 0d, originalClaim: attrMarketClaim1000, lineOfBusiness: lob['motor'], peril: claimsGenerator)
+    Claim largeClaim60 = new Claim(claimType: ClaimType.SINGLE, ultimate: 60d, fractionOfPeriod: 0.1d, originalClaim: largeMarketClaim600, lineOfBusiness: lob['motor'], peril: claimsGenerator)
 
     UnderwritingInfo underwritingInfo1 = CommissionTests.getUnderwritingInfoFromSelf(
             origin: new TestComponent(), premium: 2000,

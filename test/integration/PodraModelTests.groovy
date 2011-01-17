@@ -8,11 +8,16 @@ class PodraModelTests extends ModelTest {
     }
 
     String getResultConfigurationDisplayName() {
-        "Aggregated Overview"
+        'Aggregated Overview'
+    }
+
+    @Override
+    String getParameterFileName() {
+        'PodraReinsuranceProgramNPALL50Parameters'
     }
 
     String getParameterDisplayName() {
-        "One Line Example"
+        'CapitalEagle NP+ALL50'
     }
 
     protected boolean shouldCompareResults() {

@@ -119,10 +119,28 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
     protected void filterInChannels() {
         if (parmCover instanceof NoneCoverAttributeStrategy) {
             // leave outFiltered* lists void
-        } else if (parmCover instanceof AllCoverAttributeStrategy) {
-            outFilteredClaims.addAll(inClaims);
+        }
+        else if (parmCover instanceof AllCoverAttributeStrategy) {
+            if (parmCover.getParameters().get("reserves").equals(IncludeType.NOTINCLUDED)) {
+                for (Claim claim : inClaims) {
+                    if (claim.getPeril() instanceof PerilMarker) {
+                        outFilteredClaims.add(claim);
+                    }
+                }
+            }
+            else if (parmCover.getParameters().get("reserves").equals(IncludeType.ONLY)) {
+                for (Claim claim : inClaims) {
+                    if (claim.getPeril() instanceof IReserveMarker) {
+                        outFilteredClaims.add(claim);
+                    }
+                }
+            }
+            else {
+                outFilteredClaims.addAll(inClaims);
+            }
             outFilteredUnderwritingInfo.addAll(inUnderwritingInfo);
-        } else {
+        }
+        else {
             List<LobMarker> coveredLines = parmCover instanceof ILinesOfBusinessCoverAttributeStrategy
                     ? (List<LobMarker>) (((ILinesOfBusinessCoverAttributeStrategy) parmCover).getLines().getValuesAsObjects()) : null;
             List<PerilMarker> coveredPerils = parmCover instanceof IPerilCoverAttributeStrategy
