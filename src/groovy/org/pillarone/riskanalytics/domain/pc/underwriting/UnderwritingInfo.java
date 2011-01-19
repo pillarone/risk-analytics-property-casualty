@@ -52,6 +52,12 @@ public class UnderwritingInfo extends MultiValuePacket {
         return copy;
     }
 
+    public CededUnderwritingInfo copyToSubclass(){
+        CededUnderwritingInfo copy = CededUnderwritingInfoPacketFactory.createPacket();
+        copy.set(this);
+        return copy;
+    }
+
     public void set(UnderwritingInfo underwritingInfo) {
         setOrigin(underwritingInfo.getOrigin());
         exposureDefinition = underwritingInfo.exposureDefinition;

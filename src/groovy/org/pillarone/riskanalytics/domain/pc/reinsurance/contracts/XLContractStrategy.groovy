@@ -7,21 +7,23 @@ import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalPa
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoPacketFactory
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 abstract class XLContractStrategy extends AbstractContractStrategy implements IReinsuranceContractStrategy, IParameterObject {
 
-    /** Premium can be expressed as a fraction of a base quantity.                         */
+    /** Premium can be expressed as a fraction of a base quantity.                          */
     PremiumBase premiumBase = PremiumBase.ABSOLUTE
 
-    /** Premium as a percentage of the premium base                         */
+    /** Premium as a percentage of the premium base                          */
     double premium
 
-    /** Strategy to allocate the ceded premium to the different lines of business           */
+    /** Strategy to allocate the ceded premium to the different lines of business            */
     IPremiumAllocationStrategy premiumAllocation = PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, new HashMap());
-    /** As a percentage of premium.                         */
+    /** As a percentage of premium.                          */
     AbstractMultiDimensionalParameter reinstatementPremiums = new TableMultiDimensionalParameter([0d], ['Reinstatement Premium'])
     double attachmentPoint
     double limit
@@ -33,7 +35,7 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
     protected double reinstatements
     /** The factor is calculated during initBookkeepingFigures() by applying the aggregateDeductible,
      *  ceded claims will be multiplied by it to apply a positive aggregateDeductible proportionally
-     *  to every claim.         */
+     *  to every claim.          */
     protected double deductibleFactor = 1d
 
     public Map getParameters() {
@@ -103,8 +105,8 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
 
     // todo(sku): try to move it in an upper class
 
-    UnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double initialReserves) {
-        UnderwritingInfo cededUnderwritingInfo = UnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
+    CededUnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double initialReserves) {
+        CededUnderwritingInfo cededUnderwritingInfo = CededUnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
         cededUnderwritingInfo.commission = 0d
         cededUnderwritingInfo.fixedCommission = 0d
         cededUnderwritingInfo.variableCommission = 0d

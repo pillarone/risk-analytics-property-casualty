@@ -14,6 +14,8 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit.EventLi
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit.EventAalLimitStrategy
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit.NoneLimitStrategy
 import org.apache.commons.lang.NotImplementedException
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoPacketFactory
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -113,8 +115,8 @@ class QuotaShareContractStrategy extends AbstractContractStrategy implements IRe
         return grossAfterAAD * quotaShare * coveredByReinsurer
     }
 
-    UnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double initialReserves) {
-        UnderwritingInfo cededUnderwritingInfo = UnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
+    CededUnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double initialReserves) {
+        CededUnderwritingInfo cededUnderwritingInfo = CededUnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
         cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo?.originalUnderwritingInfo ? grossUnderwritingInfo.originalUnderwritingInfo : grossUnderwritingInfo
         cededUnderwritingInfo.premium *= quotaShare * coveredByReinsurer
         cededUnderwritingInfo.fixedPremium = cededUnderwritingInfo.premium

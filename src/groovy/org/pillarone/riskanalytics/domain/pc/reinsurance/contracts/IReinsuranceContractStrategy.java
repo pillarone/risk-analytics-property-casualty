@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts;
 
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public interface IReinsuranceContractStrategy {
     // todo(sku): replace with a new function double calculateCededShare(Claim grossClaim)
     double allocateCededClaim(Claim grossClaim);
 
-    UnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossInfo, double initialReserves);
+    CededUnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossInfo, double initialReserves);
 
     void resetMemberInstances();
 

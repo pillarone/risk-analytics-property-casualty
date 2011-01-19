@@ -66,7 +66,8 @@ class WXLContractStrategyTests extends GroovyTestCase {
 
         ReinsuranceContract wxl = getContract0()
         wxl.inClaims << attrClaim100 << largeClaim50 << largeClaim60 << largeClaim100 << largeClaim100
-
+        wxl.inUnderwritingInfo << new UnderwritingInfo(premium: 100)
+        def probeCXLCededUwInfo = new TestProbe(wxl, "outCoverUnderwritingInfo")
         wxl.doCalculation()
 
         assertEquals "outClaimsNet.size()", 0, wxl.outUncoveredClaims.size()
@@ -76,6 +77,9 @@ class WXLContractStrategyTests extends GroovyTestCase {
         assertEquals "wxl, ceded claim 60", 30, wxl.outCoveredClaims[2].ultimate
         assertEquals "wxl, ceded claim 100", 30, wxl.outCoveredClaims[3].ultimate
         assertEquals "wxl, ceded claim 100 (2)", 10, wxl.outCoveredClaims[4].ultimate  // smaller due to the aggregateLimit
+        assertEquals "wxl, underwritingInfo", 100, wxl.outCoverUnderwritingInfo[0].fixedPremium
+        assertEquals "wxl, underwritingInfo", 100 * 7 / 15d, wxl.outCoverUnderwritingInfo[0].variablePremium, 1E-14
+        assertEquals "wxl, underwriting info", 100 + 100 * 7 / 15d, wxl.outCoverUnderwritingInfo[0].premium, 1E-13
     }
 
     void testCalculateCededClaimsAggregateDeductible() {
@@ -91,6 +95,8 @@ class WXLContractStrategyTests extends GroovyTestCase {
 
         // needed in order to trigger the calculation of ceded uw info
         def probeCXLCededUwInfo = new TestProbe(wxl, "outCoverUnderwritingInfo")
+        def probeCXLNetUwInfo = new TestProbe(wxl, "outNetAfterCoverUnderwritingInfo")
+
 
         wxl.doCalculation()
 
@@ -102,6 +108,9 @@ class WXLContractStrategyTests extends GroovyTestCase {
         assertEquals "wxl, ceded claim 100", 15, wxl.outCoveredClaims[3].ultimate
         assertEquals "wxl, ceded claim 100 (2)", 5, wxl.outCoveredClaims[4].ultimate
         assertEquals "underwriting info", 150, wxl.outCoverUnderwritingInfo[0].premium
+        assertEquals "underwriting info", 100, wxl.outCoverUnderwritingInfo[0].fixedPremium
+        assertEquals "underwriting info", 50, wxl.outCoverUnderwritingInfo[0].variablePremium
+        assertEquals "underwriting info", -50, wxl.outNetAfterCoverUnderwritingInfo[0].premium
 
         wxl.reset()
         // apply the same calculations twice to make sure everything is properly reset between periods/iterations
@@ -117,6 +126,8 @@ class WXLContractStrategyTests extends GroovyTestCase {
         assertEquals "wxl, ceded claim 100", 15, wxl.outCoveredClaims[3].ultimate
         assertEquals "wxl, ceded claim 100 (2)", 5, wxl.outCoveredClaims[4].ultimate
         assertEquals "underwriting info", 150, wxl.outCoverUnderwritingInfo[0].premium
+        assertEquals "underwriting info", 100, wxl.outCoverUnderwritingInfo[0].fixedPremium
+        assertEquals "underwriting info", 50, wxl.outCoverUnderwritingInfo[0].variablePremium
     }
 
     void testAttritionalClaims() {
@@ -183,7 +194,7 @@ class WXLContractStrategyTests extends GroovyTestCase {
         wxl.parmContractStrategy.grossPremiumSharesPerBand = grossPremiumSharesPerBand
         UnderwritingInfo cededUnderwritingInfo = wxl.parmContractStrategy.calculateCoverUnderwritingInfo(grossUnderwritingInfo, 0)
 
-        assertEquals "premium written", wxl.parmContractStrategy.premium * wxl.parmContractStrategy.grossPremiumSharesPerBand.get(grossUnderwritingInfo)* wxl.parmContractStrategy.limit, cededUnderwritingInfo.premium
+        assertEquals "premium written", wxl.parmContractStrategy.premium * wxl.parmContractStrategy.grossPremiumSharesPerBand.get(grossUnderwritingInfo) * wxl.parmContractStrategy.limit, cededUnderwritingInfo.premium
     }
 
 

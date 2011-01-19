@@ -147,7 +147,7 @@ class DynamicReinsuranceProgram extends DynamicComposedComponent {
             if (currentMerger == 0) {
                 doWire PRC, getContract(i), 'inClaims', this, 'inClaims'
                 if (getContract(i) instanceof MultiCoverAttributeReinsuranceContract &&
-                    ((MultiCoverAttributeReinsuranceContract) getContract(i)).parmBasedOn.equals(ReinsuranceContractBase.CEDED)) {
+                        ((MultiCoverAttributeReinsuranceContract) getContract(i)).parmBasedOn.equals(ReinsuranceContractBase.CEDED)) {
                     //todo(bgi): warn the user that the parameter makes no sense and will be ignored for this run
                     if (LOG.isDebugEnabled()) {
                         String contractName = getContract(i).normalizedName + " with " + claimsMergers[-1].name
