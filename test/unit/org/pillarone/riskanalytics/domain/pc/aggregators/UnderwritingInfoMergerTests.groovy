@@ -7,11 +7,13 @@ import org.pillarone.riskanalytics.core.util.TestProbe
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoTests
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoUtilities
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 
 class UnderwritingInfoMergerTests extends GroovyTestCase {
 
     void testNoGrossUnderwritingInfoFound() {
-        UnderwritingInfo underwritingInfo = UnderwritingInfoTests.getUnderwritingInfo()
+        CededUnderwritingInfo underwritingInfo = UnderwritingInfoTests.getCededUnderwritingInfo()
         UnderwritingInfoAggregator aggregator = new UnderwritingInfoAggregator()
 
         aggregator.inUnderwritingInfoCeded << underwritingInfo
@@ -23,7 +25,7 @@ class UnderwritingInfoMergerTests extends GroovyTestCase {
 
     void testMerge() {
         UnderwritingInfo underwritingInfo = UnderwritingInfoTests.getUnderwritingInfo()
-        UnderwritingInfo underwritingInfoCeded = UnderwritingInfoTests.getUnderwritingInfo2()
+        CededUnderwritingInfo underwritingInfoCeded = UnderwritingInfoTests.getCededUnderwritingInfo2()
         underwritingInfoCeded.originalUnderwritingInfo = underwritingInfo
         underwritingInfo.originalUnderwritingInfo = underwritingInfo
 
@@ -51,8 +53,8 @@ class UnderwritingInfoMergerTests extends GroovyTestCase {
     void testMergeSeveral() {
         UnderwritingInfo underwritingInfo0 = UnderwritingInfoTests.getUnderwritingInfo()
         UnderwritingInfo underwritingInfo1 = underwritingInfo0.copy()
-        UnderwritingInfo underwritingInfoCeded0 = UnderwritingInfoTests.getUnderwritingInfo2()
-        UnderwritingInfo underwritingInfoCeded1 = UnderwritingInfoTests.getUnderwritingInfo2()
+        CededUnderwritingInfo underwritingInfoCeded0 = UnderwritingInfoTests.getCededUnderwritingInfo2()
+        CededUnderwritingInfo underwritingInfoCeded1 = UnderwritingInfoTests.getCededUnderwritingInfo2()
         underwritingInfoCeded0.originalUnderwritingInfo = underwritingInfo0.originalUnderwritingInfo = underwritingInfo0
         underwritingInfoCeded1.originalUnderwritingInfo = underwritingInfo1.originalUnderwritingInfo = underwritingInfo1
 
@@ -73,14 +75,14 @@ class UnderwritingInfoMergerTests extends GroovyTestCase {
         assertTrue "# net uw info", 2 == merger.outUnderwritingInfoNet.size()
 
         assertTrue "gross premium written", UnderwritingInfoUtilities.sameContent(underwritingInfo0, merger.outUnderwritingInfoGross[0])
-        assertTrue "ceded premium written", UnderwritingInfoUtilities.sameContent(underwritingInfoCeded0, merger.outUnderwritingInfoCeded[0])
+        assertTrue "ceded premium written", CededUnderwritingInfoUtilities.sameContent(underwritingInfoCeded0, merger.outUnderwritingInfoCeded[0])
         assertEquals "net premium written", underwritingInfo0.premium - underwritingInfoCeded0.premium, merger.outUnderwritingInfoNet[0].premium
         assertEquals "net number of policies", underwritingInfo0.numberOfPolicies, merger.outUnderwritingInfoNet[0].numberOfPolicies
     }
 }
 
 class TestUnderwritingInfoContainer extends Component {
-    PacketList<UnderwritingInfo> outUnderwritingInfoCeded = new PacketList(UnderwritingInfo)
+    PacketList<CededUnderwritingInfo> outUnderwritingInfoCeded = new PacketList(CededUnderwritingInfo)
     PacketList<UnderwritingInfo> outUnderwritingInfoGross = new PacketList(UnderwritingInfo)
     PacketList<UnderwritingInfo> outUnderwritingInfoNet = new PacketList(UnderwritingInfo)
 

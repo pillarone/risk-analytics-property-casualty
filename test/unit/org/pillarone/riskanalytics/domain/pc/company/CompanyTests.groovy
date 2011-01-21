@@ -12,6 +12,7 @@ import org.pillarone.riskanalytics.core.parameterization.ConstrainedString
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiCompanyCoverAttributeReinsuranceContract
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.core.components.PeriodStore
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
@@ -158,12 +159,12 @@ class CompanyTests extends GroovyTestCase {
                 numberOfPolicies: 30000, lineOfBusiness: accidentMarsRe)
 
         // inUnderwritingInfoCeded
-        UnderwritingInfo uwInfo5 = new UnderwritingInfo(premium: 1000, sumInsured: 3000, numberOfPolicies: 3000,
+        CededUnderwritingInfo uwInfo5 = new CededUnderwritingInfo(premium: 1000, sumInsured: 3000, numberOfPolicies: 3000,
                 lineOfBusiness: motorVenusRe, reinsuranceContract: motorVenusReQuotaShare, commission: -200)
-        UnderwritingInfo uwInfo6 = new UnderwritingInfo(premium: 2000, lineOfBusiness: motorMarsRe, commission: -100)
-        UnderwritingInfo uwInfo7 = new UnderwritingInfo(premium: 2500, sumInsured: 5000, numberOfPolicies: 2000,
+        CededUnderwritingInfo uwInfo6 = new CededUnderwritingInfo(premium: 2000, lineOfBusiness: motorMarsRe, commission: -100)
+        CededUnderwritingInfo uwInfo7 = new CededUnderwritingInfo(premium: 2500, sumInsured: 5000, numberOfPolicies: 2000,
                 lineOfBusiness: motorVenusRe, reinsuranceContract: motorVenusReQuotaShare, commission: -300)
-        UnderwritingInfo uwInfo9 = new UnderwritingInfo(premium: 18000, sumInsured: 3000,
+        CededUnderwritingInfo uwInfo9 = new CededUnderwritingInfo(premium: 18000, sumInsured: 3000,
                 numberOfPolicies: 20000, lineOfBusiness: accidentMarsRe, reinsuranceContract: accidentMarsReStopLoss, commission: -100)
 
         //Venus Re

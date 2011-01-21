@@ -2,6 +2,7 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.commissions;
 
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 
 import java.util.HashMap;
@@ -37,7 +38,7 @@ public class ProfitCommissionStrategy implements ICommissionStrategy {
         return map;
     }
 
-    public void calculateCommission(List<Claim> claims, List<UnderwritingInfo> underwritingInfos, boolean isFirstPeriod, boolean isAdditive) {
+    public void calculateCommission(List<Claim> claims, List<CededUnderwritingInfo> underwritingInfos, boolean isFirstPeriod, boolean isAdditive) {
         if (lossCarriedForwardEnabled && isFirstPeriod) {
             lossCarriedForward = initialLossCarriedForward;
         }
@@ -57,7 +58,7 @@ public class ProfitCommissionStrategy implements ICommissionStrategy {
         lossCarriedForward = lossCarriedForwardEnabled ? Math.max(0d, lossCarriedForward - currentProfit) : 0d;
 
         if (isAdditive) {
-            for (UnderwritingInfo underwritingInfo : underwritingInfos) {
+            for (CededUnderwritingInfo underwritingInfo : underwritingInfos) {
                 double premiumWritten = underwritingInfo.getPremium();
                 underwritingInfo.setCommission(-premiumWritten * totalCommission / totalPremiumWritten + underwritingInfo.getCommission());
                 underwritingInfo.setFixedCommission(-premiumWritten * fixedCommission / totalPremiumWritten + underwritingInfo.getFixedCommission());
@@ -65,7 +66,7 @@ public class ProfitCommissionStrategy implements ICommissionStrategy {
             }
         }
         else {
-            for (UnderwritingInfo underwritingInfo : underwritingInfos) {
+            for (CededUnderwritingInfo underwritingInfo : underwritingInfos) {
                 double premiumWritten = underwritingInfo.getPremium();
                 underwritingInfo.setCommission(-premiumWritten * totalCommission / totalPremiumWritten);
                 underwritingInfo.setFixedCommission(-premiumWritten * fixedCommission / totalPremiumWritten);

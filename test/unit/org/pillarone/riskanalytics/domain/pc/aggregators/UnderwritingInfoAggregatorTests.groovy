@@ -4,11 +4,13 @@ import org.pillarone.riskanalytics.core.util.TestProbe
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoTests
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoUtilities
 
 class UnderwritingInfoAggregatorTests extends GroovyTestCase {
 
     void testNoGrossUnderwritingInfoFound() {
-        UnderwritingInfo underwritingInfo = UnderwritingInfoTests.getUnderwritingInfo()
+        CededUnderwritingInfo underwritingInfo = UnderwritingInfoTests.getCededUnderwritingInfo()
         UnderwritingInfoAggregator aggregator = new UnderwritingInfoAggregator()
 
         aggregator.inUnderwritingInfoCeded << underwritingInfo
@@ -20,7 +22,7 @@ class UnderwritingInfoAggregatorTests extends GroovyTestCase {
 
     void testAggregation() {
         UnderwritingInfo underwritingInfo = UnderwritingInfoTests.getUnderwritingInfo()
-        UnderwritingInfo underwritingInfoCeded = UnderwritingInfoTests.getUnderwritingInfo2()
+        CededUnderwritingInfo underwritingInfoCeded = UnderwritingInfoTests.getCededUnderwritingInfo2()
 
         UnderwritingInfoAggregator aggregator = new UnderwritingInfoAggregator()
 
@@ -35,7 +37,7 @@ class UnderwritingInfoAggregatorTests extends GroovyTestCase {
         aggregator.doCalculation()
 
         assertTrue "gross uw info not modified", UnderwritingInfoUtilities.sameContent(underwritingInfo, aggregator.outUnderwritingInfoGross[0])
-        assertTrue "ceded uw info not modified", UnderwritingInfoUtilities.sameContent(underwritingInfoCeded, aggregator.outUnderwritingInfoCeded[0])
+        assertTrue "ceded uw info not modified", CededUnderwritingInfoUtilities.sameContent(underwritingInfoCeded, aggregator.outUnderwritingInfoCeded[0])
         assertEquals "net premium written", underwritingInfo.premium - underwritingInfoCeded.premium, aggregator.outUnderwritingInfoNet[0].premium
         assertEquals "net commission", underwritingInfo.commission - underwritingInfoCeded.commission, aggregator.outUnderwritingInfoNet[0].commission
         assertEquals "net sum insured", underwritingInfo.sumInsured - underwritingInfoCeded.sumInsured, aggregator.outUnderwritingInfoNet[0].sumInsured
@@ -46,8 +48,8 @@ class UnderwritingInfoAggregatorTests extends GroovyTestCase {
     void testAggregationSeveral() {
         UnderwritingInfo underwritingInfo0 = UnderwritingInfoTests.getUnderwritingInfo()
         UnderwritingInfo underwritingInfo1 = UnderwritingInfoTests.getUnderwritingInfo()
-        UnderwritingInfo underwritingInfoCeded0 = UnderwritingInfoTests.getUnderwritingInfo2()
-        UnderwritingInfo underwritingInfoCeded1 = UnderwritingInfoTests.getUnderwritingInfo2()
+        CededUnderwritingInfo underwritingInfoCeded0 = UnderwritingInfoTests.getCededUnderwritingInfo2()
+        CededUnderwritingInfo underwritingInfoCeded1 = UnderwritingInfoTests.getCededUnderwritingInfo2()
 
         UnderwritingInfoAggregator aggregator = new UnderwritingInfoAggregator()
 

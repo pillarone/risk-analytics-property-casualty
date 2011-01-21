@@ -13,6 +13,7 @@ import org.pillarone.riskanalytics.core.wiring.WiringUtils
 import org.pillarone.riskanalytics.domain.pc.claims.MarketClaimsMerger
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -20,7 +21,7 @@ import org.pillarone.riskanalytics.domain.pc.claims.Claim
 public class ConfigurableLob extends MultipleCalculationPhaseComposedComponent implements LobMarker {
 
     PacketList<UnderwritingInfo> inUnderwritingInfoGross = new PacketList(UnderwritingInfo.class);
-    PacketList<UnderwritingInfo> inUnderwritingInfoCeded = new PacketList(UnderwritingInfo.class);
+    PacketList<CededUnderwritingInfo> inUnderwritingInfoCeded = new PacketList(CededUnderwritingInfo.class);
     PacketList<Claim> inClaimsGross = new PacketList(Claim.class);
     PacketList<Claim> inClaimsCeded = new PacketList(Claim.class);
 
@@ -29,7 +30,7 @@ public class ConfigurableLob extends MultipleCalculationPhaseComposedComponent i
     PacketList<Claim> outClaimsCeded = new PacketList<Claim>(Claim.class);
     PacketList<UnderwritingInfo> outUnderwritingInfoNet = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
     PacketList<UnderwritingInfo> outUnderwritingInfoGross = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
-    PacketList<UnderwritingInfo> outUnderwritingInfoCeded = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
+    PacketList<CededUnderwritingInfo> outUnderwritingInfoCeded = new PacketList<CededUnderwritingInfo>(CededUnderwritingInfo.class);
 
     MarketToLineOfBusinessClaims subClaimsFilter;
     UnderwritingLineOfBusinessComposer subUnderwritingFilter;

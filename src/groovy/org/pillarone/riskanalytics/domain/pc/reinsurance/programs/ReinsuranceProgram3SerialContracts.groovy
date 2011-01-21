@@ -12,6 +12,7 @@ import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContract
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 
 /**
  *  This reinsurance program contains three fix serial wired contracts. The type
@@ -30,7 +31,7 @@ class ReinsuranceProgram3SerialContracts extends ComposedComponent {
     PacketList<Claim> outClaimsCeded = new PacketList(Claim)
     PacketList<Claim> outClaimsGross = new PacketList(Claim)
     PacketList<Claim> outClaimsNet = new PacketList(Claim)
-    PacketList<UnderwritingInfo> outUnderwritingInfoCeded = new PacketList(UnderwritingInfo)
+    PacketList<CededUnderwritingInfo> outUnderwritingInfoCeded = new PacketList(CededUnderwritingInfo)
     PacketList<UnderwritingInfo> outUnderwritingInfoGross = new PacketList(UnderwritingInfo)
     PacketList<UnderwritingInfo> outUnderwritingInfoNet = new PacketList(UnderwritingInfo)
 

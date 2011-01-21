@@ -1,6 +1,8 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cashflow;
 
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo;
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoPacketFactory;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory;
 
@@ -33,8 +35,8 @@ public class QuotaShareContractStrategy extends AbstractContractStrategy {
         return cededClaim;
     }
 
-    public UnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double coveredByReinsurer) {
-        UnderwritingInfo cededUnderwritingInfo = UnderwritingInfoPacketFactory.copy(grossUnderwritingInfo);
+    public CededUnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double coveredByReinsurer) {
+        CededUnderwritingInfo cededUnderwritingInfo = CededUnderwritingInfoPacketFactory.copy(grossUnderwritingInfo);
         if (grossUnderwritingInfo != null) {
             cededUnderwritingInfo.setOriginalUnderwritingInfo(grossUnderwritingInfo.getOriginalUnderwritingInfo());
         }

@@ -5,6 +5,7 @@ import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
 import org.pillarone.riskanalytics.domain.utils.constraints.DoubleConstraints
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
@@ -29,8 +30,8 @@ class InterpolatedSlidingCommissionStrategyTests extends GroovyTestCase {
     void testOneRatio() {
         ICommissionStrategy commissionStrategy = getInterpolatedSlidingCommissionStrategy([0.35d], [0.2d])
 
-        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premium: 200, commission: -50)
-        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premium: 100, commission: -5)
+        CededUnderwritingInfo underwritingInfo200 = new CededUnderwritingInfo(premium: 200, commission: -50)
+        CededUnderwritingInfo underwritingInfo100 = new CededUnderwritingInfo(premium: 100, commission: -5)
 
         Claim claim70 = new Claim(value: 70)
         Claim claim10 = new Claim(value: 10)
@@ -95,8 +96,8 @@ class InterpolatedSlidingCommissionStrategyTests extends GroovyTestCase {
     void testTwoRatios() {
         ICommissionStrategy commissionStrategy = getInterpolatedSlidingCommissionStrategy([0.3d, 0.5d], [0.4d, 0.3d])
 
-        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premium: 200, commission: -50, fixedCommission: -10, variableCommission: -40)
-        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premium: 100, commission: -5, fixedCommission: -2, variableCommission: -3)
+        UnderwritingInfo underwritingInfo200 = new CededUnderwritingInfo(premium: 200, commission: -50, fixedCommission: -10, variableCommission: -40)
+        UnderwritingInfo underwritingInfo100 = new CededUnderwritingInfo(premium: 100, commission: -5, fixedCommission: -2, variableCommission: -3)
 
         Claim claim60 = new Claim(value: 60)
         Claim claim10 = new Claim(value: 10)
@@ -191,8 +192,8 @@ class InterpolatedSlidingCommissionStrategyTests extends GroovyTestCase {
         ICommissionStrategy commissionStrategy = getInterpolatedSlidingCommissionStrategy([0.2d, 0.2d, 0.3d, 0.3d, 0.3d, 0.4d, 0.5d, 0.5d],
                 [0.6d, 0.5d, 0.4d, 0.3d, 0.2d, 0.1d, 0.05d, 0.01d])
 
-        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premium: 200, commission: -50, fixedCommission: -10, variableCommission: -40)
-        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premium: 100, commission: -5, fixedCommission: -2, variableCommission: -3)
+        UnderwritingInfo underwritingInfo200 = new CededUnderwritingInfo(premium: 200, commission: -50, fixedCommission: -10, variableCommission: -40)
+        UnderwritingInfo underwritingInfo100 = new CededUnderwritingInfo(premium: 100, commission: -5, fixedCommission: -2, variableCommission: -3)
 
         Claim claim30 = new Claim(value: 30)
 
@@ -330,8 +331,8 @@ class InterpolatedSlidingCommissionStrategyTests extends GroovyTestCase {
 
         ICommissionStrategy commissionStrategy = getInterpolatedSlidingCommissionStrategy([0.1d, 0.1d, 0.1d, 0.2d, 0.2d], [0.6d, 0.5d, 0.4d, 0.4d, 0.3d])
 
-        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premium: 200, commission: -50, fixedCommission: -20, variableCommission: -30)
-        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premium: 100, commission: -5, fixedCommission: -1, variableCommission: -4)
+        UnderwritingInfo underwritingInfo200 = new CededUnderwritingInfo(premium: 200, commission: -50, fixedCommission: -20, variableCommission: -30)
+        UnderwritingInfo underwritingInfo100 = new CededUnderwritingInfo(premium: 100, commission: -5, fixedCommission: -1, variableCommission: -4)
 
         Claim claim15 = new Claim(value: 15)
 

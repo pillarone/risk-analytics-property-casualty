@@ -7,6 +7,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.applicable.
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContract
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 
 /**
  * @author ben.ginsberg (at) intuitive-collaboration (dot) com
@@ -20,8 +21,8 @@ class DynamicCommissionTests extends GroovyTestCase {
         Claim claim400 = new Claim(value: 400)
         dynamicCommission.inClaims << claim300 << claim400
 
-        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premium: 200, commission: -50)
-        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premium: 100, commission: -5)
+        CededUnderwritingInfo underwritingInfo200 = new CededUnderwritingInfo(premium: 200, commission: -50)
+        CededUnderwritingInfo underwritingInfo100 = new CededUnderwritingInfo(premium: 100, commission: -5)
         dynamicCommission.inUnderwritingInfo << underwritingInfo200 << underwritingInfo100
 
         dynamicCommission.internalWiring()
@@ -41,8 +42,8 @@ class DynamicCommissionTests extends GroovyTestCase {
         Claim claim400 = new Claim(value: 400)
         dynamicCommission.inClaims << claim300 << claim400
 
-        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premium: 200, commission: -50)
-        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premium: 100, commission: -5)
+        CededUnderwritingInfo underwritingInfo200 = new CededUnderwritingInfo(premium: 200, commission: -50)
+        CededUnderwritingInfo underwritingInfo100 = new CededUnderwritingInfo(premium: 100, commission: -5)
         dynamicCommission.inUnderwritingInfo << underwritingInfo200 << underwritingInfo100
 
         dynamicCommission.internalWiring()
@@ -71,8 +72,8 @@ class DynamicCommissionTests extends GroovyTestCase {
         Claim claim400 = new Claim(value: 400)
         dynamicCommission.inClaims << claim300 << claim400
 
-        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premium: 200, commission: -50)
-        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premium: 100, commission: -5)
+        CededUnderwritingInfo underwritingInfo200 = new CededUnderwritingInfo(premium: 200, commission: -50)
+        CededUnderwritingInfo underwritingInfo100 = new CededUnderwritingInfo(premium: 100, commission: -5)
         dynamicCommission.inUnderwritingInfo << underwritingInfo200 << underwritingInfo100
 
         dynamicCommission.internalWiring()
@@ -97,8 +98,8 @@ class DynamicCommissionTests extends GroovyTestCase {
                 simulationScope: CommissionTests.getTestSimulationScope(2010),
         )
 
-        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premium: 200, commission: -50)
-        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premium: 100, commission: -5)
+        CededUnderwritingInfo underwritingInfo200 = new CededUnderwritingInfo(premium: 200, commission: -50)
+        CededUnderwritingInfo underwritingInfo100 = new CededUnderwritingInfo(premium: 100, commission: -5)
         dynamicCommission.inUnderwritingInfo << underwritingInfo200 << underwritingInfo100
 
         dynamicCommission.internalWiring()
@@ -142,13 +143,13 @@ class DynamicCommissionTests extends GroovyTestCase {
         contract.add new ReinsuranceContract(name: "contract 6")
         simulationScope.model.allComponents << contract[0] << contract[1] << contract[2] << contract[3] << contract[4] << contract[5]
 
-        List<UnderwritingInfo> underwritingInfo = new ArrayList<UnderwritingInfo>(6)
-        underwritingInfo.add new UnderwritingInfo(reinsuranceContract: contract[0], premium: 100d, commission: -1)
-        underwritingInfo.add new UnderwritingInfo(reinsuranceContract: contract[1], premium: 100d, commission: -2)
-        underwritingInfo.add new UnderwritingInfo(reinsuranceContract: contract[2], premium: 100d, commission: -4)
-        underwritingInfo.add new UnderwritingInfo(reinsuranceContract: contract[3], premium: 100d, commission: -8)
-        underwritingInfo.add new UnderwritingInfo(reinsuranceContract: contract[4], premium: 100d, commission: -16)
-        underwritingInfo.add new UnderwritingInfo(reinsuranceContract: contract[5], premium: 100d, commission: -32)
+        List<CededUnderwritingInfo> underwritingInfo = new ArrayList<CededUnderwritingInfo>(6)
+        underwritingInfo.add new CededUnderwritingInfo(reinsuranceContract: contract[0], premium: 100d, commission: -1)
+        underwritingInfo.add new CededUnderwritingInfo(reinsuranceContract: contract[1], premium: 100d, commission: -2)
+        underwritingInfo.add new CededUnderwritingInfo(reinsuranceContract: contract[2], premium: 100d, commission: -4)
+        underwritingInfo.add new CededUnderwritingInfo(reinsuranceContract: contract[3], premium: 100d, commission: -8)
+        underwritingInfo.add new CededUnderwritingInfo(reinsuranceContract: contract[4], premium: 100d, commission: -16)
+        underwritingInfo.add new CededUnderwritingInfo(reinsuranceContract: contract[5], premium: 100d, commission: -32)
         dynamicCommission.inUnderwritingInfo << underwritingInfo[0] << underwritingInfo[1] << underwritingInfo[2]
         dynamicCommission.inUnderwritingInfo << underwritingInfo[3] << underwritingInfo[4] << underwritingInfo[5]
 
@@ -210,7 +211,7 @@ class DynamicCommissionTests extends GroovyTestCase {
         List<Integer> expectedOutPacketOrder = [4, 5, 6, 2, 3, 1] // must contain each key of expectedCommission exactly once
         // ORDER BY dynamicCommission.addSubComponent.order DESC, dynamicCommission.inUnderwritingInfo.order ASC
         for (int i = 0; i < 6; i++) {
-            UnderwritingInfo outUWInfo = dynamicCommission.outUnderwritingInfoModified[i]
+            CededUnderwritingInfo outUWInfo = dynamicCommission.outUnderwritingInfoModified[i]
             int contractNumber = outUWInfo.reinsuranceContract.name.replace("contract ", "").toInteger()
             assertTrue "underwritingInfo from contract $contractNumber was calculated", expectedCommission.containsKey(contractNumber)
             double expectedValue = -expectedCommission.get(contractNumber)

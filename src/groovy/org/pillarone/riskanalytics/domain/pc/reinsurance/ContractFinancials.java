@@ -4,6 +4,8 @@ import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimUtilities;
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo;
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoUtilities;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities;
 
@@ -12,7 +14,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilit
  */
 public class ContractFinancials extends Component {
 
-    private PacketList<UnderwritingInfo> inUnderwritingInfoCeded = new PacketList<UnderwritingInfo> (UnderwritingInfo.class);
+    private PacketList<CededUnderwritingInfo> inUnderwritingInfoCeded = new PacketList<CededUnderwritingInfo> (CededUnderwritingInfo.class);
     private PacketList<Claim> inClaimsCeded = new PacketList<Claim> (Claim.class);
     private PacketList<ReinsuranceResultWithCommissionPacket> outContractFinancials =
             new PacketList<ReinsuranceResultWithCommissionPacket> (ReinsuranceResultWithCommissionPacket.class);
@@ -20,7 +22,7 @@ public class ContractFinancials extends Component {
     @Override
     protected void doCalculation() {
         ReinsuranceResultWithCommissionPacket result = new ReinsuranceResultWithCommissionPacket();
-        UnderwritingInfo underwritingInfo = UnderwritingInfoUtilities.aggregate(inUnderwritingInfoCeded);
+        CededUnderwritingInfo underwritingInfo = CededUnderwritingInfoUtilities.aggregate(inUnderwritingInfoCeded);
         if (underwritingInfo != null) {
             result.setCededPremium(-underwritingInfo.getPremium());
             result.setCededCommission(-underwritingInfo.getCommission());
@@ -31,11 +33,11 @@ public class ContractFinancials extends Component {
         outContractFinancials.add(result);
     }
 
-    public PacketList<UnderwritingInfo> getInUnderwritingInfoCeded() {
+    public PacketList<CededUnderwritingInfo> getInUnderwritingInfoCeded() {
         return inUnderwritingInfoCeded;
     }
 
-    public void setInUnderwritingInfoCeded(PacketList<UnderwritingInfo> inUnderwritingInfoCeded) {
+    public void setInUnderwritingInfoCeded(PacketList<CededUnderwritingInfo> inUnderwritingInfoCeded) {
         this.inUnderwritingInfoCeded = inUnderwritingInfoCeded;
     }
 

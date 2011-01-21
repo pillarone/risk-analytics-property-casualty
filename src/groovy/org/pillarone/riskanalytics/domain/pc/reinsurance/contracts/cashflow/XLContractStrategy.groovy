@@ -8,6 +8,8 @@ import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoPacketFactory
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -123,8 +125,8 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
         }
     }
 
-    UnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double coveredByReinsurer) {
-        UnderwritingInfo cededUnderwritingInfo = UnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
+    CededUnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double coveredByReinsurer) {
+        CededUnderwritingInfo cededUnderwritingInfo = CededUnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
         cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo?.originalUnderwritingInfo ? grossUnderwritingInfo.originalUnderwritingInfo : grossUnderwritingInfo
         cededUnderwritingInfo.commission = 0d
         switch (premiumBase) {

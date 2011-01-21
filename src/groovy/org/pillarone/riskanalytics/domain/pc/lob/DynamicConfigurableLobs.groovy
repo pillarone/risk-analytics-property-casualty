@@ -4,6 +4,7 @@ import org.pillarone.riskanalytics.core.components.MultiPhaseDynamicComposedComp
 import org.pillarone.riskanalytics.core.packets.PacketList
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -12,13 +13,13 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 public class DynamicConfigurableLobs extends MultiPhaseDynamicComposedComponent {
 
     PacketList<UnderwritingInfo> inUnderwritingInfoGross = new PacketList(UnderwritingInfo.class);
-    PacketList<UnderwritingInfo> inUnderwritingInfoCeded = new PacketList(UnderwritingInfo.class);
+    PacketList<CededUnderwritingInfo> inUnderwritingInfoCeded = new PacketList(CededUnderwritingInfo.class);
     PacketList<Claim> inClaimsGross = new PacketList(Claim.class);
     PacketList<Claim> inClaimsCeded = new PacketList(Claim.class);
 
     PacketList<UnderwritingInfo> outUnderwritingInfoNet = new PacketList(UnderwritingInfo.class);
     PacketList<UnderwritingInfo> outUnderwritingInfoGross = new PacketList(UnderwritingInfo.class);
-    PacketList<UnderwritingInfo> outUnderwritingInfoCeded = new PacketList(UnderwritingInfo.class);
+    PacketList<CededUnderwritingInfo> outUnderwritingInfoCeded = new PacketList(CededUnderwritingInfo.class);
     PacketList<Claim> outClaimsNet = new PacketList(Claim.class);
     PacketList<Claim> outClaimsGross = new PacketList(Claim.class);
     PacketList<Claim> outClaimsCeded = new PacketList(Claim.class);

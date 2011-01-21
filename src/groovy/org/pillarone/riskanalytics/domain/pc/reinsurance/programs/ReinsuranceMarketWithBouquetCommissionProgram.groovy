@@ -15,6 +15,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.core.wiring.ITransmitter
 import org.pillarone.riskanalytics.core.wiring.Transmitter
 import org.pillarone.riskanalytics.domain.pc.creditrisk.ReinsurerDefault
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -38,7 +39,7 @@ class ReinsuranceMarketWithBouquetCommissionProgram extends ComposedComponent {
 
     PacketList<UnderwritingInfo> outNetAfterCoverUnderwritingInfo = new PacketList(UnderwritingInfo)
     PacketList<UnderwritingInfo> outUnderwritingInfo = new PacketList(UnderwritingInfo)
-    PacketList<UnderwritingInfo> outCoverUnderwritingInfo = new PacketList(UnderwritingInfo)
+    PacketList<CededUnderwritingInfo> outCoverUnderwritingInfo = new PacketList(CededUnderwritingInfo)
     PacketList<ReinsuranceResultWithCommissionPacket> outContractFinancials = new PacketList<ReinsuranceResultWithCommissionPacket>(ReinsuranceResultWithCommissionPacket.class);
 
     ReinsuranceMarket subContracts = new ReinsuranceMarket()

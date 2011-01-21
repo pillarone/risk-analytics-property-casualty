@@ -22,9 +22,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.ReinsuranceResultWithCo
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.*;
 import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingFilterUtilities;
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities;
+import org.pillarone.riskanalytics.domain.pc.underwriting.*;
 import org.pillarone.riskanalytics.domain.utils.InputFormatConverter;
 
 import java.util.*;
@@ -119,7 +117,7 @@ public class MultiCompanyCoverAttributeReinsuranceContract extends ReinsuranceCo
         }
         if (isSenderWired(outContractFinancials)) {
             ReinsuranceResultWithCommissionPacket result = new ReinsuranceResultWithCommissionPacket();
-            UnderwritingInfo underwritingInfo = UnderwritingInfoUtilities.aggregate(outCoverUnderwritingInfo);
+            CededUnderwritingInfo underwritingInfo = CededUnderwritingInfoUtilities.aggregate(outCoverUnderwritingInfo);
             if (underwritingInfo != null) {
                 result.setCededPremium(-underwritingInfo.getPremium());
                 result.setCededCommission(-underwritingInfo.getCommission());

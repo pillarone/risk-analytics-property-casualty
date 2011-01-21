@@ -7,6 +7,8 @@ import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
 import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoTests
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoUtilities
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -99,6 +101,8 @@ class WXLContractStrategyTests extends GroovyTestCase {
 
 
         wxl.doCalculation()
+
+        CededUnderwritingInfo aggregateCeded = CededUnderwritingInfoUtilities.aggregate(wxl.outCoverUnderwritingInfo);
 
         assertEquals "outClaimsNet.size()", 0, wxl.outUncoveredClaims.size()
         assertEquals "outClaims.size()", 5, wxl.outCoveredClaims.size()

@@ -16,6 +16,7 @@ import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.aggregators.UnderwritingInfoNetCalculator
 import org.pillarone.riskanalytics.domain.pc.claims.MarketGrossNetClaimsMerger
 import org.pillarone.riskanalytics.core.packets.SingleValuePacket
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -23,7 +24,7 @@ import org.pillarone.riskanalytics.core.packets.SingleValuePacket
 public class ConfigurableLobWithReserves extends MultipleCalculationPhaseComposedComponent implements LobMarker {
 
     PacketList<UnderwritingInfo> inUnderwritingInfoGross = new PacketList(UnderwritingInfo)
-    PacketList<UnderwritingInfo> inUnderwritingInfoCeded = new PacketList(UnderwritingInfo)
+    PacketList<CededUnderwritingInfo> inUnderwritingInfoCeded = new PacketList(CededUnderwritingInfo)
     PacketList<Claim> inClaimsGross = new PacketList(Claim)
     PacketList<Claim> inClaimsCeded = new PacketList(Claim)
     PacketList<SingleValuePacket> inInitialReserves = new PacketList<SingleValuePacket>(SingleValuePacket)
@@ -40,7 +41,7 @@ public class ConfigurableLobWithReserves extends MultipleCalculationPhaseCompose
 
     PacketList<UnderwritingInfo> outUnderwritingInfoNet = new PacketList<UnderwritingInfo>(UnderwritingInfo)
     PacketList<UnderwritingInfo> outUnderwritingInfoGross = new PacketList<UnderwritingInfo>(UnderwritingInfo)
-    PacketList<UnderwritingInfo> outUnderwritingInfoCeded = new PacketList<UnderwritingInfo>(UnderwritingInfo)
+    PacketList<CededUnderwritingInfo> outUnderwritingInfoCeded = new PacketList<CededUnderwritingInfo>(CededUnderwritingInfo)
 
     MarketToLineOfBusinessClaims subClaimsFilter
     LineOfBusinessReserves subReservesFilter

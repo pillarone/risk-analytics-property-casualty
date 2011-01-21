@@ -5,6 +5,7 @@ import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory;
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier;
 import org.pillarone.riskanalytics.core.util.GroovyUtils;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.utils.InputFormatConverter;
 import org.pillarone.riskanalytics.domain.utils.constraints.DoubleConstraints;
@@ -39,13 +40,13 @@ public class InterpolatedSlidingCommissionStrategy implements ICommissionStrateg
         return map;
     }
 
-    public void calculateCommission(List<Claim> claims, List<UnderwritingInfo> underwritingInfos, boolean isFirstPeriod, boolean isAdditive) {
+    public void calculateCommission(List<Claim> claims, List<CededUnderwritingInfo> underwritingInfos, boolean isFirstPeriod, boolean isAdditive) {
         double totalClaims = 0d;
         double totalPremium = 0d;
         for (Claim claim : claims) {
             totalClaims += claim.getUltimate();
         }
-        for (UnderwritingInfo underwritingInfo : underwritingInfos) {
+        for (CededUnderwritingInfo underwritingInfo : underwritingInfos) {
             totalPremium += underwritingInfo.getPremium();
         }
         double totalLossRatio = totalClaims / totalPremium;
@@ -73,7 +74,7 @@ public class InterpolatedSlidingCommissionStrategy implements ICommissionStrateg
         }
 
         if (isAdditive) {
-            for (UnderwritingInfo underwritingInfo : underwritingInfos) {
+            for (CededUnderwritingInfo underwritingInfo : underwritingInfos) {
                 double premiumWritten = underwritingInfo.getPremium();
                 underwritingInfo.setCommission(underwritingInfo.getCommission() - premiumWritten * commissionRate);
                 underwritingInfo.setFixedCommission(underwritingInfo.getFixedCommission() - premiumWritten * fixedCommissionRate);
@@ -81,7 +82,7 @@ public class InterpolatedSlidingCommissionStrategy implements ICommissionStrateg
             }
         }
         else {
-            for (UnderwritingInfo underwritingInfo : underwritingInfos) {
+            for (CededUnderwritingInfo underwritingInfo : underwritingInfos) {
                 double premiumWritten = underwritingInfo.getPremium();
                 underwritingInfo.setCommission(-premiumWritten * commissionRate);
                 underwritingInfo.setFixedCommission(-premiumWritten * fixedCommissionRate);

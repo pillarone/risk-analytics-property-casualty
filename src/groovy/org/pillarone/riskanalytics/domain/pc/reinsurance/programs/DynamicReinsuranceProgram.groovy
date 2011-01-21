@@ -18,6 +18,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceCo
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.MarketUnderwritingInfoMerger
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 
 /**
  * A DynamicReinsuranceProgram is a DynamicComposedComponent -- i.e. a container of a sequence of
@@ -67,7 +68,7 @@ class DynamicReinsuranceProgram extends DynamicComposedComponent {
 
     PacketList<UnderwritingInfo> outNetAfterCoverUnderwritingInfo = new PacketList(UnderwritingInfo)
     PacketList<UnderwritingInfo> outUnderwritingInfo = new PacketList(UnderwritingInfo)
-    PacketList<UnderwritingInfo> outCoverUnderwritingInfo = new PacketList(UnderwritingInfo)
+    PacketList<CededUnderwritingInfo> outCoverUnderwritingInfo = new PacketList(CededUnderwritingInfo)
 
     protected List sortedIndizes
     private List<Component> contractsSorted

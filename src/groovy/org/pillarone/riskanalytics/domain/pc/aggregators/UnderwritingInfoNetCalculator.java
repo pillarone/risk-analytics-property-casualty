@@ -2,9 +2,7 @@ package org.pillarone.riskanalytics.domain.pc.aggregators;
 
 import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.core.packets.PacketList;
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory;
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities;
+import org.pillarone.riskanalytics.domain.pc.underwriting.*;
 
 /**
  * The underwriting info aggregator sums up the gross and ceded underwriting info and calculates the net value.
@@ -17,11 +15,11 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilit
  */
 public class UnderwritingInfoNetCalculator extends Component {
 
-    private PacketList<UnderwritingInfo> inUnderwritingInfoCeded = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
+    private PacketList<CededUnderwritingInfo> inUnderwritingInfoCeded = new PacketList<CededUnderwritingInfo>(CededUnderwritingInfo.class);
     private PacketList<UnderwritingInfo> inUnderwritingInfoGross = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
     private PacketList<UnderwritingInfo> outUnderwritingInfoNet = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
     private PacketList<UnderwritingInfo> outUnderwritingInfoGross = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
-    private PacketList<UnderwritingInfo> outUnderwritingInfoCeded = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
+    private PacketList<CededUnderwritingInfo> outUnderwritingInfoCeded = new PacketList<CededUnderwritingInfo>(CededUnderwritingInfo.class);
 
     public void doCalculation() {
         if (inUnderwritingInfoGross.isEmpty() && !inUnderwritingInfoCeded.isEmpty()) {
@@ -29,14 +27,14 @@ public class UnderwritingInfoNetCalculator extends Component {
         }
 
         UnderwritingInfo grossAggregateUnderwritingInfo = UnderwritingInfoPacketFactory.createPacket();
-        UnderwritingInfo cededAggregateUnderwritingInfo = UnderwritingInfoPacketFactory.createPacket();
+        CededUnderwritingInfo cededAggregateUnderwritingInfo = CededUnderwritingInfoPacketFactory.createPacket();
         if (!inUnderwritingInfoGross.isEmpty() && (isSenderWired(outUnderwritingInfoGross) || isSenderWired(outUnderwritingInfoNet))) {
             grossAggregateUnderwritingInfo = UnderwritingInfoUtilities.aggregate(inUnderwritingInfoGross);
             outUnderwritingInfoGross.add(grossAggregateUnderwritingInfo);
         }
         if (isSenderWired(outUnderwritingInfoCeded) || isSenderWired(outUnderwritingInfoNet)) {
             if (!inUnderwritingInfoCeded.isEmpty()) {
-                cededAggregateUnderwritingInfo = UnderwritingInfoUtilities.aggregate(inUnderwritingInfoCeded);
+                cededAggregateUnderwritingInfo = CededUnderwritingInfoUtilities.aggregate(inUnderwritingInfoCeded);
                 outUnderwritingInfoCeded.addAll(inUnderwritingInfoCeded);
             }
         }
@@ -46,11 +44,11 @@ public class UnderwritingInfoNetCalculator extends Component {
     }
 
 
-    public PacketList<UnderwritingInfo> getInUnderwritingInfoCeded() {
+    public PacketList<CededUnderwritingInfo> getInUnderwritingInfoCeded() {
         return inUnderwritingInfoCeded;
     }
 
-    public void setInUnderwritingInfoCeded(PacketList<UnderwritingInfo> inUnderwritingInfoCeded) {
+    public void setInUnderwritingInfoCeded(PacketList<CededUnderwritingInfo> inUnderwritingInfoCeded) {
         this.inUnderwritingInfoCeded = inUnderwritingInfoCeded;
     }
 
@@ -62,11 +60,11 @@ public class UnderwritingInfoNetCalculator extends Component {
         this.inUnderwritingInfoGross = inUnderwritingInfoGross;
     }
 
-    public PacketList<UnderwritingInfo> getOutUnderwritingInfoCeded() {
+    public PacketList<CededUnderwritingInfo> getOutUnderwritingInfoCeded() {
         return outUnderwritingInfoCeded;
     }
 
-    public void setOutUnderwritingInfoCeded(PacketList<UnderwritingInfo> outUnderwritingInfoCeded) {
+    public void setOutUnderwritingInfoCeded(PacketList<CededUnderwritingInfo> outUnderwritingInfoCeded) {
         this.outUnderwritingInfoCeded = outUnderwritingInfoCeded;
     }
 

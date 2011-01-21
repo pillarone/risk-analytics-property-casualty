@@ -2,9 +2,7 @@ package org.pillarone.riskanalytics.domain.pc.aggregators;
 
 import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.core.packets.PacketList;
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory;
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities;
+import org.pillarone.riskanalytics.domain.pc.underwriting.*;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -28,9 +26,10 @@ import java.util.Map;
  */
 public class UnderwritingInfoMerger extends Component {
 
-    private PacketList<UnderwritingInfo> inUnderwritingInfoCeded = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
+    private PacketList<CededUnderwritingInfo> inUnderwritingInfoCeded = new PacketList<CededUnderwritingInfo>(CededUnderwritingInfo.class);
     private PacketList<UnderwritingInfo> inUnderwritingInfoGross = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
-    private PacketList<UnderwritingInfo> outUnderwritingInfoCeded = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
+    private PacketList<CededUnderwritingInfo> outUnderwritingInfoCeded = new PacketList<CededUnderwritingInfo>(CededUnderwritingInfo.class);
+    private PacketList<UnderwritingInfo> outUnderwritingInfoCededInGrossPackets = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
     private PacketList<UnderwritingInfo> outUnderwritingInfoGross = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
     private PacketList<UnderwritingInfo> outUnderwritingInfoNet = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
 
@@ -42,7 +41,7 @@ public class UnderwritingInfoMerger extends Component {
         /* The map contains the gross UwInfo as keys and the ceded as values */
         if (anyOutChannelWired()) {
             // Using a LinkedHashMap ensures that all outUwInfo* lists will be sorted according to the inUwInfoGross list.
-            Map<UnderwritingInfo, UnderwritingInfo> grossMergedCededPairs = new LinkedHashMap<UnderwritingInfo, UnderwritingInfo>(inUnderwritingInfoGross.size());
+            Map<UnderwritingInfo, CededUnderwritingInfo> grossMergedCededPairs = new LinkedHashMap<UnderwritingInfo, CededUnderwritingInfo>(inUnderwritingInfoGross.size());
             for (UnderwritingInfo grossUnderwritingInfo : inUnderwritingInfoGross) {
                 if (grossMergedCededPairs.containsKey(grossUnderwritingInfo.getOriginalUnderwritingInfo())) {
                     throw new IllegalArgumentException("UnderwritingInfoMerger.doubleInformation");
@@ -51,11 +50,11 @@ public class UnderwritingInfoMerger extends Component {
                 outUnderwritingInfoGross.add(grossUnderwritingInfo);
             }
             if (isSenderWired(outUnderwritingInfoCeded) || isSenderWired(outUnderwritingInfoNet)) {
-                for (UnderwritingInfo cededUnderwritingInfo : inUnderwritingInfoCeded) {
+                for (CededUnderwritingInfo cededUnderwritingInfo : inUnderwritingInfoCeded) {
                     if (grossMergedCededPairs.containsKey(cededUnderwritingInfo.getOriginalUnderwritingInfo())) {
-                        UnderwritingInfo aggregateCededUnderwritingInfo = grossMergedCededPairs.get(cededUnderwritingInfo.getOriginalUnderwritingInfo());
+                        CededUnderwritingInfo aggregateCededUnderwritingInfo = grossMergedCededPairs.get(cededUnderwritingInfo.getOriginalUnderwritingInfo());
                         if (aggregateCededUnderwritingInfo == null) {
-                            grossMergedCededPairs.put(cededUnderwritingInfo.getOriginalUnderwritingInfo(), UnderwritingInfoPacketFactory.copy(cededUnderwritingInfo));
+                            grossMergedCededPairs.put(cededUnderwritingInfo.getOriginalUnderwritingInfo(), CededUnderwritingInfoPacketFactory.copy(cededUnderwritingInfo));
                         }
                         else {
                             aggregateCededUnderwritingInfo.plus(cededUnderwritingInfo);
@@ -65,22 +64,27 @@ public class UnderwritingInfoMerger extends Component {
                     }
                 }
 
-                for (Map.Entry<UnderwritingInfo, UnderwritingInfo> entry : grossMergedCededPairs.entrySet()) {
+                for (Map.Entry<UnderwritingInfo, CededUnderwritingInfo> entry : grossMergedCededPairs.entrySet()) {
                     UnderwritingInfo grossUnderwritingInfo = entry.getKey();
                     UnderwritingInfo netUnderwritingInfo = UnderwritingInfoPacketFactory.copy(grossUnderwritingInfo);
                     netUnderwritingInfo.origin = this;
                     netUnderwritingInfo.setOriginalUnderwritingInfo(grossUnderwritingInfo);
 
-                    UnderwritingInfo cededUnderwritingInfo = entry.getValue();
+                    CededUnderwritingInfo cededUnderwritingInfo = entry.getValue();
                     if (cededUnderwritingInfo == null) {
-                        cededUnderwritingInfo = UnderwritingInfoPacketFactory.copy(netUnderwritingInfo);
-                        UnderwritingInfoUtilities.setZero(cededUnderwritingInfo);
+                        cededUnderwritingInfo = CededUnderwritingInfoPacketFactory.copy(netUnderwritingInfo);
+                        CededUnderwritingInfoUtilities.setZero(cededUnderwritingInfo);
                     }
                     else {
                         netUnderwritingInfo = UnderwritingInfoUtilities.calculateNet(grossUnderwritingInfo, cededUnderwritingInfo);
                     }
                     outUnderwritingInfoCeded.add(cededUnderwritingInfo);
                     outUnderwritingInfoNet.add(netUnderwritingInfo);
+                }
+            }
+            if (isSenderWired(outUnderwritingInfoCededInGrossPackets) && outUnderwritingInfoCeded.size() > 0) {
+                for (CededUnderwritingInfo cededUnderwritingInfo : outUnderwritingInfoCeded) {
+                    outUnderwritingInfoCededInGrossPackets.add(UnderwritingInfoPacketFactory.copy(cededUnderwritingInfo));
                 }
             }
         }
@@ -106,11 +110,11 @@ public class UnderwritingInfoMerger extends Component {
         return outUnderwritingInfoGross;
     }
 
-    public void setOutUnderwritingInfoCeded(PacketList<UnderwritingInfo> outUnderwritingInfoCeded) {
+    public void setOutUnderwritingInfoCeded(PacketList<CededUnderwritingInfo> outUnderwritingInfoCeded) {
         this.outUnderwritingInfoCeded = outUnderwritingInfoCeded;
     }
 
-    public PacketList<UnderwritingInfo> getOutUnderwritingInfoCeded() {
+    public PacketList<CededUnderwritingInfo> getOutUnderwritingInfoCeded() {
         return outUnderwritingInfoCeded;
     }
 
@@ -122,11 +126,19 @@ public class UnderwritingInfoMerger extends Component {
         return inUnderwritingInfoGross;
     }
 
-    public void setInUnderwritingInfoCeded(PacketList<UnderwritingInfo> inUnderwritingInfoCeded) {
+    public void setInUnderwritingInfoCeded(PacketList<CededUnderwritingInfo> inUnderwritingInfoCeded) {
         this.inUnderwritingInfoCeded = inUnderwritingInfoCeded;
     }
 
-    public PacketList<UnderwritingInfo> getInUnderwritingInfoCeded() {
+    public PacketList<CededUnderwritingInfo> getInUnderwritingInfoCeded() {
         return inUnderwritingInfoCeded;
+    }
+
+    public PacketList<UnderwritingInfo> getOutUnderwritingInfoCededInGrossPackets() {
+        return outUnderwritingInfoCededInGrossPackets;
+    }
+
+    public void setOutUnderwritingInfoCededInGrossPackets(PacketList<UnderwritingInfo> outUnderwritingInfoCededInGrossPackets) {
+        this.outUnderwritingInfoCededInGrossPackets = outUnderwritingInfoCededInGrossPackets;
     }
 }

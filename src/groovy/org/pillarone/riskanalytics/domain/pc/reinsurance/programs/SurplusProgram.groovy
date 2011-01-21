@@ -12,6 +12,7 @@ import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocatorType
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContract
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 
 /**
  * @author martin.melchior (at) fhnw (dot) ch
@@ -24,7 +25,7 @@ class SurplusProgram extends ComposedComponent {
     PacketList<Claim> outClaims = new PacketList(Claim)
     PacketList<Claim> outClaimsNet = new PacketList(Claim)
 
-    PacketList<UnderwritingInfo> outUnderwritingInfo = new PacketList(UnderwritingInfo)
+    PacketList<CededUnderwritingInfo> outUnderwritingInfo = new PacketList(CededUnderwritingInfo)
     PacketList<UnderwritingInfo> outUnderwritingInfoNet = new PacketList(UnderwritingInfo)
 
     // allocator and its configuration

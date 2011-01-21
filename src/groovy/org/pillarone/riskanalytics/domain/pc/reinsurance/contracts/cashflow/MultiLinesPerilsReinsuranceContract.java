@@ -22,6 +22,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cashflow.cove
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.*;
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket;
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacketFactory;
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingFilterUtilities;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities;
@@ -55,7 +56,7 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
     private PacketList<ClaimDevelopmentPacket> outClaimsDevelopmentNet = new PacketList<ClaimDevelopmentPacket>(ClaimDevelopmentPacket.class);
 
     private PacketList<UnderwritingInfo> outNetAfterCoverUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
-    private PacketList<UnderwritingInfo> outCoverUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
+    private PacketList<CededUnderwritingInfo> outCoverUnderwritingInfo = new PacketList<CededUnderwritingInfo>(CededUnderwritingInfo.class);
 
     /** Defines the kind of contract and parametrization */
     private IReinsuranceContractStrategy parmContractStrategy = ReinsuranceContractType.getTrivial();
@@ -285,9 +286,9 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
     }
 
     protected void calculateCededUnderwritingInfos(List<UnderwritingInfo> grossUnderwritingInfos,
-                                                   List<UnderwritingInfo> cededUnderwritingInfos) {
+                                                   List<CededUnderwritingInfo> cededUnderwritingInfos) {
         for (UnderwritingInfo underwritingInfo : grossUnderwritingInfos) {
-            UnderwritingInfo cededUnderwritingInfo = contract.calculateCoverUnderwritingInfo(underwritingInfo, coveredByReinsurer);
+            CededUnderwritingInfo cededUnderwritingInfo = contract.calculateCoverUnderwritingInfo(underwritingInfo, coveredByReinsurer);
             setOriginalUnderwritingInfo(underwritingInfo, cededUnderwritingInfo);
             cededUnderwritingInfos.add(cededUnderwritingInfo);
         }
@@ -380,11 +381,11 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
         this.outNetAfterCoverUnderwritingInfo = outNetAfterCoverUnderwritingInfo;
     }
 
-    public PacketList<UnderwritingInfo> getOutCoverUnderwritingInfo() {
+    public PacketList<CededUnderwritingInfo> getOutCoverUnderwritingInfo() {
         return outCoverUnderwritingInfo;
     }
 
-    public void setOutCoverUnderwritingInfo(PacketList<UnderwritingInfo> outCoverUnderwritingInfo) {
+    public void setOutCoverUnderwritingInfo(PacketList<CededUnderwritingInfo> outCoverUnderwritingInfo) {
         this.outCoverUnderwritingInfo = outCoverUnderwritingInfo;
     }
 

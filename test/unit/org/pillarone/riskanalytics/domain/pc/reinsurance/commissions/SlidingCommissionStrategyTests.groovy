@@ -5,6 +5,7 @@ import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensi
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
 import org.pillarone.riskanalytics.domain.utils.constraints.DoubleConstraints
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -12,7 +13,7 @@ import org.pillarone.riskanalytics.domain.pc.claims.Claim
 class SlidingCommissionStrategyTests extends GroovyTestCase {
 
     private ICommissionStrategy commissionStrategy
-    private List<UnderwritingInfo> uwInfo
+    private List<CededUnderwritingInfo> uwInfo
     private List<Claim> claims
 
     static ICommissionStrategy getSlidingCommissionStrategy(Map<Double, Double> bands = [:]) {
@@ -45,7 +46,7 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
                 0.5d: 0.03d, // 3% on 50-60%, i.e., Commission is 3% if LossRatio is in [0.5, 0.6)
                 0.6d: 0d,    // 0% from 60%, i.e., Commission is 0% if LossRatio is in [0.6, +Infinity)
         ])
-        uwInfo = [new UnderwritingInfo(premium: 100)]
+        uwInfo = [new CededUnderwritingInfo(premium: 100)]
         claims = [new Claim(value: 0)]
     }
 
@@ -60,8 +61,8 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
         ICommissionStrategy commissionStrategy = getSlidingCommissionStrategy() // uses method's default bands
         // default commission bands: 20% Commission on [0,10%) LossRatio, 10% on [10%,20%), 5% on [20%,50%), 0% at or over 50% loss ratio
 
-        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premium: 200, commission: -50)
-        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premium: 100, commission: -5)
+        UnderwritingInfo underwritingInfo200 = new CededUnderwritingInfo(premium: 200, commission: -50)
+        UnderwritingInfo underwritingInfo100 = new CededUnderwritingInfo(premium: 100, commission: -5)
         // so total premium written is 300
 
         Claim claim05 = new Claim(value: 5)
@@ -83,7 +84,7 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
         assertEquals 'underwritingInfo200', -0d, underwritingInfos[1].fixedCommission
 
         commissionStrategy = getSlidingCommissionStrategy([0.1d: 0.07d, 0.4d: 0.05d, 0.5d: 0.03d, 0.6d: 0.02d,])
-        UnderwritingInfo underwritingInfo300 = new UnderwritingInfo(premium: 300)
+        UnderwritingInfo underwritingInfo300 = new CededUnderwritingInfo(premium: 300)
         Claim claim180 = new Claim(value: 180)
         underwritingInfos = [underwritingInfo300]
         claims = [claim180]
@@ -99,7 +100,7 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
         ICommissionStrategy commissionStrategy = getSlidingCommissionStrategy()
         // default commission bands: 20% Commission on [0,10%) LossRatio, 10% on [10%,20%), 5% on [20%,50%), 0% at or over 50% loss ratio
 
-        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premium: 200, commission: -50)
+        UnderwritingInfo underwritingInfo200 = new CededUnderwritingInfo(premium: 200, commission: -50)
         List underwritingInfo = [underwritingInfo200]
         List claims = [new Claim(value: 25)]
         // loss ratio is 25/200 = 12.5%, in [10%, 20%], so the commission should be 10%
@@ -189,8 +190,8 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
                         [SlidingCommissionStrategy.LOSS_RATIO, SlidingCommissionStrategy.COMMISSION],
                         ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))])
 
-        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premium: 200, commission: -50, fixedCommission: -20, variableCommission: -30)
-        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premium: 100, commission: -5, fixedCommission: -4, variableCommission: -1)
+        UnderwritingInfo underwritingInfo200 = new CededUnderwritingInfo(premium: 200, commission: -50, fixedCommission: -20, variableCommission: -30)
+        UnderwritingInfo underwritingInfo100 = new CededUnderwritingInfo(premium: 100, commission: -5, fixedCommission: -4, variableCommission: -1)
 
         Claim claim15 = new Claim(value: 15)
 

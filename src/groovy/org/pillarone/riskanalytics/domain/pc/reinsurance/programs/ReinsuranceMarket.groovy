@@ -51,7 +51,7 @@ public class ReinsuranceMarket extends DynamicReinsuranceProgram {
             doWire WireCategory, contract, 'inUnderwritingInfo', underwritingInfoMerger, 'outUnderwritingInfoNet'
         }
         else if (((MultiCoverAttributeReinsuranceContract) contract).parmBasedOn.equals(ReinsuranceContractBase.CEDED)) {
-            doWire WireCategory, contract, 'inUnderwritingInfo', underwritingInfoMerger, 'outUnderwritingInfoCeded'
+            doWire WireCategory, contract, 'inUnderwritingInfo', underwritingInfoMerger, 'outUnderwritingInfoCededInGrossPackets'
         }
     }
 }

@@ -5,13 +5,13 @@ package org.pillarone.riskanalytics.domain.pc.underwriting;
  */
 public class GrossCededUnderwritingInfoPair {
     private UnderwritingInfo underwritingInfoGross;
-    private UnderwritingInfo underwritingInfoCeded;
+    private CededUnderwritingInfo underwritingInfoCeded;
 
     public GrossCededUnderwritingInfoPair(UnderwritingInfo underwritingInfoGross) {
         this.underwritingInfoGross = underwritingInfoGross;
     }
 
-    public GrossCededUnderwritingInfoPair(UnderwritingInfo underwritingInfoGross, UnderwritingInfo underwritingInfoCeded) {
+    public GrossCededUnderwritingInfoPair(UnderwritingInfo underwritingInfoGross, CededUnderwritingInfo underwritingInfoCeded) {
         this.underwritingInfoGross = underwritingInfoGross;
         this.underwritingInfoCeded = underwritingInfoCeded;
     }
@@ -24,11 +24,11 @@ public class GrossCededUnderwritingInfoPair {
         this.underwritingInfoGross = underwritingInfoGross;
     }
 
-    public UnderwritingInfo getUnderwritingInfoCeded() {
+    public CededUnderwritingInfo getUnderwritingInfoCeded() {
         return underwritingInfoCeded;
     }
 
-    public void setUnderwritingInfoCeded(UnderwritingInfo underwritingInfoCeded) {
+    public void setUnderwritingInfoCeded(CededUnderwritingInfo underwritingInfoCeded) {
         this.underwritingInfoCeded = underwritingInfoCeded;
     }
 }

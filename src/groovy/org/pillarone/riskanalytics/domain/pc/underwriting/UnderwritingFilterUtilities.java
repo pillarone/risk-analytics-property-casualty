@@ -187,13 +187,13 @@ public class UnderwritingFilterUtilities {
         return filterUnderwritingInfos;
     }
 
-    public static List<UnderwritingInfo> filterUnderwritingInfoByOriginalOrigin(List<UnderwritingInfo> underwritingInfosGross, List<UnderwritingInfo> underwritingInfosCeded) {
+    public static List<CededUnderwritingInfo> filterUnderwritingInfoByOriginalOrigin(List<UnderwritingInfo> underwritingInfosGross, List<CededUnderwritingInfo> underwritingInfosCeded) {
         List<Component> originalOrigins = new ArrayList<Component>();
         for (UnderwritingInfo underwritingInfoGross : underwritingInfosGross) {
             originalOrigins.add(underwritingInfoGross.getOriginalUnderwritingInfo().origin);
         }
-        List<UnderwritingInfo> filteredUnderwritingInfos = new ArrayList<UnderwritingInfo>(underwritingInfosGross.size());
-        for (UnderwritingInfo underwritingInfoCeded : underwritingInfosCeded) {
+        List<CededUnderwritingInfo> filteredUnderwritingInfos = new ArrayList<CededUnderwritingInfo>(underwritingInfosGross.size());
+        for (CededUnderwritingInfo underwritingInfoCeded : underwritingInfosCeded) {
             if (originalOrigins.contains(underwritingInfoCeded.getOriginalUnderwritingInfo().origin)) {
                 filteredUnderwritingInfos.add(underwritingInfoCeded);
             }

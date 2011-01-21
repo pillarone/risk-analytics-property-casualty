@@ -27,12 +27,40 @@ class UnderwritingInfoTests extends GroovyTestCase {
                 exposureDefinition: Exposure.ABSOLUTE)
     }
 
-  static UnderwritingInfo getUnderwritingInfo4() {
-      return new UnderwritingInfo(
-              premium: 1000,
-              numberOfPolicies: 100,
-              exposureDefinition: Exposure.ABSOLUTE)
-  }
+    static UnderwritingInfo getUnderwritingInfo4() {
+        return new UnderwritingInfo(
+                premium: 1000,
+                numberOfPolicies: 100,
+                exposureDefinition: Exposure.ABSOLUTE)
+    }
+
+    static CededUnderwritingInfo getCededUnderwritingInfo() {
+        return new CededUnderwritingInfo(
+                premium: 2000,
+                numberOfPolicies: 100,
+                exposureDefinition: Exposure.ABSOLUTE)
+    }
+
+    static CededUnderwritingInfo getCededUnderwritingInfo2() {
+        return new CededUnderwritingInfo(
+                premium: 500,
+                numberOfPolicies: 100,
+                exposureDefinition: Exposure.ABSOLUTE)
+    }
+
+    static CededUnderwritingInfo getCededUnderwritingInfo3() {
+        return new CededUnderwritingInfo(
+                premium: 1500,
+                numberOfPolicies: 100,
+                exposureDefinition: Exposure.ABSOLUTE)
+    }
+
+    static CededUnderwritingInfo getCededUnderwritingInfo4() {
+        return new CededUnderwritingInfo(
+                premium: 1000,
+                numberOfPolicies: 100,
+                exposureDefinition: Exposure.ABSOLUTE)
+    }
 
     void testScaleValue() {
         assertEquals "absolute", 1, getUnderwritingInfo().scaleValue(Exposure.ABSOLUTE)
