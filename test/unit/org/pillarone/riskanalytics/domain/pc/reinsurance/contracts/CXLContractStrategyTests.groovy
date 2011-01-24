@@ -192,7 +192,7 @@ class CXLContractStrategyTests extends GroovyTestCase {
         assertEquals "underwriting info", 1.2, cxl.outCoverUnderwritingInfo[0].premium
     }
 
-    void testGetCededUnderwritingInfoGNPI() {
+  /*  void testGetCededUnderwritingInfoGNPI() {
         ReinsuranceContract cxl = getContract1()
         UnderwritingInfo grossUnderwritingInfo = UnderwritingInfoTests.getUnderwritingInfo()
 
@@ -221,7 +221,7 @@ class CXLContractStrategyTests extends GroovyTestCase {
         shouldFail(IllegalArgumentException) {
             cxl.parmContractStrategy.calculateCoverUnderwritingInfo(underwritingInfo, 0d)
         }
-    }
+    }   */
 
     void testReinstatementPremiumAllUsed() {
         ReinsuranceContract cxl = getContract0()
