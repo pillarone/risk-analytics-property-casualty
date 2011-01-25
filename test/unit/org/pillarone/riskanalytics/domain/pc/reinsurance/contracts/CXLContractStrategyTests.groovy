@@ -192,36 +192,87 @@ class CXLContractStrategyTests extends GroovyTestCase {
         assertEquals "underwriting info", 1.2, cxl.outCoverUnderwritingInfo[0].premium
     }
 
-  /*  void testGetCededUnderwritingInfoGNPI() {
-        ReinsuranceContract cxl = getContract1()
-        UnderwritingInfo grossUnderwritingInfo = UnderwritingInfoTests.getUnderwritingInfo()
 
+    void testGetCededUnderwritingInfoABSOLUTE() {
+        ReinsuranceContract cxl = getContract0()
+
+        cxl.inClaims << claim0Event0 << claim10Event0 << claim20Event0 << claim30Event0 << claim10Event1
+        cxl.inClaims << claim15Event1 << claim35Event1 << claim30Event2 << claim60Event2 << claim40Event3
+        cxl.inClaims << claim60Event3 << claim120Event4
+        cxl.inUnderwritingInfo << new UnderwritingInfo(premium: 200)
+        cxl.inUnderwritingInfo << new UnderwritingInfo(premium: 100)
+
+        def probeCXLnet = new TestProbe(cxl, "outCoverUnderwritingInfo")    // needed in order to trigger the calculation of net claims
+
+        cxl.doCalculation()
+
+        assertEquals "number of underwriting infos", 2, cxl.outCoverUnderwritingInfo.size()
+        assertEquals "fixed premium", 100 * 2 / 3d, cxl.outCoverUnderwritingInfo[0].fixedPremium, 1E-8
+        assertEquals "fixed premium", 100 / 3d, cxl.outCoverUnderwritingInfo[1].fixedPremium, 1E-8
+        assertEquals "variable premium", 100 * 2 / 3d * 7 / 3 * 0.2, cxl.outCoverUnderwritingInfo[0].variablePremium, 1E-8
+        assertEquals "variable premium", 100 / 3d * 7 / 3 * 0.2, cxl.outCoverUnderwritingInfo[1].variablePremium, 1E-8
+        assertEquals "fixed premium", 100 * 2 / 3d + 100 * 2 / 3d * 7 / 3 * 0.2, cxl.outCoverUnderwritingInfo[0].premium, 1E-8
+        assertEquals "fixed premium", 100 / 3d + 100 / 3d * 7 / 3 * 0.2, cxl.outCoverUnderwritingInfo[1].premium, 1E-8
+    }
+
+    void testGetCededUnderwritingInfoGNPI() {
+        ReinsuranceContract cxl = getContract0()
         cxl.parmContractStrategy.premiumBase = PremiumBase.GNPI
-        UnderwritingInfo cededUnderwritingInfo = cxl.parmContractStrategy.calculateCoverUnderwritingInfo(grossUnderwritingInfo, 0)
+        cxl.parmContractStrategy.premium = 0.2
 
-        assertEquals "premium written", cxl.parmContractStrategy.premium * grossUnderwritingInfo.premium, cededUnderwritingInfo.premium
+        cxl.inClaims << claim0Event0 << claim10Event0 << claim20Event0 << claim30Event0 << claim10Event1
+        cxl.inClaims << claim15Event1 << claim35Event1 << claim30Event2 << claim60Event2 << claim40Event3
+        cxl.inClaims << claim60Event3 << claim120Event4
+        cxl.inUnderwritingInfo << new UnderwritingInfo(premium: 200)
+        cxl.inUnderwritingInfo << new UnderwritingInfo(premium: 100)
+
+        def probeCXLnet = new TestProbe(cxl, "outCoverUnderwritingInfo")    // needed in order to trigger the calculation of net claims
+
+        cxl.doCalculation()
+
+        assertEquals "number of underwriting infos", 2, cxl.outCoverUnderwritingInfo.size()
+        assertEquals "fixed premium", 0.2 * 200, cxl.outCoverUnderwritingInfo[0].fixedPremium, 1E-8
+        assertEquals "fixed premium", 0.2 * 100, cxl.outCoverUnderwritingInfo[1].fixedPremium, 1E-8
+        assertEquals "variable premium", 0.2 * 200 * 7 / 3 * 0.2, cxl.outCoverUnderwritingInfo[0].variablePremium, 1E-8
+        assertEquals "variable premium", 0.2 * 100 * 7 / 3 * 0.2, cxl.outCoverUnderwritingInfo[1].variablePremium, 1E-8
+        assertEquals "fixed premium", 0.2 * 200 + 0.2 * 200 * 7 / 3 * 0.2, cxl.outCoverUnderwritingInfo[0].premium, 1E-8
+        assertEquals "fixed premium", 0.2 * 100 + 0.2 * 100 * 7 / 3 * 0.2, cxl.outCoverUnderwritingInfo[1].premium, 1E-8
     }
 
-    void testGetCededUnderwritingInfoROE() {
-        ReinsuranceContract cxl = getContract1()
-        UnderwritingInfo grossUnderwritingInfo = UnderwritingInfoTests.getUnderwritingInfo()
+    void testGetCededUnderwritingInfoROL() {
+        ReinsuranceContract cxl = getContract0()
         cxl.parmContractStrategy.premiumBase = PremiumBase.RATE_ON_LINE
-        Map<UnderwritingInfo, Double> grossPremiumSharesPerBand = new HashMap<UnderwritingInfo, Double>(1);
-        grossPremiumSharesPerBand.put(grossUnderwritingInfo, 1);
-        cxl.parmContractStrategy.grossPremiumSharesPerBand = grossPremiumSharesPerBand
-        UnderwritingInfo cededUnderwritingInfo = cxl.parmContractStrategy.calculateCoverUnderwritingInfo(grossUnderwritingInfo, 0d)
+        cxl.parmContractStrategy.premium = 0.3
 
-        assertEquals "premium written", cxl.parmContractStrategy.premium * cxl.parmContractStrategy.grossPremiumSharesPerBand.get(grossUnderwritingInfo) * cxl.parmContractStrategy.limit, cededUnderwritingInfo.premium
+        cxl.inClaims << claim0Event0 << claim10Event0 << claim20Event0 << claim30Event0 << claim10Event1
+        cxl.inClaims << claim15Event1 << claim35Event1 << claim30Event2 << claim60Event2 << claim40Event3
+        cxl.inClaims << claim60Event3 << claim120Event4
+        cxl.inUnderwritingInfo << new UnderwritingInfo(premium: 200)
+        cxl.inUnderwritingInfo << new UnderwritingInfo(premium: 100)
+
+        def probeCXLnet = new TestProbe(cxl, "outCoverUnderwritingInfo")    // needed in order to trigger the calculation of net claims
+
+        cxl.doCalculation()
+
+        assertEquals "number of underwriting infos", 2, cxl.outCoverUnderwritingInfo.size()
+        assertEquals "fixed premium", 0.3 * 30 * 2 / 3d, cxl.outCoverUnderwritingInfo[0].fixedPremium, 1E-8
+        assertEquals "fixed premium", 0.3 * 30 / 3d, cxl.outCoverUnderwritingInfo[1].fixedPremium, 1E-8
+        assertEquals "variable premium", 0.3 * 30 * 2 / 3d * 7 / 3 * 0.2, cxl.outCoverUnderwritingInfo[0].variablePremium, 1E-8
+        assertEquals "variable premium", 0.3 * 30 / 3d * 7 / 3 * 0.2, cxl.outCoverUnderwritingInfo[1].variablePremium, 1E-8
+        assertEquals "fixed premium", 0.3 * 30 * 2 / 3d + 0.3 * 30 * 2 / 3d * 7 / 3 * 0.2, cxl.outCoverUnderwritingInfo[0].premium, 1E-8
+        assertEquals "fixed premium", 0.3 * 30 / 3d + 0.3 * 30 / 3d * 7 / 3 * 0.2, cxl.outCoverUnderwritingInfo[1].premium, 1E-8
     }
+
+
 
     void testGetCededUnderwritingInfoIAE() {
         ReinsuranceContract cxl = getContract1()
         UnderwritingInfo underwritingInfo = UnderwritingInfoTests.getUnderwritingInfo()
         cxl.parmContractStrategy.premiumBase = PremiumBase.NUMBER_OF_POLICIES
         shouldFail(IllegalArgumentException) {
-            cxl.parmContractStrategy.calculateCoverUnderwritingInfo(underwritingInfo, 0d)
+            cxl.doCalculation()
         }
-    }   */
+    }
 
     void testReinstatementPremiumAllUsed() {
         ReinsuranceContract cxl = getContract0()
@@ -239,6 +290,9 @@ class CXLContractStrategyTests extends GroovyTestCase {
 
         assertEquals "premium written", cxl.parmContractStrategy.premium * (1 + cxl.parmContractStrategy.reinstatementPremiums.values[0] * usedReinstatements),
                 cxl.outCoverUnderwritingInfo[0].premium, 1e-6
+        assertEquals "premium fixed", cxl.parmContractStrategy.premium, cxl.outCoverUnderwritingInfo[0].fixedPremium, 1e-6
+        assertEquals "premium variable", cxl.parmContractStrategy.premium * cxl.parmContractStrategy.reinstatementPremiums.values[0] * usedReinstatements,
+                cxl.outCoverUnderwritingInfo[0].variablePremium, 1e-6
     }
 
     void testReinstatementPremiumNoneUsed() {
@@ -255,6 +309,8 @@ class CXLContractStrategyTests extends GroovyTestCase {
 
         assertEquals "premium written", cxl.parmContractStrategy.premium * (1 + cxl.parmContractStrategy.reinstatementPremiums.values[0] * usedReinstatements),
                 cxl.outCoverUnderwritingInfo[0].premium, 1e-6
+        assertEquals "premium fixed", cxl.parmContractStrategy.premium, cxl.outCoverUnderwritingInfo[0].fixedPremium, 1e-6
+        assertEquals "premium variable", 0d, cxl.outCoverUnderwritingInfo[0].variablePremium, 1e-6
     }
 
     void testReinstatementPremiumInstantRefill() {
@@ -269,9 +325,11 @@ class CXLContractStrategyTests extends GroovyTestCase {
 
         double usedReinstatements = 1d / 3d
 
-        assertEquals "premium written",
-                cxl.parmContractStrategy.premium * (1 + cxl.parmContractStrategy.reinstatementPremiums.values[0] * usedReinstatements),
+        assertEquals "premium written", cxl.parmContractStrategy.premium * (1 + cxl.parmContractStrategy.reinstatementPremiums.values[0] * usedReinstatements),
                 cxl.outCoverUnderwritingInfo[0].premium, 1e-6
+        assertEquals "premium fixed", cxl.parmContractStrategy.premium, cxl.outCoverUnderwritingInfo[0].fixedPremium, 1e-6
+        assertEquals "premium variable", cxl.parmContractStrategy.premium * cxl.parmContractStrategy.reinstatementPremiums.values[0] * usedReinstatements,
+                cxl.outCoverUnderwritingInfo[0].variablePremium, 1e-6
     }
 
     void testReinstatementPremiumOneUsed() {
@@ -288,6 +346,9 @@ class CXLContractStrategyTests extends GroovyTestCase {
 
         assertEquals "premium written", cxl.parmContractStrategy.premium * (1 + cxl.parmContractStrategy.reinstatementPremiums.values[0] * usedReinstatements),
                 cxl.outCoverUnderwritingInfo[0].premium, 1e-6
+        assertEquals "premium fixed", cxl.parmContractStrategy.premium, cxl.outCoverUnderwritingInfo[0].fixedPremium, 1e-6
+        assertEquals "premium variable", cxl.parmContractStrategy.premium * cxl.parmContractStrategy.reinstatementPremiums.values[0],
+                cxl.outCoverUnderwritingInfo[0].variablePremium, 1e-6
     }
 
     void testReinstatementPremiumOneAndAHalfUsed() {
@@ -304,5 +365,8 @@ class CXLContractStrategyTests extends GroovyTestCase {
 
         assertEquals "premium written", cxl.parmContractStrategy.premium * (1 + cxl.parmContractStrategy.reinstatementPremiums.values[0] * usedReinstatements),
                 cxl.outCoverUnderwritingInfo[0].premium, 1e-6
+        assertEquals "premium fixed", cxl.parmContractStrategy.premium, cxl.outCoverUnderwritingInfo[0].fixedPremium, 1e-6
+        assertEquals "premium variable", cxl.parmContractStrategy.premium * cxl.parmContractStrategy.reinstatementPremiums.values[0] * usedReinstatements,
+                cxl.outCoverUnderwritingInfo[0].variablePremium, 1e-6
     }
 }
