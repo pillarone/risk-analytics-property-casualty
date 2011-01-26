@@ -38,19 +38,19 @@ public class ReinsuranceMarket extends DynamicReinsuranceProgram {
     }
 
     protected void wireContractInClaims(ReinsuranceContract contract, MarketClaimsMerger claimsMerger) {
-        if (((MultiCoverAttributeReinsuranceContract) contract).parmBasedOn.equals(ReinsuranceContractBase.NET)) {
+        if (((MultiCompanyCoverAttributeReinsuranceContract) contract).parmBasedOn.equals(ReinsuranceContractBase.NET)) {
             doWire WireCategory, contract, 'inClaims', claimsMerger, 'outClaimsNet'
         }
-        else if (((MultiCoverAttributeReinsuranceContract) contract).parmBasedOn.equals(ReinsuranceContractBase.CEDED)) {
+        else if (((MultiCompanyCoverAttributeReinsuranceContract) contract).parmBasedOn.equals(ReinsuranceContractBase.CEDED)) {
             doWire WireCategory, contract, 'inClaims', claimsMerger, 'outClaimsCeded'
         }
     }
 
     protected void wireContractInUnderwritingInfo(ReinsuranceContract contract, MarketUnderwritingInfoMerger underwritingInfoMerger) {
-        if (((MultiCoverAttributeReinsuranceContract) contract).parmBasedOn.equals(ReinsuranceContractBase.NET)) {
+        if (((MultiCompanyCoverAttributeReinsuranceContract) contract).parmBasedOn.equals(ReinsuranceContractBase.NET)) {
             doWire WireCategory, contract, 'inUnderwritingInfo', underwritingInfoMerger, 'outUnderwritingInfoNet'
         }
-        else if (((MultiCoverAttributeReinsuranceContract) contract).parmBasedOn.equals(ReinsuranceContractBase.CEDED)) {
+        else if (((MultiCompanyCoverAttributeReinsuranceContract) contract).parmBasedOn.equals(ReinsuranceContractBase.CEDED)) {
             doWire WireCategory, contract, 'inUnderwritingInfo', underwritingInfoMerger, 'outUnderwritingInfoCededInGrossPackets'
         }
     }
