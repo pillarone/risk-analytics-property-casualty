@@ -46,7 +46,7 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
     protected IReinsuranceContractStrategy parmContractStrategy = ReinsuranceContractType.getTrivial();
 
     protected ICommissionStrategy parmCommissionStrategy = CommissionStrategyType.getNoCommission();
-     /**
+    /**
      * Defines the claim and underwriting info the contract will receive.
      * Namely, the net after contracts with lower inuring priority.
      * <p/>
@@ -55,16 +55,20 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
      */
     protected int parmInuringPriority = 0;
 
+    protected double coveredByReinsurer;
+
     public void doCalculation() {
         if (parmContractStrategy == null)
             throw new IllegalStateException("ReinsuranceContract.missingContractStrategy");
 
         parmContractStrategy.initBookkeepingFigures(inClaims, inUnderwritingInfo);
 
+        initCoveredByReinsurer();
         Collections.sort(inClaims, SortClaimsByFractionOfPeriod.getInstance());
         if (isSenderWired(outUncoveredClaims)) {
             calculateClaims(inClaims, outCoveredClaims, outUncoveredClaims, this);
-        } else {
+        }
+        else {
             calculateCededClaims(inClaims, outCoveredClaims, this);
         }
 
@@ -97,6 +101,10 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
         }
     }
 
+    protected void initCoveredByReinsurer() {
+        coveredByReinsurer =  parmContractStrategy.covered();
+    }
+
     protected void fillDevelopedClaimsChannels() {
         if (inClaims.size() > 0 && inClaims.get(0) instanceof ClaimDevelopmentLeanPacket) {
             for (Claim claim : inClaims) {
@@ -115,7 +123,7 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
 
     public void calculateClaims(List<Claim> grossClaims, List<Claim> cededClaims, List<Claim> netClaims, Component origin) {
         for (Claim claim : grossClaims) {
-            Claim cededClaim = getCoveredClaim(claim, origin);
+            Claim cededClaim = getCoveredClaim(claim, origin).scale(coveredByReinsurer);
             cededClaims.add(cededClaim);
 
             Claim claimNet = claim.getNetClaim(cededClaim);
@@ -126,7 +134,7 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
 
     public void calculateCededClaims(List<Claim> grossClaims, List<Claim> cededClaims, Component origin) {
         for (Claim claim : grossClaims) {
-            cededClaims.add(getCoveredClaim(claim, origin));
+            cededClaims.add(getCoveredClaim(claim,origin).scale(coveredByReinsurer));
         }
     }
 
@@ -155,7 +163,8 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
 //                claim.setReserved(claim.getUltimate() - claim.getPaid()); // perhaps not necessary since CDLP.getReserved calculates the same difference
                 claim.setReserved(claim.getUltimate() - claim.getPaid()); // perhaps not necessary since CDLP.getReserved calculates the same difference
                 claimCeded = claim;
-            } else { // (grossClaim instanceof ClaimDevelopmentPacket)
+            }
+            else { // (grossClaim instanceof ClaimDevelopmentPacket)
                 ClaimDevelopmentPacket claim = new ClaimDevelopmentPacket(grossClaim);
                 claim.setPaid(((IReinsuranceContractStrategyWithClaimsDevelopment)
                         parmContractStrategy).allocateCededPaid((ClaimDevelopmentPacket) grossClaim));
@@ -164,8 +173,8 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
                 claim.setReserved(reserved);
                 claimCeded = claim;
             }
-        } else {
-            // ceded development info uses the same (allocation) factor as ceded claims
+        }
+        else {
             claimCeded = grossClaim.copy();
             double claimLoss = grossClaim.getUltimate();
             double cededFraction = claimLoss == 0 ? 1d : coveredLoss / claimLoss;
@@ -183,7 +192,8 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
         claim.setReinsuranceContract(this);
         if (grossClaim.getOriginalClaim() != null) {
             claim.setOriginalClaim(grossClaim.getOriginalClaim());
-        } else {
+        }
+        else {
             claim.setOriginalClaim(grossClaim);
         }
     }
@@ -197,7 +207,8 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
     protected void setOriginalUnderwritingInfo(UnderwritingInfo underwritingInfo, UnderwritingInfo derivedUnderwritingInfo) {
         if (underwritingInfo != null && underwritingInfo.getOriginalUnderwritingInfo() != null) {
             derivedUnderwritingInfo.setOriginalUnderwritingInfo(underwritingInfo.getOriginalUnderwritingInfo());
-        } else {
+        }
+        else {
             derivedUnderwritingInfo.setOriginalUnderwritingInfo(underwritingInfo);
         }
     }
@@ -240,7 +251,7 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
             CededUnderwritingInfo cededUnderwritingInfo = parmContractStrategy.calculateCoverUnderwritingInfo(underwritingInfo, getTotalInitialReserves());
             setOriginalUnderwritingInfo(underwritingInfo, cededUnderwritingInfo);
             cededUnderwritingInfo.setReinsuranceContract(this);
-            cededUnderwritingInfos.add(cededUnderwritingInfo);
+            cededUnderwritingInfos.add(cededUnderwritingInfo.scale(coveredByReinsurer));
         }
     }
 
@@ -362,5 +373,13 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
 
     public void setOutClaimsDevelopmentLeanCeded(PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanCeded) {
         this.outClaimsDevelopmentLeanCeded = outClaimsDevelopmentLeanCeded;
+    }
+
+    public double getCoveredByReinsurer() {
+        return coveredByReinsurer;
+    }
+
+    public void setCoveredByReinsurer(double coveredByReinsurer) {
+        this.coveredByReinsurer = coveredByReinsurer;
     }
 }

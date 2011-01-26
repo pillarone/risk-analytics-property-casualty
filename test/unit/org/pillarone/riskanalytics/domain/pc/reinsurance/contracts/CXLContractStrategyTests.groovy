@@ -263,17 +263,6 @@ class CXLContractStrategyTests extends GroovyTestCase {
         assertEquals "fixed premium", 0.3 * 30 / 3d + 0.3 * 30 / 3d * 7 / 3 * 0.2, cxl.outCoverUnderwritingInfo[1].premium, 1E-8
     }
 
-
-
-    void testGetCededUnderwritingInfoIAE() {
-        ReinsuranceContract cxl = getContract1()
-        UnderwritingInfo underwritingInfo = UnderwritingInfoTests.getUnderwritingInfo()
-        cxl.parmContractStrategy.premiumBase = PremiumBase.NUMBER_OF_POLICIES
-        shouldFail(IllegalArgumentException) {
-            cxl.doCalculation()
-        }
-    }
-
     void testReinstatementPremiumAllUsed() {
         ReinsuranceContract cxl = getContract0()
         cxl.inUnderwritingInfo << UnderwritingInfoTests.getUnderwritingInfo()

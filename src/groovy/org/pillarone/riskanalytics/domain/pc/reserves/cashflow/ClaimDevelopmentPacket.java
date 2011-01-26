@@ -111,11 +111,12 @@ public class ClaimDevelopmentPacket extends Claim {
     }
 
     @Override
-    public void scale(double factor) {
+    public ClaimDevelopmentPacket scale(double factor) {
         super.scale(factor);
         paid *= factor;
         reserved *= factor;
         changeInReserves *= factor;
+        return this;
     }
 
     /**

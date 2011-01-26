@@ -54,14 +54,17 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
         if (parmCover == null) {
             throw new IllegalStateException("MultiCoverAttributeReinsuranceContract.missingCoverStrategy");
         }
+
         filterInChannels();
         // initialize contract details
         parmContractStrategy.initBookkeepingFigures(outFilteredClaims, outFilteredUnderwritingInfo);
 
+        initCoveredByReinsurer();
         Collections.sort(outFilteredClaims, SortClaimsByFractionOfPeriod.getInstance());
         if (isSenderWired(getOutUncoveredClaims()) || isSenderWired(getOutClaimsDevelopmentLeanNet())) {
             calculateClaims(outFilteredClaims, outCoveredClaims, outUncoveredClaims, this);
-        } else {
+        }
+        else {
             calculateCededClaims(outFilteredClaims, outCoveredClaims, this);
         }
 
@@ -107,10 +110,6 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
                 result.setCededLossRatio(result.getCededClaim() / -result.getCededPremium());
             }
             outContractFinancials.add(result);
-        }
-
-        for (UnderwritingInfo outCoverUnderwritingInfoPacket : outCoverUnderwritingInfo) {
-            outCoverUnderwritingInfoPacket.setReinsuranceContract(this);
         }
     }
 

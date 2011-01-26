@@ -20,18 +20,18 @@ class ReverseSurplusContractStrategy extends SurplusContractStrategy implements 
     }
 
     public double allocateCededClaim(Claim inClaim) {
-        if (inClaim.hasExposureInfo()) { 
-            return inClaim.ultimate * coveredByReinsurer * (1 - getFractionCeded(inClaim.exposure.sumInsured))
+        if (inClaim.hasExposureInfo()) {
+            return inClaim.ultimate * (1 - getFractionCeded(inClaim.exposure.sumInsured))
         }
         else {
-            return inClaim.ultimate * coveredByReinsurer * (1 - defaultCededLossShare)
+            return inClaim.ultimate * (1 - defaultCededLossShare)
         }
     }
 
     CededUnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double initialReserves) {
         CededUnderwritingInfo cededUnderwritingInfo = CededUnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
         cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo?.originalUnderwritingInfo ? grossUnderwritingInfo.originalUnderwritingInfo : grossUnderwritingInfo
-        double fractionCeded = coveredByReinsurer * (1 - getFractionCeded(cededUnderwritingInfo.sumInsured))
+        double fractionCeded = 1 - getFractionCeded(cededUnderwritingInfo.sumInsured)
         cededUnderwritingInfo.premium *= fractionCeded
         cededUnderwritingInfo.sumInsured *= fractionCeded
         cededUnderwritingInfo.maxSumInsured *= fractionCeded

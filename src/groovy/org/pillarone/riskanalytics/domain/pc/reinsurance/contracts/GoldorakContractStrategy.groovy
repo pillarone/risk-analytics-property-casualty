@@ -20,13 +20,13 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoP
  * @author shartmann (at) munichre (dot) com
  */
 class GoldorakContractStrategy extends AbstractContractStrategy implements IReinsuranceContractStrategy, IParameterObject {
-/** Premium can be expressed as a fraction of a base quantity.                 */
+/** Premium can be expressed as a fraction of a base quantity.                    */
     PremiumBase premiumBase = PremiumBase.ABSOLUTE
 
-    /** Premium as a percentage of the premium base                 */
+    /** Premium as a percentage of the premium base                    */
     double premium
 
-    /** As a percentage of premium.                 */
+    /** As a percentage of premium.                    */
     AbstractMultiDimensionalParameter reinstatementPremiums = new TableMultiDimensionalParameter([0d], ['Reinstatement Premium'])
     double cxlAttachmentPoint
     double cxlLimit
@@ -44,6 +44,7 @@ class GoldorakContractStrategy extends AbstractContractStrategy implements IRein
     private Map<Event, Double> claimsValueMergedByEvent = [:]
     private Map<Event, Double> cededShareByEvent = [:]
     private Map<UnderwritingInfo, Double> grossPremiumSharesPerBand = [:]
+    private double totalCededPremium
 
     ReinsuranceContractType getType() {
         ReinsuranceContractType.GOLDORAK
@@ -69,7 +70,7 @@ class GoldorakContractStrategy extends AbstractContractStrategy implements IRein
             //CXL
             if (inClaim.claimType.equals(ClaimType.EVENT) || inClaim.claimType.equals(ClaimType.AGGREGATED_EVENT)) {
 
-                return inClaim.ultimate * cededShareByEvent.get(inClaim.event) * coveredByReinsurer
+                return inClaim.ultimate * cededShareByEvent.get(inClaim.event)
             }
             else {
                 return 0d
@@ -77,7 +78,7 @@ class GoldorakContractStrategy extends AbstractContractStrategy implements IRein
         }
         else {
             //SL
-            return inClaim.ultimate * factor * coveredByReinsurer
+            return inClaim.ultimate * factor
         }
     }
 
@@ -152,6 +153,15 @@ class GoldorakContractStrategy extends AbstractContractStrategy implements IRein
 
             }
         }
+
+        // todo(jwa): cf. History: condition (if (aggregateGrossClaimAmount < scaledGoldorakSlThreshold)) was used, but with no effect, ask sha; probably distinguish between cxlLimit and slLimit
+        if (premiumBase.equals(PremiumBase.ABSOLUTE)) totalCededPremium = premium
+        else if (premiumBase.equals(PremiumBase.GNPI)) totalCededPremium = premium * coverUnderwritingInfo.premium.sum()
+        else if (premiumBase.equals(PremiumBase.RATE_ON_LINE)) totalCededPremium = premium * cxlLimit
+        else if (premiumBase.equals(PremiumBase.NUMBER_OF_POLICIES)) totalCededPremium = premium * coverUnderwritingInfo.numberOfPolicies.sum()
+        else {
+            throw new IllegalArgumentException("XLContractStrategy.invalidPremiumBase")
+        }
     }
 
     CededUnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double initialReserves) {
@@ -160,42 +170,11 @@ class GoldorakContractStrategy extends AbstractContractStrategy implements IRein
         cededUnderwritingInfo.commission = 0d
         cededUnderwritingInfo.fixedCommission = 0d
         cededUnderwritingInfo.variableCommission = 0d
-        if (aggregateGrossClaimAmount < scaledGoldorakSlThreshold) {
-            // CXL case
-            switch (premiumBase) {
-                case PremiumBase.ABSOLUTE:
-                    cededUnderwritingInfo.premium = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo) * coveredByReinsurer
-                    break
-                case PremiumBase.GNPI:
-                    cededUnderwritingInfo.premium = premium * grossUnderwritingInfo.premium * coveredByReinsurer
-                    break
-                case PremiumBase.RATE_ON_LINE:
-                    cededUnderwritingInfo.premium = premium * cxlLimit * coveredByReinsurer
-                    break
-                case PremiumBase.NUMBER_OF_POLICIES:
-                    throw new IllegalArgumentException("GoldorakContractStrategy.premiumBaseNoOfPolicies")
-            }
-        }
-        else {
-            switch (premiumBase) {
-                case PremiumBase.ABSOLUTE:
-                    cededUnderwritingInfo.premium = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo) * coveredByReinsurer
-                    break
-                case PremiumBase.GNPI:
-                    cededUnderwritingInfo.premium = premium * grossUnderwritingInfo.premium * coveredByReinsurer
-                    break
-                case PremiumBase.RATE_ON_LINE:
-                    cededUnderwritingInfo.premium = premium * cxlLimit * coveredByReinsurer
-                    break
-                case PremiumBase.NUMBER_OF_POLICIES:
-                    throw new IllegalArgumentException("GoldorakContractStrategy.premiumBaseNoOfPolicies")
-            }
-
-        }
+        cededUnderwritingInfo.premium = totalCededPremium * grossPremiumSharesPerBand(grossUnderwritingInfo)
         double reinstatements = cxlAvailableAggregateLimit / cxlLimit - 1
         cededUnderwritingInfo.fixedPremium = cededUnderwritingInfo.premium
         cededUnderwritingInfo.variablePremium = XLContractStrategy.calculateReinstatementPremiums(cxlAggregateLimit, cxlAvailableAggregateLimit,
-            cxlAggregateDeductible, cxlLimit, reinstatements, reinstatementPremiums, coveredByReinsurer) * cededUnderwritingInfo.premium
+                cxlAggregateDeductible, cxlLimit, reinstatements, reinstatementPremiums) * cededUnderwritingInfo.premium
         cededUnderwritingInfo.premium = cededUnderwritingInfo.fixedPremium + cededUnderwritingInfo.variablePremium
         return cededUnderwritingInfo
     }

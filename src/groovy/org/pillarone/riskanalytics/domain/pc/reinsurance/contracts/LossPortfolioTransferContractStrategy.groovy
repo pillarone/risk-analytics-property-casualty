@@ -51,14 +51,14 @@ class LossPortfolioTransferContractStrategy extends AbstractContractStrategy imp
     }
 
     double allocateCededClaim(Claim inClaim) {
-        inClaim.ultimate * quotaShare * coveredByReinsurer
+        inClaim.ultimate * quotaShare
     }
 
     CededUnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double initialReserves) {
         CededUnderwritingInfo cededUnderwritingInfo = CededUnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
         cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo?.originalUnderwritingInfo ? grossUnderwritingInfo.originalUnderwritingInfo : grossUnderwritingInfo
-        cededUnderwritingInfo.sumInsured *= quotaShare * coveredByReinsurer
-        cededUnderwritingInfo.maxSumInsured *= quotaShare * coveredByReinsurer
+        cededUnderwritingInfo.sumInsured *= quotaShare
+        cededUnderwritingInfo.maxSumInsured *= quotaShare
         cededUnderwritingInfo.commission = 0
         cededUnderwritingInfo.fixedCommission = 0d
         cededUnderwritingInfo.variableCommission = 0d
@@ -69,7 +69,7 @@ class LossPortfolioTransferContractStrategy extends AbstractContractStrategy imp
                 break
             case LPTPremiumBase.RELATIVE_TO_CEDED_RESERVES_VOLUME:
                 cededUnderwritingInfo.premium =
-                    initialReserves * quotaShare * coveredByReinsurer * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
+                    initialReserves * quotaShare * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
                 break
             default:
                 throw new IllegalArgumentException("['LossPortfolioTransferContractStrategy.invalidPremiumBaseType','"+premiumBase+"']")

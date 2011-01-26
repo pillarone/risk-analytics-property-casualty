@@ -36,4 +36,5 @@ abstract class AbstractContractStrategy implements IReinsuranceContractStrategy,
 
     public void resetMemberInstances() {
     }
+
 }

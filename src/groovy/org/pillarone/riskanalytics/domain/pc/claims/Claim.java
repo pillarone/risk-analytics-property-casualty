@@ -63,8 +63,9 @@ public class Claim extends MultiValuePacket {
         ultimate -= claim.getUltimate();
     }
 
-    public void scale(double factor) {
+    public Claim scale(double factor) {
         ultimate *= factor;
+        return this;
     }
 
     public Claim getNetClaim(Claim cededClaim) {

@@ -81,6 +81,7 @@ public class MultiCompanyCoverAttributeReinsuranceContract extends ReinsuranceCo
         }
         parmContractStrategy.adjustCovered(coveredByReinsurers);
 
+        initCoveredByReinsurer();
         filterInChannels();
         // initialize contract details
         parmContractStrategy.initBookkeepingFigures(outFilteredClaims, outFilteredUnderwritingInfo);

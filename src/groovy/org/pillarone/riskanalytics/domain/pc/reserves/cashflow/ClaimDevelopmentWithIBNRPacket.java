@@ -65,10 +65,11 @@ public class ClaimDevelopmentWithIBNRPacket extends ClaimDevelopmentPacket {
     }
 
     @Override
-    public void scale(double factor) {
+    public ClaimDevelopmentWithIBNRPacket scale(double factor) {
         super.scale(factor);
         reported *= factor;
         ibnr *= factor;
+        return this;
     }
 
     /**

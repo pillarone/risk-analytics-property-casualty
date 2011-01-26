@@ -18,24 +18,24 @@ class AggregateXLContractStrategy extends AbstractContractStrategy implements IR
     static final ReinsuranceContractType type = ReinsuranceContractType.AGGREGATEXL
     ClaimType claimClass = ClaimType.AGGREGATED_EVENT
 
-    /** Premium can be expressed as a fraction of a base quantity.           */
+    /** Premium can be expressed as a fraction of a base quantity.            */
     PremiumBase premiumBase = PremiumBase.ABSOLUTE
 
-    /** Strategy to allocate the ceded premium to the different lines of business     */
+    /** Strategy to allocate the ceded premium to the different lines of business      */
     IPremiumAllocationStrategy premiumAllocation = PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, new HashMap());
 
-    /** Premium as a percentage of the premium base           */
+    /** Premium as a percentage of the premium base            */
     double premium
 
-    /** attachment point is also expressed as a fraction of gnpi if premium base == GNPI           */
+    /** attachment point is also expressed as a fraction of gnpi if premium base == GNPI            */
     double attachmentPoint
 
-    /** attachment point is also expressed as a fraction of gnpi if premium base == GNPI        */
+    /** attachment point is also expressed as a fraction of gnpi if premium base == GNPI         */
     double limit
 
     private double factor
 
-    Map<UnderwritingInfo, Double> grossPremiumSharesPerBand = [:]
+    double totalCededPremium
 
     ReinsuranceContractType getType() {
         type
@@ -43,18 +43,18 @@ class AggregateXLContractStrategy extends AbstractContractStrategy implements IR
 
     Map getParameters() {
         ["premiumBase": premiumBase,
-            "premium": premium,
+                "premium": premium,
                 "premiumAllocation": premiumAllocation,
-            "attachmentPoint": attachmentPoint,
-            "limit": limit,
-            "coveredByReinsurer": coveredByReinsurer,
-            "claimClass": claimClass]
+                "attachmentPoint": attachmentPoint,
+                "limit": limit,
+                "coveredByReinsurer": coveredByReinsurer,
+                "claimClass": claimClass]
     }
 
     public double allocateCededClaim(Claim inClaim) {
         double coveredLoss
         if (inClaim.claimType == claimClass) {
-            coveredLoss = inClaim.ultimate * factor * coveredByReinsurer
+            coveredLoss = inClaim.ultimate * factor
         }
         else {
             coveredLoss = 0d
@@ -84,10 +84,15 @@ class AggregateXLContractStrategy extends AbstractContractStrategy implements IR
         else {
             factor = 0d
         }
-        double totalPremium = coverUnderwritingInfo.premium.sum()
-        for (UnderwritingInfo underwritingInfo: coverUnderwritingInfo) {
-            grossPremiumSharesPerBand.put(underwritingInfo, underwritingInfo.premium / totalPremium)
+
+        if (premiumBase.equals(PremiumBase.ABSOLUTE)) totalCededPremium = premium
+        else if (premiumBase.equals(PremiumBase.GNPI)) totalCededPremium = premium * coverUnderwritingInfo.premium.sum()
+        else if (premiumBase.equals(PremiumBase.RATE_ON_LINE)) totalCededPremium = premium * limit
+        else if (premiumBase.equals(PremiumBase.NUMBER_OF_POLICIES)) totalCededPremium = premium * coverUnderwritingInfo.numberOfPolicies.sum()
+        else {
+            throw new IllegalArgumentException("XLContractStrategy.invalidPremiumBase")
         }
+
     }
 
 
@@ -98,18 +103,7 @@ class AggregateXLContractStrategy extends AbstractContractStrategy implements IR
         cededUnderwritingInfo.fixedCommission = 0d
         cededUnderwritingInfo.variableCommission = 0d
         cededUnderwritingInfo.variablePremium = 0d
-        switch (premiumBase) {
-            case PremiumBase.ABSOLUTE:
-                cededUnderwritingInfo.premium = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
-                break
-            case PremiumBase.GNPI:
-                cededUnderwritingInfo.premium = premium * grossUnderwritingInfo.premium
-                break
-            case PremiumBase.RATE_ON_LINE:
-                throw new IllegalArgumentException("AggregateXLContractStrategy.PremiumBaseAsRoL")
-            case PremiumBase.NUMBER_OF_POLICIES:
-                throw new IllegalArgumentException("AggregateXLContractStrategy.PremiumBaseAsNoOfPolicies")
-        }
+        cededUnderwritingInfo.premium = totalCededPremium * premiumAllocation.getShare(grossUnderwritingInfo)
         cededUnderwritingInfo.setFixedPremium(cededUnderwritingInfo.getPremium())
         cededUnderwritingInfo
     }

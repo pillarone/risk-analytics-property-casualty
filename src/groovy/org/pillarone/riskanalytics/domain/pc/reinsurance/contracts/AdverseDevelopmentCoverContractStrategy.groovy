@@ -22,16 +22,16 @@ class AdverseDevelopmentCoverContractStrategy extends AbstractContractStrategy i
 
     static final ReinsuranceContractType type = ReinsuranceContractType.ADVERSEDEVELOPMENTCOVER
 
-    /** Premium, attachment point and limit can be expressed as a fraction of a base quantity.  */
+    /** Premium, attachment point and limit can be expressed as a fraction of a base quantity.   */
     StopLossContractBase stopLossContractBase = StopLossContractBase.ABSOLUTE
 
-    /** Premium as a percentage of the premium base  */
+    /** Premium as a percentage of the premium base   */
     double premium
 
-    /** attachment point is also expressed as a fraction of gnpi if premium base == GNPI  */
+    /** attachment point is also expressed as a fraction of gnpi if premium base == GNPI   */
     double attachmentPoint
 
-    /** attachment point is also expressed as a fraction of gnpi if premium base == GNPI  */
+    /** attachment point is also expressed as a fraction of gnpi if premium base == GNPI   */
     double limit
 
     private double incurredAllocationFactor
@@ -52,15 +52,15 @@ class AdverseDevelopmentCoverContractStrategy extends AbstractContractStrategy i
     }
 
     public double allocateCededClaim(Claim inClaim) {
-        inClaim.ultimate * incurredAllocationFactor * coveredByReinsurer
+        inClaim.ultimate * incurredAllocationFactor
     }
 
     public double allocateCededPaid(ClaimDevelopmentPacket inClaim) {
-        inClaim.paid * paidAllocationFactor * coveredByReinsurer
+        inClaim.paid * paidAllocationFactor
     }
 
     public double allocateCededPaid(ClaimDevelopmentLeanPacket inClaim) {
-        inClaim.paid * paidAllocationFactor * coveredByReinsurer
+        inClaim.paid * paidAllocationFactor
     }
 
     public void initBookkeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {

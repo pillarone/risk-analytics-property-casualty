@@ -15,28 +15,27 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
  */
 abstract class XLContractStrategy extends AbstractContractStrategy implements IReinsuranceContractStrategy, IParameterObject {
 
-    /** Premium can be expressed as a fraction of a base quantity.                              */
+    /** Premium can be expressed as a fraction of a base quantity.                                */
     PremiumBase premiumBase = PremiumBase.ABSOLUTE
 
-    /** Premium as a percentage of the premium base                              */
+    /** Premium as a percentage of the premium base                                */
     double premium
 
-    /** Strategy to allocate the ceded premium to the different lines of business                */
+    /** Strategy to allocate the ceded premium to the different lines of business                  */
     IPremiumAllocationStrategy premiumAllocation = PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, new HashMap());
-    /** As a percentage of premium.                              */
+    /** As a percentage of premium.                                */
     AbstractMultiDimensionalParameter reinstatementPremiums = new TableMultiDimensionalParameter([0d], ['Reinstatement Premium'])
     double attachmentPoint
     double limit
     double aggregateDeductible
     double aggregateLimit
-    Map<UnderwritingInfo, Double> grossPremiumSharesPerBand = [:]
 
     private double totalCededPremium
     protected double availableAggregateLimit
     protected double reinstatements
     /** The factor is calculated during initBookkeepingFigures() by applying the aggregateDeductible,
      *  ceded claims will be multiplied by it to apply a positive aggregateDeductible proportionally
-     *  to every claim.              */
+     *  to every claim.                */
     protected double deductibleFactor = 1d
 
     public Map getParameters() {
@@ -57,28 +56,27 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
 
     static double calculateUsedReinstatements(double aggregateLimit, double availableAggregateLimit,
                                               double aggregateDeductible, double limit, double reinstatements) {
-        double usedReinstatements = limit == 0d ? 0d : (aggregateLimit - availableAggregateLimit - aggregateDeductible) / limit
+        double usedReinstatements = limit == 0d ? 0d : (Double) (aggregateLimit - availableAggregateLimit - aggregateDeductible) / limit
         return Math.min(usedReinstatements, reinstatements)
     }
 
     static double calculateReinstatementPremiums(double aggregateLimit, double availableAggregateLimit,
                                                  double aggregateDeductible, double limit, double reinstatements,
-                                                 AbstractMultiDimensionalParameter reinstatementPremiums, double coveredByReinsurer) {
+                                                 AbstractMultiDimensionalParameter reinstatementPremiums) {
         double usedReinstatements = calculateUsedReinstatements(aggregateLimit, availableAggregateLimit,
                 aggregateDeductible, limit, reinstatements)
         double reinstatementPremium = 0d
         for (int i = 1; i <= usedReinstatements; i++) {
-            reinstatementPremium += getReinstatementPremiumFactor(i, reinstatementPremiums, coveredByReinsurer)
+            reinstatementPremium += getReinstatementPremiumFactor(i, reinstatementPremiums)
         }
         double partialReinstatement = usedReinstatements - Math.floor(usedReinstatements)
         reinstatementPremium += partialReinstatement * getReinstatementPremiumFactor(
-                Math.ceil(usedReinstatements).toInteger(), reinstatementPremiums, coveredByReinsurer)
+                Math.ceil(usedReinstatements).toInteger(), reinstatementPremiums)
         reinstatementPremium
     }
 
-    static double getReinstatementPremiumFactor(int reinstatement, AbstractMultiDimensionalParameter reinstatementPremiums,
-                                                double coveredByReinsurer) {
-        reinstatementPremiums.values[Math.min(reinstatement, reinstatementPremiums.valueRowCount - 1)] * coveredByReinsurer
+    static double getReinstatementPremiumFactor(int reinstatement, AbstractMultiDimensionalParameter reinstatementPremiums) {
+        reinstatementPremiums.values[Math.min(reinstatement, reinstatementPremiums.valueRowCount - 1)]
     }
 
     void initBookkeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
@@ -88,6 +86,7 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
         if (premiumBase.equals(PremiumBase.ABSOLUTE)) totalCededPremium = premium
         else if (premiumBase.equals(PremiumBase.GNPI)) totalCededPremium = premium * coverUnderwritingInfo.premium.sum()
         else if (premiumBase.equals(PremiumBase.RATE_ON_LINE)) totalCededPremium = premium * limit
+        else if (premiumBase.equals(PremiumBase.NUMBER_OF_POLICIES)) totalCededPremium = premium * coverUnderwritingInfo.numberOfPolicies.sum()
         else {
             throw new IllegalArgumentException("XLContractStrategy.invalidPremiumBase")
         }
@@ -121,13 +120,9 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
         cededUnderwritingInfo.premium = totalCededPremium * premiumAllocation.getShare(grossUnderwritingInfo)
         cededUnderwritingInfo.fixedPremium = cededUnderwritingInfo.premium
         cededUnderwritingInfo.variablePremium = cededUnderwritingInfo.premium * calculateReinstatementPremiums(aggregateLimit,
-                availableAggregateLimit, aggregateDeductible, limit, reinstatements, reinstatementPremiums, coveredByReinsurer) * coveredByReinsurer
+                availableAggregateLimit, aggregateDeductible, limit, reinstatements, reinstatementPremiums)
         cededUnderwritingInfo.premium = cededUnderwritingInfo.fixedPremium + cededUnderwritingInfo.variablePremium
         return cededUnderwritingInfo
-    }
-
-    public void resetMemberInstances() {
-        grossPremiumSharesPerBand.clear()
     }
 
 }

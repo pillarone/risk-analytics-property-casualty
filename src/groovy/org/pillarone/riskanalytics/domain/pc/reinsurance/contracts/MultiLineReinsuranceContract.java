@@ -20,11 +20,11 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- *  This component filters from the incoming claims and underwriting information
- *  the packets whose line is listed in parameter parmCoveredLines and provides
- *  them in the corresponding out Packetlists.
- *  If the parameter contains no line at all, all packets are sent as is to the
- *  next component. Packets are not modified.
+ * This component filters from the incoming claims and underwriting information
+ * the packets whose line is listed in parameter parmCoveredLines and provides
+ * them in the corresponding out Packetlists.
+ * If the parameter contains no line at all, all packets are sent as is to the
+ * next component. Packets are not modified.
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  * @deprecated use MultiCoverAttributeReinsuranceContract instead
@@ -41,7 +41,9 @@ public class MultiLineReinsuranceContract extends ReinsuranceContract {
     private ComboBoxTableMultiDimensionalParameter parmCoveredReserves = new ComboBoxTableMultiDimensionalParameter(
             Collections.emptyList(), Arrays.asList("reserves"), IReserveMarker.class);
 
-    /** claims whose source is a covered line         */
+    /**
+     * claims whose source is a covered line
+     */
     private PacketList<Claim> outFilteredClaims = new PacketList<Claim>(Claim.class);
 
     private PacketList<UnderwritingInfo> outFilteredUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
@@ -50,14 +52,17 @@ public class MultiLineReinsuranceContract extends ReinsuranceContract {
         if (parmContractStrategy == null) {
             throw new IllegalStateException("MultiLineReinsuranceContract.missingContractStrategy");
         }
+
         filterInChannels();
         // initialize contract details
         parmContractStrategy.initBookkeepingFigures(outFilteredClaims, outFilteredUnderwritingInfo);
 
+        initCoveredByReinsurer();
         Collections.sort(outFilteredClaims, SortClaimsByFractionOfPeriod.getInstance());
         if (isSenderWired(getOutUncoveredClaims()) || isSenderWired(getOutClaimsDevelopmentLeanNet())) {
             calculateClaims(outFilteredClaims, outCoveredClaims, outUncoveredClaims, this);
-        } else {
+        }
+        else {
             calculateCededClaims(outFilteredClaims, outCoveredClaims, this);
         }
 

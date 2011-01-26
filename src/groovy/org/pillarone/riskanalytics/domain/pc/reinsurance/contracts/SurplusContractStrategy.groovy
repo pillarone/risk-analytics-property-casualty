@@ -37,14 +37,14 @@ class SurplusContractStrategy extends AbstractContractStrategy implements IReins
         if (inClaim.hasExposureInfo()) {
             if (inClaim.ultimate > inClaim.exposure.sumInsured) {
                 // handle a total loss according to https://issuetracking.intuitive-collaboration.com/jira/browse/PMO-1261
-                return inClaim.ultimate * coveredByReinsurer * getFractionCeded(inClaim.ultimate)
+                return inClaim.ultimate * getFractionCeded(inClaim.ultimate)
             }
             else {
-                return inClaim.ultimate * coveredByReinsurer * getFractionCeded(inClaim.exposure.sumInsured)
+                return inClaim.ultimate * getFractionCeded(inClaim.exposure.sumInsured)
             }
         }
         else {
-            return inClaim.ultimate * coveredByReinsurer * defaultCededLossShare
+            return inClaim.ultimate * defaultCededLossShare
         }
     }
 
@@ -67,9 +67,9 @@ class SurplusContractStrategy extends AbstractContractStrategy implements IReins
         CededUnderwritingInfo cededUnderwritingInfo = CededUnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
         cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo?.originalUnderwritingInfo ? grossUnderwritingInfo.originalUnderwritingInfo : grossUnderwritingInfo
         double fractionCeded = getFractionCeded(cededUnderwritingInfo.sumInsured)
-        cededUnderwritingInfo.premium *= fractionCeded * coveredByReinsurer
-        cededUnderwritingInfo.sumInsured *= fractionCeded * coveredByReinsurer
-        cededUnderwritingInfo.maxSumInsured *= fractionCeded * coveredByReinsurer
+        cededUnderwritingInfo.premium *= fractionCeded
+        cededUnderwritingInfo.sumInsured *= fractionCeded
+        cededUnderwritingInfo.maxSumInsured *= fractionCeded
         cededUnderwritingInfo.commission = 0
         cededUnderwritingInfo.fixedCommission = 0
         cededUnderwritingInfo.variableCommission = 0

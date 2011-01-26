@@ -52,7 +52,7 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
     }
 
     public double allocateCededClaim(Claim inClaim) {
-        inClaim.ultimate * factor * coveredByReinsurer
+        inClaim.ultimate * factor
     }
 
     public void initBookkeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
@@ -88,8 +88,7 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
         cededUnderwritingInfo.fixedCommission = 0
         cededUnderwritingInfo.variableCommission = 0
         cededUnderwritingInfo.variablePremium = 0
-        double factor = premiumAllocation.getShare(grossUnderwritingInfo) * coveredByReinsurer
-        cededUnderwritingInfo.premium = totalCededPremium * factor
+        cededUnderwritingInfo.premium = totalCededPremium * premiumAllocation.getShare(grossUnderwritingInfo)
         cededUnderwritingInfo.fixedPremium = cededUnderwritingInfo.premium
         cededUnderwritingInfo
     }

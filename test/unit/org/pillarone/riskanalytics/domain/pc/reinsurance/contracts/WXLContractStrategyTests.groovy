@@ -276,16 +276,6 @@ class WXLContractStrategyTests extends GroovyTestCase {
 
     }
 
-
-    void testGetCededUnderwritingInfoIAE() {
-        ReinsuranceContract wxl = getContract1()
-        UnderwritingInfo underwritingInfo = UnderwritingInfoTests.getUnderwritingInfo()
-        wxl.parmContractStrategy.premiumBase = PremiumBase.NUMBER_OF_POLICIES
-        shouldFail(IllegalArgumentException) {
-            wxl.doCalculation()
-        }
-    }
-
     void testReinstatementPremiumAllUsed() {
         ReinsuranceContract wxl = getContract0()
         wxl.inUnderwritingInfo << UnderwritingInfoTests.getUnderwritingInfo()
@@ -334,7 +324,7 @@ class WXLContractStrategyTests extends GroovyTestCase {
                 wxl.outCoverUnderwritingInfo[0].premium, 1e-6
         assertEquals "premium written", wxl.parmContractStrategy.premium,
                 wxl.outCoverUnderwritingInfo[0].fixedPremium, 1e-6
-        assertEquals "premium written", wxl.parmContractStrategy.premium * wxl.parmContractStrategy.reinstatementPremiums.values[0] * usedReinstatements,
+        assertEquals "premium written",0d,
                 wxl.outCoverUnderwritingInfo[0].variablePremium, 1e-6
     }
 

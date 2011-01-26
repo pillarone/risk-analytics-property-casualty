@@ -47,7 +47,7 @@ public class MultiLineReinsuranceContractWithDefault extends MultiLineReinsuranc
             Claim claimCeded = claim.copy();
             claimCeded.origin = origin;
             claimCeded.value = 0d;
-            setOriginalClaim(claim, claimCeded);
+            claimCeded.setOriginalClaim(claim);
             return claimCeded;
         }
         else {
