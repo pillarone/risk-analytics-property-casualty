@@ -195,6 +195,40 @@ class WXLContractStrategyTests extends GroovyTestCase {
         assertEquals("claim120 net", 120, wxl.outUncoveredClaims[5].ultimate)
     }
 
+    void testCoveredByReinsurer() {
+        Claim claim0 = new Claim(claimType: ClaimType.SINGLE, ultimate: 0d)
+        Claim claim80 = new Claim(claimType: ClaimType.SINGLE, ultimate: 80d)
+        Claim claim90 = new Claim(claimType: ClaimType.SINGLE, ultimate: 90d)
+        Claim claim100 = new Claim(claimType: ClaimType.SINGLE, ultimate: 100d)
+        Claim claim110 = new Claim(claimType: ClaimType.SINGLE, ultimate: 110d)
+        Claim claim120 = new Claim(claimType: ClaimType.SINGLE, ultimate: 120d)
+
+        ReinsuranceContract wxl = getContract1()
+        wxl.parmContractStrategy.coveredByReinsurer = 0.8
+
+        wxl.inClaims << claim0 << claim80 << claim90 << claim100 << claim110 << claim120
+        wxl.inUnderwritingInfo << new UnderwritingInfo(premium: 100)
+        wxl.inUnderwritingInfo << new UnderwritingInfo(premium: 200)
+
+        def probeWXLnet = new TestProbe(wxl, "outUncoveredClaims")
+        def probeUI = new TestProbe(wxl, "outCoverUnderwritingInfo")  // needed in order to trigger the calculation of net claims
+
+        wxl.doCalculation()
+
+        assertEquals("claim0", 0, wxl.outCoveredClaims[0].ultimate)
+        assertEquals("claim80", 0, wxl.outCoveredClaims[1].ultimate)
+        assertEquals("claim90", 0.8 * 10, wxl.outCoveredClaims[2].ultimate)
+        assertEquals("claim100",0.8 * 20, wxl.outCoveredClaims[3].ultimate)
+        assertEquals("claim110",0.8 * 20, wxl.outCoveredClaims[4].ultimate)
+        assertEquals("claim120", 0, wxl.outCoveredClaims[5].ultimate)
+        assertEquals "under info",0.8 * 100 / 3d, wxl.outCoverUnderwritingInfo[0].fixedPremium, 1E-14
+        assertEquals "underwriting info",0.8 * 100 / 3d * 0.3, wxl.outCoverUnderwritingInfo[0].variablePremium, 1E-14
+        assertEquals "under info",0.8 * 200 / 3d, wxl.outCoverUnderwritingInfo[1].fixedPremium, 1E-8
+        assertEquals "underwriting info",0.8 * 200 / 3d * 0.3, wxl.outCoverUnderwritingInfo[1].variablePremium, 1E-8
+        assertEquals "under info",0.8 * 100 / 3d * 1.3, wxl.outCoverUnderwritingInfo[0].premium, 1E-8
+        assertEquals "underwriting info",0.8 * 200 / 3d * 1.3, wxl.outCoverUnderwritingInfo[1].premium, 1E-8
+    }
+
 
     void testGetUnderwritingInfoABSOLUTE() {
         Claim claim0 = new Claim(claimType: ClaimType.SINGLE, ultimate: 0d)
@@ -324,7 +358,7 @@ class WXLContractStrategyTests extends GroovyTestCase {
                 wxl.outCoverUnderwritingInfo[0].premium, 1e-6
         assertEquals "premium written", wxl.parmContractStrategy.premium,
                 wxl.outCoverUnderwritingInfo[0].fixedPremium, 1e-6
-        assertEquals "premium written",0d,
+        assertEquals "premium written", 0d,
                 wxl.outCoverUnderwritingInfo[0].variablePremium, 1e-6
     }
 

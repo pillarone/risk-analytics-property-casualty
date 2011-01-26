@@ -55,7 +55,7 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
      */
     protected int parmInuringPriority = 0;
 
-    protected double coveredByReinsurer;
+    private double coveredByReinsurer;
 
     public void doCalculation() {
         if (parmContractStrategy == null)
