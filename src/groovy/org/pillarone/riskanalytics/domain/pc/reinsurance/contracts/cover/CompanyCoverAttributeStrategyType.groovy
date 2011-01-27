@@ -20,7 +20,7 @@ class CompanyCoverAttributeStrategyType extends AbstractParameterObjectClassifie
     public static final CompanyCoverAttributeStrategyType NONE = new CompanyCoverAttributeStrategyType("none", "NONE", [:])
     public static final CompanyCoverAttributeStrategyType LINESOFBUSINESS = new CompanyCoverAttributeStrategyType(
             'lines of business', 'LINESOFBUSINESS',
-            ['lines':new ComboBoxTableMultiDimensionalParameter([], ['Covered Lines'], LobMarker.class)])
+            ['lines':new ComboBoxTableMultiDimensionalParameter([], ['Covered Segments'], LobMarker.class)])
     public static final CompanyCoverAttributeStrategyType PERILS = new CompanyCoverAttributeStrategyType(
             'perils', 'PERILS',
             ['perils':new ComboBoxTableMultiDimensionalParameter([], ['Covered Perils'], PerilMarker.class)])
@@ -30,12 +30,12 @@ class CompanyCoverAttributeStrategyType extends AbstractParameterObjectClassifie
     public static final CompanyCoverAttributeStrategyType LINESOFBUSINESSPERILS = new CompanyCoverAttributeStrategyType(
             'lines of business, perils', 'LINESOFBUSINESSPERILS',
             ['connection': LogicArguments.AND,
-             'lines':new ComboBoxTableMultiDimensionalParameter([], ['Covered Lines'], LobMarker.class),
+             'lines':new ComboBoxTableMultiDimensionalParameter([], ['Covered Segments'], LobMarker.class),
              'perils':new ComboBoxTableMultiDimensionalParameter([], ['Covered Perils'], PerilMarker.class)])
     public static final CompanyCoverAttributeStrategyType LINESOFBUSINESSRESERVES = new CompanyCoverAttributeStrategyType(
             'lines of business, reserves', 'LINESOFBUSINESSRESERVES',
             ['connection': LogicArguments.AND,
-             'lines':new ComboBoxTableMultiDimensionalParameter([], ['Covered Lines'], LobMarker.class),
+             'lines':new ComboBoxTableMultiDimensionalParameter([], ['Covered Segments'], LobMarker.class),
              'reserves':new ComboBoxTableMultiDimensionalParameter([], ['Covered Reserves'], IReserveMarker.class)])
     public static final CompanyCoverAttributeStrategyType COMPANIES = new CompanyCoverAttributeStrategyType(
             'companies', 'COMPANIES',

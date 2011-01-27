@@ -25,7 +25,7 @@ public class MultiLineReinsuranceContractWithDefaultTests extends GroovyTestCase
                         ReinsuranceContractType.QUOTASHARE,
                         ["quotaShare": 0.5,
                                 "coveredByReinsurer": 1d]),
-                parmCoveredLines: new ComboBoxTableMultiDimensionalParameter(['fire'], ['Covered Lines'], LobMarker),
+                parmCoveredLines: new ComboBoxTableMultiDimensionalParameter(['fire'], ['Covered Segments'], LobMarker),
                 parmReinsurer: new ConstrainedString(IReinsurerMarker, 'earth re'))
     }
 

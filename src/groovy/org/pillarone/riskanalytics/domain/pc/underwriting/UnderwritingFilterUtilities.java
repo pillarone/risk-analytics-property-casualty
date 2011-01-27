@@ -75,7 +75,7 @@ public class UnderwritingFilterUtilities {
     /**
      * @param underwritingInfos underwriting info packets to be filtered
      * @param coveredLines      components such as RiskBands
-     * @param claims            claims to be filtered by covered lines and covered perils to obtain share factor for premium
+     * @param claims            claims to be filtered by Covered Segments and covered perils to obtain share factor for premium
      * @param coveredPerils     Claims generator components
      * @return an underwriting info packet is added to the list of filtered underwriting info packets if the lineOfBusiness
      *         references an element of the coveredLinesOfBusiness. The premium is scaled according to the weight of covered perils in

@@ -35,7 +35,7 @@ public class MultiLineReinsuranceContract extends ReinsuranceContract {
     private SimulationScope simulationScope;
 
     private ComboBoxTableMultiDimensionalParameter parmCoveredLines = new ComboBoxTableMultiDimensionalParameter(
-            Collections.emptyList(), Arrays.asList("Covered Lines"), LobMarker.class);
+            Collections.emptyList(), Arrays.asList("Covered Segments"), LobMarker.class);
     private ComboBoxTableMultiDimensionalParameter parmCoveredPerils = new ComboBoxTableMultiDimensionalParameter(
             Collections.emptyList(), Arrays.asList("perils"), PerilMarker.class);
     private ComboBoxTableMultiDimensionalParameter parmCoveredReserves = new ComboBoxTableMultiDimensionalParameter(

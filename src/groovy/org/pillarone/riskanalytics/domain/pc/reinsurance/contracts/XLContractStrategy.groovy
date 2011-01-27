@@ -86,7 +86,8 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
         if (premiumBase.equals(PremiumBase.ABSOLUTE)) totalCededPremium = premium
         else if (premiumBase.equals(PremiumBase.GNPI)) totalCededPremium = premium * coverUnderwritingInfo.premium.sum()
         else if (premiumBase.equals(PremiumBase.RATE_ON_LINE)) totalCededPremium = premium * limit
-        else if (premiumBase.equals(PremiumBase.NUMBER_OF_POLICIES)) totalCededPremium = premium * coverUnderwritingInfo.numberOfPolicies.sum()
+        else if (premiumBase.equals(PremiumBase.NUMBER_OF_POLICIES))
+            totalCededPremium = premium * coverUnderwritingInfo.numberOfPolicies.sum()
         else {
             throw new IllegalArgumentException("XLContractStrategy.invalidPremiumBase")
         }

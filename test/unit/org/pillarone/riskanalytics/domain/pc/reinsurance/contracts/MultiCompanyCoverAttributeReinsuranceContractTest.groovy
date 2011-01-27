@@ -52,7 +52,7 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
                 parmInuringPriority: 10,
                 parmCover: CompanyCoverAttributeStrategyType.getStrategy(
                         CompanyCoverAttributeStrategyType.LINESOFBUSINESS,
-                        ['lines': new ComboBoxTableMultiDimensionalParameter(['fire'], ['Covered Lines'], LobMarker)])
+                        ['lines': new ComboBoxTableMultiDimensionalParameter(['fire'], ['Covered Segments'], LobMarker)])
         )
         SimulationScope simulationScope = new SimulationScope()
         simulationScope.model = new VoidTestModel()
@@ -89,7 +89,7 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
         boolean hasPerils = cover.containsKey('perils')
         boolean hasReserves = cover.containsKey('reserves')
 
-        ComboBoxTableMultiDimensionalParameter lines = hasLines ? new ComboBoxTableMultiDimensionalParameter(cover['lines'], ['Covered Lines'], LobMarker) : null
+        ComboBoxTableMultiDimensionalParameter lines = hasLines ? new ComboBoxTableMultiDimensionalParameter(cover['lines'], ['Covered Segments'], LobMarker) : null
         ComboBoxTableMultiDimensionalParameter perils = hasPerils ? new ComboBoxTableMultiDimensionalParameter(cover['perils'], ['Covered Perils'], PerilMarker) : null
         ComboBoxTableMultiDimensionalParameter reserves = hasReserves ? new ComboBoxTableMultiDimensionalParameter(cover['reserves'], ['Covered Reserves'], LobMarker) : null
 

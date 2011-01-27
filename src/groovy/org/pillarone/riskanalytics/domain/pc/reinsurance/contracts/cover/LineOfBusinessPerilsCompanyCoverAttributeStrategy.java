@@ -17,7 +17,7 @@ import java.util.Map;
 public class LineOfBusinessPerilsCompanyCoverAttributeStrategy implements ILinesOfBusinessCoverAttributeStrategy, IPerilCoverAttributeStrategy, ICombinedCoverAttributeStrategy {
 
     private ComboBoxTableMultiDimensionalParameter lines
-            = new ComboBoxTableMultiDimensionalParameter(Collections.emptyList(), Arrays.asList("Covered Lines"), LobMarker.class);
+            = new ComboBoxTableMultiDimensionalParameter(Collections.emptyList(), Arrays.asList("Covered Segments"), LobMarker.class);
     private LogicArguments connection = LogicArguments.AND;
     private ComboBoxTableMultiDimensionalParameter perils
             = new ComboBoxTableMultiDimensionalParameter(Collections.emptyList(), Arrays.asList("Covered Perils"), PerilMarker.class);
