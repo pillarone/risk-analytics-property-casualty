@@ -218,15 +218,15 @@ class WXLContractStrategyTests extends GroovyTestCase {
         assertEquals("claim0", 0, wxl.outCoveredClaims[0].ultimate)
         assertEquals("claim80", 0, wxl.outCoveredClaims[1].ultimate)
         assertEquals("claim90", 0.8 * 10, wxl.outCoveredClaims[2].ultimate)
-        assertEquals("claim100",0.8 * 20, wxl.outCoveredClaims[3].ultimate)
-        assertEquals("claim110",0.8 * 20, wxl.outCoveredClaims[4].ultimate)
+        assertEquals("claim100", 0.8 * 20, wxl.outCoveredClaims[3].ultimate)
+        assertEquals("claim110", 0.8 * 20, wxl.outCoveredClaims[4].ultimate)
         assertEquals("claim120", 0, wxl.outCoveredClaims[5].ultimate)
-        assertEquals "under info",0.8 * 100 / 3d, wxl.outCoverUnderwritingInfo[0].fixedPremium, 1E-14
-        assertEquals "underwriting info",0.8 * 100 / 3d * 0.3, wxl.outCoverUnderwritingInfo[0].variablePremium, 1E-14
-        assertEquals "under info",0.8 * 200 / 3d, wxl.outCoverUnderwritingInfo[1].fixedPremium, 1E-8
-        assertEquals "underwriting info",0.8 * 200 / 3d * 0.3, wxl.outCoverUnderwritingInfo[1].variablePremium, 1E-8
-        assertEquals "under info",0.8 * 100 / 3d * 1.3, wxl.outCoverUnderwritingInfo[0].premium, 1E-8
-        assertEquals "underwriting info",0.8 * 200 / 3d * 1.3, wxl.outCoverUnderwritingInfo[1].premium, 1E-8
+        assertEquals "under info", 0.8 * 100 / 3d, wxl.outCoverUnderwritingInfo[0].fixedPremium, 1E-14
+        assertEquals "underwriting info", 0.8 * 100 / 3d * 0.3, wxl.outCoverUnderwritingInfo[0].variablePremium, 1E-14
+        assertEquals "under info", 0.8 * 200 / 3d, wxl.outCoverUnderwritingInfo[1].fixedPremium, 1E-8
+        assertEquals "underwriting info", 0.8 * 200 / 3d * 0.3, wxl.outCoverUnderwritingInfo[1].variablePremium, 1E-8
+        assertEquals "under info", 0.8 * 100 / 3d * 1.3, wxl.outCoverUnderwritingInfo[0].premium, 1E-8
+        assertEquals "underwriting info", 0.8 * 200 / 3d * 1.3, wxl.outCoverUnderwritingInfo[1].premium, 1E-8
     }
 
 
@@ -307,6 +307,35 @@ class WXLContractStrategyTests extends GroovyTestCase {
         assertEquals "underwriting info", 0.2 * 20 * 2 / 3d * 0.3, wxl.outCoverUnderwritingInfo[1].variablePremium, 1E-8
         assertEquals "under info", 0.2 * 20 / 3d * 1.3, wxl.outCoverUnderwritingInfo[0].premium, 1E-8
         assertEquals "underwriting info", 0.2 * 20 * 2 / 3d * 1.3, wxl.outCoverUnderwritingInfo[1].premium, 1E-8
+
+    }
+
+    void testGetCededUnderwritingInfoNO_POLICIES() {
+
+        ReinsuranceContract wxl = getContract1()
+        wxl.parmContractStrategy.premiumBase = PremiumBase.NUMBER_OF_POLICIES
+        wxl.parmContractStrategy.premium = 0.2
+
+        Claim claim0 = new Claim(claimType: ClaimType.SINGLE, ultimate: 0d)
+        Claim claim80 = new Claim(claimType: ClaimType.SINGLE, ultimate: 80d)
+        Claim claim90 = new Claim(claimType: ClaimType.SINGLE, ultimate: 90d)
+        Claim claim100 = new Claim(claimType: ClaimType.SINGLE, ultimate: 100d)
+        Claim claim110 = new Claim(claimType: ClaimType.SINGLE, ultimate: 110d)
+        Claim claim120 = new Claim(claimType: ClaimType.SINGLE, ultimate: 120d)
+
+        wxl.inClaims << claim0 << claim80 << claim90 << claim100 << claim110 << claim120
+        wxl.inUnderwritingInfo << new UnderwritingInfo(premium: 100, numberOfPolicies: 300)
+        wxl.inUnderwritingInfo << new UnderwritingInfo(premium: 200, numberOfPolicies: 400)
+
+        def probeUI = new TestProbe(wxl, "outCoverUnderwritingInfo")
+
+        wxl.doCalculation()
+        assertEquals "under info", 0.2 * 700 / 3d, wxl.outCoverUnderwritingInfo[0].fixedPremium, 1E-14
+        assertEquals "underwriting info", 0.2 * 700 / 3d * 0.3, wxl.outCoverUnderwritingInfo[0].variablePremium, 1E-14
+        assertEquals "under info", 0.2 * 700 * 2 / 3d, wxl.outCoverUnderwritingInfo[1].fixedPremium, 1E-8
+        assertEquals "underwriting info", 0.2 * 700 * 2 / 3d * 0.3, wxl.outCoverUnderwritingInfo[1].variablePremium, 1E-8
+        assertEquals "under info", 0.2 * 700 / 3d * 1.3, wxl.outCoverUnderwritingInfo[0].premium, 1E-8
+        assertEquals "underwriting info", 0.2 * 700 * 2 / 3d * 1.3, wxl.outCoverUnderwritingInfo[1].premium, 1E-8
 
     }
 

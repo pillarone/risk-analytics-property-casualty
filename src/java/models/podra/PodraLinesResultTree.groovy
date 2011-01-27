@@ -57,9 +57,6 @@ mappings = {
                 "premium" "Podra:linesOfBusiness:outUnderwritingInfoGross:premium", {
                     "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outUnderwritingInfoGross:premium"
                 }
-                "commission" "Podra:linesOfBusiness:outUnderwritingInfoGross:commission", {
-                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outUnderwritingInfoGross:commission"
-                }
             }
             "ceded" {
                 "premium" "Podra:linesOfBusiness:outUnderwritingInfoCeded:premium", {
