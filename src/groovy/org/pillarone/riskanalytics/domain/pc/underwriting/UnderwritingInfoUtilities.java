@@ -101,6 +101,9 @@ public class UnderwritingInfoUtilities {
         if (netUnderwritingInfo.getNumberOfPolicies() > 0) {
             netUnderwritingInfo.setSumInsured(netUnderwritingInfo.getSumInsured() / netUnderwritingInfo.getNumberOfPolicies());
         }
+        else {
+            netUnderwritingInfo.setSumInsured(grossUnderwritingInfo.getSumInsured() - cededUnderwritingInfo.getSumInsured());
+        }
         if (netUnderwritingInfo.getPremium() == 0 && netUnderwritingInfo.getCommission() == 0 && netUnderwritingInfo.getSumInsured() == 0) {
             netUnderwritingInfo.setNumberOfPolicies(0);
         }

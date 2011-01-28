@@ -20,13 +20,13 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoP
  * @author shartmann (at) munichre (dot) com
  */
 class GoldorakContractStrategy extends AbstractContractStrategy implements IReinsuranceContractStrategy, IParameterObject {
-/** Premium can be expressed as a fraction of a base quantity.                    */
+/** Premium can be expressed as a fraction of a base quantity.                     */
     PremiumBase premiumBase = PremiumBase.ABSOLUTE
 
-    /** Premium as a percentage of the premium base                    */
+    /** Premium as a percentage of the premium base                     */
     double premium
 
-    /** As a percentage of premium.                    */
+    /** As a percentage of premium.                     */
     AbstractMultiDimensionalParameter reinstatementPremiums = new TableMultiDimensionalParameter([0d], ['Reinstatement Premium'])
     double cxlAttachmentPoint
     double cxlLimit
@@ -155,12 +155,19 @@ class GoldorakContractStrategy extends AbstractContractStrategy implements IRein
         }
 
         // todo(jwa): cf. History: condition (if (aggregateGrossClaimAmount < scaledGoldorakSlThreshold)) was used, but with no effect, ask sha; probably distinguish between cxlLimit and slLimit
-        if (premiumBase.equals(PremiumBase.ABSOLUTE)) totalCededPremium = premium
-        else if (premiumBase.equals(PremiumBase.GNPI)) totalCededPremium = premium * coverUnderwritingInfo.premium.sum()
-        else if (premiumBase.equals(PremiumBase.RATE_ON_LINE)) totalCededPremium = premium * cxlLimit
-        else if (premiumBase.equals(PremiumBase.NUMBER_OF_POLICIES)) totalCededPremium = premium * coverUnderwritingInfo.numberOfPolicies.sum()
-        else {
-            throw new IllegalArgumentException("XLContractStrategy.invalidPremiumBase")
+        switch (premiumBase) {
+            case PremiumBase.ABSOLUTE:
+                totalCededPremium = premium
+                break
+            case PremiumBase.GNPI:
+                totalCededPremium = premium * coverUnderwritingInfo.premium.sum()
+                break
+            case PremiumBase.RATE_ON_LINE:
+                totalCededPremium = premium * cxlLimit
+                break
+            case PremiumBase.NUMBER_OF_POLICIES:
+                totalCededPremium = premium * coverUnderwritingInfo.numberOfPolicies.sum()
+                break
         }
     }
 

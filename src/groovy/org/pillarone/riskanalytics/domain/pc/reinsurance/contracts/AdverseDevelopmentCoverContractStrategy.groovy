@@ -109,6 +109,9 @@ class AdverseDevelopmentCoverContractStrategy extends AbstractContractStrategy i
         cededUnderwritingInfo.commission = 0d
         cededUnderwritingInfo.fixedCommission = 0d
         cededUnderwritingInfo.variableCommission = 0d
+        // we do not know anything about sum insured here; guarantee that (max) sum insured of net and gross are equal
+        cededUnderwritingInfo.sumInsured = 0d
+        cededUnderwritingInfo.maxSumInsured = 0d
         cededUnderwritingInfo.variablePremium = 0d
         switch (stopLossContractBase) {
             case StopLossContractBase.ABSOLUTE:

@@ -18,19 +18,19 @@ class AggregateXLContractStrategy extends AbstractContractStrategy implements IR
     static final ReinsuranceContractType type = ReinsuranceContractType.AGGREGATEXL
     ClaimType claimClass = ClaimType.AGGREGATED_EVENT
 
-    /** Premium can be expressed as a fraction of a base quantity.            */
+    /** Premium can be expressed as a fraction of a base quantity.             */
     PremiumBase premiumBase = PremiumBase.ABSOLUTE
 
-    /** Strategy to allocate the ceded premium to the different lines of business      */
+    /** Strategy to allocate the ceded premium to the different lines of business       */
     IPremiumAllocationStrategy premiumAllocation = PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, new HashMap());
 
-    /** Premium as a percentage of the premium base            */
+    /** Premium as a percentage of the premium base             */
     double premium
 
-    /** attachment point is also expressed as a fraction of gnpi if premium base == GNPI            */
+    /** attachment point is also expressed as a fraction of gnpi if premium base == GNPI             */
     double attachmentPoint
 
-    /** attachment point is also expressed as a fraction of gnpi if premium base == GNPI         */
+    /** attachment point is also expressed as a fraction of gnpi if premium base == GNPI          */
     double limit
 
     private double factor
@@ -85,16 +85,21 @@ class AggregateXLContractStrategy extends AbstractContractStrategy implements IR
             factor = 0d
         }
 
-        if (premiumBase.equals(PremiumBase.ABSOLUTE)) totalCededPremium = premium
-        else if (premiumBase.equals(PremiumBase.GNPI)) totalCededPremium = premium * coverUnderwritingInfo.premium.sum()
-        else if (premiumBase.equals(PremiumBase.RATE_ON_LINE)) totalCededPremium = premium * limit
-        else if (premiumBase.equals(PremiumBase.NUMBER_OF_POLICIES)) totalCededPremium = premium * coverUnderwritingInfo.numberOfPolicies.sum()
-        else {
-            throw new IllegalArgumentException("XLContractStrategy.invalidPremiumBase")
+        switch (premiumBase) {
+            case PremiumBase.ABSOLUTE:
+                totalCededPremium = premium
+                break
+            case PremiumBase.GNPI:
+                totalCededPremium = premium * coverUnderwritingInfo.premium.sum()
+                break
+            case PremiumBase.RATE_ON_LINE:
+                totalCededPremium = premium * limit
+                break
+            case PremiumBase.NUMBER_OF_POLICIES:
+                totalCededPremium = premium * coverUnderwritingInfo.numberOfPolicies.sum()
+                break
         }
-
     }
-
 
     public CededUnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double initialReserves) {
         CededUnderwritingInfo cededUnderwritingInfo = CededUnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
@@ -102,6 +107,9 @@ class AggregateXLContractStrategy extends AbstractContractStrategy implements IR
         cededUnderwritingInfo.commission = 0d
         cededUnderwritingInfo.fixedCommission = 0d
         cededUnderwritingInfo.variableCommission = 0d
+        // we do not know anything about sum insured here; guarantee that (max) sum insured of net and gross are equal
+        cededUnderwritingInfo.sumInsured = 0d
+        cededUnderwritingInfo.maxSumInsured = 0d
         cededUnderwritingInfo.variablePremium = 0d
         cededUnderwritingInfo.premium = totalCededPremium * premiumAllocation.getShare(grossUnderwritingInfo)
         cededUnderwritingInfo.setFixedPremium(cededUnderwritingInfo.getPremium())

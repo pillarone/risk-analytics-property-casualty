@@ -15,15 +15,15 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
  */
 abstract class XLContractStrategy extends AbstractContractStrategy implements IReinsuranceContractStrategy, IParameterObject {
 
-    /** Premium can be expressed as a fraction of a base quantity.                                */
+    /** Premium can be expressed as a fraction of a base quantity.                                  */
     PremiumBase premiumBase = PremiumBase.ABSOLUTE
 
-    /** Premium as a percentage of the premium base                                */
+    /** Premium as a percentage of the premium base                                  */
     double premium
 
-    /** Strategy to allocate the ceded premium to the different lines of business                  */
+    /** Strategy to allocate the ceded premium to the different lines of business                    */
     IPremiumAllocationStrategy premiumAllocation = PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, new HashMap());
-    /** As a percentage of premium.                                */
+    /** As a percentage of premium.                                  */
     AbstractMultiDimensionalParameter reinstatementPremiums = new TableMultiDimensionalParameter([0d], ['Reinstatement Premium'])
     double attachmentPoint
     double limit
@@ -35,7 +35,7 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
     protected double reinstatements
     /** The factor is calculated during initBookkeepingFigures() by applying the aggregateDeductible,
      *  ceded claims will be multiplied by it to apply a positive aggregateDeductible proportionally
-     *  to every claim.                */
+     *  to every claim.                  */
     protected double deductibleFactor = 1d
 
     public Map getParameters() {
@@ -83,13 +83,19 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
         availableAggregateLimit = aggregateLimit
         reinstatements = limit == 0d ? 0d : availableAggregateLimit / limit - 1
 
-        if (premiumBase.equals(PremiumBase.ABSOLUTE)) totalCededPremium = premium
-        else if (premiumBase.equals(PremiumBase.GNPI)) totalCededPremium = premium * coverUnderwritingInfo.premium.sum()
-        else if (premiumBase.equals(PremiumBase.RATE_ON_LINE)) totalCededPremium = premium * limit
-        else if (premiumBase.equals(PremiumBase.NUMBER_OF_POLICIES))
-            totalCededPremium = premium * coverUnderwritingInfo.numberOfPolicies.sum()
-        else {
-            throw new IllegalArgumentException("XLContractStrategy.invalidPremiumBase")
+        switch (premiumBase) {
+            case PremiumBase.ABSOLUTE:
+                totalCededPremium = premium
+                break
+            case PremiumBase.GNPI:
+                totalCededPremium = premium * coverUnderwritingInfo.premium.sum()
+                break
+            case PremiumBase.RATE_ON_LINE:
+                totalCededPremium = premium * limit
+                break
+            case PremiumBase.NUMBER_OF_POLICIES:
+                totalCededPremium = premium * coverUnderwritingInfo.numberOfPolicies.sum()
+                break
         }
     }
 
@@ -118,6 +124,9 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
         cededUnderwritingInfo.commission = 0d
         cededUnderwritingInfo.fixedCommission = 0d
         cededUnderwritingInfo.variableCommission = 0d
+        // we do not know anything about sum insured here; guarantee that (max) sum insured of net and gross are equal
+        cededUnderwritingInfo.sumInsured = 0d
+        cededUnderwritingInfo.maxSumInsured = 0d
         cededUnderwritingInfo.premium = totalCededPremium * premiumAllocation.getShare(grossUnderwritingInfo)
         cededUnderwritingInfo.fixedPremium = cededUnderwritingInfo.premium
         cededUnderwritingInfo.variablePremium = cededUnderwritingInfo.premium * calculateReinstatementPremiums(aggregateLimit,

@@ -19,19 +19,19 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
 
     static final ReinsuranceContractType type = ReinsuranceContractType.STOPLOSS
 
-    /** Premium, limit and attachmentPoint can be expressed as a fraction of a base quantity. */
+    /** Premium, limit and attachmentPoint can be expressed as a fraction of a base quantity.  */
     StopLossContractBase stopLossContractBase = StopLossContractBase.ABSOLUTE
 
-    /** Premium as a percentage of the premium base */
+    /** Premium as a percentage of the premium base  */
     double premium
 
-    /** Allocation of the premium to the affected lines of business      */
+    /** Allocation of the premium to the affected lines of business       */
     IPremiumAllocationStrategy premiumAllocation = PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, new HashMap());
 
-    /** attachment point is also expressed as a fraction of gnpi if premium base == GNPI               */
+    /** attachment point is also expressed as a fraction of gnpi if premium base == GNPI                */
     double attachmentPoint
 
-    /** attachment point is also expressed as a fraction of gnpi if premium base == GNPI            */
+    /** attachment point is also expressed as a fraction of gnpi if premium base == GNPI             */
     double limit
 
     private double factor
@@ -62,14 +62,16 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
         }
         double scaledAttachmentPoint = attachmentPoint
         double scaledLimit = limit
-        if (stopLossContractBase == StopLossContractBase.GNPI) {
-            double gnpi = UnderwritingInfoUtilities.aggregate(coverUnderwritingInfo).premium
-            scaledAttachmentPoint *= gnpi
-            scaledLimit *= gnpi
-            totalCededPremium = coverUnderwritingInfo.premium.sum() * premium
-        }
-        else if (stopLossContractBase == StopLossContractBase.ABSOLUTE) {
-            totalCededPremium = premium
+        switch (stopLossContractBase) {
+            case StopLossContractBase.GNPI:
+                double gnpi = UnderwritingInfoUtilities.aggregate(coverUnderwritingInfo).premium
+                scaledAttachmentPoint *= gnpi
+                scaledLimit *= gnpi
+                totalCededPremium = coverUnderwritingInfo.premium.sum() * premium
+                break
+            case stopLossContractBase.ABSOLUTE:
+                totalCededPremium = premium
+                break
         }
 
         double aggregateCededClaimAmount = Math.min(Math.max(aggregateGrossClaimAmount - scaledAttachmentPoint, 0), scaledLimit)
@@ -81,6 +83,7 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
     }
 
     // todo: Are the definition for the as-if premium reasonable?
+
     CededUnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double initialReserves) {
         CededUnderwritingInfo cededUnderwritingInfo = CededUnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
         cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo?.originalUnderwritingInfo ? grossUnderwritingInfo.originalUnderwritingInfo : grossUnderwritingInfo
