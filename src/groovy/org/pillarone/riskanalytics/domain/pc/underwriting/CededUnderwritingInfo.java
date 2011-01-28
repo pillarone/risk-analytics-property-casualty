@@ -17,11 +17,11 @@ public class CededUnderwritingInfo extends UnderwritingInfo {
     private double variableCommission;
 
     private static final String PREMIUM = "premium";
-    private static final String PREMIUM_FIXED = "fixed premium";
-    private static final String PREMIUM_VARIABLE = "variable premium";
+    private static final String PREMIUM_FIXED = "fixedPremium";
+    private static final String PREMIUM_VARIABLE = "variablePremium";
     private static final String COMMISSION = "commission";
-    private static final String COMMISSION_FIXED = "fixed commission";
-    private static final String COMMISSION_VARIABLE = "variable commission";
+    private static final String COMMISSION_FIXED = "fixedCommission";
+    private static final String COMMISSION_VARIABLE = "variableCommission";
 
     public CededUnderwritingInfo copy() {
         CededUnderwritingInfo copy = CededUnderwritingInfoPacketFactory.createPacket();

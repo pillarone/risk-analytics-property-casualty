@@ -60,10 +60,20 @@ mappings = {
             }
             "ceded" {
                 "premium" "Podra:linesOfBusiness:outUnderwritingInfoCeded:premium", {
-                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outUnderwritingInfoCeded:premium"
+                    "fixedPremium" "Podra:linesOfBusiness:outUnderwritingInfoCeded:fixedPremium"
+                    "variablePremium" "Podra:linesOfBusiness:outUnderwritingInfoCeded:variablePremium"
+                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outUnderwritingInfoCeded:premium", {
+                        "fixedPremium" "Podra:linesOfBusiness:[%subcomponents%]:outUnderwritingInfoCeded:fixedPremium"
+                        "variablePremium" "Podra:linesOfBusiness:[%subcomponents%]:outUnderwritingInfoCeded:variablePremium"
+                    }
                 }
                 "commission" "Podra:linesOfBusiness:outUnderwritingInfoCeded:commission", {
-                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outUnderwritingInfoCeded:commission"
+                    "fixedCommission" "Podra:linesOfBusiness:outUnderwritingInfoCeded:fixedCommission"
+                    "variableCommission" "Podra:linesOfBusiness:outUnderwritingInfoCeded:variableCommission"
+                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outUnderwritingInfoCeded:commission", {
+                        "fixedCommission" "Podra:linesOfBusiness:[%subcomponents%]:outUnderwritingInfoCeded:fixedCommission"
+                        "variableCommission" "Podra:linesOfBusiness:[%subcomponents%]:outUnderwritingInfoCeded:variableCommission"
+                    }
                 }
             }
         }

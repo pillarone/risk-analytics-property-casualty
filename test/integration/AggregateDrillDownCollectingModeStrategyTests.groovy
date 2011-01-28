@@ -45,7 +45,7 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
 
     void postSimulationEvaluation() {
         correctPaths()
-        correctFields(['incurred', 'paid', 'reserved','commission', 'fixed commission', 'variable commission', 'premium', 'fixed premium', 'variable premium'])
+        correctFields(['incurred', 'paid', 'reserved','commission', 'fixedCommission', 'variableCommission', 'premium', 'fixedPremium', 'variablePremium'])
         correctPaidClaimsResults()
         correctCommissionsResults()
         correctPremiumResults()
