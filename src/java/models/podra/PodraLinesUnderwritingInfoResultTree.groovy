@@ -25,16 +25,22 @@ mappings = {
             }
             "ceded" {
                 "premium" "Podra:linesOfBusiness:outUnderwritingInfoCeded:premium", {
-                    "fixed premium" "Podra:linesOfBusiness:outUnderwritingInfoNet:fixedPremium"
-                    "variable premium" "Podra:linesOfBusiness:outUnderwritingInfoNet:variablePremium"
+                    "fixedPremium" "Podra:linesOfBusiness:outUnderwritingInfoCeded:fixedPremium"
+                    "variablePremium" "Podra:linesOfBusiness:outUnderwritingInfoCeded:variablePremium"
                     "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outUnderwritingInfoCeded:premium", {
-                        "fixed premium" "Podra:linesOfBusiness:[%subcomponents%]:outUnderwritingInfoNet:fixedPremium"
-                        "variable premium" "Podra:linesOfBusiness:[%subcomponents%]:outUnderwritingInfoNet:variablePremium"
+                        "fixedPremium" "Podra:linesOfBusiness:[%subcomponents%]:outUnderwritingInfoCeded:fixedPremium"
+                        "variablePremium" "Podra:linesOfBusiness:[%subcomponents%]:outUnderwritingInfoCeded:variablePremium"
                     }
                 }
-            }
-            "commission" "Podra:linesOfBusiness:outUnderwritingInfoCeded:commission", {
-                "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outUnderwritingInfoCeded:commission"
+
+                "commission" "Podra:linesOfBusiness:outUnderwritingInfoCeded:commission", {
+                    "fixedCommission" "Podra:linesOfBusiness:outUnderwritingInfoCeded:fixedCommission"
+                    "variableCommission" "Podra:linesOfBusiness:outUnderwritingInfoCeded:variableCommission"
+                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outUnderwritingInfoCeded:commission", {
+                        "fixedCommission" "Podra:linesOfBusiness:[%subcomponents%]:outUnderwritingInfoCeded:fixedCommission"
+                        "variableCommission" "Podra:linesOfBusiness:[%subcomponents%]:outUnderwritingInfoCeded:variableCommission"
+                    }
+                }
             }
         }
     }
