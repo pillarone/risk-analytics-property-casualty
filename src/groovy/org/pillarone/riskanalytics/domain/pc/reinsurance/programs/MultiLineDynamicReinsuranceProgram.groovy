@@ -21,7 +21,7 @@ public class MultiLineDynamicReinsuranceProgram extends DynamicReinsuranceProgra
         MultiLineReinsuranceContract contract = new MultiLineReinsuranceContract(
                 parmInuringPriority: 0,
                 parmContractStrategy: ReinsuranceContractType.getStrategy(ReinsuranceContractType.TRIVIAL, [:]),
-                parmCoveredLines: new ComboBoxTableMultiDimensionalParameter([''], ['Covered Lines'], LobMarker)
+                parmCoveredLines: new ComboBoxTableMultiDimensionalParameter([''], ['Covered Segments'], LobMarker)
         )
         return contract
     }

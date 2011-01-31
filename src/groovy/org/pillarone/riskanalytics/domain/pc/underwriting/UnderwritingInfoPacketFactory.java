@@ -25,6 +25,8 @@ public class UnderwritingInfoPacketFactory {
     }
 
     public static UnderwritingInfo copy(UnderwritingInfo underwritingInfo) {
-        return (UnderwritingInfo) underwritingInfo.copy();
+        if (underwritingInfo instanceof CededUnderwritingInfo)
+            return ((CededUnderwritingInfo) underwritingInfo).copyToSuperClass();
+        return underwritingInfo.copy();
     }
 }

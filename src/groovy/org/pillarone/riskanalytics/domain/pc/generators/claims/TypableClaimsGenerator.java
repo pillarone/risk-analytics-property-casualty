@@ -4,8 +4,6 @@ import org.apache.commons.lang.NotImplementedException;
 import org.pillarone.riskanalytics.core.model.Model;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter;
-import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter;
-import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter;
 import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimPacketFactory;
@@ -249,7 +247,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
         if (frequencyBase.equals(FrequencyBase.NUMBER_OF_POLICIES)) {
             double scaleFactor = 0;
             for (UnderwritingInfo underwritingInfo : inUnderwritingInfo) {
-                scaleFactor += underwritingInfo.numberOfPolicies;
+                scaleFactor += underwritingInfo.getNumberOfPolicies();
             }
             frequency = ((Double) generator.nextValue()) * scaleFactor;
         } else {
@@ -293,7 +291,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
             Double rightBoundary = (Double) modification.getParameters().get("max");
             dist = new TruncatedDist((ContinuousDistribution) distribution.getDistribution(), leftBoundary, rightBoundary);
         }
-//        else if (modification.getType().equals(DistributionModifier.LEFTTRUNCATEDRIGHTCENSORED)) {
+//        else if (modification.getType().equals(DistributionModifier.LEFTTRUNCATEDRIGHTCENSOREDSHIFT)) {
 //            Double leftBoundary = (Double) modification.getParameters().get("min");
 //            Double rightBoundary = (Double) modification.getParameters().get("max");
 //            dist = new CensoredDistribution(new TruncatedDist((ContinuousDistribution) distribution.getDistribution(),

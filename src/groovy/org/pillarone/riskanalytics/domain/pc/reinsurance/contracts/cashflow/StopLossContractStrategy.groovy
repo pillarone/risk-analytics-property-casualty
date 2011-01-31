@@ -7,6 +7,8 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilit
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoPacketFactory
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -75,15 +77,15 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
         scaledLimit = limit
         scaledTermLimit = termLimit
         if (stopLossContractBase == StopLossContractBase.GNPI) {
-            gnpi = UnderwritingInfoUtilities.aggregate(grossUnderwritingInfos).premiumWritten
+            gnpi = UnderwritingInfoUtilities.aggregate(grossUnderwritingInfos).premium
             scaledAttachmentPointIncurred *= gnpi
             scaledLimit *= gnpi
             scaledTermLimit *= gnpi
         }
-        double totalPremium = grossUnderwritingInfos.premiumWritten.sum()
+        double totalPremium = grossUnderwritingInfos.premium.sum()
         if (totalPremium != 0) {
             for (UnderwritingInfo underwritingInfo: grossUnderwritingInfos) {
-                grossPremiumSharesPerBand.put(underwritingInfo, underwritingInfo.premiumWritten / totalPremium)
+                grossPremiumSharesPerBand.put(underwritingInfo, underwritingInfo.premium / totalPremium)
             }
         }
         else {
@@ -140,18 +142,16 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
     public void initBookKeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
     }
 
-    UnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double coveredByReinsurer) {
-        UnderwritingInfo cededUnderwritingInfo = UnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
+    CededUnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double coveredByReinsurer) {
+        CededUnderwritingInfo cededUnderwritingInfo = CededUnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
         cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo?.originalUnderwritingInfo ? grossUnderwritingInfo.originalUnderwritingInfo : grossUnderwritingInfo
         cededUnderwritingInfo.commission = 0d
         switch (stopLossContractBase) {
             case StopLossContractBase.ABSOLUTE:
-                cededUnderwritingInfo.premiumWritten = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
-                cededUnderwritingInfo.premiumWrittenAsIf = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
+                cededUnderwritingInfo.premium = premium * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
                 break
             case StopLossContractBase.GNPI:
-                cededUnderwritingInfo.premiumWritten = premium * grossUnderwritingInfo.premiumWritten
-                cededUnderwritingInfo.premiumWrittenAsIf = premium * grossUnderwritingInfo.premiumWrittenAsIf
+                cededUnderwritingInfo.premium = premium * grossUnderwritingInfo.premium
                 break
         }
         cededUnderwritingInfo

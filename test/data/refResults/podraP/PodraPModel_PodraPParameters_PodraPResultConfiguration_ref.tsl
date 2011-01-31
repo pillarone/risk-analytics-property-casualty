@@ -5,7 +5,7 @@ iteration	period	path	field	value
 1	0	PodraP:claimsGenerators:subMotorHullSingle:outClaims	ultimate	6347752.575917194
 1	0	PodraP:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaims	ultimate	1.6194372489841756E8
 1	0	PodraP:claimsGenerators:subMotorThirdPartyLiabilitySingle:outClaims	ultimate	7885020.766341288
-1	0	PodraP:claimsGenerators:subPersonalAccidentAttritional:outClaims	ultimate	2.7813321649014372E7
+1	0	PodraP:claimsGenerators:subPersonalAccidentAttritional:outClaims	ultimate	2.781332164901437E7
 1	0	PodraP:claimsGenerators:subPersonalAccidentSingle:outClaims	ultimate	1781064.2791849654
 1	0	PodraP:claimsGenerators:subPropertyAttritional:outClaims	ultimate	4.595080188122681E7
 1	0	PodraP:claimsGenerators:subPropertySingle:outClaims	ultimate	920171.0552351734
@@ -13,38 +13,78 @@ iteration	period	path	field	value
 1	0	PodraP:linesOfBusiness:subMotorHull:outClaimsCeded	ultimate	0.0
 1	0	PodraP:linesOfBusiness:subMotorHull:outClaimsGross	ultimate	8.770217339450637E7
 1	0	PodraP:linesOfBusiness:subMotorHull:outClaimsNet	ultimate	8.770217339450637E7
+1	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	variable commission	0.0
 1	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	premium	9.7014E7
+1	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	fixed premium	0.0
 1	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	commission	0.0
+1	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	fixed commission	0.0
+1	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	variable premium	0.0
+1	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	variable commission	0.0
 1	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	premium	9.7014E7
+1	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	fixed premium	0.0
 1	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	commission	0.0
+1	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	fixed commission	0.0
+1	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	variable premium	0.0
 1	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	ultimate	0.0
 1	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	ultimate	1.6982874566475886E8
 1	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	ultimate	1.6982874566475886E8
+1	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	variable commission	0.0
 1	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	premium	1.89242E8
+1	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	fixed premium	0.0
 1	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	commission	0.0
+1	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	fixed commission	0.0
+1	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	variable premium	0.0
+1	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	variable commission	0.0
 1	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	premium	1.89242E8
+1	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	fixed premium	0.0
 1	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	commission	0.0
+1	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	fixed commission	0.0
+1	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	variable premium	0.0
 1	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsCeded	ultimate	0.0
-1	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsGross	ultimate	2.959438592819934E7
-1	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsNet	ultimate	2.959438592819934E7
+1	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsGross	ultimate	2.9594385928199336E7
+1	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsNet	ultimate	2.9594385928199336E7
+1	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	variable commission	0.0
 1	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	premium	5.3906E7
+1	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	fixed premium	0.0
 1	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	commission	0.0
+1	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	fixed commission	0.0
+1	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	variable premium	0.0
+1	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	variable commission	0.0
 1	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	premium	5.3906E7
+1	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	fixed premium	0.0
 1	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	commission	0.0
+1	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	fixed commission	0.0
+1	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	variable premium	0.0
 1	0	PodraP:linesOfBusiness:subProperty:outClaimsCeded	ultimate	0.0
 1	0	PodraP:linesOfBusiness:subProperty:outClaimsGross	ultimate	4.687097293646198E7
 1	0	PodraP:linesOfBusiness:subProperty:outClaimsNet	ultimate	4.687097293646198E7
+1	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	variable commission	0.0
 1	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	premium	7.2939E7
+1	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	fixed premium	0.0
 1	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	commission	0.0
+1	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	fixed commission	0.0
+1	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	variable premium	0.0
+1	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	variable commission	0.0
 1	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	premium	7.2939E7
+1	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	fixed premium	0.0
 1	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	commission	0.0
+1	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	fixed commission	0.0
+1	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	variable premium	0.0
 1	0	PodraP:linesOfBusiness:outClaimsCeded	ultimate	0.0
 1	0	PodraP:linesOfBusiness:outClaimsGross	ultimate	3.339962779239266E8
 1	0	PodraP:linesOfBusiness:outClaimsNet	ultimate	3.339962779239266E8
+1	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	variable commission	0.0
 1	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	premium	4.13101E8
+1	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	fixed premium	0.0
 1	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
+1	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	fixed commission	0.0
+1	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	variable premium	0.0
+1	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	variable commission	0.0
 1	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	premium	4.13101E8
+1	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	fixed premium	0.0
 1	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	commission	0.0
+1	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	fixed commission	0.0
+1	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	variable premium	0.0
 1	0	PodraP:claimsGenerators:outClaims	ultimate	3.519469188691314E8
 2	0	PodraP:claimsGenerators:subEarthquake:outClaims	ultimate	0.0
 2	0	PodraP:claimsGenerators:subFlood:outClaims	ultimate	203084.1612459352
@@ -60,38 +100,78 @@ iteration	period	path	field	value
 2	0	PodraP:linesOfBusiness:subMotorHull:outClaimsCeded	ultimate	0.0
 2	0	PodraP:linesOfBusiness:subMotorHull:outClaimsGross	ultimate	8.309246281438184E7
 2	0	PodraP:linesOfBusiness:subMotorHull:outClaimsNet	ultimate	8.309246281438184E7
+2	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	variable commission	0.0
 2	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	premium	9.7014E7
+2	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	fixed premium	0.0
 2	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	commission	0.0
+2	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	fixed commission	0.0
+2	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	variable premium	0.0
+2	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	variable commission	0.0
 2	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	premium	9.7014E7
+2	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	fixed premium	0.0
 2	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	commission	0.0
+2	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	fixed commission	0.0
+2	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	variable premium	0.0
 2	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	ultimate	0.0
 2	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	ultimate	2.0013373317952466E8
 2	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	ultimate	2.0013373317952466E8
+2	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	variable commission	0.0
 2	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	premium	1.89242E8
+2	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	fixed premium	0.0
 2	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	commission	0.0
+2	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	fixed commission	0.0
+2	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	variable premium	0.0
+2	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	variable commission	0.0
 2	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	premium	1.89242E8
+2	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	fixed premium	0.0
 2	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	commission	0.0
+2	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	fixed commission	0.0
+2	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	variable premium	0.0
 2	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsCeded	ultimate	0.0
 2	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsGross	ultimate	2.1414733438691266E7
 2	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsNet	ultimate	2.1414733438691266E7
+2	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	variable commission	0.0
 2	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	premium	5.3906E7
+2	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	fixed premium	0.0
 2	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	commission	0.0
+2	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	fixed commission	0.0
+2	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	variable premium	0.0
+2	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	variable commission	0.0
 2	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	premium	5.3906E7
+2	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	fixed premium	0.0
 2	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	commission	0.0
+2	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	fixed commission	0.0
+2	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	variable premium	0.0
 2	0	PodraP:linesOfBusiness:subProperty:outClaimsCeded	ultimate	0.0
 2	0	PodraP:linesOfBusiness:subProperty:outClaimsGross	ultimate	4.713117117053693E7
 2	0	PodraP:linesOfBusiness:subProperty:outClaimsNet	ultimate	4.713117117053693E7
+2	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	variable commission	0.0
 2	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	premium	7.2939E7
+2	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	fixed premium	0.0
 2	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	commission	0.0
+2	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	fixed commission	0.0
+2	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	variable premium	0.0
+2	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	variable commission	0.0
 2	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	premium	7.2939E7
+2	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	fixed premium	0.0
 2	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	commission	0.0
+2	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	fixed commission	0.0
+2	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	variable premium	0.0
 2	0	PodraP:linesOfBusiness:outClaimsCeded	ultimate	0.0
 2	0	PodraP:linesOfBusiness:outClaimsGross	ultimate	3.5177210060313475E8
 2	0	PodraP:linesOfBusiness:outClaimsNet	ultimate	3.5177210060313475E8
+2	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	variable commission	0.0
 2	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	premium	4.13101E8
+2	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	fixed premium	0.0
 2	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
+2	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	fixed commission	0.0
+2	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	variable premium	0.0
+2	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	variable commission	0.0
 2	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	premium	4.13101E8
+2	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	fixed premium	0.0
 2	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	commission	0.0
+2	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	fixed commission	0.0
+2	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	variable premium	0.0
 2	0	PodraP:claimsGenerators:outClaims	ultimate	3.5273918160974735E8
 3	0	PodraP:claimsGenerators:subEarthquake:outClaims	ultimate	0.0
 3	0	PodraP:claimsGenerators:subFlood:outClaims	ultimate	2.46006845085928E7
@@ -99,7 +179,7 @@ iteration	period	path	field	value
 3	0	PodraP:claimsGenerators:subMotorHullSingle:outClaims	ultimate	0.0
 3	0	PodraP:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaims	ultimate	1.336368125473701E8
 3	0	PodraP:claimsGenerators:subMotorThirdPartyLiabilitySingle:outClaims	ultimate	5467955.985740526
-3	0	PodraP:claimsGenerators:subPersonalAccidentAttritional:outClaims	ultimate	1.532817609210081E7
+3	0	PodraP:claimsGenerators:subPersonalAccidentAttritional:outClaims	ultimate	1.5328176092100807E7
 3	0	PodraP:claimsGenerators:subPersonalAccidentSingle:outClaims	ultimate	224946.6137399896
 3	0	PodraP:claimsGenerators:subPropertyAttritional:outClaims	ultimate	4.173234667039228E7
 3	0	PodraP:claimsGenerators:subPropertySingle:outClaims	ultimate	1869323.401726746
@@ -107,38 +187,78 @@ iteration	period	path	field	value
 3	0	PodraP:linesOfBusiness:subMotorHull:outClaimsCeded	ultimate	0.0
 3	0	PodraP:linesOfBusiness:subMotorHull:outClaimsGross	ultimate	7.335828630251426E7
 3	0	PodraP:linesOfBusiness:subMotorHull:outClaimsNet	ultimate	7.335828630251426E7
+3	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	variable commission	0.0
 3	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	premium	9.7014E7
+3	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	fixed premium	0.0
 3	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	commission	0.0
+3	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	fixed commission	0.0
+3	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	variable premium	0.0
+3	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	variable commission	0.0
 3	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	premium	9.7014E7
+3	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	fixed premium	0.0
 3	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	commission	0.0
+3	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	fixed commission	0.0
+3	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	variable premium	0.0
 3	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	ultimate	0.0
 3	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	ultimate	1.3910476853311065E8
 3	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	ultimate	1.3910476853311065E8
+3	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	variable commission	0.0
 3	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	premium	1.89242E8
+3	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	fixed premium	0.0
 3	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	commission	0.0
+3	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	fixed commission	0.0
+3	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	variable premium	0.0
+3	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	variable commission	0.0
 3	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	premium	1.89242E8
+3	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	fixed premium	0.0
 3	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	commission	0.0
+3	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	fixed commission	0.0
+3	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	variable premium	0.0
 3	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsCeded	ultimate	0.0
-3	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsGross	ultimate	1.55531227058408E7
-3	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsNet	ultimate	1.55531227058408E7
+3	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsGross	ultimate	1.5553122705840796E7
+3	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsNet	ultimate	1.5553122705840796E7
+3	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	variable commission	0.0
 3	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	premium	5.3906E7
+3	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	fixed premium	0.0
 3	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	commission	0.0
+3	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	fixed commission	0.0
+3	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	variable premium	0.0
+3	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	variable commission	0.0
 3	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	premium	5.3906E7
+3	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	fixed premium	0.0
 3	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	commission	0.0
+3	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	fixed commission	0.0
+3	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	variable premium	0.0
 3	0	PodraP:linesOfBusiness:subProperty:outClaimsCeded	ultimate	0.0
 3	0	PodraP:linesOfBusiness:subProperty:outClaimsGross	ultimate	4.3601670072119035E7
 3	0	PodraP:linesOfBusiness:subProperty:outClaimsNet	ultimate	4.3601670072119035E7
+3	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	variable commission	0.0
 3	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	premium	7.2939E7
+3	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	fixed premium	0.0
 3	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	commission	0.0
+3	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	fixed commission	0.0
+3	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	variable premium	0.0
+3	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	variable commission	0.0
 3	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	premium	7.2939E7
+3	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	fixed premium	0.0
 3	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	commission	0.0
+3	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	fixed commission	0.0
+3	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	variable premium	0.0
 3	0	PodraP:linesOfBusiness:outClaimsCeded	ultimate	0.0
 3	0	PodraP:linesOfBusiness:outClaimsGross	ultimate	2.7161784761358476E8
 3	0	PodraP:linesOfBusiness:outClaimsNet	ultimate	2.7161784761358476E8
+3	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	variable commission	0.0
 3	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	premium	4.13101E8
+3	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	fixed premium	0.0
 3	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
+3	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	fixed commission	0.0
+3	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	variable premium	0.0
+3	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	variable commission	0.0
 3	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	premium	4.13101E8
+3	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	fixed premium	0.0
 3	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	commission	0.0
+3	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	fixed commission	0.0
+3	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	variable premium	0.0
 3	0	PodraP:claimsGenerators:outClaims	ultimate	3.15103864207911E8
 4	0	PodraP:claimsGenerators:subEarthquake:outClaims	ultimate	1161053.652711361
 4	0	PodraP:claimsGenerators:subFlood:outClaims	ultimate	0.0
@@ -146,7 +266,7 @@ iteration	period	path	field	value
 4	0	PodraP:claimsGenerators:subMotorHullSingle:outClaims	ultimate	1.0297387855186163E7
 4	0	PodraP:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaims	ultimate	1.489260396479664E8
 4	0	PodraP:claimsGenerators:subMotorThirdPartyLiabilitySingle:outClaims	ultimate	1.4291804934688881E7
-4	0	PodraP:claimsGenerators:subPersonalAccidentAttritional:outClaims	ultimate	1.9950244229367666E7
+4	0	PodraP:claimsGenerators:subPersonalAccidentAttritional:outClaims	ultimate	1.9950244229367662E7
 4	0	PodraP:claimsGenerators:subPersonalAccidentSingle:outClaims	ultimate	2508034.3692645608
 4	0	PodraP:claimsGenerators:subPropertyAttritional:outClaims	ultimate	5.054424073845746E7
 4	0	PodraP:claimsGenerators:subPropertySingle:outClaims	ultimate	1110199.2750448931
@@ -154,38 +274,78 @@ iteration	period	path	field	value
 4	0	PodraP:linesOfBusiness:subMotorHull:outClaimsCeded	ultimate	0.0
 4	0	PodraP:linesOfBusiness:subMotorHull:outClaimsGross	ultimate	7.995647890893392E7
 4	0	PodraP:linesOfBusiness:subMotorHull:outClaimsNet	ultimate	7.995647890893392E7
+4	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	variable commission	0.0
 4	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	premium	9.7014E7
+4	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	fixed premium	0.0
 4	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	commission	0.0
+4	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	fixed commission	0.0
+4	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	variable premium	0.0
+4	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	variable commission	0.0
 4	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	premium	9.7014E7
+4	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	fixed premium	0.0
 4	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	commission	0.0
+4	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	fixed commission	0.0
+4	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	variable premium	0.0
 4	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	ultimate	0.0
 4	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	ultimate	1.632178445826553E8
 4	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	ultimate	1.632178445826553E8
+4	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	variable commission	0.0
 4	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	premium	1.89242E8
+4	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	fixed premium	0.0
 4	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	commission	0.0
+4	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	fixed commission	0.0
+4	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	variable premium	0.0
+4	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	variable commission	0.0
 4	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	premium	1.89242E8
+4	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	fixed premium	0.0
 4	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	commission	0.0
+4	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	fixed commission	0.0
+4	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	variable premium	0.0
 4	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsCeded	ultimate	0.0
 4	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsGross	ultimate	2.2458278598632224E7
 4	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsNet	ultimate	2.2458278598632224E7
+4	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	variable commission	0.0
 4	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	premium	5.3906E7
+4	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	fixed premium	0.0
 4	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	commission	0.0
+4	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	fixed commission	0.0
+4	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	variable premium	0.0
+4	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	variable commission	0.0
 4	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	premium	5.3906E7
+4	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	fixed premium	0.0
 4	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	commission	0.0
+4	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	fixed commission	0.0
+4	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	variable premium	0.0
 4	0	PodraP:linesOfBusiness:subProperty:outClaimsCeded	ultimate	0.0
 4	0	PodraP:linesOfBusiness:subProperty:outClaimsGross	ultimate	5.165444001350235E7
 4	0	PodraP:linesOfBusiness:subProperty:outClaimsNet	ultimate	5.165444001350235E7
+4	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	variable commission	0.0
 4	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	premium	7.2939E7
+4	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	fixed premium	0.0
 4	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	commission	0.0
+4	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	fixed commission	0.0
+4	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	variable premium	0.0
+4	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	variable commission	0.0
 4	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	premium	7.2939E7
+4	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	fixed premium	0.0
 4	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	commission	0.0
+4	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	fixed commission	0.0
+4	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	variable premium	0.0
 4	0	PodraP:linesOfBusiness:outClaimsCeded	ultimate	0.0
 4	0	PodraP:linesOfBusiness:outClaimsGross	ultimate	3.1728704210372376E8
 4	0	PodraP:linesOfBusiness:outClaimsNet	ultimate	3.1728704210372376E8
+4	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	variable commission	0.0
 4	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	premium	4.13101E8
+4	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	fixed premium	0.0
 4	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
+4	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	fixed commission	0.0
+4	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	variable premium	0.0
+4	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	variable commission	0.0
 4	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	premium	4.13101E8
+4	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	fixed premium	0.0
 4	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	commission	0.0
+4	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	fixed commission	0.0
+4	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	variable premium	0.0
 4	0	PodraP:claimsGenerators:outClaims	ultimate	3.636419388963265E8
 5	0	PodraP:claimsGenerators:subEarthquake:outClaims	ultimate	0.0
 5	0	PodraP:claimsGenerators:subFlood:outClaims	ultimate	111114.09291775
@@ -193,7 +353,7 @@ iteration	period	path	field	value
 5	0	PodraP:claimsGenerators:subMotorHullSingle:outClaims	ultimate	0.0
 5	0	PodraP:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaims	ultimate	1.6393707077768964E8
 5	0	PodraP:claimsGenerators:subMotorThirdPartyLiabilitySingle:outClaims	ultimate	1.2440925061700173E7
-5	0	PodraP:claimsGenerators:subPersonalAccidentAttritional:outClaims	ultimate	2.401810986211384E7
+5	0	PodraP:claimsGenerators:subPersonalAccidentAttritional:outClaims	ultimate	2.4018109862113837E7
 5	0	PodraP:claimsGenerators:subPersonalAccidentSingle:outClaims	ultimate	3086961.1238715756
 5	0	PodraP:claimsGenerators:subPropertyAttritional:outClaims	ultimate	6.1130323565195225E7
 5	0	PodraP:claimsGenerators:subPropertySingle:outClaims	ultimate	1703366.9284705615
@@ -201,38 +361,78 @@ iteration	period	path	field	value
 5	0	PodraP:linesOfBusiness:subMotorHull:outClaimsCeded	ultimate	0.0
 5	0	PodraP:linesOfBusiness:subMotorHull:outClaimsGross	ultimate	7.405343382346901E7
 5	0	PodraP:linesOfBusiness:subMotorHull:outClaimsNet	ultimate	7.405343382346901E7
+5	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	variable commission	0.0
 5	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	premium	9.7014E7
+5	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	fixed premium	0.0
 5	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	commission	0.0
+5	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	fixed commission	0.0
+5	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	variable premium	0.0
+5	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	variable commission	0.0
 5	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	premium	9.7014E7
+5	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	fixed premium	0.0
 5	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	commission	0.0
+5	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	fixed commission	0.0
+5	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	variable premium	0.0
 5	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	ultimate	0.0
 5	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	ultimate	1.763779958393898E8
 5	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	ultimate	1.763779958393898E8
+5	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	variable commission	0.0
 5	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	premium	1.89242E8
+5	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	fixed premium	0.0
 5	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	commission	0.0
+5	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	fixed commission	0.0
+5	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	variable premium	0.0
+5	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	variable commission	0.0
 5	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	premium	1.89242E8
+5	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	fixed premium	0.0
 5	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	commission	0.0
+5	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	fixed commission	0.0
+5	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	variable premium	0.0
 5	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsCeded	ultimate	0.0
-5	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsGross	ultimate	2.7105070985985417E7
-5	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsNet	ultimate	2.7105070985985417E7
+5	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsGross	ultimate	2.7105070985985413E7
+5	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsNet	ultimate	2.7105070985985413E7
+5	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	variable commission	0.0
 5	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	premium	5.3906E7
+5	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	fixed premium	0.0
 5	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	commission	0.0
+5	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	fixed commission	0.0
+5	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	variable premium	0.0
+5	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	variable commission	0.0
 5	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	premium	5.3906E7
+5	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	fixed premium	0.0
 5	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	commission	0.0
+5	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	fixed commission	0.0
+5	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	variable premium	0.0
 5	0	PodraP:linesOfBusiness:subProperty:outClaimsCeded	ultimate	0.0
 5	0	PodraP:linesOfBusiness:subProperty:outClaimsGross	ultimate	6.2833690493665785E7
 5	0	PodraP:linesOfBusiness:subProperty:outClaimsNet	ultimate	6.2833690493665785E7
+5	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	variable commission	0.0
 5	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	premium	7.2939E7
+5	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	fixed premium	0.0
 5	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	commission	0.0
+5	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	fixed commission	0.0
+5	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	variable premium	0.0
+5	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	variable commission	0.0
 5	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	premium	7.2939E7
+5	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	fixed premium	0.0
 5	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	commission	0.0
+5	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	fixed commission	0.0
+5	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	variable premium	0.0
 5	0	PodraP:linesOfBusiness:outClaimsCeded	ultimate	0.0
 5	0	PodraP:linesOfBusiness:outClaimsGross	ultimate	3.403701911425099E8
 5	0	PodraP:linesOfBusiness:outClaimsNet	ultimate	3.403701911425099E8
+5	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	variable commission	0.0
 5	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	premium	4.13101E8
+5	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	fixed premium	0.0
 5	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
+5	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	fixed commission	0.0
+5	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	variable premium	0.0
+5	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	variable commission	0.0
 5	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	premium	4.13101E8
+5	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	fixed premium	0.0
 5	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	commission	0.0
+5	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	fixed commission	0.0
+5	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	variable premium	0.0
 5	0	PodraP:claimsGenerators:outClaims	ultimate	3.4623863484959733E8
 6	0	PodraP:claimsGenerators:subEarthquake:outClaims	ultimate	0.0
 6	0	PodraP:claimsGenerators:subFlood:outClaims	ultimate	0.0
@@ -240,7 +440,7 @@ iteration	period	path	field	value
 6	0	PodraP:claimsGenerators:subMotorHullSingle:outClaims	ultimate	669020.0628118613
 6	0	PodraP:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaims	ultimate	1.5878156156047523E8
 6	0	PodraP:claimsGenerators:subMotorThirdPartyLiabilitySingle:outClaims	ultimate	2.9408482045808733E7
-6	0	PodraP:claimsGenerators:subPersonalAccidentAttritional:outClaims	ultimate	2.3854334970435675E7
+6	0	PodraP:claimsGenerators:subPersonalAccidentAttritional:outClaims	ultimate	2.385433497043567E7
 6	0	PodraP:claimsGenerators:subPersonalAccidentSingle:outClaims	ultimate	767965.5694034732
 6	0	PodraP:claimsGenerators:subPropertyAttritional:outClaims	ultimate	4.70014627338888E7
 6	0	PodraP:claimsGenerators:subPropertySingle:outClaims	ultimate	2184242.612883791
@@ -248,38 +448,78 @@ iteration	period	path	field	value
 6	0	PodraP:linesOfBusiness:subMotorHull:outClaimsCeded	ultimate	0.0
 6	0	PodraP:linesOfBusiness:subMotorHull:outClaimsGross	ultimate	8.452451270506643E7
 6	0	PodraP:linesOfBusiness:subMotorHull:outClaimsNet	ultimate	8.452451270506643E7
+6	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	variable commission	0.0
 6	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	premium	9.7014E7
+6	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	fixed premium	0.0
 6	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	commission	0.0
+6	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	fixed commission	0.0
+6	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	variable premium	0.0
+6	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	variable commission	0.0
 6	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	premium	9.7014E7
+6	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	fixed premium	0.0
 6	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	commission	0.0
+6	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	fixed commission	0.0
+6	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	variable premium	0.0
 6	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	ultimate	0.0
 6	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	ultimate	1.88190043606284E8
 6	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	ultimate	1.88190043606284E8
+6	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	variable commission	0.0
 6	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	premium	1.89242E8
+6	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	fixed premium	0.0
 6	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	commission	0.0
+6	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	fixed commission	0.0
+6	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	variable premium	0.0
+6	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	variable commission	0.0
 6	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	premium	1.89242E8
+6	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	fixed premium	0.0
 6	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	commission	0.0
+6	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	fixed commission	0.0
+6	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	variable premium	0.0
 6	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsCeded	ultimate	0.0
-6	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsGross	ultimate	2.462230053983915E7
-6	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsNet	ultimate	2.462230053983915E7
+6	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsGross	ultimate	2.4622300539839145E7
+6	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsNet	ultimate	2.4622300539839145E7
+6	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	variable commission	0.0
 6	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	premium	5.3906E7
+6	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	fixed premium	0.0
 6	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	commission	0.0
+6	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	fixed commission	0.0
+6	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	variable premium	0.0
+6	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	variable commission	0.0
 6	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	premium	5.3906E7
+6	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	fixed premium	0.0
 6	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	commission	0.0
+6	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	fixed commission	0.0
+6	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	variable premium	0.0
 6	0	PodraP:linesOfBusiness:subProperty:outClaimsCeded	ultimate	0.0
 6	0	PodraP:linesOfBusiness:subProperty:outClaimsGross	ultimate	4.918570534677259E7
 6	0	PodraP:linesOfBusiness:subProperty:outClaimsNet	ultimate	4.918570534677259E7
+6	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	variable commission	0.0
 6	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	premium	7.2939E7
+6	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	fixed premium	0.0
 6	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	commission	0.0
+6	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	fixed commission	0.0
+6	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	variable premium	0.0
+6	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	variable commission	0.0
 6	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	premium	7.2939E7
+6	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	fixed premium	0.0
 6	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	commission	0.0
+6	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	fixed commission	0.0
+6	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	variable premium	0.0
 6	0	PodraP:linesOfBusiness:outClaimsCeded	ultimate	0.0
 6	0	PodraP:linesOfBusiness:outClaimsGross	ultimate	3.465225621979622E8
 6	0	PodraP:linesOfBusiness:outClaimsNet	ultimate	3.465225621979622E8
+6	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	variable commission	0.0
 6	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	premium	4.13101E8
+6	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	fixed premium	0.0
 6	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
+6	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	fixed commission	0.0
+6	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	variable premium	0.0
+6	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	variable commission	0.0
 6	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	premium	4.13101E8
+6	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	fixed premium	0.0
 6	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	commission	0.0
+6	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	fixed commission	0.0
+6	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	variable premium	0.0
 6	0	PodraP:claimsGenerators:outClaims	ultimate	3.4652256219796234E8
 7	0	PodraP:claimsGenerators:subEarthquake:outClaims	ultimate	0.0
 7	0	PodraP:claimsGenerators:subFlood:outClaims	ultimate	0.0
@@ -287,7 +527,7 @@ iteration	period	path	field	value
 7	0	PodraP:claimsGenerators:subMotorHullSingle:outClaims	ultimate	1283580.3589078484
 7	0	PodraP:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaims	ultimate	1.372270605704802E8
 7	0	PodraP:claimsGenerators:subMotorThirdPartyLiabilitySingle:outClaims	ultimate	1.0739584275424324E7
-7	0	PodraP:claimsGenerators:subPersonalAccidentAttritional:outClaims	ultimate	1.803309664881201E7
+7	0	PodraP:claimsGenerators:subPersonalAccidentAttritional:outClaims	ultimate	1.8033096648812003E7
 7	0	PodraP:claimsGenerators:subPersonalAccidentSingle:outClaims	ultimate	0.0
 7	0	PodraP:claimsGenerators:subPropertyAttritional:outClaims	ultimate	4.262021003358035E7
 7	0	PodraP:claimsGenerators:subPropertySingle:outClaims	ultimate	2242537.9762451313
@@ -295,38 +535,78 @@ iteration	period	path	field	value
 7	0	PodraP:linesOfBusiness:subMotorHull:outClaimsCeded	ultimate	0.0
 7	0	PodraP:linesOfBusiness:subMotorHull:outClaimsGross	ultimate	7.56010676047205E7
 7	0	PodraP:linesOfBusiness:subMotorHull:outClaimsNet	ultimate	7.56010676047205E7
+7	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	variable commission	0.0
 7	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	premium	9.7014E7
+7	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	fixed premium	0.0
 7	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	commission	0.0
+7	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	fixed commission	0.0
+7	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	variable premium	0.0
+7	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	variable commission	0.0
 7	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	premium	9.7014E7
+7	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	fixed premium	0.0
 7	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	commission	0.0
+7	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	fixed commission	0.0
+7	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	variable premium	0.0
 7	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	ultimate	0.0
 7	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	ultimate	1.4796664484590453E8
 7	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	ultimate	1.4796664484590453E8
+7	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	variable commission	0.0
 7	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	premium	1.89242E8
+7	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	fixed premium	0.0
 7	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	commission	0.0
+7	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	fixed commission	0.0
+7	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	variable premium	0.0
+7	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	variable commission	0.0
 7	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	premium	1.89242E8
+7	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	fixed premium	0.0
 7	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	commission	0.0
+7	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	fixed commission	0.0
+7	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	variable premium	0.0
 7	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsCeded	ultimate	0.0
-7	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsGross	ultimate	1.803309664881201E7
-7	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsNet	ultimate	1.803309664881201E7
+7	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsGross	ultimate	1.8033096648812003E7
+7	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsNet	ultimate	1.8033096648812003E7
+7	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	variable commission	0.0
 7	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	premium	5.3906E7
+7	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	fixed premium	0.0
 7	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	commission	0.0
+7	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	fixed commission	0.0
+7	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	variable premium	0.0
+7	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	variable commission	0.0
 7	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	premium	5.3906E7
+7	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	fixed premium	0.0
 7	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	commission	0.0
+7	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	fixed commission	0.0
+7	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	variable premium	0.0
 7	0	PodraP:linesOfBusiness:subProperty:outClaimsCeded	ultimate	0.0
 7	0	PodraP:linesOfBusiness:subProperty:outClaimsGross	ultimate	4.486274800982547E7
 7	0	PodraP:linesOfBusiness:subProperty:outClaimsNet	ultimate	4.486274800982547E7
+7	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	variable commission	0.0
 7	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	premium	7.2939E7
+7	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	fixed premium	0.0
 7	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	commission	0.0
+7	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	fixed commission	0.0
+7	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	variable premium	0.0
+7	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	variable commission	0.0
 7	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	premium	7.2939E7
+7	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	fixed premium	0.0
 7	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	commission	0.0
+7	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	fixed commission	0.0
+7	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	variable premium	0.0
 7	0	PodraP:linesOfBusiness:outClaimsCeded	ultimate	0.0
 7	0	PodraP:linesOfBusiness:outClaimsGross	ultimate	2.864635571092626E8
 7	0	PodraP:linesOfBusiness:outClaimsNet	ultimate	2.864635571092626E8
+7	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	variable commission	0.0
 7	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	premium	4.13101E8
+7	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	fixed premium	0.0
 7	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
+7	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	fixed commission	0.0
+7	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	variable premium	0.0
+7	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	variable commission	0.0
 7	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	premium	4.13101E8
+7	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	fixed premium	0.0
 7	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	commission	0.0
+7	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	fixed commission	0.0
+7	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	variable premium	0.0
 7	0	PodraP:claimsGenerators:outClaims	ultimate	2.864635571092626E8
 8	0	PodraP:claimsGenerators:subEarthquake:outClaims	ultimate	0.0
 8	0	PodraP:claimsGenerators:subFlood:outClaims	ultimate	0.0
@@ -342,38 +622,78 @@ iteration	period	path	field	value
 8	0	PodraP:linesOfBusiness:subMotorHull:outClaimsCeded	ultimate	0.0
 8	0	PodraP:linesOfBusiness:subMotorHull:outClaimsGross	ultimate	9.052242961407284E7
 8	0	PodraP:linesOfBusiness:subMotorHull:outClaimsNet	ultimate	9.052242961407284E7
+8	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	variable commission	0.0
 8	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	premium	9.7014E7
+8	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	fixed premium	0.0
 8	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	commission	0.0
+8	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	fixed commission	0.0
+8	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	variable premium	0.0
+8	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	variable commission	0.0
 8	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	premium	9.7014E7
+8	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	fixed premium	0.0
 8	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	commission	0.0
+8	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	fixed commission	0.0
+8	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	variable premium	0.0
 8	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	ultimate	0.0
 8	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	ultimate	1.9307865047607058E8
 8	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	ultimate	1.9307865047607058E8
+8	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	variable commission	0.0
 8	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	premium	1.89242E8
+8	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	fixed premium	0.0
 8	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	commission	0.0
+8	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	fixed commission	0.0
+8	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	variable premium	0.0
+8	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	variable commission	0.0
 8	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	premium	1.89242E8
+8	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	fixed premium	0.0
 8	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	commission	0.0
+8	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	fixed commission	0.0
+8	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	variable premium	0.0
 8	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsCeded	ultimate	0.0
 8	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsGross	ultimate	1.925927441412328E7
 8	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsNet	ultimate	1.925927441412328E7
+8	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	variable commission	0.0
 8	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	premium	5.3906E7
+8	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	fixed premium	0.0
 8	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	commission	0.0
+8	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	fixed commission	0.0
+8	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	variable premium	0.0
+8	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	variable commission	0.0
 8	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	premium	5.3906E7
+8	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	fixed premium	0.0
 8	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	commission	0.0
+8	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	fixed commission	0.0
+8	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	variable premium	0.0
 8	0	PodraP:linesOfBusiness:subProperty:outClaimsCeded	ultimate	0.0
 8	0	PodraP:linesOfBusiness:subProperty:outClaimsGross	ultimate	4.296423412121484E7
 8	0	PodraP:linesOfBusiness:subProperty:outClaimsNet	ultimate	4.296423412121484E7
+8	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	variable commission	0.0
 8	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	premium	7.2939E7
+8	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	fixed premium	0.0
 8	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	commission	0.0
+8	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	fixed commission	0.0
+8	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	variable premium	0.0
+8	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	variable commission	0.0
 8	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	premium	7.2939E7
+8	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	fixed premium	0.0
 8	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	commission	0.0
+8	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	fixed commission	0.0
+8	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	variable premium	0.0
 8	0	PodraP:linesOfBusiness:outClaimsCeded	ultimate	0.0
 8	0	PodraP:linesOfBusiness:outClaimsGross	ultimate	3.458245886254816E8
 8	0	PodraP:linesOfBusiness:outClaimsNet	ultimate	3.458245886254816E8
+8	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	variable commission	0.0
 8	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	premium	4.13101E8
+8	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	fixed premium	0.0
 8	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
+8	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	fixed commission	0.0
+8	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	variable premium	0.0
+8	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	variable commission	0.0
 8	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	premium	4.13101E8
+8	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	fixed premium	0.0
 8	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	commission	0.0
+8	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	fixed commission	0.0
+8	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	variable premium	0.0
 8	0	PodraP:claimsGenerators:outClaims	ultimate	3.458245886254816E8
 9	0	PodraP:claimsGenerators:subEarthquake:outClaims	ultimate	0.0
 9	0	PodraP:claimsGenerators:subFlood:outClaims	ultimate	0.0
@@ -389,38 +709,78 @@ iteration	period	path	field	value
 9	0	PodraP:linesOfBusiness:subMotorHull:outClaimsCeded	ultimate	0.0
 9	0	PodraP:linesOfBusiness:subMotorHull:outClaimsGross	ultimate	8.357534925775135E7
 9	0	PodraP:linesOfBusiness:subMotorHull:outClaimsNet	ultimate	8.357534925775135E7
+9	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	variable commission	0.0
 9	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	premium	9.7014E7
+9	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	fixed premium	0.0
 9	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	commission	0.0
+9	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	fixed commission	0.0
+9	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	variable premium	0.0
+9	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	variable commission	0.0
 9	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	premium	9.7014E7
+9	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	fixed premium	0.0
 9	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	commission	0.0
+9	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	fixed commission	0.0
+9	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	variable premium	0.0
 9	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	ultimate	0.0
 9	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	ultimate	2.1241107851975024E8
 9	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	ultimate	2.1241107851975024E8
+9	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	variable commission	0.0
 9	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	premium	1.89242E8
+9	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	fixed premium	0.0
 9	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	commission	0.0
+9	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	fixed commission	0.0
+9	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	variable premium	0.0
+9	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	variable commission	0.0
 9	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	premium	1.89242E8
+9	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	fixed premium	0.0
 9	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	commission	0.0
+9	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	fixed commission	0.0
+9	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	variable premium	0.0
 9	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsCeded	ultimate	0.0
 9	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsGross	ultimate	1.951730715210999E7
 9	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsNet	ultimate	1.951730715210999E7
+9	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	variable commission	0.0
 9	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	premium	5.3906E7
+9	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	fixed premium	0.0
 9	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	commission	0.0
+9	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	fixed commission	0.0
+9	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	variable premium	0.0
+9	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	variable commission	0.0
 9	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	premium	5.3906E7
+9	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	fixed premium	0.0
 9	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	commission	0.0
+9	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	fixed commission	0.0
+9	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	variable premium	0.0
 9	0	PodraP:linesOfBusiness:subProperty:outClaimsCeded	ultimate	0.0
 9	0	PodraP:linesOfBusiness:subProperty:outClaimsGross	ultimate	4.632029738609352E7
 9	0	PodraP:linesOfBusiness:subProperty:outClaimsNet	ultimate	4.632029738609352E7
+9	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	variable commission	0.0
 9	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	premium	7.2939E7
+9	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	fixed premium	0.0
 9	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	commission	0.0
+9	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	fixed commission	0.0
+9	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	variable premium	0.0
+9	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	variable commission	0.0
 9	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	premium	7.2939E7
+9	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	fixed premium	0.0
 9	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	commission	0.0
+9	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	fixed commission	0.0
+9	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	variable premium	0.0
 9	0	PodraP:linesOfBusiness:outClaimsCeded	ultimate	0.0
 9	0	PodraP:linesOfBusiness:outClaimsGross	ultimate	3.618240323157051E8
 9	0	PodraP:linesOfBusiness:outClaimsNet	ultimate	3.618240323157051E8
+9	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	variable commission	0.0
 9	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	premium	4.13101E8
+9	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	fixed premium	0.0
 9	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
+9	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	fixed commission	0.0
+9	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	variable premium	0.0
+9	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	variable commission	0.0
 9	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	premium	4.13101E8
+9	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	fixed premium	0.0
 9	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	commission	0.0
+9	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	fixed commission	0.0
+9	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	variable premium	0.0
 9	0	PodraP:claimsGenerators:outClaims	ultimate	3.6182403231570506E8
 10	0	PodraP:claimsGenerators:subEarthquake:outClaims	ultimate	0.0
 10	0	PodraP:claimsGenerators:subFlood:outClaims	ultimate	3086908.834553772
@@ -436,36 +796,76 @@ iteration	period	path	field	value
 10	0	PodraP:linesOfBusiness:subMotorHull:outClaimsCeded	ultimate	0.0
 10	0	PodraP:linesOfBusiness:subMotorHull:outClaimsGross	ultimate	8.359539681096117E7
 10	0	PodraP:linesOfBusiness:subMotorHull:outClaimsNet	ultimate	8.359539681096117E7
+10	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	variable commission	0.0
 10	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	premium	9.7014E7
+10	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	fixed premium	0.0
 10	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	commission	0.0
+10	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	fixed commission	0.0
+10	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	variable premium	0.0
+10	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	variable commission	0.0
 10	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	premium	9.7014E7
+10	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	fixed premium	0.0
 10	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	commission	0.0
+10	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	fixed commission	0.0
+10	0	PodraP:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	variable premium	0.0
 10	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	ultimate	0.0
 10	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	ultimate	1.626240468506832E8
 10	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	ultimate	1.626240468506832E8
+10	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	variable commission	0.0
 10	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	premium	1.89242E8
+10	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	fixed premium	0.0
 10	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	commission	0.0
+10	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	fixed commission	0.0
+10	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoGross	variable premium	0.0
+10	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	variable commission	0.0
 10	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	premium	1.89242E8
+10	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	fixed premium	0.0
 10	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	commission	0.0
+10	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	fixed commission	0.0
+10	0	PodraP:linesOfBusiness:subMotorThirdPartyLiability:outUnderwritingInfoNet	variable premium	0.0
 10	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsCeded	ultimate	0.0
 10	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsGross	ultimate	2.7760196579285294E7
 10	0	PodraP:linesOfBusiness:subPersonalAccident:outClaimsNet	ultimate	2.7760196579285294E7
+10	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	variable commission	0.0
 10	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	premium	5.3906E7
+10	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	fixed premium	0.0
 10	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	commission	0.0
+10	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	fixed commission	0.0
+10	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoGross	variable premium	0.0
+10	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	variable commission	0.0
 10	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	premium	5.3906E7
+10	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	fixed premium	0.0
 10	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	commission	0.0
+10	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	fixed commission	0.0
+10	0	PodraP:linesOfBusiness:subPersonalAccident:outUnderwritingInfoNet	variable premium	0.0
 10	0	PodraP:linesOfBusiness:subProperty:outClaimsCeded	ultimate	0.0
 10	0	PodraP:linesOfBusiness:subProperty:outClaimsGross	ultimate	4.233826236834997E7
 10	0	PodraP:linesOfBusiness:subProperty:outClaimsNet	ultimate	4.233826236834997E7
+10	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	variable commission	0.0
 10	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	premium	7.2939E7
+10	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	fixed premium	0.0
 10	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	commission	0.0
+10	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	fixed commission	0.0
+10	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoGross	variable premium	0.0
+10	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	variable commission	0.0
 10	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	premium	7.2939E7
+10	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	fixed premium	0.0
 10	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	commission	0.0
+10	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	fixed commission	0.0
+10	0	PodraP:linesOfBusiness:subProperty:outUnderwritingInfoNet	variable premium	0.0
 10	0	PodraP:linesOfBusiness:outClaimsCeded	ultimate	0.0
 10	0	PodraP:linesOfBusiness:outClaimsGross	ultimate	3.1631790260927963E8
 10	0	PodraP:linesOfBusiness:outClaimsNet	ultimate	3.1631790260927963E8
+10	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	variable commission	0.0
 10	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	premium	4.13101E8
+10	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	fixed premium	0.0
 10	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
+10	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	fixed commission	0.0
+10	0	PodraP:linesOfBusiness:outUnderwritingInfoGross	variable premium	0.0
+10	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	variable commission	0.0
 10	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	premium	4.13101E8
+10	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	fixed premium	0.0
 10	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	commission	0.0
+10	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	fixed commission	0.0
+10	0	PodraP:linesOfBusiness:outUnderwritingInfoNet	variable premium	0.0
 10	0	PodraP:claimsGenerators:outClaims	ultimate	3.472775974855905E8

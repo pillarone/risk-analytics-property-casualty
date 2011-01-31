@@ -8,6 +8,7 @@ import org.pillarone.riskanalytics.core.components.Component
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.core.packets.PacketList
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 
 /**
  *  This component contains an arbitrary number of Commission subcomponents.
@@ -28,10 +29,10 @@ import org.pillarone.riskanalytics.domain.pc.claims.Claim
 class DynamicCommission extends DynamicComposedComponent {
 
     PacketList<Claim> inClaims = new PacketList<Claim>(Claim.class);
-    PacketList<UnderwritingInfo> inUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
+    PacketList<CededUnderwritingInfo> inUnderwritingInfo = new PacketList<CededUnderwritingInfo>(CededUnderwritingInfo.class);
 
-    PacketList<UnderwritingInfo> outUnderwritingInfoModified = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
-    PacketList<UnderwritingInfo> outUnderwritingInfoUnmodified = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
+    PacketList<CededUnderwritingInfo> outUnderwritingInfoModified = new PacketList<CededUnderwritingInfo>(CededUnderwritingInfo.class);
+    PacketList<CededUnderwritingInfo> outUnderwritingInfoUnmodified = new PacketList<CededUnderwritingInfo>(CededUnderwritingInfo.class);
 
     void wire() {
         replicateInChannels this, 'inClaims'  // side-effect: sorts componentList for reproducibility

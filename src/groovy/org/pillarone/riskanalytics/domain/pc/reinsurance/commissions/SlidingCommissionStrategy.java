@@ -5,6 +5,7 @@ import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory;
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier;
 import org.pillarone.riskanalytics.core.util.GroovyUtils;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.utils.InputFormatConverter;
 import org.pillarone.riskanalytics.domain.utils.constraints.DoubleConstraints;
@@ -15,8 +16,8 @@ import java.util.*;
 /**
  * Assigns a commission rate and calculates the commission on ceded premium based on the loss ratio
  * (total losses / total premium).
- *
- * The commission rate is a left-continuous step-function of the loss ratio, with a finite number of jumps.
+ * <p/>
+ * The commission rate is a right-continuous step-function of the loss ratio, with a finite number of jumps.
  * Each step interval, or "commission band", is realized internally as a key-value pair in a Java Map object.
  * Each map entry's key is the interval's left endpoint, and the map's value is the commission rate that
  * applies for loss ratios in the interval. Because the interval's right endpoint is not stored in the map,
@@ -46,8 +47,7 @@ public class SlidingCommissionStrategy implements ICommissionStrategy {
             Arrays.asList(LOSS_RATIO, COMMISSION),
             ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER));
 
-    private LinkedHashMap<Double, Double> commissionRates = null;
-    List<Double> lowerBandLimits = null;
+    private SortedMap<Double, Double> commissionRatePerLossRatio;
 
     public IParameterObjectClassifier getType() {
         return CommissionStrategyType.SLIDINGCOMMISSION;
@@ -59,55 +59,62 @@ public class SlidingCommissionStrategy implements ICommissionStrategy {
         return map;
     }
 
-    public void calculateCommission(List<Claim> claims, List<UnderwritingInfo> underwritingInfos, boolean isFirstPeriod, boolean isAdditive) {
+    public void calculateCommission(List<Claim> claims, List<CededUnderwritingInfo> underwritingInfos, boolean isFirstPeriod, boolean isAdditive) {
         double totalClaims = 0d;
         double totalPremium = 0d;
         for (Claim claim : claims) {
             totalClaims += claim.getUltimate();
         }
-        for (UnderwritingInfo uwInfo : underwritingInfos) {
-            totalPremium += uwInfo.getPremiumWritten();
+        for (UnderwritingInfo underwritingInfo : underwritingInfos) {
+            totalPremium += underwritingInfo.getPremium();
         }
         double totalLossRatio = totalClaims / totalPremium;
-        if (commissionRates == null) setCommissionRates(); // lazy initialization
-
-        double highestMatchingLowerBound = Double.NEGATIVE_INFINITY;
-        for (double entryLossRatio : lowerBandLimits) { // or: use commissionRates.keySet() if lowerBandLimits not desired
-            if ((highestMatchingLowerBound < entryLossRatio) && (entryLossRatio <= totalLossRatio)) {
-                highestMatchingLowerBound = entryLossRatio;
-            }
-        }
-        double commission = commissionRates.get(highestMatchingLowerBound);
+        double commissionRate;
+        if (commissionRatePerLossRatio == null) initCommissionRates();
+        double fixedCommissionRate = commissionRatePerLossRatio.get(commissionRatePerLossRatio.lastKey());
+        if (totalLossRatio < commissionRatePerLossRatio.firstKey())
+            commissionRate = commissionRatePerLossRatio.get(commissionRatePerLossRatio.firstKey());
+        else if (commissionRatePerLossRatio.containsKey(totalLossRatio))
+            commissionRate = commissionRatePerLossRatio.get(totalLossRatio);
+        else
+            commissionRate = commissionRatePerLossRatio.headMap(totalLossRatio).get(commissionRatePerLossRatio.headMap(totalLossRatio).lastKey());
 
         if (isAdditive) {
-            for (UnderwritingInfo uwInfo : underwritingInfos) {
-                uwInfo.setCommission(uwInfo.getCommission() - uwInfo.getPremiumWritten() * commission);
+            for (CededUnderwritingInfo underwritingInfo : underwritingInfos) {
+                double premiumWritten = underwritingInfo.getPremium();
+                underwritingInfo.setCommission(underwritingInfo.getCommission() - premiumWritten * commissionRate);
+                underwritingInfo.setFixedCommission(underwritingInfo.getFixedCommission() - premiumWritten * fixedCommissionRate);
+                underwritingInfo.setVariableCommission(underwritingInfo.getVariableCommission() - premiumWritten * (commissionRate - fixedCommissionRate));
             }
         }
         else {
-            for (UnderwritingInfo uwInfo : underwritingInfos) {
-                uwInfo.setCommission(-uwInfo.getPremiumWritten() * commission);
+            for (CededUnderwritingInfo underwritingInfo : underwritingInfos) {
+                double premiumWritten = underwritingInfo.getPremium();
+                underwritingInfo.setCommission(-premiumWritten * commissionRate);
+                underwritingInfo.setFixedCommission(-premiumWritten * fixedCommissionRate);
+                underwritingInfo.setVariableCommission(-premiumWritten * (commissionRate - fixedCommissionRate));
             }
         }
     }
 
-    private void setCommissionRates() {
-        int numberOfBands = commissionBands.getValueRowCount();
-        lowerBandLimits = new LinkedList<Double>();
-        commissionRates = new LinkedHashMap<Double, Double>(numberOfBands);
-        int columnLossRatio = commissionBands.getColumnIndex(LOSS_RATIO);
-        int columnCommission = commissionBands.getColumnIndex(COMMISSION);
-        double previousLossRatio = Double.NEGATIVE_INFINITY;
-        lowerBandLimits.add(previousLossRatio);
-        commissionRates.put(previousLossRatio, 0d);
-        for (int row = 1; row <= numberOfBands; row++) {
-            double lossRatio = InputFormatConverter.getDouble(commissionBands.getValueAt(row, columnLossRatio));
-            double commission = InputFormatConverter.getDouble(commissionBands.getValueAt(row, columnCommission));
-            lowerBandLimits.add(lossRatio);
-            commissionRates.put(lossRatio, commission);
-            previousLossRatio = lossRatio;
+    private void initCommissionRates() {
+        int numberOfEntries = commissionBands.getValueRowCount();
+        commissionRatePerLossRatio = new TreeMap<Double, Double>();
+        for (int i = 1; i <= numberOfEntries; i++) {
+            double lossRatio = InputFormatConverter.getDouble(commissionBands.getValueAt(i, LOSS_RATIO_COLUMN_INDEX));
+            double commissionRate = InputFormatConverter.getDouble(commissionBands.getValueAt(i, COMMISSION_COLUMN_INDEX));
+            double previousCommissionRate = commissionRate;
+            if (commissionRatePerLossRatio.containsKey(lossRatio))
+                previousCommissionRate = commissionRatePerLossRatio.get(lossRatio);
+            commissionRatePerLossRatio.put(lossRatio, Math.min(previousCommissionRate, commissionRate));
         }
-        // sort lowerBandLimits here if necessary (i.e. if above check is removed)
     }
-        
+
+    public SortedMap<Double, Double> getCommissionRatePerLossRatio() {
+        return commissionRatePerLossRatio;
+    }
+
+    public void setCommissionRatePerLossRatio(SortedMap<Double, Double> commissionRatePerLossRatio) {
+        this.commissionRatePerLossRatio = commissionRatePerLossRatio;
+    }
 }

@@ -11,7 +11,7 @@ import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterObjec
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.SlidingCommissionStrategy
-import org.pillarone.riskanalytics.domain.utils.InputFormatConverter;
+import org.pillarone.riskanalytics.domain.utils.InputFormatConverter
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -95,6 +95,45 @@ public class CommissionStrategyTypeValidator implements IParameterizationValidat
             for (int i = 1; i < type.commissionBands.getRowCount(); i++) {
                 commissions[i - 1] = InputFormatConverter.getDouble(type.commissionBands.getValueAt(i, index))
             }
+            if (commissions.length == 0) {
+                return ["commission.sliding.error.commissions.empty"]
+            }
+            for (int i = 1; i < commissions.length; i++) {
+                if (commissions[i] > commissions[i - 1]) {
+                    return ["commission.sliding.error.commissions.not.decreasing", i, commissions[i - 1], commissions[i]]
+                }
+            }
+            return true
+        }
+
+        validationService.register(CommissionStrategyType.INTERPOLATEDSLIDINGCOMMISSION) {Map type ->
+            double[] lossRatios = type.commissionBands.getColumnByName(SlidingCommissionStrategy.LOSS_RATIO)
+            if (lossRatios.length == 0) {
+                return ["commission.sliding.error.loss.ratios.empty"]
+            }
+            for (int i = 1; i < lossRatios.length; i++) {
+                if (lossRatios[i - 1] > lossRatios[i]) {
+                    return ["commission.sliding.error.loss.ratios.not.increasing", i, lossRatios[i - 1], lossRatios[i]]
+                }
+            }
+            return true
+        }
+
+        validationService.register(CommissionStrategyType.INTERPOLATEDSLIDINGCOMMISSION) {Map type ->
+            double[] commissions = type.commissionBands.getColumnByName(SlidingCommissionStrategy.COMMISSION)
+            if (commissions.length == 0) {
+                return ["commission.sliding.error.commissions.empty"]
+            }
+            for (int i = 0; i < commissions.length; i++) {
+                if (commissions[i] < 0) {
+                    return ["commission.sliding.error.commissions.negative", i, commissions[i]]
+                }
+            }
+            return true
+        }
+
+        validationService.register(CommissionStrategyType.INTERPOLATEDSLIDINGCOMMISSION) {Map type ->
+            double[] commissions = type.commissionBands.getColumnByName(SlidingCommissionStrategy.COMMISSION)
             if (commissions.length == 0) {
                 return ["commission.sliding.error.commissions.empty"]
             }

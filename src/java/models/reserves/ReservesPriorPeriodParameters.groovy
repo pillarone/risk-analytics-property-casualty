@@ -57,9 +57,9 @@ components {
             parmContractStrategy[1]=ReinsuranceContractType.getStrategy(ReinsuranceContractType.QUOTASHARE, ["quotaShare":0.6,"coveredByReinsurer":1.0,])
             parmCommissionStrategy[1] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0.0])
             //todo (sha) the following lines need to be corrected by sku
-//            parmCoveredLines[0]=new ComboBoxTableMultiDimensionalParameter([""],["Covered Lines"], LobMarker)
-//            parmCoveredLines[2]=new ComboBoxTableMultiDimensionalParameter([""],["Covered Lines"], LobMarker)
-//            parmCoveredLines[1]=new ComboBoxTableMultiDimensionalParameter([""],["Covered Lines"], LobMarker)
+//            parmCoveredLines[0]=new ComboBoxTableMultiDimensionalParameter([""],["Covered Segments"], LobMarker)
+//            parmCoveredLines[2]=new ComboBoxTableMultiDimensionalParameter([""],["Covered Segments"], LobMarker)
+//            parmCoveredLines[1]=new ComboBoxTableMultiDimensionalParameter([""],["Covered Segments"], LobMarker)
 //            parmAppliedOnPerils[1]=new ComboBoxTableMultiDimensionalParameter([""],["perils"], PerilMarker)
 //            parmAppliedOnPerils[2]=new ComboBoxTableMultiDimensionalParameter([""],["perils"], PerilMarker)
 //            parmAppliedOnPerils[0]=new ComboBoxTableMultiDimensionalParameter([""],["perils"], PerilMarker)

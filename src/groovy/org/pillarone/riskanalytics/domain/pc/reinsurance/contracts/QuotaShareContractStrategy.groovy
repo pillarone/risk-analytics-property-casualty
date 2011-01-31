@@ -14,6 +14,8 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit.EventLi
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit.EventAalLimitStrategy
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit.NoneLimitStrategy
 import org.apache.commons.lang.NotImplementedException
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoPacketFactory
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -42,7 +44,7 @@ class QuotaShareContractStrategy extends AbstractContractStrategy implements IRe
     double allocateCededClaim(Claim inClaim) {
         switch (limit) {
             case NoneLimitStrategy:
-                return inClaim.ultimate * quotaShare * coveredByReinsurer
+                return inClaim.ultimate * quotaShare
             case AalLimitStrategy:
                 return calculateCoveredLossApplyingAAL(inClaim)
             case AadLimitStrategy:
@@ -63,7 +65,7 @@ class QuotaShareContractStrategy extends AbstractContractStrategy implements IRe
                 cededValue = Math.min(cededValue, eventLimit)
             }
             availableAnnualAggregateLimit -= cededValue
-            return cededValue * coveredByReinsurer
+            return cededValue
         }
         return 0d
     }
@@ -73,7 +75,7 @@ class QuotaShareContractStrategy extends AbstractContractStrategy implements IRe
         if (inClaim.claimType.equals(ClaimType.EVENT) || inClaim.claimType.equals(ClaimType.AGGREGATED_EVENT)) {
             cededValue = Math.min(cededValue, eventLimit)
         }
-        return cededValue * coveredByReinsurer
+        return cededValue
     }
 
     private double calculateCoveredLossApplyingAALAAD(Claim inClaim) {
@@ -87,14 +89,14 @@ class QuotaShareContractStrategy extends AbstractContractStrategy implements IRe
             cededClaim = Math.min(availableAnnualAggregateLimit, inClaim.ultimate * quotaShare)
         }
         availableAnnualAggregateLimit -= cededClaim
-        return cededClaim * coveredByReinsurer
+        return cededClaim
     }
 
     private double calculateCoveredLossApplyingAAL(Claim inClaim) {
         if (availableAnnualAggregateLimit > 0) {
             double cededClaim = Math.min(inClaim.ultimate * quotaShare, availableAnnualAggregateLimit)
             availableAnnualAggregateLimit -= cededClaim
-            return cededClaim * coveredByReinsurer
+            return cededClaim
         }
         else {
             return 0d
@@ -110,17 +112,20 @@ class QuotaShareContractStrategy extends AbstractContractStrategy implements IRe
         else {
             grossAfterAAD = inClaim.ultimate
         }
-        return grossAfterAAD * quotaShare * coveredByReinsurer
+        return grossAfterAAD * quotaShare
     }
 
-    UnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double initialReserves) {
-        UnderwritingInfo cededUnderwritingInfo = UnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
+    CededUnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double initialReserves) {
+        CededUnderwritingInfo cededUnderwritingInfo = CededUnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
         cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo?.originalUnderwritingInfo ? grossUnderwritingInfo.originalUnderwritingInfo : grossUnderwritingInfo
-        cededUnderwritingInfo.premiumWritten *= quotaShare * coveredByReinsurer
-        cededUnderwritingInfo.premiumWrittenAsIf *= quotaShare * coveredByReinsurer
-        cededUnderwritingInfo.sumInsured *= quotaShare * coveredByReinsurer
-        cededUnderwritingInfo.maxSumInsured *= quotaShare * coveredByReinsurer
+        cededUnderwritingInfo.premium *= quotaShare
+        cededUnderwritingInfo.fixedPremium = cededUnderwritingInfo.premium
+        cededUnderwritingInfo.sumInsured *= quotaShare
+        cededUnderwritingInfo.maxSumInsured *= quotaShare 
         cededUnderwritingInfo.commission = 0
+        cededUnderwritingInfo.fixedCommission = 0
+        cededUnderwritingInfo.variableCommission = 0
+        cededUnderwritingInfo.variablePremium = 0
         cededUnderwritingInfo
     }
 

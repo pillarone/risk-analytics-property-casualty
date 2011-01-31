@@ -80,7 +80,7 @@ public class ClaimDevelopmentPacket extends Claim {
 
     /**
      *  This function is not secure in the sense that it does not check if the object itself and
-     *  the obejct received as argument are of equal type.
+     *  the object received as argument are of equal type.
      */
     @Override
     public void plus(Claim claim) {
@@ -111,11 +111,12 @@ public class ClaimDevelopmentPacket extends Claim {
     }
 
     @Override
-    public void scale(double factor) {
+    public ClaimDevelopmentPacket scale(double factor) {
         super.scale(factor);
         paid *= factor;
         reserved *= factor;
         changeInReserves *= factor;
+        return this;
     }
 
     /**
@@ -143,6 +144,7 @@ public class ClaimDevelopmentPacket extends Claim {
         setOriginalPeriod(claim.getOriginalPeriod());
         setChangeInReserves(claim.getChangeInReserves());
         setOriginalClaim(claim.getOriginalClaim());
+        setPayoutPattern(claim.getPayoutPattern());
     }
 
     protected static final String INCURRED = "incurred";

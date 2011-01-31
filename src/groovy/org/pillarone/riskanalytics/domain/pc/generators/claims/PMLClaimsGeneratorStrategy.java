@@ -67,11 +67,13 @@ public class PMLClaimsGeneratorStrategy implements IClaimsGeneratorStrategy {
             int columnIndexReturnPeriod = pmlData.getColumnIndex(RETURN_PERIOD);
             int columnIndexMaxClaim = pmlData.getColumnIndex(MAX_CLAIM);
             for (int row = pmlData.getTitleRowCount(); row < pmlData.getRowCount(); row++) {
-                observations.add(InputFormatConverter.getDouble(pmlData.getValueAt(row, columnIndexMaxClaim)));
-                double returnPeriod = InputFormatConverter.getDouble(pmlData.getValueAt(row, columnIndexReturnPeriod));
-                double frequency = 1 / returnPeriod;
-                frequencies.add(frequency);
-                cumProbabilities.add(1d - frequency / frequencies.get(0));
+                if (!observations.contains(InputFormatConverter.getDouble(pmlData.getValueAt(row, columnIndexMaxClaim)))) {
+                    observations.add(InputFormatConverter.getDouble(pmlData.getValueAt(row, columnIndexMaxClaim)));
+                    double returnPeriod = InputFormatConverter.getDouble(pmlData.getValueAt(row, columnIndexReturnPeriod));
+                    double frequency = 1 / returnPeriod;
+                    frequencies.add(frequency);
+                    cumProbabilities.add(1d - frequency / frequencies.get(0));
+                }
             }
 
             Map<String, TableMultiDimensionalParameter> parameters = new HashMap<String, TableMultiDimensionalParameter>();
@@ -100,7 +102,7 @@ public class PMLClaimsGeneratorStrategy implements IClaimsGeneratorStrategy {
                     lambda = frequencies.get(indexMin) - frequencies.get(indexMax - 2);
                 }
             }
-            else if (claimsSizeModification.getType().equals(DistributionModifier.LEFTTRUNCATEDRIGHTCENSORED)) {
+            else if (claimsSizeModification.getType().equals(DistributionModifier.LEFTTRUNCATEDRIGHTCENSOREDSHIFT)) {
                 double min = (Double) claimsSizeModification.getParameters().get("min");
                 List<Double> observationsAndMin = new ArrayList<Double>();
                 observationsAndMin.addAll(observations);

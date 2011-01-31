@@ -17,6 +17,8 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.core.components.Component
 import org.pillarone.riskanalytics.core.example.component.TestComponent
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoPacketFactory
 
 /**
  * @author shartmann (at) munichre (dot) com, ben.ginsberg (at) intuitive-collaboration (dot) com
@@ -53,25 +55,25 @@ class CommissionTests extends GroovyTestCase {
         return commission
     }
 
-    static UnderwritingInfo getUnderwritingInfo(double premiumWritten, double priorCommission=0) {
-        UnderwritingInfo parent = new UnderwritingInfo(premiumWritten: premiumWritten, commission: priorCommission)
-        UnderwritingInfo child = UnderwritingInfoPacketFactory.copy(parent)
+    static CededUnderwritingInfo getUnderwritingInfo(double premiumWritten, double priorCommission=0) {
+        CededUnderwritingInfo parent = new CededUnderwritingInfo(premium: premiumWritten, commission: priorCommission)
+        CededUnderwritingInfo child = CededUnderwritingInfoPacketFactory.copy(parent)
         child.originalUnderwritingInfo = parent
         return child
     }
 
-    static UnderwritingInfo getUnderwritingInfoFromOrigin(double premiumWritten, double priorCommission=0, Component origin=null) {
-        UnderwritingInfo parent = new UnderwritingInfo(premiumWritten: premiumWritten, commission: priorCommission,
+    static CededUnderwritingInfo getUnderwritingInfoFromOrigin(double premiumWritten, double priorCommission=0, Component origin=null) {
+        CededUnderwritingInfo parent = new CededUnderwritingInfo(premium: premiumWritten, commission: priorCommission,
                                                        origin: origin ? origin : new TestComponent())
-        UnderwritingInfo child = UnderwritingInfoPacketFactory.copy(parent)
+        CededUnderwritingInfo child = CededUnderwritingInfoPacketFactory.copy(parent)
         child.originalUnderwritingInfo = parent
         return child
     }
 
-    static UnderwritingInfo getUnderwritingInfoFromContract(double premiumWritten, double priorCommission=0, IReinsuranceContractMarker contract) {
-        UnderwritingInfo parent = new UnderwritingInfo(premiumWritten: premiumWritten, commission: priorCommission,
+    static CededUnderwritingInfo getUnderwritingInfoFromContract(double premiumWritten, double priorCommission=0, IReinsuranceContractMarker contract) {
+        CededUnderwritingInfo parent = new CededUnderwritingInfo(premium: premiumWritten, commission: priorCommission,
                                                        reinsuranceContract: contract)
-        UnderwritingInfo child = UnderwritingInfoPacketFactory.copy(parent)
+        CededUnderwritingInfo child = CededUnderwritingInfoPacketFactory.copy(parent)
         child.originalUnderwritingInfo = parent
         return child
     }
@@ -92,8 +94,8 @@ class CommissionTests extends GroovyTestCase {
         SimulationScope simulationScope = getTestSimulationScope(2010)
         commission.setSimulationScope simulationScope
 
-        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: 50)
-        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: 5)
+        CededUnderwritingInfo underwritingInfo200 = new CededUnderwritingInfo(premium: 200, commission: 50)
+        CededUnderwritingInfo underwritingInfo100 = new CededUnderwritingInfo(premium: 100, commission: 5)
         commission.inUnderwritingInfo << underwritingInfo200 << underwritingInfo100
 
         commission.doCalculation()
@@ -116,8 +118,8 @@ class CommissionTests extends GroovyTestCase {
 
         commission.setSimulationScope getTestSimulationScope(2010)
 
-        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: -50)
-        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: -5)
+        CededUnderwritingInfo underwritingInfo200 = new CededUnderwritingInfo(premium: 200, commission: -50)
+        CededUnderwritingInfo underwritingInfo100 = new CededUnderwritingInfo(premium: 100, commission: -5)
         commission.inUnderwritingInfo << underwritingInfo200 << underwritingInfo100
 
         commission.doCalculation()
@@ -137,7 +139,7 @@ class CommissionTests extends GroovyTestCase {
         commission.inUnderwritingInfo << getUnderwritingInfo(50d, -0d)
         commission.inClaims << claim01
         commission.doCalculation()
-        assertEquals 'totalPremiumWritten', 50, commission.outUnderwritingInfoModified[0].premiumWritten
+        assertEquals 'totalPremiumWritten', 50, commission.outUnderwritingInfoModified[0].premium
         assertEquals 'underwritingInfo050 (1)', -50 * 0.2, commission.outUnderwritingInfoModified[0].commission, 1E-10
 
         commission = getSlidingCommission()
@@ -194,7 +196,7 @@ class CommissionTests extends GroovyTestCase {
 
         commission.inClaims << new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 50d)
 
-        commission.inUnderwritingInfo << new UnderwritingInfo(premiumWritten: 100, commission: -0)
+        commission.inUnderwritingInfo << new CededUnderwritingInfo(premium: 100, commission: -0)
 
         commission.doCalculation()
 
@@ -209,8 +211,8 @@ class CommissionTests extends GroovyTestCase {
         SimulationScope simulationScope = getTestSimulationScope(2010)
         simulationScope.model.allComponents << contract1 << contract2
 
-        UnderwritingInfo underwritingInfo100 = getUnderwritingInfoFromContract(100, -5, contract1)
-        UnderwritingInfo underwritingInfo200 = getUnderwritingInfoFromContract(200, -50, contract2)
+        CededUnderwritingInfo underwritingInfo100 = getUnderwritingInfoFromContract(100, -5, contract1)
+        CededUnderwritingInfo underwritingInfo200 = getUnderwritingInfoFromContract(200, -50, contract2)
 
         ComboBoxTableMultiDimensionalParameter applicableContracts = new ComboBoxTableMultiDimensionalParameter(
                 ['selected contract'], ['Applicable Contracts'], IReinsuranceContractMarker)
@@ -252,9 +254,9 @@ class CommissionTests extends GroovyTestCase {
         )
         // contracts 1 & 2 are covered (an extra 30% commission applies to them) but contract 0 is not (no extra commission)
 
-        UnderwritingInfo underwritingInfo1 = getUnderwritingInfoFromContract(60, -1, contract1)
-        UnderwritingInfo underwritingInfo2 = getUnderwritingInfoFromContract(40, -2, contract2)
-        UnderwritingInfo underwritingInfo3 = getUnderwritingInfoFromContract(20, -4, contract0)
+        CededUnderwritingInfo underwritingInfo1 = getUnderwritingInfoFromContract(60, -1, contract1)
+        CededUnderwritingInfo underwritingInfo2 = getUnderwritingInfoFromContract(40, -2, contract2)
+        CededUnderwritingInfo underwritingInfo3 = getUnderwritingInfoFromContract(20, -4, contract0)
         commission.inUnderwritingInfo << underwritingInfo1 << underwritingInfo2 << underwritingInfo3
         // An extra 30% commission applies to UWInfo 100 & 200 but not 300
 
@@ -292,12 +294,12 @@ class CommissionTests extends GroovyTestCase {
         )
         // contracts 1 & 2 are covered (an extra 30% commission applies to them) but contract 0 is not (no extra commission)
 
-        UnderwritingInfo underwritingInfo1 = getUnderwritingInfoFromContract(10, -1, contract1)
-        UnderwritingInfo underwritingInfo2 = getUnderwritingInfoFromContract(20, -2, contract1)
-        UnderwritingInfo underwritingInfo3 = getUnderwritingInfoFromContract(30, -3, contract1)
-        UnderwritingInfo underwritingInfo4 = getUnderwritingInfoFromContract(40, -4, contract2)
-        UnderwritingInfo underwritingInfo5 = getUnderwritingInfoFromContract(50, -5, contract2)
-        UnderwritingInfo underwritingInfo6 = getUnderwritingInfoFromContract(60, -6, contract0)
+        CededUnderwritingInfo underwritingInfo1 = getUnderwritingInfoFromContract(10, -1, contract1)
+        CededUnderwritingInfo underwritingInfo2 = getUnderwritingInfoFromContract(20, -2, contract1)
+        CededUnderwritingInfo underwritingInfo3 = getUnderwritingInfoFromContract(30, -3, contract1)
+        CededUnderwritingInfo underwritingInfo4 = getUnderwritingInfoFromContract(40, -4, contract2)
+        CededUnderwritingInfo underwritingInfo5 = getUnderwritingInfoFromContract(50, -5, contract2)
+        CededUnderwritingInfo underwritingInfo6 = getUnderwritingInfoFromContract(60, -6, contract0)
         commission.inUnderwritingInfo << underwritingInfo1 << underwritingInfo2 << underwritingInfo3
         commission.inUnderwritingInfo << underwritingInfo4 << underwritingInfo5 << underwritingInfo6
         // An extra 30% commission applies to UWInfo 1-5 but not UWInfo 6

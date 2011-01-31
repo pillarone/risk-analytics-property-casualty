@@ -54,7 +54,7 @@ public class FrequencyGenerator extends GeneratorCachingComponent {
         IRandomNumberGenerator generator = getCachedGenerator(parmDistribution, modifier);
         Frequency frequency = FrequencyPacketFactory.createPacket();
         if (parmBase.equals(FrequencyBase.NUMBER_OF_POLICIES)) {
-            frequency.value = (((Double) generator.nextValue()) * inUnderwritingInfo.get(0).numberOfPolicies);
+            frequency.value = (((Double) generator.nextValue()) * inUnderwritingInfo.get(0).getNumberOfPolicies());
         } else {
             frequency.value = generator.nextValue().intValue();
         }

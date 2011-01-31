@@ -47,6 +47,72 @@ mappings = {
                         }
                     }
                 }
+                "underwriting" {
+                    "premium" {
+                        "[%contract%]" "Podra:reinsurance:subContracts:[%contract%]:outNetAfterCoverUnderwritingInfo:premium", {
+                        }
+                        "ceded" {
+                            "[%contract%]" "Podra:reinsurance:subContracts:[%contract%]:outCoverUnderwritingInfo:premium", {
+                                "fixedPremium" "Podra:reinsurance:subContracts:[%contract%]:outCoverUnderwritingInfo:fixedPremium"
+                                "variablePremium" "Podra:reinsurance:subContracts:[%contract%]:outCoverUnderwritingInfo:variablePremium"
+                                "bySegments" {
+                                    "[%lineOfBusiness%]" "Podra:reinsurance:subContracts:[%contract%]:linesOfBusiness:[%lineOfBusiness%]:outCoverUnderwritingInfo:premium", {
+                                        "fixedPremium" "Podra:reinsurance:subContracts:[%contract%]:linesOfBusiness:[%lineOfBusiness%]:outCoverUnderwritingInfo:fixedPremium"
+                                        "variablePremium" "Podra:reinsurance:subContracts:[%contract%]:linesOfBusiness:[%lineOfBusiness%]:outCoverUnderwritingInfo:variablePremium"
+                                    }
+                                }
+                                "byPerils" {
+                                    "[%peril%]" "Podra:reinsurance:subContracts:[%contract%]:claimsGenerators:[%peril%]:outCoverUnderwritingInfo:premium", {
+                                        "fixedPremium" "Podra:reinsurance:subContracts:[%contract%]:claimsGenerators:[%peril%]:outCoverUnderwritingInfo:fixedPremium"
+                                        "variablePremium" "Podra:reinsurance:subContracts:[%contract%]:claimsGenerators:[%peril%]:outCoverUnderwritingInfo:variablePremium"
+                                    }
+                                }
+                            }
+                        }
+                        "gross" {
+                            "[%contract%]" "Podra:reinsurance:subContracts:[%contract%]:outUnderwritingInfo:premium", {
+                                "bySegments" {
+                                    "[%lineOfBusiness%]" "Podra:reinsurance:subContracts:[%contract%]:linesOfBusiness:[%lineOfBusiness%]:outUnderwritingInfo:premium"
+                                }
+                                "byPerils" {
+                                    "[%peril%]" "Podra:reinsurance:subContracts:[%contract%]:claimsGenerators:[%peril%]:outUnderwritingInfo:premium"
+                                }
+                            }
+                        }
+                    }
+                    "commission" {
+                        "[%contract%]" "Podra:reinsurance:subContracts:[%contract%]:outNetAfterCoverUnderwritingInfo:commission", {
+                        }
+                        "ceded" {
+                            "[%contract%]" "Podra:reinsurance:subContracts:[%contract%]:outCoverUnderwritingInfo:commission", {
+                                "fixedCommission" "Podra:reinsurance:subContracts:[%contract%]:outCoverUnderwritingInfo:fixedCommission"
+                                "variableCommission" "Podra:reinsurance:subContracts:[%contract%]:outCoverUnderwritingInfo:variableCommission"
+                                "bySegments" {
+                                    "[%lineOfBusiness%]" "Podra:reinsurance:subContracts:[%contract%]:linesOfBusiness:[%lineOfBusiness%]:outCoverUnderwritingInfo:commission", {
+                                        "fixedCommission" "Podra:reinsurance:subContracts:[%contract%]:linesOfBusiness:[%lineOfBusiness%]:outCoverUnderwritingInfo:fixedCommission"
+                                        "variableCommission" "Podra:reinsurance:subContracts:[%contract%]:linesOfBusiness:[%lineOfBusiness%]:outCoverUnderwritingInfo:variableCommission"
+                                    }
+                                }
+                                "byPerils" {
+                                    "[%peril%]" "Podra:reinsurance:subContracts:[%contract%]:claimsGenerators:[%peril%]:outCoverUnderwritingInfo:commission", {
+                                        "fixedCommission" "Podra:reinsurance:subContracts:[%contract%]:claimsGenerators:[%peril%]:outCoverUnderwritingInfo:fixedCommission"
+                                        "variableCommission" "Podra:reinsurance:subContracts:[%contract%]:claimsGenerators:[%peril%]:outCoverUnderwritingInfo:variableCommission"
+                                    }
+                                }
+                            }
+                        }
+                        "gross" {
+                            "[%contract%]" "Podra:reinsurance:subContracts:[%contract%]:outUnderwritingInfo:commission", {
+                                "bySegments" {
+                                    "[%lineOfBusiness%]" "Podra:reinsurance:subContracts:[%contract%]:linesOfBusiness:[%lineOfBusiness%]:outUnderwritingInfo:commission"
+                                }
+                                "byPerils" {
+                                    "[%peril%]" "Podra:reinsurance:subContracts:[%contract%]:claimsGenerators:[%peril%]:outUnderwritingInfo:commission"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }

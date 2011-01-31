@@ -127,7 +127,7 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         boolean hasLines = cover.containsKey('lines')
         boolean hasPerils = cover.containsKey('perils')
 
-        ComboBoxTableMultiDimensionalParameter lines = hasLines ? new ComboBoxTableMultiDimensionalParameter(cover['lines'], ['Covered Lines'], LobMarker) : null
+        ComboBoxTableMultiDimensionalParameter lines = hasLines ? new ComboBoxTableMultiDimensionalParameter(cover['lines'], ['Covered Segments'], LobMarker) : null
         ComboBoxTableMultiDimensionalParameter perils = hasPerils ? new ComboBoxTableMultiDimensionalParameter(cover['perils'], ['Covered Perils'], PerilMarker) : null
 
         // each of the strategy-specific ComboBoxTableMultiDimensionalParameter properties needs to set the simulation model (to simulate a choice from the GUI)
@@ -436,10 +436,10 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         ClaimDevelopmentPacket claim800 = new ClaimDevelopmentPacket(incurred: 800, paid: 480, reserved: 320, changeInReserves: 480, originalClaim: new Claim())
         contract.inClaims << claim1000 << claim800
 
-        UnderwritingInfo originalUnderwritingInfo200 = new UnderwritingInfo(premiumWritten: 202, commission: 17)
-        UnderwritingInfo originalUnderwritingInfo100 = new UnderwritingInfo(premiumWritten: 101, commission: 7)
-        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: 13, originalUnderwritingInfo: originalUnderwritingInfo200)
-        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: 3, originalUnderwritingInfo: originalUnderwritingInfo100)
+        UnderwritingInfo originalUnderwritingInfo200 = new UnderwritingInfo(premium: 202, commission: 17)
+        UnderwritingInfo originalUnderwritingInfo100 = new UnderwritingInfo(premium: 101, commission: 7)
+        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premium: 200, commission: 13, originalUnderwritingInfo: originalUnderwritingInfo200)
+        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premium: 100, commission: 3, originalUnderwritingInfo: originalUnderwritingInfo100)
         contract.inUnderwritingInfo << underwritingInfo200 << underwritingInfo100
 
         def wiredUWInfoFiltered = new TestProbe(contract, 'outFilteredUnderwritingInfo')
@@ -451,8 +451,8 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         assertEquals 'number of UnderwritingInfo packets ceded after contract', 2, contract.outCoverUnderwritingInfo.size()
         assertEquals 'number of UnderwritingInfo packets net after contract', 0, contract.outNetAfterCoverUnderwritingInfo.size()
 
-        assertEquals 'underwritinginfo200 ceded premium written after contract', 50, contract.outCoverUnderwritingInfo[0].premiumWritten
-        assertEquals 'underwritinginfo100 ceded premium written after contract', 25, contract.outCoverUnderwritingInfo[1].premiumWritten
+        assertEquals 'underwritinginfo200 ceded premium written after contract', 50, contract.outCoverUnderwritingInfo[0].premium
+        assertEquals 'underwritinginfo100 ceded premium written after contract', 25, contract.outCoverUnderwritingInfo[1].premium
         assertEquals 'underwritinginfo200 ceded commission after contract', -0.2 * 0.25 * 200, contract.outCoverUnderwritingInfo[0].commission
         assertEquals 'underwritinginfo100 ceded commission after contract', -0.2 * 0.25 * 100, contract.outCoverUnderwritingInfo[1].commission
     }
@@ -470,10 +470,10 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         ClaimDevelopmentPacket claim800 = new ClaimDevelopmentPacket(incurred: 800, paid: 480, reserved: 320, changeInReserves: 480, originalClaim: new Claim())
         contract.inClaims << claim1000 << claim800
 
-        UnderwritingInfo originalUnderwritingInfo200 = new UnderwritingInfo(premiumWritten: 202, commission: 17)
-        UnderwritingInfo originalUnderwritingInfo100 = new UnderwritingInfo(premiumWritten: 101, commission: 7)
-        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: 13, originalUnderwritingInfo: originalUnderwritingInfo200)
-        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: 3, originalUnderwritingInfo: originalUnderwritingInfo100)
+        UnderwritingInfo originalUnderwritingInfo200 = new UnderwritingInfo(premium: 202, commission: 17)
+        UnderwritingInfo originalUnderwritingInfo100 = new UnderwritingInfo(premium: 101, commission: 7)
+        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premium: 200, commission: 13, originalUnderwritingInfo: originalUnderwritingInfo200)
+        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premium: 100, commission: 3, originalUnderwritingInfo: originalUnderwritingInfo100)
         contract.inUnderwritingInfo << underwritingInfo200 << underwritingInfo100
 
         def wiredUWInfoFiltered = new TestProbe(contract, 'outFilteredUnderwritingInfo')
@@ -486,14 +486,14 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         assertEquals 'number of UnderwritingInfo packets net after contract', 2, contract.outNetAfterCoverUnderwritingInfo.size()
 
         // these values should be the same as in testUnderwritingInfoCededButNotNetWired (because when Net is wired, Ceded is also calculated)
-        assertEquals 'underwritinginfo200 ceded premium written after contract', 50, contract.outCoverUnderwritingInfo[0].premiumWritten
-        assertEquals 'underwritinginfo100 ceded premium written after contract', 25, contract.outCoverUnderwritingInfo[1].premiumWritten
+        assertEquals 'underwritinginfo200 ceded premium written after contract', 50, contract.outCoverUnderwritingInfo[0].premium
+        assertEquals 'underwritinginfo100 ceded premium written after contract', 25, contract.outCoverUnderwritingInfo[1].premium
         assertEquals 'underwritinginfo200 ceded commission after contract', -0.2 * 0.25 * 200, contract.outCoverUnderwritingInfo[0].commission
         assertEquals 'underwritinginfo100 ceded commission after contract', -0.2 * 0.25 * 100, contract.outCoverUnderwritingInfo[1].commission
 
         // these values were not present in testUnderwritingInfoCededButNotNetWired (since Net was not wired, only Ceded)
-        assertEquals 'underwritinginfo200 net premium written after contract', 150, contract.outNetAfterCoverUnderwritingInfo[0].premiumWritten
-        assertEquals 'underwritinginfo100 net premium written after contract', 75, contract.outNetAfterCoverUnderwritingInfo[1].premiumWritten
+        assertEquals 'underwritinginfo200 net premium written after contract', 150, contract.outNetAfterCoverUnderwritingInfo[0].premium
+        assertEquals 'underwritinginfo100 net premium written after contract', 75, contract.outNetAfterCoverUnderwritingInfo[1].premium
         assertEquals 'underwritinginfo200 net commission after contract', 0.2 * 0.25 * 200, contract.outNetAfterCoverUnderwritingInfo[0].commission
         assertEquals 'underwritinginfo100 net commission after contract', 0.2 * 0.25 * 100, contract.outNetAfterCoverUnderwritingInfo[1].commission
     }
@@ -511,10 +511,10 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         ClaimDevelopmentPacket claim800 = new ClaimDevelopmentPacket(incurred: 800, paid: 480, reserved: 320, changeInReserves: 480, originalClaim: new Claim())
         contract.inClaims << claim1000 << claim800
 
-        UnderwritingInfo originalUnderwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: 50)
-        UnderwritingInfo originalUnderwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: 5)
-        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: 50, originalUnderwritingInfo: originalUnderwritingInfo200)
-        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: 5, originalUnderwritingInfo: originalUnderwritingInfo100)
+        UnderwritingInfo originalUnderwritingInfo200 = new UnderwritingInfo(premium: 200, commission: 50)
+        UnderwritingInfo originalUnderwritingInfo100 = new UnderwritingInfo(premium: 100, commission: 5)
+        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premium: 200, commission: 50, originalUnderwritingInfo: originalUnderwritingInfo200)
+        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premium: 100, commission: 5, originalUnderwritingInfo: originalUnderwritingInfo100)
         contract.inUnderwritingInfo << underwritingInfo200 << underwritingInfo100
 
         def netClaims = new TestProbe(contract, 'outUncoveredClaims')
@@ -547,10 +547,10 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         ClaimDevelopmentPacket claim800 = new ClaimDevelopmentPacket(incurred: 800, paid: 480, reserved: 320, changeInReserves: 480, originalClaim: new Claim())
         contract.inClaims << claim1000 << claim800
 
-        UnderwritingInfo originalUnderwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: 50)
-        UnderwritingInfo originalUnderwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: 5)
-        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premiumWritten: 200, commission: 50, originalUnderwritingInfo: originalUnderwritingInfo200)
-        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premiumWritten: 100, commission: 5, originalUnderwritingInfo: originalUnderwritingInfo100)
+        UnderwritingInfo originalUnderwritingInfo200 = new UnderwritingInfo(premium: 200, commission: 50)
+        UnderwritingInfo originalUnderwritingInfo100 = new UnderwritingInfo(premium: 100, commission: 5)
+        UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(premium: 200, commission: 50, originalUnderwritingInfo: originalUnderwritingInfo200)
+        UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(premium: 100, commission: 5, originalUnderwritingInfo: originalUnderwritingInfo100)
         contract.inUnderwritingInfo << underwritingInfo200 << underwritingInfo100
 
         def netClaims = new TestProbe(contract, 'outUncoveredClaims')
@@ -594,14 +594,14 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         Claim claim111 = new Claim(lineOfBusiness: lob['hull'], peril: perilB, value: 7000, fractionOfPeriod: 0.9, claimType: ClaimType.SINGLE)
         Claim claim112 = new Claim(lineOfBusiness: lob['hull'], peril: perilB, value: 8000, fractionOfPeriod: 0.7, claimType: ClaimType.ATTRITIONAL)
 
-        UnderwritingInfo uInfo001 = new UnderwritingInfo(lineOfBusiness: lob['fire'], origin: perilA, premiumWritten: 120, commission: 11)
-        UnderwritingInfo uInfo002 = new UnderwritingInfo(lineOfBusiness: lob['fire'], origin: perilA, premiumWritten: 220, commission: 13)
-        UnderwritingInfo uInfo011 = new UnderwritingInfo(lineOfBusiness: lob['fire'], origin: perilB, premiumWritten: 130, commission: 17)
-        UnderwritingInfo uInfo012 = new UnderwritingInfo(lineOfBusiness: lob['fire'], origin: perilB, premiumWritten: 230, commission: 19)
-        UnderwritingInfo uInfo101 = new UnderwritingInfo(lineOfBusiness: lob['hull'], origin: perilA, premiumWritten: 320, commission: 11)
-        UnderwritingInfo uInfo102 = new UnderwritingInfo(lineOfBusiness: lob['hull'], origin: perilA, premiumWritten: 420, commission: 13)
-        UnderwritingInfo uInfo111 = new UnderwritingInfo(lineOfBusiness: lob['hull'], origin: perilB, premiumWritten: 330, commission: 17)
-        UnderwritingInfo uInfo112 = new UnderwritingInfo(lineOfBusiness: lob['hull'], origin: perilB, premiumWritten: 430, commission: 19)
+        UnderwritingInfo uInfo001 = new UnderwritingInfo(lineOfBusiness: lob['fire'], origin: perilA, premium: 120, commission: 11)
+        UnderwritingInfo uInfo002 = new UnderwritingInfo(lineOfBusiness: lob['fire'], origin: perilA, premium: 220, commission: 13)
+        UnderwritingInfo uInfo011 = new UnderwritingInfo(lineOfBusiness: lob['fire'], origin: perilB, premium: 130, commission: 17)
+        UnderwritingInfo uInfo012 = new UnderwritingInfo(lineOfBusiness: lob['fire'], origin: perilB, premium: 230, commission: 19)
+        UnderwritingInfo uInfo101 = new UnderwritingInfo(lineOfBusiness: lob['hull'], origin: perilA, premium: 320, commission: 11)
+        UnderwritingInfo uInfo102 = new UnderwritingInfo(lineOfBusiness: lob['hull'], origin: perilA, premium: 420, commission: 13)
+        UnderwritingInfo uInfo111 = new UnderwritingInfo(lineOfBusiness: lob['hull'], origin: perilB, premium: 330, commission: 17)
+        UnderwritingInfo uInfo112 = new UnderwritingInfo(lineOfBusiness: lob['hull'], origin: perilB, premium: 430, commission: 19)
 
         // wire all out channels
         List outChannelsWired = [
@@ -635,10 +635,10 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         // claims are filtered by peril and lob (=> hull/B),
         assertEquals "filtered claims", "7000.0, 8000.0", (contract.outFilteredClaims.collect {it.value}).join(", ") // Q: should fractionOfPeriod force the reverse order of packets?
         // underwriting by lob but not by peril (=> hull/A, hull/B)
-        assertEquals "filtered uwinfo", "320.0, 420.0, 330.0, 430.0", (contract.outFilteredUnderwritingInfo.collect {it.premiumWritten}).join(", ")
-        assertEquals "ceded premium written", "80.0, 105.0, 82.5, 107.5", (contract.outCoverUnderwritingInfo.collect {it.premiumWritten}).join(", ")
+        assertEquals "filtered uwinfo", "320.0, 420.0, 330.0, 430.0", (contract.outFilteredUnderwritingInfo.collect {it.premium}).join(", ")
+        assertEquals "ceded premium written", "80.0, 105.0, 82.5, 107.5", (contract.outCoverUnderwritingInfo.collect {it.premium}).join(", ")
         assertEquals "ceded commission", "-16.0, -21.0, -16.5, -21.5", (contract.outCoverUnderwritingInfo.collect {it.commission}).join(", ")
-        assertEquals "net premium written", "240.0, 315.0, 247.5, 322.5", (contract.outNetAfterCoverUnderwritingInfo.collect {it.premiumWritten}).join(", ")
+        assertEquals "net premium written", "240.0, 315.0, 247.5, 322.5", (contract.outNetAfterCoverUnderwritingInfo.collect {it.premium}).join(", ")
         assertEquals "net commission", "16.0, 21.0, 16.5, 21.5", (contract.outNetAfterCoverUnderwritingInfo.collect {it.commission}).join(", ")
     }
 }

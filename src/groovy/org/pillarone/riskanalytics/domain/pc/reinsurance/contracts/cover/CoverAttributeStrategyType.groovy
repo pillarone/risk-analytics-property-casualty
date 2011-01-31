@@ -19,7 +19,7 @@ class CoverAttributeStrategyType extends AbstractParameterObjectClassifier {
     public static final CoverAttributeStrategyType NONE = new CoverAttributeStrategyType("none", "NONE", [:])
     public static final CoverAttributeStrategyType LINESOFBUSINESS = new CoverAttributeStrategyType(
             'lines of business', 'LINESOFBUSINESS',
-            ['lines':new ComboBoxTableMultiDimensionalParameter([], ['Covered Lines'], LobMarker.class)])
+            ['lines':new ComboBoxTableMultiDimensionalParameter([], ['Covered Segments'], LobMarker.class)])
     public static final CoverAttributeStrategyType PERILS = new CoverAttributeStrategyType(
             'perils', 'PERILS',
             ['perils':new ComboBoxTableMultiDimensionalParameter([], ['Covered Perils'], PerilMarker.class)])
@@ -29,12 +29,12 @@ class CoverAttributeStrategyType extends AbstractParameterObjectClassifier {
     public static final CoverAttributeStrategyType LINESOFBUSINESSPERILS = new CoverAttributeStrategyType(
             'lines of business, perils', 'LINESOFBUSINESSPERILS',
             ['connection': LogicArguments.AND,
-             'lines':new ComboBoxTableMultiDimensionalParameter([], ['Covered Lines'], LobMarker.class),
+             'lines':new ComboBoxTableMultiDimensionalParameter([], ['Covered Segments'], LobMarker.class),
              'perils':new ComboBoxTableMultiDimensionalParameter([], ['Covered Perils'], PerilMarker.class)])
     public static final CoverAttributeStrategyType LINESOFBUSINESSRESERVES = new CoverAttributeStrategyType(
             'lines of business, reserves', 'LINESOFBUSINESSRESERVES',
             ['connection': LogicArguments.AND,
-             'lines':new ComboBoxTableMultiDimensionalParameter([], ['Covered Lines'], LobMarker.class),
+             'lines':new ComboBoxTableMultiDimensionalParameter([], ['Covered Segments'], LobMarker.class),
              'reserves':new ComboBoxTableMultiDimensionalParameter([], ['Covered Reserves'], IReserveMarker.class)])
 
     public static final all = [ALL, NONE, LINESOFBUSINESS, PERILS, LINESOFBUSINESSPERILS, RESERVES, LINESOFBUSINESSRESERVES]
@@ -64,38 +64,38 @@ class CoverAttributeStrategyType extends AbstractParameterObjectClassifier {
     }
 
     public static ICoverAttributeStrategy getStrategy(CoverAttributeStrategyType type, Map parameters) {
-        ICoverAttributeStrategy commissionStrategy ;
+        ICoverAttributeStrategy coverStrategy ;
         switch (type) {
             case CoverAttributeStrategyType.ALL:
-                commissionStrategy = new AllCoverAttributeStrategy(reserves : (IncludeType) parameters['reserves'])
+                coverStrategy = new AllCoverAttributeStrategy(reserves : (IncludeType) parameters['reserves'])
                 break
             case CoverAttributeStrategyType.NONE:
-                commissionStrategy = new NoneCoverAttributeStrategy()
+                coverStrategy = new NoneCoverAttributeStrategy()
                 break
             case CoverAttributeStrategyType.LINESOFBUSINESS:
-                commissionStrategy = new LineOfBusinessCoverAttributeStrategy(lines: (ComboBoxTableMultiDimensionalParameter) parameters['lines'])
+                coverStrategy = new LineOfBusinessCoverAttributeStrategy(lines: (ComboBoxTableMultiDimensionalParameter) parameters['lines'])
                 break
             case CoverAttributeStrategyType.PERILS:
-                commissionStrategy = new PerilsCoverAttributeStrategy(perils: (ComboBoxTableMultiDimensionalParameter) parameters['perils'])
+                coverStrategy = new PerilsCoverAttributeStrategy(perils: (ComboBoxTableMultiDimensionalParameter) parameters['perils'])
                 break
             case CoverAttributeStrategyType.RESERVES:
-                commissionStrategy = new ReservesCoverAttributeStrategy(reserves: (ComboBoxTableMultiDimensionalParameter) parameters['reserves'])
+                coverStrategy = new ReservesCoverAttributeStrategy(reserves: (ComboBoxTableMultiDimensionalParameter) parameters['reserves'])
                 break
             case CoverAttributeStrategyType.LINESOFBUSINESSPERILS:
-                commissionStrategy = new LineOfBusinessPerilsCoverAttributeStrategy(
+                coverStrategy = new LineOfBusinessPerilsCoverAttributeStrategy(
                         lines: (ComboBoxTableMultiDimensionalParameter) parameters['lines'],
                         perils: (ComboBoxTableMultiDimensionalParameter) parameters['perils'],
                         connection: (LogicArguments) parameters['connection']
                 )
                 break
             case CoverAttributeStrategyType.LINESOFBUSINESSRESERVES:
-                commissionStrategy = new LineOfBusinessReservesCoverAttributeStrategy(
+                coverStrategy = new LineOfBusinessReservesCoverAttributeStrategy(
                         lines: (ComboBoxTableMultiDimensionalParameter) parameters['lines'],
                         reserves: (ComboBoxTableMultiDimensionalParameter) parameters['reserves'],
                         connection: (LogicArguments) parameters['connection']
                 )
                 break
         }
-        return commissionStrategy;
+        return coverStrategy;
     }
 }

@@ -51,8 +51,8 @@ class UnderwritingInfoFilterTests extends GroovyTestCase {
         underwritingInfoFilter.doCalculation()
         assertEquals "#fire underwriting info", 2, underwritingInfoFilter.outUnderwritingInfo.size()
 
-        assertEquals "fire gross premium 0", 2000, underwritingInfoFilter.outUnderwritingInfo[0].premiumWritten
-        assertEquals "fire ceded premium 0", 2000, underwritingInfoFilter.outUnderwritingInfo[1].premiumWritten
+        assertEquals "fire gross premium 0", 2000, underwritingInfoFilter.outUnderwritingInfo[0].premium
+        assertEquals "fire ceded premium 0", 2000, underwritingInfoFilter.outUnderwritingInfo[1].premium
 
         underwritingInfoFilter.reset()
 
@@ -70,6 +70,6 @@ class UnderwritingInfoFilterTests extends GroovyTestCase {
         underwritingInfoFilter.doCalculation()
         assertEquals "#hull underwriting info", 1, underwritingInfoFilter.outUnderwritingInfo.size()
 
-        assertEquals "hull gross premium 1", 500, underwritingInfoFilter.outUnderwritingInfo[0].premiumWritten
+        assertEquals "hull gross premium 1", 500, underwritingInfoFilter.outUnderwritingInfo[0].premium
     }
 }

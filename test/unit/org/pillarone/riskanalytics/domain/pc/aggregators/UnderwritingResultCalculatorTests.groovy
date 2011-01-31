@@ -12,7 +12,7 @@ public class UnderwritingResultCalculatorTests extends GroovyTestCase {
     void testUsage() {
         UnderwritingResultCalculator underwritingResultCalculator = new UnderwritingResultCalculator()
         underwritingResultCalculator.inClaims << new Claim(value: 50)
-        underwritingResultCalculator.inUnderwritingInfo << new UnderwritingInfo(premiumWritten: 80, commission: 15)
+        underwritingResultCalculator.inUnderwritingInfo << new UnderwritingInfo(premium: 80, commission: 15)
 
         underwritingResultCalculator.doCalculation()
         assertEquals "result", 45, underwritingResultCalculator.outUnderwritingResult[0].result
@@ -21,8 +21,8 @@ public class UnderwritingResultCalculatorTests extends GroovyTestCase {
     void testMultiplePacketInput() {
         UnderwritingResultCalculator underwritingResultCalculator = new UnderwritingResultCalculator()
         underwritingResultCalculator.inClaims << new Claim(value: 50) << new Claim(value: 60)
-        underwritingResultCalculator.inUnderwritingInfo << new UnderwritingInfo(premiumWritten: 80, commission: 15)
-        underwritingResultCalculator.inUnderwritingInfo << new UnderwritingInfo(premiumWritten: 100, commission: 20)
+        underwritingResultCalculator.inUnderwritingInfo << new UnderwritingInfo(premium: 80, commission: 15)
+        underwritingResultCalculator.inUnderwritingInfo << new UnderwritingInfo(premium: 100, commission: 20)
 
         underwritingResultCalculator.doCalculation()
         assertEquals "premium", 180, underwritingResultCalculator.outUnderwritingResult[0].premium

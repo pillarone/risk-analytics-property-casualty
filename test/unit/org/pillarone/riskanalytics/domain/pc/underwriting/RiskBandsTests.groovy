@@ -10,29 +10,26 @@ class RiskBandsTests extends GroovyTestCase {
 
     static UnderwritingInfo getUnderwritingInfo0() {
         return new UnderwritingInfo(
-                premiumWrittenAsIf: 5000d,
                 numberOfPolicies: 1000d,
                 sumInsured: 80d,
                 maxSumInsured: 100d,
-                premiumWritten: 5000d)
+                premium: 5000d)
     }
     // second band: ceded = (200-100)/200 = 0.5
     static UnderwritingInfo getUnderwritingInfo1() {
         return new UnderwritingInfo(
-                premiumWrittenAsIf: 2000d,
                 numberOfPolicies: 100d,
                 sumInsured: 200d,
                 maxSumInsured: 400d,
-                premiumWritten: 2000d)
+                premium: 2000d)
     }
     // third band: ceded = (400-100)/500 = 0.6
     static UnderwritingInfo getUnderwritingInfo2() {
         return new UnderwritingInfo(
-                premiumWrittenAsIf: 4000d,
                 numberOfPolicies: 50d,
                 sumInsured: 500d,
                 maxSumInsured: 800d,
-                premiumWritten: 4000d)
+                premium: 4000d)
     }
 
     static List<UnderwritingInfo> getUnderwritingInfos() {

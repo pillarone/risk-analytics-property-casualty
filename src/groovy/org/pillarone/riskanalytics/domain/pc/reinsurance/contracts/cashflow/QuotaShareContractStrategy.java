@@ -1,6 +1,8 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cashflow;
 
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo;
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoPacketFactory;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory;
 
@@ -33,18 +35,17 @@ public class QuotaShareContractStrategy extends AbstractContractStrategy {
         return cededClaim;
     }
 
-    public UnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double coveredByReinsurer) {
-        UnderwritingInfo cededUnderwritingInfo = UnderwritingInfoPacketFactory.copy(grossUnderwritingInfo);
+    public CededUnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double coveredByReinsurer) {
+        CededUnderwritingInfo cededUnderwritingInfo = CededUnderwritingInfoPacketFactory.copy(grossUnderwritingInfo);
         if (grossUnderwritingInfo != null) {
-            cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo.originalUnderwritingInfo;
+            cededUnderwritingInfo.setOriginalUnderwritingInfo(grossUnderwritingInfo.getOriginalUnderwritingInfo());
         }
         else {
-            cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo;
+            cededUnderwritingInfo.setOriginalUnderwritingInfo(grossUnderwritingInfo);
         }
-        cededUnderwritingInfo.premiumWritten *= quotaShare * coveredByReinsurer;
-        cededUnderwritingInfo.premiumWrittenAsIf *= quotaShare * coveredByReinsurer;
-        cededUnderwritingInfo.sumInsured *= quotaShare * coveredByReinsurer;
-        cededUnderwritingInfo.maxSumInsured *= quotaShare * coveredByReinsurer;
+        cededUnderwritingInfo.setPremium(cededUnderwritingInfo.getPremium() * quotaShare * coveredByReinsurer);
+        cededUnderwritingInfo.setSumInsured(cededUnderwritingInfo.getSumInsured() * quotaShare * coveredByReinsurer);
+        cededUnderwritingInfo.setMaxSumInsured(cededUnderwritingInfo.getMaxSumInsured() * quotaShare * coveredByReinsurer);
         return cededUnderwritingInfo;
     }
 

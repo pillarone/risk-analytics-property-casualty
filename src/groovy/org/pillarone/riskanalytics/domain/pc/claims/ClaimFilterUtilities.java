@@ -1,8 +1,10 @@
 package org.pillarone.riskanalytics.domain.pc.claims;
 
 import org.pillarone.riskanalytics.core.components.Component;
+import org.pillarone.riskanalytics.domain.pc.company.ICompanyMarker;
 import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments;
 import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
+import org.pillarone.riskanalytics.domain.pc.lob.CompanyConfigurableLobWithReserves;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
 import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker;
@@ -28,7 +30,8 @@ public class ClaimFilterUtilities {
                     if (coverCriteria.contains(claim.origin)) {
                         filteredClaims.add(claim);
                     }
-                } else {
+                }
+                else {
                     if (coverCriteria.contains(claim.getOriginalClaim())) {
                         filteredClaims.add(claim);
                     }
@@ -39,20 +42,21 @@ public class ClaimFilterUtilities {
         return filteredClaims;
     }
 
-    public static List<Claim> filterClaimsByLine(List<Claim> claims,LobMarker coveredLine,boolean includingReserves){
+    public static List<Claim> filterClaimsByLine(List<Claim> claims, LobMarker coveredLine, boolean includingReserves) {
         List<Claim> filteredClaims = new ArrayList<Claim>(claims.size());
         for (Claim claim : claims) {
-                if (coveredLine.equals(claim.getLineOfBusiness())) {
-                    if (includingReserves) {
-                        filteredClaims.add(claim);}
-                    else {
-                        if (claim.getPeril() instanceof PerilMarker){
-                          filteredClaims.add(claim);
-                        }
-                    }
-
+            if (coveredLine.equals(claim.getLineOfBusiness())) {
+                if (includingReserves) {
+                    filteredClaims.add(claim);
                 }
+                else {
+                    if (claim.getPeril() instanceof PerilMarker) {
+                        filteredClaims.add(claim);
+                    }
+                }
+
             }
+        }
         return filteredClaims;
     }
 
@@ -87,19 +91,22 @@ public class ClaimFilterUtilities {
         List<Claim> filteredClaims = new ArrayList<Claim>();
         if ((coveredOrigin == null || coveredOrigin.size() == 0) && (coveredOriginal == null || coveredOriginal.size() == 0)) {
             filteredClaims.addAll(claims);
-        } else if (coveredOrigin.size() > 0 && coveredOriginal.size() > 0) {
+        }
+        else if (coveredOrigin.size() > 0 && coveredOriginal.size() > 0) {
             for (Claim claim : claims) {
                 if (coveredOrigin.contains(claim.origin) && coveredOriginal.contains(claim.getOriginalClaim().origin)) {
                     filteredClaims.add(claim);
                 }
             }
-        } else if (coveredOrigin.size() > 0) {
+        }
+        else if (coveredOrigin.size() > 0) {
             for (Claim claim : claims) {
                 if (coveredOrigin.contains(claim.origin)) {
                     filteredClaims.add(claim);
                 }
             }
-        } else if (coveredOriginal.size() > 0) {
+        }
+        else if (coveredOriginal.size() > 0) {
             for (Claim claim : claims) {
                 if (coveredOriginal.contains(claim.getOriginalClaim().origin)) {
                     filteredClaims.add(claim);
@@ -113,19 +120,22 @@ public class ClaimFilterUtilities {
         List<Claim> filteredClaims = new ArrayList<Claim>();
         if ((coveredPerils == null || coveredPerils.size() == 0) && (coveredLinesOfBusiness == null || coveredLinesOfBusiness.size() == 0)) {
             filteredClaims.addAll(claims);
-        } else if (coveredPerils.size() > 0 && coveredLinesOfBusiness.size() > 0) {
+        }
+        else if (coveredPerils.size() > 0 && coveredLinesOfBusiness.size() > 0) {
             for (Claim claim : claims) {
                 if (coveredPerils.contains(claim.getPeril()) && coveredLinesOfBusiness.contains(claim.getLineOfBusiness())) {
                     filteredClaims.add(claim);
                 }
             }
-        } else if (coveredPerils.size() > 0) {
+        }
+        else if (coveredPerils.size() > 0) {
             for (Claim claim : claims) {
                 if (coveredPerils.contains(claim.getPeril())) {
                     filteredClaims.add(claim);
                 }
             }
-        } else if (coveredLinesOfBusiness.size() > 0) {
+        }
+        else if (coveredLinesOfBusiness.size() > 0) {
             for (Claim claim : claims) {
                 if (coveredLinesOfBusiness.contains(claim.getLineOfBusiness())) {
                     filteredClaims.add(claim);
@@ -134,6 +144,25 @@ public class ClaimFilterUtilities {
         }
         return filteredClaims;
     }
+
+    public static List<Claim> filterClaimsByCompanies(List<Claim> claims, List<ICompanyMarker> coveredCompanies, boolean includingReserves) {
+        List<Claim> filteredClaims = new ArrayList<Claim>();
+        for (Claim claim : claims) {
+            LobMarker line = claim.getLineOfBusiness();
+            if (coveredCompanies.contains(((CompanyConfigurableLobWithReserves) line).getParmCompany().getSelectedComponent())) {
+                if (includingReserves) {
+                    filteredClaims.add(claim);
+                }
+                else {
+                    if (claim.getPeril() instanceof PerilMarker) {
+                        filteredClaims.add(claim);
+                    }
+                }
+            }
+        }
+        return filteredClaims;
+    }
+
 
     /**
      * @param claims                 the list of claims to filter
@@ -152,47 +181,56 @@ public class ClaimFilterUtilities {
         boolean hasLinesOfBusiness = coveredLinesOfBusiness != null && coveredLinesOfBusiness.size() > 0;
         if (!(hasPerils || hasReserves || hasLinesOfBusiness)) {
             filteredClaims.addAll(claims);
-        } else if (hasPerils && hasReserves) {
+        }
+        else if (hasPerils && hasReserves) {
             throw new IllegalArgumentException("ClaimFilterUtilities.informationMismatch");
-        } else if (hasPerils && hasLinesOfBusiness && connection == LogicArguments.OR) {
+        }
+        else if (hasPerils && hasLinesOfBusiness && connection == LogicArguments.OR) {
             for (Claim claim : claims) {
                 if (coveredPerils.contains(claim.getPeril()) || coveredLinesOfBusiness.contains(claim.getLineOfBusiness())) {
                     filteredClaims.add(claim);
                 }
             }
-        } else if (hasPerils && hasLinesOfBusiness && connection == LogicArguments.AND) {
+        }
+        else if (hasPerils && hasLinesOfBusiness && connection == LogicArguments.AND) {
             for (Claim claim : claims) {
                 if (coveredPerils.contains(claim.getPeril()) && coveredLinesOfBusiness.contains(claim.getLineOfBusiness())) {
                     filteredClaims.add(claim);
                 }
             }
-        } else if (hasReserves && hasLinesOfBusiness && connection == LogicArguments.OR) {
+        }
+        else if (hasReserves && hasLinesOfBusiness && connection == LogicArguments.OR) {
             for (Claim claim : claims) {
                 if (coveredReserves.contains(claim.getPeril()) || coveredLinesOfBusiness.contains(claim.getLineOfBusiness())) {
                     filteredClaims.add(claim);
                 }
             }
-        } else if (hasReserves && hasLinesOfBusiness && connection == LogicArguments.AND) {
+        }
+        else if (hasReserves && hasLinesOfBusiness && connection == LogicArguments.AND) {
             for (Claim claim : claims) {
                 if (coveredReserves.contains(claim.getPeril()) && coveredLinesOfBusiness.contains(claim.getLineOfBusiness())) {
                     filteredClaims.add(claim);
                 }
             }
-        } else if (hasLinesOfBusiness && (hasPerils || hasReserves)) {
+        }
+        else if (hasLinesOfBusiness && (hasPerils || hasReserves)) {
             throw new IllegalArgumentException("ClaimFilterUtilities.missingConnection");
-        } else if (hasPerils) {
+        }
+        else if (hasPerils) {
             for (Claim claim : claims) {
                 if (coveredPerils.contains(claim.getPeril())) {
                     filteredClaims.add(claim);
                 }
             }
-        } else if (hasReserves) {
+        }
+        else if (hasReserves) {
             for (Claim claim : claims) {
                 if (coveredReserves.contains(claim.getPeril())) {
                     filteredClaims.add(claim);
                 }
             }
-        } else if (hasLinesOfBusiness) {
+        }
+        else if (hasLinesOfBusiness) {
             for (Claim claim : claims) {
                 if (coveredLinesOfBusiness.contains(claim.getLineOfBusiness())) {
                     filteredClaims.add(claim);
@@ -221,13 +259,15 @@ public class ClaimFilterUtilities {
             for (ClaimDevelopmentPacket claim : claims) {
                 if (coveredPerils.contains(claim.getPeril())) {
                     filteredClaims.add(claim);
-                } else if (claim.getReinsuranceContract() != null) {
+                }
+                else if (claim.getReinsuranceContract() != null) {
                     if (coveredContracts.contains(claim.getReinsuranceContract().getNormalizedName())) {
                         filteredClaims.add(claim);
                     }
                 }
             }
-        } else if (hasPerils && hasContracts && connection == LogicArguments.AND) {
+        }
+        else if (hasPerils && hasContracts && connection == LogicArguments.AND) {
             for (ClaimDevelopmentPacket claim : claims) {
                 if (coveredPerils.contains(claim.getPeril()) && claim.getReinsuranceContract() != null) {
                     if (coveredContracts.contains(claim.getReinsuranceContract().getNormalizedName())) {
@@ -235,15 +275,18 @@ public class ClaimFilterUtilities {
                     }
                 }
             }
-        } else if (hasPerils && hasContracts && connection == null) {
+        }
+        else if (hasPerils && hasContracts && connection == null) {
             throw new IllegalArgumentException("ClaimFilterUtilities.missingConnection");
-        } else if (hasPerils) {
+        }
+        else if (hasPerils) {
             for (ClaimDevelopmentPacket claim : claims) {
                 if (coveredPerils.contains(claim.getPeril())) {
                     filteredClaims.add(claim);
                 }
             }
-        } else if (hasContracts) {
+        }
+        else if (hasContracts) {
             for (ClaimDevelopmentPacket claim : claims) {
                 if (claim.getReinsuranceContract() != null) {
                     if (coveredContracts.contains(claim.getReinsuranceContract().getNormalizedName())) {
@@ -251,7 +294,8 @@ public class ClaimFilterUtilities {
                     }
                 }
             }
-        } else {
+        }
+        else {
             throw new IllegalArgumentException("ClaimFilterUtilities.missingInformation");
         }
         return filteredClaims;
@@ -260,7 +304,8 @@ public class ClaimFilterUtilities {
     public static List<Claim> filterClaimsByPeril(List<Claim> claims, List<PerilMarker> coveredPerils) {
         if (coveredPerils == null || coveredPerils.size() == 0) {
             return claims;
-        } else {
+        }
+        else {
             List<Claim> filteredClaims = new ArrayList<Claim>();
             for (Claim claim : claims) {
                 if (coveredPerils.contains(claim.getPeril())) {
@@ -274,7 +319,8 @@ public class ClaimFilterUtilities {
     public static List<ClaimDevelopmentPacket> filterDevelopedClaimsByPeril(List<ClaimDevelopmentPacket> claims, List<PerilMarker> coveredPerils) {
         if (coveredPerils == null || coveredPerils.size() == 0) {
             return claims;
-        } else {
+        }
+        else {
             List<ClaimDevelopmentPacket> filteredClaims = new ArrayList<ClaimDevelopmentPacket>();
             for (ClaimDevelopmentPacket claim : claims) {
                 if (coveredPerils.contains(claim.getPeril())) {
@@ -318,12 +364,16 @@ public class ClaimFilterUtilities {
         return new ArrayList<Component>(origins);
     }
 
-    public static List<LobMarker> getLineOfBusiness(List<Claim> claims) {
-        Set<LobMarker> linesOfBusiness = new HashSet<LobMarker>();
+    public static List<LobMarker> getLinesOfBusiness(List<Claim> claims) {
+        // don't use a set for linesOfBusiness as order may alternate for different simulations
+        // (problems for reproducibility, especially in test cases)
+        List<LobMarker> linesOfBusiness = new ArrayList<LobMarker>();
         for (Claim claim : claims) {
-            linesOfBusiness.add(claim.getLineOfBusiness());
+            if (!linesOfBusiness.contains(claim.getLineOfBusiness())) {
+                linesOfBusiness.add(claim.getLineOfBusiness());
+            }
         }
-        return new ArrayList<LobMarker>(linesOfBusiness);
+        return linesOfBusiness;
     }
 
     /**
@@ -335,7 +385,8 @@ public class ClaimFilterUtilities {
         List<Claim> filteredClaims = new ArrayList<Claim>();
         if (contracts == null || contracts.size() == 0) {
             filteredClaims.addAll(claims);
-        } else {
+        }
+        else {
             for (Claim claim : claims) {
                 if (contracts.contains(claim.getReinsuranceContract())) {
                     filteredClaims.add(claim);
@@ -350,7 +401,8 @@ public class ClaimFilterUtilities {
         List<ClaimDevelopmentPacket> filteredClaims = new ArrayList<ClaimDevelopmentPacket>();
         if (contracts == null || contracts.size() == 0) {
             // check with Stefan
-        } else {
+        }
+        else {
             for (ClaimDevelopmentPacket claim : claims) {
                 if (claim.getReinsuranceContract() != null) {
                     if (contracts.contains(claim.getReinsuranceContract().getNormalizedName())) {

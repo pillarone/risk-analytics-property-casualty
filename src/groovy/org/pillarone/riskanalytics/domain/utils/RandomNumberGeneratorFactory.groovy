@@ -12,7 +12,6 @@ import umontreal.iro.lecuyer.rng.RandomStreamBase
 import umontreal.iro.lecuyer.probdist.DiscreteDistribution
 import umontreal.iro.lecuyer.probdist.DiscreteDistributionInt
 
-
 /**
  * Enables different streams for generators, and parametrization of streams.
  */
@@ -84,29 +83,30 @@ class RandomNumberGeneratorFactory {
                                     (double) modifier.parameters["shift"]))
                     break
                 case DistributionModifier.TRUNCATED:
-                generator = new RandomNumberGenerator(
-                                generator: new RandomVariateGen(randomStream,
-                                        new TruncatedDist(distribution.distribution,
-                                                (double) modifier.parameters["min"],
-                                                (double) modifier.parameters["max"])))
+                    generator = new RandomNumberGenerator(
+                            generator: new RandomVariateGen(randomStream,
+                                    new TruncatedDist(distribution.distribution,
+                                            (double) modifier.parameters["min"],
+                                            (double) modifier.parameters["max"])))
 
                     break
                 case DistributionModifier.TRUNCATEDSHIFT:
-                        generator = new RandomNumberGenerator(
-                                generator: new ShiftedVariateGen(randomStream,
-                                        new TruncatedDist(distribution.distribution,
-                                                (double) modifier.parameters["min"],
-                                                (double) modifier.parameters["max"]),
-                                        (double) modifier.parameters["shift"]))
+                    generator = new RandomNumberGenerator(
+                            generator: new ShiftedVariateGen(randomStream,
+                                    new TruncatedDist(distribution.distribution,
+                                            (double) modifier.parameters["min"],
+                                            (double) modifier.parameters["max"]),
+                                    (double) modifier.parameters["shift"]))
                     break
-                case DistributionModifier.LEFTTRUNCATEDRIGHTCENSORED:
-                        generator = new RandomNumberGenerator(
-                                generator: new CensoredVariateGen(randomStream,
-                                        new TruncatedDist(distribution.distribution,
-                                                (double) modifier.parameters["min"],
-                                                (double) Double.POSITIVE_INFINITY),
-                                        (double) Double.NEGATIVE_INFINITY,
-                                        (double) modifier.parameters["max"]))
+                case DistributionModifier.LEFTTRUNCATEDRIGHTCENSOREDSHIFT:
+                    generator = new RandomNumberGenerator(
+                            generator: new CensoredVariateGen(randomStream,
+                                    new TruncatedDist(distribution.distribution,
+                                            (double) modifier.parameters["min"],
+                                            (double) Double.POSITIVE_INFINITY),
+                                    (double) Double.NEGATIVE_INFINITY,
+                                    (double) modifier.parameters["max"],
+                                    (double) modifier.parameters["shift"]))
                     break
 
             }

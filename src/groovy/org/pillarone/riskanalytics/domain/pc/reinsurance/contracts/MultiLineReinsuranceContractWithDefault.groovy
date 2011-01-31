@@ -37,7 +37,7 @@ public class MultiLineReinsuranceContractWithDefault extends MultiLineReinsuranc
         List<PerilMarker> coveredPerils = parmCoveredPerils.getValuesAsObjects()
         outFilteredClaims.addAll(ClaimFilterUtilities.filterClaimsByPerilAndLob(inClaims, coveredPerils, coveredLines))
         if (coveredLines.size() == 0) {
-            coveredLines = ClaimFilterUtilities.getLineOfBusiness(outFilteredClaims)
+            coveredLines = ClaimFilterUtilities.getLinesOfBusiness(outFilteredClaims)
         }
         outFilteredUnderwritingInfo.addAll(UnderwritingFilterUtilities.filterUnderwritingInfoByLob(inUnderwritingInfo, coveredLines))
     }
@@ -47,7 +47,7 @@ public class MultiLineReinsuranceContractWithDefault extends MultiLineReinsuranc
             Claim claimCeded = claim.copy();
             claimCeded.origin = origin;
             claimCeded.value = 0d;
-            setOriginalClaim(claim, claimCeded);
+            claimCeded.setOriginalClaim(claim);
             return claimCeded;
         }
         else {
@@ -100,7 +100,7 @@ public class MultiLineReinsuranceContractWithDefault extends MultiLineReinsuranc
         else {
             cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo;
         }
-        cededUnderwritingInfo.premiumWritten = 0;
+        cededUnderwritingInfo.premium = 0;
         cededUnderwritingInfo.premiumWrittenAsIf = 0;
         cededUnderwritingInfo.sumInsured = 0;
         cededUnderwritingInfo.maxSumInsured = 0;

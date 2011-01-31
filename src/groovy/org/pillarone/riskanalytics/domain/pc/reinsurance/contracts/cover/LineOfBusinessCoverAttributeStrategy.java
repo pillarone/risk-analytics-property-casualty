@@ -15,7 +15,7 @@ import java.util.Map;
 public class LineOfBusinessCoverAttributeStrategy implements ILinesOfBusinessCoverAttributeStrategy {
 
     private ComboBoxTableMultiDimensionalParameter lines
-            = new ComboBoxTableMultiDimensionalParameter(Collections.emptyList(), Arrays.asList("Covered Lines"), LobMarker.class);
+            = new ComboBoxTableMultiDimensionalParameter(Collections.emptyList(), Arrays.asList("Covered Segments"), LobMarker.class);
 
     public IParameterObjectClassifier getType() {
         return CoverAttributeStrategyType.LINESOFBUSINESS;

@@ -12,6 +12,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.ReinsuranceResultWithCo
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.DynamicCommission
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 
 /**
  * @author shartmann (at) munichre (dot) com
@@ -33,7 +34,7 @@ class ReinsuranceWithBouquetCommissionProgram extends ComposedComponent {
 
     PacketList<UnderwritingInfo> outNetAfterCoverUnderwritingInfo = new PacketList(UnderwritingInfo)
     PacketList<UnderwritingInfo> outUnderwritingInfo = new PacketList(UnderwritingInfo)
-    PacketList<UnderwritingInfo> outCoverUnderwritingInfo = new PacketList(UnderwritingInfo)
+    PacketList<CededUnderwritingInfo> outCoverUnderwritingInfo = new PacketList(CededUnderwritingInfo)
     PacketList<ReinsuranceResultWithCommissionPacket> outContractFinancials = new PacketList<ReinsuranceResultWithCommissionPacket>(ReinsuranceResultWithCommissionPacket.class);
 
     DynamicMultiCoverAttributeReinsuranceProgram subContracts = new DynamicMultiCoverAttributeReinsuranceProgram()

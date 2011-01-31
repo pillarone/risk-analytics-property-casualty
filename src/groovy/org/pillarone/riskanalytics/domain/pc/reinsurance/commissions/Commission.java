@@ -9,6 +9,8 @@ import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimFilterUtilities;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.applicable.*;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo;
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoUtilities;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities;
 
@@ -17,27 +19,27 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- *  This component calculates the commission on a specified set of contracts, defined in parameter
- *  parmApplicableContracts, according to a rule specified in parameter parmCommissionStrategy.
+ * This component calculates the commission on a specified set of contracts, defined in parameter
+ * parmApplicableContracts, according to a rule specified in parameter parmCommissionStrategy.
+ * <p/>
+ * Implementation Note: the incoming packets are first filtered to determine which are applicable
+ * to the commission calculation. The outUnderwritingInfo packet stream is split into those packets
+ * to which the commission applies, which get modified, and those which don't apply and are not modified.
+ * <p/>
+ * If you want all outPackets, just wire outUnderwritingInfoModified & outUnderwritingInfoUnmodified
+ * to the same inChannel, and be aware that the order may not match that of inUnderwritingInfo.
  *
- *  Implementation Note: the incoming packets are first filtered to determine which are applicable
- *  to the commission calculation. The outUnderwritingInfo packet stream is split into those packets
- *  to which the commission applies, which get modified, and those which don't apply and are not modified.
- *
- *  If you want all outPackets, just wire outUnderwritingInfoModified & outUnderwritingInfoUnmodified
- *  to the same inChannel, and be aware that the order may not match that of inUnderwritingInfo.
- *
- *  @author shartmann (at) munichre (dot) com, ben.ginsberg (at) intuitive-collaboration (dot) com
+ * @author shartmann (at) munichre (dot) com, ben.ginsberg (at) intuitive-collaboration (dot) com
  */
 public class Commission extends Component {
 
     private SimulationScope simulationScope;
 
     private PacketList<Claim> inClaims = new PacketList<Claim>(Claim.class);
-    private PacketList<UnderwritingInfo> inUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
+    private PacketList<CededUnderwritingInfo> inUnderwritingInfo = new PacketList<CededUnderwritingInfo>(CededUnderwritingInfo.class);
 
-    private PacketList<UnderwritingInfo> outUnderwritingInfoModified = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
-    private PacketList<UnderwritingInfo> outUnderwritingInfoUnmodified = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
+    private PacketList<CededUnderwritingInfo> outUnderwritingInfoModified = new PacketList<CededUnderwritingInfo>(CededUnderwritingInfo.class);
+    private PacketList<CededUnderwritingInfo> outUnderwritingInfoUnmodified = new PacketList<CededUnderwritingInfo>(CededUnderwritingInfo.class);
 
     private ICommissionStrategy parmCommissionStrategy = CommissionStrategyType.getStrategy(
             CommissionStrategyType.FIXEDCOMMISSION, ArrayUtils.toMap(new Object[][]{{"commission", 0d}}));
@@ -48,20 +50,21 @@ public class Commission extends Component {
     protected void doCalculation() {
         if (parmApplicableStrategy instanceof NoneApplicableStrategy) {
             outUnderwritingInfoUnmodified.addAll(inUnderwritingInfo);
-        } else {
+        }
+        else {
             boolean isFirstPeriod = simulationScope.getIterationScope().getPeriodScope().getCurrentPeriod() == 0;
 
             if (parmApplicableStrategy instanceof ContractApplicableStrategy) {
                 List<IReinsuranceContractMarker> applicableContracts = ((IContractApplicableStrategy) parmApplicableStrategy)
-                                             .getApplicableContracts().getValuesAsObjects();
+                        .getApplicableContracts().getValuesAsObjects();
                 PacketList<Claim> filteredClaims = new PacketList<Claim>(Claim.class);
                 filteredClaims.addAll(ClaimFilterUtilities.filterClaimsByContract(inClaims, applicableContracts));
 
-                List<UnderwritingInfo> applicableUnderwritingInfo = new ArrayList<UnderwritingInfo>();
-                List<UnderwritingInfo> irrelevantUnderwritingInfo = new ArrayList<UnderwritingInfo>();
+                List<CededUnderwritingInfo> applicableUnderwritingInfo = new ArrayList<CededUnderwritingInfo>();
+                List<CededUnderwritingInfo> irrelevantUnderwritingInfo = new ArrayList<CededUnderwritingInfo>();
 
-                UnderwritingInfoUtilities.segregateUnderwritingInfoByContract(inUnderwritingInfo, applicableContracts,
-                                                                      applicableUnderwritingInfo, irrelevantUnderwritingInfo);
+                CededUnderwritingInfoUtilities.segregateUnderwritingInfoByContract(inUnderwritingInfo, applicableContracts,
+                        applicableUnderwritingInfo, irrelevantUnderwritingInfo);
                 parmCommissionStrategy.calculateCommission(filteredClaims, applicableUnderwritingInfo, isFirstPeriod, true);
                 outUnderwritingInfoModified.addAll(applicableUnderwritingInfo);
                 outUnderwritingInfoUnmodified.addAll(irrelevantUnderwritingInfo);
@@ -71,7 +74,7 @@ public class Commission extends Component {
                 outUnderwritingInfoModified.addAll(inUnderwritingInfo);
             }
             else {
-                throw new NotImplementedException("['Commission.notImplemented','"+parmApplicableStrategy.toString()+"']");
+                throw new NotImplementedException("['Commission.notImplemented','" + parmApplicableStrategy.toString() + "']");
             }
         }
     }
@@ -84,11 +87,11 @@ public class Commission extends Component {
         this.inClaims = inClaims;
     }
 
-    public PacketList<UnderwritingInfo> getInUnderwritingInfo() {
+    public PacketList<CededUnderwritingInfo> getInUnderwritingInfo() {
         return inUnderwritingInfo;
     }
 
-    public void setInUnderwritingInfo(PacketList<UnderwritingInfo> inUnderwritingInfo) {
+    public void setInUnderwritingInfo(PacketList<CededUnderwritingInfo> inUnderwritingInfo) {
         this.inUnderwritingInfo = inUnderwritingInfo;
     }
 
@@ -116,19 +119,19 @@ public class Commission extends Component {
         this.parmApplicableStrategy = parmApplicableStrategy;
     }
 
-    public PacketList<UnderwritingInfo> getOutUnderwritingInfoModified() {
+    public PacketList<CededUnderwritingInfo> getOutUnderwritingInfoModified() {
         return outUnderwritingInfoModified;
     }
 
-    public void setOutUnderwritingInfoModified(PacketList<UnderwritingInfo> outUnderwritingInfoModified) {
+    public void setOutUnderwritingInfoModified(PacketList<CededUnderwritingInfo> outUnderwritingInfoModified) {
         this.outUnderwritingInfoModified = outUnderwritingInfoModified;
     }
 
-    public PacketList<UnderwritingInfo> getOutUnderwritingInfoUnmodified() {
+    public PacketList<CededUnderwritingInfo> getOutUnderwritingInfoUnmodified() {
         return outUnderwritingInfoUnmodified;
     }
 
-    public void setOutUnderwritingInfoUnmodified(PacketList<UnderwritingInfo> outUnderwritingInfoUnmodified) {
+    public void setOutUnderwritingInfoUnmodified(PacketList<CededUnderwritingInfo> outUnderwritingInfoUnmodified) {
         this.outUnderwritingInfoUnmodified = outUnderwritingInfoUnmodified;
     }
 }

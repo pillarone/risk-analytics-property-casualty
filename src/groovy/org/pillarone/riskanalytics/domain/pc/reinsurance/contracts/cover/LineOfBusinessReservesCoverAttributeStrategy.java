@@ -18,7 +18,7 @@ public class LineOfBusinessReservesCoverAttributeStrategy
         implements ILinesOfBusinessCoverAttributeStrategy, IReservesCoverAttributeStrategy, ICombinedCoverAttributeStrategy {
 
     private ComboBoxTableMultiDimensionalParameter lines
-            = new ComboBoxTableMultiDimensionalParameter(Collections.emptyList(), Arrays.asList("Covered Lines"), LobMarker.class);
+            = new ComboBoxTableMultiDimensionalParameter(Collections.emptyList(), Arrays.asList("Covered Segments"), LobMarker.class);
     private LogicArguments connection = LogicArguments.AND;
     private ComboBoxTableMultiDimensionalParameter reserves
             = new ComboBoxTableMultiDimensionalParameter(Collections.emptyList(), Arrays.asList("Covered Reserves"), IReserveMarker.class);

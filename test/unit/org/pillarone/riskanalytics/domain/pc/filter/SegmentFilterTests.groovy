@@ -19,9 +19,9 @@ class SegmentFilterTests extends GroovyTestCase {
     ClaimDevelopmentLeanPacket claimMotor100 = new ClaimDevelopmentLeanPacket(lineOfBusiness: lobMotor, incurred: 100)
     ClaimDevelopmentLeanPacket claimMotorHull500 = new ClaimDevelopmentLeanPacket(lineOfBusiness: lobMotorHull, incurred: 500)
     ClaimDevelopmentLeanPacket claimAccident80 = new ClaimDevelopmentLeanPacket(lineOfBusiness: lobAccident, incurred: 80)
-    UnderwritingInfo underwritingInfoMotor50 = new UnderwritingInfo(lineOfBusiness: lobMotor, premiumWritten: 50)
-    UnderwritingInfo underwritingInfoMotorHull40 = new UnderwritingInfo(lineOfBusiness: lobMotorHull, premiumWritten: 40)
-    UnderwritingInfo underwritingInfoAccident30 = new UnderwritingInfo(lineOfBusiness: lobAccident, premiumWritten: 30)
+    UnderwritingInfo underwritingInfoMotor50 = new UnderwritingInfo(lineOfBusiness: lobMotor, premium: 50)
+    UnderwritingInfo underwritingInfoMotorHull40 = new UnderwritingInfo(lineOfBusiness: lobMotorHull, premium: 40)
+    UnderwritingInfo underwritingInfoAccident30 = new UnderwritingInfo(lineOfBusiness: lobAccident, premium: 30)
 
     void testUsage() {
         SegmentFilter segmentFilter = new SegmentFilter(parmPortions: new ConstrainedMultiDimensionalParameter(
@@ -42,8 +42,8 @@ class SegmentFilterTests extends GroovyTestCase {
         assertEquals '#claims, ceded', 0, segmentFilter.outClaimsCeded.size()
         assertEquals '#claims, net', 0, segmentFilter.outClaimsNet.size()
         assertEquals '#underwriting info, gross', 2, segmentFilter.outUnderwritingInfoGross.size()
-        assertEquals 'underwritingInfoMotor50', 40, segmentFilter.outUnderwritingInfoGross[0].premiumWritten
-        assertEquals 'underwritingInfoMotorHull40', 20, segmentFilter.outUnderwritingInfoGross[1].premiumWritten
+        assertEquals 'underwritingInfoMotor50', 40, segmentFilter.outUnderwritingInfoGross[0].premium
+        assertEquals 'underwritingInfoMotorHull40', 20, segmentFilter.outUnderwritingInfoGross[1].premium
         assertEquals '#underwriting info, ceded', 0, segmentFilter.outUnderwritingInfoCeded.size()
         assertEquals '#underwriting info, net', 0, segmentFilter.outUnderwritingInfoNet.size()
     }
@@ -67,7 +67,7 @@ class SegmentFilterTests extends GroovyTestCase {
         assertEquals '#claims, net', 0, segmentFilter.outClaimsNet.size()
         assertEquals '#underwriting info, gross', 0, segmentFilter.outUnderwritingInfoGross.size()
         assertEquals '#underwriting info, ceded', 1, segmentFilter.outUnderwritingInfoCeded.size()
-        assertEquals 'underwritingInfoAccident30', 6, segmentFilter.outUnderwritingInfoCeded[0].premiumWritten
+        assertEquals 'underwritingInfoAccident30', 6, segmentFilter.outUnderwritingInfoCeded[0].premium
         assertEquals '#underwriting info, net', 0, segmentFilter.outUnderwritingInfoNet.size()
     }
 
@@ -91,7 +91,7 @@ class SegmentFilterTests extends GroovyTestCase {
         assertEquals '#underwriting info, gross', 0, segmentFilter.outUnderwritingInfoGross.size()
         assertEquals '#underwriting info, ceded', 0, segmentFilter.outUnderwritingInfoCeded.size()
         assertEquals '#underwriting info, net', 1, segmentFilter.outUnderwritingInfoNet.size()
-        assertEquals 'underwritingInfoAccident30', 6, segmentFilter.outUnderwritingInfoNet[0].premiumWritten
+        assertEquals 'underwritingInfoAccident30', 6, segmentFilter.outUnderwritingInfoNet[0].premium
     }
 
     void testNoPortions() {

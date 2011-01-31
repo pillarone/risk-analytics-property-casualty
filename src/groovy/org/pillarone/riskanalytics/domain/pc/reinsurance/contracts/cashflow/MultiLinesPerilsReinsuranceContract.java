@@ -22,6 +22,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cashflow.cove
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.*;
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket;
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacketFactory;
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingFilterUtilities;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities;
@@ -55,7 +56,7 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
     private PacketList<ClaimDevelopmentPacket> outClaimsDevelopmentNet = new PacketList<ClaimDevelopmentPacket>(ClaimDevelopmentPacket.class);
 
     private PacketList<UnderwritingInfo> outNetAfterCoverUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
-    private PacketList<UnderwritingInfo> outCoverUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
+    private PacketList<CededUnderwritingInfo> outCoverUnderwritingInfo = new PacketList<CededUnderwritingInfo>(CededUnderwritingInfo.class);
 
     /** Defines the kind of contract and parametrization */
     private IReinsuranceContractStrategy parmContractStrategy = ReinsuranceContractType.getTrivial();
@@ -201,7 +202,7 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
                     ((ICombinedCoverAttributeStrategy) parmCover).getConnection();
             outFilteredClaims.addAll(ClaimFilterUtilities.filterClaimsByPerilLobReserve(inClaims, coveredPerils, coveredLines, null, connection));
             if (coveredLines == null || coveredLines.size() == 0) {
-                coveredLines = ClaimFilterUtilities.getLineOfBusiness(outFilteredClaims);
+                coveredLines = ClaimFilterUtilities.getLinesOfBusiness(outFilteredClaims);
             }
             outFilteredUnderwritingInfo.addAll(UnderwritingFilterUtilities.filterUnderwritingInfoByLob(inUnderwritingInfo, coveredLines));
         }
@@ -276,18 +277,18 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
     }
 
     protected void setOriginalUnderwritingInfo(UnderwritingInfo underwritingInfo, UnderwritingInfo derivedUnderwritingInfo) {
-        if (underwritingInfo != null && underwritingInfo.originalUnderwritingInfo != null) {
-            derivedUnderwritingInfo.originalUnderwritingInfo = underwritingInfo.originalUnderwritingInfo;
+        if (underwritingInfo != null && underwritingInfo.getOriginalUnderwritingInfo() != null) {
+            derivedUnderwritingInfo.setOriginalUnderwritingInfo(underwritingInfo.getOriginalUnderwritingInfo());
         }
         else {
-            derivedUnderwritingInfo.originalUnderwritingInfo = underwritingInfo;
+            derivedUnderwritingInfo.setOriginalUnderwritingInfo(underwritingInfo);
         }
     }
 
     protected void calculateCededUnderwritingInfos(List<UnderwritingInfo> grossUnderwritingInfos,
-                                                   List<UnderwritingInfo> cededUnderwritingInfos) {
+                                                   List<CededUnderwritingInfo> cededUnderwritingInfos) {
         for (UnderwritingInfo underwritingInfo : grossUnderwritingInfos) {
-            UnderwritingInfo cededUnderwritingInfo = contract.calculateCoverUnderwritingInfo(underwritingInfo, coveredByReinsurer);
+            CededUnderwritingInfo cededUnderwritingInfo = contract.calculateCoverUnderwritingInfo(underwritingInfo, coveredByReinsurer);
             setOriginalUnderwritingInfo(underwritingInfo, cededUnderwritingInfo);
             cededUnderwritingInfos.add(cededUnderwritingInfo);
         }
@@ -380,11 +381,11 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
         this.outNetAfterCoverUnderwritingInfo = outNetAfterCoverUnderwritingInfo;
     }
 
-    public PacketList<UnderwritingInfo> getOutCoverUnderwritingInfo() {
+    public PacketList<CededUnderwritingInfo> getOutCoverUnderwritingInfo() {
         return outCoverUnderwritingInfo;
     }
 
-    public void setOutCoverUnderwritingInfo(PacketList<UnderwritingInfo> outCoverUnderwritingInfo) {
+    public void setOutCoverUnderwritingInfo(PacketList<CededUnderwritingInfo> outCoverUnderwritingInfo) {
         this.outCoverUnderwritingInfo = outCoverUnderwritingInfo;
     }
 

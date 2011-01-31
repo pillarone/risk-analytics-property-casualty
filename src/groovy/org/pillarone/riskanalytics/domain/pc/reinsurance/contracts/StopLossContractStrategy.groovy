@@ -6,10 +6,8 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
-import org.pillarone.riskanalytics.domain.pc.claims.ClaimFilterUtilities
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
-import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoPacketFactory
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -21,19 +19,19 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
 
     static final ReinsuranceContractType type = ReinsuranceContractType.STOPLOSS
 
-    /** Premium, limit and attachmentPoint can be expressed as a fraction of a base quantity. */
+    /** Premium, limit and attachmentPoint can be expressed as a fraction of a base quantity.  */
     StopLossContractBase stopLossContractBase = StopLossContractBase.ABSOLUTE
 
-    /** Premium as a percentage of the premium base */
+    /** Premium as a percentage of the premium base  */
     double premium
 
-    /** Allocation of the premium to the affected lines of business      */
+    /** Allocation of the premium to the affected lines of business       */
     IPremiumAllocationStrategy premiumAllocation = PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, new HashMap());
 
-    /** attachment point is also expressed as a fraction of gnpi if premium base == GNPI               */
+    /** attachment point is also expressed as a fraction of gnpi if premium base == GNPI                */
     double attachmentPoint
 
-    /** attachment point is also expressed as a fraction of gnpi if premium base == GNPI            */
+    /** attachment point is also expressed as a fraction of gnpi if premium base == GNPI             */
     double limit
 
     private double factor
@@ -54,7 +52,7 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
     }
 
     public double allocateCededClaim(Claim inClaim) {
-        inClaim.ultimate * factor * coveredByReinsurer
+        inClaim.ultimate * factor
     }
 
     public void initBookkeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
@@ -64,14 +62,16 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
         }
         double scaledAttachmentPoint = attachmentPoint
         double scaledLimit = limit
-        if (stopLossContractBase == StopLossContractBase.GNPI) {
-            double gnpi = UnderwritingInfoUtilities.aggregate(coverUnderwritingInfo).premiumWritten
-            scaledAttachmentPoint *= gnpi
-            scaledLimit *= gnpi
-            totalCededPremium = coverUnderwritingInfo.premiumWritten.sum() * premium
-        }
-        else if (stopLossContractBase == StopLossContractBase.ABSOLUTE) {
-            totalCededPremium = premium
+        switch (stopLossContractBase) {
+            case StopLossContractBase.GNPI:
+                double gnpi = UnderwritingInfoUtilities.aggregate(coverUnderwritingInfo).premium
+                scaledAttachmentPoint *= gnpi
+                scaledLimit *= gnpi
+                totalCededPremium = coverUnderwritingInfo.premium.sum() * premium
+                break
+            case stopLossContractBase.ABSOLUTE:
+                totalCededPremium = premium
+                break
         }
 
         double aggregateCededClaimAmount = Math.min(Math.max(aggregateGrossClaimAmount - scaledAttachmentPoint, 0), scaledLimit)
@@ -83,13 +83,16 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
     }
 
     // todo: Are the definition for the as-if premium reasonable?
-    UnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double initialReserves) {
-        UnderwritingInfo cededUnderwritingInfo = UnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
+
+    CededUnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double initialReserves) {
+        CededUnderwritingInfo cededUnderwritingInfo = CededUnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
         cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo?.originalUnderwritingInfo ? grossUnderwritingInfo.originalUnderwritingInfo : grossUnderwritingInfo
         cededUnderwritingInfo.commission = 0d
-        double factor = premiumAllocation.getShare(grossUnderwritingInfo) * coveredByReinsurer
-        cededUnderwritingInfo.premiumWritten = totalCededPremium * factor
-        cededUnderwritingInfo.premiumWrittenAsIf = totalCededPremium * factor
+        cededUnderwritingInfo.fixedCommission = 0
+        cededUnderwritingInfo.variableCommission = 0
+        cededUnderwritingInfo.variablePremium = 0
+        cededUnderwritingInfo.premium = totalCededPremium * premiumAllocation.getShare(grossUnderwritingInfo)
+        cededUnderwritingInfo.fixedPremium = cededUnderwritingInfo.premium
         cededUnderwritingInfo
     }
 }

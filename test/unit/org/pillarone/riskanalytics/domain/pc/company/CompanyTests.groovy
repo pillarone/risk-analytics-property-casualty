@@ -12,6 +12,7 @@ import org.pillarone.riskanalytics.core.parameterization.ConstrainedString
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiCompanyCoverAttributeReinsuranceContract
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.core.components.PeriodStore
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
@@ -146,24 +147,24 @@ class CompanyTests extends GroovyTestCase {
         parmCompanyPlutoRe.selectedComponent = companyPlutoRe
 
         // inUnderwritingInfoGross
-        UnderwritingInfo uwInfo1 = new UnderwritingInfo(premiumWritten: 10000, sumInsured: 30000, numberOfPolicies: 3000,
+        UnderwritingInfo uwInfo1 = new UnderwritingInfo(premium: 10000, sumInsured: 30000, numberOfPolicies: 3000,
                 lineOfBusiness: motorVenusRe, commission: 10)
-        UnderwritingInfo uwInfo2 = new UnderwritingInfo(premiumWritten: 20000, sumInsured: 50000, numberOfPolicies: 4000,
+        UnderwritingInfo uwInfo2 = new UnderwritingInfo(premium: 20000, sumInsured: 50000, numberOfPolicies: 4000,
                 lineOfBusiness: motorMarsRe)
-        UnderwritingInfo uwInfo3 = new UnderwritingInfo(premiumWritten: 5000, sumInsured: 10000, numberOfPolicies: 2000,
+        UnderwritingInfo uwInfo3 = new UnderwritingInfo(premium: 5000, sumInsured: 10000, numberOfPolicies: 2000,
                 lineOfBusiness: motorVenusRe)
-        UnderwritingInfo uwInfo4 = new UnderwritingInfo(premiumWritten: 50000, sumInsured: 8000, numberOfPolicies: 15000,
+        UnderwritingInfo uwInfo4 = new UnderwritingInfo(premium: 50000, sumInsured: 8000, numberOfPolicies: 15000,
                 lineOfBusiness: motorPlutoRe)
-        UnderwritingInfo uwInfo8 = new UnderwritingInfo(premiumWritten: 1800000, sumInsured: 200000,
+        UnderwritingInfo uwInfo8 = new UnderwritingInfo(premium: 1800000, sumInsured: 200000,
                 numberOfPolicies: 30000, lineOfBusiness: accidentMarsRe)
 
         // inUnderwritingInfoCeded
-        UnderwritingInfo uwInfo5 = new UnderwritingInfo(premiumWritten: 1000, sumInsured: 3000, numberOfPolicies: 3000,
+        CededUnderwritingInfo uwInfo5 = new CededUnderwritingInfo(premium: 1000, sumInsured: 3000, numberOfPolicies: 3000,
                 lineOfBusiness: motorVenusRe, reinsuranceContract: motorVenusReQuotaShare, commission: -200)
-        UnderwritingInfo uwInfo6 = new UnderwritingInfo(premiumWritten: 2000, lineOfBusiness: motorMarsRe, commission: -100)
-        UnderwritingInfo uwInfo7 = new UnderwritingInfo(premiumWritten: 2500, sumInsured: 5000, numberOfPolicies: 2000,
+        CededUnderwritingInfo uwInfo6 = new CededUnderwritingInfo(premium: 2000, lineOfBusiness: motorMarsRe, commission: -100)
+        CededUnderwritingInfo uwInfo7 = new CededUnderwritingInfo(premium: 2500, sumInsured: 5000, numberOfPolicies: 2000,
                 lineOfBusiness: motorVenusRe, reinsuranceContract: motorVenusReQuotaShare, commission: -300)
-        UnderwritingInfo uwInfo9 = new UnderwritingInfo(premiumWritten: 18000, sumInsured: 3000,
+        CededUnderwritingInfo uwInfo9 = new CededUnderwritingInfo(premium: 18000, sumInsured: 3000,
                 numberOfPolicies: 20000, lineOfBusiness: accidentMarsRe, reinsuranceContract: accidentMarsReStopLoss, commission: -100)
 
         //Venus Re
@@ -175,13 +176,13 @@ class CompanyTests extends GroovyTestCase {
         assertEquals 'number of gross underwriting Info for reinsurer venus re', 1, companyVenusRe.outUnderwritingInfoGrossReinsurer.size()
         assertEquals 'number of net underwriting Info for primary insurer venus re', 1, companyVenusRe.outUnderwritingInfoNetPrimaryInsurer.size()
         assertEquals('correct aggregated gross premium written for company venus re',
-                uwInfo1.premiumWritten + uwInfo3.premiumWritten + 0.3d * uwInfo9.premiumWritten,
-                companyVenusRe.outUnderwritingInfoGross[0].premiumWritten)
+                uwInfo1.premium + uwInfo3.premium + 0.3d * uwInfo9.premium,
+                companyVenusRe.outUnderwritingInfoGross[0].premium)
         assertEquals('correct aggregated gross premium written for primary insurer venus re',
-                uwInfo1.premiumWritten + uwInfo3.premiumWritten,
-                companyVenusRe.outUnderwritingInfoGrossPrimaryInsurer[0].premiumWritten)
-        assertEquals('correct aggregated gross premium written for reinsurer venus re', 0.3d * uwInfo9.premiumWritten,
-                companyVenusRe.outUnderwritingInfoGrossReinsurer[0].premiumWritten)
+                uwInfo1.premium + uwInfo3.premium,
+                companyVenusRe.outUnderwritingInfoGrossPrimaryInsurer[0].premium)
+        assertEquals('correct aggregated gross premium written for reinsurer venus re', 0.3d * uwInfo9.premium,
+                companyVenusRe.outUnderwritingInfoGrossReinsurer[0].premium)
         assertEquals('correct aggregated commission in gross UI for company venus re',
                 uwInfo1.commission + uwInfo3.commission + 0.3d * uwInfo9.commission,
                 companyVenusRe.outUnderwritingInfoGross[0].commission)
@@ -207,8 +208,8 @@ class CompanyTests extends GroovyTestCase {
         assertEquals('correct aggregated gross no of policies for reinsurer venus re',
                 uwInfo9.numberOfPolicies, companyVenusRe.outUnderwritingInfoGrossReinsurer[0].numberOfPolicies)
         assertEquals 'number of ceded underwriting Info for company venus re', 1, companyVenusRe.outUnderwritingInfoCeded.size()
-        assertEquals('correct aggregated ceded premium written for company venus re', uwInfo5.premiumWritten + uwInfo7.premiumWritten,
-                companyVenusRe.outUnderwritingInfoCeded[0].premiumWritten)
+        assertEquals('correct aggregated ceded premium written for company venus re', uwInfo5.premium + uwInfo7.premium,
+                companyVenusRe.outUnderwritingInfoCeded[0].premium)
         assertEquals('correct aggregated (ceded) commission for company venus re', uwInfo5.commission + uwInfo7.commission,
                 companyVenusRe.outUnderwritingInfoCeded[0].commission)
         assertEquals('correct aggregated ceded sum Insured for company venus re',
@@ -218,11 +219,11 @@ class CompanyTests extends GroovyTestCase {
                 uwInfo5.numberOfPolicies + uwInfo7.numberOfPolicies, companyVenusRe.outUnderwritingInfoCeded[0].numberOfPolicies)
         assertEquals 'number of net underwriting Info for company venus re', 1, companyVenusRe.outUnderwritingInfoNet.size()
         assertEquals('correct aggregated net premium written for company venus re',
-                uwInfo1.premiumWritten + uwInfo3.premiumWritten + 0.3d * uwInfo9.premiumWritten - (uwInfo5.premiumWritten + uwInfo7.premiumWritten),
-                companyVenusRe.outUnderwritingInfoNet[0].premiumWritten)
+                uwInfo1.premium + uwInfo3.premium + 0.3d * uwInfo9.premium - (uwInfo5.premium + uwInfo7.premium),
+                companyVenusRe.outUnderwritingInfoNet[0].premium)
         assertEquals('correct aggregated net premium written for primary insurer venus re',
-                uwInfo1.premiumWritten + uwInfo3.premiumWritten - (uwInfo5.premiumWritten + uwInfo7.premiumWritten),
-                companyVenusRe.outUnderwritingInfoNetPrimaryInsurer[0].premiumWritten)
+                uwInfo1.premium + uwInfo3.premium - (uwInfo5.premium + uwInfo7.premium),
+                companyVenusRe.outUnderwritingInfoNetPrimaryInsurer[0].premium)
         assertEquals('correct aggregated commission in net UI for company venus re',
                 uwInfo1.commission + uwInfo3.commission + 0.3d * uwInfo9.commission - (uwInfo5.commission + uwInfo7.commission),
                 companyVenusRe.outUnderwritingInfoNet[0].commission)
@@ -249,13 +250,13 @@ class CompanyTests extends GroovyTestCase {
         assertEquals 'number of gross underwriting Info for reinsurer mars re', 1, companyMarsRe.outUnderwritingInfoGrossReinsurer.size()
         assertEquals 'number of net underwriting Info for primary insurer mars re', 1, companyMarsRe.outUnderwritingInfoNetPrimaryInsurer.size()
         assertEquals('correct aggregated gross premium written for company mars re',
-                uwInfo2.premiumWritten + uwInfo5.premiumWritten + uwInfo7.premiumWritten + uwInfo8.premiumWritten,
-                companyMarsRe.outUnderwritingInfoGross[0].premiumWritten)
+                uwInfo2.premium + uwInfo5.premium + uwInfo7.premium + uwInfo8.premium,
+                companyMarsRe.outUnderwritingInfoGross[0].premium)
         assertEquals('correct aggregated gross premium written for primary insurer mars re',
-                uwInfo2.premiumWritten + uwInfo8.premiumWritten,
-                companyMarsRe.outUnderwritingInfoGrossPrimaryInsurer[0].premiumWritten)
+                uwInfo2.premium + uwInfo8.premium,
+                companyMarsRe.outUnderwritingInfoGrossPrimaryInsurer[0].premium)
         assertEquals('correct aggregated gross premium written for reinsurer mars re',
-                uwInfo5.premiumWritten + uwInfo7.premiumWritten, companyMarsRe.outUnderwritingInfoGrossReinsurer[0].premiumWritten)
+                uwInfo5.premium + uwInfo7.premium, companyMarsRe.outUnderwritingInfoGrossReinsurer[0].premium)
         assertEquals('correct aggregated commission in gross UI for company mars re',
                 uwInfo2.commission + uwInfo8.commission + uwInfo5.commission + uwInfo7.commission,
                 companyMarsRe.outUnderwritingInfoGross[0].commission)
@@ -282,8 +283,8 @@ class CompanyTests extends GroovyTestCase {
                 (uwInfo5.sumInsured * uwInfo5.numberOfPolicies + uwInfo7.sumInsured * uwInfo7.numberOfPolicies) / (uwInfo5.numberOfPolicies + uwInfo7.numberOfPolicies),
                 companyMarsRe.outUnderwritingInfoGrossReinsurer[0].sumInsured)
         assertEquals 'number of ceded underwriting Info for company mars re', 1, companyMarsRe.outUnderwritingInfoCeded.size()
-        assertEquals('correct aggregated ceded premium written for company mars re', uwInfo6.premiumWritten + uwInfo9.premiumWritten,
-                companyMarsRe.outUnderwritingInfoCeded[0].premiumWritten)
+        assertEquals('correct aggregated ceded premium written for company mars re', uwInfo6.premium + uwInfo9.premium,
+                companyMarsRe.outUnderwritingInfoCeded[0].premium)
         assertEquals('correct aggregated (ceded) commission for company mars re', uwInfo6.commission + uwInfo9.commission,
                 companyMarsRe.outUnderwritingInfoCeded[0].commission)
         assertEquals('correct aggregated ceded number of policies for company mars re', uwInfo6.numberOfPolicies + uwInfo9.numberOfPolicies,
@@ -293,11 +294,11 @@ class CompanyTests extends GroovyTestCase {
                 companyMarsRe.outUnderwritingInfoCeded[0].sumInsured)
         assertEquals 'number of net underwriting Info for company mars re', 1, companyMarsRe.outUnderwritingInfoNet.size()
         assertEquals('correct aggregated net premium written for company mars re',
-                uwInfo2.premiumWritten + uwInfo5.premiumWritten + uwInfo7.premiumWritten + uwInfo8.premiumWritten - uwInfo6.premiumWritten - uwInfo9.premiumWritten,
-                companyMarsRe.outUnderwritingInfoNet[0].premiumWritten)
+                uwInfo2.premium + uwInfo5.premium + uwInfo7.premium + uwInfo8.premium - uwInfo6.premium - uwInfo9.premium,
+                companyMarsRe.outUnderwritingInfoNet[0].premium)
         assertEquals('correct aggregated net premium written for primary insurer mars re',
-                uwInfo2.premiumWritten + uwInfo8.premiumWritten - uwInfo6.premiumWritten - uwInfo9.premiumWritten,
-                companyMarsRe.outUnderwritingInfoNetPrimaryInsurer[0].premiumWritten)
+                uwInfo2.premium + uwInfo8.premium - uwInfo6.premium - uwInfo9.premium,
+                companyMarsRe.outUnderwritingInfoNetPrimaryInsurer[0].premium)
         assertEquals('correct aggregated commission in net UI for company mars re',
                 uwInfo2.commission + uwInfo8.commission - (uwInfo6.commission + uwInfo9.commission) + uwInfo5.commission + uwInfo7.commission,
                 companyMarsRe.outUnderwritingInfoNet[0].commission)
@@ -326,12 +327,12 @@ class CompanyTests extends GroovyTestCase {
         assertEquals 'number of gross underwriting Info for reinsurer pluto re', 1, companyPlutoRe.outUnderwritingInfoGrossReinsurer.size()
         assertEquals 'number of net underwriting Info for primary insurer pluto re', 1, companyPlutoRe.outUnderwritingInfoNetPrimaryInsurer.size()
         assertEquals('correct aggregated gross premium written for company pluto re',
-                uwInfo4.premiumWritten + 0.5d * uwInfo9.premiumWritten,
-                companyPlutoRe.outUnderwritingInfoGross[0].premiumWritten)
+                uwInfo4.premium + 0.5d * uwInfo9.premium,
+                companyPlutoRe.outUnderwritingInfoGross[0].premium)
         assertEquals('correct aggregated gross premium written for primary insurer pluto re',
-                uwInfo4.premiumWritten, companyPlutoRe.outUnderwritingInfoGrossPrimaryInsurer[0].premiumWritten)
+                uwInfo4.premium, companyPlutoRe.outUnderwritingInfoGrossPrimaryInsurer[0].premium)
         assertEquals('correct aggregated gross premium written for reinsurer pluto re',
-                0.5d * uwInfo9.premiumWritten, companyPlutoRe.outUnderwritingInfoGrossReinsurer[0].premiumWritten)
+                0.5d * uwInfo9.premium, companyPlutoRe.outUnderwritingInfoGrossReinsurer[0].premium)
         assertEquals('correct aggregated commission in gross UI for company pluto re',
                 uwInfo4.commission + 0.5d * uwInfo9.commission, companyPlutoRe.outUnderwritingInfoGross[0].commission)
         assertEquals('correct aggregated commission in gross UI for primary insurer pluto re',
@@ -353,16 +354,16 @@ class CompanyTests extends GroovyTestCase {
         assertEquals('correct aggregated gross no of policies for reinsurer pluto re',
                 uwInfo9.numberOfPolicies, companyPlutoRe.outUnderwritingInfoGrossReinsurer[0].numberOfPolicies)
         assertEquals 'number of ceded underwriting Info for company pluto re', 1, companyPlutoRe.outUnderwritingInfoCeded.size()
-        assertEquals('correct aggregated ceded premium written for company pluto re', 0, companyPlutoRe.outUnderwritingInfoCeded[0].premiumWritten)
+        assertEquals('correct aggregated ceded premium written for company pluto re', 0, companyPlutoRe.outUnderwritingInfoCeded[0].premium)
         assertEquals('correct aggregated (ceded) commission for company pluto re', 0, companyPlutoRe.outUnderwritingInfoCeded[0].commission)
         assertEquals('correct aggregated ceded sum Insured for company pluto re', 0, companyPlutoRe.outUnderwritingInfoCeded[0].sumInsured)
         assertEquals('correct aggregated ceded no of policies for company pluto re',
                 0, companyPlutoRe.outUnderwritingInfoCeded[0].numberOfPolicies)
         assertEquals 'number of net underwriting Info for company pluto re', 1, companyPlutoRe.outUnderwritingInfoNet.size()
-        assertEquals('correct aggregated net premium written for company pluto re', uwInfo4.premiumWritten + 0.5d * uwInfo9.premiumWritten,
-                companyPlutoRe.outUnderwritingInfoNet[0].premiumWritten)
-        assertEquals('correct aggregated net premium written for primary insurer  pluto re', uwInfo4.premiumWritten,
-                companyPlutoRe.outUnderwritingInfoNetPrimaryInsurer[0].premiumWritten)
+        assertEquals('correct aggregated net premium written for company pluto re', uwInfo4.premium + 0.5d * uwInfo9.premium,
+                companyPlutoRe.outUnderwritingInfoNet[0].premium)
+        assertEquals('correct aggregated net premium written for primary insurer  pluto re', uwInfo4.premium,
+                companyPlutoRe.outUnderwritingInfoNetPrimaryInsurer[0].premium)
         assertEquals('correct aggregated commission in net UI for company pluto re',
                 uwInfo4.commission + 0.5d * uwInfo9.commission,
                 companyPlutoRe.outUnderwritingInfoNet[0].commission)

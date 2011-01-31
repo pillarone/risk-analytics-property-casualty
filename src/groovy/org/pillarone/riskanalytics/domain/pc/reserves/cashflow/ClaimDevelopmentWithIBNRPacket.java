@@ -44,7 +44,7 @@ public class ClaimDevelopmentWithIBNRPacket extends ClaimDevelopmentPacket {
 
     /**
      *  This function is not secure in the sense that it does not check if the object itself and
-     *  the obejct received as argument are of equal type.
+     *  the object received as argument are of equal type.
      */
     @Override
     public void plus(Claim claim) {
@@ -65,10 +65,11 @@ public class ClaimDevelopmentWithIBNRPacket extends ClaimDevelopmentPacket {
     }
 
     @Override
-    public void scale(double factor) {
+    public ClaimDevelopmentWithIBNRPacket scale(double factor) {
         super.scale(factor);
         reported *= factor;
         ibnr *= factor;
+        return this;
     }
 
     /**

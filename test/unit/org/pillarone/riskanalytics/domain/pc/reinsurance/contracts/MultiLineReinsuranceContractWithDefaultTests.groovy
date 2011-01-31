@@ -25,7 +25,7 @@ public class MultiLineReinsuranceContractWithDefaultTests extends GroovyTestCase
                         ReinsuranceContractType.QUOTASHARE,
                         ["quotaShare": 0.5,
                                 "coveredByReinsurer": 1d]),
-                parmCoveredLines: new ComboBoxTableMultiDimensionalParameter(['fire'], ['Covered Lines'], LobMarker),
+                parmCoveredLines: new ComboBoxTableMultiDimensionalParameter(['fire'], ['Covered Segments'], LobMarker),
                 parmReinsurer: new ConstrainedString(IReinsurerMarker, 'earth re'))
     }
 
@@ -36,7 +36,7 @@ public class MultiLineReinsuranceContractWithDefaultTests extends GroovyTestCase
 //
 //        Claim claimFire100 = new Claim(origin: component1, claimType: ClaimType.ATTRITIONAL, ultimate: 100d, fractionOfPeriod: 0.2)
 //        contract.inClaims << claimFire100
-//        contract.inUnderwritingInfo << new UnderwritingInfo(origin: component1, premiumWritten: 40)
+//        contract.inUnderwritingInfo << new UnderwritingInfo(origin: component1, premium: 40)
 //        contract.inReinsurersDefault << new ReinsurerDefault('earth re', true)
 //
 //        def probeContractUWI = new TestProbe(contract, "outCoverUnderwritingInfo")    // needed in order to trigger the calculation of net claims
@@ -56,7 +56,7 @@ public class MultiLineReinsuranceContractWithDefaultTests extends GroovyTestCase
 //        }
 //
 //        assertEquals "covered claim value 0", 0, contract.outCoveredClaims[0].ultimate
-//        assertEquals "ceded premium 0", 0, contract.outCoverUnderwritingInfo[0].premiumWritten
+//        assertEquals "ceded premium 0", 0, contract.outCoverUnderwritingInfo[0].premium
 //    }
 
     void testUsageNoDefaultOccured() {
@@ -65,7 +65,7 @@ public class MultiLineReinsuranceContractWithDefaultTests extends GroovyTestCase
 
         Claim claimFire100 = new Claim(origin: component1, claimType: ClaimType.ATTRITIONAL, ultimate: 100d, fractionOfPeriod: 0.2)
         contract.inClaims << claimFire100
-        contract.inUnderwritingInfo << new UnderwritingInfo(origin: component1, premiumWritten: 40)
+        contract.inUnderwritingInfo << new UnderwritingInfo(origin: component1, premium: 40)
         contract.inReinsurersDefault << new ReinsurerDefault('earth re', false)
 
         def probeContractUWI = new TestProbe(contract, "outCoverUnderwritingInfo")    // needed in order to trigger the calculation of net claims
@@ -76,6 +76,6 @@ public class MultiLineReinsuranceContractWithDefaultTests extends GroovyTestCase
         contract.doCalculation()
 //todo(sku): fix
 //        assertEquals "covered claim value 50", 30, contract.outCoveredClaims[0].ultimate
-//        assertEquals "ceded premium 20", 20, contract.outCoverUnderwritingInfo[0].premiumWritten
+//        assertEquals "ceded premium 20", 20, contract.outCoverUnderwritingInfo[0].premium
     }
 }

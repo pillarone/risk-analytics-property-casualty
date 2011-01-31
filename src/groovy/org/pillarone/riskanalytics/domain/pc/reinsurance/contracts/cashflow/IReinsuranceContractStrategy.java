@@ -2,6 +2,7 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cashflow;
 
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 
 import java.util.List;
@@ -26,7 +27,7 @@ interface IReinsuranceContractStrategy extends IParameterObject {
      */
     Claim calculateCededClaim(Claim grossClaim, double coveredByReinsurer);
 
-    UnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double coveredByReinsurer);
+    CededUnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double coveredByReinsurer);
 
     // todo(sku): might be integrated in initBookKeepingFiguresForIteration()
     void resetMemberInstances();

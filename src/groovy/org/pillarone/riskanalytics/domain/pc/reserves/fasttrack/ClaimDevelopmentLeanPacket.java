@@ -69,9 +69,10 @@ public class ClaimDevelopmentLeanPacket extends Claim {
     }
 
     @Override
-    public void scale(double factor) {
+    public ClaimDevelopmentLeanPacket scale(double factor) {
         super.scale(factor);
         paid *= factor;
+        return this;
     }
 
     /**

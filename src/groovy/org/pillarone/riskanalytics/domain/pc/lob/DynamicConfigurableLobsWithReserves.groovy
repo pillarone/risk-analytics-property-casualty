@@ -6,6 +6,7 @@ import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.core.packets.SingleValuePacket
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -14,7 +15,7 @@ import org.pillarone.riskanalytics.core.packets.SingleValuePacket
 public class DynamicConfigurableLobsWithReserves extends MultiPhaseDynamicComposedComponent {
 
     PacketList<UnderwritingInfo> inUnderwritingInfoGross = new PacketList(UnderwritingInfo)
-    PacketList<UnderwritingInfo> inUnderwritingInfoCeded = new PacketList(UnderwritingInfo)
+    PacketList<CededUnderwritingInfo> inUnderwritingInfoCeded = new PacketList(CededUnderwritingInfo)
     PacketList<Claim> inClaimsGross = new PacketList(Claim)
     PacketList<Claim> inClaimsCeded = new PacketList(Claim)
     PacketList<SingleValuePacket> inInitialReserves = new PacketList<SingleValuePacket>(SingleValuePacket)
@@ -30,7 +31,7 @@ public class DynamicConfigurableLobsWithReserves extends MultiPhaseDynamicCompos
 
     PacketList<UnderwritingInfo> outUnderwritingInfoNet = new PacketList(UnderwritingInfo)
     PacketList<UnderwritingInfo> outUnderwritingInfoGross = new PacketList(UnderwritingInfo)
-    PacketList<UnderwritingInfo> outUnderwritingInfoCeded = new PacketList(UnderwritingInfo)
+    PacketList<CededUnderwritingInfo> outUnderwritingInfoCeded = new PacketList(CededUnderwritingInfo)
 
     public void wire() {
         replicateInChannels this, 'inUnderwritingInfoGross'

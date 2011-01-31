@@ -17,10 +17,15 @@ public class CommissionStrategyType extends AbstractParameterObjectClassifier {
                         [[0d], [0d]],
                         [SlidingCommissionStrategy.LOSS_RATIO, SlidingCommissionStrategy.COMMISSION],
                         ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))])
+    public static final CommissionStrategyType INTERPOLATEDSLIDINGCOMMISSION = new CommissionStrategyType("interpolated sliding commission", "INTERPOLATEDSLIDINGCOMMISSION",
+           ['commissionBands': new ConstrainedMultiDimensionalParameter(
+                        [[0d], [0d]],
+                        [SlidingCommissionStrategy.LOSS_RATIO, SlidingCommissionStrategy.COMMISSION],
+                        ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))])
     public static final CommissionStrategyType PROFITCOMMISSION = new CommissionStrategyType("profit commission", "PROFITCOMMISSION",
             ['profitCommissionRatio':0d, 'commissionRatio':0d, 'costRatio':0d, 'lossCarriedForwardEnabled':true, 'initialLossCarriedForward':0d])
 
-    public static final all = [NOCOMMISSION, FIXEDCOMMISSION, SLIDINGCOMMISSION, PROFITCOMMISSION]
+    public static final all = [NOCOMMISSION, FIXEDCOMMISSION, SLIDINGCOMMISSION, INTERPOLATEDSLIDINGCOMMISSION, PROFITCOMMISSION]
 
     protected static Map types = [:]
     static {
@@ -70,6 +75,10 @@ public class CommissionStrategyType extends AbstractParameterObjectClassifier {
                 break;
             case CommissionStrategyType.SLIDINGCOMMISSION:
                 commissionStrategy = new SlidingCommissionStrategy(
+                        commissionBands: (ConstrainedMultiDimensionalParameter) parameters['commissionBands'])
+                break;
+            case CommissionStrategyType.INTERPOLATEDSLIDINGCOMMISSION:
+                commissionStrategy = new InterpolatedSlidingCommissionStrategy(
                         commissionBands: (ConstrainedMultiDimensionalParameter) parameters['commissionBands'])
                 break;
         }

@@ -4,6 +4,8 @@ import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoPacketFactory
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 
 /**
  * @author martin.melchior (at) fhnw (dot) ch
@@ -35,14 +37,14 @@ class SurplusContractStrategy extends AbstractContractStrategy implements IReins
         if (inClaim.hasExposureInfo()) {
             if (inClaim.ultimate > inClaim.exposure.sumInsured) {
                 // handle a total loss according to https://issuetracking.intuitive-collaboration.com/jira/browse/PMO-1261
-                return inClaim.ultimate * coveredByReinsurer * getFractionCeded(inClaim.ultimate)
+                return inClaim.ultimate * getFractionCeded(inClaim.ultimate)
             }
             else {
-                return inClaim.ultimate * coveredByReinsurer * getFractionCeded(inClaim.exposure.sumInsured)
+                return inClaim.ultimate * getFractionCeded(inClaim.exposure.sumInsured)
             }
         }
         else {
-            return inClaim.ultimate * coveredByReinsurer * defaultCededLossShare
+            return inClaim.ultimate * defaultCededLossShare
         }
     }
 
@@ -61,15 +63,18 @@ class SurplusContractStrategy extends AbstractContractStrategy implements IReins
 
     // todo: Are the definition for the as-if premium reasonable?
 
-    UnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double initialReserves) {
-        UnderwritingInfo cededUnderwritingInfo = UnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
+    CededUnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double initialReserves) {
+        CededUnderwritingInfo cededUnderwritingInfo = CededUnderwritingInfoPacketFactory.copy(grossUnderwritingInfo)
         cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo?.originalUnderwritingInfo ? grossUnderwritingInfo.originalUnderwritingInfo : grossUnderwritingInfo
         double fractionCeded = getFractionCeded(cededUnderwritingInfo.sumInsured)
-        cededUnderwritingInfo.premiumWritten *= fractionCeded * coveredByReinsurer
-        cededUnderwritingInfo.premiumWrittenAsIf *= fractionCeded * coveredByReinsurer
-        cededUnderwritingInfo.sumInsured *= fractionCeded * coveredByReinsurer
-        cededUnderwritingInfo.maxSumInsured *= fractionCeded * coveredByReinsurer
+        cededUnderwritingInfo.premium *= fractionCeded
+        cededUnderwritingInfo.sumInsured *= fractionCeded
+        cededUnderwritingInfo.maxSumInsured *= fractionCeded
         cededUnderwritingInfo.commission = 0
+        cededUnderwritingInfo.fixedCommission = 0
+        cededUnderwritingInfo.variableCommission = 0
+        cededUnderwritingInfo.fixedPremium = cededUnderwritingInfo.premium
+        cededUnderwritingInfo.variablePremium = 0
         cededUnderwritingInfo
     }
 }

@@ -2,7 +2,7 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts
 
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
-import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
+
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoTests
 import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
@@ -106,8 +106,7 @@ class StopLossContractStrategyTests extends GroovyTestCase {
         //============================================================ testGetCededUnderwriting
         UnderwritingInfo cededUnderwritingInfo = stopLoss.parmContractStrategy.calculateCoverUnderwritingInfo(grossUnderwritingInfo, 0)
 
-        assertEquals "premium written", stopLoss.parmContractStrategy.premium * grossUnderwritingInfo.premiumWritten, cededUnderwritingInfo.premiumWritten
-        assertEquals "premium written as if", stopLoss.parmContractStrategy.premium * grossUnderwritingInfo.premiumWrittenAsIf, cededUnderwritingInfo.premiumWrittenAsIf
+        assertEquals "premium written", stopLoss.parmContractStrategy.premium * grossUnderwritingInfo.premium, cededUnderwritingInfo.premium
 
     }
 

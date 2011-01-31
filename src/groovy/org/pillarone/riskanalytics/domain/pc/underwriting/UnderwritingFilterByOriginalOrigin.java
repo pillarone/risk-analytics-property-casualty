@@ -9,19 +9,18 @@ import org.pillarone.riskanalytics.core.packets.PacketList;
 public class UnderwritingFilterByOriginalOrigin extends Component {
 
     private PacketList<UnderwritingInfo> inUnderwritingInfoGross = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
-    private PacketList<UnderwritingInfo> inUnderwritingInfoCeded = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
-    private PacketList<UnderwritingInfo> outUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
+    private PacketList<CededUnderwritingInfo> inUnderwritingInfoCeded = new PacketList<CededUnderwritingInfo>(CededUnderwritingInfo.class);
+    private PacketList<CededUnderwritingInfo> outUnderwritingInfo = new PacketList<CededUnderwritingInfo>(CededUnderwritingInfo.class);
 
     public void doCalculation() {
-        outUnderwritingInfo.addAll(UnderwritingFilterUtilities.filterUnderwritingInfoByOriginalOrigin(
-                inUnderwritingInfoGross, inUnderwritingInfoCeded));
+        outUnderwritingInfo.addAll(UnderwritingFilterUtilities.filterUnderwritingInfoByOriginalOrigin(inUnderwritingInfoGross, inUnderwritingInfoCeded));
     }
 
-    public PacketList<UnderwritingInfo> getOutUnderwritingInfo() {
+    public PacketList<CededUnderwritingInfo> getOutUnderwritingInfo() {
         return outUnderwritingInfo;
     }
 
-    public void setOutUnderwritingInfo(PacketList<UnderwritingInfo> outUnderwritingInfo) {
+    public void setOutUnderwritingInfo(PacketList<CededUnderwritingInfo> outUnderwritingInfo) {
         this.outUnderwritingInfo = outUnderwritingInfo;
     }
 
@@ -33,11 +32,11 @@ public class UnderwritingFilterByOriginalOrigin extends Component {
         this.inUnderwritingInfoGross = inUnderwritingInfoGross;
     }
 
-    public PacketList<UnderwritingInfo> getInUnderwritingInfoCeded() {
+    public PacketList<CededUnderwritingInfo> getInUnderwritingInfoCeded() {
         return inUnderwritingInfoCeded;
     }
 
-    public void setInUnderwritingInfoCeded(PacketList<UnderwritingInfo> inUnderwritingInfoCeded) {
+    public void setInUnderwritingInfoCeded(PacketList<CededUnderwritingInfo> inUnderwritingInfoCeded) {
         this.inUnderwritingInfoCeded = inUnderwritingInfoCeded;
     }
 }

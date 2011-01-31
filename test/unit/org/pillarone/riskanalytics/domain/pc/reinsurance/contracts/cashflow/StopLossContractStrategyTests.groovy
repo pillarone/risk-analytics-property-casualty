@@ -1,6 +1,5 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cashflow
 
-import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
@@ -24,7 +23,7 @@ class StopLossContractStrategyTests extends GroovyTestCase {
         ClaimDevelopmentPacket claim3P0 = new ClaimDevelopmentPacket(incurred: 150, paid:  80, reserved:  70)
         List claimsP0 = [claim1P0, claim2P0, claim3P0]
         List underwritingInfos = []
-        underwritingInfos << new UnderwritingInfo(premiumWritten: 0)
+        underwritingInfos << new UnderwritingInfo(premium: 0)
 
         stoploss.initBookKeepingFiguresForIteration(claimsP0, underwritingInfos)
         stoploss.initBookKeepingFiguresOfPeriod(claimsP0, underwritingInfos, coveredByReinsurer)
@@ -123,7 +122,7 @@ class StopLossContractStrategyTests extends GroovyTestCase {
         ClaimDevelopmentPacket claim3P0 = new ClaimDevelopmentPacket(incurred: 150, paid:  80, reserved:  70)
         List claimsP0 = [claim1P0, claim2P0, claim3P0]
         List underwritingInfos = []
-        underwritingInfos << new UnderwritingInfo(premiumWritten: 0)
+        underwritingInfos << new UnderwritingInfo(premium: 0)
 
         stoploss.initBookKeepingFiguresForIteration(claimsP0, underwritingInfos)
         stoploss.initBookKeepingFiguresOfPeriod(claimsP0, underwritingInfos, coveredByReinsurer)

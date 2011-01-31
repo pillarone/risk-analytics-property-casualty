@@ -14,6 +14,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cashflow.Mult
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.MarketUnderwritingInfoMerger
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 
 /**
  * Reinsurance program for several synchronized reinsurance contracts operating on flat or subordinated priority levels
@@ -60,7 +61,7 @@ class MultiLinesPerilsReinsuranceProgram extends DynamicComposedComponent {
 
     PacketList<UnderwritingInfo> outNetAfterCoverUnderwritingInfo = new PacketList(UnderwritingInfo)
     PacketList<UnderwritingInfo> outUnderwritingInfo = new PacketList(UnderwritingInfo)
-    PacketList<UnderwritingInfo> outCoverUnderwritingInfo = new PacketList(UnderwritingInfo)
+    PacketList<CededUnderwritingInfo> outCoverUnderwritingInfo = new PacketList(CededUnderwritingInfo)
 
     protected List sortedIndizes
     private List<Component> contractsSorted

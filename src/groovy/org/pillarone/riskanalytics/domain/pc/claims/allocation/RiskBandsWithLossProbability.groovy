@@ -50,8 +50,7 @@ class RiskBandsWithLossProbability extends RiskBands {
             UnderwritingInfoWithLossProbability underwritingInfoWLP = new UnderwritingInfoWithLossProbability()
             // todo : safer column selection
             // todo (mno): Look at the parameters which can be treated by the class RiskBands
-            underwritingInfoWLP.premiumWritten = (Double) parmUnderwritingInformation.getValueAt(i, 2)
-            underwritingInfoWLP.premiumWrittenAsIf = underwritingInfoWLP.premiumWritten
+            underwritingInfoWLP.premium = (Double) parmUnderwritingInformation.getValueAt(i, 2)
             underwritingInfoWLP.maxSumInsured = (Double) parmUnderwritingInformation.getValueAt(i, 0)
             underwritingInfoWLP.sumInsured = (Double) parmUnderwritingInformation.getValueAt(i, 1)
             underwritingInfoWLP.lossProbability = (Double) parmUnderwritingInformation.getValueAt(i, 4)

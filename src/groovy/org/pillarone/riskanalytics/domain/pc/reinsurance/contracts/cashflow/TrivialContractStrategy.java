@@ -2,6 +2,8 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cashflow;
 
 
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo;
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoPacketFactory;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory;
 
@@ -29,26 +31,20 @@ public class TrivialContractStrategy extends AbstractContractStrategy {
         return cededClaim;
     }
 
-    public UnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double coveredByReinsurer) {
-        UnderwritingInfo cededUnderwritingInfo = UnderwritingInfoPacketFactory.copy(grossUnderwritingInfo);
+    public CededUnderwritingInfo calculateCoverUnderwritingInfo(UnderwritingInfo grossUnderwritingInfo, double coveredByReinsurer) {
+        CededUnderwritingInfo cededUnderwritingInfo = CededUnderwritingInfoPacketFactory.copy(grossUnderwritingInfo);
         if (grossUnderwritingInfo != null) {
-            cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo.originalUnderwritingInfo;
+            cededUnderwritingInfo.setOriginalUnderwritingInfo(grossUnderwritingInfo.getOriginalUnderwritingInfo());
         }
         else {
-            cededUnderwritingInfo.originalUnderwritingInfo = grossUnderwritingInfo;
+            cededUnderwritingInfo.setOriginalUnderwritingInfo(grossUnderwritingInfo);
         }
-        cededUnderwritingInfo.premiumWritten = 0;
-        cededUnderwritingInfo.premiumWrittenAsIf = 0;
-        cededUnderwritingInfo.sumInsured = 0;
-        cededUnderwritingInfo.maxSumInsured = 0;
-        cededUnderwritingInfo.commission = 0;
+        cededUnderwritingInfo.setPremium(0);
+        cededUnderwritingInfo.setSumInsured(0);
+        cededUnderwritingInfo.setMaxSumInsured(0);
+        cededUnderwritingInfo.setCommission(0);
         return cededUnderwritingInfo;
     }
-
-//    @Override
-//    public IReinsuranceContractStrategy clone() {
-//        return ReinsuranceContractType.getStrategy(getType(), getParameters());
-//    }
 
     public boolean exhausted() {
         return true;

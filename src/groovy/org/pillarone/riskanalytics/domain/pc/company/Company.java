@@ -17,6 +17,8 @@ import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiCompanyCoverAttributeReinsuranceContract;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo;
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoPacketFactory;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities;
 import org.pillarone.riskanalytics.domain.utils.IRandomNumberGenerator;
@@ -52,7 +54,7 @@ public class Company extends MultiPhaseComponent implements ICompanyMarker {
     private PacketList<Claim> inClaimsGross = new PacketList<Claim>(Claim.class);
     private PacketList<Claim> inClaimsCeded = new PacketList<Claim>(Claim.class);
     private PacketList<UnderwritingInfo> inUnderwritingInfoGross = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
-    private PacketList<UnderwritingInfo> inUnderwritingInfoCeded = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
+    private PacketList<CededUnderwritingInfo> inUnderwritingInfoCeded = new PacketList<CededUnderwritingInfo>(CededUnderwritingInfo.class);
 
     private PacketList<ReinsurerDefault> outReinsurersDefault = new PacketList<ReinsurerDefault>(ReinsurerDefault.class);
 
@@ -73,7 +75,7 @@ public class Company extends MultiPhaseComponent implements ICompanyMarker {
     private PacketList<UnderwritingInfo> outUnderwritingInfoGross = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
     private PacketList<UnderwritingInfo> outUnderwritingInfoGrossPrimaryInsurer = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
     private PacketList<UnderwritingInfo> outUnderwritingInfoGrossReinsurer = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
-    private PacketList<UnderwritingInfo> outUnderwritingInfoCeded = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
+    private PacketList<CededUnderwritingInfo> outUnderwritingInfoCeded = new PacketList<CededUnderwritingInfo>(CededUnderwritingInfo.class);
     private PacketList<UnderwritingInfo> outUnderwritingInfoNet = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
     private PacketList<UnderwritingInfo> outUnderwritingInfoNetPrimaryInsurer = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
 
@@ -185,15 +187,13 @@ public class Company extends MultiPhaseComponent implements ICompanyMarker {
             // underwriting info calculations:
             UnderwritingInfo aggregatedUnderwritingInfoGrossPI;
             UnderwritingInfo aggregatedUnderwritingInfoGrossRI;
-            UnderwritingInfo aggregatedUnderwritingInfoCeded;
+            CededUnderwritingInfo aggregatedUnderwritingInfoCeded = CededUnderwritingInfoPacketFactory.createPacket();
             if (inUnderwritingInfoGross.size() > 0) {
                 aggregatedUnderwritingInfoGrossPI = inUnderwritingInfoGross.get(0).getClass().newInstance();
                 aggregatedUnderwritingInfoGrossRI = inUnderwritingInfoGross.get(0).getClass().newInstance();
-                aggregatedUnderwritingInfoCeded = inUnderwritingInfoGross.get(0).getClass().newInstance();
             } else {
                 aggregatedUnderwritingInfoGrossPI = (UnderwritingInfo) inUnderwritingInfoGross.getType().newInstance();
                 aggregatedUnderwritingInfoGrossRI = (UnderwritingInfo) inUnderwritingInfoGross.getType().newInstance();
-                aggregatedUnderwritingInfoCeded = (UnderwritingInfo) inUnderwritingInfoGross.getType().newInstance();
             }
             for (UnderwritingInfo underwritingInfo : inUnderwritingInfoGross) {
                 // the line of business belongs to this company and therefore the gross underwriting info is added to this company
@@ -202,14 +202,14 @@ public class Company extends MultiPhaseComponent implements ICompanyMarker {
                 }
             }
 
-            for (UnderwritingInfo underwritingInfo : inUnderwritingInfoCeded) {
+            for (CededUnderwritingInfo underwritingInfo : inUnderwritingInfoCeded) {
                 IReinsuranceContractMarker contract = underwritingInfo.getReinsuranceContract();
                 if (isCompanyUnderwritingInfo(underwritingInfo)) {
                     aggregatedUnderwritingInfoCeded.plus(underwritingInfo);
                 }
                 // check if this company was the reinsurer of a ceded underwriting info, if true add up the underwriting info to the aggregate gross
                 else if (contract instanceof MultiCompanyCoverAttributeReinsuranceContract) {
-                    UnderwritingInfo underwritingInfoOfThisCompany = (UnderwritingInfo) underwritingInfo.copy();
+                    UnderwritingInfo underwritingInfoOfThisCompany = underwritingInfo.copy();
                     underwritingInfoOfThisCompany.scale(getCoveredPortion(contract));
                     aggregatedUnderwritingInfoGrossRI.plus(underwritingInfoOfThisCompany);
                 }
@@ -218,7 +218,7 @@ public class Company extends MultiPhaseComponent implements ICompanyMarker {
             outUnderwritingInfoGrossPrimaryInsurer.add(aggregatedUnderwritingInfoGrossPI);
             outUnderwritingInfoGrossReinsurer.add(aggregatedUnderwritingInfoGrossRI);
             outUnderwritingInfoCeded.add(aggregatedUnderwritingInfoCeded);
-            UnderwritingInfo aggregatedUnderwritingInfoGross = (UnderwritingInfo) aggregatedUnderwritingInfoGrossPI.copy();
+            UnderwritingInfo aggregatedUnderwritingInfoGross = aggregatedUnderwritingInfoGrossPI.copy();
             aggregatedUnderwritingInfoGross.plus(aggregatedUnderwritingInfoGrossRI);
             outUnderwritingInfoGross.add(aggregatedUnderwritingInfoGross);
             UnderwritingInfo aggregatedUnderwritingInfoNet = UnderwritingInfoUtilities.calculateNet(aggregatedUnderwritingInfoGross, aggregatedUnderwritingInfoCeded);
@@ -441,11 +441,11 @@ public class Company extends MultiPhaseComponent implements ICompanyMarker {
         this.inUnderwritingInfoGross = inUnderwritingInfoGross;
     }
 
-    public PacketList<UnderwritingInfo> getInUnderwritingInfoCeded() {
+    public PacketList<CededUnderwritingInfo> getInUnderwritingInfoCeded() {
         return inUnderwritingInfoCeded;
     }
 
-    public void setInUnderwritingInfoCeded(PacketList<UnderwritingInfo> inUnderwritingInfoCeded) {
+    public void setInUnderwritingInfoCeded(PacketList<CededUnderwritingInfo> inUnderwritingInfoCeded) {
         this.inUnderwritingInfoCeded = inUnderwritingInfoCeded;
     }
 
@@ -457,11 +457,11 @@ public class Company extends MultiPhaseComponent implements ICompanyMarker {
         this.outUnderwritingInfoGross = outUnderwritingInfoGross;
     }
 
-    public PacketList<UnderwritingInfo> getOutUnderwritingInfoCeded() {
+    public PacketList<CededUnderwritingInfo> getOutUnderwritingInfoCeded() {
         return outUnderwritingInfoCeded;
     }
 
-    public void setOutUnderwritingInfoCeded(PacketList<UnderwritingInfo> outUnderwritingInfoCeded) {
+    public void setOutUnderwritingInfoCeded(PacketList<CededUnderwritingInfo> outUnderwritingInfoCeded) {
         this.outUnderwritingInfoCeded = outUnderwritingInfoCeded;
     }
 

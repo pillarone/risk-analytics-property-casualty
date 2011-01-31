@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.commissions;
 
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier;
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 
@@ -25,15 +26,20 @@ public class FixedCommissionStrategy implements ICommissionStrategy {
         return map;
     }
 
-    public void calculateCommission(List<Claim> claims, List<UnderwritingInfo> underwritingInfos, boolean isFirstPeriod, boolean isAdditive) {
+    public void calculateCommission(List<Claim> claims, List<CededUnderwritingInfo> underwritingInfos, boolean isFirstPeriod, boolean isAdditive) {
         if (isAdditive) {
-            for (UnderwritingInfo underwritingInfo : underwritingInfos) {
-                underwritingInfo.setCommission(underwritingInfo.getCommission() - underwritingInfo.getPremiumWritten() * commission);
+            for (CededUnderwritingInfo underwritingInfo : underwritingInfos) {
+                double premiumWritten = underwritingInfo.getPremium();
+                underwritingInfo.setCommission(underwritingInfo.getCommission() - premiumWritten * commission);
+                underwritingInfo.setFixedCommission(underwritingInfo.getFixedCommission() - premiumWritten * commission);
+                underwritingInfo.setVariableCommission(underwritingInfo.getVariableCommission());
             }
         }
         else {
-            for (UnderwritingInfo underwritingInfo : underwritingInfos) {
-                underwritingInfo.setCommission(-underwritingInfo.getPremiumWritten() * commission);
+            for (CededUnderwritingInfo underwritingInfo : underwritingInfos) {
+                underwritingInfo.setCommission(-underwritingInfo.getPremium() * commission);
+                underwritingInfo.setFixedCommission(underwritingInfo.getCommission());
+                underwritingInfo.setVariableCommission(0d);
             }
         }
     }

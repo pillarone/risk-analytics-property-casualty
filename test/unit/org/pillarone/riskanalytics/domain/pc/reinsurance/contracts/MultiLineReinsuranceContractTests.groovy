@@ -27,7 +27,7 @@ public class MultiLineReinsuranceContractTests extends GroovyTestCase {
                         ["quotaShare": 0.2,
                          "coveredByReinsurer": 1d]),
                 parmInuringPriority: 10,
-                parmCoveredLines: new ComboBoxTableMultiDimensionalParameter(['fire'], ['Covered Lines'], LobMarker)
+                parmCoveredLines: new ComboBoxTableMultiDimensionalParameter(['fire'], ['Covered Segments'], LobMarker)
         )
     }
 
@@ -165,7 +165,7 @@ public class MultiLineReinsuranceContractTests extends GroovyTestCase {
 
 
         contract.inClaims << claimDevelopment1 << claimDevelopment2
-        contract.parmCoveredLines = new ComboBoxTableMultiDimensionalParameter(['motor'], ['Covered Lines'], LobMarker)
+        contract.parmCoveredLines = new ComboBoxTableMultiDimensionalParameter(['motor'], ['Covered Segments'], LobMarker)
         contract.parmCoveredLines.setSimulationModel simulationScope.model
         contract.doCalculation()
         assertEquals '# ceded claims packets', 1, contract.outCoveredClaims.size()

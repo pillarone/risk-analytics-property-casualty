@@ -1,6 +1,8 @@
 package org.pillarone.riskanalytics.domain.pc.underwriting;
 
+import org.pillarone.riskanalytics.core.packets.MultiValuePacket;
 import org.pillarone.riskanalytics.domain.pc.constants.Exposure;
+import org.pillarone.riskanalytics.domain.pc.constants.FrequencyBase;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
 
@@ -12,14 +14,20 @@ import java.util.Map;
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-public class UnderwritingInfo extends ExposureInfo {
+public class UnderwritingInfo extends MultiValuePacket {
 
-    public UnderwritingInfo originalUnderwritingInfo;
-    public double premiumWritten;
-    public double commission;
+    private UnderwritingInfo originalUnderwritingInfo;
+
+    private double premium;
+    private double commission;
+    private double numberOfPolicies;
+    private double sumInsured;
+    private double maxSumInsured;
+
+    private Exposure exposureDefinition;
     private LobMarker lineOfBusiness;
     private IReinsuranceContractMarker reinsuranceContract;
-    
+
     private static final String PREMIUM = "premium";
     private static final String COMMISSION = "commission";
 
@@ -34,18 +42,23 @@ public class UnderwritingInfo extends ExposureInfo {
         return copy;
     }
 
+    public CededUnderwritingInfo copyToSubclass() {
+        CededUnderwritingInfo copy = CededUnderwritingInfoPacketFactory.createPacket();
+        copy.set(this);
+        return copy;
+    }
+
     public void set(UnderwritingInfo underwritingInfo) {
         setOrigin(underwritingInfo.getOrigin());
-        setExposureDefinition(underwritingInfo.exposureDefinition);
-        setPremiumWrittenAsIf(underwritingInfo.getPremiumWrittenAsIf());
-        setNumberOfPolicies(underwritingInfo.getNumberOfPolicies());
-        setSumInsured(underwritingInfo.getSumInsured());
-        setMaxSumInsured(underwritingInfo.getMaxSumInsured());
-        setOriginalUnderwritingInfo(underwritingInfo.getOriginalUnderwritingInfo());
-        setPremiumWritten(underwritingInfo.premiumWritten);
-        setCommission(underwritingInfo.commission);
-        setLineOfBusiness(underwritingInfo.getLineOfBusiness());
-        setReinsuranceContract(underwritingInfo.getReinsuranceContract());
+        exposureDefinition = underwritingInfo.exposureDefinition;
+        numberOfPolicies = underwritingInfo.numberOfPolicies;
+        sumInsured = underwritingInfo.sumInsured;
+        maxSumInsured = underwritingInfo.maxSumInsured;
+        originalUnderwritingInfo = underwritingInfo.originalUnderwritingInfo;
+        premium = underwritingInfo.premium;
+        commission = underwritingInfo.commission;
+        lineOfBusiness = underwritingInfo.getLineOfBusiness();
+        reinsuranceContract = underwritingInfo.getReinsuranceContract();
     }
 
     /**
@@ -58,7 +71,7 @@ public class UnderwritingInfo extends ExposureInfo {
     @Override
     public Map<String, Number> getValuesToSave() throws IllegalAccessException {
         Map<String, Number> map = new HashMap<String, Number>();
-        map.put(PREMIUM, premiumWritten);
+        map.put(PREMIUM, premium);
         map.put(COMMISSION, commission);
         return map;
     }
@@ -73,53 +86,80 @@ public class UnderwritingInfo extends ExposureInfo {
             case ABSOLUTE:
                 return 1d;
             case PREMIUM_WRITTEN:
-                return getPremiumWritten();
+                return getPremium();
             case NUMBER_OF_POLICIES:
                 return getNumberOfPolicies();
         }
         return 0;
     }
 
+    public double scaleValue(FrequencyBase base) {
+        switch (base) {
+            case ABSOLUTE:
+                return 1d;
+            case NUMBER_OF_POLICIES:
+                return getNumberOfPolicies();
+        }
+        return 1;
+    }
+
     /**
-     * Adds additive UnderwritingInfo fields (premiumWritten, commission) as well as combining ExposureInfo fields.
+     * Adds additive UnderwritingInfo fields (premium, commission) as well as combining ExposureInfo fields.
+     *
      * @param other
      * @return UnderwritingInfo packet with resulting fields
      */
-    public void plus(UnderwritingInfo other) {
-        super.plus(other);
-        premiumWritten += other.premiumWritten;
+    public UnderwritingInfo plus(UnderwritingInfo other) {
+        if (other == null) return this;
+        sumInsured = (numberOfPolicies * sumInsured + other.numberOfPolicies * other.sumInsured);
+        numberOfPolicies += other.numberOfPolicies;
+        if (numberOfPolicies > 0) {
+            sumInsured = sumInsured / numberOfPolicies;
+        }
+        maxSumInsured = Math.max(maxSumInsured, other.maxSumInsured);
+        if (exposureDefinition != other.exposureDefinition) {
+            exposureDefinition = null;
+        }
+        premium += other.premium;
         commission += other.commission;
+        return this;
     }
 
-    public void minus(UnderwritingInfo other) {
-        super.minus(other);
-        premiumWritten -= other.premiumWritten;
+    public UnderwritingInfo minus(UnderwritingInfo other) {
+        if (other == null) return this;
+        sumInsured = numberOfPolicies * sumInsured - other.numberOfPolicies * other.sumInsured;
+        numberOfPolicies -= other.numberOfPolicies;
+        if (numberOfPolicies > 0) {
+            sumInsured = sumInsured / numberOfPolicies;
+        }
+        if (exposureDefinition != null && exposureDefinition != other.exposureDefinition) {
+            exposureDefinition = null;
+        }
+        premium -= other.premium;
         commission -= other.commission;
-        if (premiumWritten == 0 && commission == 0 && sumInsured == 0) {
+        if (premium == 0 && commission == 0 && sumInsured == 0) {
             numberOfPolicies = 0;
         }
+        return this;
     }
 
-    public void scale(double factor) {
-        super.scale(factor);
+    public UnderwritingInfo scale(double factor) {
+        maxSumInsured *= factor;
+        sumInsured *= factor;
+        if (factor == 0) {
+            numberOfPolicies = 0;
+        }
+        premium *= factor;
         commission *= factor;
-        premiumWritten *= factor;
+        return this;
     }
 
-    public double getPremiumWritten() {
-        return premiumWritten;
+    public double getPremium() {
+        return premium;
     }
 
-    public void setPremiumWritten(double premiumWritten) {
-        this.premiumWritten = premiumWritten;
-    }
-
-    public double getCommission() {
-        return commission;
-    }
-
-    public void setCommission(double commission) {
-        this.commission = commission;
+    public void setPremium(double premium) {
+        this.premium = premium;
     }
 
     public UnderwritingInfo getOriginalUnderwritingInfo() {
@@ -131,11 +171,9 @@ public class UnderwritingInfo extends ExposureInfo {
     }
 
     public String toString() {
-        return "premium: " + String.valueOf(premiumWritten) + ", commission: " + commission +
-                ", origin: " + (origin == null ? "null" : origin.getNormalizedName()) +
-                ", original " + (originalUnderwritingInfo==null ? "null" :
-                                 originalUnderwritingInfo.origin==null ? "unnamed" :
-                                 originalUnderwritingInfo.origin.getNormalizedName());
+        return "premium: " + String.valueOf(premium) + ", origin: " + (origin == null ? "null" : origin.getNormalizedName()) +
+                ", original " + (originalUnderwritingInfo == null ? "null" : originalUnderwritingInfo.origin == null ?
+                "unnamed" : originalUnderwritingInfo.origin.getNormalizedName());
     }
 
     public LobMarker getLineOfBusiness() {
@@ -152,5 +190,45 @@ public class UnderwritingInfo extends ExposureInfo {
 
     public void setReinsuranceContract(IReinsuranceContractMarker reinsuranceContract) {
         this.reinsuranceContract = reinsuranceContract;
+    }
+
+    public double getNumberOfPolicies() {
+        return numberOfPolicies;
+    }
+
+    public void setNumberOfPolicies(double numberOfPolicies) {
+        this.numberOfPolicies = numberOfPolicies;
+    }
+
+    public double getSumInsured() {
+        return sumInsured;
+    }
+
+    public void setSumInsured(double sumInsured) {
+        this.sumInsured = sumInsured;
+    }
+
+    public double getMaxSumInsured() {
+        return maxSumInsured;
+    }
+
+    public void setMaxSumInsured(double maxSumInsured) {
+        this.maxSumInsured = maxSumInsured;
+    }
+
+    public Exposure getExposureDefinition() {
+        return exposureDefinition;
+    }
+
+    public void setExposureDefinition(Exposure exposureDefinition) {
+        this.exposureDefinition = exposureDefinition;
+    }
+
+    public double getCommission() {
+        return commission;
+    }
+
+    public void setCommission(double commission) {
+        this.commission = commission;
     }
 }

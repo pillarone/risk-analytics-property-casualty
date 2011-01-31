@@ -25,7 +25,7 @@ class WXLContractStrategyTests extends GroovyTestCase {
         ClaimDevelopmentPacket claim2P0 = new ClaimDevelopmentPacket(incurred:  150, paid:  80, reserved:  70, claimType: ClaimType.SINGLE)
         ClaimDevelopmentPacket claim3P0 = new ClaimDevelopmentPacket(incurred:  200, paid:  100, reserved:  100, claimType: ClaimType.SINGLE)
         List claimsP0 = [claim1P0, claim2P0, claim3P0]
-        underwritingInfos << new UnderwritingInfo(premiumWritten: 0)
+        underwritingInfos << new UnderwritingInfo(premium: 0)
         wxl.initBookKeepingFiguresForIteration(claimsP0, underwritingInfos)
 
         wxl.initBookKeepingFiguresOfPeriod(claimsP0, underwritingInfos, coveredByReinsurer)
@@ -115,7 +115,7 @@ class WXLContractStrategyTests extends GroovyTestCase {
                         reinstatementPremiums: new TableMultiDimensionalParameter([0.0], ['Reinstatement Premium']))
         double coveredByReinsurer = 1
 
-        List underwritingInfos = [new UnderwritingInfo(premiumWritten: 0)]
+        List underwritingInfos = [new UnderwritingInfo(premium: 0)]
 
         ClaimDevelopmentPacket claim1P0 = new ClaimDevelopmentPacket(incurred: 100, paid:  20, reserved:  80, claimType: ClaimType.SINGLE)
         ClaimDevelopmentPacket claim2P0 = new ClaimDevelopmentPacket(incurred:  150, paid:  80, reserved:  70, claimType: ClaimType.SINGLE)

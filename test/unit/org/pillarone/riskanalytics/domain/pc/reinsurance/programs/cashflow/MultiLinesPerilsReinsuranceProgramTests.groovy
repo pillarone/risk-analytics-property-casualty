@@ -321,12 +321,12 @@ class MultiLinesPerilsReinsuranceProgramTests extends GroovyTestCase {
         program.inClaims << claim1000 << claim800
 
         UnderwritingInfo originalUnderwritingInfo200 = new UnderwritingInfo(
-                premiumWritten: ++bogusValue,
+                premium: ++bogusValue,
                 commission: ++bogusValue,
                 origin: new TestComponent(name: "ui1")
         )
         UnderwritingInfo originalUnderwritingInfo100 = new UnderwritingInfo(
-                premiumWritten: ++bogusValue,
+                premium: ++bogusValue,
                 commission: ++bogusValue,
                 origin: new TestComponent(name: "ui2")
         )
@@ -334,12 +334,12 @@ class MultiLinesPerilsReinsuranceProgramTests extends GroovyTestCase {
         double com1 = 1120;
         double com2 = 10;
         UnderwritingInfo underwritingInfo200 = new UnderwritingInfo(
-                premiumWritten: 200,
+                premium: 200,
                 commission: com1, // this should be zero in the real world
                 originalUnderwritingInfo: originalUnderwritingInfo200
         )
         UnderwritingInfo underwritingInfo100 = new UnderwritingInfo(
-                premiumWritten: 100,
+                premium: 100,
                 commission: com2, // this should be zero in the real world
                 originalUnderwritingInfo: originalUnderwritingInfo100
         )
@@ -395,35 +395,35 @@ class MultiLinesPerilsReinsuranceProgramTests extends GroovyTestCase {
 
         assertEquals 'qs1, underwritinginfo200: premium written (ceded/net)',
             ([40, 160].collect {(double)it}).join(", "),
-            ([qs1UInfoCeded, qs1UInfoNet].collect {it[0].premiumWritten}).join(", ")
+            ([qs1UInfoCeded, qs1UInfoNet].collect {it[0].premium}).join(", ")
         assertEquals 'qs1, underwritinginfo200: commission (ceded/net)',
             ([-4, 4].collect {(double)it}).join(", "),
             ([qs1UInfoCeded, qs1UInfoNet].collect {it[0].commission}).join(", ")
 
         assertEquals 'qs2, underwritinginfo200: premium written (ceded/net)',
             ([80, 120].collect {(double)it}).join(", "),
-            ([qs2UInfoCeded, qs2UInfoNet].collect {it[0].premiumWritten}).join(", ")
+            ([qs2UInfoCeded, qs2UInfoNet].collect {it[0].premium}).join(", ")
         assertEquals 'qs2, underwritinginfo200: commission (ceded/net)',
             ([-8, 8].collect {(double)it}).join(", "),
             ([qs2UInfoCeded, qs2UInfoNet].collect {it[0].commission}).join(", ")
 
         assertEquals 'layer1, underwritinginfo200: premium written (gross/ceded/net)',
             ([200, 120, 80].collect {(double)it}).join(", "),
-            ([layer1UInfoGross, layer1UInfoCeded, layer1UInfoNet].collect {it[0].premiumWritten}).join(", ")
+            ([layer1UInfoGross, layer1UInfoCeded, layer1UInfoNet].collect {it[0].premium}).join(", ")
         assertEquals 'layer1, underwritinginfo200: commission (gross/ceded/net)',
                 ([com1, -12, com1 + 12].collect {(double) it}).join(", "),
                 ([layer1UInfoGross, layer1UInfoCeded, layer1UInfoNet].collect {it[0].commission}).join(", ")
 
         assertEquals 'qs3, underwritinginfo200: premium written (ceded/net)',
                 ([40, 40].collect {(double) it}).join(", "),
-                ([qs3UInfoCeded, qs3UInfoNet].collect {it[0].premiumWritten}).join(", ")
+                ([qs3UInfoCeded, qs3UInfoNet].collect {it[0].premium}).join(", ")
         assertEquals 'qs3, underwritinginfo200: commission (ceded/net)',
                 ([-4,4].collect {(double) it}).join(", "),
                 ([qs3UInfoCeded, qs3UInfoNet].collect {it[0].commission}).join(", ")
 
         assertEquals 'program, underwritinginfo200: premium written (gross/ceded/net)',
                 ([200, 160, 40].collect {(double) it}).join(", "),
-                ([programUInfoTotal, programUInfoCeded, programUInfoNet].collect {it[0].premiumWritten}).join(", ")
+                ([programUInfoTotal, programUInfoCeded, programUInfoNet].collect {it[0].premium}).join(", ")
         assertEquals 'program, underwritinginfo200: commission (gross/ceded/net)',
                 ([com1, -16, com1 + 16].collect {(double) it}).join(", "),
                 ([programUInfoTotal, programUInfoCeded, programUInfoNet].collect {it[0].commission}).join(", ")
@@ -431,35 +431,35 @@ class MultiLinesPerilsReinsuranceProgramTests extends GroovyTestCase {
 
         assertEquals 'qs1, underwritinginfo100: premium written (ceded/net)',
                 ([20, 80].collect {(double) it}).join(", "),
-                ([qs1UInfoCeded, qs1UInfoNet].collect {it[1].premiumWritten}).join(", ")
+                ([qs1UInfoCeded, qs1UInfoNet].collect {it[1].premium}).join(", ")
         assertEquals 'qs1, underwritinginfo100: commission (ceded/net)',
                 ([-2, 2].collect {(double) it}).join(", "),
                 ([qs1UInfoCeded, qs1UInfoNet].collect {it[1].commission}).join(", ")
 
         assertEquals 'qs2, underwritinginfo100: premium written (ceded/net)',
                 ([40, 60].collect {(double) it}).join(", "),
-                ([qs2UInfoCeded, qs2UInfoNet].collect {it[1].premiumWritten}).join(", ")
+                ([qs2UInfoCeded, qs2UInfoNet].collect {it[1].premium}).join(", ")
         assertEquals 'qs2, underwritinginfo100: commission (ceded/net)',
                 ([-4,4].collect {(double) it}).join(", "),
                 ([qs2UInfoCeded, qs2UInfoNet].collect {it[1].commission}).join(", ")
 
         assertEquals 'layer1, underwritinginfo100: premium written (gross/ceded/net)',
                 ([100, 60, 40].collect {(double) it}).join(", "),
-                ([layer1UInfoGross, layer1UInfoCeded, layer1UInfoNet].collect {it[1].premiumWritten}).join(", ")
+                ([layer1UInfoGross, layer1UInfoCeded, layer1UInfoNet].collect {it[1].premium}).join(", ")
         assertEquals 'layer1, underwritinginfo100: commission (gross/ceded/net)',
                 ([com2, -6, com2 + 6].collect {(double) it}).join(", "),
                 ([layer1UInfoGross, layer1UInfoCeded, layer1UInfoNet].collect {it[1].commission}).join(", ")
 
         assertEquals 'qs3, underwritinginfo100: premium written (ceded/net)',
                 ([20, 20].collect {(double) it}).join(", "),
-                ([qs3UInfoCeded, qs3UInfoNet].collect {it[1].premiumWritten}).join(", ")
+                ([qs3UInfoCeded, qs3UInfoNet].collect {it[1].premium}).join(", ")
         assertEquals 'qs3, underwritinginfo100: commission (ceded/net)',
                 ([-2, 2].collect {(double) it}).join(", "),
                 ([qs3UInfoCeded, qs3UInfoNet].collect {it[1].commission}).join(", ")
 
         assertEquals 'program, underwritinginfo100: premium written (gross/ceded/net)',
                 ([100, 80, 20].collect {(double) it}).join(", "),
-                ([programUInfoTotal, programUInfoCeded, programUInfoNet].collect {it[1].premiumWritten}).join(", ")
+                ([programUInfoTotal, programUInfoCeded, programUInfoNet].collect {it[1].premium}).join(", ")
         assertEquals 'program, underwritinginfo100: commission (gross/ceded/net)',
                 ([com2, -8, com2 + 8].collect {(double) it}).join(", "),
                 ([programUInfoTotal, programUInfoCeded, programUInfoNet].collect {it[1].commission}).join(", ")

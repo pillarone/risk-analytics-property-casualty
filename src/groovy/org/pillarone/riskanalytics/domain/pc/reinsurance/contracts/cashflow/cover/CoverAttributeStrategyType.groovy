@@ -26,14 +26,14 @@ class CoverAttributeStrategyType extends AbstractParameterObjectClassifier {
     public static final CoverAttributeStrategyType NONE = new CoverAttributeStrategyType("none", "NONE", [:])
     public static final CoverAttributeStrategyType LINESOFBUSINESS = new CoverAttributeStrategyType(
             'lines of business', 'LINESOFBUSINESS',
-            ['lines':new ComboBoxTableMultiDimensionalParameter([], ['Covered Lines'], LobMarker.class)])
+            ['lines':new ComboBoxTableMultiDimensionalParameter([], ['Covered Segments'], LobMarker.class)])
     public static final CoverAttributeStrategyType PERILS = new CoverAttributeStrategyType(
             'perils', 'PERILS',
             ['perils':new ComboBoxTableMultiDimensionalParameter([], ['Covered Perils'], PerilMarker.class)])
     public static final CoverAttributeStrategyType LINESOFBUSINESSPERILS = new CoverAttributeStrategyType(
             'lines of business, perils', 'LINESOFBUSINESSPERILS',
             ['connection': LogicArguments.AND,
-             'lines':new ComboBoxTableMultiDimensionalParameter([], ['Covered Lines'], LobMarker.class),
+             'lines':new ComboBoxTableMultiDimensionalParameter([], ['Covered Segments'], LobMarker.class),
              'perils':new ComboBoxTableMultiDimensionalParameter([], ['Covered Perils'], PerilMarker.class)])
 
     public static final all = [ALL, NONE, LINESOFBUSINESS, PERILS, LINESOFBUSINESSPERILS]

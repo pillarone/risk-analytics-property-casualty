@@ -18,13 +18,13 @@ import java.util.List;
  * each (row) of which defines the values (columns):
  * - maximum sum insured (packet property: maxSumInsured)
  * - average sum insured (packet property: sumInsured)
- * - premium (lower limit; packet property: premiumWritten)
+ * - premium (lower limit; packet property: premium)
  * - number of policies (packet property: numberOfPolicies)
  *
  * An instance will emit outUnderwritingInfo packets, one per segment/band defined
  * (i.e. one underwriting packet for each row in the table), with the property names
  * indicated above. In addition, each packet will have a property premiumWrittenAsIf,
- * identical to premiumWritten, an origin pointing to the Riskband instance emitting the packet,
+ * identical to premium, an origin pointing to the Riskband instance emitting the packet,
  * and a self-referential originalUnderwritingInfo property (i.e. pointing to the packet itself).
  *
  * @author martin.melchior (at) fhnw (dot) ch, stefan.kunz (at) intuitive-collaboration (dot) com
@@ -40,11 +40,11 @@ public class RiskBands extends Component implements IUnderwritingInfoMarker {
     private IterationScope iterationScope;
     private IterationStore iterationStore;
 
-    private static final String UNDERWRITING_INFOS = "underwriting infos";
-    private static final String MAXIMUM_SUM_INSURED = "maximum sum insured";
-    private static final String AVERAGE_SUM_INSURED = "average sum insured";
-    private static final String PREMIUM = "premium";
-    private static final String NUMBER_OF_POLICIES = "number of policies";
+    public static final String UNDERWRITING_INFOS = "underwriting infos";
+    public static final String MAXIMUM_SUM_INSURED = "maximum sum insured";
+    public static final String AVERAGE_SUM_INSURED = "average sum insured";
+    public static final String PREMIUM = "premium";
+    public static final String NUMBER_OF_POLICIES = "number of policies";
 
     private Integer numberOfSegments;
     private int columnIndexMaxSumInsured;
@@ -74,13 +74,12 @@ public class RiskBands extends Component implements IUnderwritingInfoMarker {
         List<UnderwritingInfo> underwritingInfos = new ArrayList<UnderwritingInfo>(numberOfSegments);
         for (int i = 1; i < numberOfSegments; i++) {
             UnderwritingInfo underwritingInfo = UnderwritingInfoPacketFactory.createPacket();
-            underwritingInfo.premiumWritten = InputFormatConverter.getDouble(parmUnderwritingInformation.getValueAt(i, columnIndexPremium));
-            underwritingInfo.premiumWrittenAsIf = underwritingInfo.premiumWritten;
-            underwritingInfo.maxSumInsured = InputFormatConverter.getDouble(parmUnderwritingInformation.getValueAt(i, columnIndexMaxSumInsured));
-            underwritingInfo.sumInsured = InputFormatConverter.getDouble(parmUnderwritingInformation.getValueAt(i, columnIndexAverageSumInsured));
-            underwritingInfo.numberOfPolicies = InputFormatConverter.getDouble(parmUnderwritingInformation.getValueAt(i, columnIndexNumberOfPolicies));
+            underwritingInfo.setPremium(InputFormatConverter.getDouble(parmUnderwritingInformation.getValueAt(i, columnIndexPremium)));
+            underwritingInfo.setMaxSumInsured(InputFormatConverter.getDouble(parmUnderwritingInformation.getValueAt(i, columnIndexMaxSumInsured)));
+            underwritingInfo.setSumInsured(InputFormatConverter.getDouble(parmUnderwritingInformation.getValueAt(i, columnIndexAverageSumInsured)));
+            underwritingInfo.setNumberOfPolicies(InputFormatConverter.getDouble(parmUnderwritingInformation.getValueAt(i, columnIndexNumberOfPolicies)));
             underwritingInfo.origin = this;
-            underwritingInfo.originalUnderwritingInfo = underwritingInfo;
+            underwritingInfo.setOriginalUnderwritingInfo(underwritingInfo);
             underwritingInfos.add(underwritingInfo);
         }
         iterationStore.put(UNDERWRITING_INFOS, underwritingInfos);

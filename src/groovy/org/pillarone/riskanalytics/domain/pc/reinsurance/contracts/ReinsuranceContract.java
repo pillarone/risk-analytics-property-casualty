@@ -3,18 +3,16 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts;
 import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.packets.SingleValuePacket;
-import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
-import org.pillarone.riskanalytics.domain.pc.claims.ClaimFilterUtilities;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimUtilities;
 import org.pillarone.riskanalytics.domain.pc.claims.SortClaimsByFractionOfPeriod;
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.ReinsuranceResultWithCommissionPacket;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.ICommissionStrategy;
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo;
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoUtilities;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities;
 
@@ -38,7 +36,7 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
     private PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanCeded = new PacketList<ClaimDevelopmentLeanPacket>(ClaimDevelopmentLeanPacket.class);
 
     protected PacketList<UnderwritingInfo> outNetAfterCoverUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
-    protected PacketList<UnderwritingInfo> outCoverUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
+    protected PacketList<CededUnderwritingInfo> outCoverUnderwritingInfo = new PacketList<CededUnderwritingInfo>(CededUnderwritingInfo.class);
 
     protected PacketList<ReinsuranceResultWithCommissionPacket> outContractFinancials = new PacketList<ReinsuranceResultWithCommissionPacket>(ReinsuranceResultWithCommissionPacket.class);
 
@@ -48,7 +46,7 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
     protected IReinsuranceContractStrategy parmContractStrategy = ReinsuranceContractType.getTrivial();
 
     protected ICommissionStrategy parmCommissionStrategy = CommissionStrategyType.getNoCommission();
-     /**
+    /**
      * Defines the claim and underwriting info the contract will receive.
      * Namely, the net after contracts with lower inuring priority.
      * <p/>
@@ -57,16 +55,20 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
      */
     protected int parmInuringPriority = 0;
 
+    private double coveredByReinsurer;
+
     public void doCalculation() {
         if (parmContractStrategy == null)
             throw new IllegalStateException("ReinsuranceContract.missingContractStrategy");
 
         parmContractStrategy.initBookkeepingFigures(inClaims, inUnderwritingInfo);
 
+        initCoveredByReinsurer();
         Collections.sort(inClaims, SortClaimsByFractionOfPeriod.getInstance());
         if (isSenderWired(outUncoveredClaims)) {
             calculateClaims(inClaims, outCoveredClaims, outUncoveredClaims, this);
-        } else {
+        }
+        else {
             calculateCededClaims(inClaims, outCoveredClaims, this);
         }
 
@@ -81,9 +83,9 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
         fillDevelopedClaimsChannels();
         if (isSenderWired(getOutContractFinancials())) {
             ReinsuranceResultWithCommissionPacket result = new ReinsuranceResultWithCommissionPacket();
-            UnderwritingInfo underwritingInfo = UnderwritingInfoUtilities.aggregate(outCoverUnderwritingInfo);
+            CededUnderwritingInfo underwritingInfo = CededUnderwritingInfoUtilities.aggregate(outCoverUnderwritingInfo);
             if (underwritingInfo != null) {
-                result.setCededPremium(-underwritingInfo.getPremiumWritten());
+                result.setCededPremium(-underwritingInfo.getPremium());
                 result.setCededCommission(-underwritingInfo.getCommission());
             }
             result.setCededClaim(ClaimUtilities.aggregateClaims(outCoveredClaims, this).getUltimate());
@@ -97,6 +99,10 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
         for (UnderwritingInfo outCoverUnderwritingInfoPacket : outCoverUnderwritingInfo) {
             outCoverUnderwritingInfoPacket.setReinsuranceContract(this);
         }
+    }
+
+    protected void initCoveredByReinsurer() {
+        coveredByReinsurer =  parmContractStrategy.covered();
     }
 
     protected void fillDevelopedClaimsChannels() {
@@ -117,7 +123,7 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
 
     public void calculateClaims(List<Claim> grossClaims, List<Claim> cededClaims, List<Claim> netClaims, Component origin) {
         for (Claim claim : grossClaims) {
-            Claim cededClaim = getCoveredClaim(claim, origin);
+            Claim cededClaim = getCoveredClaim(claim, origin).scale(coveredByReinsurer);
             cededClaims.add(cededClaim);
 
             Claim claimNet = claim.getNetClaim(cededClaim);
@@ -128,7 +134,7 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
 
     public void calculateCededClaims(List<Claim> grossClaims, List<Claim> cededClaims, Component origin) {
         for (Claim claim : grossClaims) {
-            cededClaims.add(getCoveredClaim(claim, origin));
+            cededClaims.add(getCoveredClaim(claim,origin).scale(coveredByReinsurer));
         }
     }
 
@@ -157,7 +163,8 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
 //                claim.setReserved(claim.getUltimate() - claim.getPaid()); // perhaps not necessary since CDLP.getReserved calculates the same difference
                 claim.setReserved(claim.getUltimate() - claim.getPaid()); // perhaps not necessary since CDLP.getReserved calculates the same difference
                 claimCeded = claim;
-            } else { // (grossClaim instanceof ClaimDevelopmentPacket)
+            }
+            else { // (grossClaim instanceof ClaimDevelopmentPacket)
                 ClaimDevelopmentPacket claim = new ClaimDevelopmentPacket(grossClaim);
                 claim.setPaid(((IReinsuranceContractStrategyWithClaimsDevelopment)
                         parmContractStrategy).allocateCededPaid((ClaimDevelopmentPacket) grossClaim));
@@ -166,8 +173,8 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
                 claim.setReserved(reserved);
                 claimCeded = claim;
             }
-        } else {
-            // ceded development info uses the same (allocation) factor as ceded claims
+        }
+        else {
             claimCeded = grossClaim.copy();
             double claimLoss = grossClaim.getUltimate();
             double cededFraction = claimLoss == 0 ? 1d : coveredLoss / claimLoss;
@@ -185,7 +192,8 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
         claim.setReinsuranceContract(this);
         if (grossClaim.getOriginalClaim() != null) {
             claim.setOriginalClaim(grossClaim.getOriginalClaim());
-        } else {
+        }
+        else {
             claim.setOriginalClaim(grossClaim);
         }
     }
@@ -197,10 +205,11 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
      * @param derivedUnderwritingInfo
      */
     protected void setOriginalUnderwritingInfo(UnderwritingInfo underwritingInfo, UnderwritingInfo derivedUnderwritingInfo) {
-        if (underwritingInfo != null && underwritingInfo.originalUnderwritingInfo != null) {
-            derivedUnderwritingInfo.originalUnderwritingInfo = underwritingInfo.originalUnderwritingInfo;
-        } else {
-            derivedUnderwritingInfo.originalUnderwritingInfo = underwritingInfo;
+        if (underwritingInfo != null && underwritingInfo.getOriginalUnderwritingInfo() != null) {
+            derivedUnderwritingInfo.setOriginalUnderwritingInfo(underwritingInfo.getOriginalUnderwritingInfo());
+        }
+        else {
+            derivedUnderwritingInfo.setOriginalUnderwritingInfo(underwritingInfo);
         }
     }
 
@@ -222,7 +231,7 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
     }
 
     protected void calculateNetUnderwritingInfos(List<UnderwritingInfo> grossUnderwritingInfos,
-                                                 List<UnderwritingInfo> cededUnderwritingInfos,
+                                                 List<CededUnderwritingInfo> cededUnderwritingInfos,
                                                  List<UnderwritingInfo> netUnderwritingInfos,
                                                  List<Claim> cededClaims) {
         parmContractStrategy.initCededPremiumAllocation(cededClaims, grossUnderwritingInfos);
@@ -235,14 +244,14 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
     }
 
     protected void calculateCededUnderwritingInfos(List<UnderwritingInfo> grossUnderwritingInfos,
-                                                   List<UnderwritingInfo> cededUnderwritingInfos,
+                                                   List<CededUnderwritingInfo> cededUnderwritingInfos,
                                                    List<Claim> cededClaims) {
         parmContractStrategy.initCededPremiumAllocation(cededClaims, grossUnderwritingInfos);
         for (UnderwritingInfo underwritingInfo : grossUnderwritingInfos) {
-            UnderwritingInfo cededUnderwritingInfo = parmContractStrategy.calculateCoverUnderwritingInfo(underwritingInfo, getTotalInitialReserves());
+            CededUnderwritingInfo cededUnderwritingInfo = parmContractStrategy.calculateCoverUnderwritingInfo(underwritingInfo, getTotalInitialReserves());
             setOriginalUnderwritingInfo(underwritingInfo, cededUnderwritingInfo);
             cededUnderwritingInfo.setReinsuranceContract(this);
-            cededUnderwritingInfos.add(cededUnderwritingInfo);
+            cededUnderwritingInfos.add(cededUnderwritingInfo.scale(coveredByReinsurer));
         }
     }
 
@@ -310,11 +319,11 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
         this.outNetAfterCoverUnderwritingInfo = outNetAfterCoverUnderwritingInfo;
     }
 
-    public PacketList<UnderwritingInfo> getOutCoverUnderwritingInfo() {
+    public PacketList<CededUnderwritingInfo> getOutCoverUnderwritingInfo() {
         return outCoverUnderwritingInfo;
     }
 
-    public void setOutCoverUnderwritingInfo(PacketList<UnderwritingInfo> outCoverUnderwritingInfo) {
+    public void setOutCoverUnderwritingInfo(PacketList<CededUnderwritingInfo> outCoverUnderwritingInfo) {
         this.outCoverUnderwritingInfo = outCoverUnderwritingInfo;
     }
 
@@ -364,5 +373,13 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
 
     public void setOutClaimsDevelopmentLeanCeded(PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanCeded) {
         this.outClaimsDevelopmentLeanCeded = outClaimsDevelopmentLeanCeded;
+    }
+
+    public double getCoveredByReinsurer() {
+        return coveredByReinsurer;
+    }
+
+    public void setCoveredByReinsurer(double coveredByReinsurer) {
+        this.coveredByReinsurer = coveredByReinsurer;
     }
 }
