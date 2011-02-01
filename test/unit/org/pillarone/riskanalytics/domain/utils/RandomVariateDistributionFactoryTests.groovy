@@ -29,6 +29,7 @@ class RandomVariateDistributionFactoryTests extends GroovyTestCase {
             params["cumulative probabilities"] = [0, 0.2, 0.5, 1.0]
             params["mu"] = 1
             params["sigma"] = 1
+            params["CV"] = 1
             params["constants"] = new TableMultiDimensionalParameter([0,1], ['constants'])
 
             IRandomVariateDistribution distribution = RandomVariateDistributionFactory.getDistribution(it, params)
