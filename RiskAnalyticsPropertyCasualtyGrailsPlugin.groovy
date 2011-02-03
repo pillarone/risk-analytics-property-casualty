@@ -79,8 +79,13 @@ class RiskAnalyticsPropertyCasualtyGrailsPlugin {
         ValidatorRegistry.addValidator(new DependencyMatrixValidator())
         ValidatorRegistry.addValidator(new RiskBandsValidator())
 
-        // add bundle resource name
+        // add resource bundle for exceptions
         ResourceBundleRegistry.addResourceBundle("org.pillarone.riskanalytics.exceptionResources")
+
+        //add resource bundle for validation
+        ResourceBundleRegistry.addValidationBundle("org.pillarone.riskanalytics.domain.pc.validation.commissionStrategyType")
+        ResourceBundleRegistry.addValidationBundle("org.pillarone.riskanalytics.domain.pc.validation.distributionType")
+        ResourceBundleRegistry.addValidationBundle("org.pillarone.riskanalytics.domain.pc.validation.unityDouble")
     }
 
     def onChange = {event ->
