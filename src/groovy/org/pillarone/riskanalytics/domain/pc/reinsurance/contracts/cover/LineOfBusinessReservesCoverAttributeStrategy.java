@@ -24,7 +24,7 @@ public class LineOfBusinessReservesCoverAttributeStrategy
             = new ComboBoxTableMultiDimensionalParameter(Collections.emptyList(), Arrays.asList("Covered Reserves"), IReserveMarker.class);
 
     public IParameterObjectClassifier getType() {
-        return CoverAttributeStrategyType.LINESOFBUSINESSPERILS;
+        return CoverAttributeStrategyType.LINESOFBUSINESSRESERVES;
     }
 
     public Map getParameters() {
