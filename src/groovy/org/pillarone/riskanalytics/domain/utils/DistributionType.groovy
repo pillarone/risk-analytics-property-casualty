@@ -32,8 +32,8 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
             "log normal (mean, stdev)", "LOGNORMAL", ["mean": 1d, "stDev": 1d])
     public static final DistributionType LOGNORMAL_MU_SIGMA = new DistributionType(
             "log normal (mu, sigma)", "LOGNORMAL_MU_SIGMA", ["mu": 1d, "sigma": 1d])
-    public static final DistributionType LOGNORMAL_MU_CV = new DistributionType(
-            "log normal (mu, cv)", "LOGNORMAL_MU_CV", ["mu": 1d, "CV": 1d])
+    public static final DistributionType LOGNORMAL_MEAN_CV = new DistributionType(
+            "log normal (mean, cv)", "LOGNORMAL_MEAN_CV", ["mean": 1d, "CV": 1d])
     public static final DistributionType BETA = new DistributionType(
             "beta", "BETA", ["alpha": 1d, "beta": 1d])
     public static final DistributionType PARETO = new DistributionType(
@@ -85,7 +85,7 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
             INVERSEGAUSSIANDIST,
             LOGLOGISTIC,
             LOGNORMAL,
-            LOGNORMAL_MU_CV,
+            LOGNORMAL_MEAN_CV,
             LOGNORMAL_MU_SIGMA,
             NEGATIVEBINOMIAL,
             NORMAL,
@@ -148,8 +148,14 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
         }
         return new LognormalDist(mu, sigma)
     }
-    private static Distribution getLognormalCVDistribution(double mu, double cv) {
-        double sigma = mu * cv
+
+    private static Distribution getLognormalCVDistribution(double mean, double cv) {
+        double stdev = mean * cv
+        double variance = stdev * stdev
+        double meanSquare = mean * mean
+        double t = Math.log(1 + (variance / meanSquare))
+        double sigma = Math.sqrt(t)
+        double mu = Math.log(mean) - 0.5 * t
         if (mu == Double.NaN || mu == 0) {
             throw new IllegalArgumentException("['DistributionType.NaNParameter','"+mu+"']")
         }
@@ -192,8 +198,8 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
             case DistributionType.LOGNORMAL:
                 distribution.distribution = getLognormalDistribution((double) parameters["mean"], (double) parameters["stDev"])
                 break
-            case DistributionType.LOGNORMAL_MU_CV:
-                distribution.distribution = getLognormalCVDistribution((double) parameters["mu"], (double) parameters["CV"])
+            case DistributionType.LOGNORMAL_MEAN_CV:
+                distribution.distribution = getLognormalCVDistribution((double) parameters["mean"], (double) parameters["CV"])
                 break
             case DistributionType.LOGNORMAL_MU_SIGMA:
                 distribution.distribution = new LognormalDist((double) parameters["mu"], (double) parameters["sigma"])
