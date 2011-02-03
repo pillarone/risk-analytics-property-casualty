@@ -14,4 +14,10 @@ public class ParameterValidationErrorImpl extends ParameterValidationError {
         super(message, arguments);
     }
 
+    // todo(sku): remove again once a new core plugin is available
+    @Override
+    public String getLocalizedMessage(Locale locale) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
 }

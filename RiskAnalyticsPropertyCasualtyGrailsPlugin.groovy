@@ -23,7 +23,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.validation.RiskBandsVa
 
 class RiskAnalyticsPropertyCasualtyGrailsPlugin {
     // the plugin version
-    def version = "1.2.0.1"
+    def version = "1.2.0.2"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.3.4 > *"
     // the other plugins this plugin depends on
@@ -83,9 +83,10 @@ class RiskAnalyticsPropertyCasualtyGrailsPlugin {
         ResourceBundleRegistry.addResourceBundle("org.pillarone.riskanalytics.exceptionResources")
 
         //add resource bundle for validation
-        ResourceBundleRegistry.addValidationBundle("org.pillarone.riskanalytics.domain.pc.validation.commissionStrategyType")
-        ResourceBundleRegistry.addValidationBundle("org.pillarone.riskanalytics.domain.pc.validation.distributionType")
-        ResourceBundleRegistry.addValidationBundle("org.pillarone.riskanalytics.domain.pc.validation.unityDouble")
+        //todo(sku): re-enable once a new core plugin is available
+//        ResourceBundleRegistry.addValidationBundle("org.pillarone.riskanalytics.domain.pc.validation.commissionStrategyType")
+//        ResourceBundleRegistry.addValidationBundle("org.pillarone.riskanalytics.domain.pc.validation.distributionType")
+//        ResourceBundleRegistry.addValidationBundle("org.pillarone.riskanalytics.domain.pc.validation.unityDouble")
     }
 
     def onChange = {event ->
