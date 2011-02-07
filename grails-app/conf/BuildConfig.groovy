@@ -1,5 +1,5 @@
 //Use a custom plugins dir, because different branches use different plugin versions
-grails.project.plugins.dir = "../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x"
+grails.project.plugins.dir = "../local-plugins/RiskAnalyticsPropertyCasualty-master"
 
 grails.project.dependency.resolution = {
     inherits "global" // inherit Grails' default dependencies
@@ -23,7 +23,7 @@ grails.project.dependency.resolution = {
 
         test ":code-coverage:1.1.7"
 
-        runtime "org.pillarone:risk-analytics-core:1.2.0.1"
+        runtime "org.pillarone:risk-analytics-core:1.3-ALPHA-1"
     }
 }
 
