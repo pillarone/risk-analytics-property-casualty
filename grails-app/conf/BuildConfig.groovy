@@ -1,4 +1,5 @@
-import org.apache.ivy.plugins.resolver.URLResolver
+//Use a custom plugins dir, because different branches use different plugin versions
+grails.project.plugins.dir = "../local-plugins/RiskAnalyticsPropertyCasualty-kti"
 
 grails.project.dependency.resolution = {
     inherits "global" // inherit Grails' default dependencies
@@ -9,32 +10,35 @@ grails.project.dependency.resolution = {
         grailsCentral()
     }
 
-    def myResolver = new URLResolver()
-    myResolver.addArtifactPattern "https://build.intuitive-collaboration.com/plugins/[artifact]/grails-[artifact]-[revision].[ext]"
+    mavenRepo "https://build.intuitive-collaboration.com/maven/plugins/"
 
-    resolver myResolver
+    plugins {
+        runtime ":background-thread:1.3"
+        runtime ":hibernate:1.3.4"
+        runtime ":joda-time:0.5"
+        runtime ":maven-publisher:0.7.5"
+        runtime ":quartz:0.4.1"
+        runtime ":spring-security-core:1.0.1"
+        runtime ":tomcat:1.3.4"
+
+        test ":code-coverage:1.1.7"
+
+        runtime "org.pillarone:risk-analytics-core:1.3-ALPHA-1-kti"
+    }
 }
 
-coverage {
-    exclusions = [
-            'models/**',
-            '**/org/grails/tomcat/*',
-            '**/org/pillarone/riskanalytics/core/**',
-            '**/*Test*',
-            '**/com/ulcjava/**',
-            '**/com/energizedwork/grails/plugins/jodatime/**',
-            '**/jasper/**',
-            '**/com/canoo/**',
-            '**/*Ulc*',
-            '**/*ULC*',
-            '**/grails/util/**',
-            '**/org/codehaus/**',
-            '**/org/grails/**',
-            '**/de/andreasschmitt/**',
-            '**GrailsPlugin**',
-            '**Taglib**',
-            '**TagLib**'
-    ]
-}
+grails.project.dependency.distribution = {
+    String passPhrase = ""
+    String scpUrl = ""
+    try {
+        Properties properties = new Properties()
+        properties.load(new File("${userHome}/deployInfo.properties").newInputStream())
 
-//grails.plugin.location.'risk-analytics-core' = "../RiskAnalyticsCore"
+        passPhrase = properties.get("passPhrase")
+        scpUrl = properties.get("url")
+    } catch (Throwable t) {
+    }
+    remoteRepository(id: "pillarone", url: scpUrl) {
+        authentication username: 'root', privateKey: "${userHome.absolutePath}/.ssh/id_rsa", passphrase: passPhrase
+    }
+}

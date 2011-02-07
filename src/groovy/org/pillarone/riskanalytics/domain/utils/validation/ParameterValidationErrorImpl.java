@@ -14,13 +14,10 @@ public class ParameterValidationErrorImpl extends ParameterValidationError {
         super(message, arguments);
     }
 
+    // todo(sku): remove again once a new core plugin is available
     @Override
     public String getLocalizedMessage(Locale locale) {
-        try {
-            ResourceBundle bundle = ResourceBundle.getBundle("org.pillarone.riskanalytics.domain.pc.validation.distributionType", locale);
-            return MessageFormat.format(bundle.getString(msg), args != null ? args.toArray() : null);
-        } catch (MissingResourceException e) {
-            return msg;
-        }
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
+
 }
