@@ -79,4 +79,8 @@ class PodraModel extends StochasticModel {
             reinsurance.inClaims = reserveGenerators.outClaimsDevelopment
         }
     }
+
+    public String getDefaultResultConfiguration() {
+        return "CapitalEagle Analysis"
+    }
 }
