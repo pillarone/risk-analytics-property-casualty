@@ -4,7 +4,7 @@
     <facet type="web" name="GrailsWeb">
       <configuration>
         <webroots>
-          <root url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/quartz-0.4.1/web-app" relative="/" />
+          <root url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/quartz-0.4.1/web-app" relative="/" />
         </webroots>
         <sourceRoots />
       </configuration>
@@ -12,45 +12,69 @@
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/background-thread-1.3">
-      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/background-thread-1.3/src/java" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/background-thread-1.3/grails-app/services" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/background-thread-1.3">
+      <sourceFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/background-thread-1.3/src/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/background-thread-1.3/grails-app/services" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/background-thread-1.3/target/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/background-thread-1.3/target/test-classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/background-thread-1.3/web-app/plugins" />
     </content>
-    <content url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/code-coverage-1.1.7" />
-    <content url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/hibernate-1.3.4" />
-    <content url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/joda-time-0.5">
-      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/joda-time-0.5/src/groovy" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/joda-time-0.5/grails-app/taglib" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/code-coverage-1.1.7">
+      <excludeFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/code-coverage-1.1.7/target/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/code-coverage-1.1.7/target/test-classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/code-coverage-1.1.7/web-app/plugins" />
     </content>
-    <content url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/maven-publisher-0.6" />
-    <content url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/quartz-0.4.1">
-      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/quartz-0.4.1/src/java" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/quartz-0.4.1/src/groovy" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/quartz-0.4.1/grails-app/services" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/hibernate-1.3.4">
+      <excludeFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/hibernate-1.3.4/target/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/hibernate-1.3.4/target/test-classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/hibernate-1.3.4/web-app/plugins" />
     </content>
-    <content url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/risk-analytics-core-1.1.3">
-      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/risk-analytics-core-1.1.3/src/java" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/risk-analytics-core-1.1.3/src/groovy" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/risk-analytics-core-1.1.3/grails-app/jobs" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/risk-analytics-core-1.1.3/grails-app/controllers" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/risk-analytics-core-1.1.3/grails-app/domain" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/risk-analytics-core-1.1.3/grails-app/services" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/joda-time-0.5">
+      <sourceFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/joda-time-0.5/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/joda-time-0.5/grails-app/taglib" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/joda-time-0.5/target/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/joda-time-0.5/target/test-classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/joda-time-0.5/web-app/plugins" />
     </content>
-    <content url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/spring-security-core-1.0.1">
-      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/spring-security-core-1.0.1/src/java" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/spring-security-core-1.0.1/src/groovy" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/spring-security-core-1.0.1/grails-app/services" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/spring-security-core-1.0.1/grails-app/taglib" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/maven-publisher-0.7.5">
+      <sourceFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/maven-publisher-0.7.5/src/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/maven-publisher-0.7.5/src/groovy" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/maven-publisher-0.7.5/target/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/maven-publisher-0.7.5/target/test-classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/maven-publisher-0.7.5/web-app/plugins" />
     </content>
-    <content url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/tomcat-1.3.4">
-      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/tomcat-1.3.4/src/groovy" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/quartz-0.4.1">
+      <sourceFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/quartz-0.4.1/src/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/quartz-0.4.1/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/quartz-0.4.1/grails-app/services" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/quartz-0.4.1/target/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/quartz-0.4.1/target/test-classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/quartz-0.4.1/web-app/plugins" />
+    </content>
+    <content url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/spring-security-core-1.0.1">
+      <sourceFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/spring-security-core-1.0.1/src/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/spring-security-core-1.0.1/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/spring-security-core-1.0.1/grails-app/services" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/spring-security-core-1.0.1/grails-app/taglib" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/spring-security-core-1.0.1/target/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/spring-security-core-1.0.1/target/test-classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/spring-security-core-1.0.1/web-app/plugins" />
+    </content>
+    <content url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/tomcat-1.3.4">
+      <sourceFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/tomcat-1.3.4/src/groovy" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/tomcat-1.3.4/target/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/tomcat-1.3.4/target/test-classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/tomcat-1.3.4/web-app/plugins" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="grails-1.3.4" level="project" />
     <orderEntry type="module-library" exported="">
       <library name="Grails User Library">
         <CLASSES>
+          <root url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/tomcat-1.3.4/lib" />
+          <root url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/quartz-0.4.1/lib" />
+          <root url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/joda-time-0.5/lib" />
+          <root url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/code-coverage-1.1.7/lib" />
           <root url="jar://$USER_HOME$/.ivy2/cache/org.springframework.security/org.springframework.security.web/jars/org.springframework.security.web-3.0.3.RELEASE.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/org.springframework.security/org.springframework.security.core/jars/org.springframework.security.core-3.0.3.RELEASE.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/nekohtml/nekohtml/jars/nekohtml-1.9.6.2.jar!/" />
@@ -75,21 +99,25 @@
           <root url="jar://$USER_HOME$/.ivy2/cache/classworlds/classworlds/jars/classworlds-1.1-alpha-2.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/ant/ant/jars/ant-1.6.5.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.maven/maven-ant-tasks/jars/maven-ant-tasks-2.1.0.jar!/" />
-          <root url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/joda-time-0.5/lib" />
-          <root url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/code-coverage-1.1.7/lib" />
-          <root url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/quartz-0.4.1/lib" />
-          <root url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/tomcat-1.3.4/lib" />
-          <root url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/risk-analytics-core-1.1.3/lib" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.tmatesoft.svnkit/svnkit/jars/svnkit-1.3.3.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/xml-resolver/xml-resolver/jars/xml-resolver-1.2.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/xerces/xercesImpl/jars/xercesImpl-2.8.1.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/net.sourceforge.nekohtml/nekohtml/jars/nekohtml-1.9.9.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/net.sf.ezmorph/ezmorph/jars/ezmorph-1.0.6.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/net.sf.json-lib/json-lib/jars/json-lib-2.3-jdk15.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.httpcomponents/httpcore/jars/httpcore-4.0.1.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.httpcomponents/httpclient/jars/httpclient-4.0.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.codehaus.groovy.modules.http-builder/http-builder/jars/http-builder-0.5.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
-        <jarDirectory url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/code-coverage-1.1.7/lib" recursive="false" />
-        <jarDirectory url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/joda-time-0.5/lib" recursive="false" />
-        <jarDirectory url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/quartz-0.4.1/lib" recursive="false" />
-        <jarDirectory url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/risk-analytics-core-1.1.3/lib" recursive="false" />
-        <jarDirectory url="file://$USER_HOME_GRAILS$/1.3.4/projects/risk-analytics-property-casualty/plugins/tomcat-1.3.4/lib" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/code-coverage-1.1.7/lib" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/joda-time-0.5/lib" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/quartz-0.4.1/lib" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/../local-plugins/RiskAnalyticsPropertyCasualty-1.2.x/tomcat-1.3.4/lib" recursive="false" />
       </library>
     </orderEntry>
+    <orderEntry type="library" scope="PROVIDED" name="grails-1.3.4" level="project" />
   </component>
 </module>
 

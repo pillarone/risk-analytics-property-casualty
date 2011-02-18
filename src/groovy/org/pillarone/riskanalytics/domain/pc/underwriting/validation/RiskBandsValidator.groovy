@@ -61,9 +61,7 @@ class RiskBandsValidator implements IParameterizationValidator {
         }
 
         validationService.register(TableMultiDimensionalParameter) {List type ->
-            List copyOfType = new ArrayList<Double>(type)
-            Collections.sort(copyOfType)
-            if (copyOfType[0] < 0) {
+            if (type.any {it < 0}) {
                 return ["underwriting.info.value.of.max.sum.insured.negative"]
             }
             return true
