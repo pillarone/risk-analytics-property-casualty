@@ -47,7 +47,7 @@ public class SlidingCommissionStrategy implements ICommissionStrategy {
             Arrays.asList(LOSS_RATIO, COMMISSION),
             ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER));
 
-    private SortedMap<Double, Double> commissionRatePerLossRatio;
+    private TreeMap<Double, Double> commissionRatePerLossRatio;
 
     public IParameterObjectClassifier getType() {
         return CommissionStrategyType.SLIDINGCOMMISSION;
@@ -71,13 +71,10 @@ public class SlidingCommissionStrategy implements ICommissionStrategy {
         double totalLossRatio = totalClaims / totalPremium;
         double commissionRate;
         if (commissionRatePerLossRatio == null) initCommissionRates();
-        double fixedCommissionRate = commissionRatePerLossRatio.get(commissionRatePerLossRatio.lastKey());
+        double fixedCommissionRate = commissionRatePerLossRatio.lastEntry().getValue();
         if (totalLossRatio < commissionRatePerLossRatio.firstKey())
-            commissionRate = commissionRatePerLossRatio.get(commissionRatePerLossRatio.firstKey());
-        else if (commissionRatePerLossRatio.containsKey(totalLossRatio))
-            commissionRate = commissionRatePerLossRatio.get(totalLossRatio);
-        else
-            commissionRate = commissionRatePerLossRatio.headMap(totalLossRatio).get(commissionRatePerLossRatio.headMap(totalLossRatio).lastKey());
+            commissionRate = commissionRatePerLossRatio.firstEntry().getValue();
+        else commissionRate = commissionRatePerLossRatio.floorEntry(totalLossRatio).getValue();
 
         if (isAdditive) {
             for (CededUnderwritingInfo underwritingInfo : underwritingInfos) {
@@ -110,11 +107,11 @@ public class SlidingCommissionStrategy implements ICommissionStrategy {
         }
     }
 
-    public SortedMap<Double, Double> getCommissionRatePerLossRatio() {
+    public TreeMap<Double, Double> getCommissionRatePerLossRatio() {
         return commissionRatePerLossRatio;
     }
 
-    public void setCommissionRatePerLossRatio(SortedMap<Double, Double> commissionRatePerLossRatio) {
+    public void setCommissionRatePerLossRatio(TreeMap<Double, Double> commissionRatePerLossRatio) {
         this.commissionRatePerLossRatio = commissionRatePerLossRatio;
     }
 }
