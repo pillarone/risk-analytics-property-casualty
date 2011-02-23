@@ -10,7 +10,7 @@ class DoubleConstraints implements IMultiDimensionalConstraints {
     public static final String IDENTIFIER = "DOUBLE"
 
     boolean matches(int row, int column, Object value) {
-        value instanceof Double
+        value instanceof Number
     }
 
     String getName() {
