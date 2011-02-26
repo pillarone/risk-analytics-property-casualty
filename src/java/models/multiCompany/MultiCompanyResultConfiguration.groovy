@@ -1,7 +1,7 @@
 package models.multiCompany
 
 model = models.multiCompany.MultiCompanyModel
-displayName = "Aggregated Overview 3"
+displayName = "Aggregated Overview"
 components {
 	almGenerators {
 		subsubcomponents {

@@ -1,7 +1,7 @@
 package models.podra
 
 model = models.podra.PodraModel
-displayName = "Lines of Business, Claims, R/I"
+displayName = "Segments, Claims, R/I"
 components {
 	claimsGenerators {
 		outClaimsLeanDevelopment = "AGGREGATED"

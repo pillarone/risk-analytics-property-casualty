@@ -4,7 +4,7 @@ package models.podra
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 model = PodraModel
-displayName = "Lines of Business"
+displayName = "Segments"
 language = "en"
 
 mappings = {
