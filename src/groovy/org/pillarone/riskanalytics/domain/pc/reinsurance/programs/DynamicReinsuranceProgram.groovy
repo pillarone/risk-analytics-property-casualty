@@ -19,6 +19,17 @@ import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopment
 import org.pillarone.riskanalytics.domain.pc.underwriting.MarketUnderwritingInfoMerger
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.XLContractStrategy
+import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.StopLossContractStrategy
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.QuotaShareContractStrategy
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.SurplusContractStrategy
+import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.AggregateXLContractStrategy
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.GoldorakContractStrategy
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.AdverseDevelopmentCoverContractStrategy
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.LossPortfolioTransferContractStrategy
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReverseSurplusContractStrategy
 
 /**
  * A DynamicReinsuranceProgram is a DynamicComposedComponent -- i.e. a container of a sequence of
@@ -77,6 +88,7 @@ class DynamicReinsuranceProgram extends DynamicComposedComponent {
 
     List<MarketClaimsMerger> claimsMergers = new ArrayList<MarketClaimsMerger>()
     List<MarketUnderwritingInfoMerger> underwritingInfoMergers = new ArrayList<MarketUnderwritingInfoMerger>()
+    List<MarketUnderwritingInfoMerger> gnpiUnderwritingInfoMergers = new ArrayList<MarketUnderwritingInfoMerger>()
 
     private static Log LOG = LogFactory.getLog(DynamicReinsuranceProgram.class);
 
@@ -106,6 +118,7 @@ class DynamicReinsuranceProgram extends DynamicComposedComponent {
             if (isReceiverWired(inUnderwritingInfo)) {
                 wireContractsUnderwritingChannels()
                 wireUnderwritingInfoMergers()
+                wireGnpiUnderwritingInfoMergers()
             }
             wireReplicatingOutChannels()
         }
@@ -172,26 +185,65 @@ class DynamicReinsuranceProgram extends DynamicComposedComponent {
     private void wireContractsUnderwritingChannels() {
         int currentPriority = -1
         int currentMerger = -1
+        int currentGnpiMerger = -1
+        int highestPriority = ((ReinsuranceContract) contractsSorted[-1]).parmInuringPriority
+        int smallestPriorityWithGnpiMerger = contractsWithGnpiBase() ? getSmallestPriorityWithNonProportionalContractStrategy() : highestPriority
         for (int i = 0; i < numberOfContracts; i++) {
             if (getContract(i).parmInuringPriority > currentPriority) { // add a new merger
                 currentMerger++
                 underwritingInfoMergers << new MarketUnderwritingInfoMerger()
                 currentPriority = getContract(i).parmInuringPriority
                 underwritingInfoMergers[-1].name = "inuring priority ${currentPriority}"
+                if (currentPriority >= smallestPriorityWithGnpiMerger) {
+                    currentGnpiMerger++
+                    if (currentPriority < highestPriority) {
+                        gnpiUnderwritingInfoMergers << new MarketUnderwritingInfoMerger()
+                        gnpiUnderwritingInfoMergers[-1].name = "inuring priority ${currentPriority}"
+                    }
+
+                }
             }
             if (currentMerger == 0) {
                 doWire PRC, getContract(i), 'inUnderwritingInfo', this, 'inUnderwritingInfo'
             }
             else if (currentMerger > 0) {
-                wireContractInUnderwritingInfo(getContract(i), (MarketUnderwritingInfoMerger) underwritingInfoMergers[currentMerger - 1])
+                if (currentGnpiMerger > 0) {
+                    wireContractInUnderwritingInfo(getContract(i), (MarketUnderwritingInfoMerger) underwritingInfoMergers[currentMerger - 1],
+                            (MarketUnderwritingInfoMerger) gnpiUnderwritingInfoMergers[currentGnpiMerger - 1])
+                }
+                else {
+                    wireContractInUnderwritingInfo(getContract(i), (MarketUnderwritingInfoMerger) underwritingInfoMergers[currentMerger - 1])
+                }
             }
             doWire WC, underwritingInfoMergers[currentMerger], 'inUnderwritingInfoCeded', getContract(i), 'outCoverUnderwritingInfo'
+            if (currentGnpiMerger >= 0 && currentPriority < highestPriority && contractInstanceOfProportionalContractStrategy(getContract(i))) {
+                doWire WC, gnpiUnderwritingInfoMergers[currentGnpiMerger], 'inUnderwritingInfoCeded', getContract(i), 'outCoverUnderwritingInfo'
+            }
             doWire PRC, this, 'outCoverUnderwritingInfo', getContract(i), 'outCoverUnderwritingInfo'
         }
     }
 
     protected void wireContractInUnderwritingInfo(ReinsuranceContract contract, MarketUnderwritingInfoMerger uwInfoMerger) {
         doWire WC, contract, 'inUnderwritingInfo', uwInfoMerger, 'outUnderwritingInfoNet'
+    }
+
+    protected void wireContractInUnderwritingInfo(ReinsuranceContract contract, MarketUnderwritingInfoMerger uwInfoMerger, MarketUnderwritingInfoMerger gnpiUwInfoMerger) {
+        if (contract.parmContractStrategy instanceof XLContractStrategy && ((XLContractStrategy) contract.parmContractStrategy).premiumBase.equals(PremiumBase.GNPI)) {
+            doWire WC, contract, 'inUnderwritingInfo', gnpiUwInfoMerger, 'outUnderwritingInfoNet'
+        }
+        else if (contract.parmContractStrategy instanceof AggregateXLContractStrategy && ((AggregateXLContractStrategy) contract.parmContractStrategy).premiumBase.equals(PremiumBase.GNPI)) {
+            doWire WC, contract, 'inUnderwritingInfo', gnpiUwInfoMerger, 'outUnderwritingInfoNet'
+        }
+        else if (contract.parmContractStrategy instanceof GoldorakContractStrategy && ((GoldorakContractStrategy) contract.parmContractStrategy).premiumBase.equals(PremiumBase.GNPI)) {
+            doWire WC, contract, 'inUnderwritingInfo', gnpiUwInfoMerger, 'outUnderwritingInfoNet'
+        }
+        else if (contract.parmContractStrategy instanceof StopLossContractStrategy && ((StopLossContractStrategy) contract.parmContractStrategy).stopLossContractBase.equals(StopLossContractBase.GNPI)) {
+            doWire WC, contract, 'inUnderwritingInfo', gnpiUwInfoMerger, 'outUnderwritingInfoNet'
+        }
+        else if (contract.parmContractStrategy instanceof AdverseDevelopmentCoverContractStrategy && ((AdverseDevelopmentCoverContractStrategy) contract.parmContractStrategy).stopLossContractBase.equals(StopLossContractBase.GNPI)) {
+            doWire WC, contract, 'inUnderwritingInfo', gnpiUwInfoMerger, 'outUnderwritingInfoNet'
+        }
+        else {doWire WC, contract, 'inUnderwritingInfo', uwInfoMerger, 'outUnderwritingInfoNet'}
     }
 
     /**
@@ -228,9 +280,78 @@ class DynamicReinsuranceProgram extends DynamicComposedComponent {
         }
     }
 
+    private void wireGnpiUnderwritingInfoMergers() {
+        int priorityLevelOfFirstGnpiMerger = numberOfPriorities - 1 - gnpiUnderwritingInfoMergers.size()
+        if (priorityLevelOfFirstGnpiMerger == 0) {
+            for (int i = 0; i < gnpiUnderwritingInfoMergers.size(); i++) {
+                doWire PRC, gnpiUnderwritingInfoMergers[i], 'inUnderwritingInfoGross', this, 'inUnderwritingInfo'
+            }
+        }
+        else {
+            for (int i = 0; i < gnpiUnderwritingInfoMergers.size(); i++) {
+                doWire WC, gnpiUnderwritingInfoMergers[i], 'inUnderwritingInfoGross', underwritingInfoMergers[priorityLevelOfFirstGnpiMerger - 1], 'outUnderwritingInfoNet'
+            }
+        }
+
+        for (int i = 1; i < gnpiUnderwritingInfoMergers.size(); i++) {
+            doWire WC, gnpiUnderwritingInfoMergers[i], 'inUnderwritingInfoCeded', gnpiUnderwritingInfoMergers[i - 1], 'outUnderwritingInfoCeded'
+        }
+    }
+
     public ReinsuranceContract getContract(int index) {
         componentList[sortedIndizes[index]]
     }
+
+    private boolean contractInstanceOfProportionalContractStrategy(ReinsuranceContract contract) {
+        if (contract instanceof QuotaShareContractStrategy || contract instanceof SurplusContractStrategy
+                || contract instanceof LossPortfolioTransferContractStrategy || contract instanceof ReverseSurplusContractStrategy) {
+            return true
+        }
+        return false
+    }
+
+    private boolean contractsWithGnpiBase() {
+        for (ReinsuranceContract contract: contractsSorted) {
+            if (contract.parmContractStrategy instanceof XLContractStrategy) {
+                if (((XLContractStrategy) contract.parmContractStrategy).premiumBase.equals(PremiumBase.GNPI)) {
+                    return true
+                }
+            }
+            if (contract.parmContractStrategy instanceof AggregateXLContractStrategy) {
+                if (((AggregateXLContractStrategy) contract.parmContractStrategy).premiumBase.equals(PremiumBase.GNPI)) {
+                    return true
+                }
+            }
+            if (contract.parmContractStrategy instanceof GoldorakContractStrategy) {
+                if (((GoldorakContractStrategy) contract.parmContractStrategy).premiumBase.equals(PremiumBase.GNPI)) {
+                    return true
+                }
+            }
+            if (contract.parmContractStrategy instanceof StopLossContractStrategy) {
+                if (((StopLossContractStrategy) contract.parmContractStrategy).stopLossContractBase.GNPI.equals(StopLossContractBase.GNPI)) {
+                    return true
+                }
+            }
+            if (contract.parmContractStrategy instanceof AdverseDevelopmentCoverContractStrategy) {
+                if (((AdverseDevelopmentCoverContractStrategy) contract.parmContractStrategy).stopLossContractBase.GNPI.equals(StopLossContractBase.GNPI)) {
+                    return true
+                }
+            }
+        }
+        return false;
+    }
+
+    private int getSmallestPriorityWithNonProportionalContractStrategy() {
+        for (ReinsuranceContract contract: contractsSorted) {
+            if (contract.parmContractStrategy instanceof XLContractStrategy || contract.parmContractStrategy instanceof StopLossContractStrategy
+                    || contract.parmContractStrategy instanceof AggregateXLContractStrategy || contract.parmContractStrategy instanceof GoldorakContractStrategy
+                    || contract.parmContractStrategy instanceof AdverseDevelopmentCoverContractStrategy) {
+                return contract.parmInuringPriority
+            }
+        }
+        return ((ReinsuranceContract) contractsSorted[-1]).parmInuringPriority
+    }
+
 
     public String getGenericSubComponentName() {
         return "contracts"

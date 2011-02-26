@@ -4,7 +4,7 @@ package models.multiCompany
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 model = MultiCompanyModel
-displayName = "Claims by Line of Business"
+displayName = "Claims by Segments"
 language = "en"
 
 mappings = {

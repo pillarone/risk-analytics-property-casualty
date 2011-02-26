@@ -27,7 +27,7 @@ public class InterpolatedSlidingCommissionStrategy implements ICommissionStrateg
             Arrays.asList(LOSS_RATIO, COMMISSION),
             ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER));
 
-    private SortedMap<Double, List<Double>> commissionRatesPerLossRatio;
+    private TreeMap<Double, List<Double>> commissionRatesPerLossRatio;
 
 
     public IParameterObjectClassifier getType() {
@@ -63,12 +63,11 @@ public class InterpolatedSlidingCommissionStrategy implements ICommissionStrateg
             commissionRate = commissionRatesPerLossRatio.get(Math.min(totalLossRatio, highestEnteredLossRatio)).get(0);
         }
         else {
-            SortedMap<Double, List<Double>> headMap = commissionRatesPerLossRatio.headMap(totalLossRatio);
-            SortedMap<Double, List<Double>> tailMap = commissionRatesPerLossRatio.tailMap(totalLossRatio);
-            double leftLossRatio = headMap.lastKey();
-            double rightLossRatio = tailMap.firstKey();
-            double leftCommissionValue = headMap.get(leftLossRatio).get(0);
-            double rightCommissionValue = tailMap.get(rightLossRatio).get(tailMap.get(rightLossRatio).size() - 1);
+            double leftLossRatio = commissionRatesPerLossRatio.floorKey(totalLossRatio);
+            double rightLossRatio = commissionRatesPerLossRatio.higherKey(totalLossRatio);
+            double leftCommissionValue = commissionRatesPerLossRatio.get(leftLossRatio).get(0);
+            int size = commissionRatesPerLossRatio.get(rightLossRatio).size();
+            double rightCommissionValue = commissionRatesPerLossRatio.get(rightLossRatio).get(size - 1);
             commissionRate = (rightLossRatio - totalLossRatio) / (rightLossRatio - leftLossRatio) * leftCommissionValue +
                     (totalLossRatio - leftLossRatio) / (rightLossRatio - leftLossRatio) * rightCommissionValue;
         }
@@ -106,11 +105,11 @@ public class InterpolatedSlidingCommissionStrategy implements ICommissionStrateg
         }
     }
 
-    public SortedMap<Double, List<Double>> getCommissionRatesPerLossRatio() {
+    public TreeMap<Double, List<Double>> getCommissionRatesPerLossRatio() {
         return commissionRatesPerLossRatio;
     }
 
-    public void setCommissionRatesPerLossRatio(SortedMap<Double, List<Double>> commissionRatesPerLossRatio) {
+    public void setCommissionRatesPerLossRatio(TreeMap<Double, List<Double>> commissionRatesPerLossRatio) {
         this.commissionRatesPerLossRatio = commissionRatesPerLossRatio;
     }
 }

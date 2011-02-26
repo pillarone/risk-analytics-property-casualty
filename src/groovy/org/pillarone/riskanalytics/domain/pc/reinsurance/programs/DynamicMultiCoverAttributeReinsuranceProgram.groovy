@@ -11,6 +11,13 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceCo
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.CoverAttributeStrategyType
 import org.pillarone.riskanalytics.domain.pc.underwriting.MarketUnderwritingInfoMerger
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.XLContractStrategy
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.StopLossContractStrategy
+import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
+import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.AggregateXLContractStrategy
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.GoldorakContractStrategy
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.AdverseDevelopmentCoverContractStrategy
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -24,7 +31,7 @@ public class DynamicMultiCoverAttributeReinsuranceProgram extends DynamicReinsur
                 parmInuringPriority: 0,
                 parmContractStrategy: ReinsuranceContractType.getStrategy(ReinsuranceContractType.TRIVIAL, [:]),
                 parmCover: CoverAttributeStrategyType.getStrategy(
-                            CoverAttributeStrategyType.ALL, ['reserves': IncludeType.NOTINCLUDED]))
+                        CoverAttributeStrategyType.ALL, ['reserves': IncludeType.NOTINCLUDED]))
         return contract
     }
 
@@ -52,6 +59,30 @@ public class DynamicMultiCoverAttributeReinsuranceProgram extends DynamicReinsur
         }
         else if (((MultiCoverAttributeReinsuranceContract) contract).parmBasedOn.equals(ReinsuranceContractBase.CEDED)) {
             doWire WireCategory, contract, 'inUnderwritingInfo', underwritingInfoMerger, 'outUnderwritingInfoCededInGrossPackets'
+        }
+    }
+
+    protected void wireContractInUnderwritingInfo(ReinsuranceContract contract, MarketUnderwritingInfoMerger uwInfoMerger, MarketUnderwritingInfoMerger gnpiUwInfoMerger) {
+        if (((MultiCoverAttributeReinsuranceContract) contract).parmBasedOn.equals(ReinsuranceContractBase.NET)) {
+            if (contract.parmContractStrategy instanceof XLContractStrategy && ((XLContractStrategy) contract.parmContractStrategy).premiumBase.equals(PremiumBase.GNPI)) {
+                doWire WireCategory, contract, 'inUnderwritingInfo', gnpiUwInfoMerger, 'outUnderwritingInfoNet'
+            }
+            else if (contract.parmContractStrategy instanceof AggregateXLContractStrategy && ((AggregateXLContractStrategy) contract.parmContractStrategy).premiumBase.equals(PremiumBase.GNPI)) {
+                doWire WireCategory, contract, 'inUnderwritingInfo', gnpiUwInfoMerger, 'outUnderwritingInfoNet'
+            }
+            else if (contract.parmContractStrategy instanceof GoldorakContractStrategy && ((GoldorakContractStrategy) contract.parmContractStrategy).premiumBase.equals(PremiumBase.GNPI)) {
+                doWire WireCategory, contract, 'inUnderwritingInfo', gnpiUwInfoMerger, 'outUnderwritingInfoNet'
+            }
+            else if (contract.parmContractStrategy instanceof StopLossContractStrategy && ((StopLossContractStrategy) contract.parmContractStrategy).stopLossContractBase.equals(StopLossContractBase.GNPI)) {
+                doWire WireCategory, contract, 'inUnderwritingInfo', gnpiUwInfoMerger, 'outUnderwritingInfoNet'
+            }
+            else if (contract.parmContractStrategy instanceof AdverseDevelopmentCoverContractStrategy && ((AdverseDevelopmentCoverContractStrategy) contract.parmContractStrategy).stopLossContractBase.equals(StopLossContractBase.GNPI)) {
+                doWire WireCategory, contract, 'inUnderwritingInfo', gnpiUwInfoMerger, 'outUnderwritingInfoNet'
+            }
+            else {doWire WireCategory, contract, 'inUnderwritingInfo', uwInfoMerger, 'outUnderwritingInfoNet'}
+        }
+        else if (((MultiCoverAttributeReinsuranceContract) contract).parmBasedOn.equals(ReinsuranceContractBase.CEDED)) {
+            doWire WireCategory, contract, 'inUnderwritingInfo', uwInfoMerger, 'outUnderwritingInfoCededInGrossPackets'
         }
     }
 }
