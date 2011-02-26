@@ -11,6 +11,11 @@ import org.pillarone.riskanalytics.core.parameterization.AbstractMultiDimensiona
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.pc.underwriting.RiskBands
 import org.pillarone.riskanalytics.core.parameterization.validation.IParameterizationValidator
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractStrategy
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.SurplusContractStrategy
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReverseSurplusContractStrategy
+import org.pillarone.riskanalytics.domain.utils.validation.ParameterValidationErrorImpl
+import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterObjectParameterHolder
 
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
@@ -30,6 +35,11 @@ class RiskBandsValidator implements IParameterizationValidator {
 
         List<ParameterValidationError> errors = []
 
+        /** key: path */
+        Map<String, IReinsuranceContractStrategy> surplusContracts = [:]
+        /** key: path */
+        Map<String, TableMultiDimensionalParameter> underwritingInfos = [:]
+
         for (ParameterHolder parameter in parameters) {
             if (parameter instanceof MultiDimensionalParameterHolder) {
                 AbstractMultiDimensionalParameter value = parameter.getBusinessObject()  // parameter.value ??
@@ -39,11 +49,31 @@ class RiskBandsValidator implements IParameterizationValidator {
                         if (LOG.isDebugEnabled()) {
                             LOG.debug "validating ${parameter.path}"
                         }
+                        underwritingInfos[parameter.path] = value
 
                         def currentErrors = validationService.validate(value, value.getColumnByName(RiskBands.MAXIMUM_SUM_INSURED))
                         currentErrors*.path = parameter.path
                         errors.addAll(currentErrors)
                     }
+                }
+            }
+            else if (parameter instanceof ParameterObjectParameterHolder
+                && (parameter.getBusinessObject() instanceof SurplusContractStrategy
+                    || parameter.getBusinessObject() instanceof ReverseSurplusContractStrategy)) {
+                surplusContracts[parameter.path] = parameter.getBusinessObject()
+            }
+        }
+        if (!surplusContracts.isEmpty()) {
+            for (Map.Entry<String, TableMultiDimensionalParameter> item : underwritingInfos.entrySet()) {
+                String path = item.key
+                List<Double> numberOfPolicies = item.value.getColumnByName(RiskBands.NUMBER_OF_POLICIES)
+                for (int row = 0; row < numberOfPolicies.size(); row++) {
+                    if (numberOfPolicies[row] > 0) continue
+                    ParameterValidationErrorImpl error = new ParameterValidationErrorImpl(
+                        'surplus.ri.needs.non.trivial.number.of.policies', [numberOfPolicies[row], row+1]
+                    )
+                    error.path = path
+                    errors << error
                 }
             }
         }

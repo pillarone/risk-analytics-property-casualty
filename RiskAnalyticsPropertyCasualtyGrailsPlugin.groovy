@@ -88,6 +88,7 @@ class RiskAnalyticsPropertyCasualtyGrailsPlugin {
         ResourceBundleRegistry.addValidationBundle("org.pillarone.riskanalytics.domain.pc.validation.commissionStrategyType")
         ResourceBundleRegistry.addValidationBundle("org.pillarone.riskanalytics.domain.pc.validation.distributionType")
         ResourceBundleRegistry.addValidationBundle("org.pillarone.riskanalytics.domain.pc.validation.unityDouble")
+        ResourceBundleRegistry.addValidationBundle("org.pillarone.riskanalytics.domain.pc.underwriting.validation.riskBands")
     }
 
     def onChange = {event ->
