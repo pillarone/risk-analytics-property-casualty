@@ -13,6 +13,13 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceCo
 import org.pillarone.riskanalytics.domain.pc.underwriting.MarketUnderwritingInfoMerger
 import org.pillarone.riskanalytics.domain.pc.creditrisk.ReinsurerDefault
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.CompanyCoverAttributeStrategyType
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.XLContractStrategy
+import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.StopLossContractStrategy
+import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.AggregateXLContractStrategy
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.GoldorakContractStrategy
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.AdverseDevelopmentCoverContractStrategy
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -27,7 +34,7 @@ public class ReinsuranceMarket extends DynamicReinsuranceProgram {
                 parmInuringPriority: 0,
                 parmContractStrategy: ReinsuranceContractType.getStrategy(ReinsuranceContractType.TRIVIAL, [:]),
                 parmCover: CompanyCoverAttributeStrategyType.getStrategy(
-                            CompanyCoverAttributeStrategyType.ALL, ['reserves': IncludeType.NOTINCLUDED]))
+                        CompanyCoverAttributeStrategyType.ALL, ['reserves': IncludeType.NOTINCLUDED]))
         return contract
     }
 
@@ -54,4 +61,29 @@ public class ReinsuranceMarket extends DynamicReinsuranceProgram {
             doWire WireCategory, contract, 'inUnderwritingInfo', underwritingInfoMerger, 'outUnderwritingInfoCededInGrossPackets'
         }
     }
+
+    protected void wireContractInUnderwritingInfo(ReinsuranceContract contract, MarketUnderwritingInfoMerger uwInfoMerger, MarketUnderwritingInfoMerger gnpiUwInfoMerger) {
+        if (((MultiCoverAttributeReinsuranceContract) contract).parmBasedOn.equals(ReinsuranceContractBase.NET)) {
+            if (contract.parmContractStrategy instanceof XLContractStrategy && ((XLContractStrategy) contract.parmContractStrategy).premiumBase.equals(PremiumBase.GNPI)) {
+                doWire WireCategory, contract, 'inUnderwritingInfo', gnpiUwInfoMerger, 'outUnderwritingInfoNet'
+            }
+            else if (contract.parmContractStrategy instanceof AggregateXLContractStrategy && ((AggregateXLContractStrategy) contract.parmContractStrategy).premiumBase.equals(PremiumBase.GNPI)) {
+                doWire WireCategory, contract, 'inUnderwritingInfo', gnpiUwInfoMerger, 'outUnderwritingInfoNet'
+            }
+            else if (contract.parmContractStrategy instanceof GoldorakContractStrategy && ((GoldorakContractStrategy) contract.parmContractStrategy).premiumBase.equals(PremiumBase.GNPI)) {
+                doWire WireCategory, contract, 'inUnderwritingInfo', gnpiUwInfoMerger, 'outUnderwritingInfoNet'
+            }
+            else if (contract.parmContractStrategy instanceof StopLossContractStrategy && ((StopLossContractStrategy) contract.parmContractStrategy).stopLossContractBase.equals(StopLossContractBase.GNPI)) {
+                doWire WireCategory, contract, 'inUnderwritingInfo', gnpiUwInfoMerger, 'outUnderwritingInfoNet'
+            }
+            else if (contract.parmContractStrategy instanceof AdverseDevelopmentCoverContractStrategy && ((AdverseDevelopmentCoverContractStrategy) contract.parmContractStrategy).stopLossContractBase.equals(StopLossContractBase.GNPI)) {
+                doWire WireCategory, contract, 'inUnderwritingInfo', gnpiUwInfoMerger, 'outUnderwritingInfoNet'
+            }
+            else {doWire WireCategory, contract, 'inUnderwritingInfo', uwInfoMerger, 'outUnderwritingInfoNet'}
+        }
+        else if (((MultiCoverAttributeReinsuranceContract) contract).parmBasedOn.equals(ReinsuranceContractBase.CEDED)) {
+            doWire WireCategory, contract, 'inUnderwritingInfo', uwInfoMerger, 'outUnderwritingInfoCededInGrossPackets'
+        }
+    }
+
 }

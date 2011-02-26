@@ -8,7 +8,7 @@ class MultiCompanyModelTests extends ModelTest {
     }
 
     String getResultConfigurationDisplayName() {
-        "Aggregated Overview 3"
+        "Aggregated Overview"
     }
 
     String getParameterDisplayName() {
