@@ -85,10 +85,9 @@ class RiskAnalyticsPropertyCasualtyGrailsPlugin {
         ResourceBundleRegistry.addResourceBundle("org.pillarone.riskanalytics.exceptionResources")
 
         //add resource bundle for validation
-        //todo(sku): re-enable once a new core plugin is available
-//        ResourceBundleRegistry.addValidationBundle("org.pillarone.riskanalytics.domain.pc.validation.commissionStrategyType")
-//        ResourceBundleRegistry.addValidationBundle("org.pillarone.riskanalytics.domain.pc.validation.distributionType")
-//        ResourceBundleRegistry.addValidationBundle("org.pillarone.riskanalytics.domain.pc.validation.unityDouble")
+        ResourceBundleRegistry.addValidationBundle("org.pillarone.riskanalytics.domain.pc.validation.commissionStrategyType")
+        ResourceBundleRegistry.addValidationBundle("org.pillarone.riskanalytics.domain.pc.validation.distributionType")
+        ResourceBundleRegistry.addValidationBundle("org.pillarone.riskanalytics.domain.pc.validation.unityDouble")
     }
 
     def onChange = {event ->

@@ -6,6 +6,7 @@ import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensi
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory;
 import org.pillarone.riskanalytics.core.util.GroovyUtils;
 import org.pillarone.riskanalytics.domain.pc.constraints.PerilPortion;
+import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
 import org.pillarone.riskanalytics.domain.utils.InputFormatConverter;
@@ -42,7 +43,7 @@ public class MarketToLineOfBusinessClaims extends Component {
             for (Claim marketClaim : inClaims) {
                 String originName = marketClaim.origin.getNormalizedName();
                 int row = parmPortions.getColumnByName(PERIL).indexOf(originName);
-                if (row > -1) {
+                if (row > -1 && marketClaim.getPeril() instanceof PerilMarker) {
                     Claim lobClaim = marketClaim.copy();
                     // PMO-750: claim mergers in reinsurance program won't work with reference to market claims
                     lobClaim.setOriginalClaim(lobClaim);

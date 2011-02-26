@@ -46,7 +46,7 @@ public class LineOfBusinessReserves extends Component {
             for (Claim claim : inClaims) {
                 String originName = claim.origin.getNormalizedName();
                 int row = parmPortions.getColumnByName(RESERVES).indexOf(originName);
-                if (row > -1) {
+                if (row > -1 && claim.getPeril() instanceof IReserveMarker) {
                     Claim lobClaim = claim.copy();
                     lobClaim.setOriginalClaim(lobClaim);
                     lobClaim.origin = lineOfBusiness;
