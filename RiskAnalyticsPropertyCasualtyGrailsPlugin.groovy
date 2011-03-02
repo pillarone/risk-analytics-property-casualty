@@ -20,6 +20,7 @@ import org.pillarone.riskanalytics.core.util.ResourceBundleRegistry
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.validation.DependencyMatrixValidator
 import org.pillarone.riskanalytics.domain.utils.constraints.DateTimeConstraints
 import org.pillarone.riskanalytics.domain.pc.underwriting.validation.RiskBandsValidator
+import org.pillarone.riskanalytics.domain.pc.generators.claims.validation.TypableClaimsGeneratorValidator
 
 class RiskAnalyticsPropertyCasualtyGrailsPlugin {
     // the plugin version
@@ -80,6 +81,7 @@ class RiskAnalyticsPropertyCasualtyGrailsPlugin {
         ValidatorRegistry.addValidator(new SegmentFilterValidator())
         ValidatorRegistry.addValidator(new DependencyMatrixValidator())
         ValidatorRegistry.addValidator(new RiskBandsValidator())
+        ValidatorRegistry.addValidator(new TypableClaimsGeneratorValidator())
 
         // add resource bundle for exceptions
         ResourceBundleRegistry.addResourceBundle("org.pillarone.riskanalytics.exceptionResources")
@@ -92,6 +94,7 @@ class RiskAnalyticsPropertyCasualtyGrailsPlugin {
         ResourceBundleRegistry.addValidationBundle("org.pillarone.riskanalytics.domain.pc.filter.segmentFilterValidator")
         ResourceBundleRegistry.addValidationBundle("org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.validation.xlStrategyValidator")
         ResourceBundleRegistry.addValidationBundle("org.pillarone.riskanalytics.domain.pc.underwriting.validation.riskBands")
+        ResourceBundleRegistry.addValidationBundle("org.pillarone.riskanalytics.domain.pc.generators.claims.validation.typableClaimsGeneratorValidator")
     }
 
     def onChange = {event ->
