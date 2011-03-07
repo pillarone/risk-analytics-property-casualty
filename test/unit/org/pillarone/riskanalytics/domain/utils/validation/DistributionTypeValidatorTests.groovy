@@ -62,16 +62,18 @@ class DistributionTypeValidatorTests extends GroovyTestCase {
 
     void testLogNormalValidator() {
         def validDistribution = DistributionType.LOGNORMAL
-        assertEquals 0, validator.validate(validDistribution, ['mean': 0d, 'stDev': 1d]).size()
+        assertEquals 0, validator.validate(validDistribution, ['mean': 1d, 'stDev': 1d]).size()
     }
 
     void testFailingLogNormalValidator() {
         def badPoisson = DistributionType.LOGNORMAL
         def result = validator.validate(badPoisson, ['mean': -1d, 'stDev': 0d])
         assertNotNull result
-        assertEquals 'one error message', 1, result.size()
+        assertEquals 'one error message', 2, result.size()
         assert result[0].msg instanceof String
-        assertEquals 0, result[0].args[0]
+        assert result[1].msg instanceof String
+        assertEquals 'negative mean', -1d, result[0].args[0]
+        assertEquals 'zero stdev', 0, result[1].args[0]
     }
 
     void testLogNormalMuSigmaValidator() {
