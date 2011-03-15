@@ -45,6 +45,16 @@ mappings = {
                                 }
                             }
                         }
+                        "net" {
+                            "[%contract%]" "Podra:reinsurance:subContracts:[%contract%]:outClaimsDevelopmentLeanNet:incurred", {
+                                "bySegments" {
+                                    "[%lineOfBusiness%]" "Podra:reinsurance:subContracts:[%contract%]:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanNet:incurred"
+                                }
+                                "byPerils" {
+                                    "[%peril%]" "Podra:reinsurance:subContracts:[%contract%]:claimsGenerators:[%peril%]:outClaimsDevelopmentLeanNet:incurred"
+                                }
+                            }
+                        }
                     }
                 }
                 "underwriting" {
