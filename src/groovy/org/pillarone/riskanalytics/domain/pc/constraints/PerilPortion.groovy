@@ -15,7 +15,7 @@ class PerilPortion implements IMultiDimensionalConstraints {
             return value instanceof String
         }
         else {
-            return value instanceof Double
+            return value instanceof Number
         }
     }
 

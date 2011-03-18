@@ -66,4 +66,4 @@ components {
 		}
 	}
 }
-comments=["""[path:'Podra', period:-1, lastChange:new Date(1298019251670),user:null, comment: \"\"\"This parametrization corresponds to the surplus example mentioned within the paper of Martin Melchior and Michael Noe.\"\"\"]"""]
+comments=["""[path:'Podra', period:-1, lastChange:new org.joda.time.DateTime(1298019251670),user:null, comment: \"\"\"This parametrization corresponds to the surplus example mentioned within the paper of Martin Melchior and Michael Noe.\"\"\"]"""]

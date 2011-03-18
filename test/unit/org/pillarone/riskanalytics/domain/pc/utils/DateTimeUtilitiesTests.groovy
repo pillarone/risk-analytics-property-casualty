@@ -20,10 +20,14 @@ class DateTimeUtilitiesTests extends GroovyTestCase {
     DateTime date20090504 = new DateTime(2009,5,4,0,0,0,0)
     DateTime date20090524 = new DateTime(2009,5,24,0,0,0,0)
     DateTime date20091024 = new DateTime(2009,10,24,0,0,0,0)
-    DateTime date20091115= new DateTime(2009,11,15,0,0,0,0)
+    DateTime date20091115 = new DateTime(2009,11,15,0,0,0,0)
     DateTime date20100101 = new DateTime(2010,1,1,0,0,0,0)
+    DateTime date20100130 = new DateTime(2010,1,30,0,0,0,0)
+    DateTime date20100131 = new DateTime(2010,1,31,0,0,0,0)
     DateTime date20100201 = new DateTime(2010,2,1,0,0,0,0)
     DateTime date20100401 = new DateTime(2010,4,1,0,0,0,0)
+    DateTime date20100330 = new DateTime(2010,3,30,0,0,0,0)
+    DateTime date20100331 = new DateTime(2010,3,31,0,0,0,0)
     DateTime date20100501 = new DateTime(2010,5,1,0,0,0,0)
     DateTime date20100701 = new DateTime(2010,7,1,0,0,0,0)
     DateTime date20100704 = new DateTime(2010,7,4,0,0,0,0)
@@ -218,5 +222,16 @@ class DateTimeUtilitiesTests extends GroovyTestCase {
         assertEquals "end = third period end", 3, DateTimeUtilities.dateAsDouble(date20100101, date20110101, date20130101)
         assertEquals "end = third period end", 90/365d, DateTimeUtilities.dateAsDouble(date20100101, date20110101, date20100401)
         assertEquals "end = third period end", (365+90)/365d, DateTimeUtilities.dateAsDouble(date20100101, date20110101, date20110401)
+    }
+
+    void testDeriveNumberOfMonths() {
+        assertEquals '1.1. - 30.1.2010', 29/31d, DateTimeUtilities.deriveNumberOfMonths(date20100101, date20100130)
+        assertEquals '1.1. - 31.1.2010', 30/31d, DateTimeUtilities.deriveNumberOfMonths(date20100101, date20100131)
+        assertEquals '1.1. - 1.2.2010', 1d, DateTimeUtilities.deriveNumberOfMonths(date20100101, date20100201)
+        assertEquals '1.1. - 1.4.2010', 3d, DateTimeUtilities.deriveNumberOfMonths(date20100101, date20100401)
+        assertEquals '1.1.2010 - 1.1.2011', 12d, DateTimeUtilities.deriveNumberOfMonths(date20100101, date20110101)
+        assertEquals '1.1.2010 - 1.2.2011', 13d, DateTimeUtilities.deriveNumberOfMonths(date20100101, date20110201)
+        assertEquals '16.5.2010 - 24.5.2010', 8/31d, DateTimeUtilities.deriveNumberOfMonths(date20090516, date20090524)
+        assertEquals '16.5.2009 - 1.1.2011', 19 + 16/31d, DateTimeUtilities.deriveNumberOfMonths(date20090516, date20110101)
     }
 }
