@@ -136,6 +136,18 @@ class DistributionTypeValidator implements IParameterizationValidator {
             if (type.stDev > 0) return true
             ["distribution.type.error.normal.sigma.nonpositive", type.stDev]
         }
+        validationService.register(DistributionType.LOGNORMAL_MEAN_CV) {Map type ->
+            if (type.mean > 0) return true
+            ["distribution.type.error.lognormal.mean.nonpositive", type.mean]
+        }
+        validationService.register(DistributionType.LOGNORMAL_MEAN_CV) {Map type ->
+            if (type.cv > 0) return true
+            ["distribution.type.error.lognormal.cv.nonpositive", type.CV]
+        }
+        validationService.register(DistributionType.LOGNORMAL) {Map type ->
+            if (type.mean > 0) return true
+            ["distribution.type.error.lognormal.mean.nonpositive", type.mean]
+        }
         validationService.register(DistributionType.LOGNORMAL) {Map type ->
             if (type.stDev > 0) return true
             ["distribution.type.error.lognormal.sigma.nonpositive", type.stDev]

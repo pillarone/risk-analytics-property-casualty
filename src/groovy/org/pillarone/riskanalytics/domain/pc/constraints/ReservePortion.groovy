@@ -18,7 +18,7 @@ class ReservePortion implements IMultiDimensionalConstraints, IUnityPortion {
             return value instanceof String
         }
         else {
-            return value instanceof Double
+            return value instanceof Number
         }
     }
 

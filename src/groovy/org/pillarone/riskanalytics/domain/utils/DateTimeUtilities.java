@@ -174,4 +174,20 @@ public class DateTimeUtilities {
             throw new IllegalArgumentException("Period " + period + " is not within projection horizon.");
         }
     }
+
+    /**
+     *  This function calculates the months between two dates including a fraction. The fraction is calculated in the last month.
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+    public static double deriveNumberOfMonths(DateTime startDate, DateTime endDate) {
+        int numberOfCompleteMonths = Months.monthsBetween(startDate, endDate).getMonths();
+        double fractionInLastMonth = 0d;
+        if (startDate.plusMonths(numberOfCompleteMonths).isBefore(endDate)) {
+            fractionInLastMonth = Days.daysBetween(startDate.plusMonths(numberOfCompleteMonths), endDate).getDays() /
+                    (double) Days.daysBetween(startDate.plusMonths(numberOfCompleteMonths), startDate.plusMonths(numberOfCompleteMonths + 1)).getDays();
+        }
+        return numberOfCompleteMonths + fractionInLastMonth;
+    }
 }

@@ -80,5 +80,5 @@ components {
 		parmDefaultAAA[0]=2.0E-5
 	}
 }
-comments=["""[path:'MultiCompany', period:-1, lastChange:new Date(1293101068546),user:null, comment: \"\"\"no CRTI
+comments=["""[path:'MultiCompany', period:-1, lastChange:new org.joda.time.DateTime(1293101068546),user:null, comment: \"\"\"no CRTI
 default which has no effect as there are no CRTI\"\"\"]"""]

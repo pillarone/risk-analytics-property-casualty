@@ -88,6 +88,6 @@ components {
 		}
 	}
 }
-comments=["""[path:'MultiCompany', period:-1, lastChange:new Date(1298019477717),user:null, comment: \"\"\"Quota Share 50% daughter -> son
+comments=["""[path:'MultiCompany', period:-1, lastChange:new org.joda.time.DateTime(1298019477717),user:null, comment: \"\"\"Quota Share 50% daughter -> son
 guarantee 50 xs 40 daughter -> parent
 no default therefore the guarantee never gets triggered and the quota share is equal to &rdquo;LE-CRTI: QS, no default&rdquo;\"\"\"]"""]

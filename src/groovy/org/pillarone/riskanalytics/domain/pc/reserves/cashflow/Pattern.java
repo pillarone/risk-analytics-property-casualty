@@ -1,11 +1,10 @@
 package org.pillarone.riskanalytics.domain.pc.reserves.cashflow;
 
+import org.jfree.data.time.Month;
 import org.joda.time.DateTime;
-import org.joda.time.Days;
 import org.joda.time.Months;
 import org.joda.time.Period;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,15 +22,23 @@ public class Pattern {
         cumulativeValues = strategy.getCumulativePatternValues();
     }
 
-    public double remainingPaid(int elapsedMonths) {
+    /**
+     * @param elapsedMonths
+     * @return outstanding share after elapsedMonths using a linear interpolation if elapsedMonths is not part of the cumulativePeriods
+     */
+    public double outstandingShare(double elapsedMonths) {
         int indexAboveElapsedMonths = 0;
         for (int i = 0; i < cumulativePeriods.size(); i++) {
             if (elapsedMonths < cumulativePeriods.get(i).getMonths()) {
                 indexAboveElapsedMonths = i;
-                double periodRatio = (elapsedMonths - cumulativePeriods.get(indexAboveElapsedMonths - 1).getMonths())
-                    / (double) (cumulativePeriods.get(indexAboveElapsedMonths).getMonths() - cumulativePeriods.get(indexAboveElapsedMonths - 1).getMonths());
-                double paidPortion = (cumulativeValues.get(indexAboveElapsedMonths) - cumulativeValues.get(indexAboveElapsedMonths - 1)) * periodRatio;
-                return 1 - cumulativeValues.get(indexAboveElapsedMonths - 1) - paidPortion;
+                int numberOfMonthsBelowElapsedMonths = cumulativePeriods.get(indexAboveElapsedMonths - 1).getMonths();
+                int numberOfMonthsAboveElapsedMonths = cumulativePeriods.get(indexAboveElapsedMonths).getMonths();
+                double valueBelowElapsedMonths = cumulativeValues.get(indexAboveElapsedMonths - 1);
+                double valueAboveElapsedMonths = cumulativeValues.get(indexAboveElapsedMonths);
+                double periodRatio = (elapsedMonths - numberOfMonthsBelowElapsedMonths)
+                        / (double) (numberOfMonthsAboveElapsedMonths - numberOfMonthsBelowElapsedMonths);
+                double paidPortion = (valueAboveElapsedMonths - valueBelowElapsedMonths) * periodRatio;
+                return 1 - valueBelowElapsedMonths - paidPortion;
             }
             else if (elapsedMonths == cumulativePeriods.get(i).getMonths()) {
                 return 1 - cumulativeValues.get(i);
@@ -41,7 +48,11 @@ public class Pattern {
         return 0d;
     }
 
-    public Integer nextPayoutIndex(int elapsedMonths) {
+    /**
+     * @param elapsedMonths
+     * @return nearest pattern index with month value lower elapsedMonths or null if elapsedMonths is after last period
+     */
+    public Integer nextPayoutIndex(double elapsedMonths) {
         for (int i = 0; i < cumulativePeriods.size(); i++) {
             if (elapsedMonths < cumulativePeriods.get(i).getMonths()) {
                 return i;
@@ -51,7 +62,11 @@ public class Pattern {
         return null;
     }
 
-    public Integer thisOrNextPayoutIndex(int elapsedMonths) {
+    /**
+     * @param elapsedMonths
+     * @return nearest pattern index with month value lower or equal elapsedMonths or null if elapsedMonths is after last period
+     */
+    public Integer thisOrNextPayoutIndex(double elapsedMonths) {
         for (int i = 0; i < cumulativePeriods.size(); i++) {
             if (elapsedMonths <= cumulativePeriods.get(i).getMonths()) {
                 return i;
@@ -61,17 +76,14 @@ public class Pattern {
         return null;
     }
 
-//    public double adjustedIncrementalFactor(DateTime occurrenceDate, DateTime updateDate, int elapsedMonths) {
-//        Integer payoutIndex = thisOrNextPayoutIndex(elapsedMonths);
-//        double originalIncrementalFactor =  incrementFactor(payoutIndex);
-//        DateTime patternDateNext = occurrenceDate.plus(cumulativeLapseTime(payoutIndex));
-//        if (updateDate.equals(patternDateNext)) return originalIncrementalFactor;   // no adjustment required
-//        DateTime patternDateBefore = occurrenceDate.plus(cumulativeLapseTime(payoutIndex - 1));
-//        double timeFraction = Days.daysBetween(updateDate, patternDateNext).getDays()
-//                / (double) Days.daysBetween(patternDateBefore, patternDateNext).getDays();
-//        return originalIncrementalFactor * timeFraction;
-//    }
-
+    /**
+     * @deprecated use adjustedIncrementalFactor(double elapsedMonths)
+     * @param occurrenceDate
+     * @param updateDate
+     * @param elapsedMonths
+     * @return
+     */
+    @Deprecated
     public double adjustedIncrementalFactor(DateTime occurrenceDate, DateTime updateDate, int elapsedMonths) {
         double originalIncrementalFactor =  incrementFactor(nextPayoutIndex(elapsedMonths));
         Integer nextPayoutIndex = nextPayoutIndex(elapsedMonths);
@@ -95,6 +107,43 @@ public class Pattern {
             return cumulativeValues.get(0);
         }
         return cumulativeValues.get(developmentPeriod) - cumulativeValues.get(developmentPeriod - 1);
+    }
+
+    public double incrementFactor(int developmentPeriod, double outstandingShare) {
+        return incrementFactor(developmentPeriod) / outstandingShare;
+    }
+
+//    public double incrementFactor(Period months) {
+//        return cumulativeValues.get(cumulativePeriods.indexOf(months));
+//    }
+
+    /**
+     * Corrects the incremental factor following after elapsedMonths
+     * @param elapsedMonths
+     * @return
+     */
+    public Double adjustedIncrementalFactor(double elapsedMonths) {
+        Integer nextPayoutIndex = nextPayoutIndex(elapsedMonths);
+        if (nextPayoutIndex == null) return null;
+        double upperIncrementalFactor =  incrementFactor(nextPayoutIndex);
+        int upperCumulativeMonths = cumulativePeriods.get(nextPayoutIndex).getMonths();
+        double timeFraction = (upperCumulativeMonths - elapsedMonths) / (double) incrementMonths(nextPayoutIndex);
+        return upperIncrementalFactor * timeFraction;
+    }
+
+    public Double incrementFactorElapsed(double elapsedMonths, double outstandingShare) {
+        Double factor = adjustedIncrementalFactor(elapsedMonths);
+        return factor == null ? null : factor / outstandingShare;
+    }
+
+    public Integer incrementMonths(int developmentPeriod) {
+        if (developmentPeriod >= size()) return null;
+        if (developmentPeriod == 0) {
+            return cumulativePeriods.get(0).getMonths();
+        }
+        else {
+            return cumulativePeriods.get(developmentPeriod).getMonths() - cumulativePeriods.get(developmentPeriod - 1).getMonths();
+        }
     }
 
     public Period cumulativeLapseTime(int developmentPeriod) {
