@@ -68,7 +68,7 @@ public class AssetEngineTests extends GroovyTestCase {
         assetEngine.periodStore = new PeriodStore(assetEngine.simulationScope.iterationScope.periodScope)
         assetEngine.simulationScope.iterationScope.periodScope.periodCounter = new AssetModel().createPeriodCounter(new DateTime(startDate))
         assetEngine.inBondParameters << bond
-        assetEngine.inModellingChoices << curve
+        assetEngine.inYieldModellingChoices << curve
         assetEngine.inCashParameters << cash
         assetEngine.inFeesParameters << fees
         FixedInterestRateBond testFIRBond = new FixedInterestRateBond(bond)
