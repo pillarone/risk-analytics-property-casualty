@@ -34,10 +34,9 @@ class AssetModel extends StochasticModel {
 
     public void wireComponents() {
         engine.inBondParameters = bonds.outBondParameters
-        engine.inModellingChoices = yieldCurve.outYieldModellingChoices
+        engine.inYieldModellingChoices = yieldCurve.outYieldModellingChoices
         engine.inCashParameters = treasury.outCashParameters
         engine.inFeesParameters = fees.outFeesParameters
-
     }
 
     IPeriodCounter createPeriodCounter(DateTime beginOfFirstPeriod) {

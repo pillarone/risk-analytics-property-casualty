@@ -187,11 +187,11 @@ public class AssetEngine extends Component {
         this.periodStore = periodStore;
     }
 
-    public PacketList<YieldModellingChoices> getInModellingChoices() {
+     public PacketList<YieldModellingChoices> getInYieldModellingChoices() {
         return inYieldModellingChoices;
     }
 
-    public void setInModellingChoices(PacketList<YieldModellingChoices> inYieldModellingChoices) {
+    public void setInYieldModellingChoices(PacketList<YieldModellingChoices> inYieldModellingChoices) {
         this.inYieldModellingChoices = inYieldModellingChoices;
     }
 
