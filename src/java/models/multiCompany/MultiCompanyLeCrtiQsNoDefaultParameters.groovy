@@ -80,5 +80,5 @@ components {
 		parmDefaultAAA[0]=2.0E-5
 	}
 }
-comments=["""[path:'MultiCompany', period:-1, lastChange:new Date(1293101092746),user:null, comment: \"\"\"Quota Share 50% daughter -> son
+comments=["""[path:'MultiCompany', period:-1, lastChange:new org.joda.time.DateTime(1293101092746),user:null, comment: \"\"\"Quota Share 50% daughter -> son
 no default, therefore the net claims burden of the daughter is 50% of the gross\"\"\"]"""]

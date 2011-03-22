@@ -90,7 +90,7 @@ components {
 		parmDefaultB[0]=0.0475
 	}
 }
-comments=["""[path:'MultiCompany', period:-1, lastChange:new Date(1293101181106),user:null, comment: \"\"\"Quota Share 50% daughter -> son
+comments=["""[path:'MultiCompany', period:-1, lastChange:new org.joda.time.DateTime(1293101181106),user:null, comment: \"\"\"Quota Share 50% daughter -> son
 guarantee 50 xs 40 daughter -> parent
 default therefore
 a) the guarantee gets triggered whenever the son defaults and does not fulfill the Quota Share
