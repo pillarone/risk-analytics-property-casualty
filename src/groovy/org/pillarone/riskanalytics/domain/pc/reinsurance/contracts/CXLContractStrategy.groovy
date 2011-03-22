@@ -24,7 +24,7 @@ class CXLContractStrategy extends XLContractStrategy implements IReinsuranceCont
     double allocateCededClaim(Claim inClaim) {
         // todo (sku): work on clear definitions of ClaimType.EVENT and ClaimType.AGGREGATE_EVENT
         if (inClaim.claimType.equals(ClaimType.EVENT) || inClaim.claimType.equals(ClaimType.AGGREGATED_EVENT)) {
-            return inClaim.ultimate * cededShareByEvent.get(inClaim.event)  * deductibleFactor
+            return inClaim.ultimate * cededShareByEvent.get(inClaim.event)
         }
         else {
             return 0d
@@ -47,14 +47,11 @@ class CXLContractStrategy extends XLContractStrategy implements IReinsuranceCont
                 }
             }
         }
-        // todo (jdi): CXL should also work with PremiumBase.GNPI
         for (MapEntry claim: claimsValueMergedByEvent.entrySet()) {
-            double ceded = Math.min(Math.max(claim.value - attachmentPoint, 0), limit)
-            ceded = availableAggregateLimit > ceded ? ceded : availableAggregateLimit
-            availableAggregateLimit -= ceded
-            cededShareByEvent.put(claim.key, claim.value == 0 ? 0d : ceded / claim.value)
+            double ultimate = (Double) claim.value
+            double ceded = calculateCededClaim(ultimate)
+            cededShareByEvent.put((Event) claim.key, ultimate == 0 ? 0d : ceded / ultimate)
         }
-        calculateDeductibleFactor(inClaims)
     }
 
     public void resetMemberInstances() {

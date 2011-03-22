@@ -6,9 +6,10 @@ import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
+
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoPacketFactory
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
+import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -31,12 +32,10 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
     double aggregateLimit
 
     private double totalCededPremium
-    protected double availableAggregateLimit
-    protected double reinstatements
-    /** The factor is calculated during initBookkeepingFigures() by applying the aggregateDeductible,
-     *  ceded claims will be multiplied by it to apply a positive aggregateDeductible proportionally
-     *  to every claim.                  */
-    protected double deductibleFactor = 1d
+    private double availableAggregateLimit
+    /** before AAD & AAL */
+    private double remainingAggregateDeductible
+    private double reinstatements
 
     public Map getParameters() {
         return ["premiumBase": premiumBase,
@@ -54,9 +53,23 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
 
     abstract double allocateCededClaim(Claim inClaim)
 
+    protected double calculateCededClaim(double ultimate) {
+        if (availableAggregateLimit > 0) {
+            double ceded = Math.min(Math.max(ultimate - attachmentPoint, 0), limit)
+            double cededAfterAAD = Math.max(0, ceded - remainingAggregateDeductible)
+            remainingAggregateDeductible = Math.max(0, remainingAggregateDeductible - ceded)
+            double cededAfterAAL = availableAggregateLimit > cededAfterAAD ? cededAfterAAD : availableAggregateLimit
+            availableAggregateLimit -= cededAfterAAL
+            return cededAfterAAL
+        }
+        else {
+            return 0d
+        }
+    }
+
     static double calculateUsedReinstatements(double aggregateLimit, double availableAggregateLimit,
                                               double aggregateDeductible, double limit, double reinstatements) {
-        double usedReinstatements = limit == 0d ? 0d : (Double) (aggregateLimit - availableAggregateLimit - aggregateDeductible) / limit
+        double usedReinstatements = limit == 0d ? 0d : (Double) (aggregateLimit - availableAggregateLimit) / limit
         return Math.min(usedReinstatements, reinstatements)
     }
 
@@ -81,6 +94,7 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
 
     void initBookkeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
         availableAggregateLimit = aggregateLimit
+        remainingAggregateDeductible = aggregateDeductible
         reinstatements = limit == 0d ? 0d : availableAggregateLimit / limit - 1
 
         switch (premiumBase) {
@@ -96,20 +110,6 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
             case PremiumBase.NUMBER_OF_POLICIES:
                 totalCededPremium = premium * coverUnderwritingInfo.numberOfPolicies.sum()
                 break
-        }
-    }
-
-    protected void calculateDeductibleFactor(List<Claim> inClaims) {
-        deductibleFactor = 1
-        if (aggregateDeductible > 0) {
-            double aggregateCededBeforeDeductible = 0
-            for (Claim claim: inClaims) {
-                aggregateCededBeforeDeductible += allocateCededClaim(claim)
-            }
-            double aggregateCededAfterDeductible = Math.max(0, aggregateCededBeforeDeductible - aggregateDeductible)
-            if (aggregateCededBeforeDeductible > 0) {
-                deductibleFactor = aggregateCededAfterDeductible / aggregateCededBeforeDeductible
-            }
         }
     }
 
