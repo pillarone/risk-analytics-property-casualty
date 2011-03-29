@@ -24,14 +24,11 @@ class WCXLContractStrategy extends XLContractStrategy implements IReinsuranceCon
     double allocateCededClaim(Claim inClaim) {
         // todo (sku): work on clear definitions of ClaimType.EVENT and ClaimType.AGGREGATE_EVENT
         if (inClaim.claimType.equals(ClaimType.EVENT) || inClaim.claimType.equals(ClaimType.AGGREGATED_EVENT)) {
-            return inClaim.ultimate * cededShareByEvent.get(inClaim.event) * deductibleFactor
+            return inClaim.ultimate * cededShareByEvent.get(inClaim.event)
         }
         else {
             if (inClaim.claimType.equals(ClaimType.SINGLE) && availableAggregateLimit > 0) {
-                double ceded = Math.min(Math.max(inClaim.ultimate - attachmentPoint, 0), limit)
-                ceded = availableAggregateLimit > ceded ? ceded : availableAggregateLimit
-                availableAggregateLimit -= ceded
-                return ceded * deductibleFactor
+                return calculateCededClaim(inClaim.ultimate)
             }
             else {
                 return 0d
@@ -58,12 +55,10 @@ class WCXLContractStrategy extends XLContractStrategy implements IReinsuranceCon
         }
 
         for (MapEntry claim: claimsValueMergedByEvent.entrySet()) {
-            double ceded = Math.min(Math.max(claim.value - attachmentPoint, 0), limit)
-            ceded = availableAggregateLimit > ceded ? ceded : availableAggregateLimit
-            availableAggregateLimit -= ceded
-            cededShareByEvent.put(claim.key, claim.value == 0 ? 0d : ceded / claim.value)
+            double ultimate = (Double) claim.value
+            double ceded = calculateCededClaim(ultimate)
+            cededShareByEvent.put((Event) claim.key, ultimate == 0 ? 0d : ceded / ultimate)
         }
-        calculateDeductibleFactor(inClaims)
     }
 
     public void resetMemberInstances() {

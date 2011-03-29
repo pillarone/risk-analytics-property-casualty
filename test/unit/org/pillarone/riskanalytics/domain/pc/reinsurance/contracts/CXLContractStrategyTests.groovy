@@ -14,6 +14,8 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoTests
  */
 class CXLContractStrategyTests extends GroovyTestCase {
 
+    static final double EPSILON = 1E-10
+
     Event event0 = new Event(fractionOfPeriod: 0d)
     Event event1 = new Event(fractionOfPeriod: 0.1d)
     Event event2 = new Event(fractionOfPeriod: 0.2d)
@@ -145,10 +147,11 @@ class CXLContractStrategyTests extends GroovyTestCase {
         cxl.doCalculation()
         assertTrue "number of ceded claims", 12 == cxl.outCoveredClaims.size()  // claim0Event0 and claim120Event4 don't have a ceded part
         // [id -1] as the first claim won't have any ceded part
-        assertEquals("claim10Event0", claim10Event0.ultimate * 0.4, cxl.outCoveredClaims[1].ultimate)
-        assertEquals("claim10Event1", claim10Event1.ultimate * 0.4, cxl.outCoveredClaims[4].ultimate)
-        assertEquals("claim30Event2", claim30Event2.ultimate / 3 * 0.8, cxl.outCoveredClaims[7].ultimate)
-        assertEquals("claim40Event3", claim40Event3.ultimate / 10 * 0.8, cxl.outCoveredClaims[9].ultimate)
+        assertEquals "claim10Event0", claim10Event0.ultimate / 6, cxl.outCoveredClaims[1].ultimate, EPSILON
+        assertEquals "claim10Event1", claim10Event1.ultimate * 0.5, cxl.outCoveredClaims[4].ultimate
+        assertEquals "claim30Event2", claim30Event2.ultimate / 3, cxl.outCoveredClaims[7].ultimate
+        assertEquals "claim40Event3", claim40Event3.ultimate * 0.3, cxl.outCoveredClaims[9].ultimate
+        assertEquals "claim120Event4", 0, cxl.outCoveredClaims[11].ultimate
     }
 
     void testEventClaimsAggregateDeductiblePMO_1092() {
@@ -177,8 +180,8 @@ class CXLContractStrategyTests extends GroovyTestCase {
 
         cxl.doCalculation()
         assertTrue "number of ceded claims", 2 == cxl.outCoveredClaims.size()
-        assertEquals "claim10Event0", 3, cxl.outCoveredClaims[0].ultimate
-        assertEquals "claim10Event1", 3, cxl.outCoveredClaims[1].ultimate
+        assertEquals "claim10Event0", 1, cxl.outCoveredClaims[0].ultimate
+        assertEquals "claim10Event1", 5, cxl.outCoveredClaims[1].ultimate
         assertEquals "underwriting info", 1.2, cxl.outCoverUnderwritingInfo[0].premium
 
         // apply the same calculations twice to make sure everything is properly reset between periods/iterations
@@ -187,8 +190,8 @@ class CXLContractStrategyTests extends GroovyTestCase {
         cxl.inUnderwritingInfo << underwritingInfo
         cxl.doCalculation()
         assertTrue "number of ceded claims", 2 == cxl.outCoveredClaims.size()
-        assertEquals "claim10Event0", 3, cxl.outCoveredClaims[0].ultimate
-        assertEquals "claim10Event1", 3, cxl.outCoveredClaims[1].ultimate
+        assertEquals "claim10Event0", 1, cxl.outCoveredClaims[0].ultimate
+        assertEquals "claim10Event1", 5, cxl.outCoveredClaims[1].ultimate
         assertEquals "underwriting info", 1.2, cxl.outCoverUnderwritingInfo[0].premium
     }
 

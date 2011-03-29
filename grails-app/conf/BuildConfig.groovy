@@ -17,13 +17,15 @@ grails.project.dependency.resolution = {
         runtime ":hibernate:1.3.7"
         runtime ":joda-time:0.5"
         runtime ":maven-publisher:0.7.5"
-        runtime ":quartz:0.4.1"
+        runtime ":quartz:0.4.2"
         runtime ":spring-security-core:1.0.1"
         runtime ":tomcat:1.3.7"
 
         test ":code-coverage:1.1.7"
 
-        runtime "org.pillarone:risk-analytics-core:1.3-BETA-2.2-kti"
+        if (appName == "RiskAnalyticsPropertyCasualty") {
+            runtime "org.pillarone:risk-analytics-core:1.3-kti"
+        }
     }
 }
 
