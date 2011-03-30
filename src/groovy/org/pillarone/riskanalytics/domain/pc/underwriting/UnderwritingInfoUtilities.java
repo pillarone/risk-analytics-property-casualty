@@ -32,7 +32,7 @@ public class UnderwritingInfoUtilities {
     }
 
     static public UnderwritingInfo aggregate(List<UnderwritingInfo> underwritingInfos) {
-        if (underwritingInfos.size() == 0) {
+        if (underwritingInfos == null || underwritingInfos.size() == 0) {
             return null;
         }
         UnderwritingInfo summedUnderwritingInfo;
