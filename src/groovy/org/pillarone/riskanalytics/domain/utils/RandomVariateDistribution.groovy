@@ -1,11 +1,11 @@
 package org.pillarone.riskanalytics.domain.utils
 
-import org.pillarone.riskanalytics.core.parameterization.IParameterObject
+import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObject
 
 /**
  * @author: stefan.kunz (at) intuitive-collaboration (dot) com
  */
-class RandomVariateDistribution implements IRandomVariateDistribution, IParameterObject {
+class RandomVariateDistribution extends AbstractParameterObject implements IRandomVariateDistribution {
 
     private RandomDistribution distribution
     DistributionType type

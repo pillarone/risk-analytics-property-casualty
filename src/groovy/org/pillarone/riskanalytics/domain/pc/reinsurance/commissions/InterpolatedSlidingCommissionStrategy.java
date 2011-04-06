@@ -1,12 +1,12 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.commissions;
 
+import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObject;
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter;
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory;
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier;
 import org.pillarone.riskanalytics.core.util.GroovyUtils;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo;
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.utils.InputFormatConverter;
 import org.pillarone.riskanalytics.domain.utils.constraints.DoubleConstraints;
 
@@ -15,7 +15,7 @@ import java.util.*;
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
  */
-public class InterpolatedSlidingCommissionStrategy implements ICommissionStrategy {
+public class InterpolatedSlidingCommissionStrategy extends AbstractParameterObject implements ICommissionStrategy {
 
     public static final String LOSS_RATIO = "Loss Ratio (from)";
     public static final String COMMISSION = "Commission rate";

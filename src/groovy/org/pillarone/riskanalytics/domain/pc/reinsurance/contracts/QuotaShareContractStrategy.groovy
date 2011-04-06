@@ -1,9 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts
 
-import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit.ILimitStrategy
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit.LimitStrategyType
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit.AalAadLimitStrategy
@@ -20,7 +18,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoP
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-class QuotaShareContractStrategy extends AbstractContractStrategy implements IReinsuranceContractStrategy, IParameterObject {
+class QuotaShareContractStrategy extends AbstractContractStrategy implements IReinsuranceContractStrategy {
 
     static final ReinsuranceContractType type = ReinsuranceContractType.QUOTASHARE
 

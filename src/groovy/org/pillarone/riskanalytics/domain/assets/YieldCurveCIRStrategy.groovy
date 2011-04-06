@@ -1,13 +1,13 @@
 package org.pillarone.riskanalytics.domain.assets
 
-import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
+import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObject
 
 /**
  * @author cyril (dot) neyme (at) kpmg (dot) fr
  */
 
-public class YieldCurveCIRStrategy implements ITermStructure, IParameterObject, IModellingStrategy {
+public class YieldCurveCIRStrategy extends AbstractParameterObject implements ITermStructure, IModellingStrategy {
 
     static final TermStructureType type = TermStructureType.CIR
 

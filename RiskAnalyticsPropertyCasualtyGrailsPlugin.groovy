@@ -24,7 +24,7 @@ import org.pillarone.riskanalytics.domain.pc.generators.claims.validation.Typabl
 
 class RiskAnalyticsPropertyCasualtyGrailsPlugin {
     // the plugin version
-    def version = "1.4-ALPHA-1"
+    def version = "1.4-ALPHA-1.1"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.3.7 > *"
     // the other plugins this plugin depends on

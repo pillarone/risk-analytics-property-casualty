@@ -2,19 +2,17 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts
 
 import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
 import org.pillarone.riskanalytics.core.parameterization.AbstractMultiDimensionalParameter
-import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoPacketFactory
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
-import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-abstract class XLContractStrategy extends AbstractContractStrategy implements IReinsuranceContractStrategy, IParameterObject {
+abstract class XLContractStrategy extends AbstractContractStrategy implements IReinsuranceContractStrategy {
 
     /** Premium can be expressed as a fraction of a base quantity.                                  */
     PremiumBase premiumBase = PremiumBase.ABSOLUTE
@@ -114,7 +112,7 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
     }
 
     void initCededPremiumAllocation(List<Claim> cededClaims, List<UnderwritingInfo> grossUnderwritingInfos) {
-        premiumAllocation.initSegmentShares cededClaims, grossUnderwritingInfos
+        premiumAllocation.initSegmentShares(cededClaims, grossUnderwritingInfos)
     }
 
 // todo(sku): try to move it in an upper class

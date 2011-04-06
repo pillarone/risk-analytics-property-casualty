@@ -1,8 +1,8 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.commissions;
 
+import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObject;
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier;
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo;
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 
 import java.util.HashMap;
@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * @author shartmann (at) munichre (dot) com
  */
-public class FixedCommissionStrategy implements ICommissionStrategy {
+public class FixedCommissionStrategy extends AbstractParameterObject implements ICommissionStrategy {
 
     private double commission = 0;
 

@@ -1,6 +1,5 @@
 package org.pillarone.riskanalytics.domain.pc.generators.claims
 
-import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.domain.utils.RandomDistribution
@@ -8,7 +7,7 @@ import org.pillarone.riskanalytics.domain.utils.RandomDistribution
 /**
  * @author ben (dot) ginsberg (at) intuitive-collaboration (dot) com
  */
-public class OccurrenceAttritionalClaimsGeneratorStrategy extends AttritionalClaimsGeneratorStrategy implements IParameterObject, IOccurrenceClaimsGeneratorStrategy {
+public class OccurrenceAttritionalClaimsGeneratorStrategy extends AttritionalClaimsGeneratorStrategy implements IOccurrenceClaimsGeneratorStrategy {
 
     RandomDistribution occurrenceDistribution = DistributionType.getStrategy(DistributionType.CONSTANT, ['constant': 0.5d])
 

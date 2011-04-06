@@ -1,14 +1,11 @@
 package org.pillarone.riskanalytics.domain.pc.generators.claims;
 
+import org.pillarone.riskanalytics.core.parameterization.*;
 import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope;
 import org.pillarone.riskanalytics.core.util.GroovyUtils;
 import org.pillarone.riskanalytics.domain.utils.*;
-import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier;
-import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter;
 import org.pillarone.riskanalytics.domain.pc.constants.Exposure;
 import org.pillarone.riskanalytics.domain.utils.constraints.DoubleConstraints;
-import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory;
-import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter;
 import org.pillarone.riskanalytics.domain.pc.constants.FrequencySeverityClaimType;
 
 import java.util.*;
@@ -16,7 +13,7 @@ import java.util.*;
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
  */
-public class PMLClaimsGeneratorStrategy implements IClaimsGeneratorStrategy {
+public class PMLClaimsGeneratorStrategy extends AbstractParameterObject implements IClaimsGeneratorStrategy {
 
     public static final String RETURN_PERIOD = "return period";
     public static final String MAX_CLAIM = "maximum claim";

@@ -2,11 +2,11 @@ package org.pillarone.riskanalytics.domain.pc.claims
 
 import java.util.Map.Entry
 import org.pillarone.riskanalytics.core.packets.PacketList
-import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
 import org.pillarone.riskanalytics.domain.pc.constants.RiskBandAllocationBaseLimited
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
+import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObject
 
 /**
  * @author martin.melchior (at) fhnw (dot) ch
@@ -15,7 +15,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 // TODO event claims not (yet) considered
 // TODO discuss whether for the attritional losses it would be sufficient to first do an aggregation
 // TODO discuss: the order of the outclaims is no longer the same as the claims!
-class RiskToBandAllocatorStrategy implements IRiskAllocatorStrategy, IParameterObject {
+class RiskToBandAllocatorStrategy extends AbstractParameterObject implements IRiskAllocatorStrategy {
 
     RiskBandAllocationBaseLimited allocationBase = RiskBandAllocationBaseLimited.PREMIUM
 

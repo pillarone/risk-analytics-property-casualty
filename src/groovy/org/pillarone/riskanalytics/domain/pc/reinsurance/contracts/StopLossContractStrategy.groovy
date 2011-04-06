@@ -1,11 +1,9 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts
 
 import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
-import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoPacketFactory
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 
@@ -15,7 +13,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 // todo: not yet efficient since the aggregate gross underwriting info is calculated twice
 // (in the calculation of the book-keeping figures (implicitly) in the calculation of the ceded underwriting info
 
-class StopLossContractStrategy extends AbstractContractStrategy implements IReinsuranceContractStrategy, IParameterObject {
+class StopLossContractStrategy extends AbstractContractStrategy implements IReinsuranceContractStrategy {
 
     static final ReinsuranceContractType type = ReinsuranceContractType.STOPLOSS
 

@@ -1,9 +1,9 @@
 package org.pillarone.riskanalytics.domain.utils
 
 import org.apache.commons.lang.builder.HashCodeBuilder
-import org.pillarone.riskanalytics.core.parameterization.IParameterObject
+import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObject
 
-class DistributionModified implements IParameterObject {
+class DistributionModified extends AbstractParameterObject {
 
     DistributionModifier type
     Map parameters
