@@ -19,19 +19,19 @@ public class GeneralizedParetoDistribution extends ContinuousDistribution {
     }
 
     public double density(double x) {
-        return density(k, getBeta(), zeta, x);
+        return density(k, beta, zeta, x);
     }
 
     public double cdf(double x) {
-        return cdf(k, getBeta(), zeta, x);
+        return cdf(k, beta, zeta, x);
     }
 
     public double barF(double x) {
-        return barF(k, getBeta(), zeta, x);
+        return barF(k, beta, zeta, x);
     }
 
     public double inverseF(double y) {
-        return inverseF(k, getBeta(), zeta, y);
+        return inverseF(k, beta, zeta, y);
     }
 
     /**
@@ -120,12 +120,12 @@ public class GeneralizedParetoDistribution extends ContinuousDistribution {
     }
 
     public double[] getParams() {
-        double[] retour = {getK(), getBeta(), zeta};
+        double[] retour = {k, beta, zeta};
         return retour;
     }
 
     public String toString() {
-        return getClass().getSimpleName() + " : k = " + getK() + ", beta = " + getBeta() + ", zeta = " + zeta;
+        return getClass().getSimpleName() + " : k = " + k + ", beta = " + beta + ", zeta = " + zeta;
     }
 
     public double getZeta() {

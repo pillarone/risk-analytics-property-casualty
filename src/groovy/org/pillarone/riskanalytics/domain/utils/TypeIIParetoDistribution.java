@@ -108,12 +108,12 @@ public class TypeIIParetoDistribution extends ContinuousDistribution {
     }
 
     public double[] getParams() {
-        double[] retour = {alpha, getBeta(), lambda};
+        double[] retour = {alpha, beta, lambda};
         return retour;
     }
 
     public String toString() {
-        return getClass().getSimpleName() + " : alpha = " + alpha + ", beta = " + getBeta() + ", lambda = " + lambda;
+        return getClass().getSimpleName() + " : alpha = " + alpha + ", beta = " +  beta + ", lambda = " + lambda;
     }
 
     public double getLambda() {
