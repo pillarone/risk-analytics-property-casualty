@@ -84,19 +84,21 @@ class RiskAnalyticsPropertyCasualtyGrailsPlugin {
         ValidatorRegistry.addValidator(new TypableClaimsGeneratorValidator())
 
         // add resource bundle for exceptions
-        ResourceBundleRegistry.addResourceBundle("org.pillarone.riskanalytics.exceptionResources")
+        ResourceBundleRegistry.addBundle(ResourceBundleRegistry.RESOURCE, "org.pillarone.riskanalytics.exceptionResources")
 
         //add resource bundle for validation
         //new
-        ResourceBundleRegistry.addValidationBundle( "org.pillarone.riskanalytics.domain.pc.validation.commissionStrategyType")
-        ResourceBundleRegistry.addValidationBundle( "org.pillarone.riskanalytics.domain.pc.validation.distributionType")
-        ResourceBundleRegistry.addValidationBundle( "org.pillarone.riskanalytics.domain.pc.validation.unityDouble")
-        ResourceBundleRegistry.addValidationBundle( "org.pillarone.riskanalytics.domain.pc.generators.claims.validation.claimsGeneratorStrategyValidator")
-        ResourceBundleRegistry.addValidationBundle( "org.pillarone.riskanalytics.domain.pc.filter.segmentFilterValidator")
-        ResourceBundleRegistry.addValidationBundle( "org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.validation.xlStrategyValidator")
-        ResourceBundleRegistry.addValidationBundle( "org.pillarone.riskanalytics.domain.pc.underwriting.validation.riskBands")
-        ResourceBundleRegistry.addValidationBundle( "org.pillarone.riskanalytics.domain.pc.generators.claims.validation.typableClaimsGeneratorValidator")
+        ResourceBundleRegistry.addBundle(ResourceBundleRegistry.VALIDATION, "org.pillarone.riskanalytics.domain.pc.validation.commissionStrategyType")
+        ResourceBundleRegistry.addBundle(ResourceBundleRegistry.VALIDATION, "org.pillarone.riskanalytics.domain.pc.validation.distributionType")
+        ResourceBundleRegistry.addBundle(ResourceBundleRegistry.VALIDATION, "org.pillarone.riskanalytics.domain.pc.validation.unityDouble")
+        ResourceBundleRegistry.addBundle(ResourceBundleRegistry.VALIDATION, "org.pillarone.riskanalytics.domain.pc.generators.claims.validation.claimsGeneratorStrategyValidator")
+        ResourceBundleRegistry.addBundle(ResourceBundleRegistry.VALIDATION, "org.pillarone.riskanalytics.domain.pc.filter.segmentFilterValidator")
+        ResourceBundleRegistry.addBundle(ResourceBundleRegistry.VALIDATION, "org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.validation.xlStrategyValidator")
+        ResourceBundleRegistry.addBundle(ResourceBundleRegistry.VALIDATION, "org.pillarone.riskanalytics.domain.pc.underwriting.validation.riskBands")
+        ResourceBundleRegistry.addBundle(ResourceBundleRegistry.VALIDATION, "org.pillarone.riskanalytics.domain.pc.generators.claims.validation.typableClaimsGeneratorValidator")
 
+        //help
+        ResourceBundleRegistry.addBundle(ResourceBundleRegistry.HELP, "org/pillarone/riskanalytics/help/ComponentHelp")
     }
 
     def onChange = {event ->
