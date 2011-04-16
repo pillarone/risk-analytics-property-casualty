@@ -26,7 +26,7 @@ class WCXLContractStrategy extends XLContractStrategy implements IReinsuranceCon
             return inClaim.ultimate * cededShareByEvent.get(inClaim.event)
         }
         else {
-            if (inClaim.claimType.equals(ClaimType.SINGLE) && availableAggregateLimit > 0) {
+            if (inClaim.claimType.equals(ClaimType.SINGLE)) {
                 return calculateCededClaim(inClaim.ultimate)
             }
             else {
