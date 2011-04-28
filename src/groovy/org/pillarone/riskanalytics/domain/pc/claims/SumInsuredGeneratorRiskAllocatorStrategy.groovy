@@ -1,12 +1,11 @@
 package org.pillarone.riskanalytics.domain.pc.claims
 
 import org.pillarone.riskanalytics.core.packets.PacketList
-import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 import org.pillarone.riskanalytics.domain.pc.constants.Exposure
-import org.pillarone.riskanalytics.domain.pc.underwriting.ExposureInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.utils.*
+import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObject
 
 /**
  * @author jdittrich (at) munichre (dot) com
@@ -16,7 +15,7 @@ import org.pillarone.riskanalytics.domain.utils.*
 // TODO event claims not (yet) considered
 // TODO discuss whether for the attritional losses it would be sufficient to first do an aggregation
 // TODO discuss: the order of the outclaims is no longer the same as the claims!
-class SumInsuredGeneratorRiskAllocatorStrategy implements IRiskAllocatorStrategy, IParameterObject {
+class SumInsuredGeneratorRiskAllocatorStrategy extends AbstractParameterObject implements IRiskAllocatorStrategy {
 
     IRandomNumberGenerator generator
     RandomDistribution distribution = DistributionType.getStrategy(DistributionType.TRIANGULARDIST, ["a": 0d, "b": 1d, "m": 0.01])

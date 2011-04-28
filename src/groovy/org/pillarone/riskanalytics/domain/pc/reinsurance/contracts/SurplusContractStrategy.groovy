@@ -1,9 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts
 
-import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoPacketFactory
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 
@@ -11,7 +9,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
  * @author martin.melchior (at) fhnw (dot) ch
  * @author Michael-Noe (at) Web (dot) de
  */
-class SurplusContractStrategy extends AbstractContractStrategy implements IReinsuranceContractStrategy, IParameterObject {
+class SurplusContractStrategy extends AbstractContractStrategy implements IReinsuranceContractStrategy {
 
     static final ReinsuranceContractType type = ReinsuranceContractType.SURPLUS
 

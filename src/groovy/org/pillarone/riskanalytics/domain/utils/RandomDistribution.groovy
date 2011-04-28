@@ -1,10 +1,10 @@
 package org.pillarone.riskanalytics.domain.utils
 
 import org.apache.commons.lang.builder.HashCodeBuilder
-import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import umontreal.iro.lecuyer.probdist.Distribution
+import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObject
 
-class RandomDistribution implements IParameterObject {
+class RandomDistribution extends AbstractParameterObject {
 
     Distribution distribution
     DistributionType type

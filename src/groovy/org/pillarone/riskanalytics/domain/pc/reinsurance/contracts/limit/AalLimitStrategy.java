@@ -1,5 +1,6 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit;
 
+import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObject;
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier;
 
 import java.util.HashMap;
@@ -8,7 +9,7 @@ import java.util.Map;
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-public class AalLimitStrategy implements ILimitStrategy {
+public class AalLimitStrategy extends AbstractParameterObject implements ILimitStrategy {
 
     private double aal = 0;
 

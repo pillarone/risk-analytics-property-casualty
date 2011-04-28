@@ -1,5 +1,6 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover;
 
+import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObject;
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter;
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier;
 import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments;
@@ -14,7 +15,8 @@ import java.util.Map;
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
  */
-public class LineOfBusinessReservesCompanyCoverAttributeStrategy implements ILinesOfBusinessCoverAttributeStrategy, IReservesCoverAttributeStrategy, ICombinedCoverAttributeStrategy {
+public class LineOfBusinessReservesCompanyCoverAttributeStrategy extends AbstractParameterObject
+        implements ILinesOfBusinessCoverAttributeStrategy, IReservesCoverAttributeStrategy, ICombinedCoverAttributeStrategy {
 
     private ComboBoxTableMultiDimensionalParameter lines
             = new ComboBoxTableMultiDimensionalParameter(Collections.emptyList(), Arrays.asList("Covered Segments"), LobMarker.class);

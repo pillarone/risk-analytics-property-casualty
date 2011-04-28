@@ -2,18 +2,16 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts
 
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
 import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
-import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoPacketFactory
 
 /**
  * @author Michael-Noe (at) Web (dot) de
  */
-class AggregateXLContractStrategy extends AbstractContractStrategy implements IReinsuranceContractStrategy, IParameterObject {
+class AggregateXLContractStrategy extends AbstractContractStrategy implements IReinsuranceContractStrategy {
 
     static final ReinsuranceContractType type = ReinsuranceContractType.AGGREGATEXL
     ClaimType claimClass = ClaimType.AGGREGATED_EVENT

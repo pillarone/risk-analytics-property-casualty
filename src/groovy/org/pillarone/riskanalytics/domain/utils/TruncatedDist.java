@@ -31,7 +31,6 @@ public class TruncatedDist implements Distribution {
         }
     }
 
-
     public TruncatedDist(DiscreteDistribution distribution, double a, double b) {
         this.distribution = distribution;
         this.a = a;

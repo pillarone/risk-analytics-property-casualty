@@ -1,16 +1,14 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts
 
-import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoPacketFactory
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-class TrivialContractStrategy extends AbstractContractStrategy implements IReinsuranceContractStrategy, IParameterObject {
+class TrivialContractStrategy extends AbstractContractStrategy implements IReinsuranceContractStrategy {
 
     static final ReinsuranceContractType type = ReinsuranceContractType.TRIVIAL
 

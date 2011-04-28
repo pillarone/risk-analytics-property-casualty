@@ -24,8 +24,8 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
     public static final DistributionType DISCRETEEMPIRICALCUMULATIVE = new DistributionType(
 //            "discrete empirical cumulative", "DISCRETEEMPIRICALCUMULATIVE", ["discreteEmpiricalCumulativeValues": new TableMultiDimensionalParameter([[0.0], [1.0]], ['observations', 'cumulative probabilities'])])
             "discrete empirical cumulative", "DISCRETEEMPIRICALCUMULATIVE", ["discreteEmpiricalCumulativeValues":
-                new ConstrainedMultiDimensionalParameter([[0.0], [1.0]], ['observations', 'cumulative probabilities'],
-                ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))])
+            new ConstrainedMultiDimensionalParameter([[0.0], [1.0]], ['observations', 'cumulative probabilities'],
+                    ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))])
     public static final DistributionType NORMAL = new DistributionType(
             "normal", "NORMAL", ["mean": 0d, "stDev": 1d])
     public static final DistributionType LOGNORMAL = new DistributionType(
@@ -70,6 +70,14 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
             "gumbel", "GUMBEL", ["beta": 1d, "delta": 0d])
     public static final DistributionType LOGLOGISTIC = new DistributionType(
             "log logistic", "LOGLOGISTIC", ["alpha": 2d, "beta": 1d])
+    public static final DistributionType GPD = new DistributionType(
+            "generalized pareto", "GPD", ["k": 1 / 2d, "beta": 1d, "zeta": 1d])
+    public static final DistributionType TYPEIIPARETO = new DistributionType(
+            "type II pareto", "TYPEIIPARETO", ["alpha": 2d, "beta": 1d, "lambda": 0d])
+    public static final DistributionType LOGNORMALPARETO = new DistributionType(
+            "lognormal pareto", "LOGNORMALPARETO", ["sigma": 1d, "alpha": 2d, "beta": 1d])
+    public static final DistributionType LOGNORMALTYPEIIPARETO = new DistributionType(
+            "lognormal type II pareto", "LOGNORMALTYPEIIPARETO", ["sigma": 1d, "alpha": 2d, "beta": 1d, "lambda": 0d])
 
     public static final all = [
             BETA,
@@ -81,12 +89,15 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
             DISCRETEEMPIRICALCUMULATIVE,
             EXPONENTIAL,
             GAMMA,
+            GPD,
             GUMBEL,
             INVERSEGAUSSIANDIST,
             LOGLOGISTIC,
             LOGNORMAL,
             LOGNORMAL_MEAN_CV,
             LOGNORMAL_MU_SIGMA,
+            LOGNORMALPARETO,
+            LOGNORMALTYPEIIPARETO,
             NEGATIVEBINOMIAL,
             NORMAL,
             PARETO,
@@ -95,6 +106,7 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
             PIECEWISELINEAREMPIRICAL,
             STUDENTDIST,
             TRIANGULARDIST,
+            TYPEIIPARETO,
             UNIFORM
     ]
 
@@ -144,7 +156,7 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
         double mu = Math.log(mean) - 0.5 * t
         if (mu == Double.NaN || sigma == Double.NaN) {
             throw new IllegalArgumentException("['DistributionType.NaNParameter','"
-                        +mean+"','"+stDev+"']")
+                    + mean + "','" + stDev + "']")
         }
         return new LognormalDist(mu, sigma)
     }
@@ -157,16 +169,16 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
         double sigma = Math.sqrt(t)
         double mu = Math.log(mean) - 0.5 * t
         if (mu == Double.NaN || mu == 0) {
-            throw new IllegalArgumentException("['DistributionType.NaNParameter','"+mu+"']")
+            throw new IllegalArgumentException("['DistributionType.NaNParameter','" + mu + "']")
         }
         return new LognormalDist(mu, sigma)
     }
 
     private static Distribution getDiscreteEmpiricalDistribution(double[] obs, double[] prob) {
         double probSum = 0
-        for (double value : prob) {probSum += value}
-        for (int i=0; i< prob.size(); i++){
-            prob[i] = prob[i]/probSum
+        for (double value: prob) {probSum += value}
+        for (int i = 0; i < prob.size(); i++) {
+            prob[i] = prob[i] / probSum
         }
         return new DiscreteDistribution(obs, prob, obs.length)
     }
@@ -263,6 +275,18 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
                 break
             case DistributionType.LOGLOGISTIC:
                 distribution.distribution = new LoglogisticDist((double) parameters["alpha"], (double) parameters["beta"])
+                break
+            case DistributionType.GPD:
+                distribution.distribution = new GeneralizedParetoDistribution((double) parameters["k"], (double) parameters["beta"], (double) parameters["zeta"])
+                break
+            case DistributionType.TYPEIIPARETO:
+                distribution.distribution = new TypeIIParetoDistribution((double) parameters["alpha"], (double) parameters["beta"], (double) parameters["lambda"])
+                break
+            case DistributionType.LOGNORMALPARETO:
+                distribution.distribution = new LognormalParetoDistribution((double) parameters["sigma"], (double) parameters["alpha"], (double) parameters["beta"])
+                break
+            case DistributionType.LOGNORMALTYPEIIPARETO:
+                distribution.distribution = new LognormalTypeIIParetoDistribution((double) parameters["sigma"], (double) parameters["alpha"], (double) parameters["beta"], (double) parameters["lambda"])
                 break
         }
 

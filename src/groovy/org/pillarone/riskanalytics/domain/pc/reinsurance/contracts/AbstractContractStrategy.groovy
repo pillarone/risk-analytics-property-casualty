@@ -1,14 +1,14 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts
 
-import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
+import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObject;
 
 /**
  *
  * @author martin.melchior (at) fhnw (dot) ch
  */
-abstract class AbstractContractStrategy implements IReinsuranceContractStrategy, IParameterObject {
+abstract class AbstractContractStrategy extends AbstractParameterObject implements IReinsuranceContractStrategy {
 
     double coveredByReinsurer = 1d
     Double parmCovered

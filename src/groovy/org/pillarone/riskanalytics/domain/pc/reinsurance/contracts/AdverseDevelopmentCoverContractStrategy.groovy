@@ -1,10 +1,8 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts
 
-import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket
@@ -18,7 +16,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoP
 // todo: not yet efficient, since the aggregate gross underwriting info is calculated twice: first, when
 // calculating the bookkeeping figures, then again (implicitly) calculating the ceded underwriting info.
 
-class AdverseDevelopmentCoverContractStrategy extends AbstractContractStrategy implements IReinsuranceContractStrategyWithClaimsDevelopment, IParameterObject {
+class AdverseDevelopmentCoverContractStrategy extends AbstractContractStrategy implements IReinsuranceContractStrategyWithClaimsDevelopment {
 
     static final ReinsuranceContractType type = ReinsuranceContractType.ADVERSEDEVELOPMENTCOVER
 

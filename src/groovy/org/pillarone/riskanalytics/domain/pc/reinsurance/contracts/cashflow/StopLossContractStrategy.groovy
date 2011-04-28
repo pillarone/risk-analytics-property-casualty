@@ -5,7 +5,6 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
-import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoPacketFactory
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
@@ -13,7 +12,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-class StopLossContractStrategy extends AbstractContractStrategy implements IReinsuranceContractStrategy, IParameterObject {
+class StopLossContractStrategy extends AbstractContractStrategy implements IReinsuranceContractStrategy {
 
     static final ReinsuranceContractType type = ReinsuranceContractType.STOPLOSS
 

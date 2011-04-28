@@ -1,9 +1,9 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover;
 
+import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObject;
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter;
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier;
 import org.pillarone.riskanalytics.domain.pc.company.ICompanyMarker;
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
  */
-public class CompaniesCompanyCoverAttributeStrategy implements ICoverAttributeStrategy {
+public class CompaniesCompanyCoverAttributeStrategy extends AbstractParameterObject implements ICoverAttributeStrategy {
 
     private ComboBoxTableMultiDimensionalParameter companies
             = new ComboBoxTableMultiDimensionalParameter(Collections.emptyList(), Arrays.asList("Covered Companies"), ICompanyMarker.class);

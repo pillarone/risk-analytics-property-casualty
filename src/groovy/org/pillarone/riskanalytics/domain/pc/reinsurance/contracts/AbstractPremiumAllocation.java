@@ -1,5 +1,6 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts;
 
+import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObject;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities;
@@ -11,7 +12,7 @@ import java.util.Map;
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-abstract public class AbstractPremiumAllocation implements IPremiumAllocationStrategy {
+abstract public class AbstractPremiumAllocation extends AbstractParameterObject implements IPremiumAllocationStrategy {
 
     protected Map<UnderwritingInfo, Double> cededPremiumSharePerGrossUnderwritingInfo = new HashMap<UnderwritingInfo, Double>();
 

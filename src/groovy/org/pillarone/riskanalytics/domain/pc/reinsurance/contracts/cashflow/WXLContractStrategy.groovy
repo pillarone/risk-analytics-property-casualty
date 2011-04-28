@@ -1,6 +1,5 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cashflow;
 
-import org.pillarone.riskanalytics.core.parameterization.IParameterObject;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType;
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket;
@@ -8,7 +7,7 @@ import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentP
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-class WXLContractStrategy extends XLContractStrategy implements IReinsuranceContractStrategy, IParameterObject {
+class WXLContractStrategy extends XLContractStrategy implements IReinsuranceContractStrategy {
 
     /**
      *  The keys are the original gross claims sorting from claims development component. The value contains the

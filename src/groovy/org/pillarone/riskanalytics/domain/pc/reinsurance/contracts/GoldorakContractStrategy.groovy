@@ -1,13 +1,11 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts
 
-import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
 import org.pillarone.riskanalytics.domain.pc.generators.severities.Event
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities
 import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.AbstractMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
@@ -19,7 +17,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoP
  *
  * @author shartmann (at) munichre (dot) com
  */
-class GoldorakContractStrategy extends AbstractContractStrategy implements IReinsuranceContractStrategy, IParameterObject {
+class GoldorakContractStrategy extends AbstractContractStrategy implements IReinsuranceContractStrategy {
 /** Premium can be expressed as a fraction of a base quantity.                     */
     PremiumBase premiumBase = PremiumBase.ABSOLUTE
 

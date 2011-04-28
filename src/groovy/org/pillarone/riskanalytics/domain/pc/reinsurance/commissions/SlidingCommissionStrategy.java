@@ -1,5 +1,6 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.commissions;
 
+import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObject;
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter;
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory;
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier;
@@ -35,7 +36,7 @@ import java.util.*;
  *
  * @author shartmann (at) munichre (dot) com, ben.ginsberg (at) intuitive-collaboration.com
  */
-public class SlidingCommissionStrategy implements ICommissionStrategy {
+public class SlidingCommissionStrategy extends AbstractParameterObject implements ICommissionStrategy {
 
     public static final String LOSS_RATIO = "Loss Ratio (from)";
     public static final String COMMISSION = "Commission";

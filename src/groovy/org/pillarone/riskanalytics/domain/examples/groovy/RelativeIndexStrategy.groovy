@@ -1,12 +1,13 @@
 package org.pillarone.riskanalytics.domain.examples.groovy
 
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
+import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObject
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 
-class RelativeIndexStrategy implements IIndex {
+class RelativeIndexStrategy extends AbstractParameterObject implements IIndex {
 
     double changeIndex
 

@@ -33,6 +33,9 @@ class RandomNumberGeneratorFactoryTests extends GroovyTestCase {
             params["sigma"] = 1
             params["CV"] = 1
             params["constants"] = new TableMultiDimensionalParameter([0,1], ['constants'])
+            params["k"] = 1
+            params["zeta"] = 1
+
 
             IRandomNumberGenerator generator = RandomNumberGeneratorFactory.getGenerator(
                     DistributionType.getStrategy(it, params))

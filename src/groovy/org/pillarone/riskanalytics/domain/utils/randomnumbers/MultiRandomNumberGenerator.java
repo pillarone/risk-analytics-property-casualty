@@ -1,6 +1,6 @@
 package org.pillarone.riskanalytics.domain.utils.randomnumbers;
 
-import org.pillarone.riskanalytics.core.parameterization.IParameterObject;
+import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObject;
 import umontreal.iro.lecuyer.randvarmulti.RandomMultivariateGen;
 
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * @author ali.majidi (at) munichre (dot) com, stefan.kunz (at) intuitive-collaboration (dot) com
  */
-public class MultiRandomNumberGenerator implements IMultiRandomGenerator, IParameterObject {
+public class MultiRandomNumberGenerator extends AbstractParameterObject implements IMultiRandomGenerator {
 
     private RandomMultivariateGen generator;
     DependencyType type;

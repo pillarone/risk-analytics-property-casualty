@@ -1,7 +1,6 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts
 
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
-import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.generators.severities.Event
@@ -12,7 +11,7 @@ import org.pillarone.riskanalytics.domain.pc.generators.severities.Event
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-class WCXLContractStrategy extends XLContractStrategy implements IReinsuranceContractStrategy, IParameterObject {
+class WCXLContractStrategy extends XLContractStrategy implements IReinsuranceContractStrategy {
 
     private Map<Event, Double> claimsValueMergedByEvent = [:]
     private Map<Event, Double> cededShareByEvent = [:]
@@ -27,7 +26,7 @@ class WCXLContractStrategy extends XLContractStrategy implements IReinsuranceCon
             return inClaim.ultimate * cededShareByEvent.get(inClaim.event)
         }
         else {
-            if (inClaim.claimType.equals(ClaimType.SINGLE) && availableAggregateLimit > 0) {
+            if (inClaim.claimType.equals(ClaimType.SINGLE)) {
                 return calculateCededClaim(inClaim.ultimate)
             }
             else {

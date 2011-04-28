@@ -1,11 +1,11 @@
 package org.pillarone.riskanalytics.domain.utils
 
-import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import umontreal.iro.lecuyer.probdist.Distribution
 import umontreal.iro.lecuyer.randvar.RandomVariateGen
 import umontreal.iro.lecuyer.randvar.RandomVariateGenInt
+import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObject
 
-class RandomNumberGenerator implements IRandomNumberGenerator, IParameterObject {
+class RandomNumberGenerator extends AbstractParameterObject implements IRandomNumberGenerator {
 
     protected RandomVariateGen generator
     DistributionType type

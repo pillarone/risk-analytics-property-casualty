@@ -1,6 +1,5 @@
 package org.pillarone.riskanalytics.domain.pc.generators.claims
 
-import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 import org.pillarone.riskanalytics.domain.pc.constants.Exposure
 import org.pillarone.riskanalytics.domain.pc.constants.FrequencyBase
@@ -9,11 +8,13 @@ import org.pillarone.riskanalytics.domain.utils.DistributionModified
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.domain.utils.RandomDistribution
+import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObject
 
 /**
  * ben (dot) ginsberg (at) intuitive-collaboration (dot) com
  */
-public class OccurrenceFrequencySeverityClaimsGeneratorStrategy implements IParameterObject, IOccurrenceFrequencyClaimsGeneratorStrategy {
+public class OccurrenceFrequencySeverityClaimsGeneratorStrategy extends AbstractParameterObject
+    implements IOccurrenceFrequencyClaimsGeneratorStrategy {
 
     FrequencyBase frequencyBase = FrequencyBase.ABSOLUTE
     RandomDistribution frequencyDistribution = DistributionType.getStrategy(DistributionType.CONSTANT, ['constant': 0d])

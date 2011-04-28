@@ -1,12 +1,13 @@
 package org.pillarone.riskanalytics.domain.pc.reserves.cashflow
 
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
-import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier;
+import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
+import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObject;
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-public class HistoricLastReportedClaimsStrategy implements IHistoricClaimsStrategy {
+public class HistoricLastReportedClaimsStrategy extends AbstractParameterObject implements IHistoricClaimsStrategy {
 
     TableMultiDimensionalParameter reportedByDevelopmentPeriod = new TableMultiDimensionalParameter([[0d], [1]], ['Reported','Development Periods'])
 

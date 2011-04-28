@@ -25,16 +25,20 @@ class ClaimSizeDistributionType extends DistributionType {
                 DISCRETEEMPIRICALCUMULATIVE,
                 EXPONENTIAL,
                 GAMMA,
+                GPD,
                 GUMBEL,
                 LOGLOGISTIC,
                 LOGNORMAL,
                 LOGNORMAL_MU_SIGMA,
+                LOGNORMALPARETO,
+                LOGNORMALTYPEIIPARETO,
                 NORMAL,
                 PARETO,
                 PIECEWISELINEAREMPIRICAL,
                 PIECEWISELINEAR,
                 STUDENTDIST,
                 TRIANGULARDIST,
+                TYPEIIPARETO,
                 UNIFORM
         ]
     }
