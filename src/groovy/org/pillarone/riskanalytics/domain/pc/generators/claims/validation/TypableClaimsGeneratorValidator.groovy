@@ -42,9 +42,7 @@ class TypableClaimsGeneratorValidator implements IParameterizationValidator {
             }
             else if (parameter instanceof MultiDimensionalParameterHolder && parameter.value instanceof ComboBoxTableMultiDimensionalParameter) {
                 if (parameter.path.contains('claimsGenerators') && parameter.value.markerClass.is(IUnderwritingInfoMarker)) {
-                    boolean hasSelectedUnderwritingInfo = (parameter.value.values.size() > 0
-                            && ((parameter.value.values[0] instanceof String && parameter.value.values[0].length() > 0)))
-                    underwritingInfoPerClaimsGenerator[parameter.path - ':parmUnderwritingInformation'] = hasSelectedUnderwritingInfo
+                    underwritingInfoPerClaimsGenerator[parameter.path - ':parmUnderwritingInformation'] = hasSelectedUnderwritingInfo(parameter.value)
                 }
             }
         }
@@ -65,5 +63,19 @@ class TypableClaimsGeneratorValidator implements IParameterizationValidator {
         }
 
         return errors
+    }
+
+    boolean hasSelectedUnderwritingInfo(ComboBoxTableMultiDimensionalParameter parameter) {
+        if (parameter.values.empty) {
+            return false
+        }
+
+        List content = parameter.values[0] instanceof List ? parameter.values[0] : parameter.values
+
+        if (content.empty) {
+            return false
+        }
+
+        return content[0] instanceof String && content[0].length() > 0
     }
 }
