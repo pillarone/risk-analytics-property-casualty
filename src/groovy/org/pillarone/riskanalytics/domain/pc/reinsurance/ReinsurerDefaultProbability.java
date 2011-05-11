@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance;
 
 import org.pillarone.riskanalytics.core.components.Component;
+import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.domain.assets.constants.Rating;
 import org.pillarone.riskanalytics.domain.pc.creditrisk.DefaultProbabilities;
@@ -14,6 +15,7 @@ import java.util.Map;
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = {"REINSURANCE","COUNTERPARTYRISK"})
 public class ReinsurerDefaultProbability extends Component implements IReinsurerMarker {
     private Rating parmRating = Rating.BBB;
 

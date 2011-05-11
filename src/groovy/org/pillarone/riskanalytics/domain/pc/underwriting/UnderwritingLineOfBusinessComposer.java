@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.underwriting;
 
 import org.pillarone.riskanalytics.core.components.Component;
+import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter;
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory;
@@ -16,6 +17,7 @@ import java.util.List;
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = {"UNDERWRITING"})
 public class UnderwritingLineOfBusinessComposer extends Component {
 
     private static final String underwriting = "Underwriting";

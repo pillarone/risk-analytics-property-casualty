@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.reserves.fasttrack;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.components.PeriodStore;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.packets.SingleValuePacket;
@@ -27,6 +28,7 @@ import java.util.List;
  *
  * @author shartmann (at) munichre (dot) com
  */
+@ComponentCategory(categories = {"RESERVES","GENERATOR"})
 public class ReservesGeneratorLean extends GeneratorCachingComponent implements IReserveMarker {
 
     private PeriodScope periodScope;

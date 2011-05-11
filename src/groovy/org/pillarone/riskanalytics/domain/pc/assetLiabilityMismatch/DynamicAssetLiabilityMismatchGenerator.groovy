@@ -7,11 +7,12 @@ import org.pillarone.riskanalytics.core.packets.SingleValuePacket
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
+import org.pillarone.riskanalytics.core.components.ComponentCategory
 
 /**
  * @author shartmann (at) munichre (dot) com
  */
-
+@ComponentCategory(categories = ['ALM','GENERATOR'])
 public class DynamicAssetLiabilityMismatchGenerator extends DynamicComposedComponent{
 
     PacketList<SingleValuePacket> outInitialVolume = new PacketList<SingleValuePacket>(SingleValuePacket);

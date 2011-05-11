@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.generators.frequency;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.domain.pc.constants.FrequencyBase;
 import org.pillarone.riskanalytics.domain.pc.generators.GeneratorCachingComponent;
@@ -22,6 +23,7 @@ import java.util.HashMap;
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = {"FREQUENCY","GENERATOR"})
 public class FrequencyGenerator extends GeneratorCachingComponent {
 
     private DistributionModified modifier = DistributionModifier.getStrategy(DistributionModifier.NONE, new HashMap());

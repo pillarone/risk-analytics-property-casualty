@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.aggregators;
 
 import org.pillarone.riskanalytics.core.components.Component;
+import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimUtilities;
@@ -12,6 +13,7 @@ import org.pillarone.riskanalytics.domain.utils.ResultPacket;
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = {"ALM","AGGREGATOR"})
 public class AlmResultAggregator extends Component {
 
     private PacketList<Claim> inClaims = new PacketList<Claim>(Claim.class);

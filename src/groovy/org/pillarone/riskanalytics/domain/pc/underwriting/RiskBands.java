@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.underwriting;
 
 import org.pillarone.riskanalytics.core.components.Component;
+import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.components.IterationStore;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter;
@@ -29,6 +30,7 @@ import java.util.List;
  *
  * @author martin.melchior (at) fhnw (dot) ch, stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = {"UNDERWRITING"})
 public class RiskBands extends Component implements IUnderwritingInfoMarker {
 
     private TableMultiDimensionalParameter parmUnderwritingInformation = new TableMultiDimensionalParameter(

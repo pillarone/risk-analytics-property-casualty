@@ -11,6 +11,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.ReinsurancePro
 import org.pillarone.riskanalytics.domain.pc.severities.ProbabilityExtractor
 import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskBands
 import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocator
+import org.pillarone.riskanalytics.core.components.ComponentCategory
 
 /**
  *  This example line of business contains an underwriting, claims generator and a
@@ -19,6 +20,7 @@ import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocator
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = ['SEGMENT'])
 class PropertyLobAttritionalDependencies extends ComposedComponent implements LobMarker {
 
     PacketList<DependenceStream> inProbabilities = new PacketList(DependenceStream)

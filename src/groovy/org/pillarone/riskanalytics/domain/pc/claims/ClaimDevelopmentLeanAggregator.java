@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.claims;
 
 import org.pillarone.riskanalytics.core.components.Component;
+import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
@@ -11,6 +12,7 @@ import java.util.List;
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = {"CLAIM","AGGREGATOR"})
 public class ClaimDevelopmentLeanAggregator extends Component {
 
     private PacketList<ClaimDevelopmentLeanPacket> inClaimsCeded = new PacketList<ClaimDevelopmentLeanPacket>(ClaimDevelopmentLeanPacket.class);

@@ -4,6 +4,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.pillarone.riskanalytics.core.components.Component;
+import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter;
 import org.pillarone.riskanalytics.core.simulation.engine.IterationScope;
@@ -24,6 +25,7 @@ import java.util.*;
  *
  * @author ben.ginsberg (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = {"CLAIM","FILTER"})
 public class HistoricalClaimsByPeriod extends Component implements PerilMarker {
 
     private static Log LOG = LogFactory.getLog(HistoricalClaimsByPeriod.class);

@@ -9,6 +9,7 @@ import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.generators.frequency.FrequencyGenerator
 import org.pillarone.riskanalytics.domain.pc.generators.severities.EventSeverityGenerator
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
+import org.pillarone.riskanalytics.core.components.ComponentCategory
 
 /**
  *  This is a compound component composed of a <tt>FrequencyGenerator</tt> and
@@ -16,6 +17,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = ['CLAIM','GENERATOR','EVENT'])
 class FrequencyEventClaimsGenerator extends ComposedComponent {
 
     PacketList<UnderwritingInfo> inUnderwritingInfo = new PacketList(UnderwritingInfo)

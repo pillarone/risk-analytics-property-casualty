@@ -9,10 +9,12 @@ import org.pillarone.riskanalytics.domain.pc.generators.claims.EventClaimsGenera
 import org.pillarone.riskanalytics.domain.pc.severities.EventSeverityExtractor
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.EventDependenceStream
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
+import org.pillarone.riskanalytics.core.components.ComponentCategory
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = ['SEGMENT'])
 class DependentLob extends ComposedComponent implements LobMarker {
 
     EventSeverityExtractor subSeverityExtractor

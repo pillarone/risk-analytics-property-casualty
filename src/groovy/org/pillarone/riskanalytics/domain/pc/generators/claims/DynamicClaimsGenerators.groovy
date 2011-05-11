@@ -9,6 +9,7 @@ import org.pillarone.riskanalytics.domain.pc.generators.copulas.EventDependenceS
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
+import org.pillarone.riskanalytics.core.components.ComponentCategory
 
 /**
  * <p>A DynamicClaimsGenerators is a container for TypeableClaimsGenerators which can be managed from the UI
@@ -26,7 +27,7 @@ import org.pillarone.riskanalytics.domain.utils.DistributionType
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-
+@ComponentCategory(categories = ['CLAIM','GENERATOR','ATTRITIONAL','SINGLE','EVENT'])
 public class DynamicClaimsGenerators extends DynamicComposedComponent {
 
     /** needs to be connected only if a none absolute base is selected */

@@ -1,5 +1,6 @@
 package org.pillarone.riskanalytics.domain.pc.creditrisk;
 
+import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.domain.assets.constants.Rating;
 import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.core.packets.PacketList;
@@ -7,6 +8,7 @@ import org.pillarone.riskanalytics.core.packets.PacketList;
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = {"CREDIT"})
 public class CreditDefault extends Component {
 
     // preset values according to CEIOPS

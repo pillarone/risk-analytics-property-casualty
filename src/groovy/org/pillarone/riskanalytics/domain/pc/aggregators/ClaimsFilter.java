@@ -3,6 +3,7 @@ package org.pillarone.riskanalytics.domain.pc.aggregators;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.pillarone.riskanalytics.core.components.Component;
+import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.parameterization.IStructureInformation;
 import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope;
@@ -11,6 +12,7 @@ import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = {"CLAIM","FILTER"})
 public class ClaimsFilter extends Component {
 
     private PacketList<Claim> inClaims = new PacketList<Claim>(Claim.class);

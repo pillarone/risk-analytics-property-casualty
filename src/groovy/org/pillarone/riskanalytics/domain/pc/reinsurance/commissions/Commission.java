@@ -3,6 +3,7 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.commissions;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.NotImplementedException;
 import org.pillarone.riskanalytics.core.components.Component;
+import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
@@ -31,6 +32,7 @@ import java.util.List;
  *
  * @author shartmann (at) munichre (dot) com, ben.ginsberg (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = {"REINSURANCE","COMMISSION"})
 public class Commission extends Component {
 
     private SimulationScope simulationScope;

@@ -13,6 +13,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceCo
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
+import org.pillarone.riskanalytics.core.components.ComponentCategory
 
 /**
  *  This reinsurance program contains three fix serial wired contracts. The type
@@ -23,6 +24,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = ['REINSURANCE','PROGRAM'])
 class ReinsuranceProgram3SerialContracts extends ComposedComponent {
 
     PacketList<Claim> inClaims = new PacketList(Claim)

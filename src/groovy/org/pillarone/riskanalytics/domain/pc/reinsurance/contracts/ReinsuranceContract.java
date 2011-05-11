@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts;
 
 import org.pillarone.riskanalytics.core.components.Component;
+import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.packets.SingleValuePacket;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
@@ -21,6 +22,7 @@ import java.util.*;
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = {"REINSURANCE","CONTRACT"})
 public class ReinsuranceContract extends Component implements IReinsuranceContractMarker {
 
     protected PacketList<Claim> inClaims = new PacketList<Claim>(Claim.class);

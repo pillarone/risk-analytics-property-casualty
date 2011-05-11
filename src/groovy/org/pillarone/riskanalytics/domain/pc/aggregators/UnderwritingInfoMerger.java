@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.aggregators;
 
 import org.pillarone.riskanalytics.core.components.Component;
+import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.domain.pc.underwriting.*;
 
@@ -24,6 +25,7 @@ import java.util.Map;
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = {"UNDERWRITINGINFO","MERGER"})
 public class UnderwritingInfoMerger extends Component {
 
     private PacketList<CededUnderwritingInfo> inUnderwritingInfoCeded = new PacketList<CededUnderwritingInfo>(CededUnderwritingInfo.class);

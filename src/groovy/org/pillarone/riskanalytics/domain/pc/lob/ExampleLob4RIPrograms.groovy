@@ -7,6 +7,7 @@ import org.pillarone.riskanalytics.core.wiring.WireCategory
 import org.pillarone.riskanalytics.core.wiring.WiringUtils
 import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskBands
 import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocator
+import org.pillarone.riskanalytics.core.components.ComponentCategory
 
 /**
  *  This example line of business contains an underwriting, claims generator and a
@@ -15,6 +16,7 @@ import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocator
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = ['SEGMENT'])
 class ExampleLob4RIPrograms extends ComposedComponent {
     RiskBands subUnderwriting
     AttritionalSingleClaimsGenerator subClaimsGenerator

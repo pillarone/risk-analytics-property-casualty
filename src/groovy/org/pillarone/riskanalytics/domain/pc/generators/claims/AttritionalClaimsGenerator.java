@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.generators.claims;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimPacketFactory;
@@ -32,6 +33,7 @@ import java.util.HashMap;
  */
 // todo(sku): profile the runtime difference between using of the generator and the inverse function
 // todo(sku): apply a design pattern to clearly separate the two different use cases (generator vs probabiliy)
+@ComponentCategory(categories = {"CLAIM","GENERATOR","ATTRITIONAL"})
 public class AttritionalClaimsGenerator extends ClaimsGenerator {
 
     private IRandomNumberGenerator generator;

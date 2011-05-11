@@ -5,6 +5,7 @@ import org.pillarone.riskanalytics.domain.pc.generators.GeneratorCachingComponen
 import org.pillarone.riskanalytics.domain.pc.generators.frequency.Frequency
 import org.pillarone.riskanalytics.domain.utils.randomnumbers.UniformDoubleList
 import org.pillarone.riskanalytics.domain.utils.*
+import org.pillarone.riskanalytics.core.components.ComponentCategory
 
 /**
  *  The event severity generator produces event severities with number of
@@ -16,6 +17,7 @@ import org.pillarone.riskanalytics.domain.utils.*
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = ['GENERATOR','EVENT'])
 class EventSeverityGenerator extends GeneratorCachingComponent {
 
     RandomDistribution parmDistribution = DistributionType.getStrategy(DistributionType.UNIFORM, ["a": 0, "b": 1]);

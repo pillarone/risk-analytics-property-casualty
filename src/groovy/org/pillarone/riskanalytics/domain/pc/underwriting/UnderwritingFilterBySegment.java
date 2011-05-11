@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.underwriting;
 
 import org.pillarone.riskanalytics.core.components.Component;
+import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter;
 
@@ -9,6 +10,7 @@ import java.util.Arrays;
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = {"UNDERWRITING","FILTER"})
 public class UnderwritingFilterBySegment extends Component {
 
     private PacketList<UnderwritingInfo> inUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);

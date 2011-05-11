@@ -8,10 +8,12 @@ import org.pillarone.riskanalytics.domain.pc.creditrisk.DefaultProbabilities
 import org.pillarone.riskanalytics.domain.pc.creditrisk.ReinsurerDefault
 import org.pillarone.riskanalytics.core.components.DynamicMultiPhaseComposedComponent
 import org.pillarone.riskanalytics.core.components.MultiPhaseComponent
+import org.pillarone.riskanalytics.core.components.ComponentCategory
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = ['COMPANY'])
 class DynamicCompany extends DynamicMultiPhaseComposedComponent {
 
     PacketList<DefaultProbabilities> inDefaultProbability = new PacketList<DefaultProbabilities>(DefaultProbabilities)

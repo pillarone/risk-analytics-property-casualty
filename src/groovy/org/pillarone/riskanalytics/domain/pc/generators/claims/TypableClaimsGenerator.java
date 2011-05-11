@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.generators.claims;
 
 import org.apache.commons.lang.NotImplementedException;
+import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.model.Model;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter;
@@ -33,6 +34,7 @@ import java.util.*;
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = {"CLAIM","GENERATOR","ATTRITIONAL","SINGLE","EVENT"})
 public class TypableClaimsGenerator extends GeneratorCachingComponent implements PerilMarker {
 
     private SimulationScope simulationScope;

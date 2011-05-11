@@ -13,10 +13,12 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceCo
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
+import org.pillarone.riskanalytics.core.components.ComponentCategory
 
 /**
  * @author martin.melchior (at) fhnw (dot) ch
  */
+@ComponentCategory(categories = ['REINSURANCE'])
 class SurplusProgram extends ComposedComponent {
 
     PacketList<Claim> inClaims = new PacketList(Claim)

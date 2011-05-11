@@ -6,6 +6,7 @@ import org.pillarone.riskanalytics.core.wiring.WiringUtils
 import org.pillarone.riskanalytics.domain.pc.generators.claims.AttritionalSingleClaimsGenerator
 import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.ReinsuranceProgram3SerialContracts
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingSegment
+import org.pillarone.riskanalytics.core.components.ComponentCategory
 
 /**
  *  This example line of business contains an underwriting, claims generator and a
@@ -14,6 +15,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingSegment
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = ['SEGMENT'])
 class LobUnderwritingSegment extends ComposedComponent implements LobMarker {
 
     UnderwritingSegment subUnderwriting

@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.claims;
 
 import org.pillarone.riskanalytics.core.components.Component;
+import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter;
 import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
@@ -10,6 +11,7 @@ import java.util.Arrays;
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = {"CLAIM","FILTER"})
 public class ClaimsFilterByPeril extends Component {
 
     private PacketList<Claim> inClaims = new PacketList<Claim>(Claim.class);

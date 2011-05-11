@@ -7,6 +7,7 @@ import org.pillarone.riskanalytics.domain.pc.generators.claims.AttritionalMultiS
 import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.ReinsuranceProgram3SerialContracts
 import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskBands
 import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocator
+import org.pillarone.riskanalytics.core.components.ComponentCategory
 
 /**
  *  This example line of business contains an underwriting, claims generator and a
@@ -15,6 +16,7 @@ import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocator
  *
  * @author j.dittrich (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = ['SEGMENT'])
 class MultiSingleLob extends ComposedComponent implements LobMarker {
 
     RiskBands subUnderwriting

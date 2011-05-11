@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.assetLiabilityMismatch;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.components.PeriodStore;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.packets.SingleValuePacket;
@@ -14,6 +15,7 @@ import java.util.Collections;
 /**
  * @author shartmann (at) munichre (dot) com
  */
+@ComponentCategory(categories = {"ALM","GENERATOR"})
 public class AssetLiabilityMismatchGenerator extends GeneratorCachingComponent implements IAssetLiabilityMismatchMarker {
     private PeriodScope periodScope;
 

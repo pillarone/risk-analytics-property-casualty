@@ -30,6 +30,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.GoldorakContr
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.AdverseDevelopmentCoverContractStrategy
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.LossPortfolioTransferContractStrategy
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReverseSurplusContractStrategy
+import org.pillarone.riskanalytics.core.components.ComponentCategory
 
 /**
  * A DynamicReinsuranceProgram is a DynamicComposedComponent -- i.e. a container of a sequence of
@@ -62,6 +63,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReverseSurplu
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = ['REINSURANCE','PROGRAM'])
 class DynamicReinsuranceProgram extends DynamicComposedComponent {
 
     PacketList<Claim> inClaims = new PacketList(Claim)

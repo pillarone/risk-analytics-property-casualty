@@ -10,11 +10,12 @@ import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopment
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
+import org.pillarone.riskanalytics.core.components.ComponentCategory
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-
+@ComponentCategory(categories = ['CLAIM','GENERATOR','ATTRITIONAL','SINGLE','NATCAT'])
 public class DynamicDevelopedClaimsGenerators extends DynamicComposedComponent {
 
     /** needs to be connected only if a none absolute base is selected    */

@@ -1,17 +1,17 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance;
 
 import org.pillarone.riskanalytics.core.components.Component;
+import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimUtilities;
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoUtilities;
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities;
 
 /**
  * @author shartmann (at) munichre (dot) com
  */
+@ComponentCategory(categories = {"REINSURANCE"})
 public class ContractFinancials extends Component {
 
     private PacketList<CededUnderwritingInfo> inUnderwritingInfoCeded = new PacketList<CededUnderwritingInfo> (CededUnderwritingInfo.class);

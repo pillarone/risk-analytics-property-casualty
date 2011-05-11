@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.reserves;
 
 import org.pillarone.riskanalytics.core.components.Component;
+import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.packets.SingleValuePacket;
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter;
@@ -21,7 +22,7 @@ import java.util.List;
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-
+@ComponentCategory(categories = {"SEGMENT"})
 public class LineOfBusinessReserves extends Component {
     private static final String RESERVES = "Reserves";
     private static final String PORTION = "Portion of Claims";

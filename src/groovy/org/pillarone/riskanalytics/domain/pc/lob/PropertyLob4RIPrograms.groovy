@@ -6,12 +6,14 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingSegment
 import org.pillarone.riskanalytics.core.components.ComposedComponent
 import org.pillarone.riskanalytics.core.wiring.WireCategory
 import org.pillarone.riskanalytics.core.wiring.WiringUtils
+import org.pillarone.riskanalytics.core.components.ComponentCategory
 
 /**
  *  Compared with the ExampleLob the PropertyLob has different claims generators including cat claims.
  *
  * @author ali.majidi (at) munichre (dot) com
  */
+@ComponentCategory(categories = ['SEGMENT'])
 class PropertyLob4RIPrograms extends ComposedComponent {
 
     UnderwritingSegment subUnderwriting

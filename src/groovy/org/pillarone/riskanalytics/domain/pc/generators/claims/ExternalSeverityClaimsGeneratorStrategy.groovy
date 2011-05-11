@@ -7,10 +7,12 @@ import org.pillarone.riskanalytics.domain.utils.DistributionModified
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.domain.utils.RandomDistribution
 import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObject
+import org.pillarone.riskanalytics.core.components.ComponentCategory
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = ['CLAIM','GENERATOR','EVENT'])
 public class ExternalSeverityClaimsGeneratorStrategy extends AbstractParameterObject implements IClaimsGeneratorStrategy {
 
     Exposure claimsSizeBase = Exposure.ABSOLUTE

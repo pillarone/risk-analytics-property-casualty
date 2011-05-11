@@ -9,10 +9,12 @@ import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.domain.utils.RandomDistribution
 import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObject
+import org.pillarone.riskanalytics.core.components.ComponentCategory
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = ['CLAIM','GENERATOR','SINGLE'])
 public class FrequencySeverityClaimsGeneratorStrategy extends AbstractParameterObject
     implements IFrequencySingleClaimsGeneratorStrategy {
 
