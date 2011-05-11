@@ -5,7 +5,7 @@ import org.apache.commons.logging.Log
 import org.pillarone.riskanalytics.core.parameterization.validation.IParameterizationValidator
 import org.pillarone.riskanalytics.core.parameterization.validation.AbstractParameterValidationService
 import org.pillarone.riskanalytics.domain.utils.validation.ParameterValidationServiceImpl
-import org.pillarone.riskanalytics.core.parameterization.validation.ParameterValidationError
+import org.pillarone.riskanalytics.core.parameterization.validation.ParameterValidation
 import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterHolder
 import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterObjectParameterHolder
 import org.pillarone.riskanalytics.core.simulation.item.parameter.MultiDimensionalParameterHolder
@@ -13,6 +13,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.IUnderwritingInfoMarke
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.pc.claims.RiskAllocatorType
 import org.pillarone.riskanalytics.domain.utils.validation.ParameterValidationErrorImpl
+import org.pillarone.riskanalytics.core.parameterization.validation.ValidationType
 
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
@@ -26,9 +27,9 @@ class TypableClaimsGeneratorValidator implements IParameterizationValidator {
         validationService = new ParameterValidationServiceImpl()
     }
 
-    List<ParameterValidationError> validate(List<ParameterHolder> parameters) {
+    List<ParameterValidation> validate(List<ParameterHolder> parameters) {
 
-        List<ParameterValidationError> errors = []
+        List<ParameterValidation> errors = []
         Map<String, RiskAllocatorType> associateExposureInfoPerClaimsGenerator = [:]
         Map<String, Boolean> underwritingInfoPerClaimsGenerator = [:]
 
@@ -53,7 +54,7 @@ class TypableClaimsGeneratorValidator implements IParameterizationValidator {
             RiskAllocatorType allocatorType = associateExposureInfoPerClaimsGenerator[claimsGeneratorPath]
             boolean hasSelectedUnderwritingInfo = underwritingInfoPerClaimsGenerator[claimsGeneratorPath]
             if (!allocatorType.equals(RiskAllocatorType.NONE) && !hasSelectedUnderwritingInfo) {
-                ParameterValidationErrorImpl error = new ParameterValidationErrorImpl(
+                ParameterValidationErrorImpl error = new ParameterValidationErrorImpl(ValidationType.ERROR,
                         'associate.exposure.info.requires.underwriting.info', [allocatorType])
                 errors << error
                 error.path = claimsGeneratorPath + ':parmAssociateExposureInfo'

@@ -4,7 +4,7 @@ import org.pillarone.riskanalytics.core.parameterization.validation.IParameteriz
 import org.apache.commons.logging.Log
 import org.apache.commons.logging.LogFactory
 
-import org.pillarone.riskanalytics.core.parameterization.validation.ParameterValidationError
+import org.pillarone.riskanalytics.core.parameterization.validation.ParameterValidation
 import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterHolder
 
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
@@ -22,6 +22,7 @@ import org.pillarone.riskanalytics.domain.pc.lob.ConfigurableLobWithReserves
 import org.pillarone.riskanalytics.domain.pc.generators.claims.ClaimsGeneratorType
 import org.pillarone.riskanalytics.core.simulation.item.parameter.MultiDimensionalParameterHolder
 import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
+import org.pillarone.riskanalytics.core.parameterization.validation.ValidationType
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -35,9 +36,9 @@ class SurplusStrategyValidator implements IParameterizationValidator {
     public SurplusStrategyValidator() {
     }
 
-    List<ParameterValidationError> validate(List<ParameterHolder> parameters) {
+    List<ParameterValidation> validate(List<ParameterHolder> parameters) {
 
-        List<ParameterValidationError> errors = []
+        List<ParameterValidation> errors = []
 
 //        getContract(parameters, ReinsuranceContractType.class, ReinsuranceContractType.SURPLUS)
 //        getPerils(parameters, RiskAllocatorType.class)
@@ -70,8 +71,8 @@ class SurplusStrategyValidator implements IParameterizationValidator {
         errors
     }
 
-    private ParameterValidationError error(String message, String args, def parameter) {
-        def parameterValidationError = new ParameterValidationErrorImpl(message, [args])
+    private ParameterValidation error(ValidationType validationType, String message, String args, def parameter) {
+        def parameterValidationError = new ParameterValidationErrorImpl(validationType, message, [args])
         parameterValidationError.path = parameter.path
         parameterValidationError
     }
@@ -95,9 +96,9 @@ class SurplusStrategyValidator implements IParameterizationValidator {
      * @param perilNames key: perilName, value ReinsuranceContractType ParameterHolder
      * @return
      */
-    private List<ParameterValidationError> exposureInformationAvailable(List<ParameterHolder> parameters,
+    private List<ParameterValidation> exposureInformationAvailable(List<ParameterHolder> parameters,
                                                                         Map<String, ParameterHolder> perilNames) {
-        List<ParameterValidationError> errors = []
+        List<ParameterValidation> errors = []
         for (ParameterHolder parameter in parameters) {
             if (parameter instanceof ParameterObjectParameterHolder) {
                 IParameterObjectClassifier classifier = parameter.getClassifier()
@@ -105,8 +106,8 @@ class SurplusStrategyValidator implements IParameterizationValidator {
                     if (classifier.equals(RiskAllocatorType.NONE)) {
                         for (Map<String, ParameterHolder> perilName : perilNames) {
                             if (parameter.path.contains(perilName.key)) {
-                                errors << error("coverPeril.without.exposure.info", perilName.key, perilName.value)
-                                errors << error("no.exposure.associated", null, parameter)
+                                errors << error(ValidationType.ERROR, "coverPeril.without.exposure.info", perilName.key, perilName.value)
+                                errors << error(ValidationType.ERROR,"no.exposure.associated", null, parameter)
                             }
                         }
                     }

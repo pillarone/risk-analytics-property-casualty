@@ -4,7 +4,7 @@ import org.pillarone.riskanalytics.core.parameterization.validation.IParameteriz
 import org.pillarone.riskanalytics.core.parameterization.validation.AbstractParameterValidationService
 import org.apache.commons.logging.LogFactory
 import org.apache.commons.logging.Log
-import org.pillarone.riskanalytics.core.parameterization.validation.ParameterValidationError
+import org.pillarone.riskanalytics.core.parameterization.validation.ParameterValidation
 import org.pillarone.riskanalytics.domain.utils.validation.ParameterValidationServiceImpl
 import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterHolder
 import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterObjectParameterHolder
@@ -16,6 +16,7 @@ import cern.colt.matrix.impl.DenseDoubleMatrix2D
 import cern.colt.matrix.linalg.EigenvalueDecomposition
 import cern.colt.matrix.DoubleMatrix1D
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.LobCopulaType
+import org.pillarone.riskanalytics.core.parameterization.validation.ValidationType
 
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
@@ -31,9 +32,9 @@ class DependencyMatrixValidator implements IParameterizationValidator {
         registerConstraints()
     }
 
-    List<ParameterValidationError> validate(List<ParameterHolder> parameters) {
+    List<ParameterValidation> validate(List<ParameterHolder> parameters) {
 
-        List<ParameterValidationError> errors = []
+        List<ParameterValidation> errors = []
 
         for (ParameterHolder parameter in parameters) {
             if (parameter instanceof ParameterObjectParameterHolder) {
@@ -64,13 +65,13 @@ class DependencyMatrixValidator implements IParameterizationValidator {
             DenseDoubleMatrix2D SIGMA = new DenseDoubleMatrix2D((double[][]) values);
             DoubleMatrix2D SIGMAtranspose = SIGMA.viewDice();
             if (!SIGMAtranspose.equals(SIGMA)) {
-                return ["t.copula.strategy.dependency.matrix.non.symmetric", values]
+                return [ValidationType.ERROR, "t.copula.strategy.dependency.matrix.non.symmetric", values]
             }
             EigenvalueDecomposition eigenvalueDecomp = new EigenvalueDecomposition(SIGMA);
             DoubleMatrix1D eigenvalues = eigenvalueDecomp.getRealEigenvalues();
             eigenvalues.viewSorted();
             if (eigenvalues.get(0) <= 0) {
-                return ["t.copula.strategy.dependency.matrix.non.positive.definite", values]
+                return [ValidationType.ERROR, "t.copula.strategy.dependency.matrix.non.positive.definite", values]
             }
             return true
         }
@@ -82,7 +83,7 @@ class DependencyMatrixValidator implements IParameterizationValidator {
                 diag.add(values.get(i).get(i))
             }
             if (!(diag.min() == 1d && diag.max() == 1d)) {
-                return ["t.copula.strategy.dependency.matrix.invalid.diagonal", values]
+                return [ValidationType.ERROR, "t.copula.strategy.dependency.matrix.invalid.diagonal", values]
             }
             return true
         }
@@ -92,13 +93,13 @@ class DependencyMatrixValidator implements IParameterizationValidator {
             DenseDoubleMatrix2D SIGMA = new DenseDoubleMatrix2D((double[][]) values);
             DoubleMatrix2D SIGMAtranspose = SIGMA.viewDice();
             if (!SIGMAtranspose.equals(SIGMA)) {
-                return ["normal.copula.strategy.dependency.matrix.non.symmetric", values]
+                return [ValidationType.ERROR, "normal.copula.strategy.dependency.matrix.non.symmetric", values]
             }
             EigenvalueDecomposition eigenvalueDecomp = new EigenvalueDecomposition(SIGMA);
             DoubleMatrix1D eigenvalues = eigenvalueDecomp.getRealEigenvalues();
             eigenvalues.viewSorted();
             if (eigenvalues.get(0) <= 0) {
-                return ["normal.copula.strategy.dependency.matrix.non.positive.definite", values]
+                return [ValidationType.ERROR, "normal.copula.strategy.dependency.matrix.non.positive.definite", values]
             }
             return true
         }
@@ -110,7 +111,7 @@ class DependencyMatrixValidator implements IParameterizationValidator {
                 diag.add(values.get(i).get(i))
             }
             if (!(diag.min() == 1d && diag.max() == 1d)) {
-                return ["normal.copula.strategy.dependency.matrix.invalid.diagonal", values]
+                return [ValidationType.ERROR, "normal.copula.strategy.dependency.matrix.invalid.diagonal", values]
             }
             return true
         }
@@ -119,13 +120,13 @@ class DependencyMatrixValidator implements IParameterizationValidator {
                     DenseDoubleMatrix2D SIGMA = new DenseDoubleMatrix2D((double[][]) values);
                     DoubleMatrix2D SIGMAtranspose = SIGMA.viewDice();
                     if (!SIGMAtranspose.equals(SIGMA)) {
-                        return ["t.copula.strategy.dependency.matrix.non.symmetric", values]
+                        return [ValidationType.ERROR, "t.copula.strategy.dependency.matrix.non.symmetric", values]
                     }
                     EigenvalueDecomposition eigenvalueDecomp = new EigenvalueDecomposition(SIGMA);
                     DoubleMatrix1D eigenvalues = eigenvalueDecomp.getRealEigenvalues();
                     eigenvalues.viewSorted();
                     if (eigenvalues.get(0) <= 0) {
-                        return ["t.copula.strategy.dependency.matrix.non.positive.definite", values]
+                        return [ValidationType.ERROR, "t.copula.strategy.dependency.matrix.non.positive.definite", values]
                     }
                     return true
                 }
@@ -137,7 +138,7 @@ class DependencyMatrixValidator implements IParameterizationValidator {
                         diag.add(values.get(i).get(i))
                     }
                     if (!(diag.min() == 1d && diag.max() == 1d)) {
-                        return ["t.copula.strategy.dependency.matrix.invalid.diagonal", values]
+                        return [ValidationType.ERROR, "t.copula.strategy.dependency.matrix.invalid.diagonal", values]
                     }
                     return true
                 }
@@ -147,13 +148,13 @@ class DependencyMatrixValidator implements IParameterizationValidator {
                     DenseDoubleMatrix2D SIGMA = new DenseDoubleMatrix2D((double[][]) values);
                     DoubleMatrix2D SIGMAtranspose = SIGMA.viewDice();
                     if (!SIGMAtranspose.equals(SIGMA)) {
-                        return ["normal.copula.strategy.dependency.matrix.non.symmetric", values]
+                        return [ValidationType.ERROR, "normal.copula.strategy.dependency.matrix.non.symmetric", values]
                     }
                     EigenvalueDecomposition eigenvalueDecomp = new EigenvalueDecomposition(SIGMA);
                     DoubleMatrix1D eigenvalues = eigenvalueDecomp.getRealEigenvalues();
                     eigenvalues.viewSorted();
                     if (eigenvalues.get(0) <= 0) {
-                        return ["normal.copula.strategy.dependency.matrix.non.positive.definite", values]
+                        return [ValidationType.ERROR, "normal.copula.strategy.dependency.matrix.non.positive.definite", values]
                     }
                     return true
                 }
@@ -165,7 +166,7 @@ class DependencyMatrixValidator implements IParameterizationValidator {
                         diag.add(values.get(i).get(i))
                     }
                     if (!(diag.min() == 1d && diag.max() == 1d)) {
-                        return ["normal.copula.strategy.dependency.matrix.invalid.diagonal", values]
+                        return [ValidationType.ERROR, "normal.copula.strategy.dependency.matrix.invalid.diagonal", values]
                     }
                     return true
                 }

@@ -1,13 +1,14 @@
 package org.pillarone.riskanalytics.domain.utils.validation
 
 import org.pillarone.riskanalytics.core.parameterization.validation.AbstractParameterValidationService
-import org.pillarone.riskanalytics.core.parameterization.validation.ParameterValidationError
+import org.pillarone.riskanalytics.core.parameterization.validation.ParameterValidation
+import org.pillarone.riskanalytics.core.parameterization.validation.ValidationType
 
 
 class ParameterValidationServiceImpl extends AbstractParameterValidationService {
 
-    ParameterValidationError createErrorObject(String msg, List args) {
-        return new ParameterValidationErrorImpl(msg, args)
+    ParameterValidation createErrorObject(ValidationType validationType, String msg, List args) {
+        return new ParameterValidationErrorImpl(validationType, msg, args)
     }
 
 

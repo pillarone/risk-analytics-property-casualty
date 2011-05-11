@@ -5,13 +5,14 @@ import org.apache.commons.logging.LogFactory
 import org.apache.commons.logging.Log
 import org.pillarone.riskanalytics.core.parameterization.validation.AbstractParameterValidationService
 import org.pillarone.riskanalytics.domain.utils.validation.ParameterValidationServiceImpl
-import org.pillarone.riskanalytics.core.parameterization.validation.ParameterValidationError
+import org.pillarone.riskanalytics.core.parameterization.validation.ParameterValidation
 import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterHolder
 import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterObjectParameterHolder
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.SlidingCommissionStrategy
 import org.pillarone.riskanalytics.domain.utils.InputFormatConverter
+import org.pillarone.riskanalytics.core.parameterization.validation.ValidationType
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -28,9 +29,9 @@ public class CommissionStrategyTypeValidator implements IParameterizationValidat
         registerConstraints()
     }
 
-    List<ParameterValidationError> validate(List<ParameterHolder> parameters) {
+    List<ParameterValidation> validate(List<ParameterHolder> parameters) {
 
-        List<ParameterValidationError> errors = []
+        List<ParameterValidation> errors = []
 
         for (ParameterHolder parameter in parameters) {
             if (parameter instanceof ParameterObjectParameterHolder) {
@@ -53,54 +54,54 @@ public class CommissionStrategyTypeValidator implements IParameterizationValidat
         validationService.register(CommissionStrategyType.SLIDINGCOMMISSION) {Map type ->
             double firstLossRatio = type.commissionBands.getValueAt(1, SlidingCommissionStrategy.LOSS_RATIO_COLUMN_INDEX)
             if (firstLossRatio == 0) return true
-            ["commission.sliding.error.first.supporting.point.not.zero", firstLossRatio]
+            [ValidationType.ERROR, "commission.sliding.error.first.supporting.point.not.zero", firstLossRatio]
         }
         validationService.register(CommissionStrategyType.SLIDINGCOMMISSION) {Map type ->
-            double[] lossRatios = new double[type.commissionBands.getRowCount()-1];
+            double[] lossRatios = new double[type.commissionBands.getRowCount() - 1];
             int index = type.commissionBands.getColumnIndex(SlidingCommissionStrategy.LOSS_RATIO)
             for (int i = 1; i < type.commissionBands.getRowCount(); i++) {
                 lossRatios[i - 1] = InputFormatConverter.getDouble(type.commissionBands.getValueAt(i, index))
             }
             if (lossRatios.length == 0) {
-                return ["commission.sliding.error.loss.ratios.empty"]
+                return [ValidationType.ERROR, "commission.sliding.error.loss.ratios.empty"]
             }
             for (int i = 1; i < lossRatios.length; i++) {
                 if (lossRatios[i - 1] >= lossRatios[i]) {
-                    return ["commission.sliding.error.loss.ratios.not.strictly.increasing", i, lossRatios[i - 1], lossRatios[i]]
+                    return [ValidationType.ERROR,"commission.sliding.error.loss.ratios.not.strictly.increasing", i, lossRatios[i - 1], lossRatios[i]]
                 }
             }
             return true
         }
 
         validationService.register(CommissionStrategyType.SLIDINGCOMMISSION) {Map type ->
-            double[] commissions = new double[type.commissionBands.getRowCount()-1];
+            double[] commissions = new double[type.commissionBands.getRowCount() - 1];
             int index = type.commissionBands.getColumnIndex(SlidingCommissionStrategy.COMMISSION)
             for (int i = 1; i < type.commissionBands.getRowCount(); i++) {
                 commissions[i - 1] = InputFormatConverter.getDouble(type.commissionBands.getValueAt(i, index))
             }
             if (commissions.length == 0) {
-                return ["commission.sliding.error.commissions.empty"]
+                return [ValidationType.ERROR, "commission.sliding.error.commissions.empty"]
             }
             for (int i = 0; i < commissions.length; i++) {
                 if (commissions[i] < 0) {
-                    return ["commission.sliding.error.commissions.negative", i, commissions[i]]
+                    return [ValidationType.ERROR,"commission.sliding.error.commissions.negative", i, commissions[i]]
                 }
             }
             return true
         }
 
         validationService.register(CommissionStrategyType.SLIDINGCOMMISSION) {Map type ->
-            double[] commissions = new double[type.commissionBands.getRowCount()-1];
+            double[] commissions = new double[type.commissionBands.getRowCount() - 1];
             int index = type.commissionBands.getColumnIndex(SlidingCommissionStrategy.COMMISSION)
             for (int i = 1; i < type.commissionBands.getRowCount(); i++) {
                 commissions[i - 1] = InputFormatConverter.getDouble(type.commissionBands.getValueAt(i, index))
             }
             if (commissions.length == 0) {
-                return ["commission.sliding.error.commissions.empty"]
+                return [ValidationType.ERROR, "commission.sliding.error.commissions.empty"]
             }
             for (int i = 1; i < commissions.length; i++) {
                 if (commissions[i] > commissions[i - 1]) {
-                    return ["commission.sliding.error.commissions.not.decreasing", i, commissions[i - 1], commissions[i]]
+                    return [ValidationType.ERROR, "commission.sliding.error.commissions.not.decreasing", i, commissions[i - 1], commissions[i]]
                 }
             }
             return true
@@ -109,11 +110,11 @@ public class CommissionStrategyTypeValidator implements IParameterizationValidat
         validationService.register(CommissionStrategyType.INTERPOLATEDSLIDINGCOMMISSION) {Map type ->
             double[] lossRatios = type.commissionBands.getColumnByName(SlidingCommissionStrategy.LOSS_RATIO)
             if (lossRatios.length == 0) {
-                return ["commission.sliding.error.loss.ratios.empty"]
+                return [ValidationType.ERROR, "commission.sliding.error.loss.ratios.empty"]
             }
             for (int i = 1; i < lossRatios.length; i++) {
                 if (lossRatios[i - 1] > lossRatios[i]) {
-                    return ["commission.sliding.error.loss.ratios.not.increasing", i, lossRatios[i - 1], lossRatios[i]]
+                    return [ValidationType.ERROR, "commission.sliding.error.loss.ratios.not.increasing", i, lossRatios[i - 1], lossRatios[i]]
                 }
             }
             return true
@@ -122,11 +123,11 @@ public class CommissionStrategyTypeValidator implements IParameterizationValidat
         validationService.register(CommissionStrategyType.INTERPOLATEDSLIDINGCOMMISSION) {Map type ->
             double[] commissions = type.commissionBands.getColumnByName(SlidingCommissionStrategy.COMMISSION)
             if (commissions.length == 0) {
-                return ["commission.sliding.error.commissions.empty"]
+                return [ValidationType.ERROR, "commission.sliding.error.commissions.empty"]
             }
             for (int i = 0; i < commissions.length; i++) {
                 if (commissions[i] < 0) {
-                    return ["commission.sliding.error.commissions.negative", i, commissions[i]]
+                    return [ValidationType.ERROR, "commission.sliding.error.commissions.negative", i, commissions[i]]
                 }
             }
             return true
@@ -135,11 +136,11 @@ public class CommissionStrategyTypeValidator implements IParameterizationValidat
         validationService.register(CommissionStrategyType.INTERPOLATEDSLIDINGCOMMISSION) {Map type ->
             double[] commissions = type.commissionBands.getColumnByName(SlidingCommissionStrategy.COMMISSION)
             if (commissions.length == 0) {
-                return ["commission.sliding.error.commissions.empty"]
+                return [ValidationType.ERROR, "commission.sliding.error.commissions.empty"]
             }
             for (int i = 1; i < commissions.length; i++) {
                 if (commissions[i] > commissions[i - 1]) {
-                    return ["commission.sliding.error.commissions.not.decreasing", i, commissions[i - 1], commissions[i]]
+                    return [ValidationType.ERROR, "commission.sliding.error.commissions.not.decreasing", i, commissions[i - 1], commissions[i]]
                 }
             }
             return true

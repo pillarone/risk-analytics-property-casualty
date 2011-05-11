@@ -5,12 +5,13 @@ import org.apache.commons.logging.Log
 import org.apache.commons.logging.LogFactory
 import org.pillarone.riskanalytics.core.parameterization.validation.AbstractParameterValidationService
 import org.pillarone.riskanalytics.domain.utils.validation.ParameterValidationServiceImpl
-import org.pillarone.riskanalytics.core.parameterization.validation.ParameterValidationError
+import org.pillarone.riskanalytics.core.parameterization.validation.ParameterValidation
 import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterHolder
 import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterObjectParameterHolder
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
+import org.pillarone.riskanalytics.core.parameterization.validation.ValidationType
 
 /**
  * This validator checks consistency of limit, aggregate limit and reinstatement premium parameters.
@@ -28,9 +29,9 @@ class XLStrategyValidator implements IParameterizationValidator {
         registerConstraints()
     }
 
-    List<ParameterValidationError> validate(List<ParameterHolder> parameters) {
+    List<ParameterValidation> validate(List<ParameterHolder> parameters) {
 
-        List<ParameterValidationError> errors = []
+        List<ParameterValidation> errors = []
 
         for (ParameterHolder parameter in parameters) {
             if (parameter instanceof ParameterObjectParameterHolder) {
@@ -79,7 +80,7 @@ class XLStrategyValidator implements IParameterizationValidator {
     private def correctAggregateLimit(Map type, String limit, String aggregateLimit) {
         if (type.size() == 0 || type[limit] == null || type[aggregateLimit] == null) return
         if (type[limit] > type[aggregateLimit]) {
-            return ["aggregateLimit.lower.than.limit", type[aggregateLimit], type[limit]]
+            return [ValidationType.ERROR, "aggregateLimit.lower.than.limit", type[aggregateLimit], type[limit]]
         }
         return
     }
@@ -97,10 +98,10 @@ class XLStrategyValidator implements IParameterizationValidator {
         double aggregateLimitCalculated = (numberOfReinstatementsBasedOnSpecifiedRIPremium + 1) * limit
 //        int usableReinstatements = (aggregateLimitParameter - limit) / limit
         if (numberOfReinstatementsBasedOnSpecifiedRIPremium < numberOfReinstatements) {
-            return ["mismatching.reinstatement.premiums.and.aggregate.limit.beyond", aggregateLimitParameter, aggregateLimitCalculated]
+            return [ValidationType.ERROR, "mismatching.reinstatement.premiums.and.aggregate.limit.beyond", aggregateLimitParameter, aggregateLimitCalculated]
         }
         else if (numberOfReinstatementsBasedOnSpecifiedRIPremium > Math.ceil(numberOfReinstatements)) {
-            return ["mismatching.reinstatement.premiums.and.aggregate.limit.below",
+            return [ValidationType.ERROR, "mismatching.reinstatement.premiums.and.aggregate.limit.below",
                     numberOfReinstatements, numberOfReinstatementsBasedOnSpecifiedRIPremium,
                     aggregateLimitParameter, aggregateLimitCalculated]
         }

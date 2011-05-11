@@ -5,14 +5,15 @@ import org.apache.commons.logging.LogFactory
 import org.apache.commons.logging.Log
 import org.pillarone.riskanalytics.core.parameterization.validation.IParameterizationValidator
 import org.pillarone.riskanalytics.domain.utils.validation.ParameterValidationServiceImpl
-import org.pillarone.riskanalytics.core.parameterization.validation.ParameterValidationError
+import org.pillarone.riskanalytics.core.parameterization.validation.ParameterValidation
 import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterHolder
 import org.pillarone.riskanalytics.core.simulation.item.parameter.MultiDimensionalParameterHolder
 import org.pillarone.riskanalytics.core.parameterization.AbstractMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.IMultiDimensionalConstraints
-import org.pillarone.riskanalytics.domain.utils.constraints.IUnityPortion
+
 import org.pillarone.riskanalytics.domain.pc.constraints.SegmentPortion
+import org.pillarone.riskanalytics.core.parameterization.validation.ValidationType
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -27,9 +28,9 @@ class SegmentFilterValidator implements IParameterizationValidator {
         registerConstraints()
     }
 
-    List<ParameterValidationError> validate(List<ParameterHolder> parameters) {
+    List<ParameterValidation> validate(List<ParameterHolder> parameters) {
 
-        List<ParameterValidationError> errors = []
+        List<ParameterValidation> errors = []
 
         for (ParameterHolder parameter in parameters) {
             if (parameter instanceof MultiDimensionalParameterHolder) {
@@ -54,7 +55,7 @@ class SegmentFilterValidator implements IParameterizationValidator {
     private void registerConstraints() {
         validationService.register(SegmentPortion) {ConstrainedMultiDimensionalParameter type ->
             if (type.valueRowCount == 0) {
-                return ['portions.contains.no.segment']
+                return [ValidationType.ERROR, 'portions.contains.no.segment']
             }
             return
         }

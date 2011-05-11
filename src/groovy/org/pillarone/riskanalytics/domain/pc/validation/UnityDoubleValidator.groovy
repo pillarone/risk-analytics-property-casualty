@@ -6,10 +6,11 @@ import org.apache.commons.logging.Log
 import org.apache.commons.logging.LogFactory
 import org.pillarone.riskanalytics.core.parameterization.validation.AbstractParameterValidationService
 import org.pillarone.riskanalytics.domain.utils.validation.ParameterValidationServiceImpl
-import org.pillarone.riskanalytics.core.parameterization.validation.ParameterValidationError
+import org.pillarone.riskanalytics.core.parameterization.validation.ParameterValidation
 import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterHolder
 import org.pillarone.riskanalytics.core.simulation.item.parameter.DoubleParameterHolder
 import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterObjectParameterHolder
+import org.pillarone.riskanalytics.core.parameterization.validation.ValidationType
 
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
@@ -24,9 +25,9 @@ class UnityDoubleValidator implements IParameterizationValidator {
         registerConstraints()
     }
 
-    List<ParameterValidationError> validate(List<ParameterHolder> parameters) {
+    List<ParameterValidation> validate(List<ParameterHolder> parameters) {
 
-        List<ParameterValidationError> errors = []
+        List<ParameterValidation> errors = []
 
         for (ParameterHolder parameter in parameters) {
             if (parameter instanceof DoubleParameterHolder) {
@@ -56,7 +57,7 @@ class UnityDoubleValidator implements IParameterizationValidator {
         validationService.register(String) {Double type ->
 
             if (type < 0 || type > 1) {
-                return ["double.unity.error.double.not.in.unity.interval", type]
+                return [ValidationType.ERROR, "double.unity.error.double.not.in.unity.interval", type]
             }
             return true
         }
