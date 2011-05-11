@@ -8,6 +8,7 @@ import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.generators.severities.Severity
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.core.components.ComponentCategory
+import org.pillarone.riskanalytics.core.wiring.WiringValidation
 
 /**
  *  This is a compound component composed of a  {@link FrequencyClaimsGenerator}  and
@@ -19,6 +20,7 @@ import org.pillarone.riskanalytics.core.components.ComponentCategory
 class AttritionalSingleClaimsGenerator extends ComposedComponent {
 
     PacketList<UnderwritingInfo> inUnderwritingInfo = new PacketList(UnderwritingInfo)
+    @WiringValidation(connections= [0, 1], packets= [1, 1])
     PacketList<Severity> inProbabilities = new PacketList(Severity)
 
     FrequencyClaimsGenerator subSingleClaimsGenerator = new FrequencyClaimsGenerator()

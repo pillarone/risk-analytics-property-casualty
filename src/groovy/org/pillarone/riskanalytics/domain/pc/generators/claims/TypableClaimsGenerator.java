@@ -6,6 +6,7 @@ import org.pillarone.riskanalytics.core.model.Model;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter;
 import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope;
+import org.pillarone.riskanalytics.core.wiring.WiringValidation;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimPacketFactory;
 import org.pillarone.riskanalytics.domain.pc.claims.IRiskAllocatorStrategy;
@@ -46,6 +47,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
     /**
      * needs to be connected only if the claims generator was selected as target in a copula
      */
+    @WiringValidation(connections= {0, 1}, packets= {1, 1})
     private PacketList<DependenceStream> inProbabilities = new PacketList<DependenceStream>(DependenceStream.class);
     /**
      * needs to be connected only ...
