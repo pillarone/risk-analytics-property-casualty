@@ -1,61 +1,31 @@
-iteration	period	path	field	value
-0	0	OneLobQSXL:wxl:outCoveredClaims	ultimate	0.0
-0	0	OneLobQSXL:quotaShare:outCoveredClaims	ultimate	0.4241889524916398
-0	0	OneLobQSXL:claimsGenerator:outClaims	ultimate	2.120944762458199
-0	1	OneLobQSXL:wxl:outCoveredClaims	ultimate	0.0
-0	1	OneLobQSXL:quotaShare:outCoveredClaims	ultimate	5.643963102931178
-0	1	OneLobQSXL:claimsGenerator:outClaims	ultimate	28.219815514655885
-1	0	OneLobQSXL:wxl:outCoveredClaims	ultimate	0.0
-1	0	OneLobQSXL:quotaShare:outCoveredClaims	ultimate	0.0
-1	0	OneLobQSXL:claimsGenerator:outClaims	ultimate	0.0
-1	1	OneLobQSXL:wxl:outCoveredClaims	ultimate	0.0
-1	1	OneLobQSXL:quotaShare:outCoveredClaims	ultimate	0.0
-1	1	OneLobQSXL:claimsGenerator:outClaims	ultimate	0.0
-2	0	OneLobQSXL:wxl:outCoveredClaims	ultimate	0.0
-2	0	OneLobQSXL:quotaShare:outCoveredClaims	ultimate	0.0
-2	0	OneLobQSXL:claimsGenerator:outClaims	ultimate	0.0
-2	1	OneLobQSXL:wxl:outCoveredClaims	ultimate	0.0
-2	1	OneLobQSXL:quotaShare:outCoveredClaims	ultimate	0.0
-2	1	OneLobQSXL:claimsGenerator:outClaims	ultimate	0.0
-3	0	OneLobQSXL:wxl:outCoveredClaims	ultimate	0.0
-3	0	OneLobQSXL:quotaShare:outCoveredClaims	ultimate	0.0
-3	0	OneLobQSXL:claimsGenerator:outClaims	ultimate	0.0
-3	1	OneLobQSXL:wxl:outCoveredClaims	ultimate	0.0
-3	1	OneLobQSXL:quotaShare:outCoveredClaims	ultimate	0.0
-3	1	OneLobQSXL:claimsGenerator:outClaims	ultimate	0.0
-4	0	OneLobQSXL:wxl:outCoveredClaims	ultimate	0.0
-4	0	OneLobQSXL:quotaShare:outCoveredClaims	ultimate	2.341381783364062
-4	0	OneLobQSXL:claimsGenerator:outClaims	ultimate	11.70690891682031
-4	1	OneLobQSXL:wxl:outCoveredClaims	ultimate	10.0
-4	1	OneLobQSXL:quotaShare:outCoveredClaims	ultimate	1465.8310291896773
-4	1	OneLobQSXL:claimsGenerator:outClaims	ultimate	7329.155145948386
-5	0	OneLobQSXL:wxl:outCoveredClaims	ultimate	3.28906147376631
-5	0	OneLobQSXL:quotaShare:outCoveredClaims	ultimate	13.322265368441577
-5	0	OneLobQSXL:claimsGenerator:outClaims	ultimate	66.61132684220789
-5	1	OneLobQSXL:wxl:outCoveredClaims	ultimate	0.0
-5	1	OneLobQSXL:quotaShare:outCoveredClaims	ultimate	1.6691286619773953
-5	1	OneLobQSXL:claimsGenerator:outClaims	ultimate	8.345643309886976
-6	0	OneLobQSXL:wxl:outCoveredClaims	ultimate	0.0
-6	0	OneLobQSXL:quotaShare:outCoveredClaims	ultimate	1.7026818285420555
-6	0	OneLobQSXL:claimsGenerator:outClaims	ultimate	8.513409142710277
-6	1	OneLobQSXL:wxl:outCoveredClaims	ultimate	0.0
-6	1	OneLobQSXL:quotaShare:outCoveredClaims	ultimate	6.619785227563205
-6	1	OneLobQSXL:claimsGenerator:outClaims	ultimate	33.09892613781602
-7	0	OneLobQSXL:wxl:outCoveredClaims	ultimate	0.0
-7	0	OneLobQSXL:quotaShare:outCoveredClaims	ultimate	0.4060441083415244
-7	0	OneLobQSXL:claimsGenerator:outClaims	ultimate	2.030220541707622
-7	1	OneLobQSXL:wxl:outCoveredClaims	ultimate	0.0
-7	1	OneLobQSXL:quotaShare:outCoveredClaims	ultimate	1.1879352138613364
-7	1	OneLobQSXL:claimsGenerator:outClaims	ultimate	5.939676069306682
-8	0	OneLobQSXL:wxl:outCoveredClaims	ultimate	0.0
-8	0	OneLobQSXL:quotaShare:outCoveredClaims	ultimate	0.0
-8	0	OneLobQSXL:claimsGenerator:outClaims	ultimate	0.0
-8	1	OneLobQSXL:wxl:outCoveredClaims	ultimate	0.0
-8	1	OneLobQSXL:quotaShare:outCoveredClaims	ultimate	0.0
-8	1	OneLobQSXL:claimsGenerator:outClaims	ultimate	0.0
-9	0	OneLobQSXL:wxl:outCoveredClaims	ultimate	0.0
-9	0	OneLobQSXL:quotaShare:outCoveredClaims	ultimate	0.4068539877848474
-9	0	OneLobQSXL:claimsGenerator:outClaims	ultimate	2.0342699389242367
-9	1	OneLobQSXL:wxl:outCoveredClaims	ultimate	0.0
-9	1	OneLobQSXL:quotaShare:outCoveredClaims	ultimate	0.0
-9	1	OneLobQSXL:claimsGenerator:outClaims	ultimate	0.0
+iteration	period	valueIndex	path	field	value
+1	0	0	OneLobQSXL:wxl:outCoveredClaims	ultimate	0.0
+1	0	0	OneLobQSXL:quotaShare:outCoveredClaims	ultimate	0.908958367772364
+1	0	0	OneLobQSXL:claimsGenerator:outClaims	ultimate	4.54479183886182
+2	0	0	OneLobQSXL:wxl:outCoveredClaims	ultimate	0.0
+2	0	0	OneLobQSXL:quotaShare:outCoveredClaims	ultimate	4.3255665494211
+2	0	0	OneLobQSXL:claimsGenerator:outClaims	ultimate	21.6278327471055
+3	0	0	OneLobQSXL:wxl:outCoveredClaims	ultimate	0.0
+3	0	0	OneLobQSXL:quotaShare:outCoveredClaims	ultimate	0.9557859631465844
+3	0	0	OneLobQSXL:claimsGenerator:outClaims	ultimate	4.778929815732922
+4	0	0	OneLobQSXL:wxl:outCoveredClaims	ultimate	0.0
+4	0	0	OneLobQSXL:quotaShare:outCoveredClaims	ultimate	0.0
+4	0	0	OneLobQSXL:claimsGenerator:outClaims	ultimate	0.0
+5	0	0	OneLobQSXL:wxl:outCoveredClaims	ultimate	0.0
+5	0	0	OneLobQSXL:quotaShare:outCoveredClaims	ultimate	0.0
+5	0	0	OneLobQSXL:claimsGenerator:outClaims	ultimate	0.0
+6	0	0	OneLobQSXL:wxl:outCoveredClaims	ultimate	0.0
+6	0	0	OneLobQSXL:quotaShare:outCoveredClaims	ultimate	1.148013316355562
+6	0	0	OneLobQSXL:claimsGenerator:outClaims	ultimate	5.74006658177781
+7	0	0	OneLobQSXL:wxl:outCoveredClaims	ultimate	0.0
+7	0	0	OneLobQSXL:quotaShare:outCoveredClaims	ultimate	0.6314474020570255
+7	0	0	OneLobQSXL:claimsGenerator:outClaims	ultimate	3.1572370102851273
+8	0	0	OneLobQSXL:wxl:outCoveredClaims	ultimate	0.0
+8	0	0	OneLobQSXL:quotaShare:outCoveredClaims	ultimate	0.0
+8	0	0	OneLobQSXL:claimsGenerator:outClaims	ultimate	0.0
+9	0	0	OneLobQSXL:wxl:outCoveredClaims	ultimate	0.0
+9	0	0	OneLobQSXL:quotaShare:outCoveredClaims	ultimate	0.0
+9	0	0	OneLobQSXL:claimsGenerator:outClaims	ultimate	0.0
+10	0	0	OneLobQSXL:wxl:outCoveredClaims	ultimate	0.0
+10	0	0	OneLobQSXL:quotaShare:outCoveredClaims	ultimate	0.4622876314940729
+10	0	0	OneLobQSXL:claimsGenerator:outClaims	ultimate	2.3114381574703646

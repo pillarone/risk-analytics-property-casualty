@@ -1,261 +1,261 @@
-iteration	period	path	field	value
-1	0	FiniteRe:claimsGenerators:subHull:outClaims	ultimate	1820971.0147944726
-1	0	FiniteRe:claimsGenerators:subMarine:outClaims	ultimate	3249038.7019140692
-1	0	FiniteRe:claimsGenerators:subMotor:outClaims	ultimate	509744.0615474318
-1	0	FiniteRe:claimsGenerators:subPropertyAttritional:outClaims	ultimate	3125427.8394055814
-1	0	FiniteRe:claimsGenerators:subPropertyCat:outClaims	ultimate	1.4070118649988588E7
-1	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outCoveredClaims	ultimate	7195546.489394169
-1	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outFilteredClaims	ultimate	1.719554648939417E7
-1	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outCoveredClaims	ultimate	0.0
-1	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outFilteredClaims	ultimate	3249038.7019140692
-1	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outCoveredClaims	ultimate	0.0
-1	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outFilteredClaims	ultimate	509744.0615474318
-1	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outCoveredClaims	ultimate	0.0
-1	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outFilteredClaims	ultimate	1820971.0147944726
-1	0	FiniteRe:finiteRe:outExperienceAccount	balance	2625000.0
-1	0	FiniteRe:finiteRe:outExperienceAccount	premium	2625000.0
-1	0	FiniteRe:finiteRe:outExperienceAccount	netCashFlow	2625000.0
-1	0	FiniteRe:finiteRe:outExperienceAccount	claim	0.0
-1	0	FiniteRe:finiteRe:outReinsurance	result	875000.0
-1	0	FiniteRe:finiteRe:outReinsurance	premium	875000.0
-1	0	FiniteRe:finiteRe:outReinsurance	netCashFlow	875000.0
-1	0	FiniteRe:finiteRe:outReinsurance	claim	0.0
-1	0	FiniteRe:wholeAccountStopLoss:outCoveredClaims	ultimate	0.0
-1	0	FiniteRe:wholeAccountStopLoss:outFilteredClaims	ultimate	7195546.489394169
-1	0	FiniteRe:lineOfBusinessReinsurance:outClaimsCeded	ultimate	7195546.489394169
-1	0	FiniteRe:lineOfBusinessReinsurance:outClaimsGross	ultimate	2.2775300267650142E7
-1	0	FiniteRe:claimsGenerators:outClaims	ultimate	2.2775300267650142E7
-2	0	FiniteRe:claimsGenerators:subHull:outClaims	ultimate	3044169.152393193
-2	0	FiniteRe:claimsGenerators:subMarine:outClaims	ultimate	2086537.8697915203
-2	0	FiniteRe:claimsGenerators:subMotor:outClaims	ultimate	1325256.0570474488
-2	0	FiniteRe:claimsGenerators:subPropertyAttritional:outClaims	ultimate	3019073.1452108673
-2	0	FiniteRe:claimsGenerators:subPropertyCat:outClaims	ultimate	3299562.695665114
-2	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outCoveredClaims	ultimate	0.0
-2	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outFilteredClaims	ultimate	6318635.840875981
-2	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outCoveredClaims	ultimate	0.0
-2	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outFilteredClaims	ultimate	2086537.8697915203
-2	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outCoveredClaims	ultimate	0.0
-2	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outFilteredClaims	ultimate	1325256.0570474488
-2	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outCoveredClaims	ultimate	0.0
-2	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outFilteredClaims	ultimate	3044169.152393193
-2	0	FiniteRe:finiteRe:outExperienceAccount	balance	2625000.0
-2	0	FiniteRe:finiteRe:outExperienceAccount	premium	2625000.0
-2	0	FiniteRe:finiteRe:outExperienceAccount	netCashFlow	2625000.0
-2	0	FiniteRe:finiteRe:outExperienceAccount	claim	0.0
-2	0	FiniteRe:finiteRe:outReinsurance	result	875000.0
-2	0	FiniteRe:finiteRe:outReinsurance	premium	875000.0
-2	0	FiniteRe:finiteRe:outReinsurance	netCashFlow	875000.0
-2	0	FiniteRe:finiteRe:outReinsurance	claim	0.0
-2	0	FiniteRe:wholeAccountStopLoss:outCoveredClaims	ultimate	0.0
-2	0	FiniteRe:wholeAccountStopLoss:outFilteredClaims	ultimate	0.0
-2	0	FiniteRe:lineOfBusinessReinsurance:outClaimsCeded	ultimate	0.0
-2	0	FiniteRe:lineOfBusinessReinsurance:outClaimsGross	ultimate	1.2774598920108143E7
-2	0	FiniteRe:claimsGenerators:outClaims	ultimate	1.2774598920108143E7
-3	0	FiniteRe:claimsGenerators:subHull:outClaims	ultimate	330540.95494512486
-3	0	FiniteRe:claimsGenerators:subMarine:outClaims	ultimate	1567006.346932978
-3	0	FiniteRe:claimsGenerators:subMotor:outClaims	ultimate	348740.8261565021
-3	0	FiniteRe:claimsGenerators:subPropertyAttritional:outClaims	ultimate	7334401.745392232
-3	0	FiniteRe:claimsGenerators:subPropertyCat:outClaims	ultimate	0.0
-3	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outCoveredClaims	ultimate	0.0
-3	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outFilteredClaims	ultimate	7334401.745392232
-3	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outCoveredClaims	ultimate	0.0
-3	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outFilteredClaims	ultimate	1567006.346932978
-3	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outCoveredClaims	ultimate	0.0
-3	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outFilteredClaims	ultimate	348740.8261565021
-3	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outCoveredClaims	ultimate	0.0
-3	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outFilteredClaims	ultimate	330540.95494512486
-3	0	FiniteRe:finiteRe:outExperienceAccount	balance	2625000.0
-3	0	FiniteRe:finiteRe:outExperienceAccount	premium	2625000.0
-3	0	FiniteRe:finiteRe:outExperienceAccount	netCashFlow	2625000.0
-3	0	FiniteRe:finiteRe:outExperienceAccount	claim	0.0
-3	0	FiniteRe:finiteRe:outReinsurance	result	875000.0
-3	0	FiniteRe:finiteRe:outReinsurance	premium	875000.0
-3	0	FiniteRe:finiteRe:outReinsurance	netCashFlow	875000.0
-3	0	FiniteRe:finiteRe:outReinsurance	claim	0.0
-3	0	FiniteRe:wholeAccountStopLoss:outCoveredClaims	ultimate	0.0
-3	0	FiniteRe:wholeAccountStopLoss:outFilteredClaims	ultimate	0.0
-3	0	FiniteRe:lineOfBusinessReinsurance:outClaimsCeded	ultimate	0.0
-3	0	FiniteRe:lineOfBusinessReinsurance:outClaimsGross	ultimate	9580689.873426836
-3	0	FiniteRe:claimsGenerators:outClaims	ultimate	9580689.873426836
-4	0	FiniteRe:claimsGenerators:subHull:outClaims	ultimate	2095238.4538324857
-4	0	FiniteRe:claimsGenerators:subMarine:outClaims	ultimate	1802148.9120970673
-4	0	FiniteRe:claimsGenerators:subMotor:outClaims	ultimate	5463830.280082857
-4	0	FiniteRe:claimsGenerators:subPropertyAttritional:outClaims	ultimate	1306088.6556058154
-4	0	FiniteRe:claimsGenerators:subPropertyCat:outClaims	ultimate	3.059666773004054E7
-4	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outCoveredClaims	ultimate	2.0000000000000004E7
-4	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outFilteredClaims	ultimate	3.1902756385646354E7
-4	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outCoveredClaims	ultimate	0.0
-4	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outFilteredClaims	ultimate	1802148.9120970673
-4	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outCoveredClaims	ultimate	0.0
-4	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outFilteredClaims	ultimate	5463830.280082857
-4	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outCoveredClaims	ultimate	0.0
-4	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outFilteredClaims	ultimate	2095238.4538324857
-4	0	FiniteRe:finiteRe:outExperienceAccount	balance	2624999.9999999963
-4	0	FiniteRe:finiteRe:outExperienceAccount	premium	2625000.0
-4	0	FiniteRe:finiteRe:outExperienceAccount	netCashFlow	2624999.9999999963
-4	0	FiniteRe:finiteRe:outExperienceAccount	claim	3.725290298461914E-9
-4	0	FiniteRe:finiteRe:outReinsurance	result	875000.0
-4	0	FiniteRe:finiteRe:outReinsurance	premium	875000.0
-4	0	FiniteRe:finiteRe:outReinsurance	netCashFlow	875000.0
-4	0	FiniteRe:finiteRe:outReinsurance	claim	0.0
-4	0	FiniteRe:wholeAccountStopLoss:outCoveredClaims	ultimate	3.725290298461914E-9
-4	0	FiniteRe:wholeAccountStopLoss:outFilteredClaims	ultimate	2.0000000000000004E7
-4	0	FiniteRe:lineOfBusinessReinsurance:outClaimsCeded	ultimate	2.0000000000000004E7
-4	0	FiniteRe:lineOfBusinessReinsurance:outClaimsGross	ultimate	4.126397403165876E7
-4	0	FiniteRe:claimsGenerators:outClaims	ultimate	4.126397403165876E7
-5	0	FiniteRe:claimsGenerators:subHull:outClaims	ultimate	661727.2463223039
-5	0	FiniteRe:claimsGenerators:subMarine:outClaims	ultimate	2257795.024581686
-5	0	FiniteRe:claimsGenerators:subMotor:outClaims	ultimate	2531035.2607614407
-5	0	FiniteRe:claimsGenerators:subPropertyAttritional:outClaims	ultimate	856832.9643335959
-5	0	FiniteRe:claimsGenerators:subPropertyCat:outClaims	ultimate	3.3763735968070626E7
-5	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outCoveredClaims	ultimate	2.0E7
-5	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outFilteredClaims	ultimate	3.462056893240422E7
-5	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outCoveredClaims	ultimate	0.0
-5	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outFilteredClaims	ultimate	2257795.024581686
-5	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outCoveredClaims	ultimate	0.0
-5	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outFilteredClaims	ultimate	2531035.2607614407
-5	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outCoveredClaims	ultimate	0.0
-5	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outFilteredClaims	ultimate	661727.2463223039
-5	0	FiniteRe:finiteRe:outExperienceAccount	balance	2625000.0
-5	0	FiniteRe:finiteRe:outExperienceAccount	premium	2625000.0
-5	0	FiniteRe:finiteRe:outExperienceAccount	netCashFlow	2625000.0
-5	0	FiniteRe:finiteRe:outExperienceAccount	claim	0.0
-5	0	FiniteRe:finiteRe:outReinsurance	result	875000.0
-5	0	FiniteRe:finiteRe:outReinsurance	premium	875000.0
-5	0	FiniteRe:finiteRe:outReinsurance	netCashFlow	875000.0
-5	0	FiniteRe:finiteRe:outReinsurance	claim	0.0
-5	0	FiniteRe:wholeAccountStopLoss:outCoveredClaims	ultimate	0.0
-5	0	FiniteRe:wholeAccountStopLoss:outFilteredClaims	ultimate	2.0E7
-5	0	FiniteRe:lineOfBusinessReinsurance:outClaimsCeded	ultimate	2.0E7
-5	0	FiniteRe:lineOfBusinessReinsurance:outClaimsGross	ultimate	4.007112646406965E7
-5	0	FiniteRe:claimsGenerators:outClaims	ultimate	4.007112646406965E7
-6	0	FiniteRe:claimsGenerators:subHull:outClaims	ultimate	7368279.918626042
-6	0	FiniteRe:claimsGenerators:subMarine:outClaims	ultimate	3336994.6533731623
-6	0	FiniteRe:claimsGenerators:subMotor:outClaims	ultimate	3084760.759950751
-6	0	FiniteRe:claimsGenerators:subPropertyAttritional:outClaims	ultimate	3527680.5200838298
-6	0	FiniteRe:claimsGenerators:subPropertyCat:outClaims	ultimate	1.4437422313567413E7
-6	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outCoveredClaims	ultimate	7965102.833651245
-6	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outFilteredClaims	ultimate	1.7965102833651245E7
-6	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outCoveredClaims	ultimate	0.0
-6	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outFilteredClaims	ultimate	3336994.6533731623
-6	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outCoveredClaims	ultimate	0.0
-6	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outFilteredClaims	ultimate	3084760.759950751
-6	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outCoveredClaims	ultimate	0.0
-6	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outFilteredClaims	ultimate	7368279.918626042
-6	0	FiniteRe:finiteRe:outExperienceAccount	balance	2625000.0
-6	0	FiniteRe:finiteRe:outExperienceAccount	premium	2625000.0
-6	0	FiniteRe:finiteRe:outExperienceAccount	netCashFlow	2625000.0
-6	0	FiniteRe:finiteRe:outExperienceAccount	claim	0.0
-6	0	FiniteRe:finiteRe:outReinsurance	result	875000.0
-6	0	FiniteRe:finiteRe:outReinsurance	premium	875000.0
-6	0	FiniteRe:finiteRe:outReinsurance	netCashFlow	875000.0
-6	0	FiniteRe:finiteRe:outReinsurance	claim	0.0
-6	0	FiniteRe:wholeAccountStopLoss:outCoveredClaims	ultimate	0.0
-6	0	FiniteRe:wholeAccountStopLoss:outFilteredClaims	ultimate	7965102.833651245
-6	0	FiniteRe:lineOfBusinessReinsurance:outClaimsCeded	ultimate	7965102.833651245
-6	0	FiniteRe:lineOfBusinessReinsurance:outClaimsGross	ultimate	3.17551381656012E7
-6	0	FiniteRe:claimsGenerators:outClaims	ultimate	3.17551381656012E7
-7	0	FiniteRe:claimsGenerators:subHull:outClaims	ultimate	5580497.621765663
-7	0	FiniteRe:claimsGenerators:subMarine:outClaims	ultimate	9529018.280349165
-7	0	FiniteRe:claimsGenerators:subMotor:outClaims	ultimate	443069.51002984494
-7	0	FiniteRe:claimsGenerators:subPropertyAttritional:outClaims	ultimate	6559394.149679156
-7	0	FiniteRe:claimsGenerators:subPropertyCat:outClaims	ultimate	4.5766168983782716E7
-7	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outCoveredClaims	ultimate	1.9999999999999996E7
-7	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outFilteredClaims	ultimate	5.232556313346188E7
-7	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outCoveredClaims	ultimate	0.0
-7	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outFilteredClaims	ultimate	9529018.280349165
-7	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outCoveredClaims	ultimate	0.0
-7	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outFilteredClaims	ultimate	443069.51002984494
-7	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outCoveredClaims	ultimate	0.0
-7	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outFilteredClaims	ultimate	5580497.621765663
-7	0	FiniteRe:finiteRe:outExperienceAccount	balance	2625000.0
-7	0	FiniteRe:finiteRe:outExperienceAccount	premium	2625000.0
-7	0	FiniteRe:finiteRe:outExperienceAccount	netCashFlow	2625000.0
-7	0	FiniteRe:finiteRe:outExperienceAccount	claim	0.0
-7	0	FiniteRe:finiteRe:outReinsurance	result	875000.0
-7	0	FiniteRe:finiteRe:outReinsurance	premium	875000.0
-7	0	FiniteRe:finiteRe:outReinsurance	netCashFlow	875000.0
-7	0	FiniteRe:finiteRe:outReinsurance	claim	0.0
-7	0	FiniteRe:wholeAccountStopLoss:outCoveredClaims	ultimate	0.0
-7	0	FiniteRe:wholeAccountStopLoss:outFilteredClaims	ultimate	1.9999999999999996E7
-7	0	FiniteRe:lineOfBusinessReinsurance:outClaimsCeded	ultimate	1.9999999999999996E7
-7	0	FiniteRe:lineOfBusinessReinsurance:outClaimsGross	ultimate	6.787814854560655E7
-7	0	FiniteRe:claimsGenerators:outClaims	ultimate	6.787814854560655E7
-8	0	FiniteRe:claimsGenerators:subHull:outClaims	ultimate	673365.0069339518
-8	0	FiniteRe:claimsGenerators:subMarine:outClaims	ultimate	2857441.5758206462
-8	0	FiniteRe:claimsGenerators:subMotor:outClaims	ultimate	551119.5126158831
-8	0	FiniteRe:claimsGenerators:subPropertyAttritional:outClaims	ultimate	718990.8431414324
-8	0	FiniteRe:claimsGenerators:subPropertyCat:outClaims	ultimate	9649420.45607634
-8	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outCoveredClaims	ultimate	368411.2992177736
-8	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outFilteredClaims	ultimate	1.0368411299217774E7
-8	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outCoveredClaims	ultimate	0.0
-8	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outFilteredClaims	ultimate	2857441.5758206462
-8	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outCoveredClaims	ultimate	0.0
-8	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outFilteredClaims	ultimate	551119.5126158831
-8	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outCoveredClaims	ultimate	0.0
-8	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outFilteredClaims	ultimate	673365.0069339518
-8	0	FiniteRe:finiteRe:outExperienceAccount	balance	2625000.0
-8	0	FiniteRe:finiteRe:outExperienceAccount	premium	2625000.0
-8	0	FiniteRe:finiteRe:outExperienceAccount	netCashFlow	2625000.0
-8	0	FiniteRe:finiteRe:outExperienceAccount	claim	0.0
-8	0	FiniteRe:finiteRe:outReinsurance	result	875000.0
-8	0	FiniteRe:finiteRe:outReinsurance	premium	875000.0
-8	0	FiniteRe:finiteRe:outReinsurance	netCashFlow	875000.0
-8	0	FiniteRe:finiteRe:outReinsurance	claim	0.0
-8	0	FiniteRe:wholeAccountStopLoss:outCoveredClaims	ultimate	0.0
-8	0	FiniteRe:wholeAccountStopLoss:outFilteredClaims	ultimate	368411.2992177736
-8	0	FiniteRe:lineOfBusinessReinsurance:outClaimsCeded	ultimate	368411.2992177736
-8	0	FiniteRe:lineOfBusinessReinsurance:outClaimsGross	ultimate	1.4450337394588254E7
-8	0	FiniteRe:claimsGenerators:outClaims	ultimate	1.4450337394588254E7
-9	0	FiniteRe:claimsGenerators:subHull:outClaims	ultimate	115232.41125567404
-9	0	FiniteRe:claimsGenerators:subMarine:outClaims	ultimate	5.35826597227579E7
-9	0	FiniteRe:claimsGenerators:subMotor:outClaims	ultimate	250372.70566605628
-9	0	FiniteRe:claimsGenerators:subPropertyAttritional:outClaims	ultimate	760121.975375866
-9	0	FiniteRe:claimsGenerators:subPropertyCat:outClaims	ultimate	2.052679294395809E7
-9	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outCoveredClaims	ultimate	1.1286914919333955E7
-9	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outFilteredClaims	ultimate	2.1286914919333953E7
-9	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outCoveredClaims	ultimate	2.0E7
-9	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outFilteredClaims	ultimate	5.35826597227579E7
-9	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outCoveredClaims	ultimate	0.0
-9	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outFilteredClaims	ultimate	250372.70566605628
-9	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outCoveredClaims	ultimate	0.0
-9	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outFilteredClaims	ultimate	115232.41125567404
-9	0	FiniteRe:finiteRe:outExperienceAccount	balance	0.0
-9	0	FiniteRe:finiteRe:outExperienceAccount	premium	2625000.0
-9	0	FiniteRe:finiteRe:outExperienceAccount	netCashFlow	0.0
-9	0	FiniteRe:finiteRe:outExperienceAccount	claim	2625000.0
-9	0	FiniteRe:finiteRe:outReinsurance	result	-7786914.919333957
-9	0	FiniteRe:finiteRe:outReinsurance	premium	875000.0
-9	0	FiniteRe:finiteRe:outReinsurance	netCashFlow	-7786914.919333957
-9	0	FiniteRe:finiteRe:outReinsurance	claim	8661914.919333957
-9	0	FiniteRe:wholeAccountStopLoss:outCoveredClaims	ultimate	1.1286914919333957E7
-9	0	FiniteRe:wholeAccountStopLoss:outFilteredClaims	ultimate	3.1286914919333957E7
-9	0	FiniteRe:lineOfBusinessReinsurance:outClaimsCeded	ultimate	3.1286914919333957E7
-9	0	FiniteRe:lineOfBusinessReinsurance:outClaimsGross	ultimate	7.52351797590136E7
-9	0	FiniteRe:claimsGenerators:outClaims	ultimate	7.52351797590136E7
-10	0	FiniteRe:claimsGenerators:subHull:outClaims	ultimate	2914979.0511136064
-10	0	FiniteRe:claimsGenerators:subMarine:outClaims	ultimate	1725421.6509085707
-10	0	FiniteRe:claimsGenerators:subMotor:outClaims	ultimate	4396023.127486125
-10	0	FiniteRe:claimsGenerators:subPropertyAttritional:outClaims	ultimate	2888254.0396256614
-10	0	FiniteRe:claimsGenerators:subPropertyCat:outClaims	ultimate	2.8567295772274494E7
-10	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outCoveredClaims	ultimate	1.9999999999999996E7
-10	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outFilteredClaims	ultimate	3.1455549811900154E7
-10	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outCoveredClaims	ultimate	0.0
-10	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outFilteredClaims	ultimate	1725421.6509085707
-10	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outCoveredClaims	ultimate	0.0
-10	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outFilteredClaims	ultimate	4396023.127486125
-10	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outCoveredClaims	ultimate	0.0
-10	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outFilteredClaims	ultimate	2914979.0511136064
-10	0	FiniteRe:finiteRe:outExperienceAccount	balance	2625000.0
-10	0	FiniteRe:finiteRe:outExperienceAccount	premium	2625000.0
-10	0	FiniteRe:finiteRe:outExperienceAccount	netCashFlow	2625000.0
-10	0	FiniteRe:finiteRe:outExperienceAccount	claim	0.0
-10	0	FiniteRe:finiteRe:outReinsurance	result	875000.0
-10	0	FiniteRe:finiteRe:outReinsurance	premium	875000.0
-10	0	FiniteRe:finiteRe:outReinsurance	netCashFlow	875000.0
-10	0	FiniteRe:finiteRe:outReinsurance	claim	0.0
-10	0	FiniteRe:wholeAccountStopLoss:outCoveredClaims	ultimate	0.0
-10	0	FiniteRe:wholeAccountStopLoss:outFilteredClaims	ultimate	1.9999999999999996E7
-10	0	FiniteRe:lineOfBusinessReinsurance:outClaimsCeded	ultimate	1.9999999999999996E7
-10	0	FiniteRe:lineOfBusinessReinsurance:outClaimsGross	ultimate	4.049197364140846E7
-10	0	FiniteRe:claimsGenerators:outClaims	ultimate	4.049197364140846E7
+iteration	period	valueIndex	path	field	value
+1	0	0	FiniteRe:claimsGenerators:subHull:outClaims	ultimate	1820971.0147944726
+1	0	0	FiniteRe:claimsGenerators:subMarine:outClaims	ultimate	3249038.7019140692
+1	0	0	FiniteRe:claimsGenerators:subMotor:outClaims	ultimate	509744.0615474318
+1	0	0	FiniteRe:claimsGenerators:subPropertyAttritional:outClaims	ultimate	3125427.8394055814
+1	0	0	FiniteRe:claimsGenerators:subPropertyCat:outClaims	ultimate	1.4070118649988588E7
+1	0	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outCoveredClaims	ultimate	0.0
+1	0	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outFilteredClaims	ultimate	1820971.0147944726
+1	0	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outCoveredClaims	ultimate	7195546.489394169
+1	0	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outFilteredClaims	ultimate	1.719554648939417E7
+1	0	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outCoveredClaims	ultimate	0.0
+1	0	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outFilteredClaims	ultimate	3249038.7019140692
+1	0	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outCoveredClaims	ultimate	0.0
+1	0	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outFilteredClaims	ultimate	509744.0615474318
+1	0	0	FiniteRe:finiteRe:outExperienceAccount	balance	2625000.0
+1	0	0	FiniteRe:finiteRe:outExperienceAccount	premium	2625000.0
+1	0	0	FiniteRe:finiteRe:outExperienceAccount	netCashFlow	2625000.0
+1	0	0	FiniteRe:finiteRe:outExperienceAccount	claim	0.0
+1	0	0	FiniteRe:finiteRe:outReinsurance	result	875000.0
+1	0	0	FiniteRe:finiteRe:outReinsurance	premium	875000.0
+1	0	0	FiniteRe:finiteRe:outReinsurance	netCashFlow	875000.0
+1	0	0	FiniteRe:finiteRe:outReinsurance	claim	0.0
+1	0	0	FiniteRe:wholeAccountStopLoss:outCoveredClaims	ultimate	0.0
+1	0	0	FiniteRe:wholeAccountStopLoss:outFilteredClaims	ultimate	7195546.489394169
+1	0	0	FiniteRe:lineOfBusinessReinsurance:outClaimsCeded	ultimate	7195546.489394169
+1	0	0	FiniteRe:lineOfBusinessReinsurance:outClaimsGross	ultimate	2.2775300267650142E7
+1	0	0	FiniteRe:claimsGenerators:outClaims	ultimate	2.2775300267650142E7
+2	0	0	FiniteRe:claimsGenerators:subHull:outClaims	ultimate	3044169.152393193
+2	0	0	FiniteRe:claimsGenerators:subMarine:outClaims	ultimate	2086537.8697915203
+2	0	0	FiniteRe:claimsGenerators:subMotor:outClaims	ultimate	1325256.0570474488
+2	0	0	FiniteRe:claimsGenerators:subPropertyAttritional:outClaims	ultimate	3019073.1452108673
+2	0	0	FiniteRe:claimsGenerators:subPropertyCat:outClaims	ultimate	3299562.695665114
+2	0	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outCoveredClaims	ultimate	0.0
+2	0	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outFilteredClaims	ultimate	3044169.152393193
+2	0	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outCoveredClaims	ultimate	0.0
+2	0	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outFilteredClaims	ultimate	6318635.840875981
+2	0	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outCoveredClaims	ultimate	0.0
+2	0	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outFilteredClaims	ultimate	2086537.8697915203
+2	0	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outCoveredClaims	ultimate	0.0
+2	0	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outFilteredClaims	ultimate	1325256.0570474488
+2	0	0	FiniteRe:finiteRe:outExperienceAccount	balance	2625000.0
+2	0	0	FiniteRe:finiteRe:outExperienceAccount	premium	2625000.0
+2	0	0	FiniteRe:finiteRe:outExperienceAccount	netCashFlow	2625000.0
+2	0	0	FiniteRe:finiteRe:outExperienceAccount	claim	0.0
+2	0	0	FiniteRe:finiteRe:outReinsurance	result	875000.0
+2	0	0	FiniteRe:finiteRe:outReinsurance	premium	875000.0
+2	0	0	FiniteRe:finiteRe:outReinsurance	netCashFlow	875000.0
+2	0	0	FiniteRe:finiteRe:outReinsurance	claim	0.0
+2	0	0	FiniteRe:wholeAccountStopLoss:outCoveredClaims	ultimate	0.0
+2	0	0	FiniteRe:wholeAccountStopLoss:outFilteredClaims	ultimate	0.0
+2	0	0	FiniteRe:lineOfBusinessReinsurance:outClaimsCeded	ultimate	0.0
+2	0	0	FiniteRe:lineOfBusinessReinsurance:outClaimsGross	ultimate	1.2774598920108143E7
+2	0	0	FiniteRe:claimsGenerators:outClaims	ultimate	1.2774598920108143E7
+3	0	0	FiniteRe:claimsGenerators:subHull:outClaims	ultimate	330540.95494512486
+3	0	0	FiniteRe:claimsGenerators:subMarine:outClaims	ultimate	1567006.346932978
+3	0	0	FiniteRe:claimsGenerators:subMotor:outClaims	ultimate	348740.8261565021
+3	0	0	FiniteRe:claimsGenerators:subPropertyAttritional:outClaims	ultimate	7334401.745392232
+3	0	0	FiniteRe:claimsGenerators:subPropertyCat:outClaims	ultimate	0.0
+3	0	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outCoveredClaims	ultimate	0.0
+3	0	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outFilteredClaims	ultimate	330540.95494512486
+3	0	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outCoveredClaims	ultimate	0.0
+3	0	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outFilteredClaims	ultimate	7334401.745392232
+3	0	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outCoveredClaims	ultimate	0.0
+3	0	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outFilteredClaims	ultimate	1567006.346932978
+3	0	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outCoveredClaims	ultimate	0.0
+3	0	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outFilteredClaims	ultimate	348740.8261565021
+3	0	0	FiniteRe:finiteRe:outExperienceAccount	balance	2625000.0
+3	0	0	FiniteRe:finiteRe:outExperienceAccount	premium	2625000.0
+3	0	0	FiniteRe:finiteRe:outExperienceAccount	netCashFlow	2625000.0
+3	0	0	FiniteRe:finiteRe:outExperienceAccount	claim	0.0
+3	0	0	FiniteRe:finiteRe:outReinsurance	result	875000.0
+3	0	0	FiniteRe:finiteRe:outReinsurance	premium	875000.0
+3	0	0	FiniteRe:finiteRe:outReinsurance	netCashFlow	875000.0
+3	0	0	FiniteRe:finiteRe:outReinsurance	claim	0.0
+3	0	0	FiniteRe:wholeAccountStopLoss:outCoveredClaims	ultimate	0.0
+3	0	0	FiniteRe:wholeAccountStopLoss:outFilteredClaims	ultimate	0.0
+3	0	0	FiniteRe:lineOfBusinessReinsurance:outClaimsCeded	ultimate	0.0
+3	0	0	FiniteRe:lineOfBusinessReinsurance:outClaimsGross	ultimate	9580689.873426836
+3	0	0	FiniteRe:claimsGenerators:outClaims	ultimate	9580689.873426836
+4	0	0	FiniteRe:claimsGenerators:subHull:outClaims	ultimate	2095238.4538324857
+4	0	0	FiniteRe:claimsGenerators:subMarine:outClaims	ultimate	1802148.9120970673
+4	0	0	FiniteRe:claimsGenerators:subMotor:outClaims	ultimate	5463830.280082857
+4	0	0	FiniteRe:claimsGenerators:subPropertyAttritional:outClaims	ultimate	1306088.6556058154
+4	0	0	FiniteRe:claimsGenerators:subPropertyCat:outClaims	ultimate	3.059666773004054E7
+4	0	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outCoveredClaims	ultimate	0.0
+4	0	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outFilteredClaims	ultimate	2095238.4538324857
+4	0	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outCoveredClaims	ultimate	2.0000000000000004E7
+4	0	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outFilteredClaims	ultimate	3.1902756385646354E7
+4	0	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outCoveredClaims	ultimate	0.0
+4	0	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outFilteredClaims	ultimate	1802148.9120970673
+4	0	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outCoveredClaims	ultimate	0.0
+4	0	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outFilteredClaims	ultimate	5463830.280082857
+4	0	0	FiniteRe:finiteRe:outExperienceAccount	balance	2624999.9999999963
+4	0	0	FiniteRe:finiteRe:outExperienceAccount	premium	2625000.0
+4	0	0	FiniteRe:finiteRe:outExperienceAccount	netCashFlow	2624999.9999999963
+4	0	0	FiniteRe:finiteRe:outExperienceAccount	claim	3.725290298461914E-9
+4	0	0	FiniteRe:finiteRe:outReinsurance	result	875000.0
+4	0	0	FiniteRe:finiteRe:outReinsurance	premium	875000.0
+4	0	0	FiniteRe:finiteRe:outReinsurance	netCashFlow	875000.0
+4	0	0	FiniteRe:finiteRe:outReinsurance	claim	0.0
+4	0	0	FiniteRe:wholeAccountStopLoss:outCoveredClaims	ultimate	3.725290298461914E-9
+4	0	0	FiniteRe:wholeAccountStopLoss:outFilteredClaims	ultimate	2.0000000000000004E7
+4	0	0	FiniteRe:lineOfBusinessReinsurance:outClaimsCeded	ultimate	2.0000000000000004E7
+4	0	0	FiniteRe:lineOfBusinessReinsurance:outClaimsGross	ultimate	4.126397403165876E7
+4	0	0	FiniteRe:claimsGenerators:outClaims	ultimate	4.126397403165876E7
+5	0	0	FiniteRe:claimsGenerators:subHull:outClaims	ultimate	661727.2463223039
+5	0	0	FiniteRe:claimsGenerators:subMarine:outClaims	ultimate	2257795.024581686
+5	0	0	FiniteRe:claimsGenerators:subMotor:outClaims	ultimate	2531035.2607614407
+5	0	0	FiniteRe:claimsGenerators:subPropertyAttritional:outClaims	ultimate	856832.9643335959
+5	0	0	FiniteRe:claimsGenerators:subPropertyCat:outClaims	ultimate	3.3763735968070626E7
+5	0	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outCoveredClaims	ultimate	0.0
+5	0	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outFilteredClaims	ultimate	661727.2463223039
+5	0	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outCoveredClaims	ultimate	2.0E7
+5	0	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outFilteredClaims	ultimate	3.462056893240422E7
+5	0	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outCoveredClaims	ultimate	0.0
+5	0	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outFilteredClaims	ultimate	2257795.024581686
+5	0	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outCoveredClaims	ultimate	0.0
+5	0	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outFilteredClaims	ultimate	2531035.2607614407
+5	0	0	FiniteRe:finiteRe:outExperienceAccount	balance	2625000.0
+5	0	0	FiniteRe:finiteRe:outExperienceAccount	premium	2625000.0
+5	0	0	FiniteRe:finiteRe:outExperienceAccount	netCashFlow	2625000.0
+5	0	0	FiniteRe:finiteRe:outExperienceAccount	claim	0.0
+5	0	0	FiniteRe:finiteRe:outReinsurance	result	875000.0
+5	0	0	FiniteRe:finiteRe:outReinsurance	premium	875000.0
+5	0	0	FiniteRe:finiteRe:outReinsurance	netCashFlow	875000.0
+5	0	0	FiniteRe:finiteRe:outReinsurance	claim	0.0
+5	0	0	FiniteRe:wholeAccountStopLoss:outCoveredClaims	ultimate	0.0
+5	0	0	FiniteRe:wholeAccountStopLoss:outFilteredClaims	ultimate	2.0E7
+5	0	0	FiniteRe:lineOfBusinessReinsurance:outClaimsCeded	ultimate	2.0E7
+5	0	0	FiniteRe:lineOfBusinessReinsurance:outClaimsGross	ultimate	4.007112646406965E7
+5	0	0	FiniteRe:claimsGenerators:outClaims	ultimate	4.007112646406965E7
+6	0	0	FiniteRe:claimsGenerators:subHull:outClaims	ultimate	7368279.918626042
+6	0	0	FiniteRe:claimsGenerators:subMarine:outClaims	ultimate	3336994.6533731623
+6	0	0	FiniteRe:claimsGenerators:subMotor:outClaims	ultimate	3084760.759950751
+6	0	0	FiniteRe:claimsGenerators:subPropertyAttritional:outClaims	ultimate	3527680.5200838298
+6	0	0	FiniteRe:claimsGenerators:subPropertyCat:outClaims	ultimate	1.4437422313567413E7
+6	0	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outCoveredClaims	ultimate	0.0
+6	0	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outFilteredClaims	ultimate	7368279.918626042
+6	0	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outCoveredClaims	ultimate	7965102.833651245
+6	0	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outFilteredClaims	ultimate	1.7965102833651245E7
+6	0	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outCoveredClaims	ultimate	0.0
+6	0	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outFilteredClaims	ultimate	3336994.6533731623
+6	0	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outCoveredClaims	ultimate	0.0
+6	0	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outFilteredClaims	ultimate	3084760.759950751
+6	0	0	FiniteRe:finiteRe:outExperienceAccount	balance	2625000.0
+6	0	0	FiniteRe:finiteRe:outExperienceAccount	premium	2625000.0
+6	0	0	FiniteRe:finiteRe:outExperienceAccount	netCashFlow	2625000.0
+6	0	0	FiniteRe:finiteRe:outExperienceAccount	claim	0.0
+6	0	0	FiniteRe:finiteRe:outReinsurance	result	875000.0
+6	0	0	FiniteRe:finiteRe:outReinsurance	premium	875000.0
+6	0	0	FiniteRe:finiteRe:outReinsurance	netCashFlow	875000.0
+6	0	0	FiniteRe:finiteRe:outReinsurance	claim	0.0
+6	0	0	FiniteRe:wholeAccountStopLoss:outCoveredClaims	ultimate	0.0
+6	0	0	FiniteRe:wholeAccountStopLoss:outFilteredClaims	ultimate	7965102.833651245
+6	0	0	FiniteRe:lineOfBusinessReinsurance:outClaimsCeded	ultimate	7965102.833651245
+6	0	0	FiniteRe:lineOfBusinessReinsurance:outClaimsGross	ultimate	3.17551381656012E7
+6	0	0	FiniteRe:claimsGenerators:outClaims	ultimate	3.17551381656012E7
+7	0	0	FiniteRe:claimsGenerators:subHull:outClaims	ultimate	5580497.621765663
+7	0	0	FiniteRe:claimsGenerators:subMarine:outClaims	ultimate	9529018.280349165
+7	0	0	FiniteRe:claimsGenerators:subMotor:outClaims	ultimate	443069.51002984494
+7	0	0	FiniteRe:claimsGenerators:subPropertyAttritional:outClaims	ultimate	6559394.149679156
+7	0	0	FiniteRe:claimsGenerators:subPropertyCat:outClaims	ultimate	4.5766168983782716E7
+7	0	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outCoveredClaims	ultimate	0.0
+7	0	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outFilteredClaims	ultimate	5580497.621765663
+7	0	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outCoveredClaims	ultimate	1.9999999999999996E7
+7	0	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outFilteredClaims	ultimate	5.232556313346188E7
+7	0	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outCoveredClaims	ultimate	0.0
+7	0	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outFilteredClaims	ultimate	9529018.280349165
+7	0	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outCoveredClaims	ultimate	0.0
+7	0	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outFilteredClaims	ultimate	443069.51002984494
+7	0	0	FiniteRe:finiteRe:outExperienceAccount	balance	2625000.0
+7	0	0	FiniteRe:finiteRe:outExperienceAccount	premium	2625000.0
+7	0	0	FiniteRe:finiteRe:outExperienceAccount	netCashFlow	2625000.0
+7	0	0	FiniteRe:finiteRe:outExperienceAccount	claim	0.0
+7	0	0	FiniteRe:finiteRe:outReinsurance	result	875000.0
+7	0	0	FiniteRe:finiteRe:outReinsurance	premium	875000.0
+7	0	0	FiniteRe:finiteRe:outReinsurance	netCashFlow	875000.0
+7	0	0	FiniteRe:finiteRe:outReinsurance	claim	0.0
+7	0	0	FiniteRe:wholeAccountStopLoss:outCoveredClaims	ultimate	0.0
+7	0	0	FiniteRe:wholeAccountStopLoss:outFilteredClaims	ultimate	1.9999999999999996E7
+7	0	0	FiniteRe:lineOfBusinessReinsurance:outClaimsCeded	ultimate	1.9999999999999996E7
+7	0	0	FiniteRe:lineOfBusinessReinsurance:outClaimsGross	ultimate	6.787814854560655E7
+7	0	0	FiniteRe:claimsGenerators:outClaims	ultimate	6.787814854560655E7
+8	0	0	FiniteRe:claimsGenerators:subHull:outClaims	ultimate	673365.0069339518
+8	0	0	FiniteRe:claimsGenerators:subMarine:outClaims	ultimate	2857441.5758206462
+8	0	0	FiniteRe:claimsGenerators:subMotor:outClaims	ultimate	551119.5126158831
+8	0	0	FiniteRe:claimsGenerators:subPropertyAttritional:outClaims	ultimate	718990.8431414324
+8	0	0	FiniteRe:claimsGenerators:subPropertyCat:outClaims	ultimate	9649420.45607634
+8	0	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outCoveredClaims	ultimate	0.0
+8	0	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outFilteredClaims	ultimate	673365.0069339518
+8	0	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outCoveredClaims	ultimate	368411.2992177736
+8	0	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outFilteredClaims	ultimate	1.0368411299217774E7
+8	0	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outCoveredClaims	ultimate	0.0
+8	0	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outFilteredClaims	ultimate	2857441.5758206462
+8	0	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outCoveredClaims	ultimate	0.0
+8	0	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outFilteredClaims	ultimate	551119.5126158831
+8	0	0	FiniteRe:finiteRe:outExperienceAccount	balance	2625000.0
+8	0	0	FiniteRe:finiteRe:outExperienceAccount	premium	2625000.0
+8	0	0	FiniteRe:finiteRe:outExperienceAccount	netCashFlow	2625000.0
+8	0	0	FiniteRe:finiteRe:outExperienceAccount	claim	0.0
+8	0	0	FiniteRe:finiteRe:outReinsurance	result	875000.0
+8	0	0	FiniteRe:finiteRe:outReinsurance	premium	875000.0
+8	0	0	FiniteRe:finiteRe:outReinsurance	netCashFlow	875000.0
+8	0	0	FiniteRe:finiteRe:outReinsurance	claim	0.0
+8	0	0	FiniteRe:wholeAccountStopLoss:outCoveredClaims	ultimate	0.0
+8	0	0	FiniteRe:wholeAccountStopLoss:outFilteredClaims	ultimate	368411.2992177736
+8	0	0	FiniteRe:lineOfBusinessReinsurance:outClaimsCeded	ultimate	368411.2992177736
+8	0	0	FiniteRe:lineOfBusinessReinsurance:outClaimsGross	ultimate	1.4450337394588254E7
+8	0	0	FiniteRe:claimsGenerators:outClaims	ultimate	1.4450337394588254E7
+9	0	0	FiniteRe:claimsGenerators:subHull:outClaims	ultimate	115232.41125567404
+9	0	0	FiniteRe:claimsGenerators:subMarine:outClaims	ultimate	5.35826597227579E7
+9	0	0	FiniteRe:claimsGenerators:subMotor:outClaims	ultimate	250372.70566605628
+9	0	0	FiniteRe:claimsGenerators:subPropertyAttritional:outClaims	ultimate	760121.975375866
+9	0	0	FiniteRe:claimsGenerators:subPropertyCat:outClaims	ultimate	2.052679294395809E7
+9	0	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outCoveredClaims	ultimate	0.0
+9	0	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outFilteredClaims	ultimate	115232.41125567404
+9	0	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outCoveredClaims	ultimate	1.1286914919333955E7
+9	0	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outFilteredClaims	ultimate	2.1286914919333953E7
+9	0	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outCoveredClaims	ultimate	2.0E7
+9	0	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outFilteredClaims	ultimate	5.35826597227579E7
+9	0	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outCoveredClaims	ultimate	0.0
+9	0	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outFilteredClaims	ultimate	250372.70566605628
+9	0	0	FiniteRe:finiteRe:outExperienceAccount	balance	0.0
+9	0	0	FiniteRe:finiteRe:outExperienceAccount	premium	2625000.0
+9	0	0	FiniteRe:finiteRe:outExperienceAccount	netCashFlow	0.0
+9	0	0	FiniteRe:finiteRe:outExperienceAccount	claim	2625000.0
+9	0	0	FiniteRe:finiteRe:outReinsurance	result	-7786914.919333957
+9	0	0	FiniteRe:finiteRe:outReinsurance	premium	875000.0
+9	0	0	FiniteRe:finiteRe:outReinsurance	netCashFlow	-7786914.919333957
+9	0	0	FiniteRe:finiteRe:outReinsurance	claim	8661914.919333957
+9	0	0	FiniteRe:wholeAccountStopLoss:outCoveredClaims	ultimate	1.1286914919333957E7
+9	0	0	FiniteRe:wholeAccountStopLoss:outFilteredClaims	ultimate	3.1286914919333957E7
+9	0	0	FiniteRe:lineOfBusinessReinsurance:outClaimsCeded	ultimate	3.1286914919333957E7
+9	0	0	FiniteRe:lineOfBusinessReinsurance:outClaimsGross	ultimate	7.52351797590136E7
+9	0	0	FiniteRe:claimsGenerators:outClaims	ultimate	7.52351797590136E7
+10	0	0	FiniteRe:claimsGenerators:subHull:outClaims	ultimate	2914979.0511136064
+10	0	0	FiniteRe:claimsGenerators:subMarine:outClaims	ultimate	1725421.6509085707
+10	0	0	FiniteRe:claimsGenerators:subMotor:outClaims	ultimate	4396023.127486125
+10	0	0	FiniteRe:claimsGenerators:subPropertyAttritional:outClaims	ultimate	2888254.0396256614
+10	0	0	FiniteRe:claimsGenerators:subPropertyCat:outClaims	ultimate	2.8567295772274494E7
+10	0	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outCoveredClaims	ultimate	0.0
+10	0	0	FiniteRe:lineOfBusinessReinsurance:subHullStopLoss:outFilteredClaims	ultimate	2914979.0511136064
+10	0	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outCoveredClaims	ultimate	1.9999999999999996E7
+10	0	0	FiniteRe:lineOfBusinessReinsurance:subPropertyStopLoss:outFilteredClaims	ultimate	3.1455549811900154E7
+10	0	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outCoveredClaims	ultimate	0.0
+10	0	0	FiniteRe:lineOfBusinessReinsurance:subMarineStopLoss:outFilteredClaims	ultimate	1725421.6509085707
+10	0	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outCoveredClaims	ultimate	0.0
+10	0	0	FiniteRe:lineOfBusinessReinsurance:subMotorStopLoss:outFilteredClaims	ultimate	4396023.127486125
+10	0	0	FiniteRe:finiteRe:outExperienceAccount	balance	2625000.0
+10	0	0	FiniteRe:finiteRe:outExperienceAccount	premium	2625000.0
+10	0	0	FiniteRe:finiteRe:outExperienceAccount	netCashFlow	2625000.0
+10	0	0	FiniteRe:finiteRe:outExperienceAccount	claim	0.0
+10	0	0	FiniteRe:finiteRe:outReinsurance	result	875000.0
+10	0	0	FiniteRe:finiteRe:outReinsurance	premium	875000.0
+10	0	0	FiniteRe:finiteRe:outReinsurance	netCashFlow	875000.0
+10	0	0	FiniteRe:finiteRe:outReinsurance	claim	0.0
+10	0	0	FiniteRe:wholeAccountStopLoss:outCoveredClaims	ultimate	0.0
+10	0	0	FiniteRe:wholeAccountStopLoss:outFilteredClaims	ultimate	1.9999999999999996E7
+10	0	0	FiniteRe:lineOfBusinessReinsurance:outClaimsCeded	ultimate	1.9999999999999996E7
+10	0	0	FiniteRe:lineOfBusinessReinsurance:outClaimsGross	ultimate	4.049197364140846E7
+10	0	0	FiniteRe:claimsGenerators:outClaims	ultimate	4.049197364140846E7

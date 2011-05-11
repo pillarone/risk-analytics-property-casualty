@@ -1,51 +1,51 @@
-iteration	period	path	field	value
-1	0	QS_XL_SL_:claimsGenerator:outClaims	ultimate	104.52419651925436
-1	0	QS_XL_SL_:wxl:outCoveredClaims	ultimate	0.0
-1	0	QS_XL_SL_:quotaShare:outCoveredClaims	ultimate	122.07685435707923
-1	0	QS_XL_SL_:stopLoss:outCoveredClaims	ultimate	0.0
-1	0	QS_XL_SL_:aggregator:outClaimsCeded	ultimate	122.07685435707923
-2	0	QS_XL_SL_:claimsGenerator:outClaims	ultimate	215.86494184093672
-2	0	QS_XL_SL_:wxl:outCoveredClaims	ultimate	0.0
-2	0	QS_XL_SL_:quotaShare:outCoveredClaims	ultimate	148.67437876060916
-2	0	QS_XL_SL_:stopLoss:outCoveredClaims	ultimate	0.0
-2	0	QS_XL_SL_:aggregator:outClaimsCeded	ultimate	148.67437876060916
-3	0	QS_XL_SL_:claimsGenerator:outClaims	ultimate	0.0
-3	0	QS_XL_SL_:wxl:outCoveredClaims	ultimate	0.0
-3	0	QS_XL_SL_:quotaShare:outCoveredClaims	ultimate	88.7247569247255
-3	0	QS_XL_SL_:stopLoss:outCoveredClaims	ultimate	0.0
-3	0	QS_XL_SL_:aggregator:outClaimsCeded	ultimate	88.7247569247255
-4	0	QS_XL_SL_:claimsGenerator:outClaims	ultimate	119.37516796051884
-4	0	QS_XL_SL_:wxl:outCoveredClaims	ultimate	3.5626175723631945
-4	0	QS_XL_SL_:quotaShare:outCoveredClaims	ultimate	123.76627840958145
-4	0	QS_XL_SL_:stopLoss:outCoveredClaims	ultimate	0.0
-4	0	QS_XL_SL_:aggregator:outClaimsCeded	ultimate	127.32889598194464
-5	0	QS_XL_SL_:claimsGenerator:outClaims	ultimate	75.66914632709417
-5	0	QS_XL_SL_:wxl:outCoveredClaims	ultimate	0.0
-5	0	QS_XL_SL_:quotaShare:outCoveredClaims	ultimate	110.88900014688815
-5	0	QS_XL_SL_:stopLoss:outCoveredClaims	ultimate	0.0
-5	0	QS_XL_SL_:aggregator:outClaimsCeded	ultimate	110.88900014688815
-6	0	QS_XL_SL_:claimsGenerator:outClaims	ultimate	0.0
-6	0	QS_XL_SL_:wxl:outCoveredClaims	ultimate	0.0
-6	0	QS_XL_SL_:quotaShare:outCoveredClaims	ultimate	87.45613368837768
-6	0	QS_XL_SL_:stopLoss:outCoveredClaims	ultimate	0.0
-6	0	QS_XL_SL_:aggregator:outClaimsCeded	ultimate	87.45613368837768
-7	0	QS_XL_SL_:claimsGenerator:outClaims	ultimate	0.0
-7	0	QS_XL_SL_:wxl:outCoveredClaims	ultimate	0.0
-7	0	QS_XL_SL_:quotaShare:outCoveredClaims	ultimate	96.86697350315553
-7	0	QS_XL_SL_:stopLoss:outCoveredClaims	ultimate	0.0
-7	0	QS_XL_SL_:aggregator:outClaimsCeded	ultimate	96.86697350315553
-8	0	QS_XL_SL_:claimsGenerator:outClaims	ultimate	0.0
-8	0	QS_XL_SL_:wxl:outCoveredClaims	ultimate	0.0
-8	0	QS_XL_SL_:quotaShare:outCoveredClaims	ultimate	87.77469722206804
-8	0	QS_XL_SL_:stopLoss:outCoveredClaims	ultimate	0.0
-8	0	QS_XL_SL_:aggregator:outClaimsCeded	ultimate	87.77469722206804
-9	0	QS_XL_SL_:claimsGenerator:outClaims	ultimate	90.58688281492182
-9	0	QS_XL_SL_:wxl:outCoveredClaims	ultimate	0.0
-9	0	QS_XL_SL_:quotaShare:outCoveredClaims	ultimate	111.60753745692459
-9	0	QS_XL_SL_:stopLoss:outCoveredClaims	ultimate	0.0
-9	0	QS_XL_SL_:aggregator:outClaimsCeded	ultimate	111.60753745692459
-10	0	QS_XL_SL_:claimsGenerator:outClaims	ultimate	207.69442762646537
-10	0	QS_XL_SL_:wxl:outCoveredClaims	ultimate	0.0
-10	0	QS_XL_SL_:quotaShare:outCoveredClaims	ultimate	159.00635322139013
-10	0	QS_XL_SL_:stopLoss:outCoveredClaims	ultimate	0.0
-10	0	QS_XL_SL_:aggregator:outClaimsCeded	ultimate	159.00635322139016
+iteration	period	valueIndex	path	field	value
+1	0	0	QS_XL_SL_:claimsGenerator:outClaims	ultimate	104.52419651925436
+1	0	0	QS_XL_SL_:wxl:outCoveredClaims	ultimate	0.0
+1	0	0	QS_XL_SL_:quotaShare:outCoveredClaims	ultimate	122.07685435707923
+1	0	0	QS_XL_SL_:stopLoss:outCoveredClaims	ultimate	0.0
+1	0	0	QS_XL_SL_:aggregator:outClaimsCeded	ultimate	122.07685435707923
+2	0	0	QS_XL_SL_:claimsGenerator:outClaims	ultimate	215.86494184093672
+2	0	0	QS_XL_SL_:wxl:outCoveredClaims	ultimate	0.0
+2	0	0	QS_XL_SL_:quotaShare:outCoveredClaims	ultimate	148.67437876060916
+2	0	0	QS_XL_SL_:stopLoss:outCoveredClaims	ultimate	0.0
+2	0	0	QS_XL_SL_:aggregator:outClaimsCeded	ultimate	148.67437876060916
+3	0	0	QS_XL_SL_:claimsGenerator:outClaims	ultimate	0.0
+3	0	0	QS_XL_SL_:wxl:outCoveredClaims	ultimate	0.0
+3	0	0	QS_XL_SL_:quotaShare:outCoveredClaims	ultimate	88.7247569247255
+3	0	0	QS_XL_SL_:stopLoss:outCoveredClaims	ultimate	0.0
+3	0	0	QS_XL_SL_:aggregator:outClaimsCeded	ultimate	88.7247569247255
+4	0	0	QS_XL_SL_:claimsGenerator:outClaims	ultimate	119.37516796051884
+4	0	0	QS_XL_SL_:wxl:outCoveredClaims	ultimate	3.5626175723631945
+4	0	0	QS_XL_SL_:quotaShare:outCoveredClaims	ultimate	123.76627840958145
+4	0	0	QS_XL_SL_:stopLoss:outCoveredClaims	ultimate	0.0
+4	0	0	QS_XL_SL_:aggregator:outClaimsCeded	ultimate	127.32889598194464
+5	0	0	QS_XL_SL_:claimsGenerator:outClaims	ultimate	75.66914632709417
+5	0	0	QS_XL_SL_:wxl:outCoveredClaims	ultimate	0.0
+5	0	0	QS_XL_SL_:quotaShare:outCoveredClaims	ultimate	110.88900014688815
+5	0	0	QS_XL_SL_:stopLoss:outCoveredClaims	ultimate	0.0
+5	0	0	QS_XL_SL_:aggregator:outClaimsCeded	ultimate	110.88900014688815
+6	0	0	QS_XL_SL_:claimsGenerator:outClaims	ultimate	0.0
+6	0	0	QS_XL_SL_:wxl:outCoveredClaims	ultimate	0.0
+6	0	0	QS_XL_SL_:quotaShare:outCoveredClaims	ultimate	87.45613368837768
+6	0	0	QS_XL_SL_:stopLoss:outCoveredClaims	ultimate	0.0
+6	0	0	QS_XL_SL_:aggregator:outClaimsCeded	ultimate	87.45613368837768
+7	0	0	QS_XL_SL_:claimsGenerator:outClaims	ultimate	0.0
+7	0	0	QS_XL_SL_:wxl:outCoveredClaims	ultimate	0.0
+7	0	0	QS_XL_SL_:quotaShare:outCoveredClaims	ultimate	96.86697350315553
+7	0	0	QS_XL_SL_:stopLoss:outCoveredClaims	ultimate	0.0
+7	0	0	QS_XL_SL_:aggregator:outClaimsCeded	ultimate	96.86697350315553
+8	0	0	QS_XL_SL_:claimsGenerator:outClaims	ultimate	0.0
+8	0	0	QS_XL_SL_:wxl:outCoveredClaims	ultimate	0.0
+8	0	0	QS_XL_SL_:quotaShare:outCoveredClaims	ultimate	87.77469722206804
+8	0	0	QS_XL_SL_:stopLoss:outCoveredClaims	ultimate	0.0
+8	0	0	QS_XL_SL_:aggregator:outClaimsCeded	ultimate	87.77469722206804
+9	0	0	QS_XL_SL_:claimsGenerator:outClaims	ultimate	90.58688281492182
+9	0	0	QS_XL_SL_:wxl:outCoveredClaims	ultimate	0.0
+9	0	0	QS_XL_SL_:quotaShare:outCoveredClaims	ultimate	111.60753745692459
+9	0	0	QS_XL_SL_:stopLoss:outCoveredClaims	ultimate	0.0
+9	0	0	QS_XL_SL_:aggregator:outClaimsCeded	ultimate	111.60753745692459
+10	0	0	QS_XL_SL_:claimsGenerator:outClaims	ultimate	207.69442762646537
+10	0	0	QS_XL_SL_:wxl:outCoveredClaims	ultimate	0.0
+10	0	0	QS_XL_SL_:quotaShare:outCoveredClaims	ultimate	159.00635322139013
+10	0	0	QS_XL_SL_:stopLoss:outCoveredClaims	ultimate	0.0
+10	0	0	QS_XL_SL_:aggregator:outClaimsCeded	ultimate	159.00635322139016
