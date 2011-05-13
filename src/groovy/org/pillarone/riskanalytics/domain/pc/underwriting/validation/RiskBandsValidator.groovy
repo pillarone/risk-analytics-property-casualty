@@ -14,7 +14,7 @@ import org.pillarone.riskanalytics.core.parameterization.validation.IParameteriz
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractStrategy
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.SurplusContractStrategy
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReverseSurplusContractStrategy
-import org.pillarone.riskanalytics.domain.utils.validation.ParameterValidationErrorImpl
+import org.pillarone.riskanalytics.domain.utils.validation.ParameterValidationImpl
 import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterObjectParameterHolder
 import org.pillarone.riskanalytics.core.parameterization.validation.ValidationType
 
@@ -70,8 +70,8 @@ class RiskBandsValidator implements IParameterizationValidator {
                 List<Double> numberOfPolicies = item.value.getColumnByName(RiskBands.NUMBER_OF_POLICIES)
                 for (int row = 0; row < numberOfPolicies.size(); row++) {
                     if (numberOfPolicies[row] > 0) continue
-                    ParameterValidationErrorImpl error = new ParameterValidationErrorImpl(ValidationType.ERROR,
-                            'surplus.ri.needs.non.trivial.number.of.policies', [numberOfPolicies[row], row + 1]
+                    ParameterValidationImpl error = new ParameterValidationImpl(
+                        'surplus.ri.needs.non.trivial.number.of.policies', [numberOfPolicies[row], row+1]
                     )
                     error.path = path
                     errors << error

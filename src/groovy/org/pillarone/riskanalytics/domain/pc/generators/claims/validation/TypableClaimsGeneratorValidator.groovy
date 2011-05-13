@@ -12,8 +12,9 @@ import org.pillarone.riskanalytics.core.simulation.item.parameter.MultiDimension
 import org.pillarone.riskanalytics.domain.pc.underwriting.IUnderwritingInfoMarker
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.pc.claims.RiskAllocatorType
-import org.pillarone.riskanalytics.domain.utils.validation.ParameterValidationErrorImpl
+import org.pillarone.riskanalytics.domain.utils.validation.ParameterValidationImpl
 import org.pillarone.riskanalytics.core.parameterization.validation.ValidationType
+import org.pillarone.riskanalytics.domain.utils.validation.ParameterValidationImpl
 
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
@@ -54,11 +55,11 @@ class TypableClaimsGeneratorValidator implements IParameterizationValidator {
             RiskAllocatorType allocatorType = associateExposureInfoPerClaimsGenerator[claimsGeneratorPath]
             boolean hasSelectedUnderwritingInfo = underwritingInfoPerClaimsGenerator[claimsGeneratorPath]
             if (!allocatorType.equals(RiskAllocatorType.NONE) && !hasSelectedUnderwritingInfo) {
-                ParameterValidationErrorImpl error = new ParameterValidationErrorImpl(ValidationType.ERROR,
+                ParameterValidationImpl error = new ParameterValidationImpl(ValidationType.ERROR,
                         'associate.exposure.info.requires.underwriting.info', [allocatorType])
                 errors << error
                 error.path = claimsGeneratorPath + ':parmAssociateExposureInfo'
-                error = new ParameterValidationErrorImpl(
+                error = new ParameterValidationImpl(ValidationType.ERROR,
                         'associate.exposure.info.requires.underwriting.info', [allocatorType])
                 errors << error
                 error.path = claimsGeneratorPath + ':parmUnderwritingInformation'

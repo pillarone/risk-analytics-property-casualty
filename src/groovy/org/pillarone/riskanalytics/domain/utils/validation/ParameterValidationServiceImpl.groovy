@@ -8,7 +8,7 @@ import org.pillarone.riskanalytics.core.parameterization.validation.ValidationTy
 class ParameterValidationServiceImpl extends AbstractParameterValidationService {
 
     ParameterValidation createErrorObject(ValidationType validationType, String msg, List args) {
-        return new ParameterValidationErrorImpl(validationType, msg, args)
+        return new ParameterValidationImpl(validationType, msg, args)
     }
 
 

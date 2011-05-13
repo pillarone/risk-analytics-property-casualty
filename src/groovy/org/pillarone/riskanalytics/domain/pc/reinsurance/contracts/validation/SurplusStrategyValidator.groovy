@@ -1,28 +1,22 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.validation
 
-import org.pillarone.riskanalytics.core.parameterization.validation.IParameterizationValidator
 import org.apache.commons.logging.Log
 import org.apache.commons.logging.LogFactory
-
-import org.pillarone.riskanalytics.core.parameterization.validation.ParameterValidation
-import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterHolder
-
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
-
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
-
-import org.pillarone.riskanalytics.domain.utils.validation.ParameterValidationErrorImpl
-
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.CoverAttributeStrategyType
-import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterObjectParameterHolder
-
-import org.pillarone.riskanalytics.domain.pc.claims.RiskAllocatorType
-import org.pillarone.riskanalytics.domain.pc.generators.claims.DevelopedTypableClaimsGenerator
-import org.pillarone.riskanalytics.domain.pc.lob.ConfigurableLobWithReserves
-import org.pillarone.riskanalytics.domain.pc.generators.claims.ClaimsGeneratorType
-import org.pillarone.riskanalytics.core.simulation.item.parameter.MultiDimensionalParameterHolder
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
+import org.pillarone.riskanalytics.core.parameterization.validation.IParameterizationValidator
+import org.pillarone.riskanalytics.core.parameterization.validation.ParameterValidation
 import org.pillarone.riskanalytics.core.parameterization.validation.ValidationType
+import org.pillarone.riskanalytics.core.simulation.item.parameter.MultiDimensionalParameterHolder
+import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterHolder
+import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterObjectParameterHolder
+import org.pillarone.riskanalytics.domain.pc.claims.RiskAllocatorType
+import org.pillarone.riskanalytics.domain.pc.generators.claims.ClaimsGeneratorType
+import org.pillarone.riskanalytics.domain.pc.generators.claims.DevelopedTypableClaimsGenerator
+import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
+import org.pillarone.riskanalytics.domain.pc.lob.ConfigurableLobWithReserves
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.CoverAttributeStrategyType
+import org.pillarone.riskanalytics.domain.utils.validation.ParameterValidationImpl
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -72,7 +66,7 @@ class SurplusStrategyValidator implements IParameterizationValidator {
     }
 
     private ParameterValidation error(ValidationType validationType, String message, String args, def parameter) {
-        def parameterValidationError = new ParameterValidationErrorImpl(validationType, message, [args])
+        def parameterValidationError = new ParameterValidationImpl(validationType, message, [args])
         parameterValidationError.path = parameter.path
         parameterValidationError
     }
