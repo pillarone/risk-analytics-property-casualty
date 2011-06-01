@@ -24,7 +24,7 @@ grails.project.dependency.resolution = {
         test ":code-coverage:1.2.2"
 
         if (appName == "RiskAnalyticsPropertyCasualty") {
-            runtime "org.pillarone:risk-analytics-core:1.4-ALPHA-2.5.1-kti"
+            runtime "org.pillarone:risk-analytics-core:1.4-ALPHA-2.5.3-kti"
         }
     }
 }
@@ -44,3 +44,4 @@ grails.project.dependency.distribution = {
         authentication username: 'root', privateKey: "${userHome.absolutePath}/.ssh/id_rsa", passphrase: passPhrase
     }
 }
+grails.plugin.location.'risk-analytics-core' = "../RiskAnalyticsCore"
