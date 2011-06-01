@@ -64,7 +64,6 @@ public class ReservesGeneratorLean extends GeneratorCachingComponent implements 
 
         claim.setPaid(claim.getUltimate() * parmPeriodPaymentPortion);
         claim.setReserved(claim.getUltimate() - claim.getPaid());
-        claim.setPeril(this);
         outClaimsDevelopment.add(claim);
         outClaimsLeanDevelopment.add(claim);
 

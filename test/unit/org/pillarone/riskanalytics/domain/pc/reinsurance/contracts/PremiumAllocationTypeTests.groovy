@@ -21,9 +21,12 @@ import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
 import org.pillarone.riskanalytics.domain.pc.constraints.SegmentPortion
-
+import org.pillarone.riskanalytics.domain.pc.generators.severities.Event
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.ICommissionStrategy
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
+import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker
+import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
+import org.pillarone.riskanalytics.core.components.Component
 
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
@@ -238,10 +241,10 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
                 getCoverAttributeStrategy(['lines': ['motor']], simulationScope.model),
                 fixedCommission)
 
-        Claim claim1 = new Claim(peril: perilA, lineOfBusiness: lob['motor'], value: 100d, claimType: ClaimType.ATTRITIONAL)
-        Claim claim2 = new Claim(peril: perilA, lineOfBusiness: lob['motor'], value: 100d, claimType: ClaimType.SINGLE)
-        Claim claim3 = new Claim(peril: perilB, lineOfBusiness: lob['motor'], value: 200d, claimType: ClaimType.SINGLE)
-        Claim claim4 = new Claim(peril: perilB, lineOfBusiness: lob['motor'], value: 400d, claimType: ClaimType.SINGLE)
+        Claim claim1 = getClaim(perilA, lob['motor'], 100, 0, ClaimType.ATTRITIONAL)
+        Claim claim2 = getClaim(perilA, lob['motor'], 100, 0, ClaimType.SINGLE)
+        Claim claim3 = getClaim(perilB, lob['motor'], 200, 0, ClaimType.SINGLE)
+        Claim claim4 = getClaim(perilB, lob['motor'], 400, 0, ClaimType.SINGLE)
 
         UnderwritingInfo underwritingInfoMotor15000 = new UnderwritingInfo(premium: 15000, commission: 200, lineOfBusiness: lob['motor'])
         UnderwritingInfo underwritingInfoMotor10000 = new UnderwritingInfo(premium: 10000, commission: 100, lineOfBusiness: lob['motor'])
@@ -286,14 +289,14 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
                 getCoverAttributeStrategy(['lines': ['motor','property']], simulationScope.model),
                 fixedCommission)
 
-        Claim claim1 = new Claim(peril: perilA, lineOfBusiness: lob['motor'], value: 100d, claimType: ClaimType.ATTRITIONAL)
-        Claim claim2 = new Claim(peril: perilA, lineOfBusiness: lob['motor'], value: 100d, claimType: ClaimType.SINGLE)
-        Claim claim3 = new Claim(peril: perilB, lineOfBusiness: lob['motor'], value: 200d, claimType: ClaimType.SINGLE)
-        Claim claim4 = new Claim(peril: perilB, lineOfBusiness: lob['motor'], value: 400d, claimType: ClaimType.SINGLE)
-        Claim claim5 = new Claim(peril: perilA, lineOfBusiness: lob['property'], value: 100d, claimType: ClaimType.ATTRITIONAL)
-        Claim claim6 = new Claim(peril: perilA, lineOfBusiness: lob['property'], value: 100d, claimType: ClaimType.SINGLE)
-        Claim claim7 = new Claim(peril: perilB, lineOfBusiness: lob['property'], value: 200d, claimType: ClaimType.SINGLE)
-        Claim claim8 = new Claim(peril: perilB, lineOfBusiness: lob['property'], value: 400d, claimType: ClaimType.SINGLE)
+        Claim claim1 = getClaim(perilA, lob['motor'], 100, 0, ClaimType.ATTRITIONAL)
+        Claim claim2 = getClaim(perilA, lob['motor'], 100, 0, ClaimType.SINGLE)
+        Claim claim3 = getClaim(perilB, lob['motor'], 200, 0, ClaimType.SINGLE)
+        Claim claim4 = getClaim(perilB, lob['motor'], 400, 0, ClaimType.SINGLE)
+        Claim claim5 = getClaim(perilA, lob['property'], 100, 0, ClaimType.ATTRITIONAL)
+        Claim claim6 = getClaim(perilA, lob['property'], 100, 0, ClaimType.SINGLE)
+        Claim claim7 = getClaim(perilB, lob['property'], 200, 0, ClaimType.SINGLE)
+        Claim claim8 = getClaim(perilB, lob['property'], 400, 0, ClaimType.SINGLE)
 
         UnderwritingInfo underwritingInfoMotor15000 = new UnderwritingInfo(premium: 15000, commission: 200, lineOfBusiness: lob['motor'])
         UnderwritingInfo underwritingInfoMotor5000 = new UnderwritingInfo(premium: 5000, commission: 100, lineOfBusiness: lob['motor'])
@@ -337,14 +340,14 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
                 getCoverAttributeStrategy(['lines': ['motor','property']], simulationScope.model),
                 fixedCommission)
 
-        Claim claim1 = new Claim(peril: perilA, lineOfBusiness: lob['motor'], value: 0d, claimType: ClaimType.ATTRITIONAL)
-        Claim claim2 = new Claim(peril: perilA, lineOfBusiness: lob['motor'], value: 0d, claimType: ClaimType.SINGLE)
-        Claim claim3 = new Claim(peril: perilB, lineOfBusiness: lob['motor'], value: 0d, claimType: ClaimType.SINGLE)
-        Claim claim4 = new Claim(peril: perilB, lineOfBusiness: lob['motor'], value: 0d, claimType: ClaimType.SINGLE)
-        Claim claim5 = new Claim(peril: perilA, lineOfBusiness: lob['property'], value: 0d, claimType: ClaimType.ATTRITIONAL)
-        Claim claim6 = new Claim(peril: perilA, lineOfBusiness: lob['property'], value: 0d, claimType: ClaimType.SINGLE)
-        Claim claim7 = new Claim(peril: perilB, lineOfBusiness: lob['property'], value: 0d, claimType: ClaimType.SINGLE)
-        Claim claim8 = new Claim(peril: perilB, lineOfBusiness: lob['property'], value: 0d, claimType: ClaimType.SINGLE)
+        Claim claim1 = getClaim(perilA, lob['motor'], 0, 0, ClaimType.ATTRITIONAL)
+        Claim claim2 = getClaim(perilA, lob['motor'], 0, 0, ClaimType.SINGLE)
+        Claim claim3 = getClaim(perilB, lob['motor'], 0, 0, ClaimType.SINGLE)
+        Claim claim4 = getClaim(perilB, lob['motor'], 0, 0, ClaimType.SINGLE)
+        Claim claim5 = getClaim(perilA, lob['property'], 0, 0, ClaimType.ATTRITIONAL)
+        Claim claim6 = getClaim(perilA, lob['property'], 0, 0, ClaimType.SINGLE)
+        Claim claim7 = getClaim(perilB, lob['property'], 0, 0, ClaimType.SINGLE)
+        Claim claim8 = getClaim(perilB, lob['property'], 0, 0, ClaimType.SINGLE)
 
         UnderwritingInfo underwritingInfoMotor15000 = new UnderwritingInfo(premium: 15000, commission: 200, lineOfBusiness: lob['motor'])
         UnderwritingInfo underwritingInfoMotor5000 = new UnderwritingInfo(premium: 5000, commission: 100, lineOfBusiness: lob['motor'])
@@ -388,10 +391,10 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
                 getCoverAttributeStrategy(['lines': ['motor']], simulationScope.model),
                 fixedCommission)
 
-        Claim claim1 = new Claim(peril: perilA, lineOfBusiness: lob['motor'], value: 100d, claimType: ClaimType.ATTRITIONAL)
-        Claim claim2 = new Claim(peril: perilA, lineOfBusiness: lob['motor'], value: 100d, claimType: ClaimType.SINGLE)
-        Claim claim3 = new Claim(peril: perilB, lineOfBusiness: lob['motor'], value: 200d, claimType: ClaimType.SINGLE)
-        Claim claim4 = new Claim(peril: perilB, lineOfBusiness: lob['motor'], value: 400d, claimType: ClaimType.SINGLE)
+        Claim claim1 = getClaim(perilA, lob['motor'], 100d, 0d, ClaimType.ATTRITIONAL)
+        Claim claim2 = getClaim(perilA, lob['motor'], 100d, 0d, ClaimType.SINGLE)
+        Claim claim3 = getClaim(perilB, lob['motor'], 200d, 0d, ClaimType.SINGLE)
+        Claim claim4 = getClaim(perilB, lob['motor'], 400d, 0d, ClaimType.SINGLE)
 
         UnderwritingInfo underwritingInfoMotor15000 = new UnderwritingInfo(premium: 15000, commission: 200, lineOfBusiness: lob['motor'])
         UnderwritingInfo underwritingInfoMotor10000 = new UnderwritingInfo(premium: 10000, commission: 100, lineOfBusiness: lob['motor'])
@@ -436,14 +439,14 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
                 getCoverAttributeStrategy(['lines': ['motor','property']], simulationScope.model),
                 fixedCommission)
 
-        Claim claim1 = new Claim(peril: perilA, lineOfBusiness: lob['motor'], value: 100d, claimType: ClaimType.ATTRITIONAL)
-        Claim claim2 = new Claim(peril: perilA, lineOfBusiness: lob['motor'], value: 100d, claimType: ClaimType.SINGLE)
-        Claim claim3 = new Claim(peril: perilB, lineOfBusiness: lob['motor'], value: 200d, claimType: ClaimType.SINGLE)
-        Claim claim4 = new Claim(peril: perilB, lineOfBusiness: lob['motor'], value: 400d, claimType: ClaimType.SINGLE)
-        Claim claim5 = new Claim(peril: perilA, lineOfBusiness: lob['property'], value: 100d, claimType: ClaimType.ATTRITIONAL)
-        Claim claim6 = new Claim(peril: perilA, lineOfBusiness: lob['property'], value: 100d, claimType: ClaimType.SINGLE)
-        Claim claim7 = new Claim(peril: perilB, lineOfBusiness: lob['property'], value: 200d, claimType: ClaimType.SINGLE)
-        Claim claim8 = new Claim(peril: perilB, lineOfBusiness: lob['property'], value: 400d, claimType: ClaimType.SINGLE)
+        Claim claim1 = getClaim(perilA, lob['motor'], 100, 0, ClaimType.ATTRITIONAL)
+        Claim claim2 = getClaim(perilA, lob['motor'], 100, 0, ClaimType.ATTRITIONAL)
+        Claim claim3 = getClaim(perilB, lob['motor'], 200, 0, ClaimType.ATTRITIONAL)
+        Claim claim4 = getClaim(perilB, lob['motor'], 400, 0, ClaimType.ATTRITIONAL)
+        Claim claim5 = getClaim(perilA, lob['property'], 100, 0, ClaimType.ATTRITIONAL)
+        Claim claim6 = getClaim(perilA, lob['property'], 100, 0, ClaimType.ATTRITIONAL)
+        Claim claim7 = getClaim(perilB, lob['property'], 200, 0, ClaimType.ATTRITIONAL)
+        Claim claim8 = getClaim(perilB, lob['property'], 400, 0, ClaimType.ATTRITIONAL)
 
         UnderwritingInfo underwritingInfoMotor15000 = new UnderwritingInfo(premium: 15000, commission: 200, lineOfBusiness: lob['motor'])
         UnderwritingInfo underwritingInfoMotor5000 = new UnderwritingInfo(premium: 5000, commission: 100, lineOfBusiness: lob['motor'])
@@ -487,14 +490,14 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
                 getCoverAttributeStrategy(['lines': ['motor','property']], simulationScope.model),
                 fixedCommission)
 
-        Claim claim1 = new Claim(peril: perilA, lineOfBusiness: lob['motor'], value: 0d, claimType: ClaimType.ATTRITIONAL)
-        Claim claim2 = new Claim(peril: perilA, lineOfBusiness: lob['motor'], value: 0d, claimType: ClaimType.SINGLE)
-        Claim claim3 = new Claim(peril: perilB, lineOfBusiness: lob['motor'], value: 0d, claimType: ClaimType.SINGLE)
-        Claim claim4 = new Claim(peril: perilB, lineOfBusiness: lob['motor'], value: 0d, claimType: ClaimType.SINGLE)
-        Claim claim5 = new Claim(peril: perilA, lineOfBusiness: lob['property'], value: 0d, claimType: ClaimType.ATTRITIONAL)
-        Claim claim6 = new Claim(peril: perilA, lineOfBusiness: lob['property'], value: 0d, claimType: ClaimType.SINGLE)
-        Claim claim7 = new Claim(peril: perilB, lineOfBusiness: lob['property'], value: 0d, claimType: ClaimType.SINGLE)
-        Claim claim8 = new Claim(peril: perilB, lineOfBusiness: lob['property'], value: 0d, claimType: ClaimType.SINGLE)
+        Claim claim1 = getClaim(perilA, lob['motor'], 0, 0, ClaimType.ATTRITIONAL)
+        Claim claim2 = getClaim(perilA, lob['motor'], 0, 0, ClaimType.ATTRITIONAL)
+        Claim claim3 = getClaim(perilB, lob['motor'], 0, 0, ClaimType.ATTRITIONAL)
+        Claim claim4 = getClaim(perilB, lob['motor'], 0, 0, ClaimType.ATTRITIONAL)
+        Claim claim5 = getClaim(perilA, lob['property'], 0, 0, ClaimType.ATTRITIONAL)
+        Claim claim6 = getClaim(perilA, lob['property'], 0, 0, ClaimType.ATTRITIONAL)
+        Claim claim7 = getClaim(perilB, lob['property'], 0, 0, ClaimType.ATTRITIONAL)
+        Claim claim8 = getClaim(perilB, lob['property'], 0, 0, ClaimType.ATTRITIONAL)
 
         UnderwritingInfo underwritingInfoMotor15000 = new UnderwritingInfo(premium: 15000, commission: 200, lineOfBusiness: lob['motor'])
         UnderwritingInfo underwritingInfoMotor5000 = new UnderwritingInfo(premium: 5000, commission: 100, lineOfBusiness: lob['motor'])
@@ -539,10 +542,10 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
                 getCoverAttributeStrategy(['lines': ['motor']], simulationScope.model),
                 fixedCommission)
 
-        Claim claim1 = new Claim(peril: perilA, lineOfBusiness: lob['motor'], value: 100d, claimType: ClaimType.ATTRITIONAL)
-        Claim claim2 = new Claim(peril: perilA, lineOfBusiness: lob['motor'], value: 100d, claimType: ClaimType.SINGLE)
-        Claim claim3 = new Claim(peril: perilB, lineOfBusiness: lob['motor'], value: 200d, claimType: ClaimType.SINGLE)
-        Claim claim4 = new Claim(peril: perilB, lineOfBusiness: lob['motor'], value: 400d, claimType: ClaimType.SINGLE)
+        Claim claim1 = getClaim(perilA, lob['motor'], 100, 0, ClaimType.ATTRITIONAL)
+        Claim claim2 = getClaim(perilA, lob['motor'], 100, 0, ClaimType.ATTRITIONAL)
+        Claim claim3 = getClaim(perilB, lob['motor'], 200, 0, ClaimType.ATTRITIONAL)
+        Claim claim4 = getClaim(perilB, lob['motor'], 400, 0, ClaimType.ATTRITIONAL)
 
         UnderwritingInfo underwritingInfoMotor15000 = new UnderwritingInfo(premium: 15000, commission: 200, lineOfBusiness: lob['motor'])
         UnderwritingInfo underwritingInfoMotor10000 = new UnderwritingInfo(premium: 10000, commission: 100, lineOfBusiness: lob['motor'])
@@ -587,14 +590,14 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
                 getCoverAttributeStrategy(['lines': ['motor','property']], simulationScope.model),
                 fixedCommission)
 
-        Claim claim1 = new Claim(peril: perilA, lineOfBusiness: lob['motor'], value: 200d, claimType: ClaimType.ATTRITIONAL)
-        Claim claim2 = new Claim(peril: perilA, lineOfBusiness: lob['motor'], value: 300d, claimType: ClaimType.SINGLE)
-        Claim claim3 = new Claim(peril: perilB, lineOfBusiness: lob['motor'], value: 800d, claimType: ClaimType.SINGLE)
-        Claim claim4 = new Claim(peril: perilB, lineOfBusiness: lob['motor'], value: 100d, claimType: ClaimType.SINGLE)
-        Claim claim5 = new Claim(peril: perilA, lineOfBusiness: lob['property'], value: 200d, claimType: ClaimType.ATTRITIONAL)
-        Claim claim6 = new Claim(peril: perilA, lineOfBusiness: lob['property'], value: 500d, claimType: ClaimType.SINGLE)
-        Claim claim7 = new Claim(peril: perilB, lineOfBusiness: lob['property'], value: 400d, claimType: ClaimType.SINGLE)
-        Claim claim8 = new Claim(peril: perilB, lineOfBusiness: lob['property'], value: 900d, claimType: ClaimType.SINGLE)
+        Claim claim1 = getClaim(perilA, lob['motor'], 200, 0, ClaimType.ATTRITIONAL)
+        Claim claim2 = getClaim(perilA, lob['motor'], 300, 0, ClaimType.SINGLE)
+        Claim claim3 = getClaim(perilB, lob['motor'], 800, 0, ClaimType.SINGLE)
+        Claim claim4 = getClaim(perilB, lob['motor'], 100, 0, ClaimType.SINGLE)
+        Claim claim5 = getClaim(perilA, lob['property'], 200, 0, ClaimType.ATTRITIONAL)
+        Claim claim6 = getClaim(perilA, lob['property'], 500, 0, ClaimType.SINGLE)
+        Claim claim7 = getClaim(perilB, lob['property'], 400, 0, ClaimType.SINGLE)
+        Claim claim8 = getClaim(perilB, lob['property'], 900, 0, ClaimType.SINGLE)
 
         UnderwritingInfo underwritingInfoMotor15000 = new UnderwritingInfo(premium: 15000, commission: 200, lineOfBusiness: lob['motor'])
         UnderwritingInfo underwritingInfoMotor5000 = new UnderwritingInfo(premium: 5000, commission: 100, lineOfBusiness: lob['motor'])
@@ -638,14 +641,14 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
                 getCoverAttributeStrategy(['lines': ['motor','property']], simulationScope.model),
                 fixedCommission)
 
-        Claim claim1 = new Claim(peril: perilA, lineOfBusiness: lob['motor'], value: 0d, claimType: ClaimType.ATTRITIONAL)
-        Claim claim2 = new Claim(peril: perilA, lineOfBusiness: lob['motor'], value: 0d, claimType: ClaimType.SINGLE)
-        Claim claim3 = new Claim(peril: perilB, lineOfBusiness: lob['motor'], value: 0d, claimType: ClaimType.SINGLE)
-        Claim claim4 = new Claim(peril: perilB, lineOfBusiness: lob['motor'], value: 0d, claimType: ClaimType.SINGLE)
-        Claim claim5 = new Claim(peril: perilA, lineOfBusiness: lob['property'], value: 0d, claimType: ClaimType.ATTRITIONAL)
-        Claim claim6 = new Claim(peril: perilA, lineOfBusiness: lob['property'], value: 0d, claimType: ClaimType.SINGLE)
-        Claim claim7 = new Claim(peril: perilB, lineOfBusiness: lob['property'], value: 0d, claimType: ClaimType.SINGLE)
-        Claim claim8 = new Claim(peril: perilB, lineOfBusiness: lob['property'], value: 0d, claimType: ClaimType.SINGLE)
+        Claim claim1 = getClaim(perilA, lob['motor'], 100, 0, ClaimType.ATTRITIONAL)
+        Claim claim2 = getClaim(perilA, lob['motor'], 100, 0, ClaimType.ATTRITIONAL)
+        Claim claim3 = getClaim(perilB, lob['motor'], 200, 0, ClaimType.ATTRITIONAL)
+        Claim claim4 = getClaim(perilB, lob['motor'], 400, 0, ClaimType.ATTRITIONAL)
+        Claim claim5 = getClaim(perilA, lob['property'], 100, 0, ClaimType.ATTRITIONAL)
+        Claim claim6 = getClaim(perilA, lob['property'], 100, 0, ClaimType.ATTRITIONAL)
+        Claim claim7 = getClaim(perilB, lob['property'], 200, 0, ClaimType.ATTRITIONAL)
+        Claim claim8 = getClaim(perilB, lob['property'], 400, 0, ClaimType.ATTRITIONAL)
 
         UnderwritingInfo underwritingInfoMotor15000 = new UnderwritingInfo(premium: 15000, commission: 200, lineOfBusiness: lob['motor'])
         UnderwritingInfo underwritingInfoMotor5000 = new UnderwritingInfo(premium: 5000, commission: 100, lineOfBusiness: lob['motor'])
@@ -674,5 +677,36 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         assertEquals "net underwriting info premium motor 10000", 4000, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor5000}.premium
         assertEquals "net underwriting info premium property 3000", 2400, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty3000}.premium
         assertEquals "net underwriting info premium property 2000", 1600, wxlContract1.outNetAfterCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoProperty2000}.premium
+    }
+
+    private ClaimDevelopmentLeanPacket getClaim(PerilMarker peril, LobMarker lob, double ultimate, double paid,
+                                                double fractionOfPeriod, Component origin, Event event,
+                                                Claim originalClaim) {
+        ClaimDevelopmentLeanPacket claim = new ClaimDevelopmentLeanPacket(ultimate: ultimate, paid: paid,
+                fractionOfPeriod: fractionOfPeriod, origin: origin, event: event, originalClaim: originalClaim)
+        claim.addMarker(PerilMarker, peril)
+        claim.addMarker(LobMarker, lob)
+        claim
+    }
+
+    private Claim getClaim(PerilMarker peril, LobMarker lob, double ultimate, double fractionOfPeriod, ClaimType claimType) {
+        Claim claim = new Claim(ultimate: ultimate, fractionOfPeriod: fractionOfPeriod, claimType: claimType)
+        claim.addMarker(PerilMarker, peril)
+        claim.addMarker(LobMarker, lob)
+        claim
+    }
+
+    private Claim getClaim(PerilMarker peril, LobMarker lob, double ultimate) {
+        Claim claim = new Claim(ultimate: ultimate)
+        claim.addMarker(PerilMarker, peril)
+        claim.addMarker(LobMarker, lob)
+        claim
+    }
+
+    private Claim getClaim(IReserveMarker reserve, LobMarker lob, double ultimate) {
+        Claim claim = new Claim(ultimate: ultimate)
+        claim.addMarker(IReserveMarker, reserve)
+        claim.addMarker(LobMarker, lob)
+        claim
     }
 }

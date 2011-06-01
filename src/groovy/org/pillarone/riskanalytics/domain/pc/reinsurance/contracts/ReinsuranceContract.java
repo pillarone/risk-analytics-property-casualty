@@ -191,7 +191,6 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
 
     private void setClaimReferences(Claim claim, Claim grossClaim, Component origin) {
         claim.origin = origin;
-        claim.setReinsuranceContract(this);
         if (grossClaim.getOriginalClaim() != null) {
             claim.setOriginalClaim(grossClaim.getOriginalClaim());
         }

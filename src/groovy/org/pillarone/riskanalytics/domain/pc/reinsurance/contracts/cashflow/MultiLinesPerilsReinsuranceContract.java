@@ -267,7 +267,6 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
 
     private void setClaimReferences(Claim claim, Claim grossClaim, Component origin) {
         claim.origin = origin;
-        claim.setReinsuranceContract(this);
         if (grossClaim.getOriginalClaim() != null) {
             claim.setOriginalClaim(grossClaim.getOriginalClaim());
         }

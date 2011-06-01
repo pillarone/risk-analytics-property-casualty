@@ -14,6 +14,8 @@ import org.pillarone.riskanalytics.domain.pc.generators.severities.Event
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
+import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker
+import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -62,36 +64,10 @@ public class MultiLineReinsuranceContractTests extends GroovyTestCase {
         TypableClaimsGenerator generator = new TypableClaimsGenerator()
         Event event1 = new Event()
         Event event2 = new Event()
-        Claim originalClaim1 = new Claim(
-                value: 10000,
-                event: event1,
-                fractionOfPeriod: 0.5,
-                peril: generator,
-                claimType: ClaimType.ATTRITIONAL,
-        )
-        Claim originalClaim2 = new Claim(
-                value: 500,
-                event: event2,
-                fractionOfPeriod: 0.5,
-                peril: generator,
-                claimType: ClaimType.ATTRITIONAL,
-        )
-        ClaimDevelopmentLeanPacket claimDevelopment1 = new ClaimDevelopmentLeanPacket(
-                        ultimate:10,
-                        paid: 6,
-                        origin: origin,
-                        originalClaim: originalClaim1,
-                        event: event1,
-                        peril: generator,
-                        fractionOfPeriod: 0.5)
-        ClaimDevelopmentLeanPacket claimDevelopment2 = new ClaimDevelopmentLeanPacket(
-                        ultimate:12,
-                        paid: 8,
-                        origin: origin,
-                        originalClaim: originalClaim2,
-                        event: event2,
-                        peril: generator,
-                        fractionOfPeriod: 0.5)
+        Claim originalClaim1 = getClaim(generator, null, 10000, 0.6, ClaimType.ATTRITIONAL)
+        Claim originalClaim2 = getClaim(generator, null, 500, 0.5, ClaimType.ATTRITIONAL)
+        ClaimDevelopmentLeanPacket claimDevelopment1 = getClaim(generator, null, 10, 6, 0.4, origin, event1, originalClaim1)
+        ClaimDevelopmentLeanPacket claimDevelopment2 = getClaim(generator, null, 12, 8, 0.7, origin, event2, originalClaim2)
         contract.inClaims << claimDevelopment1 << claimDevelopment2
 
         def probeCoveredClaims = new TestProbe(contract, "outCoveredClaims")
@@ -121,38 +97,10 @@ public class MultiLineReinsuranceContractTests extends GroovyTestCase {
         contract.parmCoveredLines.setSimulationModel simulationScope.model
         Event event1 = new Event()
         Event event2 = new Event()
-        Claim originalClaim1 = new Claim(
-                value: 10000,
-                event: event1,
-                fractionOfPeriod: 0.5,
-                peril: generator,
-                claimType: ClaimType.ATTRITIONAL,
-        )
-        Claim originalClaim2 = new Claim(
-                value: 500,
-                event: event2,
-                fractionOfPeriod: 0.5,
-                peril: generator,
-                claimType: ClaimType.ATTRITIONAL,
-        )
-        ClaimDevelopmentLeanPacket claimDevelopment1 = new ClaimDevelopmentLeanPacket(
-                        ultimate:10,
-                        paid: 6,
-                        origin: origin,
-                        originalClaim: originalClaim1,
-                        event: event1,
-                        peril: generator,
-                        lineOfBusiness: lobFire,
-                        fractionOfPeriod: 0.5)
-        ClaimDevelopmentLeanPacket claimDevelopment2 = new ClaimDevelopmentLeanPacket(
-                        ultimate:12,
-                        paid: 8,
-                        origin: origin,
-                        originalClaim: originalClaim2,
-                        event: event2,
-                        peril: generator,
-                        lineOfBusiness: lobMotor,
-                        fractionOfPeriod: 0.5)
+        Claim originalClaim1 = getClaim(generator, null, 10000, 0.6, ClaimType.ATTRITIONAL)
+        Claim originalClaim2 = getClaim(generator, null, 500, 0.5, ClaimType.ATTRITIONAL)
+        ClaimDevelopmentLeanPacket claimDevelopment1 = getClaim(generator, lobFire, 10, 6, 0.4, origin, event1, originalClaim1)
+        ClaimDevelopmentLeanPacket claimDevelopment2 = getClaim(generator, lobMotor, 12, 8, 0.7, origin, event2, originalClaim2)
         contract.inClaims << claimDevelopment1 << claimDevelopment2
 
         contract.doCalculation()
@@ -174,5 +122,36 @@ public class MultiLineReinsuranceContractTests extends GroovyTestCase {
         assertEquals 'ceded reserved 0', 0.8, contract.outCoveredClaims[0].reserved, 1E-10
         assertEquals 'origin of motor claim', originalClaim2, contract.outCoveredClaims[0].originalClaim
         contract.reset()
+    }
+
+    private ClaimDevelopmentLeanPacket getClaim(PerilMarker peril, LobMarker lob, double ultimate, double paid,
+                                                double fractionOfPeriod, Component origin, Event event,
+                                                Claim originalClaim) {
+        ClaimDevelopmentLeanPacket claim = new ClaimDevelopmentLeanPacket(ultimate: ultimate, paid: paid,
+                fractionOfPeriod: fractionOfPeriod, origin: origin, event: event, originalClaim: originalClaim)
+        claim.addMarker(PerilMarker, peril)
+        claim.addMarker(LobMarker, lob)
+        claim
+    }
+
+    private Claim getClaim(PerilMarker peril, LobMarker lob, double ultimate, double fractionOfPeriod, ClaimType claimType) {
+        Claim claim = new Claim(ultimate: ultimate, fractionOfPeriod: fractionOfPeriod, claimType: claimType)
+        claim.addMarker(PerilMarker, peril)
+        claim.addMarker(LobMarker, lob)
+        claim
+    }
+
+    private Claim getClaim(PerilMarker peril, LobMarker lob, double ultimate) {
+        Claim claim = new Claim(ultimate: ultimate)
+        claim.addMarker(PerilMarker, peril)
+        claim.addMarker(LobMarker, lob)
+        claim
+    }
+
+    private Claim getClaim(IReserveMarker reserve, LobMarker lob, double ultimate) {
+        Claim claim = new Claim(ultimate: ultimate)
+        claim.addMarker(IReserveMarker, reserve)
+        claim.addMarker(LobMarker, lob)
+        claim
     }
 }

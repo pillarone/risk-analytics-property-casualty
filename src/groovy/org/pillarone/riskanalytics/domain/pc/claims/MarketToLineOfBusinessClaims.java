@@ -2,6 +2,7 @@ package org.pillarone.riskanalytics.domain.pc.claims;
 
 import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.core.components.ComponentCategory;
+import org.pillarone.riskanalytics.core.components.IComponentMarker;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter;
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory;
@@ -50,7 +51,7 @@ public class MarketToLineOfBusinessClaims extends Component {
                     // PMO-750: claim mergers in reinsurance program won't work with reference to market claims
                     lobClaim.setOriginalClaim(lobClaim);
                     lobClaim.origin = lineOfBusiness;
-                    lobClaim.setLineOfBusiness((LobMarker) lineOfBusiness);
+                    lobClaim.addMarker(LobMarker.class, (IComponentMarker) lineOfBusiness);
                     lobClaim.scale(InputFormatConverter.getDouble(parmPortions.getValueAt(row + 1, portionColumn)));
                     lobClaims.add(lobClaim);
                     if (lobClaim instanceof ClaimDevelopmentLeanPacket) {

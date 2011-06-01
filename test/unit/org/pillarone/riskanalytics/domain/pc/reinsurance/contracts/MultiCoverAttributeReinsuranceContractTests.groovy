@@ -20,6 +20,8 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.*
 import org.pillarone.riskanalytics.domain.pc.lob.ConfigurableLobWithReserves
 import org.pillarone.riskanalytics.domain.pc.constants.ReinsuranceContractPremiumBase
+import org.pillarone.riskanalytics.core.components.Component
+import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker
 
 /**
  * These test cases don't totally match the situation as it is when the component is used in a model as the
@@ -168,12 +170,12 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
         )
         contract.parmPremiumBase = ReinsuranceContractPremiumBase.PROPORTIONALTOCOVEREDCLAIMS
 
-        Claim claimFire1000 = new Claim(peril: perilA, lineOfBusiness: lob['fire'], value: 1000d, fractionOfPeriod: 0.2, claimType: ClaimType.ATTRITIONAL)
-        Claim claimHull1100 = new Claim(peril: perilA, lineOfBusiness: lob['hull'], value: 1100d, fractionOfPeriod: 0.3, claimType: ClaimType.SINGLE)
-        Claim claimLegal1200 = new Claim(peril: perilA, lineOfBusiness: lob['legal'], value: 1200d, fractionOfPeriod: 0.1, claimType: ClaimType.SINGLE)
-        Claim claimFire1300 = new Claim(peril: perilB, lineOfBusiness: lob['fire'], value: 1300d, fractionOfPeriod: 0.4, claimType: ClaimType.ATTRITIONAL)
-        Claim claimFire1400 = new Claim(peril: perilB, lineOfBusiness: lob['fire'], value: 1400d, fractionOfPeriod: 0.5, claimType: ClaimType.SINGLE)
-        Claim claimFire1500 = new Claim(peril: perilC, lineOfBusiness: lob['fire'], value: 1500d, fractionOfPeriod: 0.6, claimType: ClaimType.SINGLE)
+        Claim claimFire1000 = getClaim(perilA, lob['fire'], 1000d, 0.2, ClaimType.ATTRITIONAL)
+        Claim claimHull1100 = getClaim(perilA, lob['hull'], 1100d, 0.3, ClaimType.SINGLE)
+        Claim claimLegal1200 = getClaim(perilA, lob['legal'], 1200d, 0.1, ClaimType.SINGLE)
+        Claim claimFire1300 = getClaim(perilB, lob['fire'], 1300d, 0.4, ClaimType.ATTRITIONAL)
+        Claim claimFire1400 = getClaim(perilB, lob['fire'], 1400d, 0.5, ClaimType.SINGLE)
+        Claim claimFire1500 = getClaim(perilC, lob['fire'], 1500d, 0.6, ClaimType.SINGLE)
 
         UnderwritingInfo underwritingInfoFire = new UnderwritingInfo(premium: 300, commission: 10, lineOfBusiness: lob['fire'])
         UnderwritingInfo underwritingInfoHull = new UnderwritingInfo(premium: 200, commission: 30, lineOfBusiness: lob['hull'])
@@ -229,12 +231,12 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
                 getCoverAttributeStrategy(['lines': ['doomsday', 'supernova', 'blackhole', 'apocalypse']], simulationScope.model)
         )
 
-        Claim claimFire1000 = new Claim(peril: perilA, lineOfBusiness: lob['fire'], value: 1000d, fractionOfPeriod: 0.2, claimType: ClaimType.ATTRITIONAL)
-        Claim claimHull1100 = new Claim(peril: perilA, lineOfBusiness: lob['hull'], value: 1100d, fractionOfPeriod: 0.3, claimType: ClaimType.SINGLE)
-        Claim claimLegal1200 = new Claim(peril: perilA, lineOfBusiness: lob['legal'], value: 1200d, fractionOfPeriod: 0.1, claimType: ClaimType.SINGLE)
-        Claim claimFire1300 = new Claim(peril: perilB, lineOfBusiness: lob['fire'], value: 1300d, fractionOfPeriod: 0.4, claimType: ClaimType.ATTRITIONAL)
-        Claim claimFire1400 = new Claim(peril: perilB, lineOfBusiness: lob['fire'], value: 1400d, fractionOfPeriod: 0.5, claimType: ClaimType.SINGLE)
-        Claim claimFire1500 = new Claim(peril: perilC, lineOfBusiness: lob['fire'], value: 1500d, fractionOfPeriod: 0.6, claimType: ClaimType.SINGLE)
+        Claim claimFire1000 = getClaim(perilA, lob['fire'], 1000d, 0.2, ClaimType.ATTRITIONAL)
+        Claim claimHull1100 = getClaim(perilA, lob['hull'], 1100d, 0.3, ClaimType.SINGLE)
+        Claim claimLegal1200 = getClaim(perilA, lob['legal'], 1200d, 0.1, ClaimType.SINGLE)
+        Claim claimFire1300 = getClaim(perilB, lob['fire'], 1300d, 0.4, ClaimType.ATTRITIONAL)
+        Claim claimFire1400 = getClaim(perilB, lob['fire'], 1400d, 0.5, ClaimType.SINGLE)
+        Claim claimFire1500 = getClaim(perilC, lob['fire'], 1500d, 0.6, ClaimType.SINGLE)
 
         UnderwritingInfo underwritingInfoFire = new UnderwritingInfo(premium: 300, commission: 10, lineOfBusiness: lob['fire'])
         UnderwritingInfo underwritingInfoHull = new UnderwritingInfo(premium: 200, commission: 30, lineOfBusiness: lob['hull'])
@@ -276,12 +278,12 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
         )
         contract.parmPremiumBase = ReinsuranceContractPremiumBase.PROPORTIONALTOCOVEREDCLAIMS
 
-        Claim claimFire1000 = new Claim(peril: perilA, lineOfBusiness: lob['fire'], value: 1000d, fractionOfPeriod: 0.2, claimType: ClaimType.ATTRITIONAL)
-        Claim claimHull1100 = new Claim(peril: perilA, lineOfBusiness: lob['hull'], value: 1100d, fractionOfPeriod: 0.3, claimType: ClaimType.SINGLE)
-        Claim claimLegal1200 = new Claim(peril: perilA, lineOfBusiness: lob['legal'], value: 1200d, fractionOfPeriod: 0.1, claimType: ClaimType.SINGLE)
-        Claim claimFire1300 = new Claim(peril: perilB, lineOfBusiness: lob['fire'], value: 1300d, fractionOfPeriod: 0.4, claimType: ClaimType.ATTRITIONAL)
-        Claim claimFire1400 = new Claim(peril: perilB, lineOfBusiness: lob['fire'], value: 1400d, fractionOfPeriod: 0.5, claimType: ClaimType.SINGLE)
-        Claim claimFire1500 = new Claim(peril: perilC, lineOfBusiness: lob['fire'], value: 1500d, fractionOfPeriod: 0.6, claimType: ClaimType.SINGLE)
+        Claim claimFire1000 = getClaim(perilA, lob['fire'], 1000d, 0.2, ClaimType.ATTRITIONAL)
+        Claim claimHull1100 = getClaim(perilA, lob['hull'], 1100d, 0.3, ClaimType.SINGLE)
+        Claim claimLegal1200 = getClaim(perilA, lob['legal'], 1200d, 0.1, ClaimType.SINGLE)
+        Claim claimFire1300 = getClaim(perilB, lob['fire'], 1300d, 0.4, ClaimType.ATTRITIONAL)
+        Claim claimFire1400 = getClaim(perilB, lob['fire'], 1400d, 0.5, ClaimType.SINGLE)
+        Claim claimFire1500 = getClaim(perilC, lob['fire'], 1500d, 0.6, ClaimType.SINGLE)
 
         UnderwritingInfo underwritingInfoFire = new UnderwritingInfo(origin: perilB, premium: 300, commission: 10, lineOfBusiness: lob['fire'])
         UnderwritingInfo underwritingInfoHull = new UnderwritingInfo(origin: perilA, premium: 200, commission: 30, lineOfBusiness: lob['fire'])
@@ -329,40 +331,10 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
         TypableClaimsGenerator generator = new TypableClaimsGenerator()
         Event event1 = new Event()
         Event event2 = new Event()
-        Claim originalClaim1 = new Claim(
-                value: 10000,
-                event: event1,
-                fractionOfPeriod: 0.5,
-                lineOfBusiness: fireLine,
-                peril: generator,
-                claimType: ClaimType.ATTRITIONAL,
-        )
-        Claim originalClaim2 = new Claim(
-                value: 500,
-                event: event2,
-                lineOfBusiness: fireLine,
-                fractionOfPeriod: 0.5,
-                peril: generator,
-                claimType: ClaimType.ATTRITIONAL,
-        )
-        ClaimDevelopmentLeanPacket claimDevelopment1 = new ClaimDevelopmentLeanPacket(
-                ultimate: 10,
-                paid: 6,
-                origin: origin,
-                originalClaim: originalClaim1,
-                lineOfBusiness: fireLine,
-                event: event1,
-                peril: generator,
-                fractionOfPeriod: 0.5)
-        ClaimDevelopmentLeanPacket claimDevelopment2 = new ClaimDevelopmentLeanPacket(
-                ultimate: 12,
-                paid: 8,
-                origin: origin,
-                originalClaim: originalClaim2,
-                lineOfBusiness: fireLine,
-                event: event2,
-                peril: generator,
-                fractionOfPeriod: 0.5)
+        Claim originalClaim1 = getClaim(generator, null, 10000, 0.6, ClaimType.ATTRITIONAL)
+        Claim originalClaim2 = getClaim(generator, null, 500, 0.5, ClaimType.ATTRITIONAL)
+        ClaimDevelopmentLeanPacket claimDevelopment1 = getClaim(generator, fireLine, 10, 6, 0.4, origin, event1, originalClaim1)
+        ClaimDevelopmentLeanPacket claimDevelopment2 = getClaim(generator, fireLine, 12, 8, 0.7, origin, event2, originalClaim2)
         contract.inClaims << claimDevelopment1 << claimDevelopment2
 
         def probeCoveredClaims = new TestProbe(contract, "outCoveredClaims")
@@ -391,38 +363,10 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
         simulationScope.model.allComponents << generator
         Event event1 = new Event()
         Event event2 = new Event()
-        Claim originalClaim1 = new Claim(
-                value: 10000,
-                event: event1,
-                fractionOfPeriod: 0.6,
-                peril: generator,
-                claimType: ClaimType.ATTRITIONAL,
-        )
-        Claim originalClaim2 = new Claim(
-                value: 500,
-                event: event2,
-                fractionOfPeriod: 0.5,
-                peril: generator,
-                claimType: ClaimType.ATTRITIONAL,
-        )
-        ClaimDevelopmentLeanPacket claimDevelopment1 = new ClaimDevelopmentLeanPacket(
-                ultimate: 10,
-                paid: 6,
-                origin: origin,
-                originalClaim: originalClaim1,
-                event: event1,
-                peril: generator,
-                lineOfBusiness: lob['fire'],
-                fractionOfPeriod: 0.4)
-        ClaimDevelopmentLeanPacket claimDevelopment2 = new ClaimDevelopmentLeanPacket(
-                ultimate: 12,
-                paid: 8,
-                origin: origin,
-                originalClaim: originalClaim2,
-                event: event2,
-                peril: generator,
-                lineOfBusiness: lob['motor'],
-                fractionOfPeriod: 0.7)
+        Claim originalClaim1 = getClaim(generator, null, 10000, 0.6, ClaimType.ATTRITIONAL)
+        Claim originalClaim2 = getClaim(generator, null, 500, 0.5, ClaimType.ATTRITIONAL)
+        ClaimDevelopmentLeanPacket claimDevelopment1 = getClaim(generator, lob['fire'], 10, 6, 0.4, origin, event1, originalClaim1)
+        ClaimDevelopmentLeanPacket claimDevelopment2 = getClaim(generator, lob['motor'], 12, 8, 0.7, origin, event2, originalClaim2)
 
         // create the contract (setting the simulation model in each cover attribute strategy to simulate GUI choice)
         MultiCoverAttributeReinsuranceContract contract = getMultiCoverAttributeReinsuranceContract(
@@ -466,4 +410,36 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
         assertEquals 'origin of motor claim', originalClaim2, contract.outCoveredClaims[1].originalClaim
         contract.reset()
     }
+
+    private ClaimDevelopmentLeanPacket getClaim(PerilMarker peril, LobMarker lob, double ultimate, double paid,
+                                                double fractionOfPeriod, Component origin, Event event,
+                                                Claim originalClaim) {
+        ClaimDevelopmentLeanPacket claim = new ClaimDevelopmentLeanPacket(ultimate: ultimate, paid: paid,
+                fractionOfPeriod: fractionOfPeriod, origin: origin, event: event, originalClaim: originalClaim)
+        claim.addMarker(PerilMarker, peril)
+        claim.addMarker(LobMarker, lob)
+        claim
+    }
+
+    private Claim getClaim(PerilMarker peril, LobMarker lob, double ultimate, double fractionOfPeriod, ClaimType claimType) {
+        Claim claim = new Claim(ultimate: ultimate, fractionOfPeriod: fractionOfPeriod, claimType: claimType)
+        claim.addMarker(PerilMarker, peril)
+        claim.addMarker(LobMarker, lob)
+        claim
+    }
+
+    private Claim getClaim(PerilMarker peril, LobMarker lob, double ultimate) {
+        Claim claim = new Claim(ultimate: ultimate)
+        claim.addMarker(PerilMarker, peril)
+        claim.addMarker(LobMarker, lob)
+        claim
+    }
+
+    private Claim getClaim(IReserveMarker reserve, LobMarker lob, double ultimate) {
+        Claim claim = new Claim(ultimate: ultimate)
+        claim.addMarker(IReserveMarker, reserve)
+        claim.addMarker(LobMarker, lob)
+        claim
+    }
+
 }

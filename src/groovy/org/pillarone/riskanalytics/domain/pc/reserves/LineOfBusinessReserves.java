@@ -2,6 +2,7 @@ package org.pillarone.riskanalytics.domain.pc.reserves;
 
 import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.core.components.ComponentCategory;
+import org.pillarone.riskanalytics.core.components.IComponentMarker;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.packets.SingleValuePacket;
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter;
@@ -51,7 +52,7 @@ public class LineOfBusinessReserves extends Component {
                     Claim lobClaim = claim.copy();
                     lobClaim.setOriginalClaim(lobClaim);
                     lobClaim.origin = lineOfBusiness;
-                    lobClaim.setLineOfBusiness((LobMarker) lineOfBusiness);
+                    lobClaim.addMarker(LobMarker.class, (IComponentMarker) lineOfBusiness);
                     lobClaim.scale(InputFormatConverter.getDouble(parmPortions.getValueAt(row + 1, portionColumn)));
                     lobClaims.add(lobClaim);
                     outClaimsDevelopmentLean.add((ClaimDevelopmentLeanPacket) lobClaim);

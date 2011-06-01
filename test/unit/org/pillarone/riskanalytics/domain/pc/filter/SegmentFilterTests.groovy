@@ -7,6 +7,7 @@ import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensi
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
 import org.pillarone.riskanalytics.domain.pc.constraints.SegmentPortion
 import org.pillarone.riskanalytics.core.util.TestProbe
+import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -16,9 +17,9 @@ class SegmentFilterTests extends GroovyTestCase {
     ConfigurableLob lobMotor = new ConfigurableLob(name: 'motor')
     ConfigurableLob lobMotorHull = new ConfigurableLob(name: 'motor hull')
     ConfigurableLob lobAccident = new ConfigurableLob(name: 'accident')
-    ClaimDevelopmentLeanPacket claimMotor100 = new ClaimDevelopmentLeanPacket(lineOfBusiness: lobMotor, incurred: 100)
-    ClaimDevelopmentLeanPacket claimMotorHull500 = new ClaimDevelopmentLeanPacket(lineOfBusiness: lobMotorHull, incurred: 500)
-    ClaimDevelopmentLeanPacket claimAccident80 = new ClaimDevelopmentLeanPacket(lineOfBusiness: lobAccident, incurred: 80)
+    ClaimDevelopmentLeanPacket claimMotor100 = getClaim(100, lobMotor)
+    ClaimDevelopmentLeanPacket claimMotorHull500 = getClaim(500, lobMotorHull)
+    ClaimDevelopmentLeanPacket claimAccident80 = getClaim(80, lobAccident)
     UnderwritingInfo underwritingInfoMotor50 = new UnderwritingInfo(lineOfBusiness: lobMotor, premium: 50)
     UnderwritingInfo underwritingInfoMotorHull40 = new UnderwritingInfo(lineOfBusiness: lobMotorHull, premium: 40)
     UnderwritingInfo underwritingInfoAccident30 = new UnderwritingInfo(lineOfBusiness: lobAccident, premium: 30)
@@ -113,5 +114,11 @@ class SegmentFilterTests extends GroovyTestCase {
         assertEquals '#underwriting info, gross', 0, segmentFilter.outUnderwritingInfoGross.size()
         assertEquals '#underwriting info, ceded', 0, segmentFilter.outUnderwritingInfoCeded.size()
         assertEquals '#underwriting info, net', 0, segmentFilter.outUnderwritingInfoNet.size()
+    }
+
+    private ClaimDevelopmentLeanPacket getClaim(double incurred, LobMarker lobMarker) {
+        ClaimDevelopmentLeanPacket claim = new ClaimDevelopmentLeanPacket(incurred: incurred)
+        claim.addMarker(LobMarker, lobMarker)
+        claim
     }
 }

@@ -167,7 +167,6 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
                 for (Double claimValue : claimValues) {
                     Claim claim = ClaimPacketFactory.createPacket();
                     claim.origin = this;
-                    claim.setPeril(this);
                     claim.setClaimType(claimType);
                     claim.setUltimate(claimValue * scalingFactor);
                     setFractionOfPeriod(claimType, claim);
@@ -177,7 +176,6 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
                 for (int i = 0; i < claimValues.size(); i++) {
                     Claim claim = ClaimPacketFactory.createPacket();
                     claim.origin = this;
-                    claim.setPeril(this);
                     claim.setClaimType(claimType);
                     claim.setUltimate(claimValues.get(i) * scalingFactor);
                     claim.setEvent(events.get(i));

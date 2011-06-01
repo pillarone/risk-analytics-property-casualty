@@ -4,9 +4,11 @@ import org.pillarone.riskanalytics.core.components.IComponentMarker;
 import org.pillarone.riskanalytics.core.packets.MultiValuePacket;
 import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope;
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType;
+import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
 import org.pillarone.riskanalytics.domain.pc.generators.severities.Event;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
+import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker;
 import org.pillarone.riskanalytics.domain.pc.underwriting.ExposureInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.utils.DateTimeUtilities;
@@ -24,10 +26,6 @@ public class Claim extends MultiValuePacket {
     @Deprecated
     private Double fractionOfPeriod = 0d;
     private ClaimType claimType;
-    /** contains the claims or reserve generator in which the claim object was instantiated */
-    private IComponentMarker peril;
-    private LobMarker lineOfBusiness;
-    private IReinsuranceContractMarker reinsuranceContract;
     private UnderwritingInfo exposure;
 
     private static final String ULTIMATE = "ultimate";
@@ -49,9 +47,9 @@ public class Claim extends MultiValuePacket {
         setFractionOfPeriod(claim.getFractionOfPeriod());
         setDate(claim.getDate());
         setClaimType(claim.getClaimType());
-        setPeril(claim.getPeril());
-        setLineOfBusiness(claim.getLineOfBusiness());
-        setReinsuranceContract(claim.getReinsuranceContract());
+        addMarker(PerilMarker.class, claim.getPeril());
+        addMarker(LobMarker.class, claim.getLineOfBusiness());
+        addMarker(IReinsuranceContractMarker.class, claim.getReinsuranceContract());
         setExposure(claim.getExposure());
     }
 
@@ -72,7 +70,7 @@ public class Claim extends MultiValuePacket {
         Claim netClaim = copy();
         netClaim.ultimate -= cededClaim.ultimate;
         if (cededClaim.notNull()) {
-            netClaim.setReinsuranceContract(cededClaim.getReinsuranceContract());
+            netClaim.addMarker(IReinsuranceContractMarker.class, cededClaim.getReinsuranceContract());
         }
         return netClaim;
     }
@@ -111,9 +109,9 @@ public class Claim extends MultiValuePacket {
         if (claimType != null) result.append(claimType).append(separator);
         if (origin != null) result.append(origin.getName()).append(separator);
         if (originalClaim != null) result.append(System.identityHashCode(originalClaim)).append(separator);
-        if (lineOfBusiness != null) result.append(lineOfBusiness.getName()).append(separator);
-        if (peril != null) result.append(peril.getName()).append(separator);
-        if (reinsuranceContract != null) result.append(reinsuranceContract.getName()).append(separator);
+        if (getLineOfBusiness() != null) result.append(getLineOfBusiness().getName()).append(separator);
+        if (getPeril() != null) result.append(getPeril().getName()).append(separator);
+        if (getReinsuranceContract() != null) result.append(getReinsuranceContract().getName()).append(separator);
         return result.toString();
     }
 
@@ -150,19 +148,15 @@ public class Claim extends MultiValuePacket {
     }
 
     public IComponentMarker getPeril() {
-        return peril;
-    }
-
-    public void setPeril(IComponentMarker peril) {
-        this.peril = peril;
+        IComponentMarker marker = getMarkedSender(PerilMarker.class);
+        if (marker == null) {
+            marker = getMarkedSender(IReserveMarker.class);
+        }
+        return marker;
     }
 
     public LobMarker getLineOfBusiness() {
-        return lineOfBusiness;
-    }
-
-    public void setLineOfBusiness(LobMarker lineOfBusiness) {
-        this.lineOfBusiness = lineOfBusiness;
+        return (LobMarker) getMarkedSender(LobMarker.class);
     }
 
     public double getUltimate() {
@@ -192,11 +186,7 @@ public class Claim extends MultiValuePacket {
     }
 
     public IReinsuranceContractMarker getReinsuranceContract() {
-        return reinsuranceContract;
-    }
-
-    public void setReinsuranceContract(IReinsuranceContractMarker reinsuranceContract) {
-        this.reinsuranceContract = reinsuranceContract;
+        return (IReinsuranceContractMarker) getMarkedSender(IReinsuranceContractMarker.class);
     }
 
     public UnderwritingInfo getExposure() {

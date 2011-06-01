@@ -16,6 +16,7 @@ import org.pillarone.riskanalytics.domain.pc.company.Company
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.pc.constraints.CompanyPortion
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
+import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
 
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
@@ -55,11 +56,18 @@ class CoveredByReinsurerTests extends GroovyTestCase {
     ConfigurableLobWithReserves fireLob = new ConfigurableLobWithReserves();
     Company earthRe = new Company(name:'earth re')
 
+    private Claim getClaim(double ultimate, PerilMarker peril, LobMarker lob) {
+        Claim claim = new Claim(ultimate: ultimate)
+        claim.addMarker(PerilMarker, peril)
+        claim.addMarker(LobMarker, lob)
+        claim
+    }
+
     void testMultiCoverReinsuranceContract(){
 
         MultiCoverAttributeReinsuranceContract contract = getQuotaShare0();
 
-        contract.inClaims << new Claim(ultimate: 80, peril: fire, lineOfBusiness: fireLob) << new Claim(ultimate: 100, peril: fire, lineOfBusiness: fireLob )
+        contract.inClaims << getClaim(80, fire, fireLob) << getClaim(100, fire, fireLob)
         contract.inUnderwritingInfo << new UnderwritingInfo(premium: 60, lineOfBusiness: fireLob) << new UnderwritingInfo(premium: 100, lineOfBusiness: fireLob)
 
         def claimsCeded = new TestProbe(contract, 'outCoveredClaims')
@@ -86,7 +94,7 @@ class CoveredByReinsurerTests extends GroovyTestCase {
         contract.parmReinsurers = new ConstrainedMultiDimensionalParameter([['earth re'],[0.5]],['Reinsurer','Covered Portion'],
                 ConstraintsFactory.getConstraints(CompanyPortion.IDENTIFIER))
 
-        contract.inClaims << new Claim(ultimate: 80, peril: fire, lineOfBusiness: fireLob) << new Claim(ultimate: 100, peril: fire, lineOfBusiness: fireLob )
+        contract.inClaims << getClaim(80, fire, fireLob) << getClaim(100, fire, fireLob)
         contract.inUnderwritingInfo << new UnderwritingInfo(premium: 60, lineOfBusiness: fireLob) << new UnderwritingInfo(premium: 100, lineOfBusiness: fireLob)
 
         def claimsCeded = new TestProbe(contract, 'outCoveredClaims')

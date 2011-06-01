@@ -29,18 +29,19 @@ class ClaimFilterUtilitiesTests extends GroovyTestCase {
         // every second (resp. third) claim is mapped to the same contract (resp. peril)
         // only claims 1-5 & claim 7 have a LOB (3 from peril 1, 2 from peril 2, 1 from peril 3; see below)
         claim = (1..12).asList().collect {
-            new ClaimDevelopmentPacket(
+            ClaimDevelopmentPacket claim = new ClaimDevelopmentPacket(
                     incurred: it*100,
                     paid: it*50,
                     senderChannelName: "Claim ${it}",           // claim    1, 2, 3, 4, 5, 6, 7...12
-                    peril: peril[(((int) it) - 1) % 3],         // peril    1, 2, 3, 1, 2, 3...
-                    reinsuranceContract: contract[(it-1) % 2],  // contract 1, 2, 1, 2, 1, 2...
                     // lineOfBusiness is set below              // lob      A, A, A, B, A, none, C (claims>7: none)
             )
+            claim.addMarker(PerilMarker, peril[(((int) it) - 1) % 3])  // peril    1, 2, 3, 1, 2, 3...
+            claim.addMarker(IReinsuranceContractMarker, contract[(it-1) % 2])  // contract 1, 2, 1, 2, 1, 2...
+            claim
         }
-        [0, 1, 2, 4].each {claim[it].lineOfBusiness = lob['A']}
-        claim[3].lineOfBusiness = lob['B']
-        claim[6].lineOfBusiness = lob['C']
+        [0, 1, 2, 4].each { claim[it].addMarker(LobMarker, lob['A']) }
+        claim[3].addMarker(LobMarker, lob['B'])
+        claim[6].addMarker(LobMarker, lob['C'])
         
         // claim        1   2   3   4   5   6   7   8   9   10  11  12
         // peril        1   2   3   1   2   3   1   2   3   1   2   3

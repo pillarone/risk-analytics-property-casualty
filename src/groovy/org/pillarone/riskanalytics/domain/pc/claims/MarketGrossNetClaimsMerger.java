@@ -78,7 +78,8 @@ public class MarketGrossNetClaimsMerger extends Component {
                             Claim aggregateCededClaim = aggregateGrossCededClaim.getClaimCeded();
                             aggregateCededClaim.plus(cededClaim);
                             aggregateCededClaim.origin = this;
-                            aggregateCededClaim.setReinsuranceContract(correctReinsuranceContract(aggregateCededClaim, cededClaim));
+                            aggregateCededClaim.addMarker(IReinsuranceContractMarker.class,
+                                    correctReinsuranceContract(aggregateCededClaim, cededClaim));
                         }
                     }
                 }

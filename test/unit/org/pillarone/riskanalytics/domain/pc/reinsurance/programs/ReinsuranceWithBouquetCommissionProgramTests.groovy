@@ -24,6 +24,11 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingSegment
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.PremiumAllocationType
 import org.pillarone.riskanalytics.domain.pc.generators.claims.DevelopedTypableClaimsGenerator
+import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
+import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
+import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
+import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker
+import org.pillarone.riskanalytics.domain.pc.generators.severities.Event
 
 /**
  * @author shartmann (at) munichre (dot) com
@@ -34,10 +39,10 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
     UnderwritingSegment underwritingSegment
 
     DevelopedTypableClaimsGenerator claimsGenerator = new DevelopedTypableClaimsGenerator()
-    Claim attrMarketClaim1000 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 1000d, fractionOfPeriod: 0d, peril: claimsGenerator)
-    Claim largeMarketClaim600 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 600d, fractionOfPeriod: 0d, peril: claimsGenerator)
-    Claim attrClaim100 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 100d, fractionOfPeriod: 0d, originalClaim: attrMarketClaim1000, peril: claimsGenerator)
-    Claim largeClaim60 = new Claim(claimType: ClaimType.SINGLE, ultimate: 60d, fractionOfPeriod: 0.1d, originalClaim: largeMarketClaim600, peril: claimsGenerator)
+    Claim attrMarketClaim1000 = getClaim(claimsGenerator, null, 1000d, 0d, ClaimType.ATTRITIONAL, null)
+    Claim largeMarketClaim600 = getClaim(claimsGenerator, null, 600d, 0d, ClaimType.ATTRITIONAL, null)
+    Claim attrClaim100 = getClaim(claimsGenerator, null, 100d, 0d, ClaimType.ATTRITIONAL, attrMarketClaim1000)
+    Claim largeClaim60 = getClaim(claimsGenerator, null, 60d, 0.1d, ClaimType.SINGLE, largeMarketClaim600)
 
     static MultiCoverAttributeReinsuranceContract getQuotaShare(int quotaShare/*units=percent!*/, int priority, double limit = 0d) {
         new MultiCoverAttributeReinsuranceContract(
@@ -224,12 +229,12 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
     }
 
     void testUsageQS_3WXL() {
-        Claim attrMarketClaim1000 = new Claim(claimType: ClaimType.ATTRITIONAL, value: 1000d, fractionOfPeriod: 0d, peril: claimsGenerator)
-        Claim attrClaim100 = new Claim(claimType: ClaimType.ATTRITIONAL, value: 100d, fractionOfPeriod: 0d, originalClaim: attrMarketClaim1000, peril: claimsGenerator)
-        Claim largeMarketClaim600 = new Claim(claimType: ClaimType.ATTRITIONAL, value: 600d, fractionOfPeriod: 0d, peril: claimsGenerator)
-        Claim largeClaim60 = new Claim(claimType: ClaimType.SINGLE, value: 60d, fractionOfPeriod: 0.1d, originalClaim: largeMarketClaim600, peril: claimsGenerator)
-        Claim largeClaim900 = new Claim(claimType: ClaimType.SINGLE, value: 900d, fractionOfPeriod: 0.2d, peril: claimsGenerator)
-        Claim largeClaim90 = new Claim(claimType: ClaimType.SINGLE, value: 90d, fractionOfPeriod: 0.2d, originalClaim: largeClaim900, peril: claimsGenerator)
+        Claim attrMarketClaim1000 = getClaim(claimsGenerator, null, 1000d, 0d, ClaimType.ATTRITIONAL, null)
+        Claim attrClaim100 = getClaim(claimsGenerator, null, 100d, 0d, ClaimType.ATTRITIONAL, attrMarketClaim1000)
+        Claim largeMarketClaim600 = getClaim(claimsGenerator, null, 600d, 0d, ClaimType.ATTRITIONAL, null)
+        Claim largeClaim60 = getClaim(claimsGenerator, null, 60d, 0.1d, ClaimType.SINGLE, largeMarketClaim600)
+        Claim largeClaim900 = getClaim(claimsGenerator, null, 900d, 0.2d, ClaimType.SINGLE, null)
+        Claim largeClaim90 = getClaim(claimsGenerator, null, 90d, 0.2d, ClaimType.SINGLE, largeClaim900)
 
         program = new ReinsuranceWithBouquetCommissionProgram()
 
@@ -519,6 +524,37 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
 
         assertEquals "program, commission on ceded premium", -104.6, programPremiumCeded[0].commission
         assertEquals "program, commission on net premium", 104.6, programPremiumNet[0].commission
+    }
+
+     private static ClaimDevelopmentLeanPacket getClaim(PerilMarker peril, LobMarker lob, double ultimate, double paid,
+                                                double fractionOfPeriod, Component origin, Event event,
+                                                Claim originalClaim) {
+        ClaimDevelopmentLeanPacket claim = new ClaimDevelopmentLeanPacket(ultimate: ultimate, paid: paid,
+                fractionOfPeriod: fractionOfPeriod, origin: origin, event: event, originalClaim: originalClaim)
+        claim.addMarker(PerilMarker, peril)
+        claim.addMarker(LobMarker, lob)
+        claim
+    }
+
+    private static Claim getClaim(PerilMarker peril, LobMarker lob, double ultimate, double fractionOfPeriod, ClaimType claimType, Claim originalClaim) {
+        Claim claim = new Claim(ultimate: ultimate, fractionOfPeriod: fractionOfPeriod, claimType: claimType, originalClaim: originalClaim)
+        claim.addMarker(PerilMarker, peril)
+        claim.addMarker(LobMarker, lob)
+        claim
+    }
+
+    private static Claim getClaim(PerilMarker peril, LobMarker lob, double ultimate) {
+        Claim claim = new Claim(ultimate: ultimate)
+        claim.addMarker(PerilMarker, peril)
+        claim.addMarker(LobMarker, lob)
+        claim
+    }
+
+    private static Claim getClaim(IReserveMarker reserve, LobMarker lob, double ultimate) {
+        Claim claim = new Claim(ultimate: ultimate)
+        claim.addMarker(IReserveMarker, reserve)
+        claim.addMarker(LobMarker, lob)
+        claim
     }
 
 }
