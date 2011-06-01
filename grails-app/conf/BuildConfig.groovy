@@ -44,4 +44,4 @@ grails.project.dependency.distribution = {
         authentication username: 'root', privateKey: "${userHome.absolutePath}/.ssh/id_rsa", passphrase: passPhrase
     }
 }
-grails.plugin.location.'risk-analytics-core' = "../RiskAnalyticsCore"
+//grails.plugin.location.'risk-analytics-core' = "../RiskAnalyticsCore"
