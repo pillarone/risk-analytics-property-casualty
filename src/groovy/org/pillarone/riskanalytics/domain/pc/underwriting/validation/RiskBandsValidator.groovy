@@ -17,6 +17,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReverseSurplu
 import org.pillarone.riskanalytics.domain.utils.validation.ParameterValidationImpl
 import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterObjectParameterHolder
 import org.pillarone.riskanalytics.core.parameterization.validation.ValidationType
+import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
@@ -58,10 +59,18 @@ class RiskBandsValidator implements IParameterizationValidator {
                     }
                 }
             }
-            else if (parameter instanceof ParameterObjectParameterHolder
-                    && (parameter.getBusinessObject() instanceof SurplusContractStrategy
-                    || parameter.getBusinessObject() instanceof ReverseSurplusContractStrategy)) {
-                surplusContracts[parameter.path] = parameter.getBusinessObject()
+            else if (parameter instanceof ParameterObjectParameterHolder) {
+                try {
+                    IParameterObject parameterHolder = parameter.getBusinessObject()
+                    if (parameterHolder instanceof SurplusContractStrategy
+                        || parameterHolder instanceof ReverseSurplusContractStrategy) {
+                        surplusContracts[parameter.path] = parameterHolder
+                    }
+                }
+                catch (IllegalArgumentException ex) {
+                    // https://issuetracking.intuitive-collaboration.com/jira/browse/PMO-1542
+                    LOG.debug("call parameter.getBusinessObject() failed " + ex.toString())
+                }
             }
         }
         if (!surplusContracts.isEmpty()) {

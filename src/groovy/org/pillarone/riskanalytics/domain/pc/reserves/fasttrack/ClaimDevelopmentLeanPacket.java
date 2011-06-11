@@ -45,6 +45,10 @@ public class ClaimDevelopmentLeanPacket extends Claim {
         ClaimDevelopmentLeanPacket netClaim = (ClaimDevelopmentLeanPacket) copy();
         netClaim.setIncurred(netClaim.getIncurred() - ((ClaimDevelopmentLeanPacket) cededClaim).getIncurred());
         netClaim.paid -= ((ClaimDevelopmentLeanPacket) cededClaim).paid;
+        if (hasExposureInfo()) {
+            double coverRatio = netClaim.getUltimate() / getUltimate();
+            netClaim.setExposure(getExposure().copy().scale(coverRatio));
+        }
         return netClaim;
     }
 

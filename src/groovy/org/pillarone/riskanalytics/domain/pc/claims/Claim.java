@@ -74,6 +74,10 @@ public class Claim extends MultiValuePacket {
         if (cededClaim.notNull()) {
             netClaim.setReinsuranceContract(cededClaim.getReinsuranceContract());
         }
+        if (hasExposureInfo()) {
+            double coverRatio = netClaim.getUltimate() / getUltimate();
+            netClaim.setExposure(exposure.copy().scale(coverRatio));
+        }
         return netClaim;
     }
 
