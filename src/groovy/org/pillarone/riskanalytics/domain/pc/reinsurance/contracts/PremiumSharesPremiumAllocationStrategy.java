@@ -1,7 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts;
 
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities;
 
@@ -29,6 +29,6 @@ public class PremiumSharesPremiumAllocationStrategy extends AbstractPremiumAlloc
      * @param grossUnderwritingInfos
      */
     public void initSegmentShares(List<Claim> cededClaims, List<UnderwritingInfo> grossUnderwritingInfos) {
-        initUnderwritingInfoShares(grossUnderwritingInfos, Collections.<LobMarker, Double>emptyMap());
+        initUnderwritingInfoShares(grossUnderwritingInfos, Collections.<ISegmentMarker, Double>emptyMap());
     }
 }

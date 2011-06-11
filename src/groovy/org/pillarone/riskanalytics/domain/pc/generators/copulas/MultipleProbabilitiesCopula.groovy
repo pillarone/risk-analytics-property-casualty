@@ -3,7 +3,7 @@ package org.pillarone.riskanalytics.domain.pc.generators.copulas
 import org.pillarone.riskanalytics.core.packets.PacketList
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.pc.generators.GeneratorCachingComponent
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
 import org.pillarone.riskanalytics.domain.pc.generators.frequency.Frequency
 import org.pillarone.riskanalytics.domain.pc.generators.frequency.FrequencyPacketFactory
 import org.pillarone.riskanalytics.domain.pc.generators.severities.Event
@@ -21,7 +21,7 @@ public class MultipleProbabilitiesCopula extends GeneratorCachingComponent {
             FrequencyDistributionType.CONSTANT, ['constant': 0d])
 
     private ICopulaStrategy parmCopulaStrategy = CopulaStrategyFactory.getCopulaStrategy(PerilCopulaType.INDEPENDENT,
-            ["targets": new ComboBoxTableMultiDimensionalParameter([''], ['perils'], PerilMarker)])
+            ["targets": new ComboBoxTableMultiDimensionalParameter([''], ['perils'], IPerilMarker)])
 
     private IRandomNumberGenerator generator;
 

@@ -3,7 +3,7 @@ package org.pillarone.riskanalytics.domain.pc.claims;
 import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter;
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
 
 import java.util.Arrays;
 
@@ -17,7 +17,7 @@ public class ClaimsFilterByPeril extends Component {
     private ComboBoxTableMultiDimensionalParameter parmPerils = new ComboBoxTableMultiDimensionalParameter(
             Arrays.asList(new String[]{""}),
             Arrays.asList(new String[]{"perils"}),
-            PerilMarker.class);
+            IPerilMarker.class);
 
 
     public void doCalculation() {

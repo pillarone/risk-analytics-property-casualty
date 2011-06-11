@@ -7,13 +7,14 @@ import org.pillarone.riskanalytics.core.wiring.WireCategory
 import org.pillarone.riskanalytics.core.wiring.WiringUtils
 import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskBands
 import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocator
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 
 /**
  *  Compared with the ExampleLob the PropertyLob has a different claims generator including cat claims.
  *
  * @author ali.majidi (at) munichre (dot) com
  */
-class PropertyLob extends ComposedComponent implements LobMarker {
+class PropertyLob extends ComposedComponent implements ISegmentMarker {
     RiskBands subUnderwriting
     AttritionalSingleEQFloodStormClaimsGenerator subClaimsGenerator
     ReinsuranceProgram3SerialContracts subRiProgram

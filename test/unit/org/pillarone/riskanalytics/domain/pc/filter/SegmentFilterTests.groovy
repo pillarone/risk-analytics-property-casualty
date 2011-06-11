@@ -5,8 +5,8 @@ import org.pillarone.riskanalytics.domain.pc.lob.ConfigurableLob
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
-import org.pillarone.riskanalytics.domain.pc.constraints.SegmentPortion
 import org.pillarone.riskanalytics.core.util.TestProbe
+import org.pillarone.riskanalytics.domain.utils.constraint.SegmentPortion
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com

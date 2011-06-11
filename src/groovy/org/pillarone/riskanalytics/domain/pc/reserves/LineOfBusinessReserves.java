@@ -8,8 +8,9 @@ import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory;
 import org.pillarone.riskanalytics.core.util.GroovyUtils;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.SortClaimsByFractionOfPeriod;
-import org.pillarone.riskanalytics.domain.pc.constraints.ReservePortion;
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
+import org.pillarone.riskanalytics.domain.utils.constraint.ReservePortion;
+import org.pillarone.riskanalytics.domain.utils.marker.IReserveMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
 import org.pillarone.riskanalytics.domain.utils.InputFormatConverter;
 
@@ -42,7 +43,7 @@ public class LineOfBusinessReserves extends Component {
         if (inClaims.size() > 0) {
             List<Claim> lobClaims = new ArrayList<Claim>();
             int portionColumn = parmPortions.getColumnIndex(PORTION);
-            Component lineOfBusiness = inClaims.get(0).sender; // works only if this component is part of a component implementing LobMarker
+            Component lineOfBusiness = inClaims.get(0).sender; // works only if this component is part of a component implementing ISegmentMarker
             for (Claim claim : inClaims) {
                 String originName = claim.origin.getNormalizedName();
                 int row = parmPortions.getColumnByName(RESERVES).indexOf(originName);
@@ -50,7 +51,7 @@ public class LineOfBusinessReserves extends Component {
                     Claim lobClaim = claim.copy();
                     lobClaim.setOriginalClaim(lobClaim);
                     lobClaim.origin = lineOfBusiness;
-                    lobClaim.setLineOfBusiness((LobMarker) lineOfBusiness);
+                    lobClaim.setLineOfBusiness((ISegmentMarker) lineOfBusiness);
                     lobClaim.scale(InputFormatConverter.getDouble(parmPortions.getValueAt(row + 1, portionColumn)));
                     lobClaims.add(lobClaim);
                     outClaimsDevelopmentLean.add((ClaimDevelopmentLeanPacket) lobClaim);

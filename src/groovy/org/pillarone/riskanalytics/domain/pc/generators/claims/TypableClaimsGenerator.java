@@ -18,7 +18,8 @@ import org.pillarone.riskanalytics.domain.pc.generators.copulas.EventDependenceS
 import org.pillarone.riskanalytics.domain.pc.generators.frequency.Frequency;
 import org.pillarone.riskanalytics.domain.pc.generators.severities.Event;
 import org.pillarone.riskanalytics.domain.pc.generators.severities.EventSeverity;
-import org.pillarone.riskanalytics.domain.pc.underwriting.IUnderwritingInfoMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IUnderwritingInfoMarker;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingFilterUtilities;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingUtilities;
@@ -33,7 +34,7 @@ import java.util.*;
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-public class TypableClaimsGenerator extends GeneratorCachingComponent implements PerilMarker {
+public class TypableClaimsGenerator extends GeneratorCachingComponent implements IPerilMarker {
 
     private SimulationScope simulationScope;
 

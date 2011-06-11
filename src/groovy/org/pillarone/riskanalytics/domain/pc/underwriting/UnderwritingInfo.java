@@ -3,7 +3,7 @@ package org.pillarone.riskanalytics.domain.pc.underwriting;
 import org.pillarone.riskanalytics.core.packets.MultiValuePacket;
 import org.pillarone.riskanalytics.domain.pc.constants.Exposure;
 import org.pillarone.riskanalytics.domain.pc.constants.FrequencyBase;
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
 
 import java.util.Arrays;
@@ -25,7 +25,7 @@ public class UnderwritingInfo extends MultiValuePacket {
     private double maxSumInsured;
 
     private Exposure exposureDefinition;
-    private LobMarker lineOfBusiness;
+    private ISegmentMarker lineOfBusiness;
     private IReinsuranceContractMarker reinsuranceContract;
 
     private static final String PREMIUM = "premium";
@@ -176,11 +176,11 @@ public class UnderwritingInfo extends MultiValuePacket {
                 "unnamed" : originalUnderwritingInfo.origin.getNormalizedName());
     }
 
-    public LobMarker getLineOfBusiness() {
+    public ISegmentMarker getLineOfBusiness() {
         return lineOfBusiness;
     }
 
-    public void setLineOfBusiness(LobMarker lineOfBusiness) {
+    public void setLineOfBusiness(ISegmentMarker lineOfBusiness) {
         this.lineOfBusiness = lineOfBusiness;
     }
 

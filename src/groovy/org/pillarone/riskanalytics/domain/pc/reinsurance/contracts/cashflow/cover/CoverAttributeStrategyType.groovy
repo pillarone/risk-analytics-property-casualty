@@ -7,8 +7,8 @@ import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimen
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cashflow.cover.AllCoverAttributeStrategy
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.*
 
@@ -26,15 +26,15 @@ class CoverAttributeStrategyType extends AbstractParameterObjectClassifier {
     public static final CoverAttributeStrategyType NONE = new CoverAttributeStrategyType("none", "NONE", [:])
     public static final CoverAttributeStrategyType LINESOFBUSINESS = new CoverAttributeStrategyType(
             'lines of business', 'LINESOFBUSINESS',
-            ['lines':new ComboBoxTableMultiDimensionalParameter([], ['Covered Segments'], LobMarker.class)])
+            ['lines':new ComboBoxTableMultiDimensionalParameter([], ['Covered Segments'], ISegmentMarker.class)])
     public static final CoverAttributeStrategyType PERILS = new CoverAttributeStrategyType(
             'perils', 'PERILS',
-            ['perils':new ComboBoxTableMultiDimensionalParameter([], ['Covered Perils'], PerilMarker.class)])
+            ['perils':new ComboBoxTableMultiDimensionalParameter([], ['Covered Perils'], IPerilMarker.class)])
     public static final CoverAttributeStrategyType LINESOFBUSINESSPERILS = new CoverAttributeStrategyType(
             'lines of business, perils', 'LINESOFBUSINESSPERILS',
             ['connection': LogicArguments.AND,
-             'lines':new ComboBoxTableMultiDimensionalParameter([], ['Covered Segments'], LobMarker.class),
-             'perils':new ComboBoxTableMultiDimensionalParameter([], ['Covered Perils'], PerilMarker.class)])
+             'lines':new ComboBoxTableMultiDimensionalParameter([], ['Covered Segments'], ISegmentMarker.class),
+             'perils':new ComboBoxTableMultiDimensionalParameter([], ['Covered Perils'], IPerilMarker.class)])
 
     public static final all = [ALL, NONE, LINESOFBUSINESS, PERILS, LINESOFBUSINESSPERILS]
 

@@ -1,6 +1,6 @@
 package org.pillarone.riskanalytics.domain.pc.underwriting;
 
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
 import org.pillarone.riskanalytics.domain.utils.PacketUtilities;
 

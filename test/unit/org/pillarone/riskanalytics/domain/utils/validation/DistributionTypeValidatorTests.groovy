@@ -9,7 +9,7 @@ import org.pillarone.riskanalytics.domain.utils.DistributionType
  */
 class DistributionTypeValidatorTests extends GroovyTestCase {
 
-    AbstractParameterValidationService validator = new DistributionTypeValidator().validationService
+    AbstractParameterValidationService validator = new DistributionTypeValidatorPC().validationService
 
     void testDefaultUniformValidator() {
         def defaultUniform = DistributionType.UNIFORM

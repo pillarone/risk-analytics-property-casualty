@@ -1,7 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.constraints
 
 import org.pillarone.riskanalytics.core.parameterization.IMultiDimensionalConstraints
-import org.pillarone.riskanalytics.domain.utils.constraints.IUnityPortion
+import org.pillarone.riskanalytics.domain.utils.constraint.IUnityPortion
 import org.pillarone.riskanalytics.domain.pc.company.ICompanyMarker
 
 /**

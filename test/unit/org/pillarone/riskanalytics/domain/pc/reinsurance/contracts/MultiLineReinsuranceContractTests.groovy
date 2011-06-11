@@ -11,7 +11,7 @@ import org.pillarone.riskanalytics.domain.pc.claims.TestLobComponent
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
 import org.pillarone.riskanalytics.domain.pc.generators.claims.TypableClaimsGenerator
 import org.pillarone.riskanalytics.domain.pc.generators.severities.Event
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 
@@ -27,7 +27,7 @@ public class MultiLineReinsuranceContractTests extends GroovyTestCase {
                         ["quotaShare": 0.2,
                          "coveredByReinsurer": 1d]),
                 parmInuringPriority: 10,
-                parmCoveredLines: new ComboBoxTableMultiDimensionalParameter(['fire'], ['Covered Segments'], LobMarker)
+                parmCoveredLines: new ComboBoxTableMultiDimensionalParameter(['fire'], ['Covered Segments'], ISegmentMarker)
         )
     }
 
@@ -165,7 +165,7 @@ public class MultiLineReinsuranceContractTests extends GroovyTestCase {
 
 
         contract.inClaims << claimDevelopment1 << claimDevelopment2
-        contract.parmCoveredLines = new ComboBoxTableMultiDimensionalParameter(['motor'], ['Covered Segments'], LobMarker)
+        contract.parmCoveredLines = new ComboBoxTableMultiDimensionalParameter(['motor'], ['Covered Segments'], ISegmentMarker)
         contract.parmCoveredLines.setSimulationModel simulationScope.model
         contract.doCalculation()
         assertEquals '# ceded claims packets', 1, contract.outCoveredClaims.size()

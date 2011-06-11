@@ -5,7 +5,7 @@ import org.pillarone.riskanalytics.core.packets.MultiValuePacket;
 import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope;
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType;
 import org.pillarone.riskanalytics.domain.pc.generators.severities.Event;
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
 import org.pillarone.riskanalytics.domain.pc.underwriting.ExposureInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
@@ -26,7 +26,7 @@ public class Claim extends MultiValuePacket {
     private ClaimType claimType;
     /** contains the claims or reserve generator in which the claim object was instantiated */
     private IComponentMarker peril;
-    private LobMarker lineOfBusiness;
+    private ISegmentMarker lineOfBusiness;
     private IReinsuranceContractMarker reinsuranceContract;
     private UnderwritingInfo exposure;
 
@@ -157,11 +157,11 @@ public class Claim extends MultiValuePacket {
         this.peril = peril;
     }
 
-    public LobMarker getLineOfBusiness() {
+    public ISegmentMarker getLineOfBusiness() {
         return lineOfBusiness;
     }
 
-    public void setLineOfBusiness(LobMarker lineOfBusiness) {
+    public void setLineOfBusiness(ISegmentMarker lineOfBusiness) {
         this.lineOfBusiness = lineOfBusiness;
     }
 

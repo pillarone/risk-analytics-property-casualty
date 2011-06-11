@@ -5,7 +5,7 @@ import org.pillarone.riskanalytics.core.components.PeriodStore
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
 import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope
 import org.pillarone.riskanalytics.domain.assets.VoidTestModel
 import org.pillarone.riskanalytics.domain.pc.constants.SimulationPeriod
@@ -22,7 +22,7 @@ public class ClaimDevelopmentTests extends GroovyTestCase {
                          'calibrationPeriod': SimulationPeriod.ANNUALLY]),
                 parmReportedPattern : PatternStrategyType.getStrategy(PatternStrategyType.NONE, [:]),
                 parmAppliedOnPerils : new ComboBoxTableMultiDimensionalParameter(
-                        Collections.emptyList(), Arrays.asList("peril"), PerilMarker)
+                        Collections.emptyList(), Arrays.asList("peril"), IPerilMarker)
         )
         claimDevelopment.simulationScope = new SimulationScope(model: new VoidTestModel())
         claimDevelopment.periodScope = new PeriodScope()
@@ -66,7 +66,7 @@ public class ClaimDevelopmentTests extends GroovyTestCase {
                         'calibrationPeriod': SimulationPeriod.ANNUALLY]),
                 parmReportedPattern : PatternStrategyType.getStrategy(PatternStrategyType.NONE, [:]),
                 parmAppliedOnPerils : new ComboBoxTableMultiDimensionalParameter(
-                        Collections.emptyList(), Arrays.asList("peril"), PerilMarker)
+                        Collections.emptyList(), Arrays.asList("peril"), IPerilMarker)
         )
         claimDevelopment.simulationScope = new SimulationScope(model: new VoidTestModel())
         claimDevelopment.periodScope = new PeriodScope()
@@ -108,7 +108,7 @@ public class ClaimDevelopmentTests extends GroovyTestCase {
                 parmPayoutPattern : PatternStrategyType.getStrategy(PatternStrategyType.NONE, [:]),
                 parmReportedPattern : PatternStrategyType.getStrategy(PatternStrategyType.NONE, [:]),
                 parmAppliedOnPerils : new ComboBoxTableMultiDimensionalParameter(
-                        Collections.emptyList(), Arrays.asList("peril"), PerilMarker)
+                        Collections.emptyList(), Arrays.asList("peril"), IPerilMarker)
         )
         claimDevelopment.simulationScope = new SimulationScope(model: new VoidTestModel())
         claimDevelopment.periodScope = new PeriodScope()
@@ -146,7 +146,7 @@ public class ClaimDevelopmentTests extends GroovyTestCase {
                         ["cumulativePattern":new TableMultiDimensionalParameter([0.8d, 0.9d, 0.95d, 1d],["Cumulative"]),
                         'calibrationPeriod': SimulationPeriod.ANNUALLY]),
                 parmAppliedOnPerils : new ComboBoxTableMultiDimensionalParameter(
-                        Collections.emptyList(), Arrays.asList("peril"), PerilMarker)
+                        Collections.emptyList(), Arrays.asList("peril"), IPerilMarker)
         )
         claimDevelopment.simulationScope = new SimulationScope(model: new VoidTestModel())
         claimDevelopment.periodScope = new PeriodScope()
@@ -240,7 +240,7 @@ public class ClaimDevelopmentTests extends GroovyTestCase {
                 parmActualClaims : HistoricClaimsStrategyType.getStrategy(HistoricClaimsStrategyType.LAST_PAID,
                     [paidByDevelopmentPeriod :  new TableMultiDimensionalParameter([[320d, 62d],[1, 2]], ['Paid', 'Development Periods']),]),
                 parmAppliedOnPerils : new ComboBoxTableMultiDimensionalParameter(
-                        Collections.emptyList(), Arrays.asList("peril"), PerilMarker)
+                        Collections.emptyList(), Arrays.asList("peril"), IPerilMarker)
         )
         claimDevelopment.simulationScope = new SimulationScope(model: new VoidTestModel())
         claimDevelopment.periodScope = new PeriodScope()
@@ -306,7 +306,7 @@ public class ClaimDevelopmentTests extends GroovyTestCase {
                 parmActualClaims : HistoricClaimsStrategyType.getStrategy(HistoricClaimsStrategyType.LAST_REPORTED,
                     [reportedByDevelopmentPeriod :  new TableMultiDimensionalParameter([[800d, 180d],[1, 2]], ['Paid', 'Development Periods']),]),
                 parmAppliedOnPerils : new ComboBoxTableMultiDimensionalParameter(
-                        Collections.emptyList(), Arrays.asList("peril"), PerilMarker)
+                        Collections.emptyList(), Arrays.asList("peril"), IPerilMarker)
         )
         claimDevelopment.simulationScope = new SimulationScope(model: new VoidTestModel())
         claimDevelopment.periodScope = new PeriodScope()

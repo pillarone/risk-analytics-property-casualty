@@ -4,7 +4,7 @@ import org.pillarone.riskanalytics.core.components.DynamicComposedComponent
 import org.pillarone.riskanalytics.core.packets.PacketList
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -20,7 +20,7 @@ class DynamicClaimDevelopment extends DynamicComposedComponent {
 
     public ClaimDevelopment createDefaultSubComponent() {
         ClaimDevelopment newComponent = new ClaimDevelopment(
-                parmAppliedOnPerils : new ComboBoxTableMultiDimensionalParameter([''], ['peril'], PerilMarker),
+                parmAppliedOnPerils : new ComboBoxTableMultiDimensionalParameter([''], ['peril'], IPerilMarker),
                 parmPayoutPattern : PatternStrategyType.getStrategy(PatternStrategyType.NONE, [:]),
                 parmReportedPattern : PatternStrategyType.getStrategy(PatternStrategyType.NONE, [:]),
                 parmActualClaims : HistoricClaimsStrategyType.getStrategy(HistoricClaimsStrategyType.NONE, Collections.emptyMap()))

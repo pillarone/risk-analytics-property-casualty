@@ -1,7 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts;
 
 import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObject;
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities;
 
@@ -21,12 +21,12 @@ abstract public class AbstractPremiumAllocation extends AbstractParameterObject 
         return share == null ? 1d : share;
     }
 
-    protected void initUnderwritingInfoShares(List<UnderwritingInfo> grossUnderwritingInfos, Map<LobMarker, Double> segmentShares) {
+    protected void initUnderwritingInfoShares(List<UnderwritingInfo> grossUnderwritingInfos, Map<ISegmentMarker, Double> segmentShares) {
         if (segmentShares.isEmpty()) {
             proportionalAllocation(grossUnderwritingInfos);
         }
         else {
-            Map<LobMarker, Double> segmentPremium = new HashMap<LobMarker, Double>();
+            Map<ISegmentMarker, Double> segmentPremium = new HashMap<ISegmentMarker, Double>();
             for (UnderwritingInfo underwritingInfo : grossUnderwritingInfos) {
                 Double aggregatedPremium = segmentPremium.get(underwritingInfo.getLineOfBusiness());
                 if (aggregatedPremium == null) {

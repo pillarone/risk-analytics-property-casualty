@@ -8,7 +8,7 @@ import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter;
 import org.pillarone.riskanalytics.core.simulation.engine.IterationScope;
 import org.pillarone.riskanalytics.core.util.GroovyUtils;
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
 import org.pillarone.riskanalytics.domain.pc.generators.severities.Event;
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket;
 import org.pillarone.riskanalytics.domain.utils.DateTimeUtilities;
@@ -26,7 +26,7 @@ import java.util.List;
  *
  * @author ben.ginsberg (at) intuitive-collaboration (dot) com
  */
-public class HistoricalClaims extends Component implements PerilMarker {
+public class HistoricalClaims extends Component implements IPerilMarker {
 
     private static Log LOG = LogFactory.getLog(HistoricalClaims.class);
 

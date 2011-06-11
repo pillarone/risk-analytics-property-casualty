@@ -13,7 +13,7 @@ import org.pillarone.riskanalytics.core.parameterization.AbstractMultiDimensiona
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.IMultiDimensionalConstraints
 
-import org.pillarone.riskanalytics.domain.utils.constraints.IUnityPortion
+import org.pillarone.riskanalytics.domain.utils.constraint.IUnityPortion
 import org.pillarone.riskanalytics.domain.utils.InputFormatConverter
 import org.pillarone.riskanalytics.core.parameterization.validation.ValidationType
 

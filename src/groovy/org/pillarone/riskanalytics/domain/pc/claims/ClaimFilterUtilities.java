@@ -3,11 +3,11 @@ package org.pillarone.riskanalytics.domain.pc.claims;
 import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.domain.pc.company.ICompanyMarker;
 import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments;
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
 import org.pillarone.riskanalytics.domain.pc.lob.CompanyConfigurableLobWithReserves;
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
-import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IReserveMarker;
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket;
 
 import java.util.*;
@@ -42,7 +42,7 @@ public class ClaimFilterUtilities {
         return filteredClaims;
     }
 
-    public static List<Claim> filterClaimsByLine(List<Claim> claims, LobMarker coveredLine, boolean includingReserves) {
+    public static List<Claim> filterClaimsByLine(List<Claim> claims, ISegmentMarker coveredLine, boolean includingReserves) {
         List<Claim> filteredClaims = new ArrayList<Claim>(claims.size());
         for (Claim claim : claims) {
             if (coveredLine.equals(claim.getLineOfBusiness())) {
@@ -50,7 +50,7 @@ public class ClaimFilterUtilities {
                     filteredClaims.add(claim);
                 }
                 else {
-                    if (claim.getPeril() instanceof PerilMarker) {
+                    if (claim.getPeril() instanceof IPerilMarker) {
                         filteredClaims.add(claim);
                     }
                 }
@@ -116,7 +116,7 @@ public class ClaimFilterUtilities {
         return filteredClaims;
     }
 
-    public static List<Claim> filterClaimsByPerilAndLob(List<Claim> claims, List<PerilMarker> coveredPerils, List<LobMarker> coveredLinesOfBusiness) {
+    public static List<Claim> filterClaimsByPerilAndLob(List<Claim> claims, List<IPerilMarker> coveredPerils, List<ISegmentMarker> coveredLinesOfBusiness) {
         List<Claim> filteredClaims = new ArrayList<Claim>();
         if ((coveredPerils == null || coveredPerils.size() == 0) && (coveredLinesOfBusiness == null || coveredLinesOfBusiness.size() == 0)) {
             filteredClaims.addAll(claims);
@@ -148,13 +148,13 @@ public class ClaimFilterUtilities {
     public static List<Claim> filterClaimsByCompanies(List<Claim> claims, List<ICompanyMarker> coveredCompanies, boolean includingReserves) {
         List<Claim> filteredClaims = new ArrayList<Claim>();
         for (Claim claim : claims) {
-            LobMarker line = claim.getLineOfBusiness();
+            ISegmentMarker line = claim.getLineOfBusiness();
             if (coveredCompanies.contains(((CompanyConfigurableLobWithReserves) line).getParmCompany().getSelectedComponent())) {
                 if (includingReserves) {
                     filteredClaims.add(claim);
                 }
                 else {
-                    if (claim.getPeril() instanceof PerilMarker) {
+                    if (claim.getPeril() instanceof IPerilMarker) {
                         filteredClaims.add(claim);
                     }
                 }
@@ -172,8 +172,8 @@ public class ClaimFilterUtilities {
      * @param connection             logical junction type (AND or OR), required for combined filter strategies
      * @return the list of claims that passed through the filter
      */
-    public static List<Claim> filterClaimsByPerilLobReserve(List<Claim> claims, List<PerilMarker> coveredPerils,
-                                                            List<LobMarker> coveredLinesOfBusiness, List<IReserveMarker> coveredReserves,
+    public static List<Claim> filterClaimsByPerilLobReserve(List<Claim> claims, List<IPerilMarker> coveredPerils,
+                                                            List<ISegmentMarker> coveredLinesOfBusiness, List<IReserveMarker> coveredReserves,
                                                             LogicArguments connection) {
         List<Claim> filteredClaims = new ArrayList<Claim>();
         boolean hasPerils = coveredPerils != null && coveredPerils.size() > 0;
@@ -249,7 +249,7 @@ public class ClaimFilterUtilities {
      */
     public static List<ClaimDevelopmentPacket> filterClaimsByPerilContract(
             List<ClaimDevelopmentPacket> claims,
-            List<PerilMarker> coveredPerils,
+            List<IPerilMarker> coveredPerils,
             List<String> coveredContracts,
             LogicArguments connection) {
         List<ClaimDevelopmentPacket> filteredClaims = new ArrayList<ClaimDevelopmentPacket>();
@@ -301,7 +301,7 @@ public class ClaimFilterUtilities {
         return filteredClaims;
     }
 
-    public static List<Claim> filterClaimsByPeril(List<Claim> claims, List<PerilMarker> coveredPerils) {
+    public static List<Claim> filterClaimsByPeril(List<Claim> claims, List<IPerilMarker> coveredPerils) {
         if (coveredPerils == null || coveredPerils.size() == 0) {
             return claims;
         }
@@ -316,7 +316,7 @@ public class ClaimFilterUtilities {
         }
     }
 
-    public static List<ClaimDevelopmentPacket> filterDevelopedClaimsByPeril(List<ClaimDevelopmentPacket> claims, List<PerilMarker> coveredPerils) {
+    public static List<ClaimDevelopmentPacket> filterDevelopedClaimsByPeril(List<ClaimDevelopmentPacket> claims, List<IPerilMarker> coveredPerils) {
         if (coveredPerils == null || coveredPerils.size() == 0) {
             return claims;
         }
@@ -364,10 +364,10 @@ public class ClaimFilterUtilities {
         return new ArrayList<Component>(origins);
     }
 
-    public static List<LobMarker> getLinesOfBusiness(List<Claim> claims) {
+    public static List<ISegmentMarker> getLinesOfBusiness(List<Claim> claims) {
         // don't use a set for linesOfBusiness as order may alternate for different simulations
         // (problems for reproducibility, especially in test cases)
-        List<LobMarker> linesOfBusiness = new ArrayList<LobMarker>();
+        List<ISegmentMarker> linesOfBusiness = new ArrayList<ISegmentMarker>();
         for (Claim claim : claims) {
             if (!linesOfBusiness.contains(claim.getLineOfBusiness())) {
                 linesOfBusiness.add(claim.getLineOfBusiness());

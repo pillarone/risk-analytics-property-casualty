@@ -12,8 +12,8 @@ import org.pillarone.riskanalytics.core.parameterization.AbstractMultiDimensiona
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.IMultiDimensionalConstraints
 
-import org.pillarone.riskanalytics.domain.pc.constraints.SegmentPortion
 import org.pillarone.riskanalytics.core.parameterization.validation.ValidationType
+import org.pillarone.riskanalytics.domain.utils.constraint.SegmentPortion
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com

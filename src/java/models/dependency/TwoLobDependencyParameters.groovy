@@ -4,7 +4,7 @@ import org.pillarone.riskanalytics.core.parameterization.ComboBoxMatrixMultiDime
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedString
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.CopulaStrategyFactory
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.LobCopulaType
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
@@ -32,21 +32,21 @@ components {
     copulaEvent {
         parmCopulaStrategy[allPeriods] =
             parmCopulaStrategy[allPeriods] = CopulaStrategyFactory.getCopulaStrategy(LobCopulaType.T,
-                    ["dependencyMatrix": new ComboBoxMatrixMultiDimensionalParameter([[1.0, 0.7], [0.7, 1.0]], ['fire', 'hull'], LobMarker),
+                    ["dependencyMatrix": new ComboBoxMatrixMultiDimensionalParameter([[1.0, 0.7], [0.7, 1.0]], ['fire', 'hull'], ISegmentMarker),
                             "degreesOfFreedom": 3])
     }
     copulaLarge {
         parmCopulaStrategy[allPeriods] = CopulaStrategyFactory.getCopulaStrategy(LobCopulaType.NORMAL,
-                ["dependencyMatrix": new ComboBoxMatrixMultiDimensionalParameter([[1.0, 0.5], [0.5, 1.0]], ['fire', 'hull'], LobMarker)])
+                ["dependencyMatrix": new ComboBoxMatrixMultiDimensionalParameter([[1.0, 0.5], [0.5, 1.0]], ['fire', 'hull'], ISegmentMarker)])
 
     }
     copulaAttritional {
         parmCopulaStrategy[allPeriods] = CopulaStrategyFactory.getCopulaStrategy(LobCopulaType.NORMAL,
-                ["dependencyMatrix": new ComboBoxMatrixMultiDimensionalParameter([[1.0, 0.5], [0.5, 1.0]], ['fire', 'hull'], LobMarker)])
+                ["dependencyMatrix": new ComboBoxMatrixMultiDimensionalParameter([[1.0, 0.5], [0.5, 1.0]], ['fire', 'hull'], ISegmentMarker)])
     }
     fire {
         subEventSeverityExtractor {
-            parmFilterCriteria[allPeriods] = new ConstrainedString(LobMarker, 'fire')
+            parmFilterCriteria[allPeriods] = new ConstrainedString(ISegmentMarker, 'fire')
         }
         /*subSingleSeverityExtractor {
             parmFilterCriteria[allPeriods] = 'fire'
@@ -68,7 +68,7 @@ components {
     }
     hull {
         subEventSeverityExtractor {
-            parmFilterCriteria[allPeriods] = new ConstrainedString(LobMarker, 'hull')
+            parmFilterCriteria[allPeriods] = new ConstrainedString(ISegmentMarker, 'hull')
         }
         /*subSingleSeverityExtractor {
             parmFilterCriteria[allPeriods] = 'hull'

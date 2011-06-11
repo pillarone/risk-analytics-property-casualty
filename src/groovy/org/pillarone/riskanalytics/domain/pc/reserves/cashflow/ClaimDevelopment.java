@@ -10,8 +10,8 @@ import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimFilterUtilities;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimPacketFactory;
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType;
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
-import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IReserveMarker;
 
 import java.util.*;
 
@@ -35,7 +35,7 @@ public class ClaimDevelopment extends Component implements IReserveMarker {
     private PacketList<ClaimDevelopmentWithIBNRPacket> outClaimsDevelopmentWithIBNR = new PacketList<ClaimDevelopmentWithIBNRPacket>(ClaimDevelopmentWithIBNRPacket.class);     // todo(sku): remove as soon as PMO-648 is resolved
 
     private ComboBoxTableMultiDimensionalParameter parmAppliedOnPerils = new ComboBoxTableMultiDimensionalParameter(
-        Arrays.asList(""), Arrays.asList("peril"), PerilMarker.class);
+        Arrays.asList(""), Arrays.asList("peril"), IPerilMarker.class);
     private IPatternStrategy parmPayoutPattern = PatternStrategyType.getStrategy(PatternStrategyType.NONE, Collections.emptyMap());
     private IPatternStrategy parmReportedPattern = PatternStrategyType.getStrategy(PatternStrategyType.NONE, Collections.emptyMap());
     private IHistoricClaimsStrategy parmActualClaims = HistoricClaimsStrategyType.getStrategy(HistoricClaimsStrategyType.NONE, Collections.emptyMap());
@@ -276,7 +276,7 @@ public class ClaimDevelopment extends Component implements IReserveMarker {
      * @return claims produced by covered perils
      */
     private List<Claim> filteredClaims() {
-        List<PerilMarker> coveredPerils = parmAppliedOnPerils.getValuesAsObjects();
+        List<IPerilMarker> coveredPerils = parmAppliedOnPerils.getValuesAsObjects();
         return ClaimFilterUtilities.filterClaimsByPeril(inClaims, coveredPerils);
     }
 

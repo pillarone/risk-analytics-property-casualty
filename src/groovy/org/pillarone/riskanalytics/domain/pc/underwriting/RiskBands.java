@@ -7,6 +7,7 @@ import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalPa
 import org.pillarone.riskanalytics.core.simulation.engine.IterationScope;
 import org.pillarone.riskanalytics.core.util.GroovyUtils;
 import org.pillarone.riskanalytics.domain.utils.InputFormatConverter;
+import org.pillarone.riskanalytics.domain.utils.marker.IUnderwritingInfoMarker;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -24,10 +24,12 @@ grails.project.dependency.resolution = {
         test ":code-coverage:1.2.2"
 
         if (appName == "RiskAnalyticsPropertyCasualty") {
-            runtime "org.pillarone:risk-analytics-core:1.4-ALPHA-3.2.1"
+            runtime "org.pillarone:risk-analytics-core:1.4-ALPHA-3.5"
+            runtime ("org.pillarone:risk-analytics-commons:0.1.11") { transitive = false }
         }
     }
 }
+//grails.plugin.location.'risk-analytics-commons' = "../risk-analytics-commons"
 
 grails.project.dependency.distribution = {
     String passPhrase = ""

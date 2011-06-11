@@ -3,7 +3,7 @@ package org.pillarone.riskanalytics.domain.pc.generators.copulas
 import org.pillarone.riskanalytics.core.components.DynamicComposedComponent
 import org.pillarone.riskanalytics.core.packets.PacketList
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -15,7 +15,7 @@ public class DynamicDependencies extends DynamicComposedComponent {
     public Copula createDefaultSubComponent() {
         return new PerilCopula(
                 parmCopulaStrategy: CopulaStrategyFactory.getCopulaStrategy(PerilCopulaType.INDEPENDENT,
-                        ["targets": new ComboBoxTableMultiDimensionalParameter([''], ['perils'], PerilMarker)]))
+                        ["targets": new ComboBoxTableMultiDimensionalParameter([''], ['perils'], IPerilMarker)]))
     }
 
     protected void doCalculation() {

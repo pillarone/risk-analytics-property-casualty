@@ -2,7 +2,7 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts;
 
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -28,10 +28,10 @@ public class ClaimsSharesPremiumAllocationStrategy extends AbstractPremiumAlloca
      * @param grossUnderwritingInfos not used within this strategy
      */
     public void initSegmentShares(List<Claim> cededClaims, List<UnderwritingInfo> grossUnderwritingInfos) {
-        Map<LobMarker, Double> segmentShares = new HashMap<LobMarker, Double>();
+        Map<ISegmentMarker, Double> segmentShares = new HashMap<ISegmentMarker, Double>();
         double totalCededClaim = 0d;
         for (Claim cededClaim : cededClaims) {
-            LobMarker segment = cededClaim.getLineOfBusiness();
+            ISegmentMarker segment = cededClaim.getLineOfBusiness();
             if (segment == null) continue;
             Double totalCededSegmentClaim = segmentShares.get(segment);
             totalCededClaim += cededClaim.getUltimate();
@@ -46,7 +46,7 @@ public class ClaimsSharesPremiumAllocationStrategy extends AbstractPremiumAlloca
             segmentShares.clear();
         }
         else {
-            for (Map.Entry<LobMarker, Double> totalCededSegmentClaim : segmentShares.entrySet()) {
+            for (Map.Entry<ISegmentMarker, Double> totalCededSegmentClaim : segmentShares.entrySet()) {
                 segmentShares.put(totalCededSegmentClaim.getKey(), totalCededSegmentClaim.getValue() / totalCededClaim);
             }
         }

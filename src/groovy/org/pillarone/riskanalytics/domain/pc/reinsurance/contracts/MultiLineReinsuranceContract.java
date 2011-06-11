@@ -7,10 +7,10 @@ import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimFilterUtilities;
 import org.pillarone.riskanalytics.domain.pc.claims.SortClaimsByFractionOfPeriod;
 import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments;
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.ReinsuranceResultWithCommissionPacket;
-import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IReserveMarker;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
 import org.pillarone.riskanalytics.domain.pc.underwriting.*;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimUtilities;
@@ -35,9 +35,9 @@ public class MultiLineReinsuranceContract extends ReinsuranceContract {
     private SimulationScope simulationScope;
 
     private ComboBoxTableMultiDimensionalParameter parmCoveredLines = new ComboBoxTableMultiDimensionalParameter(
-            Collections.emptyList(), Arrays.asList("Covered Segments"), LobMarker.class);
+            Collections.emptyList(), Arrays.asList("Covered Segments"), ISegmentMarker.class);
     private ComboBoxTableMultiDimensionalParameter parmCoveredPerils = new ComboBoxTableMultiDimensionalParameter(
-            Collections.emptyList(), Arrays.asList("perils"), PerilMarker.class);
+            Collections.emptyList(), Arrays.asList("perils"), IPerilMarker.class);
     private ComboBoxTableMultiDimensionalParameter parmCoveredReserves = new ComboBoxTableMultiDimensionalParameter(
             Collections.emptyList(), Arrays.asList("reserves"), IReserveMarker.class);
 
@@ -106,8 +106,8 @@ public class MultiLineReinsuranceContract extends ReinsuranceContract {
     }
 
     protected void filterInChannels() {
-        List<LobMarker> coveredLines = parmCoveredLines.getValuesAsObjects();
-        List<PerilMarker> coveredPerils = parmCoveredPerils.getValuesAsObjects();
+        List<ISegmentMarker> coveredLines = parmCoveredLines.getValuesAsObjects();
+        List<IPerilMarker> coveredPerils = parmCoveredPerils.getValuesAsObjects();
         List<IReserveMarker> coveredReserves = parmCoveredReserves.getValuesAsObjects();
         outFilteredClaims.addAll(ClaimFilterUtilities.filterClaimsByPerilLobReserve(inClaims, coveredPerils, coveredLines, coveredReserves, LogicArguments.OR));
         if (coveredLines.size() == 0) {

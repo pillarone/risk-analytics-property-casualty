@@ -11,11 +11,11 @@ import org.pillarone.riskanalytics.domain.pc.constants.IncludeType;
 import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments;
 import org.pillarone.riskanalytics.domain.pc.constants.ReinsuranceContractBase;
 import org.pillarone.riskanalytics.domain.pc.constants.ReinsuranceContractPremiumBase;
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.ReinsuranceResultWithCommissionPacket;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.*;
-import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IReserveMarker;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
 import org.pillarone.riskanalytics.domain.pc.underwriting.*;
 
@@ -120,7 +120,7 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
         else if (parmCover instanceof AllCoverAttributeStrategy) {
             if (parmCover.getParameters().get("reserves").equals(IncludeType.NOTINCLUDED)) {
                 for (Claim claim : inClaims) {
-                    if (claim.getPeril() instanceof PerilMarker) {
+                    if (claim.getPeril() instanceof IPerilMarker) {
                         outFilteredClaims.add(claim);
                     }
                 }
@@ -138,10 +138,10 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
             outFilteredUnderwritingInfo.addAll(inUnderwritingInfo);
         }
         else {
-            List<LobMarker> coveredLines = parmCover instanceof ILinesOfBusinessCoverAttributeStrategy
-                    ? (List<LobMarker>) (((ILinesOfBusinessCoverAttributeStrategy) parmCover).getLines().getValuesAsObjects()) : null;
-            List<PerilMarker> coveredPerils = parmCover instanceof IPerilCoverAttributeStrategy
-                    ? (List<PerilMarker>) ((IPerilCoverAttributeStrategy) parmCover).getPerils().getValuesAsObjects() : null;
+            List<ISegmentMarker> coveredLines = parmCover instanceof ILinesOfBusinessCoverAttributeStrategy
+                    ? (List<ISegmentMarker>) (((ILinesOfBusinessCoverAttributeStrategy) parmCover).getLines().getValuesAsObjects()) : null;
+            List<IPerilMarker> coveredPerils = parmCover instanceof IPerilCoverAttributeStrategy
+                    ? (List<IPerilMarker>) ((IPerilCoverAttributeStrategy) parmCover).getPerils().getValuesAsObjects() : null;
             List<IReserveMarker> coveredReserves = parmCover instanceof IReservesCoverAttributeStrategy
                     ? (List<IReserveMarker>) ((IReservesCoverAttributeStrategy) parmCover).getReserves().getValuesAsObjects() : null;
             LogicArguments connection = parmCover instanceof ICombinedCoverAttributeStrategy

@@ -5,9 +5,9 @@ import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter;
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory;
 import org.pillarone.riskanalytics.core.util.GroovyUtils;
-import org.pillarone.riskanalytics.domain.pc.constraints.PerilPortion;
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
+import org.pillarone.riskanalytics.domain.utils.constraint.PerilPortion;
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
 import org.pillarone.riskanalytics.domain.utils.InputFormatConverter;
 
@@ -37,18 +37,18 @@ public class MarketToLineOfBusinessClaims extends Component {
             List<Claim> lobClaims = new ArrayList<Claim>();
             int portionColumn = parmPortions.getColumnIndex(PORTION);
             Component lineOfBusiness = inClaims.get(0).sender;
-            if (!(lineOfBusiness instanceof LobMarker)) {
+            if (!(lineOfBusiness instanceof ISegmentMarker)) {
                 throw new IllegalArgumentException("MarketToLineOfBusinessClaims.componentMismatch");
             }
             for (Claim marketClaim : inClaims) {
                 String originName = marketClaim.origin.getNormalizedName();
                 int row = parmPortions.getColumnByName(PERIL).indexOf(originName);
-                if (row > -1 && marketClaim.getPeril() instanceof PerilMarker) {
+                if (row > -1 && marketClaim.getPeril() instanceof IPerilMarker) {
                     Claim lobClaim = marketClaim.copy();
                     // PMO-750: claim mergers in reinsurance program won't work with reference to market claims
                     lobClaim.setOriginalClaim(lobClaim);
                     lobClaim.origin = lineOfBusiness;
-                    lobClaim.setLineOfBusiness((LobMarker) lineOfBusiness);
+                    lobClaim.setLineOfBusiness((ISegmentMarker) lineOfBusiness);
                     lobClaim.scale(InputFormatConverter.getDouble(parmPortions.getValueAt(row + 1, portionColumn)));
                     lobClaims.add(lobClaim);
                     if (lobClaim instanceof ClaimDevelopmentLeanPacket) {

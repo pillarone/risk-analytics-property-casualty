@@ -8,6 +8,7 @@ import org.pillarone.riskanalytics.domain.pc.constants.Exposure
 import org.pillarone.riskanalytics.domain.pc.generators.frequency.Frequency
 import org.pillarone.riskanalytics.domain.pc.generators.severities.Severity
 import org.pillarone.riskanalytics.domain.utils.*
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
 
 /**
  *  The large claims generators generate claims according the number received
@@ -22,7 +23,7 @@ import org.pillarone.riskanalytics.domain.utils.*
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-class SingleClaimsGenerator extends ClaimsGenerator implements PerilMarker {
+class SingleClaimsGenerator extends ClaimsGenerator implements IPerilMarker {
 
     IRandomNumberGenerator generator
 

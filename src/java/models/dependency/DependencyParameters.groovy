@@ -6,7 +6,7 @@ import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalPa
 import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.CopulaStrategyFactory
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.LobCopulaType
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.domain.utils.FrequencyDistributionType
@@ -27,11 +27,11 @@ components {
                 ["targets": new LobTableMultiDimensionalParameter(['Fire', 'Hull'], ['Targets']),
                  "lambda": 10, "dimension": 2])*/
         parmCopulaStrategy[0..4] = CopulaStrategyFactory.getCopulaStrategy(LobCopulaType.NORMAL,
-                ["dependencyMatrix": new ComboBoxMatrixMultiDimensionalParameter([[1.0, 0.5], [0.5, 1.0]], ['fire', 'hull'], LobMarker)])
+                ["dependencyMatrix": new ComboBoxMatrixMultiDimensionalParameter([[1.0, 0.5], [0.5, 1.0]], ['fire', 'hull'], ISegmentMarker)])
     }
     fire {
         subSeverityExtractor {
-            parmFilterCriteria[allPeriods] = new ConstrainedString(LobMarker, 'fire')
+            parmFilterCriteria[allPeriods] = new ConstrainedString(ISegmentMarker, 'fire')
         }
         subClaimsGenerator {
             parmDistribution[allPeriods] = DistributionType.getStrategy(DistributionType.NORMAL, ["mean": 10, "stDev": 2])
@@ -39,7 +39,7 @@ components {
     }
     hull {
         subSeverityExtractor {
-            parmFilterCriteria[allPeriods] = new ConstrainedString(LobMarker, 'hull')
+            parmFilterCriteria[allPeriods] = new ConstrainedString(ISegmentMarker, 'hull')
         }
         subClaimsGenerator {
             parmDistribution[allPeriods] = DistributionType.getStrategy(DistributionType.NORMAL, ["mean": 10, "stDev": 2])

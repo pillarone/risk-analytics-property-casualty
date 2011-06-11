@@ -50,7 +50,7 @@ class ClaimsGeneratorStrategyValidator implements IParameterizationValidator {
                         errors.addAll(currentErrors)
                     }
                     catch (IllegalArgumentException ex) {
-                        // distribution parameters are invalid, however this is checked in the DistributionTypeValidator
+                        // distribution parameters are invalid, however this is checked in the DistributionTypeValidatorPC
                     }
                 }
                 // step down recursively

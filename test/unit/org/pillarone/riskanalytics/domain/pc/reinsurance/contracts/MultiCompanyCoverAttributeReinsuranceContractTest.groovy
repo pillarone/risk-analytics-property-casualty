@@ -1,7 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts
 
 
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope
 import org.pillarone.riskanalytics.domain.assets.VoidTestModel
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
@@ -9,7 +9,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.ICoverA
 import org.pillarone.riskanalytics.domain.pc.claims.TestLobComponent
 import org.pillarone.riskanalytics.core.model.Model
 import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
 import org.pillarone.riskanalytics.domain.pc.claims.TestPerilComponent
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
@@ -52,7 +52,7 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
                 parmInuringPriority: 10,
                 parmCover: CompanyCoverAttributeStrategyType.getStrategy(
                         CompanyCoverAttributeStrategyType.LINESOFBUSINESS,
-                        ['lines': new ComboBoxTableMultiDimensionalParameter(['fire'], ['Covered Segments'], LobMarker)])
+                        ['lines': new ComboBoxTableMultiDimensionalParameter(['fire'], ['Covered Segments'], ISegmentMarker)])
         )
         SimulationScope simulationScope = new SimulationScope()
         simulationScope.model = new VoidTestModel()
@@ -89,9 +89,9 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
         boolean hasPerils = cover.containsKey('perils')
         boolean hasReserves = cover.containsKey('reserves')
 
-        ComboBoxTableMultiDimensionalParameter lines = hasLines ? new ComboBoxTableMultiDimensionalParameter(cover['lines'], ['Covered Segments'], LobMarker) : null
-        ComboBoxTableMultiDimensionalParameter perils = hasPerils ? new ComboBoxTableMultiDimensionalParameter(cover['perils'], ['Covered Perils'], PerilMarker) : null
-        ComboBoxTableMultiDimensionalParameter reserves = hasReserves ? new ComboBoxTableMultiDimensionalParameter(cover['reserves'], ['Covered Reserves'], LobMarker) : null
+        ComboBoxTableMultiDimensionalParameter lines = hasLines ? new ComboBoxTableMultiDimensionalParameter(cover['lines'], ['Covered Segments'], ISegmentMarker) : null
+        ComboBoxTableMultiDimensionalParameter perils = hasPerils ? new ComboBoxTableMultiDimensionalParameter(cover['perils'], ['Covered Perils'], IPerilMarker) : null
+        ComboBoxTableMultiDimensionalParameter reserves = hasReserves ? new ComboBoxTableMultiDimensionalParameter(cover['reserves'], ['Covered Reserves'], ISegmentMarker) : null
 
         // each of the strategy-specific ComboBoxTableMultiDimensionalParameter properties needs to set the simulation model (to simulate a choice from the GUI)
         if (model != null) {

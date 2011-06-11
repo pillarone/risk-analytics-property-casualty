@@ -17,11 +17,12 @@ import org.pillarone.riskanalytics.domain.pc.aggregators.UnderwritingInfoNetCalc
 import org.pillarone.riskanalytics.domain.pc.claims.MarketGrossNetClaimsMerger
 import org.pillarone.riskanalytics.core.packets.SingleValuePacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-public class ConfigurableLobWithReserves extends MultipleCalculationPhaseComposedComponent implements LobMarker {
+public class ConfigurableLobWithReserves extends MultipleCalculationPhaseComposedComponent implements ISegmentMarker {
 
     PacketList<UnderwritingInfo> inUnderwritingInfoGross = new PacketList(UnderwritingInfo)
     PacketList<CededUnderwritingInfo> inUnderwritingInfoCeded = new PacketList(CededUnderwritingInfo)

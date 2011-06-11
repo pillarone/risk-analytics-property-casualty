@@ -9,6 +9,7 @@ import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.generators.claims.AttritionalSingleClaimsGenerator
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingSegment
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 
 /**
  *  This example line of business contains an underwriting, claims generator and a
@@ -17,7 +18,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingSegment
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-class Lob extends ComposedComponent implements LobMarker {
+class Lob extends ComposedComponent implements ISegmentMarker {
 
     UnderwritingSegment subUnderwriting
     AttritionalSingleClaimsGenerator subClaimsGenerator

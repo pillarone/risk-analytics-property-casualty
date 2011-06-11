@@ -10,7 +10,7 @@ import org.pillarone.riskanalytics.core.util.TestProbe
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
 import org.pillarone.riskanalytics.domain.pc.creditrisk.ReinsurerDefault
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 import org.pillarone.riskanalytics.domain.pc.reinsurance.IReinsurerMarker
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 
@@ -25,7 +25,7 @@ public class MultiLineReinsuranceContractWithDefaultTests extends GroovyTestCase
                         ReinsuranceContractType.QUOTASHARE,
                         ["quotaShare": 0.5,
                                 "coveredByReinsurer": 1d]),
-                parmCoveredLines: new ComboBoxTableMultiDimensionalParameter(['fire'], ['Covered Segments'], LobMarker),
+                parmCoveredLines: new ComboBoxTableMultiDimensionalParameter(['fire'], ['Covered Segments'], ISegmentMarker),
                 parmReinsurer: new ConstrainedString(IReinsurerMarker, 'earth re'))
     }
 

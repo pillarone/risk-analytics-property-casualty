@@ -5,14 +5,14 @@ import org.pillarone.riskanalytics.domain.pc.constants.Exposure
 import org.pillarone.riskanalytics.domain.pc.constants.FrequencyBase
 import org.pillarone.riskanalytics.domain.pc.constants.FrequencySeverityClaimType
 import org.pillarone.riskanalytics.domain.pc.generators.claims.ClaimsGeneratorType
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.CopulaStrategyFactory
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.PerilCopulaType
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.CoverAttributeStrategyType
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ReservesGeneratorStrategyType
-import org.pillarone.riskanalytics.domain.pc.underwriting.IUnderwritingInfoMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IUnderwritingInfoMarker
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.core.parameterization.*
@@ -61,12 +61,12 @@ components {
 [0.25,1.0,0.5,0.25],
 [0.25,0.5,1,0.25],
 [0.25,0.25,0.25,1]
-],["personal accident attritional","motor third party liability attritional","motor hull attritional","property attritional"],PerilMarker),])
+],["personal accident attritional","motor third party liability attritional","motor hull attritional","property attritional"],IPerilMarker),])
 		}
 	}
 	reserveGenerators {
 		subMotorHull {
-			parmReservesModel[0]=ReservesGeneratorStrategyType.getStrategy(ReservesGeneratorStrategyType.INITIAL_RESERVES, ["basedOnClaimsGenerators":new ComboBoxTableMultiDimensionalParameter(["motor hull attritional","motor hull single"],["Claims Generators"], PerilMarker),])
+			parmReservesModel[0]=ReservesGeneratorStrategyType.getStrategy(ReservesGeneratorStrategyType.INITIAL_RESERVES, ["basedOnClaimsGenerators":new ComboBoxTableMultiDimensionalParameter(["motor hull attritional","motor hull single"],["Claims Generators"], IPerilMarker),])
 			parmDistribution[0]=DistributionType.getStrategy(DistributionType.LOGNORMAL, [mean:100.0, stDev:10.0])
 			parmInitialReserves[0]=200.0
 			parmModification[0]=DistributionModifier.getStrategy(DistributionModifier.NONE, [:])
@@ -79,7 +79,7 @@ components {
                 parmContractStrategy[0]=ReinsuranceContractType.getStrategy(ReinsuranceContractType.QUOTASHARE, ["quotaShare":0.5,"coveredByReinsurer":1.0,])
                 parmCommissionStrategy[0] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0d])
                 parmInuringPriority[0]=0
-                parmCover[0] = CoverAttributeStrategyType.getStrategy(CoverAttributeStrategyType.PERILS, ['perils': new ComboBoxTableMultiDimensionalParameter(['motor hull attritional','motor hull single'], ["Covered Perils"], PerilMarker),])
+                parmCover[0] = CoverAttributeStrategyType.getStrategy(CoverAttributeStrategyType.PERILS, ['perils': new ComboBoxTableMultiDimensionalParameter(['motor hull attritional','motor hull single'], ["Covered Perils"], IPerilMarker),])
             }
         }
 	}

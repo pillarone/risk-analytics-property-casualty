@@ -9,7 +9,7 @@ import org.pillarone.riskanalytics.core.parameterization.validation.ParameterVal
 import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterHolder
 import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterObjectParameterHolder
 import org.pillarone.riskanalytics.core.simulation.item.parameter.MultiDimensionalParameterHolder
-import org.pillarone.riskanalytics.domain.pc.underwriting.IUnderwritingInfoMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IUnderwritingInfoMarker
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.pc.claims.RiskAllocatorType
 import org.pillarone.riskanalytics.domain.utils.validation.ParameterValidationImpl

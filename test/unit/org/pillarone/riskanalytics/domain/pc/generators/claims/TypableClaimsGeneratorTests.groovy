@@ -12,7 +12,7 @@ import org.pillarone.riskanalytics.domain.pc.generators.copulas.DependenceStream
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.EventDependenceStream
 import org.pillarone.riskanalytics.domain.pc.generators.severities.Event
 import org.pillarone.riskanalytics.domain.pc.generators.severities.EventSeverity
-import org.pillarone.riskanalytics.domain.pc.underwriting.IUnderwritingInfoMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IUnderwritingInfoMarker
 import org.pillarone.riskanalytics.domain.pc.underwriting.RiskBands
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
@@ -20,7 +20,7 @@ import org.pillarone.riskanalytics.domain.utils.DistributionType
 
 import umontreal.iro.lecuyer.probdist.*
 import org.pillarone.riskanalytics.domain.utils.DistributionModified
-import org.pillarone.riskanalytics.domain.utils.constraints.DoubleConstraints
+import org.pillarone.riskanalytics.domain.utils.constraint.DoubleConstraints
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.utils.randomnumbers.UniformDoubleList

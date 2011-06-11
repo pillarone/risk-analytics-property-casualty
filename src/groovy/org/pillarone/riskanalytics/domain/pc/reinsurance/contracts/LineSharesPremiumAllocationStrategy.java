@@ -4,8 +4,8 @@ import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensi
 import org.pillarone.riskanalytics.core.util.GroovyUtils;
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
-import org.pillarone.riskanalytics.domain.pc.constraints.SegmentPortion;
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
+import org.pillarone.riskanalytics.domain.utils.constraint.SegmentPortion;
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 
 import java.util.Arrays;
@@ -45,16 +45,16 @@ public class LineSharesPremiumAllocationStrategy extends AbstractPremiumAllocati
      */
     public void initSegmentShares(List<Claim> cededClaims, List<UnderwritingInfo> grossUnderwritingInfos) {
         if (grossUnderwritingInfos == null || grossUnderwritingInfos.size() == 0) return;
-        Map<String, LobMarker> segmentNameMapping = new HashMap<String, LobMarker>();
+        Map<String, ISegmentMarker> segmentNameMapping = new HashMap<String, ISegmentMarker>();
         for (UnderwritingInfo underwritingInfo : grossUnderwritingInfos) {
             if (underwritingInfo.getLineOfBusiness() == null) continue;
             segmentNameMapping.put(underwritingInfo.getLineOfBusiness().getNormalizedName(), underwritingInfo.getLineOfBusiness());
         }
-        Map<LobMarker, Double> segmentShares = new HashMap<LobMarker, Double>();
+        Map<ISegmentMarker, Double> segmentShares = new HashMap<ISegmentMarker, Double>();
         double totalShare = 0;
         for (int row = lineOfBusinessShares.getTitleRowCount(); row < lineOfBusinessShares.getRowCount(); row++) {
             String segmentName = (String) lineOfBusinessShares.getValueAt(row, lineOfBusinessShares.getColumnIndex(LINES));
-            LobMarker segment = segmentNameMapping.get(segmentName);
+            ISegmentMarker segment = segmentNameMapping.get(segmentName);
             if (segment == null) continue;  // map only to available lines
             Double share = (Double) lineOfBusinessShares.getValueAt(row, lineOfBusinessShares.getColumnIndex(SHARES));
             totalShare += share;
@@ -62,7 +62,7 @@ public class LineSharesPremiumAllocationStrategy extends AbstractPremiumAllocati
         }
         // normalize entered segment shares to 1
         if (totalShare != 1.0) {
-            for (Map.Entry<LobMarker, Double> segmentShare : segmentShares.entrySet()) {
+            for (Map.Entry<ISegmentMarker, Double> segmentShare : segmentShares.entrySet()) {
                 segmentShares.put(segmentShare.getKey(), (segmentShare.getValue() / totalShare));
             }
         }

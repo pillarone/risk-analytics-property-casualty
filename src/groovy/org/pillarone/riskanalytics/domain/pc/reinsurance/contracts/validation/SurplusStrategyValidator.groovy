@@ -12,7 +12,7 @@ import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterObjec
 import org.pillarone.riskanalytics.domain.pc.claims.RiskAllocatorType
 import org.pillarone.riskanalytics.domain.pc.generators.claims.ClaimsGeneratorType
 import org.pillarone.riskanalytics.domain.pc.generators.claims.DevelopedTypableClaimsGenerator
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
 import org.pillarone.riskanalytics.domain.pc.lob.ConfigurableLobWithReserves
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.CoverAttributeStrategyType
@@ -43,8 +43,8 @@ class SurplusStrategyValidator implements IParameterizationValidator {
         errors.addAll exposureInformationAvailable(parameters, coveredComponents)
 //        coveredComponents << findCoveredLinesPerils()
         /*for (IReinsuranceContractMarker cover : covers) {
-            List<PerilMarker> coverPerils = findClaimsGenerators(cover)
-            for (PerilMarker coverPeril : coverPerils) {
+            List<IPerilMarker> coverPerils = findClaimsGenerators(cover)
+            for (IPerilMarker coverPeril : coverPerils) {
                 if (!coverPeril.hasProperty('parmAssociateExposureInfo')) {
                     errors << error("coverPeril.without.exposure.info", coverPeril.getNormalizedName(), cover)
                     errors << error("no.exposure.association.possible", null, coverPeril)
@@ -138,7 +138,7 @@ class SurplusStrategyValidator implements IParameterizationValidator {
                         if (availablePerils.size()) {
                             Set<String> coveredPerils = new HashSet<String>()
                             for (String perilName : parameter.classifierParameters['perils']?.value?.values) {
-                                PerilMarker peril = availablePerils.get(perilName)
+                                IPerilMarker peril = availablePerils.get(perilName)
                                 coveredPerils.add(peril.name)
                             }
                             for (String peril : coveredPerils) {
@@ -295,8 +295,8 @@ class SurplusStrategyValidator implements IParameterizationValidator {
         return perilTechnicalNames
     }
 
-//    private static List<PerilMarker> findClaimsGenerators(IReinsuranceContractMarker contract) {
-//        List<PerilMarker> coveredPerils = []
+//    private static List<IPerilMarker> findClaimsGenerators(IReinsuranceContractMarker contract) {
+//        List<IPerilMarker> coveredPerils = []
 ////        private ICoverAttributeStrategy parmCover = CoverAttributeStrategyType.getStrategy(
 ////                CoverAttributeStrategyType.ALL, ArrayUtils.toMap(new Object[][]{{"reserves", IncludeType.NOTINCLUDED}}));
 //        if (contract.hasProperty('parmCover')) {

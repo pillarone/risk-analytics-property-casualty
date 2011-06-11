@@ -14,11 +14,12 @@ import org.pillarone.riskanalytics.domain.pc.generators.copulas.EventDependenceS
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.DependenceStream
 import org.pillarone.riskanalytics.domain.pc.generators.frequency.Frequency
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-class DependentLobAttrSingleEventClaims extends ComposedComponent implements LobMarker {
+class DependentLobAttrSingleEventClaims extends ComposedComponent implements ISegmentMarker {
 
     EventSeverityExtractor subEventSeverityExtractor
     ProbabilityExtractor subSingleSeverityExtractor

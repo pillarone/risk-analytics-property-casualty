@@ -3,6 +3,7 @@ package org.pillarone.riskanalytics.domain.pc.underwriting
 import org.pillarone.riskanalytics.core.components.Component
 import org.pillarone.riskanalytics.core.packets.PacketList
 import org.pillarone.riskanalytics.domain.pc.constants.Exposure
+import org.pillarone.riskanalytics.domain.utils.marker.IUnderwritingInfoMarker
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com

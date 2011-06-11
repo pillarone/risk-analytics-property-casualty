@@ -4,8 +4,8 @@ import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObject
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter;
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier;
 import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments;
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,10 +19,10 @@ public class LineOfBusinessPerilsCompanyCoverAttributeStrategy extends AbstractP
         implements ILinesOfBusinessCoverAttributeStrategy, IPerilCoverAttributeStrategy, ICombinedCoverAttributeStrategy {
 
     private ComboBoxTableMultiDimensionalParameter lines
-            = new ComboBoxTableMultiDimensionalParameter(Collections.emptyList(), Arrays.asList("Covered Segments"), LobMarker.class);
+            = new ComboBoxTableMultiDimensionalParameter(Collections.emptyList(), Arrays.asList("Covered Segments"), ISegmentMarker.class);
     private LogicArguments connection = LogicArguments.AND;
     private ComboBoxTableMultiDimensionalParameter perils
-            = new ComboBoxTableMultiDimensionalParameter(Collections.emptyList(), Arrays.asList("Covered Perils"), PerilMarker.class);
+            = new ComboBoxTableMultiDimensionalParameter(Collections.emptyList(), Arrays.asList("Covered Perils"), IPerilMarker.class);
 
     public IParameterObjectClassifier getType() {
         return CompanyCoverAttributeStrategyType.LINESOFBUSINESSPERILS;

@@ -4,21 +4,21 @@ import org.pillarone.riskanalytics.core.parameterization.ComboBoxMatrixMultiDime
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
 
 /**
- *  Difference to CopulaType is that a PerilMarker instead of LobMarker is used.
+ *  Difference to CopulaType is that a IPerilMarker instead of ISegmentMarker is used.
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 class PerilCopulaType extends CopulaType {
 
 
-    public static final PerilCopulaType NORMAL = new PerilCopulaType("normal", "NORMAL", ["dependencyMatrix": new ComboBoxMatrixMultiDimensionalParameter([[1d, 0d], [0d, 1d]], ["A", "B"], PerilMarker)])
-    public static final PerilCopulaType FRECHETUPPERBOUND = new PerilCopulaType("frechet upper bound", "FRECHETUPPERBOUND", ["targets": new ComboBoxTableMultiDimensionalParameter(["A"], ['Targets'], PerilMarker)])
-    public static final PerilCopulaType INDEPENDENT = new PerilCopulaType("independent", "INDEPENDENT", ["targets": new ComboBoxTableMultiDimensionalParameter(["A"], ['Targets'], PerilMarker)])
-    public static final PerilCopulaType T = new PerilCopulaType("t", "T", ["dependencyMatrix": new ComboBoxMatrixMultiDimensionalParameter([[1d, 0d], [0d, 1d]], ["A", "B"], PerilMarker), "degreesOfFreedom": 10])
-    public static final PerilCopulaType GUMBEL = new PerilCopulaType("gumbel", "GUMBEL", ["lambda": 10, "dimension": 2, "targets": new ComboBoxTableMultiDimensionalParameter(["A"], ['Targets'], PerilMarker)])
+    public static final PerilCopulaType NORMAL = new PerilCopulaType("normal", "NORMAL", ["dependencyMatrix": new ComboBoxMatrixMultiDimensionalParameter([[1d, 0d], [0d, 1d]], ["A", "B"], IPerilMarker)])
+    public static final PerilCopulaType FRECHETUPPERBOUND = new PerilCopulaType("frechet upper bound", "FRECHETUPPERBOUND", ["targets": new ComboBoxTableMultiDimensionalParameter(["A"], ['Targets'], IPerilMarker)])
+    public static final PerilCopulaType INDEPENDENT = new PerilCopulaType("independent", "INDEPENDENT", ["targets": new ComboBoxTableMultiDimensionalParameter(["A"], ['Targets'], IPerilMarker)])
+    public static final PerilCopulaType T = new PerilCopulaType("t", "T", ["dependencyMatrix": new ComboBoxMatrixMultiDimensionalParameter([[1d, 0d], [0d, 1d]], ["A", "B"], IPerilMarker), "degreesOfFreedom": 10])
+    public static final PerilCopulaType GUMBEL = new PerilCopulaType("gumbel", "GUMBEL", ["lambda": 10, "dimension": 2, "targets": new ComboBoxTableMultiDimensionalParameter(["A"], ['Targets'], IPerilMarker)])
 
     public static final all = [NORMAL, FRECHETUPPERBOUND, INDEPENDENT, T, GUMBEL]
 

@@ -16,11 +16,11 @@ import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments;
 import org.pillarone.riskanalytics.domain.pc.constants.ReinsuranceContractBase;
 import org.pillarone.riskanalytics.domain.pc.constraints.CompanyPortion;
 import org.pillarone.riskanalytics.domain.pc.creditrisk.ReinsurerDefault;
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.ReinsuranceResultWithCommissionPacket;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.*;
-import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IReserveMarker;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
 import org.pillarone.riskanalytics.domain.pc.underwriting.*;
 import org.pillarone.riskanalytics.domain.utils.InputFormatConverter;
@@ -150,14 +150,14 @@ public class MultiCompanyCoverAttributeReinsuranceContract extends ReinsuranceCo
         else if (parmCover instanceof CompaniesCompanyCoverAttributeStrategy) {
             List<ICompanyMarker> coveredCompanies = (List<ICompanyMarker>) (((CompaniesCompanyCoverAttributeStrategy) parmCover).getCompanies().getValuesAsObjects());
             outFilteredClaims.addAll(ClaimFilterUtilities.filterClaimsByCompanies(inClaims, coveredCompanies, false));
-            List<LobMarker> coveredLines = ClaimFilterUtilities.getLinesOfBusiness(outFilteredClaims);
+            List<ISegmentMarker> coveredLines = ClaimFilterUtilities.getLinesOfBusiness(outFilteredClaims);
             outFilteredUnderwritingInfo.addAll(UnderwritingFilterUtilities.filterUnderwritingInfoByLobWithoutScaling(inUnderwritingInfo, coveredLines));
         }
         else {
-            List<LobMarker> coveredLines = parmCover instanceof ILinesOfBusinessCoverAttributeStrategy
-                    ? (List<LobMarker>) (((ILinesOfBusinessCoverAttributeStrategy) parmCover).getLines().getValuesAsObjects()) : null;
-            List<PerilMarker> coveredPerils = parmCover instanceof IPerilCoverAttributeStrategy
-                    ? (List<PerilMarker>) ((IPerilCoverAttributeStrategy) parmCover).getPerils().getValuesAsObjects() : null;
+            List<ISegmentMarker> coveredLines = parmCover instanceof ILinesOfBusinessCoverAttributeStrategy
+                    ? (List<ISegmentMarker>) (((ILinesOfBusinessCoverAttributeStrategy) parmCover).getLines().getValuesAsObjects()) : null;
+            List<IPerilMarker> coveredPerils = parmCover instanceof IPerilCoverAttributeStrategy
+                    ? (List<IPerilMarker>) ((IPerilCoverAttributeStrategy) parmCover).getPerils().getValuesAsObjects() : null;
             List<IReserveMarker> coveredReserves = parmCover instanceof IReservesCoverAttributeStrategy
                     ? (List<IReserveMarker>) ((IReservesCoverAttributeStrategy) parmCover).getReserves().getValuesAsObjects() : null;
             LogicArguments connection = parmCover instanceof ICombinedCoverAttributeStrategy

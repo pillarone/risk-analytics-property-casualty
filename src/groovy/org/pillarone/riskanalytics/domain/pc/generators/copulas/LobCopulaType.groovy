@@ -4,7 +4,7 @@ import org.pillarone.riskanalytics.core.parameterization.ComboBoxMatrixMultiDime
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -13,11 +13,11 @@ class LobCopulaType extends CopulaType {
 
     protected static Map types = [:]
 
-    public static final LobCopulaType NORMAL = new LobCopulaType("normal", "NORMAL", ["dependencyMatrix": new ComboBoxMatrixMultiDimensionalParameter([[1d, 0d], [0d, 1d]], ["A", "B"], LobMarker)])
-    public static final LobCopulaType FRECHETUPPERBOUND = new LobCopulaType("frechet upper bound", "FRECHETUPPERBOUND", ["targets": new ComboBoxTableMultiDimensionalParameter(["A"], ['Targets'], LobMarker)])
-    public static final LobCopulaType INDEPENDENT = new LobCopulaType("independent", "INDEPENDENT", ["targets": new ComboBoxTableMultiDimensionalParameter(["A"], ['Targets'], LobMarker)])
-    public static final LobCopulaType T = new LobCopulaType("t", "T", ["dependencyMatrix": new ComboBoxMatrixMultiDimensionalParameter([[1d, 0d], [0d, 1d]], ["A", "B"], LobMarker), "degreesOfFreedom": 10])
-    public static final LobCopulaType GUMBEL = new LobCopulaType("gumbel", "GUMBEL", ["lambda": 10, "dimension": 2, "targets": new ComboBoxTableMultiDimensionalParameter(["A"], ['Targets'], LobMarker)])
+    public static final LobCopulaType NORMAL = new LobCopulaType("normal", "NORMAL", ["dependencyMatrix": new ComboBoxMatrixMultiDimensionalParameter([[1d, 0d], [0d, 1d]], ["A", "B"], ISegmentMarker)])
+    public static final LobCopulaType FRECHETUPPERBOUND = new LobCopulaType("frechet upper bound", "FRECHETUPPERBOUND", ["targets": new ComboBoxTableMultiDimensionalParameter(["A"], ['Targets'], ISegmentMarker)])
+    public static final LobCopulaType INDEPENDENT = new LobCopulaType("independent", "INDEPENDENT", ["targets": new ComboBoxTableMultiDimensionalParameter(["A"], ['Targets'], ISegmentMarker)])
+    public static final LobCopulaType T = new LobCopulaType("t", "T", ["dependencyMatrix": new ComboBoxMatrixMultiDimensionalParameter([[1d, 0d], [0d, 1d]], ["A", "B"], ISegmentMarker), "degreesOfFreedom": 10])
+    public static final LobCopulaType GUMBEL = new LobCopulaType("gumbel", "GUMBEL", ["lambda": 10, "dimension": 2, "targets": new ComboBoxTableMultiDimensionalParameter(["A"], ['Targets'], ISegmentMarker)])
 
     public static final all = [NORMAL, FRECHETUPPERBOUND, INDEPENDENT, T, GUMBEL]
 

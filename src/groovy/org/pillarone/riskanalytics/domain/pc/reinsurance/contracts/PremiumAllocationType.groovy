@@ -5,7 +5,7 @@ import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassif
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
-import org.pillarone.riskanalytics.domain.pc.constraints.SegmentPortion
+import org.pillarone.riskanalytics.domain.utils.constraint.SegmentPortion
 
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com

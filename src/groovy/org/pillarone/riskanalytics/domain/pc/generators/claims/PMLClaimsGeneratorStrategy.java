@@ -5,7 +5,7 @@ import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope;
 import org.pillarone.riskanalytics.core.util.GroovyUtils;
 import org.pillarone.riskanalytics.domain.utils.*;
 import org.pillarone.riskanalytics.domain.pc.constants.Exposure;
-import org.pillarone.riskanalytics.domain.utils.constraints.DoubleConstraints;
+import org.pillarone.riskanalytics.domain.utils.constraint.DoubleConstraints;
 import org.pillarone.riskanalytics.domain.pc.constants.FrequencySeverityClaimType;
 
 import java.util.*;

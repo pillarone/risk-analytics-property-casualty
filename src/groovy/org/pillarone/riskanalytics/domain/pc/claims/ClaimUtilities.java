@@ -70,8 +70,16 @@ public class ClaimUtilities {
             Claim claim = ClaimPacketFactory.createPacket();
             claim.origin = component;
             claim.setClaimType(ClaimType.AGGREGATED);
-            claim.setUltimate(PacketUtilities.sumClaims(claims));
+            claim.setUltimate(sumClaims(claims));
             return claim;
         }
+    }
+
+    public static double sumClaims(List<Claim> claims) {
+        double sum = 0d;
+        for (Claim claim : claims) {
+            sum += claim.getUltimate();
+        }
+        return sum;
     }
 }

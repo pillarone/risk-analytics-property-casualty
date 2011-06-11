@@ -12,14 +12,14 @@ import org.pillarone.riskanalytics.core.parameterization.validation.AbstractPara
 import org.pillarone.riskanalytics.domain.utils.InputFormatConverter
 import org.pillarone.riskanalytics.core.parameterization.validation.ValidationType
 
-class DistributionTypeValidator implements IParameterizationValidator {
+class DistributionTypeValidatorPC implements IParameterizationValidator {
 
-    private static Log LOG = LogFactory.getLog(DistributionTypeValidator)
+    private static Log LOG = LogFactory.getLog(DistributionTypeValidatorPC)
     private static final double EPSILON = 1E-6 // guard for "close-enough" checks instead of == for doubles
 
     private AbstractParameterValidationService validationService
 
-    public DistributionTypeValidator() {
+    public DistributionTypeValidatorPC() {
         validationService = new ParameterValidationServiceImpl()
         registerConstraints()
     }

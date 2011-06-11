@@ -8,8 +8,8 @@ import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimen
 import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.generators.GeneratorCachingComponent;
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
-import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IReserveMarker;
 import org.pillarone.riskanalytics.domain.utils.*;
 
 import java.util.Arrays;
@@ -46,7 +46,7 @@ public class ReservesGeneratorLean extends GeneratorCachingComponent implements 
             ReservesGeneratorStrategyType.INITIAL_RESERVES,
             ArrayUtils.toMap(new Object[][]{{"basedOnClaimsGenerators", new ComboBoxTableMultiDimensionalParameter(
                     Collections.emptyList(),
-                    Arrays.asList("Claims Generators"), PerilMarker.class)}}));
+                    Arrays.asList("Claims Generators"), IPerilMarker.class)}}));
     private RandomDistribution parmDistribution = DistributionType.getStrategy(DistributionType.CONSTANT,
             ArrayUtils.toMap(new Object[][]{{"constant", 0d}}));
     private DistributionModified parmModification = DistributionModifier.getStrategy(DistributionModifier.NONE, new HashMap());
@@ -77,7 +77,7 @@ public class ReservesGeneratorLean extends GeneratorCachingComponent implements 
         }
 
         ComboBoxTableMultiDimensionalParameter basedOnClaimsGenerator = ((AbstractClaimsGeneratorBasedReservesGeneratorStrategy) parmReservesModel).getBasedOnClaimsGenerators();
-        List<PerilMarker> coveredPerils = basedOnClaimsGenerator.getValuesAsObjects();
+        List<IPerilMarker> coveredPerils = basedOnClaimsGenerator.getValuesAsObjects();
 
         if (coveredPerils.size() == 0) {
             return addUnfilteredReserves(aggregatedReserves);
@@ -93,7 +93,7 @@ public class ReservesGeneratorLean extends GeneratorCachingComponent implements 
         return aggregatedReserves;
     }
 
-    private double addFilteredReserves(double aggregatedReserves, List<PerilMarker> coveredPerils) {
+    private double addFilteredReserves(double aggregatedReserves, List<IPerilMarker> coveredPerils) {
         for (Claim incomingClaim : inClaims) {
             if (coveredPerils.contains(incomingClaim.getPeril())) {
                 aggregatedReserves += ((ClaimDevelopmentLeanPacket) incomingClaim).getReserved();

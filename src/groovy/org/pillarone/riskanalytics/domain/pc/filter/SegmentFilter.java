@@ -6,8 +6,8 @@ import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensi
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory;
 import org.pillarone.riskanalytics.core.util.GroovyUtils;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
-import org.pillarone.riskanalytics.domain.pc.constraints.SegmentPortion;
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
+import org.pillarone.riskanalytics.domain.utils.constraint.SegmentPortion;
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.utils.InputFormatConverter;
@@ -52,7 +52,7 @@ public class SegmentFilter extends Component {
             GroovyUtils.toList("[[],[]]"), Arrays.asList(SEGMENT, PORTION),
             ConstraintsFactory.getConstraints(SegmentPortion.IDENTIFIER));
 
-    private List<LobMarker> segments;
+    private List<ISegmentMarker> segments;
     private List<Double> portions = new ArrayList<Double>();
 
 

@@ -1,8 +1,8 @@
 package org.pillarone.riskanalytics.domain.pc.claims
 
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker
 
@@ -65,9 +65,9 @@ class ClaimFilterUtilitiesTests extends GroovyTestCase {
         //              x                                               peril 1 & lob A
         //                  x           x                               peril 2 & lob A
 
-        List<PerilMarker> perils = [peril[0]]
-        List<PerilMarker> reserves = []
-        List<LobMarker> lobs = []
+        List<IPerilMarker> perils = [peril[0]]
+        List<IPerilMarker> reserves = []
+        List<ISegmentMarker> lobs = []
         List filteredClaims = ClaimFilterUtilities.filterClaimsByPerilLobReserve(claim, perils, lobs, reserves, null)
         assertEquals 'filtered claims, peril 1: claims 1,4,7',
                 [0,3,6,9].join(", "),
