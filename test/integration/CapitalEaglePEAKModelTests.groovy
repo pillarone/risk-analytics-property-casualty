@@ -8,7 +8,7 @@ class CapitalEaglePEAKModelTests extends ModelTest {
     }
 
     String getParameterFileName(){
-        'CapitalEagleReinsuranceProgramPeakParameters'
+        'CapitalEagleReinsuranceProgramPEAKParameters'
     }
 
     String getParameterDisplayName() {
