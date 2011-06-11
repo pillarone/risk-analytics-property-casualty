@@ -127,6 +127,7 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
             cededClaims.add(cededClaim);
 
             Claim claimNet = claim.getNetClaim(cededClaim);
+            adjustAttachedExposureInfo(claim, claimNet);
             setClaimReferences(claimNet, claim, origin);
             netClaims.add(claimNet);
         }
@@ -182,9 +183,23 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
         }
         // use the same ceded claim interface for all types of Claim packets and contract strategies
         claimCeded.setUltimate(coveredLoss);
+        adjustAttachedExposureInfo(grossClaim, claimCeded);
         // set other common attributes
         setClaimReferences(claimCeded, grossClaim, origin);
         return claimCeded;
+    }
+
+    /** Adjust attached exposure info by the same factor as the ultimate claim value is reduced
+     *  https://issuetracking.intuitive-collaboration.com/jira/browse/PMO-1624 */
+    private void adjustAttachedExposureInfo(Claim originalClaim, Claim resultingClaim) {
+        if (parmContractStrategy instanceof QuotaShareContractStrategy
+                || parmContractStrategy instanceof SurplusContractStrategy
+                || parmContractStrategy instanceof ReverseSurplusContractStrategy) {
+            if (originalClaim.hasExposureInfo()) {
+                double coverRatio = resultingClaim.getUltimate() / originalClaim.getUltimate();
+                resultingClaim.setExposure(originalClaim.getExposure().copy().scale(coverRatio));
+            }
+        }
     }
 
     private void setClaimReferences(Claim claim, Claim grossClaim, Component origin) {
