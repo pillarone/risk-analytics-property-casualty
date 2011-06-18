@@ -17,6 +17,10 @@ import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensi
 import org.pillarone.riskanalytics.domain.pc.constraints.CompanyPortion
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
 import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
+import org.pillarone.riskanalytics.core.components.PeriodStore
+import org.pillarone.riskanalytics.core.simulation.engine.IterationScope
+import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope
+import org.pillarone.riskanalytics.core.packets.PacketList
 
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
@@ -31,9 +35,10 @@ class CoveredByReinsurerTests extends GroovyTestCase {
                 parmInuringPriority: 10,
                 parmCover: CoverAttributeStrategyType.getStrategy(CoverAttributeStrategyType.ALL,["reserves": IncludeType.NOTINCLUDED]))
 
-        SimulationScope simulationScope = new SimulationScope()
+        SimulationScope simulationScope = new SimulationScope(iterationScope: new IterationScope(periodScope: new PeriodScope()))
         simulationScope.model = new VoidTestModel()
         contract.simulationScope = simulationScope
+        contract.periodStore = new PeriodStore(simulationScope.getIterationScope().getPeriodScope())
         return contract
     }
 
@@ -45,9 +50,10 @@ class CoveredByReinsurerTests extends GroovyTestCase {
                 parmInuringPriority: 10,
                 parmCover: CompanyCoverAttributeStrategyType.getStrategy(CompanyCoverAttributeStrategyType.ALL,["reserves": IncludeType.NOTINCLUDED]))
 
-        SimulationScope simulationScope = new SimulationScope()
+        SimulationScope simulationScope = new SimulationScope(iterationScope: new IterationScope(periodScope: new PeriodScope()))
         simulationScope.model = new VoidTestModel()
         contract.simulationScope = simulationScope
+        contract.periodStore = new PeriodStore(simulationScope.getIterationScope().getPeriodScope())
         return contract
 
     }
@@ -85,7 +91,6 @@ class CoveredByReinsurerTests extends GroovyTestCase {
         assertEquals "underwriting info ceded",2.0, contract.outCoverUnderwritingInfo[1].premium,1E-14
         assertEquals "underwriting info net",60-1.2, contract.outNetAfterCoverUnderwritingInfo[0].premium,1E-14
         assertEquals "underwriting info net",98, contract.outNetAfterCoverUnderwritingInfo[1].premium,1E-14
-
     }
 
     void testMultiCompanyCoverReinsuranceContract(){
@@ -94,14 +99,17 @@ class CoveredByReinsurerTests extends GroovyTestCase {
         contract.parmReinsurers = new ConstrainedMultiDimensionalParameter([['earth re'],[0.5]],['Reinsurer','Covered Portion'],
                 ConstraintsFactory.getConstraints(CompanyPortion.IDENTIFIER))
 
-        contract.inClaims << getClaim(80, fire, fireLob) << getClaim(100, fire, fireLob)
-        contract.inUnderwritingInfo << new UnderwritingInfo(premium: 60, lineOfBusiness: fireLob) << new UnderwritingInfo(premium: 100, lineOfBusiness: fireLob)
-
         def claimsCeded = new TestProbe(contract, 'outCoveredClaims')
         def claimsNet = new TestProbe(contract, 'outUncoveredClaims')
         def underwritingInfoCeded = new TestProbe(contract, 'outCoverUnderwritingInfo')
         def underwritingInfoNet = new TestProbe(contract, 'outNetAfterCoverUnderwritingInfo')
 
+        PacketList<Claim> incomingClaims = new PacketList<Claim>(Claim)
+        incomingClaims << getClaim(80, fire, fireLob) << getClaim(100, fire, fireLob)
+        PacketList<UnderwritingInfo> incomingUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo)
+        incomingUnderwritingInfo << new UnderwritingInfo(premium: 60, lineOfBusiness: fireLob) << new UnderwritingInfo(premium: 100, lineOfBusiness: fireLob)
+        contract.filterInChannels(contract.inClaims, incomingClaims)
+        contract.filterInChannels(contract.inUnderwritingInfo, incomingUnderwritingInfo)
         contract.doCalculation()
 
         assertEquals "claim ceded",0.5*1.6, contract.outCoveredClaims[0].ultimate

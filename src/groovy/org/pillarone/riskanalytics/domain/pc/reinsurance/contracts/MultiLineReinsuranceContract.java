@@ -1,5 +1,6 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts;
 
+import org.pillarone.riskanalytics.core.components.PeriodStore;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter;
 import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope;
@@ -7,6 +8,7 @@ import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimFilterUtilities;
 import org.pillarone.riskanalytics.domain.pc.claims.SortClaimsByFractionOfPeriod;
 import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments;
+import org.pillarone.riskanalytics.domain.pc.filter.FilterUtils;
 import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.ReinsuranceResultWithCommissionPacket;
@@ -33,6 +35,7 @@ import java.util.List;
 public class MultiLineReinsuranceContract extends ReinsuranceContract {
 
     private SimulationScope simulationScope;
+    private PeriodStore periodStore;
 
     private ComboBoxTableMultiDimensionalParameter parmCoveredLines = new ComboBoxTableMultiDimensionalParameter(
             Collections.emptyList(), Arrays.asList("Covered Segments"), LobMarker.class);
@@ -41,44 +44,36 @@ public class MultiLineReinsuranceContract extends ReinsuranceContract {
     private ComboBoxTableMultiDimensionalParameter parmCoveredReserves = new ComboBoxTableMultiDimensionalParameter(
             Collections.emptyList(), Arrays.asList("reserves"), IReserveMarker.class);
 
-    /**
-     * claims whose source is a covered line
-     */
-    private PacketList<Claim> outFilteredClaims = new PacketList<Claim>(Claim.class);
-
-    private PacketList<UnderwritingInfo> outFilteredUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
-
     public void doCalculation() {
         if (parmContractStrategy == null) {
             throw new IllegalStateException("MultiLineReinsuranceContract.missingContractStrategy");
         }
 
-        filterInChannels();
         // initialize contract details
-        parmContractStrategy.initBookkeepingFigures(outFilteredClaims, outFilteredUnderwritingInfo);
+        parmContractStrategy.initBookkeepingFigures(inClaims, inUnderwritingInfo);
 
         initCoveredByReinsurer();
-        Collections.sort(outFilteredClaims, SortClaimsByFractionOfPeriod.getInstance());
+        Collections.sort(inClaims, SortClaimsByFractionOfPeriod.getInstance());
         if (isSenderWired(getOutUncoveredClaims()) || isSenderWired(getOutClaimsDevelopmentLeanNet())) {
-            calculateClaims(outFilteredClaims, outCoveredClaims, outUncoveredClaims, this);
+            calculateClaims(inClaims, outCoveredClaims, outUncoveredClaims, this);
         }
         else {
-            calculateCededClaims(outFilteredClaims, outCoveredClaims, this);
+            calculateCededClaims(inClaims, outCoveredClaims, this);
         }
 
         if (isSenderWired(outCoverUnderwritingInfo) || isSenderWired(outContractFinancials)) {
-            calculateCededUnderwritingInfos(outFilteredUnderwritingInfo, outCoverUnderwritingInfo, outCoveredClaims);
+            calculateCededUnderwritingInfos(inUnderwritingInfo, outCoverUnderwritingInfo, outCoveredClaims);
         }
 
         parmCommissionStrategy.calculateCommission(outCoveredClaims, outCoverUnderwritingInfo, false, false);
 
         if (isSenderWired(outNetAfterCoverUnderwritingInfo)) {
-            UnderwritingInfoUtilities.calculateNet(outFilteredUnderwritingInfo, outCoverUnderwritingInfo, outNetAfterCoverUnderwritingInfo);
+            UnderwritingInfoUtilities.calculateNet(inUnderwritingInfo, outCoverUnderwritingInfo, outNetAfterCoverUnderwritingInfo);
         }
 
 
         if (inClaims.size() > 0 && inClaims.get(0) instanceof ClaimDevelopmentLeanPacket) {
-            for (Claim claim : outFilteredClaims) {
+            for (Claim claim : inClaims) {
                 getOutClaimsDevelopmentLeanGross().add((ClaimDevelopmentLeanPacket) claim);
             }
         }
@@ -105,16 +100,23 @@ public class MultiLineReinsuranceContract extends ReinsuranceContract {
         }
     }
 
-    protected void filterInChannels() {
-        List<LobMarker> coveredLines = parmCoveredLines.getValuesAsObjects();
-        List<PerilMarker> coveredPerils = parmCoveredPerils.getValuesAsObjects();
-        List<IReserveMarker> coveredReserves = parmCoveredReserves.getValuesAsObjects();
-        outFilteredClaims.addAll(ClaimFilterUtilities.filterClaimsByPerilLobReserve(inClaims, coveredPerils, coveredLines, coveredReserves, LogicArguments.OR));
-        if (coveredLines.size() == 0) {
-            coveredLines = ClaimFilterUtilities.getLinesOfBusiness(outFilteredClaims);
+    // todo(sku): critical as it works fine only if inClaims is filtered first! -> COVERED_LINES_DERIVED
+    public void filterInChannels(PacketList inChannel, PacketList source) {
+        if (inChannel == inClaims) {
+            inChannel.addAll(ClaimFilterUtilities.filterClaimsByPerilLobReserve(source,
+                    FilterUtils.getCoveredPerils(parmCoveredPerils, periodStore),
+                    FilterUtils.getCoveredLines(parmCoveredLines, periodStore),
+                    FilterUtils.getCoveredReserves(parmCoveredReserves, periodStore), LogicArguments.OR));
         }
-        outFilteredUnderwritingInfo.addAll(UnderwritingFilterUtilities.filterUnderwritingInfoByLob(inUnderwritingInfo, coveredLines));
+        else if (inChannel == inUnderwritingInfo) {
+            inChannel.addAll(UnderwritingFilterUtilities.filterUnderwritingInfoByLob(source,
+                    FilterUtils.getCoveredLines(parmCoveredPerils, inChannel, periodStore)));
+        }
+        else {
+            super.filterInChannel(inChannel, source);
+        }
     }
+
 
     public SimulationScope getSimulationScope() {
         return simulationScope;
@@ -140,20 +142,20 @@ public class MultiLineReinsuranceContract extends ReinsuranceContract {
         this.parmCoveredPerils = parmCoveredPerils;
     }
 
-    public PacketList<Claim> getOutFilteredClaims() {
-        return outFilteredClaims;
+    public PacketList<Claim> getinClaims() {
+        return inClaims;
     }
 
-    public void setOutFilteredClaims(PacketList<Claim> outFilteredClaims) {
-        this.outFilteredClaims = outFilteredClaims;
+    public void setinClaims(PacketList<Claim> inClaims) {
+        this.inClaims = inClaims;
     }
 
-    public PacketList<UnderwritingInfo> getOutFilteredUnderwritingInfo() {
-        return outFilteredUnderwritingInfo;
+    public PacketList<UnderwritingInfo> getinUnderwritingInfo() {
+        return inUnderwritingInfo;
     }
 
-    public void setOutFilteredUnderwritingInfo(PacketList<UnderwritingInfo> outFilteredUnderwritingInfo) {
-        this.outFilteredUnderwritingInfo = outFilteredUnderwritingInfo;
+    public void setinUnderwritingInfo(PacketList<UnderwritingInfo> inUnderwritingInfo) {
+        this.inUnderwritingInfo = inUnderwritingInfo;
     }
 
     public ComboBoxTableMultiDimensionalParameter getParmCoveredReserves() {
@@ -162,5 +164,13 @@ public class MultiLineReinsuranceContract extends ReinsuranceContract {
 
     public void setParmCoveredReserves(ComboBoxTableMultiDimensionalParameter parmCoveredReserves) {
         this.parmCoveredReserves = parmCoveredReserves;
+    }
+
+    public PeriodStore getPeriodStore() {
+        return periodStore;
+    }
+
+    public void setPeriodStore(PeriodStore periodStore) {
+        this.periodStore = periodStore;
     }
 }

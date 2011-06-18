@@ -27,6 +27,10 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionS
 import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
 import org.pillarone.riskanalytics.core.components.Component
+import org.pillarone.riskanalytics.core.components.PeriodStore
+import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope
+import org.pillarone.riskanalytics.core.simulation.engine.IterationScope
+import org.pillarone.riskanalytics.core.packets.PacketList
 
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
@@ -59,9 +63,10 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
                 parmCover: coverStrategy,
                 parmCommissionStrategy: commissionStrategy
         )
-        SimulationScope simulationScope = new SimulationScope()
+        SimulationScope simulationScope = new SimulationScope(iterationScope: new IterationScope(periodScope: new PeriodScope()))
         simulationScope.model = new VoidTestModel()
         contract.simulationScope = simulationScope
+        contract.periodStore = new PeriodStore(simulationScope.iterationScope.periodScope)
         return contract
     }
 
@@ -249,30 +254,28 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         UnderwritingInfo underwritingInfoMotor15000 = new UnderwritingInfo(premium: 15000, commission: 200, lineOfBusiness: lob['motor'])
         UnderwritingInfo underwritingInfoMotor10000 = new UnderwritingInfo(premium: 10000, commission: 100, lineOfBusiness: lob['motor'])
 
-        wxlContract1.inClaims << claim1 << claim2 << claim3 << claim4
-        wxlContract1.inUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor10000
-
         def outCoverUI = new TestProbe(wxlContract1, 'outCoverUnderwritingInfo')
         def outNetUI = new TestProbe(wxlContract1, 'outNetAfterCoverUnderwritingInfo')
 
+        PacketList<Claim> incomingClaims = new PacketList<Claim>(Claim)
+        incomingClaims << claim1 << claim2 << claim3 << claim4
+        PacketList<UnderwritingInfo> incomingUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo)
+        incomingUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor10000
+
+        wxlContract1.filterInChannels(wxlContract1.inClaims, incomingClaims)
+        wxlContract1.filterInChannels(wxlContract1.inUnderwritingInfo, incomingUnderwritingInfo)
         wxlContract1.doCalculation()
 
-        assertEquals "# of filtered claims", 4, wxlContract1.outFilteredClaims.size()
+        assertEquals "# of filtered claims", 4, wxlContract1.inClaims.size()
         assertEquals "# of covered claims", 4, wxlContract1.outCoveredClaims.size()
-        assertEquals "# of filtered UWInfo", 2, wxlContract1.outFilteredUnderwritingInfo.size()
+        assertEquals "# of filtered UWInfo", 2, wxlContract1.inUnderwritingInfo.size()
         assertEquals "# of cover UWInfo", 2, wxlContract1.outCoverUnderwritingInfo.size()
 
         assertEquals "ceded underwriting info premium 15000", 3000, wxlContract1.outCoverUnderwritingInfo[0].premium
         assertEquals "ceded underwriting info premium 10000", 2000, wxlContract1.outCoverUnderwritingInfo[1].premium
-        // todo: fix commission calculation
-//        assertEquals "ceded underwriting info commission 15000", 0, wxlContract1.outCoverUnderwritingInfo[0].commission
-//        assertEquals "ceded underwriting info commission 10000", 0, wxlContract1.outCoverUnderwritingInfo[1].commission
 
         assertEquals "net underwriting info premium 15000", 12000, wxlContract1.outNetAfterCoverUnderwritingInfo[0].premium
         assertEquals "net underwriting info premium 10000", 8000, wxlContract1.outNetAfterCoverUnderwritingInfo[1].premium
-        // todo: fix commission calculation
-//        assertEquals "net underwriting info commission 15000", 200, wxlContract1.outNetAfterCoverUnderwritingInfo[0].commission
-//        assertEquals "net underwriting info commission 10000", 100, wxlContract1.outNetAfterCoverUnderwritingInfo[1].commission
 
     }
 
@@ -303,17 +306,21 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         UnderwritingInfo underwritingInfoProperty3000 = new UnderwritingInfo(premium: 3000, commission: 100, lineOfBusiness: lob['property'])
         UnderwritingInfo underwritingInfoProperty2000 = new UnderwritingInfo(premium: 2000, commission: 100, lineOfBusiness: lob['property'])
 
-        wxlContract1.inClaims << claim1 << claim2 << claim3 << claim4 << claim5 << claim6 << claim7 << claim8
-        wxlContract1.inUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor5000 << underwritingInfoProperty3000 <<underwritingInfoProperty2000
-
         def outCoverUI = new TestProbe(wxlContract1, 'outCoverUnderwritingInfo')
         def outNetUI = new TestProbe(wxlContract1, 'outNetAfterCoverUnderwritingInfo')
 
+        PacketList<Claim> incomingClaims = new PacketList<Claim>(Claim)
+        incomingClaims << claim1 << claim2 << claim3 << claim4 << claim5 << claim6 << claim7 << claim8
+        PacketList<UnderwritingInfo> incomingUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo)
+        incomingUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor5000 << underwritingInfoProperty3000 << underwritingInfoProperty2000
+
+        wxlContract1.filterInChannels(wxlContract1.inClaims, incomingClaims)
+        wxlContract1.filterInChannels(wxlContract1.inUnderwritingInfo, incomingUnderwritingInfo)
         wxlContract1.doCalculation()
 
-        assertEquals "# of filtered claims", 8, wxlContract1.outFilteredClaims.size()
+        assertEquals "# of filtered claims", 8, wxlContract1.inClaims.size()
         assertEquals "# of covered claims", 8, wxlContract1.outCoveredClaims.size()
-        assertEquals "# of filtered UWInfo", 4, wxlContract1.outFilteredUnderwritingInfo.size()
+        assertEquals "# of filtered UWInfo", 4, wxlContract1.inUnderwritingInfo.size()
         assertEquals "# of cover UWInfo", 4, wxlContract1.outCoverUnderwritingInfo.size()
 
         assertEquals "ceded underwriting info premium motor 15000", 3000, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor15000}.premium
@@ -354,17 +361,21 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         UnderwritingInfo underwritingInfoProperty3000 = new UnderwritingInfo(premium: 3000, commission: 100, lineOfBusiness: lob['property'])
         UnderwritingInfo underwritingInfoProperty2000 = new UnderwritingInfo(premium: 2000, commission: 100, lineOfBusiness: lob['property'])
 
-        wxlContract1.inClaims << claim1 << claim2 << claim3 << claim4 << claim5 << claim6 << claim7 << claim8
-        wxlContract1.inUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor5000 << underwritingInfoProperty3000 <<underwritingInfoProperty2000
-
         def outCoverUI = new TestProbe(wxlContract1, 'outCoverUnderwritingInfo')
         def outNetUI = new TestProbe(wxlContract1, 'outNetAfterCoverUnderwritingInfo')
 
+        PacketList<Claim> incomingClaims = new PacketList<Claim>(Claim)
+        incomingClaims << claim1 << claim2 << claim3 << claim4 << claim5 << claim6 << claim7 << claim8
+        PacketList<UnderwritingInfo> incomingUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo)
+        incomingUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor5000 << underwritingInfoProperty3000 << underwritingInfoProperty2000
+
+        wxlContract1.filterInChannels(wxlContract1.inClaims, incomingClaims)
+        wxlContract1.filterInChannels(wxlContract1.inUnderwritingInfo, incomingUnderwritingInfo)
         wxlContract1.doCalculation()
 
-        assertEquals "# of filtered claims", 8, wxlContract1.outFilteredClaims.size()
+        assertEquals "# of filtered claims", 8, wxlContract1.inClaims.size()
         assertEquals "# of covered claims", 8, wxlContract1.outCoveredClaims.size()
-        assertEquals "# of filtered UWInfo", 4, wxlContract1.outFilteredUnderwritingInfo.size()
+        assertEquals "# of filtered UWInfo", 4, wxlContract1.inUnderwritingInfo.size()
         assertEquals "# of cover UWInfo", 4, wxlContract1.outCoverUnderwritingInfo.size()
 
         assertEquals "ceded underwriting info premium motor 15000", 3000, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor15000}.premium
@@ -399,30 +410,28 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         UnderwritingInfo underwritingInfoMotor15000 = new UnderwritingInfo(premium: 15000, commission: 200, lineOfBusiness: lob['motor'])
         UnderwritingInfo underwritingInfoMotor10000 = new UnderwritingInfo(premium: 10000, commission: 100, lineOfBusiness: lob['motor'])
 
-        wxlContract1.inClaims << claim1 << claim2 << claim3 << claim4
-        wxlContract1.inUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor10000
-
         def outCoverUI = new TestProbe(wxlContract1, 'outCoverUnderwritingInfo')
         def outNetUI = new TestProbe(wxlContract1, 'outNetAfterCoverUnderwritingInfo')
 
+        PacketList<Claim> incomingClaims = new PacketList<Claim>(Claim)
+        incomingClaims << claim1 << claim2 << claim3 << claim4
+        PacketList<UnderwritingInfo> incomingUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo)
+        incomingUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor10000
+
+        wxlContract1.filterInChannels(wxlContract1.inClaims, incomingClaims)
+        wxlContract1.filterInChannels(wxlContract1.inUnderwritingInfo, incomingUnderwritingInfo)
         wxlContract1.doCalculation()
 
-        assertEquals "# of filtered claims", 4, wxlContract1.outFilteredClaims.size()
+        assertEquals "# of filtered claims", 4, wxlContract1.inClaims.size()
         assertEquals "# of covered claims", 4, wxlContract1.outCoveredClaims.size()
-        assertEquals "# of filtered UWInfo", 2, wxlContract1.outFilteredUnderwritingInfo.size()
+        assertEquals "# of filtered UWInfo", 2, wxlContract1.inUnderwritingInfo.size()
         assertEquals "# of cover UWInfo", 2, wxlContract1.outCoverUnderwritingInfo.size()
 
         assertEquals "ceded underwriting info premium 15000", 3000, wxlContract1.outCoverUnderwritingInfo[0].premium
         assertEquals "ceded underwriting info premium 10000", 2000, wxlContract1.outCoverUnderwritingInfo[1].premium
-        // todo: fix commission calculation
-//        assertEquals "ceded underwriting info commission 15000", 0, wxlContract1.outCoverUnderwritingInfo[0].commission
-//        assertEquals "ceded underwriting info commission 10000", 0, wxlContract1.outCoverUnderwritingInfo[1].commission
 
         assertEquals "net underwriting info premium 15000", 12000, wxlContract1.outNetAfterCoverUnderwritingInfo[0].premium
         assertEquals "net underwriting info premium 10000", 8000, wxlContract1.outNetAfterCoverUnderwritingInfo[1].premium
-        // todo: fix commission calculation
-//        assertEquals "net underwriting info commission 15000", 200, wxlContract1.outNetAfterCoverUnderwritingInfo[0].commission
-//        assertEquals "net underwriting info commission 10000", 100, wxlContract1.outNetAfterCoverUnderwritingInfo[1].commission
 
     }
 
@@ -453,17 +462,21 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         UnderwritingInfo underwritingInfoProperty3000 = new UnderwritingInfo(premium: 3000, commission: 100, lineOfBusiness: lob['property'])
         UnderwritingInfo underwritingInfoProperty2000 = new UnderwritingInfo(premium: 2000, commission: 100, lineOfBusiness: lob['property'])
 
-        wxlContract1.inClaims << claim1 << claim2 << claim3 << claim4 << claim5 << claim6 << claim7 << claim8
-        wxlContract1.inUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor5000 << underwritingInfoProperty3000 <<underwritingInfoProperty2000
-
         def outCoverUI = new TestProbe(wxlContract1, 'outCoverUnderwritingInfo')
         def outNetUI = new TestProbe(wxlContract1, 'outNetAfterCoverUnderwritingInfo')
 
+        PacketList<Claim> incomingClaims = new PacketList<Claim>(Claim)
+        incomingClaims << claim1 << claim2 << claim3 << claim4 << claim5 << claim6 << claim7 << claim8
+        PacketList<UnderwritingInfo> incomingUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo)
+        incomingUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor5000 << underwritingInfoProperty3000 << underwritingInfoProperty2000
+
+        wxlContract1.filterInChannels(wxlContract1.inClaims, incomingClaims)
+        wxlContract1.filterInChannels(wxlContract1.inUnderwritingInfo, incomingUnderwritingInfo)
         wxlContract1.doCalculation()
 
-        assertEquals "# of filtered claims", 8, wxlContract1.outFilteredClaims.size()
+        assertEquals "# of filtered claims", 8, wxlContract1.inClaims.size()
         assertEquals "# of covered claims", 8, wxlContract1.outCoveredClaims.size()
-        assertEquals "# of filtered UWInfo", 4, wxlContract1.outFilteredUnderwritingInfo.size()
+        assertEquals "# of filtered UWInfo", 4, wxlContract1.inUnderwritingInfo.size()
         assertEquals "# of cover UWInfo", 4, wxlContract1.outCoverUnderwritingInfo.size()
 
         assertEquals "ceded underwriting info premium motor 15000", 1500, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor15000}.premium, EPSILON
@@ -504,17 +517,21 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         UnderwritingInfo underwritingInfoProperty3000 = new UnderwritingInfo(premium: 3000, commission: 100, lineOfBusiness: lob['property'])
         UnderwritingInfo underwritingInfoProperty2000 = new UnderwritingInfo(premium: 2000, commission: 100, lineOfBusiness: lob['property'])
 
-        wxlContract1.inClaims << claim1 << claim2 << claim3 << claim4 << claim5 << claim6 << claim7 << claim8
-        wxlContract1.inUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor5000 << underwritingInfoProperty3000 <<underwritingInfoProperty2000
-
         def outCoverUI = new TestProbe(wxlContract1, 'outCoverUnderwritingInfo')
         def outNetUI = new TestProbe(wxlContract1, 'outNetAfterCoverUnderwritingInfo')
 
+        PacketList<Claim> incomingClaims = new PacketList<Claim>(Claim)
+        incomingClaims << claim1 << claim2 << claim3 << claim4 << claim5 << claim6 << claim7 << claim8
+        PacketList<UnderwritingInfo> incomingUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo)
+        incomingUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor5000 << underwritingInfoProperty3000 << underwritingInfoProperty2000
+
+        wxlContract1.filterInChannels(wxlContract1.inClaims, incomingClaims)
+        wxlContract1.filterInChannels(wxlContract1.inUnderwritingInfo, incomingUnderwritingInfo)
         wxlContract1.doCalculation()
 
-        assertEquals "# of filtered claims", 8, wxlContract1.outFilteredClaims.size()
+        assertEquals "# of filtered claims", 8, wxlContract1.inClaims.size()
         assertEquals "# of covered claims", 8, wxlContract1.outCoveredClaims.size()
-        assertEquals "# of filtered UWInfo", 4, wxlContract1.outFilteredUnderwritingInfo.size()
+        assertEquals "# of filtered UWInfo", 4, wxlContract1.inUnderwritingInfo.size()
         assertEquals "# of cover UWInfo", 4, wxlContract1.outCoverUnderwritingInfo.size()
 
         assertEquals "ceded underwriting info premium motor 15000", 1500, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor15000}.premium, EPSILON
@@ -550,31 +567,28 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         UnderwritingInfo underwritingInfoMotor15000 = new UnderwritingInfo(premium: 15000, commission: 200, lineOfBusiness: lob['motor'])
         UnderwritingInfo underwritingInfoMotor10000 = new UnderwritingInfo(premium: 10000, commission: 100, lineOfBusiness: lob['motor'])
 
-        wxlContract1.inClaims << claim1 << claim2 << claim3 << claim4
-        wxlContract1.inUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor10000
-
         def outCoverUI = new TestProbe(wxlContract1, 'outCoverUnderwritingInfo')
         def outNetUI = new TestProbe(wxlContract1, 'outNetAfterCoverUnderwritingInfo')
 
+        PacketList<Claim> incomingClaims = new PacketList<Claim>(Claim)
+        incomingClaims << claim1 << claim2 << claim3 << claim4
+        PacketList<UnderwritingInfo> incomingUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo)
+        incomingUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor10000
+
+        wxlContract1.filterInChannels(wxlContract1.inClaims, incomingClaims)
+        wxlContract1.filterInChannels(wxlContract1.inUnderwritingInfo, incomingUnderwritingInfo)
         wxlContract1.doCalculation()
 
-        assertEquals "# of filtered claims", 4, wxlContract1.outFilteredClaims.size()
+        assertEquals "# of filtered claims", 4, wxlContract1.inClaims.size()
         assertEquals "# of covered claims", 4, wxlContract1.outCoveredClaims.size()
-        assertEquals "# of filtered UWInfo", 2, wxlContract1.outFilteredUnderwritingInfo.size()
+        assertEquals "# of filtered UWInfo", 2, wxlContract1.inUnderwritingInfo.size()
         assertEquals "# of cover UWInfo", 2, wxlContract1.outCoverUnderwritingInfo.size()
 
         assertEquals "ceded underwriting info premium 15000", 3000, wxlContract1.outCoverUnderwritingInfo[0].premium
         assertEquals "ceded underwriting info premium 10000", 2000, wxlContract1.outCoverUnderwritingInfo[1].premium
-        // todo: fix commission calculation
-//        assertEquals "ceded underwriting info commission 15000", 0, wxlContract1.outCoverUnderwritingInfo[0].commission
-//        assertEquals "ceded underwriting info commission 10000", 0, wxlContract1.outCoverUnderwritingInfo[1].commission
 
         assertEquals "net underwriting info premium 15000", 12000, wxlContract1.outNetAfterCoverUnderwritingInfo[0].premium
         assertEquals "net underwriting info premium 10000", 8000, wxlContract1.outNetAfterCoverUnderwritingInfo[1].premium
-        // todo: fix commission calculation
-//        assertEquals "net underwriting info commission 15000", 200, wxlContract1.outNetAfterCoverUnderwritingInfo[0].commission
-//        assertEquals "net underwriting info commission 10000", 100, wxlContract1.outNetAfterCoverUnderwritingInfo[1].commission
-
     }
 
     void testClaimSharesTwoLines() {
@@ -604,17 +618,21 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         UnderwritingInfo underwritingInfoProperty3000 = new UnderwritingInfo(premium: 3000, commission: 100, lineOfBusiness: lob['property'])
         UnderwritingInfo underwritingInfoProperty2000 = new UnderwritingInfo(premium: 2000, commission: 100, lineOfBusiness: lob['property'])
 
-        wxlContract1.inClaims << claim1 << claim2 << claim3 << claim4 << claim5 << claim6 << claim7 << claim8
-        wxlContract1.inUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor5000 << underwritingInfoProperty3000 <<underwritingInfoProperty2000
-
         def outCoverUI = new TestProbe(wxlContract1, 'outCoverUnderwritingInfo')
         def outNetUI = new TestProbe(wxlContract1, 'outNetAfterCoverUnderwritingInfo')
 
+        PacketList<Claim> incomingClaims = new PacketList<Claim>(Claim)
+        incomingClaims << claim1 << claim2 << claim3 << claim4 << claim5 << claim6 << claim7 << claim8
+        PacketList<UnderwritingInfo> incomingUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo)
+        incomingUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor5000 << underwritingInfoProperty3000 << underwritingInfoProperty2000
+
+        wxlContract1.filterInChannels(wxlContract1.inClaims, incomingClaims)
+        wxlContract1.filterInChannels(wxlContract1.inUnderwritingInfo, incomingUnderwritingInfo)
         wxlContract1.doCalculation()
 
-        assertEquals "# of filtered claims", 8, wxlContract1.outFilteredClaims.size()
+        assertEquals "# of filtered claims", 8, wxlContract1.inClaims.size()
         assertEquals "# of covered claims", 8, wxlContract1.outCoveredClaims.size()
-        assertEquals "# of filtered UWInfo", 4, wxlContract1.outFilteredUnderwritingInfo.size()
+        assertEquals "# of filtered UWInfo", 4, wxlContract1.inUnderwritingInfo.size()
         assertEquals "# of cover UWInfo", 4, wxlContract1.outCoverUnderwritingInfo.size()
 
         assertEquals "ceded underwriting info premium motor 15000", 1500, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor15000}.premium, EPSILON
@@ -655,17 +673,21 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         UnderwritingInfo underwritingInfoProperty3000 = new UnderwritingInfo(premium: 3000, commission: 100, lineOfBusiness: lob['property'])
         UnderwritingInfo underwritingInfoProperty2000 = new UnderwritingInfo(premium: 2000, commission: 100, lineOfBusiness: lob['property'])
 
-        wxlContract1.inClaims << claim1 << claim2 << claim3 << claim4 << claim5 << claim6 << claim7 << claim8
-        wxlContract1.inUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor5000 << underwritingInfoProperty3000 <<underwritingInfoProperty2000
-
         def outCoverUI = new TestProbe(wxlContract1, 'outCoverUnderwritingInfo')
         def outNetUI = new TestProbe(wxlContract1, 'outNetAfterCoverUnderwritingInfo')
 
+        PacketList<Claim> incomingClaims = new PacketList<Claim>(Claim)
+        incomingClaims << claim1 << claim2 << claim3 << claim4 << claim5 << claim6 << claim7 << claim8
+        PacketList<UnderwritingInfo> incomingUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo)
+        incomingUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor5000 << underwritingInfoProperty3000 << underwritingInfoProperty2000
+
+        wxlContract1.filterInChannels(wxlContract1.inClaims, incomingClaims)
+        wxlContract1.filterInChannels(wxlContract1.inUnderwritingInfo, incomingUnderwritingInfo)
         wxlContract1.doCalculation()
 
-        assertEquals "# of filtered claims", 8, wxlContract1.outFilteredClaims.size()
+        assertEquals "# of filtered claims", 8, wxlContract1.inClaims.size()
         assertEquals "# of covered claims", 8, wxlContract1.outCoveredClaims.size()
-        assertEquals "# of filtered UWInfo", 4, wxlContract1.outFilteredUnderwritingInfo.size()
+        assertEquals "# of filtered UWInfo", 4, wxlContract1.inUnderwritingInfo.size()
         assertEquals "# of cover UWInfo", 4, wxlContract1.outCoverUnderwritingInfo.size()
 
         assertEquals "ceded underwriting info premium motor 15000", 3000, wxlContract1.outCoverUnderwritingInfo.find {it.originalUnderwritingInfo == underwritingInfoMotor15000}.premium
