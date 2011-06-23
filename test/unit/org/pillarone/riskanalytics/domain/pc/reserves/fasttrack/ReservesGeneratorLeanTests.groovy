@@ -9,6 +9,7 @@ import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
+import org.pillarone.riskanalytics.core.packets.PacketList
 
 /**
  * @author shartmann (at) munichre (dot) com
@@ -228,8 +229,9 @@ class ReservesGeneratorLeanTests extends GroovyTestCase {
         reservesGeneratorLean.parmReservesModel.basedOnClaimsGenerators.comboBoxValues = ['claims generator': claimsGenerator1]
         TestClaimsGenerator claimsGenerator2 = new TestClaimsGenerator(name: 'attrClaimsGenerator')
 
-        reservesGeneratorLean.inClaims << getClaim(claimsGenerator1, 1000, 300)
-        reservesGeneratorLean.inClaims << getClaim(claimsGenerator2, 2000, 300)
+        PacketList<Claim> incomingClaims = new PacketList<Claim>(Claim)
+        incomingClaims << getClaim(claimsGenerator1, 1000, 300) << getClaim(claimsGenerator2, 2000, 300)
+        reservesGeneratorLean.filterInChannel(reservesGeneratorLean.inClaims, incomingClaims)
         reservesGeneratorLean.doCalculation()
         assertEquals '# packets, period 0', 1, reservesGeneratorLean.outClaimsDevelopment.size()
         assertEquals 'incurred', 100d, reservesGeneratorLean.outClaimsDevelopment[0].ultimate
@@ -238,8 +240,11 @@ class ReservesGeneratorLeanTests extends GroovyTestCase {
 
         reservesGeneratorLean.periodScope.currentPeriod++
         reservesGeneratorLean.reset()
-        reservesGeneratorLean.inClaims << getClaim(claimsGenerator1, 1000, 300)
-        reservesGeneratorLean.inClaims << getClaim(claimsGenerator2, 2000, 300) 
+
+        incomingClaims = new PacketList<Claim>(Claim)
+        incomingClaims << getClaim(claimsGenerator1, 1000, 300) << getClaim(claimsGenerator2, 2000, 300)
+        reservesGeneratorLean.filterInChannel(reservesGeneratorLean.inClaims, incomingClaims)
+
         reservesGeneratorLean.doCalculation()
         assertEquals '# packets, period 1', 1, reservesGeneratorLean.outClaimsDevelopment.size()
         assertEquals 'incurred, period 1', 770d, reservesGeneratorLean.outClaimsDevelopment[0].ultimate

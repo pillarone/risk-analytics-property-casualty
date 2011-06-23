@@ -142,7 +142,7 @@ public class MultiCompanyCoverAttributeReinsuranceContract extends ReinsuranceCo
         parmContractStrategy.resetCovered();
     }
 
-    protected void filterInChannels(PacketList inChannel, PacketList source) {
+    public void filterInChannel(PacketList inChannel, PacketList source) {
         if (inChannel == inClaims) {
             allInClaims.addAll(source);
         }

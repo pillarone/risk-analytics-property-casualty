@@ -101,7 +101,7 @@ public class MultiLineReinsuranceContract extends ReinsuranceContract {
     }
 
     // todo(sku): critical as it works fine only if inClaims is filtered first! -> COVERED_LINES_DERIVED
-    public void filterInChannels(PacketList inChannel, PacketList source) {
+    public void filterInChannel(PacketList inChannel, PacketList source) {
         if (inChannel == inClaims) {
             inChannel.addAll(ClaimFilterUtilities.filterClaimsByPerilLobReserve(source,
                     FilterUtils.getCoveredPerils(parmCoveredPerils, periodStore),

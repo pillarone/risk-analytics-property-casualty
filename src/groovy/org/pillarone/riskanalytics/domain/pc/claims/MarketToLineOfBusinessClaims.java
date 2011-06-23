@@ -3,13 +3,16 @@ package org.pillarone.riskanalytics.domain.pc.claims;
 import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.components.IComponentMarker;
+import org.pillarone.riskanalytics.core.packets.Packet;
 import org.pillarone.riskanalytics.core.packets.PacketList;
+import org.pillarone.riskanalytics.core.packets.SingleValuePacket;
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter;
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory;
 import org.pillarone.riskanalytics.core.util.GroovyUtils;
 import org.pillarone.riskanalytics.domain.pc.constraints.PerilPortion;
 import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
+import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
 import org.pillarone.riskanalytics.domain.utils.InputFormatConverter;
 
@@ -46,21 +49,37 @@ public class MarketToLineOfBusinessClaims extends Component {
             for (Claim marketClaim : inClaims) {
                 String originName = marketClaim.origin.getNormalizedName();
                 int row = parmPortions.getColumnByName(PERIL).indexOf(originName);
-                if (row > -1 && marketClaim.getPeril() instanceof PerilMarker) {
-                    Claim lobClaim = marketClaim.copy();
-                    // PMO-750: claim mergers in reinsurance program won't work with reference to market claims
-                    lobClaim.setOriginalClaim(lobClaim);
-                    lobClaim.origin = lineOfBusiness;
-                    lobClaim.addMarker(LobMarker.class, (IComponentMarker) lineOfBusiness);
-                    lobClaim.scale(InputFormatConverter.getDouble(parmPortions.getValueAt(row + 1, portionColumn)));
-                    lobClaims.add(lobClaim);
-                    if (lobClaim instanceof ClaimDevelopmentLeanPacket) {
-                        outClaimsDevelopmentLean.add((ClaimDevelopmentLeanPacket) lobClaim);
-                    }
+                Claim lobClaim = marketClaim.copy();
+                // PMO-750: claim mergers in reinsurance program won't work with reference to market claims
+                lobClaim.setOriginalClaim(lobClaim);
+                lobClaim.origin = lineOfBusiness;
+                lobClaim.addMarker(LobMarker.class, (IComponentMarker) lineOfBusiness);
+                lobClaim.scale(InputFormatConverter.getDouble(parmPortions.getValueAt(row + 1, portionColumn)));
+                lobClaims.add(lobClaim);
+                if (lobClaim instanceof ClaimDevelopmentLeanPacket) {
+                    outClaimsDevelopmentLean.add((ClaimDevelopmentLeanPacket) lobClaim);
                 }
             }
             Collections.sort(lobClaims, SortClaimsByFractionOfPeriod.getInstance());
             outClaims.addAll(lobClaims);
+        }
+    }
+
+    @Override
+    public void filterInChannel(PacketList inChannel, PacketList source) {
+        if (inChannel == inClaims) {
+            if (source.size() > 0 && parmPortions.getRowCount() - parmPortions.getTitleRowCount() > 0) {
+                for (Object claim : source) {
+                    String originName = ((Packet) claim).origin.getNormalizedName();
+                    int row = parmPortions.getColumnByName(PERIL).indexOf(originName);
+                    if (row > -1 && ((Claim) claim).getPeril() instanceof PerilMarker) {
+                        inClaims.add((Claim) claim);
+                    }
+                }
+            }
+        }
+        else {
+            super.filterInChannel(inChannel, source);
         }
     }
 

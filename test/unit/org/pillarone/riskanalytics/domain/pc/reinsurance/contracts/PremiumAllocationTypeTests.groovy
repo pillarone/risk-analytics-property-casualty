@@ -262,8 +262,8 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         PacketList<UnderwritingInfo> incomingUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo)
         incomingUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor10000
 
-        wxlContract1.filterInChannels(wxlContract1.inClaims, incomingClaims)
-        wxlContract1.filterInChannels(wxlContract1.inUnderwritingInfo, incomingUnderwritingInfo)
+        wxlContract1.filterInChannel(wxlContract1.inClaims, incomingClaims)
+        wxlContract1.filterInChannel(wxlContract1.inUnderwritingInfo, incomingUnderwritingInfo)
         wxlContract1.doCalculation()
 
         assertEquals "# of filtered claims", 4, wxlContract1.inClaims.size()
@@ -314,8 +314,8 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         PacketList<UnderwritingInfo> incomingUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo)
         incomingUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor5000 << underwritingInfoProperty3000 << underwritingInfoProperty2000
 
-        wxlContract1.filterInChannels(wxlContract1.inClaims, incomingClaims)
-        wxlContract1.filterInChannels(wxlContract1.inUnderwritingInfo, incomingUnderwritingInfo)
+        wxlContract1.filterInChannel(wxlContract1.inClaims, incomingClaims)
+        wxlContract1.filterInChannel(wxlContract1.inUnderwritingInfo, incomingUnderwritingInfo)
         wxlContract1.doCalculation()
 
         assertEquals "# of filtered claims", 8, wxlContract1.inClaims.size()
@@ -369,8 +369,8 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         PacketList<UnderwritingInfo> incomingUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo)
         incomingUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor5000 << underwritingInfoProperty3000 << underwritingInfoProperty2000
 
-        wxlContract1.filterInChannels(wxlContract1.inClaims, incomingClaims)
-        wxlContract1.filterInChannels(wxlContract1.inUnderwritingInfo, incomingUnderwritingInfo)
+        wxlContract1.filterInChannel(wxlContract1.inClaims, incomingClaims)
+        wxlContract1.filterInChannel(wxlContract1.inUnderwritingInfo, incomingUnderwritingInfo)
         wxlContract1.doCalculation()
 
         assertEquals "# of filtered claims", 8, wxlContract1.inClaims.size()
@@ -418,8 +418,8 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         PacketList<UnderwritingInfo> incomingUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo)
         incomingUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor10000
 
-        wxlContract1.filterInChannels(wxlContract1.inClaims, incomingClaims)
-        wxlContract1.filterInChannels(wxlContract1.inUnderwritingInfo, incomingUnderwritingInfo)
+        wxlContract1.filterInChannel(wxlContract1.inClaims, incomingClaims)
+        wxlContract1.filterInChannel(wxlContract1.inUnderwritingInfo, incomingUnderwritingInfo)
         wxlContract1.doCalculation()
 
         assertEquals "# of filtered claims", 4, wxlContract1.inClaims.size()
@@ -470,8 +470,8 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         PacketList<UnderwritingInfo> incomingUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo)
         incomingUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor5000 << underwritingInfoProperty3000 << underwritingInfoProperty2000
 
-        wxlContract1.filterInChannels(wxlContract1.inClaims, incomingClaims)
-        wxlContract1.filterInChannels(wxlContract1.inUnderwritingInfo, incomingUnderwritingInfo)
+        wxlContract1.filterInChannel(wxlContract1.inClaims, incomingClaims)
+        wxlContract1.filterInChannel(wxlContract1.inUnderwritingInfo, incomingUnderwritingInfo)
         wxlContract1.doCalculation()
 
         assertEquals "# of filtered claims", 8, wxlContract1.inClaims.size()
@@ -525,8 +525,8 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         PacketList<UnderwritingInfo> incomingUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo)
         incomingUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor5000 << underwritingInfoProperty3000 << underwritingInfoProperty2000
 
-        wxlContract1.filterInChannels(wxlContract1.inClaims, incomingClaims)
-        wxlContract1.filterInChannels(wxlContract1.inUnderwritingInfo, incomingUnderwritingInfo)
+        wxlContract1.filterInChannel(wxlContract1.inClaims, incomingClaims)
+        wxlContract1.filterInChannel(wxlContract1.inUnderwritingInfo, incomingUnderwritingInfo)
         wxlContract1.doCalculation()
 
         assertEquals "# of filtered claims", 8, wxlContract1.inClaims.size()
@@ -575,8 +575,8 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         PacketList<UnderwritingInfo> incomingUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo)
         incomingUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor10000
 
-        wxlContract1.filterInChannels(wxlContract1.inClaims, incomingClaims)
-        wxlContract1.filterInChannels(wxlContract1.inUnderwritingInfo, incomingUnderwritingInfo)
+        wxlContract1.filterInChannel(wxlContract1.inClaims, incomingClaims)
+        wxlContract1.filterInChannel(wxlContract1.inUnderwritingInfo, incomingUnderwritingInfo)
         wxlContract1.doCalculation()
 
         assertEquals "# of filtered claims", 4, wxlContract1.inClaims.size()
@@ -626,8 +626,8 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         PacketList<UnderwritingInfo> incomingUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo)
         incomingUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor5000 << underwritingInfoProperty3000 << underwritingInfoProperty2000
 
-        wxlContract1.filterInChannels(wxlContract1.inClaims, incomingClaims)
-        wxlContract1.filterInChannels(wxlContract1.inUnderwritingInfo, incomingUnderwritingInfo)
+        wxlContract1.filterInChannel(wxlContract1.inClaims, incomingClaims)
+        wxlContract1.filterInChannel(wxlContract1.inUnderwritingInfo, incomingUnderwritingInfo)
         wxlContract1.doCalculation()
 
         assertEquals "# of filtered claims", 8, wxlContract1.inClaims.size()
@@ -681,8 +681,8 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
         PacketList<UnderwritingInfo> incomingUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo)
         incomingUnderwritingInfo << underwritingInfoMotor15000 << underwritingInfoMotor5000 << underwritingInfoProperty3000 << underwritingInfoProperty2000
 
-        wxlContract1.filterInChannels(wxlContract1.inClaims, incomingClaims)
-        wxlContract1.filterInChannels(wxlContract1.inUnderwritingInfo, incomingUnderwritingInfo)
+        wxlContract1.filterInChannel(wxlContract1.inClaims, incomingClaims)
+        wxlContract1.filterInChannel(wxlContract1.inUnderwritingInfo, incomingUnderwritingInfo)
         wxlContract1.doCalculation()
 
         assertEquals "# of filtered claims", 8, wxlContract1.inClaims.size()

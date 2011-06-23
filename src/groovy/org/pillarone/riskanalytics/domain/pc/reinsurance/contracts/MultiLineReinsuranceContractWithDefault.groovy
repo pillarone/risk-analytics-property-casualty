@@ -33,7 +33,7 @@ public class MultiLineReinsuranceContractWithDefault extends MultiLineReinsuranc
         super.doCalculation();
     }
 
-    public void filterInChannels(PacketList inChannel, PacketList source) {
+    public void filterInChannel(PacketList inChannel, PacketList source) {
         if (inChannel.equals(inClaims)) {
             inChannel.addAll(ClaimFilterUtilities.filterClaimsByPerilAndLob(source,
                     FilterUtils.getCoveredPerils(parmCoveredPerils, periodStore),
@@ -44,7 +44,7 @@ public class MultiLineReinsuranceContractWithDefault extends MultiLineReinsuranc
             }
         }
         else {
-            super.filterInChannels(inChannel, source)
+            super.filterInChannel(inChannel, source)
         }
     }
 

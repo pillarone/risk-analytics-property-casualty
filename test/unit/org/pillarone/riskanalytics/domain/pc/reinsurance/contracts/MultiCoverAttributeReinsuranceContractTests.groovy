@@ -163,7 +163,7 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
         /**
          *  Construct the contract, putting the marker components into the model.
          *  Be sure to put the perils and LOBs into the model before constructing the contract,
-         *  so that filterInChannels receives the correct lists of lines, perils & reserves.
+         *  so that filterInChannel receives the correct lists of lines, perils & reserves.
          *  This won't happen unless each nonempty (lines, perils, reserves) ComboBoxTableMultiDimensionalParameter
          *  in parmCover initializes its comboBoxValues (to copy the values passed in getCoverAttributeStrategy)
          *  by finding the relevant components of the right markerClass
@@ -200,8 +200,8 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
         incomingUnderwritingInfo << underwritingInfoFire << underwritingInfoHull << underwritingInfoLegal << underwritingInfoFlood << underwritingInfoBlitz << underwritingInfoWind
 
         // test LineOfBusinessCoverAttributeStrategy
-        contract.filterInChannels(contract.inClaims, incomingClaims)
-        contract.filterInChannels(contract.inUnderwritingInfo, incomingUnderwritingInfo)
+        contract.filterInChannel(contract.inClaims, incomingClaims)
+        contract.filterInChannel(contract.inUnderwritingInfo, incomingUnderwritingInfo)
         contract.doCalculation()
         assertEquals "# of (fire) filtered claims", 4, contract.inClaims.size()
         assertEquals "# of (fire) covered claims", 4, contract.outCoveredClaims.size()
@@ -263,8 +263,8 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
         incomingClaims << claimFire1000 << claimHull1100 << claimLegal1200 << claimFire1300 << claimFire1400 << claimFire1500
         PacketList<UnderwritingInfo> incomingUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo)
         incomingUnderwritingInfo << underwritingInfoFire << underwritingInfoHull << underwritingInfoLegal << underwritingInfoFlood << underwritingInfoBlitz << underwritingInfoWind
-        contract.filterInChannels(contract.inClaims, incomingClaims)
-        contract.filterInChannels(contract.inUnderwritingInfo, incomingUnderwritingInfo)
+        contract.filterInChannel(contract.inClaims, incomingClaims)
+        contract.filterInChannel(contract.inUnderwritingInfo, incomingUnderwritingInfo)
         contract.doCalculation()
 
         assertEquals "# of (astronomical) filtered claims", 0, contract.inClaims.size()
@@ -313,8 +313,8 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
         incomingClaims << claimFire1000 << claimHull1100 << claimLegal1200 << claimFire1300 << claimFire1400 << claimFire1500
         PacketList<UnderwritingInfo> incomingUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo)
         incomingUnderwritingInfo << underwritingInfoFire << underwritingInfoHull << underwritingInfoLegal << underwritingInfoFlood
-        contract.filterInChannels(contract.inClaims, incomingClaims)
-        contract.filterInChannels(contract.inUnderwritingInfo, incomingUnderwritingInfo)
+        contract.filterInChannel(contract.inClaims, incomingClaims)
+        contract.filterInChannel(contract.inUnderwritingInfo, incomingUnderwritingInfo)
         contract.doCalculation()
 
         assertEquals "# of (fire/B) filtered claims", 2, contract.inClaims.size()
@@ -395,7 +395,7 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
 
         PacketList<Claim> incomingClaims = new PacketList<Claim>(Claim)
         incomingClaims << claimDevelopment1 << claimDevelopment2
-        contract.filterInChannels(contract.inClaims, incomingClaims)
+        contract.filterInChannel(contract.inClaims, incomingClaims)
         contract.doCalculation()
         assertEquals '# ceded claims packets', 1, contract.outCoveredClaims.size()
         assertEquals 'ceded incurred 0', 2d, contract.outCoveredClaims[0].incurred
@@ -409,7 +409,7 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
         contract.simulationScope.iterationScope.periodScope.prepareNextPeriod()
         incomingClaims.clear()
         incomingClaims << claimDevelopment1 << claimDevelopment2
-        contract.filterInChannels(contract.inClaims, incomingClaims)
+        contract.filterInChannel(contract.inClaims, incomingClaims)
         contract.doCalculation()
         assertEquals '# ceded claims packets', 1, contract.outCoveredClaims.size()
         assertEquals 'ceded incurred 0', 2.4d, contract.outCoveredClaims[0].incurred, 1E-10
@@ -423,7 +423,7 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
 
         incomingClaims.clear()
         incomingClaims << claimDevelopment1 << claimDevelopment2
-        contract.filterInChannels(contract.inClaims, incomingClaims)
+        contract.filterInChannel(contract.inClaims, incomingClaims)
         contract.doCalculation()
         assertEquals '# ceded claims packets', 2, contract.outCoveredClaims.size()
         assertEquals 'origin of fire claim', originalClaim1, contract.outCoveredClaims[0].originalClaim
@@ -434,7 +434,7 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
         contract.simulationScope.iterationScope.periodScope.prepareNextPeriod()
         incomingClaims.clear()
         incomingClaims << claimDevelopment1 << claimDevelopment2
-        contract.filterInChannels(contract.inClaims, incomingClaims)
+        contract.filterInChannel(contract.inClaims, incomingClaims)
         contract.doCalculation()
         assertEquals '# ceded claims packets', 2, contract.outCoveredClaims.size()
         assertEquals 'origin of fire claim', originalClaim1, contract.outCoveredClaims[0].originalClaim

@@ -209,8 +209,8 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
         def netClaimsWired = new TestProbe(contract, 'outUncoveredClaims')
 
         // test LineOfBusinessCoverAttributeStrategy
-        contract.filterInChannels(contract.inClaims, incomingClaims)
-        contract.filterInChannels(contract.inUnderwritingInfo, incomingUnderwritingInfo)
+        contract.filterInChannel(contract.inClaims, incomingClaims)
+        contract.filterInChannel(contract.inUnderwritingInfo, incomingUnderwritingInfo)
         contract.doCalculation()
         assertEquals "# of (fire) filtered claims", 4, contract.inClaims.size()
         assertEquals "# of (fire) covered claims", 4, contract.outCoveredClaims.size()
@@ -274,8 +274,8 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
         incomingUnderwritingInfo << underwritingInfoFire << underwritingInfoHull << underwritingInfoLegal << underwritingInfoFlood << underwritingInfoBlitz << underwritingInfoWind
 
         // test LineOfBusinessCoverAttributeStrategy
-        contract.filterInChannels(contract.inClaims, incomingClaims)
-        contract.filterInChannels(contract.inUnderwritingInfo, incomingUnderwritingInfo)
+        contract.filterInChannel(contract.inClaims, incomingClaims)
+        contract.filterInChannel(contract.inUnderwritingInfo, incomingUnderwritingInfo)
         contract.doCalculation()
 
         assertEquals "# of (astronomical) filtered claims", 0, contract.inClaims.size()
@@ -325,8 +325,8 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
         incomingUnderwritingInfo << underwritingInfoFire << underwritingInfoHull << underwritingInfoLegal << underwritingInfoFlood
 
         // test LineOfBusinessCoverAttributeStrategy
-        contract.filterInChannels(contract.inClaims, incomingClaims)
-        contract.filterInChannels(contract.inUnderwritingInfo, incomingUnderwritingInfo)
+        contract.filterInChannel(contract.inClaims, incomingClaims)
+        contract.filterInChannel(contract.inUnderwritingInfo, incomingUnderwritingInfo)
         contract.doCalculation()
 
         assertEquals "# of (fire/B) filtered claims", 2, contract.inClaims.size()
@@ -419,7 +419,7 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
         incomingClaims << claimDevelopment1 << claimDevelopment2
 
         // test LineOfBusinessCoverAttributeStrategy
-        contract.filterInChannels(contract.inClaims, incomingClaims)
+        contract.filterInChannel(contract.inClaims, incomingClaims)
         contract.doCalculation()
         assertEquals '# ceded claims packets', 1, contract.outCoveredClaims.size()
         assertEquals 'ceded incurred 0', 2d, contract.outCoveredClaims[0].incurred
@@ -436,7 +436,7 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
         incomingClaims << claimDevelopment1 << claimDevelopment2
 
         // test LineOfBusinessCoverAttributeStrategy
-        contract.filterInChannels(contract.inClaims, incomingClaims)
+        contract.filterInChannel(contract.inClaims, incomingClaims)
         contract.doCalculation()
         assertEquals '# ceded claims packets', 1, contract.outCoveredClaims.size()
         assertEquals 'ceded incurred 0', 2.4d, contract.outCoveredClaims[0].incurred, 1E-10
@@ -528,8 +528,8 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
         incomingUnderwritingInfo << underwritingInfo1 << underwritingInfo2 << underwritingInfo3
 
         // test LineOfBusinessCoverAttributeStrategy
-        contract.filterInChannels(contract.inClaims, incomingClaims)
-        contract.filterInChannels(contract.inUnderwritingInfo, incomingUnderwritingInfo)
+        contract.filterInChannel(contract.inClaims, incomingClaims)
+        contract.filterInChannel(contract.inUnderwritingInfo, incomingUnderwritingInfo)
         contract.doCalculation()
 
         assertEquals "# of filtered claims", 4, contract.inClaims.size()

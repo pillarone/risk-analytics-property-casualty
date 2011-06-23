@@ -83,7 +83,7 @@ public class MultiLineReinsuranceContractTests extends GroovyTestCase {
 
         PacketList<Claim> incomingClaims = new PacketList<Claim>(Claim)
         incomingClaims << claimDevelopment1 << claimDevelopment2
-        contract.filterInChannels(contract.inClaims, incomingClaims)
+        contract.filterInChannel(contract.inClaims, incomingClaims)
         contract.start()
 
         assertEquals '# ceded claims packets', 2, coveredClaims.size()
@@ -112,7 +112,7 @@ public class MultiLineReinsuranceContractTests extends GroovyTestCase {
 
         PacketList<Claim> incomingClaims = new PacketList<Claim>(Claim)
         incomingClaims << claimDevelopment1 << claimDevelopment2
-        contract.filterInChannels(contract.inClaims, incomingClaims)
+        contract.filterInChannel(contract.inClaims, incomingClaims)
         contract.doCalculation()
         assertEquals '# ceded claims packets', 1, contract.outCoveredClaims.size()
         assertEquals 'ceded incurred 0', 2d, contract.outCoveredClaims[0].incurred
@@ -127,7 +127,7 @@ public class MultiLineReinsuranceContractTests extends GroovyTestCase {
         contract.simulationScope.iterationScope.periodScope.prepareNextPeriod()
         incomingClaims.clear()
         incomingClaims << claimDevelopment1 << claimDevelopment2
-        contract.filterInChannels(contract.inClaims, incomingClaims)
+        contract.filterInChannel(contract.inClaims, incomingClaims)
         contract.doCalculation()
         assertEquals '# ceded claims packets', 1, contract.outCoveredClaims.size()
         assertEquals 'ceded incurred 0', 2.4d, contract.outCoveredClaims[0].incurred, 1E-10

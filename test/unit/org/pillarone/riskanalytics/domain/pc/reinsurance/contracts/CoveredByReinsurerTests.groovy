@@ -108,8 +108,8 @@ class CoveredByReinsurerTests extends GroovyTestCase {
         incomingClaims << getClaim(80, fire, fireLob) << getClaim(100, fire, fireLob)
         PacketList<UnderwritingInfo> incomingUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo)
         incomingUnderwritingInfo << new UnderwritingInfo(premium: 60, lineOfBusiness: fireLob) << new UnderwritingInfo(premium: 100, lineOfBusiness: fireLob)
-        contract.filterInChannels(contract.inClaims, incomingClaims)
-        contract.filterInChannels(contract.inUnderwritingInfo, incomingUnderwritingInfo)
+        contract.filterInChannel(contract.inClaims, incomingClaims)
+        contract.filterInChannel(contract.inUnderwritingInfo, incomingUnderwritingInfo)
         contract.doCalculation()
 
         assertEquals "claim ceded",0.5*1.6, contract.outCoveredClaims[0].ultimate

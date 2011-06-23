@@ -71,34 +71,37 @@ public class ReservesGeneratorLean extends GeneratorCachingComponent implements 
         periodStore.put(RESERVES, aggregatedReserves);
     }
 
-    private double addReservesFromClaims(double aggregatedReserves) {
+    @Override
+    public void filterInChannel(PacketList inChannel, PacketList source) {
+        if (inChannel == inClaims) {
+            ComboBoxTableMultiDimensionalParameter basedOnClaimsGenerator = ((AbstractClaimsGeneratorBasedReservesGeneratorStrategy) parmReservesModel).getBasedOnClaimsGenerators();
+            List<PerilMarker> coveredPerils = basedOnClaimsGenerator.getValuesAsObjects();
+            if (coveredPerils.size() == 0) {
+                inClaims.addAll(source);
+            }
+            else {
+                for (Object claim : source) {
+                    if (coveredPerils.contains(((Claim) claim).getPeril())) {
+                        inClaims.add((Claim) claim);
+                    }
+                }
+            }
+        }
+        else {
+            super.filterInChannel(inChannel, source);
+        }
+    }
 
+    private double addReservesFromClaims(double aggregatedReserves) {
         if (!(parmReservesModel instanceof PriorPeriodReservesGeneratorStrategy)) {
             return aggregatedReserves;
         }
-
-        ComboBoxTableMultiDimensionalParameter basedOnClaimsGenerator = ((AbstractClaimsGeneratorBasedReservesGeneratorStrategy) parmReservesModel).getBasedOnClaimsGenerators();
-        List<PerilMarker> coveredPerils = basedOnClaimsGenerator.getValuesAsObjects();
-
-        if (coveredPerils.size() == 0) {
-            return addUnfilteredReserves(aggregatedReserves);
-        }
-
-        return addFilteredReserves(aggregatedReserves, coveredPerils);
+        return addReserves(aggregatedReserves);
     }
 
-    private double addUnfilteredReserves(double aggregatedReserves) {
+    private double addReserves(double aggregatedReserves) {
         for (Claim incomingClaim : inClaims) {
             aggregatedReserves += ((ClaimDevelopmentLeanPacket) incomingClaim).getReserved();
-        }
-        return aggregatedReserves;
-    }
-
-    private double addFilteredReserves(double aggregatedReserves, List<PerilMarker> coveredPerils) {
-        for (Claim incomingClaim : inClaims) {
-            if (coveredPerils.contains(incomingClaim.getPeril())) {
-                aggregatedReserves += ((ClaimDevelopmentLeanPacket) incomingClaim).getReserved();
-            }
         }
         return aggregatedReserves;
     }

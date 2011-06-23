@@ -71,7 +71,7 @@ public class TypableClaimsGeneratorTests extends GroovyTestCase {
         claimsGenerator.doCalculation()
 
         assertEquals "one attritional claim", 1, claimsGenerator.outClaims.size()
-        assertEquals "correct value of attritional claim", 123, claimsGenerator.outClaims[0].ultimate
+        assertEquals "correct value of attritional claim", 123000, claimsGenerator.outClaims[0].ultimate
     }
 
     void testNone() {
