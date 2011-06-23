@@ -115,7 +115,7 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
         }
     }
 
-    protected void filterInChannels(PacketList inChannel, PacketList source) {
+    public void filterInChannel(PacketList inChannel, PacketList source) {
         if (inChannel == inClaims) {
             allInClaims.addAll(source);
         }
