@@ -102,16 +102,21 @@ class ClaimsGeneratorStrategyValidator implements IParameterizationValidator {
         }
         // todo: if cdf is expensive, split truncated cases to use getArea (and censored..?)
         if (DistributionModifier.TRUNCATED || DistributionModifier.TRUNCATEDSHIFT) {
-            if (Math.abs(distribution.cdf(rightBoundary) - distribution.cdf(leftBoundary)) < 1E-8) {
-                return [ValidationType.ERROR, "claims.model.error.restricted.density.function.not.normalizable.for.claims.generator"]
+            if (distribution instanceof ContinuousDistribution) {
+                if (Math.abs(distribution.cdf(rightBoundary) - distribution.cdf(leftBoundary)) < 1E-8) {
+                    return [ValidationType.ERROR, "claims.model.error.restricted.density.function.not.normalizable.for.claims.generator"]
+                }
             }
         }
 
-        if (DistributionModifier.LEFTTRUNCATEDRIGHTCENSOREDSHIFT){
-            if ((1d - distribution.cdf(leftBoundary)) < 1E-8) {
-                return [ValidationType.ERROR, "claims.model.error.restricted.density.function.not.normalizable.for.claims.generator"]
+        if (DistributionModifier.LEFTTRUNCATEDRIGHTCENSOREDSHIFT) {
+            if (distribution instanceof ContinuousDistribution) {
+                if ((1d - distribution.cdf(leftBoundary)) < 1E-8) {
+                    return [ValidationType.ERROR, "claims.model.error.restricted.density.function.not.normalizable.for.claims.generator"]
+                }
             }
         }
+
         return
     }
 }
