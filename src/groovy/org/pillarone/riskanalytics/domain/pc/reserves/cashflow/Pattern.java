@@ -11,8 +11,8 @@ import java.util.List;
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 public class Pattern implements IPattern {
-    private List<Double> cumulativeValues;
-    private List<Period> cumulativePeriods;
+    protected List<Double> cumulativeValues;
+    protected List<Period> cumulativePeriods;
 
     public Pattern() {
     }
