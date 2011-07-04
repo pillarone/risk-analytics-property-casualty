@@ -359,4 +359,9 @@ class DynamicReinsuranceProgram extends DynamicComposedComponent {
         return "contracts"
     }
 
+     public List<Component> getListedComponents() {
+         return claimsMergers+underwritingInfoMergers;
+     }
+
+    
 }
