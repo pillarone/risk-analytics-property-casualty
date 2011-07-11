@@ -21,7 +21,7 @@ public class ClaimDevelopmentPacket extends Claim {
     private double reserved;
     private double changeInReserves;
 
-    private Pattern payoutPattern;
+    private IPattern payoutPattern;
     /**
      * negative values correspond to the development period of reserved claims;     // todo(sku): think of using a common definition for pos and neg based on incurred period
      * positive values correspond to the incurred period according to the simulation context
@@ -213,11 +213,11 @@ public class ClaimDevelopmentPacket extends Claim {
         this.reserved = reserved;
     }
 
-    public Pattern getPayoutPattern() {
+    public IPattern getPayoutPattern() {
         return payoutPattern;
     }
 
-    public void setPayoutPattern(Pattern payoutPattern) {
+    public void setPayoutPattern(IPattern payoutPattern) {
         this.payoutPattern = payoutPattern;
     }
 

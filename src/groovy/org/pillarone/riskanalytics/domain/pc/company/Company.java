@@ -83,10 +83,6 @@ public class Company extends MultiPhaseComponent implements ICompanyMarker {
     private PacketList<Claim> outFinancialResults = new PacketList<Claim>(Claim.class);
 
 
-    /**
-     * This parameter is currently not used for any calculation. It may be used for default modeling as in DCEM.
-     * Reason for adding it: Components addable in a DynamicComposedComponent need at least one parameter.
-     */
     private Rating parmRating = Rating.NO_DEFAULT;
 
     /**
