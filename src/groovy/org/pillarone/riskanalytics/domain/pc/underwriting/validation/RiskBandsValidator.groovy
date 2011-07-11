@@ -4,6 +4,7 @@ import org.pillarone.riskanalytics.core.parameterization.validation.AbstractPara
 import org.apache.commons.logging.LogFactory
 import org.apache.commons.logging.Log
 import org.pillarone.riskanalytics.domain.utils.validation.ParameterValidationServiceImpl
+import org.pillarone.riskanalytics.core.parameterization.validation.ValidationType
 import org.pillarone.riskanalytics.core.parameterization.validation.ParameterValidation
 import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterHolder
 import org.pillarone.riskanalytics.core.simulation.item.parameter.MultiDimensionalParameterHolder
@@ -79,7 +80,7 @@ class RiskBandsValidator implements IParameterizationValidator {
                 List<Double> numberOfPolicies = item.value.getColumnByName(RiskBands.NUMBER_OF_POLICIES)
                 for (int row = 0; row < numberOfPolicies.size(); row++) {
                     if (numberOfPolicies[row] > 0) continue
-                    ParameterValidationImpl error = new ParameterValidationImpl(
+                    ParameterValidationImpl error = new ParameterValidationImpl(ValidationType.ERROR,
                         'surplus.ri.needs.non.trivial.number.of.policies', [numberOfPolicies[row], row+1]
                     )
                     error.path = path
