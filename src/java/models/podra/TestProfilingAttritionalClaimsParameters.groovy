@@ -2,7 +2,7 @@ package models.podra
 
 model=models.podra.PodraModel
 periodCount=1
-displayName='profiling'
+displayName='Profiling Attritional'
 applicationVersion='1.4-ALPHA-1.3-kti'
 components {
 	claimsGenerators {
