@@ -12,8 +12,6 @@ import java.util.List;
  */
 public class Pattern implements IPattern {
     protected List<Double> cumulativeValues;
-
-
     protected List<Period> cumulativePeriods;
 
     public Pattern() {
