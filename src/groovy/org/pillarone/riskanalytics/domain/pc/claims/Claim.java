@@ -2,6 +2,7 @@ package org.pillarone.riskanalytics.domain.pc.claims;
 
 import org.pillarone.riskanalytics.core.components.IComponentMarker;
 import org.pillarone.riskanalytics.core.packets.MultiValuePacket;
+import org.pillarone.riskanalytics.core.packets.Packet;
 import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope;
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType;
 import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
@@ -37,6 +38,11 @@ public class Claim extends MultiValuePacket {
         Claim copy = ClaimPacketFactory.createPacket();
         copy.set(this);
         return copy;
+    }
+
+    @Override
+    public void initDefaultPacket() {
+        this.originalClaim=this;
     }
 
     public void set(Claim claim) {

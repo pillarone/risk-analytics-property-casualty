@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.underwriting;
 
 import org.pillarone.riskanalytics.core.packets.MultiValuePacket;
+import org.pillarone.riskanalytics.core.packets.Packet;
 import org.pillarone.riskanalytics.domain.pc.constants.Exposure;
 import org.pillarone.riskanalytics.domain.pc.constants.FrequencyBase;
 import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
@@ -164,6 +165,11 @@ public class UnderwritingInfo extends MultiValuePacket {
 
     public UnderwritingInfo getOriginalUnderwritingInfo() {
         return originalUnderwritingInfo;
+    }
+
+    @Override
+    public void initDefaultPacket() {
+        this.originalUnderwritingInfo = this;
     }
 
     public void setOriginalUnderwritingInfo(UnderwritingInfo originalUnderwritingInfo) {
