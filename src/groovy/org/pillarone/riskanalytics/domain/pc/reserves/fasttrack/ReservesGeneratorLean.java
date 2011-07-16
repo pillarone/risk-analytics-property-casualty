@@ -77,7 +77,7 @@ public class ReservesGeneratorLean extends GeneratorCachingComponent implements 
         }
 
         ComboBoxTableMultiDimensionalParameter basedOnClaimsGenerator = ((AbstractClaimsGeneratorBasedReservesGeneratorStrategy) parmReservesModel).getBasedOnClaimsGenerators();
-        List<IPerilMarker> coveredPerils = basedOnClaimsGenerator.getValuesAsObjects();
+        List<IPerilMarker> coveredPerils = (List<IPerilMarker>) basedOnClaimsGenerator.getValuesAsObjects(0, true);
 
         if (coveredPerils.size() == 0) {
             return addUnfilteredReserves(aggregatedReserves);

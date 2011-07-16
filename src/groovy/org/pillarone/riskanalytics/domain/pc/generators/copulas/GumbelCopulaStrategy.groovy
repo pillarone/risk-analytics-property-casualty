@@ -39,7 +39,7 @@ abstract class GumbelCopulaStrategy extends AbstractCopulaStrategy {
     }
 
     public List<String> getTargetNames() {
-        targets.values
+        targets.values[0]
     }
 
     public Map getParameters() {

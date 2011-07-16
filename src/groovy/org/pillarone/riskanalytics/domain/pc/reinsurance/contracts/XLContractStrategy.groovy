@@ -87,7 +87,7 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
     }
 
     static double getReinstatementPremiumFactor(int reinstatement, AbstractMultiDimensionalParameter reinstatementPremiums) {
-        reinstatementPremiums.values[Math.min(reinstatement, reinstatementPremiums.valueRowCount - 1)]
+        reinstatementPremiums.values[0][Math.min(reinstatement, reinstatementPremiums.valueRowCount - 1)]
     }
 
     void initBookkeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {

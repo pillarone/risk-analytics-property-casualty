@@ -148,18 +148,18 @@ public class MultiCompanyCoverAttributeReinsuranceContract extends ReinsuranceCo
             outFilteredUnderwritingInfo.addAll(inUnderwritingInfo);
         }
         else if (parmCover instanceof CompaniesCompanyCoverAttributeStrategy) {
-            List<ICompanyMarker> coveredCompanies = (List<ICompanyMarker>) (((CompaniesCompanyCoverAttributeStrategy) parmCover).getCompanies().getValuesAsObjects());
+            List<ICompanyMarker> coveredCompanies = (List<ICompanyMarker>) (((CompaniesCompanyCoverAttributeStrategy) parmCover).getCompanies().getValuesAsObjects(0, false));
             outFilteredClaims.addAll(ClaimFilterUtilities.filterClaimsByCompanies(inClaims, coveredCompanies, false));
             List<ISegmentMarker> coveredLines = ClaimFilterUtilities.getLinesOfBusiness(outFilteredClaims);
             outFilteredUnderwritingInfo.addAll(UnderwritingFilterUtilities.filterUnderwritingInfoByLobWithoutScaling(inUnderwritingInfo, coveredLines));
         }
         else {
             List<ISegmentMarker> coveredLines = parmCover instanceof ILinesOfBusinessCoverAttributeStrategy
-                    ? (List<ISegmentMarker>) (((ILinesOfBusinessCoverAttributeStrategy) parmCover).getLines().getValuesAsObjects()) : null;
+                    ? (List<ISegmentMarker>) (((ILinesOfBusinessCoverAttributeStrategy) parmCover).getLines().getValuesAsObjects(0, false)) : null;
             List<IPerilMarker> coveredPerils = parmCover instanceof IPerilCoverAttributeStrategy
-                    ? (List<IPerilMarker>) ((IPerilCoverAttributeStrategy) parmCover).getPerils().getValuesAsObjects() : null;
+                    ? (List<IPerilMarker>) ((IPerilCoverAttributeStrategy) parmCover).getPerils().getValuesAsObjects(0, false) : null;
             List<IReserveMarker> coveredReserves = parmCover instanceof IReservesCoverAttributeStrategy
-                    ? (List<IReserveMarker>) ((IReservesCoverAttributeStrategy) parmCover).getReserves().getValuesAsObjects() : null;
+                    ? (List<IReserveMarker>) ((IReservesCoverAttributeStrategy) parmCover).getReserves().getValuesAsObjects(0, false) : null;
             LogicArguments connection = parmCover instanceof ICombinedCoverAttributeStrategy
                     ? ((ICombinedCoverAttributeStrategy) parmCover).getConnection() : null;
             outFilteredClaims.addAll(ClaimFilterUtilities.filterClaimsByPerilLobReserve(inClaims, coveredPerils, coveredLines, coveredReserves, connection));

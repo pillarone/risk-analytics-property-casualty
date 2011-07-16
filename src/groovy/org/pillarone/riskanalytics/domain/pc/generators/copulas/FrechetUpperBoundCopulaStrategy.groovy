@@ -23,6 +23,6 @@ abstract class FrechetUpperBoundCopulaStrategy extends AbstractCopulaStrategy {
     }
 
     public List<String> getTargetNames() {
-        targets.values
+        targets.values[0]
     }
 }

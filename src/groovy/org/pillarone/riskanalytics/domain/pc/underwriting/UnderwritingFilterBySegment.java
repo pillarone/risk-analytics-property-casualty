@@ -6,6 +6,7 @@ import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimen
 import org.pillarone.riskanalytics.domain.utils.marker.IUnderwritingInfoMarker;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -21,7 +22,8 @@ public class UnderwritingFilterBySegment extends Component {
 
 
     public void doCalculation() {
-        outUnderwritingInfo.addAll(UnderwritingFilterUtilities.filterUnderwritingInfo(inUnderwritingInfo, parmUnderwritingSegments.getValuesAsObjects()));
+        outUnderwritingInfo.addAll(UnderwritingFilterUtilities.filterUnderwritingInfo(
+                inUnderwritingInfo, parmUnderwritingSegments.getValuesAsObjects(0, true)));
     }
 
     public PacketList<UnderwritingInfo> getInUnderwritingInfo() {

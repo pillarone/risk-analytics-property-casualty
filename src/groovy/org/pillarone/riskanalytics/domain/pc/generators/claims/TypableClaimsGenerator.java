@@ -84,7 +84,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
         outUnderwritingInfo.addAll(
                 UnderwritingFilterUtilities.filterUnderwritingInfo(
                         inUnderwritingInfo,
-                        parmUnderwritingInformation.getValuesAsObjects()));
+                        (List) parmUnderwritingInformation.getValuesAsObjects(0, false)));
         List<Double> claimValues = new ArrayList<Double>();
         List<Event> events = new ArrayList<Event>();
         PacketList<Claim> claims = new PacketList<Claim>(Claim.class);

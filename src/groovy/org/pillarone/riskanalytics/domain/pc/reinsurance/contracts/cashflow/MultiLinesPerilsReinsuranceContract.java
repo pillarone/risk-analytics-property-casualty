@@ -195,9 +195,9 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
         }
         else {
             List<ISegmentMarker> coveredLines = !(parmCover instanceof ILinesOfBusinessCoverAttributeStrategy) ? null :
-                    (List<ISegmentMarker>) (((ILinesOfBusinessCoverAttributeStrategy) parmCover).getLines().getValuesAsObjects());
+                    (List<ISegmentMarker>) (((ILinesOfBusinessCoverAttributeStrategy) parmCover).getLines().getValuesAsObjects(0, true));
             List<IPerilMarker> coveredPerils = !(parmCover instanceof IPerilCoverAttributeStrategy) ? null :
-                    (List<IPerilMarker>) (((IPerilCoverAttributeStrategy) parmCover).getPerils().getValuesAsObjects());
+                    (List<IPerilMarker>) (((IPerilCoverAttributeStrategy) parmCover).getPerils().getValuesAsObjects(0, true));
             LogicArguments connection = !(parmCover instanceof ICombinedCoverAttributeStrategy) ? null :
                     ((ICombinedCoverAttributeStrategy) parmCover).getConnection();
             outFilteredClaims.addAll(ClaimFilterUtilities.filterClaimsByPerilLobReserve(inClaims, coveredPerils, coveredLines, null, connection));

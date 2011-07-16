@@ -424,11 +424,11 @@ class WXLContractStrategyTests extends GroovyTestCase {
 
         double usedReinstatements = 7 / 3
 
-        assertEquals "premium written", wxl.parmContractStrategy.premium * (1 + wxl.parmContractStrategy.reinstatementPremiums.values[0] * usedReinstatements),
+        assertEquals "premium written", wxl.parmContractStrategy.premium * (1 + wxl.parmContractStrategy.reinstatementPremiums.values[0][0] * usedReinstatements),
                 wxl.outCoverUnderwritingInfo[0].premium, 1e-6
         assertEquals "premium written", wxl.parmContractStrategy.premium,
                 wxl.outCoverUnderwritingInfo[0].fixedPremium, 1e-6
-        assertEquals "premium written", wxl.parmContractStrategy.premium * wxl.parmContractStrategy.reinstatementPremiums.values[0] * usedReinstatements,
+        assertEquals "premium written", wxl.parmContractStrategy.premium * wxl.parmContractStrategy.reinstatementPremiums.values[0][0] * usedReinstatements,
                 wxl.outCoverUnderwritingInfo[0].variablePremium, 1e-6
     }
 
@@ -449,7 +449,7 @@ class WXLContractStrategyTests extends GroovyTestCase {
 
         double usedReinstatements = 0d
 
-        assertEquals "premium written", wxl.parmContractStrategy.premium * (1 + wxl.parmContractStrategy.reinstatementPremiums.values[0] * usedReinstatements),
+        assertEquals "premium written", wxl.parmContractStrategy.premium * (1 + wxl.parmContractStrategy.reinstatementPremiums.values[0][0] * usedReinstatements),
                 wxl.outCoverUnderwritingInfo[0].premium, 1e-6
         assertEquals "premium written", wxl.parmContractStrategy.premium,
                 wxl.outCoverUnderwritingInfo[0].fixedPremium, 1e-6
@@ -473,10 +473,10 @@ class WXLContractStrategyTests extends GroovyTestCase {
 
         double usedReinstatements = 1d
 
-        assertEquals "premium written", wxl.parmContractStrategy.premium * (1 + wxl.parmContractStrategy.reinstatementPremiums.values[0] * usedReinstatements),
+        assertEquals "premium written", wxl.parmContractStrategy.premium * (1 + wxl.parmContractStrategy.reinstatementPremiums.values[0][0] * usedReinstatements),
                 wxl.outCoverUnderwritingInfo[0].premium, 1e-6
         assertEquals "premium written", wxl.parmContractStrategy.premium, wxl.outCoverUnderwritingInfo[0].fixedPremium, 1e-6
-        assertEquals "premium written", wxl.parmContractStrategy.premium * wxl.parmContractStrategy.reinstatementPremiums.values[0] * usedReinstatements,
+        assertEquals "premium written", wxl.parmContractStrategy.premium * wxl.parmContractStrategy.reinstatementPremiums.values[0][0] * usedReinstatements,
                 wxl.outCoverUnderwritingInfo[0].variablePremium, 1e-6
     }
 
@@ -495,10 +495,10 @@ class WXLContractStrategyTests extends GroovyTestCase {
 
         double usedReinstatements = 1.5
 
-        assertEquals "premium written", wxl.parmContractStrategy.premium * (1 + wxl.parmContractStrategy.reinstatementPremiums.values[0] * usedReinstatements),
+        assertEquals "premium written", wxl.parmContractStrategy.premium * (1 + wxl.parmContractStrategy.reinstatementPremiums.values[0][0] * usedReinstatements),
                 wxl.outCoverUnderwritingInfo[0].premium, 1e-6
         assertEquals "premium written", wxl.parmContractStrategy.premium, wxl.outCoverUnderwritingInfo[0].fixedPremium, 1e-6
-        assertEquals "premium written", wxl.parmContractStrategy.premium * wxl.parmContractStrategy.reinstatementPremiums.values[0] * usedReinstatements,
+        assertEquals "premium written", wxl.parmContractStrategy.premium * wxl.parmContractStrategy.reinstatementPremiums.values[0][0] * usedReinstatements,
                 wxl.outCoverUnderwritingInfo[0].variablePremium, 1e-6
     }
 

@@ -68,11 +68,11 @@ class TypableClaimsGeneratorValidator implements IParameterizationValidator {
     }
 
     boolean hasSelectedUnderwritingInfo(ComboBoxTableMultiDimensionalParameter parameter) {
-        if (parameter.values.empty) {
+        if (parameter.values[0].empty) {
             return false
         }
 
-        List content = parameter.values[0] instanceof List ? parameter.values[0] : parameter.values
+        List content = parameter.values[0]
 
         if (content.empty) {
             return false
