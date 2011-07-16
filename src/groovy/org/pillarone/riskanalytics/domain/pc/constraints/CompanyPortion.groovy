@@ -27,7 +27,7 @@ class CompanyPortion implements IMultiDimensionalConstraints, IUnityPortion {
     }
 
     Class getColumnType(int column) {
-        return column == 0 ? ICompanyMarker : BigDecimal
+        return column == 0 ? ICompanyMarker : Double
     }
 
     int getPortionColumnIndex() {
