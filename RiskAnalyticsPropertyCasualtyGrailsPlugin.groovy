@@ -57,7 +57,7 @@ class RiskAnalyticsPropertyCasualtyGrailsPlugin {
 
     def doWithApplicationContext = {applicationContext ->
         CollectingModeFactory.registerStrategy(new AggregateDrillDownCollectingModeStrategy())
-
+        ConstraintsFactory.registerConstraint(new DoubleConstraints())
         ConstraintsFactory.registerConstraint(new SimpleConstraint())
         ConstraintsFactory.registerConstraint(new CompanyPortion())
 
