@@ -25,7 +25,7 @@ grails.project.dependency.resolution = {
 
         if (appName == "RiskAnalyticsPropertyCasualty") {
             runtime "org.pillarone:risk-analytics-core:1.4-ALPHA-6.2"
-            runtime ("org.pillarone:risk-analytics-commons:0.1.17") { transitive = false }
+            runtime ("org.pillarone:risk-analytics-commons:0.1.18") { transitive = false }
         }
     }
 }
