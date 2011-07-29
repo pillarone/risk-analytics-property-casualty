@@ -21,11 +21,11 @@ grails.project.dependency.resolution = {
         runtime ":spring-security-core:1.1.2"
         runtime ":tomcat:1.3.7"
 
-        test ":code-coverage:1.2.2"
+        test ":code-coverage:1.2.4"
 
         if (appName == "RiskAnalyticsPropertyCasualty") {
             runtime "org.pillarone:risk-analytics-core:1.4-ALPHA-6.2"
-            runtime ("org.pillarone:risk-analytics-commons:0.1.18") { transitive = false }
+            runtime("org.pillarone:risk-analytics-commons:0.1.18") { transitive = false }
         }
     }
 }
@@ -46,4 +46,20 @@ grails.project.dependency.distribution = {
     remoteRepository(id: "pillarone", url: scpUrl) {
         authentication username: 'root', privateKey: "${userHome.absolutePath}/.ssh/id_rsa", passphrase: passPhrase
     }
+}
+
+coverage {
+    enabledByDefault = true
+    xml = true
+    exclusions = [
+            'models/**',
+            '**/*Test*',
+            '**/com/energizedwork/grails/plugins/jodatime/**',
+            '**/grails/util/**',
+            '**/org/codehaus/**',
+            '**/org/grails/**',
+            '**GrailsPlugin**',
+            '**TagLib**'
+    ]
+
 }
