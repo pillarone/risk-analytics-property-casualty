@@ -7,15 +7,16 @@ import umontreal.iro.lecuyer.probdist.NormalDist;
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
  *         <p/>
- *         Composite distribution in C^1 (f and f' are continuous) with three freely chosen parameters sigma, alpha, beta, lambda.
- *         Up to beta >0 the distribution is given by a lognormal distribution wiht parameters mu = mu(sigma,alpha,beta, lambda)
+ *         Composite distribution in C^1 (probability density f and f' are continuous) with three freely chosen parameters sigma, alpha, beta, lambda.
+ *         Alternatively, composite distribution in C (probability density f ist continuous) with five degrees of freedom.
+ *         Up to beta >0 the distribution is given by a lognormal distribution with parameters mu free or mu = mu(sigma,alpha,beta, lambda)
  *         and sigma that is right-truncated at beta. From beta the distribution is given by a generalized Pareto density
  *         in the form of the type II pareto density (a.k.a Lomax density) with parameters alpha, beta and lambda.
- *         Appropriate weightings of the truncated lognormal and type II pareto densities are given by a dependent parameter r = r(sigma,alpha,beta,lambda).*
+ *         Appropriate weightings of the truncated lognormal and type II pareto densities are given by a dependent parameter r = r(sigma,alpha,beta,lambda, mu).*
  */
 public class LognormalTypeIIParetoDistribution extends ContinuousDistribution {
     /**
-     * caling parameter lognormal > 0
+     * calling parameter lognormal > 0
      */
     private double sigma;
     /**
@@ -30,42 +31,68 @@ public class LognormalTypeIIParetoDistribution extends ContinuousDistribution {
      * scaling parameter type II pareto >-beta
      */
     private double lambda;
+    /**
+     * mean parameter lognormal
+     */
+    private double mu;
 
     public LognormalTypeIIParetoDistribution(double sigma, double alpha, double beta, double lambda) {
         setParams(sigma, alpha, beta, lambda);
     }
 
-    private static double getMu(double sigma, double alpha, double beta, double lambda) {
-        return Math.log(beta) - ((alpha * beta - lambda) / (lambda + beta)) * Math.pow(sigma, 2);
+    public LognormalTypeIIParetoDistribution(double sigma, double alpha, double beta, double lambda, double mu) {
+        setParams(sigma, alpha, beta, lambda, mu);
     }
 
-    private static double getR(double sigma, double alpha, double beta, double lambda) {
-        double mu = getMu(sigma, alpha, beta, lambda);
+    private static double getR(double sigma, double alpha, double beta, double lambda, double mu) {
         double term = Math.sqrt(2d * Math.PI) * alpha * beta * sigma *
                 NormalDist.cdf(mu, sigma, Math.log(beta)) * Math.exp(1 / 2d * Math.pow((Math.log(beta) - mu) / sigma, 2));
         return term / (lambda + beta + term);
     }
 
     public double density(double x) {
-        return density(sigma, alpha, beta, lambda, x);
+        return density(sigma, alpha, beta, lambda, mu, x);
     }
 
     public double cdf(double x) {
-        return cdf(sigma, alpha, beta, lambda, x);
+        return cdf(sigma, alpha, beta, lambda, mu, x);
     }
 
     public double barF(double x) {
-        return barF(sigma, alpha, beta, lambda, x);
+        return barF(sigma, alpha, beta, lambda, mu, x);
     }
 
     public double inverseF(double y) {
-        return inverseF(sigma, alpha, beta, lambda, y);
+        return inverseF(sigma, alpha, beta, lambda, mu, y);
     }
 
     /**
      * Computes the density function.
+     *
+     * @param sigma
+     * @param alpha
+     * @param beta
+     * @param lambda
+     * @param x
+     * @return
      */
     public static double density(double sigma, double alpha, double beta, double lambda, double x) {
+        double mu = Math.log(beta) - ((alpha * beta - lambda) / (lambda + beta)) * Math.pow(sigma, 2);
+        return density(sigma, alpha, beta, lambda, mu, x);
+    }
+
+    /**
+     * Computes the density function.
+     *
+     * @param sigma
+     * @param alpha
+     * @param beta
+     * @param lambda
+     * @param mu
+     * @param x
+     * @return
+     */
+    public static double density(double sigma, double alpha, double beta, double lambda, double mu, double x) {
         if (sigma <= 0.0)
             throw new IllegalArgumentException("sigma <= 0");
         if (alpha <= 0.0)
@@ -77,9 +104,8 @@ public class LognormalTypeIIParetoDistribution extends ContinuousDistribution {
         if (x <= 0) {
             return 0;
         }
-        double r = getR(sigma, alpha, beta, lambda);
+        double r = getR(sigma, alpha, beta, lambda, mu);
         if (x <= beta) {
-            double mu = getMu(sigma, alpha, beta, lambda);
             return r / NormalDist.cdf(mu, sigma, Math.log(beta)) * LognormalDist.density(mu, sigma, x);
         }
         return (1.0 - r) * TypeIIParetoDistribution.density(alpha, beta, lambda, x);
@@ -87,8 +113,31 @@ public class LognormalTypeIIParetoDistribution extends ContinuousDistribution {
 
     /**
      * Computes the distribution function.
+     *
+     * @param sigma
+     * @param alpha
+     * @param beta
+     * @param lambda
+     * @param x
+     * @return
      */
     public static double cdf(double sigma, double alpha, double beta, double lambda, double x) {
+        double mu = Math.log(beta) - ((alpha * beta - lambda) / (lambda + beta)) * Math.pow(sigma, 2);
+        return cdf(sigma, alpha, beta, lambda, mu, x);
+    }
+
+    /**
+     * Computes the distribution function.
+     *
+     * @param sigma
+     * @param alpha
+     * @param beta
+     * @param lambda
+     * @param mu
+     * @param x
+     * @return
+     */
+    public static double cdf(double sigma, double alpha, double beta, double lambda, double mu, double x) {
         if (sigma <= 0.0)
             throw new IllegalArgumentException("sigma <= 0");
         if (alpha <= 0.0)
@@ -100,9 +149,8 @@ public class LognormalTypeIIParetoDistribution extends ContinuousDistribution {
         if (x <= 0) {
             return 0.0;
         }
-        double r = getR(sigma, alpha, beta, lambda);
+        double r = getR(sigma, alpha, beta, lambda, mu);
         if (x <= beta) {
-            double mu = getMu(sigma, alpha, beta, lambda);
             return r / NormalDist.cdf(mu, sigma, Math.log(beta)) * LognormalDist.cdf(mu, sigma, x);
         }
         return r + (1.0 - r) * TypeIIParetoDistribution.cdf(alpha, beta, lambda, x);
@@ -110,8 +158,31 @@ public class LognormalTypeIIParetoDistribution extends ContinuousDistribution {
 
     /**
      * Computes the complementary distribution function.
+     *
+     * @param sigma
+     * @param alpha
+     * @param beta
+     * @param lambda
+     * @param x
+     * @return
      */
     public static double barF(double sigma, double alpha, double beta, double lambda, double x) {
+        double mu = Math.log(beta) - ((alpha * beta - lambda) / (lambda + beta)) * Math.pow(sigma, 2);
+        return barF(sigma, alpha, beta, lambda, mu, x);
+    }
+
+    /**
+     * Computes the complementary distribution function.
+     *
+     * @param sigma
+     * @param alpha
+     * @param beta
+     * @param lambda
+     * @param mu
+     * @param x
+     * @return
+     */
+    public static double barF(double sigma, double alpha, double beta, double lambda, double mu, double x) {
         if (sigma <= 0.0)
             throw new IllegalArgumentException("sigma <= 0");
         if (alpha <= 0.0)
@@ -123,13 +194,36 @@ public class LognormalTypeIIParetoDistribution extends ContinuousDistribution {
         if (x <= 0) {
             return 1.0;
         }
-        return 1.0 - cdf(sigma, alpha, beta, lambda, x);
+        return 1.0 - cdf(sigma, alpha, beta, lambda, mu, x);
     }
 
     /**
      * Computes the inverse of the distribution function.
+     *
+     * @param sigma
+     * @param alpha
+     * @param beta
+     * @param lambda
+     * @param y
+     * @return
      */
     public static double inverseF(double sigma, double alpha, double beta, double lambda, double y) {
+        double mu = Math.log(beta) - ((alpha * beta - lambda) / (lambda + beta)) * Math.pow(sigma, 2);
+        return inverseF(sigma, alpha, beta, lambda, mu, y);
+    }
+
+    /**
+     * Computes the inverse of the distribution function.
+     *
+     * @param sigma
+     * @param alpha
+     * @param beta
+     * @param lambda
+     * @param mu
+     * @param y
+     * @return
+     */
+    public static double inverseF(double sigma, double alpha, double beta, double lambda, double mu, double y) {
         if (sigma <= 0.0)
             throw new IllegalArgumentException("sigma <= 0");
         if (alpha <= 0.0)
@@ -145,20 +239,19 @@ public class LognormalTypeIIParetoDistribution extends ContinuousDistribution {
         if (y >= 1.0) {
             return Double.POSITIVE_INFINITY;
         }
-        double r = getR(sigma, alpha, beta, lambda);
+        double r = getR(sigma, alpha, beta, lambda, mu);
         if (y <= r) {
-            double mu = getMu(sigma, alpha, beta, lambda);
             return LognormalDist.inverseF(mu, sigma, y / r * NormalDist.cdf(mu, sigma, Math.log(beta)));
         }
         return TypeIIParetoDistribution.inverseF(alpha, beta, lambda, (y - r) / (1.0 - r));
     }
 
-
-    public double getBeta() {
-        return beta;
+    public void setParams(double sigma, double alpha, double beta, double lambda) {
+        double mu = Math.log(beta) - ((alpha * beta - lambda) / (lambda + beta)) * Math.pow(sigma, 2);
+        setParams(sigma, alpha, beta, lambda, mu);
     }
 
-    public void setParams(double sigma, double alpha, double beta, double lambda) {
+    public void setParams(double sigma, double alpha, double beta, double lambda, double mu) {
         if (sigma <= 0.0)
             throw new IllegalArgumentException("sigma <= 0");
         if (alpha <= 0.0)
@@ -171,11 +264,13 @@ public class LognormalTypeIIParetoDistribution extends ContinuousDistribution {
         this.alpha = alpha;
         this.beta = beta;
         this.lambda = lambda;
+        this.mu = mu;
         supportA = 0.0;
     }
 
+
     public double[] getParams() {
-        double[] retour = {sigma, alpha, beta, lambda};
+        double[] retour = {sigma, alpha, beta, lambda, mu};
         return retour;
     }
 
@@ -183,33 +278,6 @@ public class LognormalTypeIIParetoDistribution extends ContinuousDistribution {
         return getClass().getSimpleName() + " : sigma = " + sigma + ", alpha = " + alpha + ", beta = " + beta + ", lambda = " + lambda;
     }
 
-    public void setBeta(double beta) {
-        this.beta = beta;
-    }
-
-    public double getSigma() {
-        return sigma;
-    }
-
-    public void setSigma(double sigma) {
-        this.sigma = sigma;
-    }
-
-    public double getAlpha() {
-        return alpha;
-    }
-
-    public void setAlpha(double alpha) {
-        this.alpha = alpha;
-    }
-
-    public double getLambda() {
-        return lambda;
-    }
-
-    public void setLambda(double lambda) {
-        this.lambda = lambda;
-    }
 }
 
 

@@ -312,6 +312,81 @@ class DistributionTypeValidatorPC implements IParameterizationValidator {
         validationService.register(DistributionType.GUMBEL) {Map type ->
             return (type.beta == 0) ? [ValidationType.ERROR, "distribution.type.error.gumbel.beta.nonpositive", type.beta] : true
         }
+        validationService.register(DistributionType.GPD) {Map type ->
+                    if (type.tau > 0) return true
+                    return [ValidationType.ERROR, "distribution.type.error.gpd.tau.nonpositive", type.tau]
+                }
+                validationService.register(DistributionType.SHIFTEDPARETOII) {Map type ->
+                    if (type.lambda == 0 && type.beta == 0)
+                        return [ValidationType.ERROR, "distribution.type.error.type.II.pareto.lambda.not.greater.than.minus.beta", type.lambda, type.beta]
+                    if (type.lambda > -type.beta) return true
+                    return [ValidationType.ERROR, "distribution.type.error.type.II.pareto.lambda.not.greater.than.minus.beta", type.lambda, type.beta]
+                }
+                validationService.register(DistributionType.SHIFTEDPARETOII) {Map type ->
+                    if (type.alpha > 0) return true
+                    return [ValidationType.ERROR, "distribution.type.error.type.II.pareto.alpha.nonpositive", type.alpha]
+                }
+                validationService.register(DistributionType.PARETOII) {Map type ->
+                    if (type.lambda > 0d) return true
+                    [ValidationType.ERROR, "distribution.type.error.type.II.pareto.lambda.not.greater.zero", type.lambda]
+                }
+                validationService.register(DistributionType.PARETOII) {Map type ->
+                    if (type.alpha > 0) return true
+                    [ValidationType.ERROR, "distribution.type.error.type.II.pareto.alpha.nonpositive", type.alpha]
+                }
+                validationService.register(DistributionType.LOGNORMALPARETO) {Map type ->
+                    if (type.alpha > 0) return true
+                    [ValidationType.ERROR, "distribution.type.error.lognormal.pareto.alpha.nonpositive", type.alpha]
+                }
+                validationService.register(DistributionType.LOGNORMALPARETO) {Map type ->
+                    if (type.beta > 0) return true
+                    [ValidationType.ERROR, "distribution.type.error.lognormal.pareto.beta.nonpositive", type.beta]
+                }
+                validationService.register(DistributionType.LOGNORMALPARETO) {Map type ->
+                    if (type.sigma > 0) return true
+                    [ValidationType.ERROR, "distribution.type.error.lognormal.pareto.sigma.nonpositive", type.sigma]
+                }
+                validationService.register(DistributionType.LOGNORMALPARETO_SMOOTH) {Map type ->
+                    if (type.alpha > 0) return true
+                    [ValidationType.ERROR, "distribution.type.error.lognormal.pareto.alpha.nonpositive", type.alpha]
+                }
+                validationService.register(DistributionType.LOGNORMALPARETO_SMOOTH) {Map type ->
+                    if (type.beta > 0) return true
+                    [ValidationType.ERROR, "distribution.type.error.lognormal.pareto.beta.nonpositive", type.beta]
+                }
+                validationService.register(DistributionType.LOGNORMALPARETO_SMOOTH) {Map type ->
+                    if (type.sigma > 0) return true
+                    [ValidationType.ERROR, "distribution.type.error.lognormal.pareto.sigma.nonpositive", type.sigma]
+                }
+                validationService.register(DistributionType.LOGNORMALTYPEIIPARETO) {Map type ->
+                    if (type.beta <= 0)
+                        return [ValidationType.ERROR, "distribution.type.error.lognormal.type.II.pareto.beta.nonpositive", type.beta]
+                    if (type.lambda > -type.beta) return true
+                    [ValidationType.ERROR, "distribution.type.error.lognormal.type.II.pareto.lambda.not.greater.than.minus.beta", type.lambda, type.beta]
+                }
+                validationService.register(DistributionType.LOGNORMALTYPEIIPARETO) {Map type ->
+                    if (type.alpha > 0) return true
+                    [ValidationType.ERROR, "distribution.type.error.lognormal.type.II.pareto.alpha.nonpositive", type.alpha]
+                }
+                validationService.register(DistributionType.LOGNORMALTYPEIIPARETO) {Map type ->
+                    if (type.sigma > 0) return true
+                    [ValidationType.ERROR, "distribution.type.error.lognormal.type.II.pareto.sigma.nonpositive", type.sigma]
+                }
+                validationService.register(DistributionType.LOGNORMALTYPEIIPARETO_SMOOTH) {Map type ->
+                    if (type.beta <= 0)
+                        return [ValidationType.ERROR, "distribution.type.error.lognormal.type.II.pareto.beta.nonpositive", type.beta]
+                    if (type.lambda > -type.beta) return true
+                    [ValidationType.ERROR, "distribution.type.error.lognormal.type.II.pareto.lambda.not.greater.than.minus.beta", type.lambda, type.beta]
+                }
+                validationService.register(DistributionType.LOGNORMALTYPEIIPARETO_SMOOTH) {Map type ->
+                    if (type.alpha > 0) return true
+                    [ValidationType.ERROR, "distribution.type.error.lognormal.type.II.pareto.alpha.nonpositive", type.alpha]
+                }
+                validationService.register(DistributionType.LOGNORMALTYPEIIPARETO_SMOOTH) {Map type ->
+                    if (type.sigma > 0) return true
+                    [ValidationType.ERROR, "distribution.type.error.lognormal.type.II.pareto.sigma.nonpositive", type.sigma]
+                }
+
     }
 
     private boolean isCloseEnough(double candidate, double compareAgainst) {
