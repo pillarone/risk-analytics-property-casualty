@@ -5,8 +5,8 @@ import org.pillarone.riskanalytics.domain.pc.constraints.CompanyPortion
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
 
 import org.pillarone.riskanalytics.core.util.GroovyUtils
-import org.pillarone.riskanalytics.domain.pc.constraints.ReservePortion
-import org.pillarone.riskanalytics.domain.pc.constraints.UnderwritingPortion
+import org.pillarone.riskanalytics.domain.utils.constraint.UnderwritingPortion
+import org.pillarone.riskanalytics.domain.utils.constraint.ReservePortion
 
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com

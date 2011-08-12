@@ -6,8 +6,8 @@ import org.pillarone.riskanalytics.core.components.IComponentMarker;
 import org.pillarone.riskanalytics.core.packets.MultiValuePacket;
 import org.pillarone.riskanalytics.core.simulation.IPeriodCounter;
 import org.pillarone.riskanalytics.domain.pc.company.ICompanyMarker;
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
 
 import java.util.ArrayList;
@@ -29,8 +29,8 @@ public class ClaimCashflowPacket extends MultiValuePacket {
 
     private final ClaimRoot originalClaim;
 
-    private PerilMarker peril;
-    private LobMarker lineOfBusiness;
+    private IPerilMarker peril;
+    private ISegmentMarker lineOfBusiness;
     private IReinsuranceContractMarker reinsuranceContract;
     private ICompanyMarker company;
 

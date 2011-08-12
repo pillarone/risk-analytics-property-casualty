@@ -1,7 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.commissions
 
 import org.pillarone.riskanalytics.core.parameterization.*
-import org.pillarone.riskanalytics.domain.utils.constraints.DoubleConstraints
+import org.pillarone.riskanalytics.domain.utils.constraint.DoubleConstraints
 
 /**
  * Defines the commission on a reinsurance contract or a commission component.

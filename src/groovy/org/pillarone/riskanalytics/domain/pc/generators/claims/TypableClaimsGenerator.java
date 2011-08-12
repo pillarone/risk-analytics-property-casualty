@@ -21,15 +21,18 @@ import org.pillarone.riskanalytics.domain.pc.generators.copulas.EventDependenceS
 import org.pillarone.riskanalytics.domain.pc.generators.frequency.Frequency;
 import org.pillarone.riskanalytics.domain.pc.generators.severities.Event;
 import org.pillarone.riskanalytics.domain.pc.generators.severities.EventSeverity;
-import org.pillarone.riskanalytics.domain.pc.underwriting.IUnderwritingInfoMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IUnderwritingInfoMarker;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingFilterUtilities;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingUtilities;
 import org.pillarone.riskanalytics.domain.utils.*;
+import org.pillarone.riskanalytics.domain.utils.math.distribution.TruncatedDistribution;
 import org.pillarone.riskanalytics.domain.utils.randomnumbers.UniformDoubleList;
 import umontreal.iro.lecuyer.probdist.ContinuousDistribution;
+import umontreal.iro.lecuyer.probdist.DiscreteDistribution;
+import umontreal.iro.lecuyer.probdist.DiscreteDistributionInt;
 import umontreal.iro.lecuyer.probdist.Distribution;
-import umontreal.iro.lecuyer.probdist.TruncatedDist;
 
 import java.util.*;
 
@@ -37,7 +40,7 @@ import java.util.*;
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 @ComponentCategory(categories = {"CLAIM","GENERATOR","ATTRITIONAL","SINGLE","EVENT"})
-public class TypableClaimsGenerator extends GeneratorCachingComponent implements PerilMarker {
+public class TypableClaimsGenerator extends GeneratorCachingComponent implements IPerilMarker {
 
     private SimulationScope simulationScope;
 
@@ -95,7 +98,8 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
                     List<Double> probabilities = filterProbabilities();
                     if (probabilities.size() > 1) {
                         throw new IllegalArgumentException("['TypableClaimsGenerator.attritionalClaims','" + this.getNormalizedName() + "']");
-                    } else {
+                    }
+                    else {
                         claimValues = calculateClaimsValues(
                                 probabilities,
                                 parmClaimsModel.getClaimsSizeDistribution(),
@@ -108,7 +112,8 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
                             parmClaimsModel.getClaimsSizeModification());
                 }
 
-            } else if (parmClaimsModel instanceof IFrequencyClaimsGeneratorStrategy) {
+            }
+            else if (parmClaimsModel instanceof IFrequencyClaimsGeneratorStrategy) {
                 double frequency = generateFrequency(
                         ((IFrequencyClaimsGeneratorStrategy) parmClaimsModel).getFrequencyDistribution(),
                         ((IFrequencyClaimsGeneratorStrategy) parmClaimsModel).getFrequencyModification(),
@@ -120,27 +125,32 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
                     claimValues = generateClaimsValues(1,
                             parmClaimsModel.getClaimsSizeDistribution(),
                             parmClaimsModel.getClaimsSizeModification());
-                } else if (parmClaimsModel instanceof IFrequencySingleClaimsGeneratorStrategy) {
+                }
+                else if (parmClaimsModel instanceof IFrequencySingleClaimsGeneratorStrategy) {
                     if (((IFrequencySingleClaimsGeneratorStrategy) parmClaimsModel).getProduceClaim().equals(FrequencySeverityClaimType.AGGREGATED_EVENT)) {
                         claimType = ClaimType.AGGREGATED_EVENT;
                         events = generateEvents((int) frequency);
-                    } else if (((IFrequencySingleClaimsGeneratorStrategy) parmClaimsModel).getProduceClaim().equals(FrequencySeverityClaimType.SINGLE)) {
+                    }
+                    else if (((IFrequencySingleClaimsGeneratorStrategy) parmClaimsModel).getProduceClaim().equals(FrequencySeverityClaimType.SINGLE)) {
                         claimType = ClaimType.SINGLE;
                     }
                     claimValues = generateClaimsValues((int) frequency,
                             parmClaimsModel.getClaimsSizeDistribution(),
                             parmClaimsModel.getClaimsSizeModification());
                 }
-            } else if (parmClaimsModel instanceof ExternalSeverityClaimsGeneratorStrategy) {
+            }
+            else if (parmClaimsModel instanceof ExternalSeverityClaimsGeneratorStrategy) {
                 if (this.isReceiverWired(inEventSeverities)) {
                     claimType = ClaimType.AGGREGATED_EVENT;
                     List<EventSeverity> filteredEventSeverities = filterEvents();
                     claimValues = calculateEventClaimsValues(filteredEventSeverities, parmClaimsModel.getClaimsSizeDistribution());
                     events = extractEvents(filteredEventSeverities);
-                } else {
+                }
+                else {
                     throw new IllegalArgumentException("TypableClaimsGenerator.externalSeverityClaims");
                 }
-            } else if (parmClaimsModel instanceof PMLClaimsGeneratorStrategy) {
+            }
+            else if (parmClaimsModel instanceof PMLClaimsGeneratorStrategy) {
                 ((PMLClaimsGeneratorStrategy) parmClaimsModel).initDistributions(simulationScope.getIterationScope().getPeriodScope());
                 RandomDistribution frequencyDistribution = ((PMLClaimsGeneratorStrategy) parmClaimsModel).getFrequencyDistribution();
                 RandomDistribution claimsSizeDistribution = parmClaimsModel.getClaimsSizeDistribution();
@@ -150,11 +160,13 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
                 if (((PMLClaimsGeneratorStrategy) parmClaimsModel).getProduceClaim().equals(FrequencySeverityClaimType.AGGREGATED_EVENT)) {
                     claimType = ClaimType.AGGREGATED_EVENT;
                     events = generateEvents((int) frequency);
-                } else if (((PMLClaimsGeneratorStrategy) parmClaimsModel).getProduceClaim().equals(FrequencySeverityClaimType.SINGLE)) {
+                }
+                else if (((PMLClaimsGeneratorStrategy) parmClaimsModel).getProduceClaim().equals(FrequencySeverityClaimType.SINGLE)) {
                     claimType = ClaimType.SINGLE;
                 }
                 claimValues = generateClaimsValues((int) frequency, claimsSizeDistribution, modification);
-            } else {
+            }
+            else {
                 throw new NotImplementedException("['TypableClaimsGenerator.notImplemented','" + parmClaimsModel.toString() + "']");
             }
             if (events.size() == 0) {
@@ -169,7 +181,8 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
                     setFractionOfPeriod(claimType, claim);
                     claims.add(claim);
                 }
-            } else {
+            }
+            else {
                 for (int i = 0; i < claimValues.size(); i++) {
                     Claim claim = ClaimPacketFactory.createPacket();
                     claim.origin = this;
@@ -191,8 +204,8 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
     // todo(sku): filter probabilities
     public void filterInChannel(PacketList inChannel, PacketList source) {
         if (inChannel == inUnderwritingInfo) {
-            if (parmUnderwritingInformation.getValuesAsObjects().size() > 0) {
-                inUnderwritingInfo.addAll(UnderwritingFilterUtilities.filterUnderwritingInfo(source, parmUnderwritingInformation.getValuesAsObjects()));
+            if (parmUnderwritingInformation.getValuesAsObjects(0, true).size() > 0) {
+                inUnderwritingInfo.addAll(UnderwritingFilterUtilities.filterUnderwritingInfo(source, parmUnderwritingInformation.getValuesAsObjects(0, true)));
                 outUnderwritingInfo.addAll(inUnderwritingInfo);
             }
         }
@@ -205,10 +218,12 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
         if (parmClaimsModel instanceof IOccurrenceClaimsGeneratorStrategy) {
             IRandomNumberGenerator generator = getCachedGenerator(((IOccurrenceClaimsGeneratorStrategy) parmClaimsModel).getOccurrenceDistribution(), parmClaimsModel.getClaimsSizeModification());
             claim.setFractionOfPeriod((Double) generator.nextValue());
-        } else {
+        }
+        else {
             if (claimType.equals(ClaimType.ATTRITIONAL)) {
                 claim.setFractionOfPeriod(0.5d);
-            } else {
+            }
+            else {
                 claim.setFractionOfPeriod((Double) dateGenerator.nextValue());
             }
         }
@@ -263,7 +278,8 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
                 scaleFactor += underwritingInfo.getNumberOfPolicies();
             }
             frequency = ((Double) generator.nextValue()) * scaleFactor;
-        } else {
+        }
+        else {
             frequency = generator.nextValue().intValue();
         }
         return frequency;
@@ -299,10 +315,19 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
         if (modification.getType().equals(DistributionModifier.CENSORED) || modification.getType().equals(DistributionModifier.CENSOREDSHIFT)) {
             dist = new CensoredDistribution(distribution.getDistribution(),
                     (Double) modification.getParameters().get("min"), (Double) modification.getParameters().get("max"));
-        } else if (modification.getType().equals(DistributionModifier.TRUNCATED) || modification.getType().equals(DistributionModifier.TRUNCATEDSHIFT)) {
+        }
+        else if (modification.getType().equals(DistributionModifier.TRUNCATED) || modification.getType().equals(DistributionModifier.TRUNCATEDSHIFT)) {
             Double leftBoundary = (Double) modification.getParameters().get("min");
             Double rightBoundary = (Double) modification.getParameters().get("max");
-            dist = new TruncatedDist((ContinuousDistribution) distribution.getDistribution(), leftBoundary, rightBoundary);
+            if (distribution.getDistribution() instanceof ContinuousDistribution) {
+                dist = new TruncatedDist((ContinuousDistribution) distribution.getDistribution(), leftBoundary, rightBoundary);
+            }
+            else if (distribution.getDistribution() instanceof DiscreteDistribution) {
+                dist = new TruncatedDist((DiscreteDistribution) distribution.getDistribution(), leftBoundary, rightBoundary);
+            }
+            else if (distribution.getDistribution() instanceof DiscreteDistributionInt) {
+                dist = new TruncatedDist((DiscreteDistributionInt) distribution.getDistribution(), leftBoundary, rightBoundary);
+            }
         }
 //        else if (modification.getType().equals(DistributionModifier.LEFTTRUNCATEDRIGHTCENSOREDSHIFT)) {
 //            Double leftBoundary = (Double) modification.getParameters().get("min");

@@ -1,7 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.underwriting;
 
 
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
 import org.pillarone.riskanalytics.domain.utils.PacketUtilities;
 
@@ -51,7 +51,7 @@ public class UnderwritingInfoUtilities {
         UnderwritingInfo verifiedResult = underwritingInfos.get(0).copy();
         verifiedResult.scale(0);
         verifiedResult.plus(result);
-        LobMarker lob = verifiedResult.getLineOfBusiness();
+        ISegmentMarker lob = verifiedResult.getLineOfBusiness();
         IReinsuranceContractMarker reinsuranceContract = verifiedResult.getReinsuranceContract();
         boolean underwritingInfosOfDifferentLobs = lob == null;
         boolean underwritingInfosOfDifferentContracts = reinsuranceContract == null;

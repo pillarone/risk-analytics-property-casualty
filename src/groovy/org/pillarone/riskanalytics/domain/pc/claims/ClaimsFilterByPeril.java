@@ -1,17 +1,15 @@
 package org.pillarone.riskanalytics.domain.pc.claims;
 
 import org.pillarone.riskanalytics.core.components.Component;
-import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter;
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
 
 import java.util.Arrays;
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-@ComponentCategory(categories = {"CLAIM","FILTER"})
 public class ClaimsFilterByPeril extends Component {
 
     private PacketList<Claim> inClaims = new PacketList<Claim>(Claim.class);
@@ -19,11 +17,11 @@ public class ClaimsFilterByPeril extends Component {
     private ComboBoxTableMultiDimensionalParameter parmPerils = new ComboBoxTableMultiDimensionalParameter(
             Arrays.asList(new String[]{""}),
             Arrays.asList(new String[]{"perils"}),
-            PerilMarker.class);
+            IPerilMarker.class);
 
 
     public void doCalculation() {
-        outClaims.addAll(ClaimFilterUtilities.filterClaims(inClaims, parmPerils.getValuesAsObjects()));
+        outClaims.addAll(ClaimFilterUtilities.filterClaims(inClaims, parmPerils.getValuesAsObjects(0, true)));
     }
 
     public PacketList<Claim> getInClaims() {

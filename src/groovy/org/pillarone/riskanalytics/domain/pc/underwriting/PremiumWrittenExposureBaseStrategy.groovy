@@ -13,7 +13,8 @@ public class PremiumWrittenExposureBaseStrategy extends DependingExposureBaseStr
     static Log LOG = LogFactory.getLog(PremiumWrittenExposureBaseStrategy.class);
 
     public double scaleFactor(List<UnderwritingInfo> underwritingInfos) {
-        List<UnderwritingInfo> filteredUnderwritingInfos = UnderwritingFilterBySegment.filterUnderwritingInfo(underwritingInfos, underwritingInformation.getValuesAsObjects());
+        List<UnderwritingInfo> filteredUnderwritingInfos = UnderwritingFilterBySegment.filterUnderwritingInfo(
+                underwritingInfos, underwritingInformation.getValuesAsObjects(0, true));
         if (filteredUnderwritingInfos) {
             return filteredUnderwritingInfos.premium.sum();
         }

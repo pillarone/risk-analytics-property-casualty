@@ -3,15 +3,15 @@ package org.pillarone.riskanalytics.domain.pc.reserves.cashflow;
 import org.joda.time.DateTime;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimPacketFactory;
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 
 import java.text.SimpleDateFormat;
-import java.util.Map;
-import java.util.HashMap;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author shartmann (at) munichre (dot) com
@@ -24,7 +24,7 @@ public class ClaimDevelopmentPacket extends Claim {
     private double reserved;
     private double changeInReserves;
 
-    private Pattern payoutPattern;
+    private IPattern payoutPattern;
     /**
      * negative values correspond to the development period of reserved claims;     // todo(sku): think of using a common definition for pos and neg based on incurred period
      * positive values correspond to the incurred period according to the simulation context
@@ -133,8 +133,8 @@ public class ClaimDevelopmentPacket extends Claim {
             claim.setEvent(getEvent());
             claim.setFractionOfPeriod(getFractionOfPeriod());
             claim.setClaimType(getClaimType());
-            claim.addMarker(PerilMarker.class, getPeril());
-            claim.addMarker(LobMarker.class, getLineOfBusiness());
+            claim.addMarker(IPerilMarker.class, getPeril());
+            claim.addMarker(ISegmentMarker.class, getLineOfBusiness());
         }
         claim.setUltimate(getUltimate());
         return claim;
@@ -216,11 +216,11 @@ public class ClaimDevelopmentPacket extends Claim {
         this.reserved = reserved;
     }
 
-    public Pattern getPayoutPattern() {
+    public IPattern getPayoutPattern() {
         return payoutPattern;
     }
 
-    public void setPayoutPattern(Pattern payoutPattern) {
+    public void setPayoutPattern(IPattern payoutPattern) {
         this.payoutPattern = payoutPattern;
     }
 

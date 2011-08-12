@@ -4,10 +4,9 @@ import org.pillarone.riskanalytics.core.components.Component
 import org.pillarone.riskanalytics.core.components.PeriodStore
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.core.packets.PacketList
 
@@ -27,7 +26,7 @@ class ReservesGeneratorLeanTests extends GroovyTestCase {
                 parmReservesModel: ReservesGeneratorStrategyType.getStrategy(
                         ReservesGeneratorStrategyType.INITIAL_RESERVES,
                         [basedOnClaimsGenerators: new ComboBoxTableMultiDimensionalParameter(
-                                [], ["Claims Generators"], PerilMarker)]));
+                                [], ["Claims Generators"], IPerilMarker)]));
         reservesGeneratorLean.periodScope = new PeriodScope();
         reservesGeneratorLean.periodScope.currentPeriod = 0
         reservesGeneratorLean.periodStore = new PeriodStore(reservesGeneratorLean.periodScope)
@@ -58,7 +57,7 @@ class ReservesGeneratorLeanTests extends GroovyTestCase {
                 parmReservesModel: ReservesGeneratorStrategyType.getStrategy(
                         ReservesGeneratorStrategyType.ABSOLUTE,
                         [basedOnClaimsGenerators: new ComboBoxTableMultiDimensionalParameter(
-                                [], ["Claims Generators"], PerilMarker)]));
+                                [], ["Claims Generators"], IPerilMarker)]));
         reservesGeneratorLean.periodScope = new PeriodScope();
         reservesGeneratorLean.periodScope.currentPeriod = 0
         reservesGeneratorLean.periodStore = new PeriodStore(reservesGeneratorLean.periodScope)
@@ -88,7 +87,7 @@ class ReservesGeneratorLeanTests extends GroovyTestCase {
                 parmReservesModel: ReservesGeneratorStrategyType.getStrategy(
                         ReservesGeneratorStrategyType.PRIOR_PERIOD,
                         [basedOnClaimsGenerators: new ComboBoxTableMultiDimensionalParameter(
-                                [], ["Claims Generators"], PerilMarker)]));
+                                [], ["Claims Generators"], IPerilMarker)]));
         reservesGeneratorLean.periodScope = new PeriodScope();
         reservesGeneratorLean.periodScope.currentPeriod = 0
         reservesGeneratorLean.periodStore = new PeriodStore(reservesGeneratorLean.periodScope)
@@ -118,7 +117,7 @@ class ReservesGeneratorLeanTests extends GroovyTestCase {
                 parmReservesModel: ReservesGeneratorStrategyType.getStrategy(
                         ReservesGeneratorStrategyType.PRIOR_PERIOD,
                         [basedOnClaimsGenerators: new ComboBoxTableMultiDimensionalParameter(
-                                [], ["Claims Generators"], PerilMarker)]));
+                                [], ["Claims Generators"], IPerilMarker)]));
         reservesGeneratorLean.periodScope = new PeriodScope();
         reservesGeneratorLean.periodScope.currentPeriod = 0
         reservesGeneratorLean.periodStore = new PeriodStore(reservesGeneratorLean.periodScope)
@@ -152,7 +151,7 @@ class ReservesGeneratorLeanTests extends GroovyTestCase {
                 parmReservesModel: ReservesGeneratorStrategyType.getStrategy(
                         ReservesGeneratorStrategyType.ABSOLUTE,
                         [basedOnClaimsGenerators: new ComboBoxTableMultiDimensionalParameter(
-                                [], ["Claims Generators"], PerilMarker)]));
+                                [], ["Claims Generators"], IPerilMarker)]));
         reservesGeneratorLean.periodScope = new PeriodScope();
         reservesGeneratorLean.periodScope.currentPeriod = 0
         reservesGeneratorLean.periodStore = new PeriodStore(reservesGeneratorLean.periodScope)
@@ -186,7 +185,7 @@ class ReservesGeneratorLeanTests extends GroovyTestCase {
                 parmReservesModel: ReservesGeneratorStrategyType.getStrategy(
                         ReservesGeneratorStrategyType.INITIAL_RESERVES,
                         [basedOnClaimsGenerators: new ComboBoxTableMultiDimensionalParameter(
-                                [], ["Claims Generators"], PerilMarker)]));
+                                [], ["Claims Generators"], IPerilMarker)]));
         reservesGeneratorLean.periodScope = new PeriodScope();
         reservesGeneratorLean.periodScope.currentPeriod = 0
         reservesGeneratorLean.periodStore = new PeriodStore(reservesGeneratorLean.periodScope)
@@ -219,7 +218,7 @@ class ReservesGeneratorLeanTests extends GroovyTestCase {
                 parmInitialReserves: 100d,
                 parmReservesModel: ReservesGeneratorStrategyType.getStrategy(
                         ReservesGeneratorStrategyType.PRIOR_PERIOD, [basedOnClaimsGenerators:
-                        new ComboBoxTableMultiDimensionalParameter(["claims generator"], ["Claims Generators"], PerilMarker)
+                        new ComboBoxTableMultiDimensionalParameter(["claims generator"], ["Claims Generators"], IPerilMarker)
                         ]));
         reservesGeneratorLean.periodScope = new PeriodScope();
         reservesGeneratorLean.periodScope.currentPeriod = 0
@@ -261,7 +260,7 @@ class ReservesGeneratorLeanTests extends GroovyTestCase {
                 parmInitialReserves: 100d,
                 parmReservesModel: ReservesGeneratorStrategyType.getStrategy(
                         ReservesGeneratorStrategyType.ABSOLUTE, [basedOnClaimsGenerators:
-                        new ComboBoxTableMultiDimensionalParameter(["claims generator"], ["Claims Generators"], PerilMarker)
+                        new ComboBoxTableMultiDimensionalParameter(["claims generator"], ["Claims Generators"], IPerilMarker)
                         ]));
         reservesGeneratorLean.periodScope = new PeriodScope();
         reservesGeneratorLean.periodScope.currentPeriod = 0
@@ -290,14 +289,14 @@ class ReservesGeneratorLeanTests extends GroovyTestCase {
         assertEquals 'reserved, period 1', 0.7 * 200d, reservesGeneratorLean.outClaimsDevelopment[0].reserved
     }
 
-    private static ClaimDevelopmentLeanPacket getClaim(PerilMarker peril, double ultimate, double paid) {
+    private static ClaimDevelopmentLeanPacket getClaim(IPerilMarker peril, double ultimate, double paid) {
         ClaimDevelopmentLeanPacket claim = new ClaimDevelopmentLeanPacket(ultimate: ultimate, paid: paid)
-        claim.addMarker(PerilMarker, peril)
+        claim.addMarker(IPerilMarker, peril)
         claim
     }
 }
 
-class TestClaimsGenerator extends Component implements PerilMarker {
+class TestClaimsGenerator extends Component implements IPerilMarker {
 
     protected void doCalculation() {
         //To change body of implemented methods use File | Settings | File Templates.

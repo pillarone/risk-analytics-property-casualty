@@ -4,7 +4,7 @@ import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObject
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
 
 /**
  * @author shartmann (at) munichre (dot) com
@@ -12,13 +12,13 @@ import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
 public class ReservesGeneratorStrategyType extends AbstractParameterObjectClassifier {
 
     public static final ReservesGeneratorStrategyType ABSOLUTE = new ReservesGeneratorStrategyType("absolute", "ABSOLUTE", [
-            basedOnClaimsGenerators : new ComboBoxTableMultiDimensionalParameter([], ["Claims Generators"], PerilMarker)
+            basedOnClaimsGenerators : new ComboBoxTableMultiDimensionalParameter([], ["Claims Generators"], IPerilMarker)
     ])
     public static final ReservesGeneratorStrategyType INITIAL_RESERVES= new ReservesGeneratorStrategyType("initial reserves", "INITIAL_RESERVES", [
-            basedOnClaimsGenerators : new ComboBoxTableMultiDimensionalParameter([], ["Claims Generators"], PerilMarker)
+            basedOnClaimsGenerators : new ComboBoxTableMultiDimensionalParameter([], ["Claims Generators"], IPerilMarker)
     ])
     public static final ReservesGeneratorStrategyType PRIOR_PERIOD = new ReservesGeneratorStrategyType("prior period", "PRIOR_PERIOD", [
-            basedOnClaimsGenerators : new ComboBoxTableMultiDimensionalParameter([], ["Claims Generators"], PerilMarker)
+            basedOnClaimsGenerators : new ComboBoxTableMultiDimensionalParameter([], ["Claims Generators"], IPerilMarker)
     ])
 
     public static final all = [ABSOLUTE, INITIAL_RESERVES, PRIOR_PERIOD]

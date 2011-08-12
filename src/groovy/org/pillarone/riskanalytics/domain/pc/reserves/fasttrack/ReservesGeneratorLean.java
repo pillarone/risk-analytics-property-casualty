@@ -9,8 +9,8 @@ import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimen
 import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.generators.GeneratorCachingComponent;
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
-import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IReserveMarker;
 import org.pillarone.riskanalytics.domain.utils.*;
 
 import java.util.Arrays;
@@ -48,7 +48,7 @@ public class ReservesGeneratorLean extends GeneratorCachingComponent implements 
             ReservesGeneratorStrategyType.INITIAL_RESERVES,
             ArrayUtils.toMap(new Object[][]{{"basedOnClaimsGenerators", new ComboBoxTableMultiDimensionalParameter(
                     Collections.emptyList(),
-                    Arrays.asList("Claims Generators"), PerilMarker.class)}}));
+                    Arrays.asList("Claims Generators"), IPerilMarker.class)}}));
     private RandomDistribution parmDistribution = DistributionType.getStrategy(DistributionType.CONSTANT,
             ArrayUtils.toMap(new Object[][]{{"constant", 0d}}));
     private DistributionModified parmModification = DistributionModifier.getStrategy(DistributionModifier.NONE, new HashMap());
@@ -75,7 +75,7 @@ public class ReservesGeneratorLean extends GeneratorCachingComponent implements 
     public void filterInChannel(PacketList inChannel, PacketList source) {
         if (inChannel == inClaims) {
             ComboBoxTableMultiDimensionalParameter basedOnClaimsGenerator = ((AbstractClaimsGeneratorBasedReservesGeneratorStrategy) parmReservesModel).getBasedOnClaimsGenerators();
-            List<PerilMarker> coveredPerils = basedOnClaimsGenerator.getValuesAsObjects();
+            List<IPerilMarker> coveredPerils = basedOnClaimsGenerator.getValuesAsObjects(0, true);
             if (coveredPerils.size() == 0) {
                 inClaims.addAll(source);
             }

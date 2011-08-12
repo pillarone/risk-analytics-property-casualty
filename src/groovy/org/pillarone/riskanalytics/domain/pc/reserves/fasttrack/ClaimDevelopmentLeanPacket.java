@@ -2,8 +2,8 @@ package org.pillarone.riskanalytics.domain.pc.reserves.fasttrack;
 
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimPacketFactory;
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -47,6 +47,10 @@ public class ClaimDevelopmentLeanPacket extends Claim {
         ClaimDevelopmentLeanPacket netClaim = (ClaimDevelopmentLeanPacket) copy();
         netClaim.setIncurred(netClaim.getIncurred() - ((ClaimDevelopmentLeanPacket) cededClaim).getIncurred());
         netClaim.paid -= ((ClaimDevelopmentLeanPacket) cededClaim).paid;
+        if (hasExposureInfo()) {
+            double coverRatio = netClaim.getUltimate() / getUltimate();
+            netClaim.setExposure(getExposure().copy().scale(coverRatio));
+        }
         return netClaim;
     }
 
@@ -88,8 +92,8 @@ public class ClaimDevelopmentLeanPacket extends Claim {
             convertedClaim.setEvent(getEvent());
             convertedClaim.setFractionOfPeriod(getFractionOfPeriod());
             convertedClaim.setClaimType(getClaimType());
-            convertedClaim.addMarker(PerilMarker.class, getPeril());
-            convertedClaim.addMarker(LobMarker.class, getLineOfBusiness());
+            convertedClaim.addMarker(IPerilMarker.class, getPeril());
+            convertedClaim.addMarker(ISegmentMarker.class, getLineOfBusiness());
         }
         convertedClaim.setUltimate(getUltimate());
         return convertedClaim;

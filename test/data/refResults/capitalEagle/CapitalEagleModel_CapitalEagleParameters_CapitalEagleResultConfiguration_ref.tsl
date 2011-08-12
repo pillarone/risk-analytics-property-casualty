@@ -1,51 +1,51 @@
-iteration	period	path	field	value
-1	0	CapitalEagle:mtpl:subClaimsGenerator:outClaims	ultimate	1.609293752597212E8
-1	0	CapitalEagle:motorHull:subClaimsGenerator:outClaims	ultimate	7.907733543378311E7
-1	0	CapitalEagle:personalAccident:subClaimsGenerator:outClaims	ultimate	2.0529727007556736E7
-1	0	CapitalEagle:property:subClaimsGenerator:outClaims	ultimate	6.242958027702946E7
-1	0	CapitalEagle:property:subRiProgram:outClaimsCeded	ultimate	3.559418896891515E7
-2	0	CapitalEagle:mtpl:subClaimsGenerator:outClaims	ultimate	2.2100957941008806E8
-2	0	CapitalEagle:motorHull:subClaimsGenerator:outClaims	ultimate	7.769422741947737E7
-2	0	CapitalEagle:personalAccident:subClaimsGenerator:outClaims	ultimate	1.4404218197358754E7
-2	0	CapitalEagle:property:subClaimsGenerator:outClaims	ultimate	4.597348865787626E7
-2	0	CapitalEagle:property:subRiProgram:outClaimsCeded	ultimate	2.298674432893813E7
-3	0	CapitalEagle:mtpl:subClaimsGenerator:outClaims	ultimate	1.667552356036976E8
-3	0	CapitalEagle:motorHull:subClaimsGenerator:outClaims	ultimate	8.280201469256729E7
-3	0	CapitalEagle:personalAccident:subClaimsGenerator:outClaims	ultimate	2.4630446470700264E7
-3	0	CapitalEagle:property:subClaimsGenerator:outClaims	ultimate	4.179040036991225E7
-3	0	CapitalEagle:property:subRiProgram:outClaimsCeded	ultimate	2.0895200184956126E7
-4	0	CapitalEagle:mtpl:subClaimsGenerator:outClaims	ultimate	1.742914233173209E8
-4	0	CapitalEagle:motorHull:subClaimsGenerator:outClaims	ultimate	7.800005203843273E7
-4	0	CapitalEagle:personalAccident:subClaimsGenerator:outClaims	ultimate	2.286443000513079E7
-4	0	CapitalEagle:property:subClaimsGenerator:outClaims	ultimate	4.2008972139925204E7
-4	0	CapitalEagle:property:subRiProgram:outClaimsCeded	ultimate	2.1004486069962602E7
-5	0	CapitalEagle:mtpl:subClaimsGenerator:outClaims	ultimate	1.721373352914058E8
-5	0	CapitalEagle:motorHull:subClaimsGenerator:outClaims	ultimate	8.43587743291314E7
-5	0	CapitalEagle:personalAccident:subClaimsGenerator:outClaims	ultimate	3.270860981312222E7
-5	0	CapitalEagle:property:subClaimsGenerator:outClaims	ultimate	1.0094380158190551E8
-5	0	CapitalEagle:property:subRiProgram:outClaimsCeded	ultimate	7.036167066599174E7
-6	0	CapitalEagle:mtpl:subClaimsGenerator:outClaims	ultimate	1.551100898313978E8
-6	0	CapitalEagle:motorHull:subClaimsGenerator:outClaims	ultimate	8.30853215160968E7
-6	0	CapitalEagle:personalAccident:subClaimsGenerator:outClaims	ultimate	3.259143009362271E7
-6	0	CapitalEagle:property:subClaimsGenerator:outClaims	ultimate	6.547742775800115E7
-6	0	CapitalEagle:property:subRiProgram:outClaimsCeded	ultimate	4.107552213585672E7
-7	0	CapitalEagle:mtpl:subClaimsGenerator:outClaims	ultimate	1.5760872912635607E8
-7	0	CapitalEagle:motorHull:subClaimsGenerator:outClaims	ultimate	7.425960096009848E7
-7	0	CapitalEagle:personalAccident:subClaimsGenerator:outClaims	ultimate	2.6992549164503414E7
-7	0	CapitalEagle:property:subClaimsGenerator:outClaims	ultimate	5.895113583502595E7
-7	0	CapitalEagle:property:subRiProgram:outClaimsCeded	ultimate	3.482798769801892E7
-8	0	CapitalEagle:mtpl:subClaimsGenerator:outClaims	ultimate	1.7899367926433423E8
-8	0	CapitalEagle:motorHull:subClaimsGenerator:outClaims	ultimate	7.554126506749642E7
-8	0	CapitalEagle:personalAccident:subClaimsGenerator:outClaims	ultimate	2.3475389075122904E7
-8	0	CapitalEagle:property:subClaimsGenerator:outClaims	ultimate	7.231194691504955E7
-8	0	CapitalEagle:property:subRiProgram:outClaimsCeded	ultimate	4.333485264340508E7
-9	0	CapitalEagle:mtpl:subClaimsGenerator:outClaims	ultimate	1.7950217983753467E8
-9	0	CapitalEagle:motorHull:subClaimsGenerator:outClaims	ultimate	9.718529082225603E7
-9	0	CapitalEagle:personalAccident:subClaimsGenerator:outClaims	ultimate	1.9611399436186172E7
-9	0	CapitalEagle:property:subClaimsGenerator:outClaims	ultimate	3.2431242391107675E7
-9	0	CapitalEagle:property:subRiProgram:outClaimsCeded	ultimate	1.6215621195553837E7
-10	0	CapitalEagle:mtpl:subClaimsGenerator:outClaims	ultimate	1.6801471421706375E8
-10	0	CapitalEagle:motorHull:subClaimsGenerator:outClaims	ultimate	7.178174733264436E7
-10	0	CapitalEagle:personalAccident:subClaimsGenerator:outClaims	ultimate	1.459759683781312E7
-10	0	CapitalEagle:property:subClaimsGenerator:outClaims	ultimate	2.975332765767468E7
-10	0	CapitalEagle:property:subRiProgram:outClaimsCeded	ultimate	1.487666382883734E7
+iteration	period	valueIndex	path	field	value
+1	0	0	CapitalEagle:mtpl:subClaimsGenerator:outClaims	ultimate	1.609293752597212E8
+1	0	0	CapitalEagle:motorHull:subClaimsGenerator:outClaims	ultimate	7.907733543378311E7
+1	0	0	CapitalEagle:personalAccident:subClaimsGenerator:outClaims	ultimate	2.0529727007556736E7
+1	0	0	CapitalEagle:property:subClaimsGenerator:outClaims	ultimate	6.242958027702946E7
+1	0	0	CapitalEagle:property:subRiProgram:outClaimsCeded	ultimate	3.559418896891515E7
+2	0	0	CapitalEagle:mtpl:subClaimsGenerator:outClaims	ultimate	2.2100957941008806E8
+2	0	0	CapitalEagle:motorHull:subClaimsGenerator:outClaims	ultimate	7.769422741947737E7
+2	0	0	CapitalEagle:personalAccident:subClaimsGenerator:outClaims	ultimate	1.4404218197358754E7
+2	0	0	CapitalEagle:property:subClaimsGenerator:outClaims	ultimate	4.597348865787626E7
+2	0	0	CapitalEagle:property:subRiProgram:outClaimsCeded	ultimate	2.298674432893813E7
+3	0	0	CapitalEagle:mtpl:subClaimsGenerator:outClaims	ultimate	1.667552356036976E8
+3	0	0	CapitalEagle:motorHull:subClaimsGenerator:outClaims	ultimate	8.280201469256729E7
+3	0	0	CapitalEagle:personalAccident:subClaimsGenerator:outClaims	ultimate	2.4630446470700264E7
+3	0	0	CapitalEagle:property:subClaimsGenerator:outClaims	ultimate	4.179040036991225E7
+3	0	0	CapitalEagle:property:subRiProgram:outClaimsCeded	ultimate	2.0895200184956126E7
+4	0	0	CapitalEagle:mtpl:subClaimsGenerator:outClaims	ultimate	1.742914233173209E8
+4	0	0	CapitalEagle:motorHull:subClaimsGenerator:outClaims	ultimate	7.800005203843273E7
+4	0	0	CapitalEagle:personalAccident:subClaimsGenerator:outClaims	ultimate	2.286443000513079E7
+4	0	0	CapitalEagle:property:subClaimsGenerator:outClaims	ultimate	4.2008972139925204E7
+4	0	0	CapitalEagle:property:subRiProgram:outClaimsCeded	ultimate	2.1004486069962602E7
+5	0	0	CapitalEagle:mtpl:subClaimsGenerator:outClaims	ultimate	1.721373352914058E8
+5	0	0	CapitalEagle:motorHull:subClaimsGenerator:outClaims	ultimate	8.43587743291314E7
+5	0	0	CapitalEagle:personalAccident:subClaimsGenerator:outClaims	ultimate	3.270860981312222E7
+5	0	0	CapitalEagle:property:subClaimsGenerator:outClaims	ultimate	1.0094380158190551E8
+5	0	0	CapitalEagle:property:subRiProgram:outClaimsCeded	ultimate	7.036167066599174E7
+6	0	0	CapitalEagle:mtpl:subClaimsGenerator:outClaims	ultimate	1.551100898313978E8
+6	0	0	CapitalEagle:motorHull:subClaimsGenerator:outClaims	ultimate	8.30853215160968E7
+6	0	0	CapitalEagle:personalAccident:subClaimsGenerator:outClaims	ultimate	3.259143009362271E7
+6	0	0	CapitalEagle:property:subClaimsGenerator:outClaims	ultimate	6.547742775800115E7
+6	0	0	CapitalEagle:property:subRiProgram:outClaimsCeded	ultimate	4.107552213585672E7
+7	0	0	CapitalEagle:mtpl:subClaimsGenerator:outClaims	ultimate	1.5760872912635607E8
+7	0	0	CapitalEagle:motorHull:subClaimsGenerator:outClaims	ultimate	7.425960096009848E7
+7	0	0	CapitalEagle:personalAccident:subClaimsGenerator:outClaims	ultimate	2.6992549164503414E7
+7	0	0	CapitalEagle:property:subClaimsGenerator:outClaims	ultimate	5.895113583502595E7
+7	0	0	CapitalEagle:property:subRiProgram:outClaimsCeded	ultimate	3.482798769801892E7
+8	0	0	CapitalEagle:mtpl:subClaimsGenerator:outClaims	ultimate	1.7899367926433423E8
+8	0	0	CapitalEagle:motorHull:subClaimsGenerator:outClaims	ultimate	7.554126506749642E7
+8	0	0	CapitalEagle:personalAccident:subClaimsGenerator:outClaims	ultimate	2.3475389075122904E7
+8	0	0	CapitalEagle:property:subClaimsGenerator:outClaims	ultimate	7.231194691504955E7
+8	0	0	CapitalEagle:property:subRiProgram:outClaimsCeded	ultimate	4.333485264340508E7
+9	0	0	CapitalEagle:mtpl:subClaimsGenerator:outClaims	ultimate	1.7950217983753467E8
+9	0	0	CapitalEagle:motorHull:subClaimsGenerator:outClaims	ultimate	9.718529082225603E7
+9	0	0	CapitalEagle:personalAccident:subClaimsGenerator:outClaims	ultimate	1.9611399436186172E7
+9	0	0	CapitalEagle:property:subClaimsGenerator:outClaims	ultimate	3.2431242391107675E7
+9	0	0	CapitalEagle:property:subRiProgram:outClaimsCeded	ultimate	1.6215621195553837E7
+10	0	0	CapitalEagle:mtpl:subClaimsGenerator:outClaims	ultimate	1.6801471421706375E8
+10	0	0	CapitalEagle:motorHull:subClaimsGenerator:outClaims	ultimate	7.178174733264436E7
+10	0	0	CapitalEagle:personalAccident:subClaimsGenerator:outClaims	ultimate	1.459759683781312E7
+10	0	0	CapitalEagle:property:subClaimsGenerator:outClaims	ultimate	2.975332765767468E7
+10	0	0	CapitalEagle:property:subRiProgram:outClaimsCeded	ultimate	1.487666382883734E7

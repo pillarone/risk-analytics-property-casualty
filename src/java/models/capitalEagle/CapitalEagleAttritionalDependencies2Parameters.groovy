@@ -9,7 +9,7 @@ import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
 import org.pillarone.riskanalytics.domain.pc.constants.RiskBandAllocationBase
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.CopulaStrategyFactory
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.LobCopulaType
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
@@ -242,6 +242,6 @@ components {
         }
     }
     copulaAttritional {
-        parmCopulaStrategy[0] = CopulaStrategyFactory.getCopulaStrategy(LobCopulaType.NORMAL, ["dependencyMatrix": new ComboBoxMatrixMultiDimensionalParameter([[1.0, 0.0], [0.0, 1.0]], ["personal accident", "mtpl"], LobMarker),])
+        parmCopulaStrategy[0] = CopulaStrategyFactory.getCopulaStrategy(LobCopulaType.NORMAL, ["dependencyMatrix": new ComboBoxMatrixMultiDimensionalParameter([[1.0, 0.0], [0.0, 1.0]], ["personal accident", "mtpl"], ISegmentMarker),])
     }
 }

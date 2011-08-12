@@ -4,9 +4,9 @@ import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimen
 import org.pillarone.riskanalytics.domain.pc.claims.RiskAllocatorType
 import org.pillarone.riskanalytics.domain.pc.constants.Exposure
 import org.pillarone.riskanalytics.domain.pc.generators.claims.ClaimsGeneratorType
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ReservesGeneratorStrategyType
-import org.pillarone.riskanalytics.domain.pc.underwriting.IUnderwritingInfoMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IUnderwritingInfoMarker
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 
@@ -35,7 +35,7 @@ components {
 //			parmModification[allPeriods]=DistributionModifier.getStrategy(DistributionModifier.NONE, [:])
 //			parmPeriodPaymentPortion[allPeriods]=0.6
 //			parmReservesModel[allPeriods]=ReservesGeneratorStrategyType.getStrategy(ReservesGeneratorStrategyType.PRIOR_PERIOD,
-//                    ["basedOnClaimsGenerators":new ComboBoxTableMultiDimensionalParameter([],["Claims Generators"], PerilMarker),])
+//                    ["basedOnClaimsGenerators":new ComboBoxTableMultiDimensionalParameter([],["Claims Generators"], IPerilMarker),])
 //		}
 //	}
 }

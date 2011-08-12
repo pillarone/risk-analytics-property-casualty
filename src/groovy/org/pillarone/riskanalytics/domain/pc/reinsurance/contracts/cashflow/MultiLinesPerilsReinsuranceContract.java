@@ -12,8 +12,8 @@ import org.pillarone.riskanalytics.domain.pc.claims.ClaimPacketFactory;
 import org.pillarone.riskanalytics.domain.pc.claims.SortClaimsByFractionOfPeriod;
 import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments;
 import org.pillarone.riskanalytics.domain.pc.constants.ReinsuranceContractBase;
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.ICommissionStrategy;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
@@ -194,10 +194,10 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
             outFilteredUnderwritingInfo.addAll(inUnderwritingInfo);
         }
         else {
-            List<LobMarker> coveredLines = !(parmCover instanceof ILinesOfBusinessCoverAttributeStrategy) ? null :
-                    (List<LobMarker>) (((ILinesOfBusinessCoverAttributeStrategy) parmCover).getLines().getValuesAsObjects());
-            List<PerilMarker> coveredPerils = !(parmCover instanceof IPerilCoverAttributeStrategy) ? null :
-                    (List<PerilMarker>) (((IPerilCoverAttributeStrategy) parmCover).getPerils().getValuesAsObjects());
+            List<ISegmentMarker> coveredLines = !(parmCover instanceof ILinesOfBusinessCoverAttributeStrategy) ? null :
+                    (List<ISegmentMarker>) (((ILinesOfBusinessCoverAttributeStrategy) parmCover).getLines().getValuesAsObjects(0, true));
+            List<IPerilMarker> coveredPerils = !(parmCover instanceof IPerilCoverAttributeStrategy) ? null :
+                    (List<IPerilMarker>) (((IPerilCoverAttributeStrategy) parmCover).getPerils().getValuesAsObjects(0, true));
             LogicArguments connection = !(parmCover instanceof ICombinedCoverAttributeStrategy) ? null :
                     ((ICombinedCoverAttributeStrategy) parmCover).getConnection();
             outFilteredClaims.addAll(ClaimFilterUtilities.filterClaimsByPerilLobReserve(inClaims, coveredPerils, coveredLines, null, connection));

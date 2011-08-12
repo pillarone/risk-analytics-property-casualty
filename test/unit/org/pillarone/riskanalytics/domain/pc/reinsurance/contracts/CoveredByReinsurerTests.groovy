@@ -2,7 +2,7 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts
 
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.CoverAttributeStrategyType
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope
 import org.pillarone.riskanalytics.domain.assets.VoidTestModel
 import org.pillarone.riskanalytics.domain.pc.generators.claims.TypableClaimsGenerator
@@ -16,11 +16,11 @@ import org.pillarone.riskanalytics.domain.pc.company.Company
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.pc.constraints.CompanyPortion
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
 import org.pillarone.riskanalytics.core.components.PeriodStore
 import org.pillarone.riskanalytics.core.simulation.engine.IterationScope
 import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope
 import org.pillarone.riskanalytics.core.packets.PacketList
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
 
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
@@ -62,10 +62,10 @@ class CoveredByReinsurerTests extends GroovyTestCase {
     ConfigurableLobWithReserves fireLob = new ConfigurableLobWithReserves();
     Company earthRe = new Company(name:'earth re')
 
-    private Claim getClaim(double ultimate, PerilMarker peril, LobMarker lob) {
+    private Claim getClaim(double ultimate, IPerilMarker peril, ISegmentMarker lob) {
         Claim claim = new Claim(ultimate: ultimate)
-        claim.addMarker(PerilMarker, peril)
-        claim.addMarker(LobMarker, lob)
+        claim.addMarker(IPerilMarker, peril)
+        claim.addMarker(ISegmentMarker, lob)
         claim
     }
 

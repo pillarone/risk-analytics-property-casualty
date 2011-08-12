@@ -6,11 +6,11 @@ import org.pillarone.riskanalytics.domain.pc.constants.Exposure
 import org.pillarone.riskanalytics.domain.pc.constants.FrequencyBase
 import org.pillarone.riskanalytics.domain.pc.constants.FrequencySeverityClaimType
 import org.pillarone.riskanalytics.domain.pc.generators.claims.ClaimsGeneratorType
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ReservesGeneratorStrategyType
-import org.pillarone.riskanalytics.domain.pc.underwriting.IUnderwritingInfoMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IUnderwritingInfoMarker
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 
@@ -57,12 +57,12 @@ components {
             parmContractStrategy[1]=ReinsuranceContractType.getStrategy(ReinsuranceContractType.QUOTASHARE, ["quotaShare":0.6,"coveredByReinsurer":1.0,])
             parmCommissionStrategy[1] = CommissionStrategyType.getStrategy(CommissionStrategyType.FIXEDCOMMISSION, ['commission': 0.0])
             //todo (sha) the following lines need to be corrected by sku
-//            parmCoveredLines[0]=new ComboBoxTableMultiDimensionalParameter([""],["Covered Segments"], LobMarker)
-//            parmCoveredLines[2]=new ComboBoxTableMultiDimensionalParameter([""],["Covered Segments"], LobMarker)
-//            parmCoveredLines[1]=new ComboBoxTableMultiDimensionalParameter([""],["Covered Segments"], LobMarker)
-//            parmAppliedOnPerils[1]=new ComboBoxTableMultiDimensionalParameter([""],["perils"], PerilMarker)
-//            parmAppliedOnPerils[2]=new ComboBoxTableMultiDimensionalParameter([""],["perils"], PerilMarker)
-//            parmAppliedOnPerils[0]=new ComboBoxTableMultiDimensionalParameter([""],["perils"], PerilMarker)
+//            parmCoveredLines[0]=new ComboBoxTableMultiDimensionalParameter([""],["Covered Segments"], ISegmentMarker)
+//            parmCoveredLines[2]=new ComboBoxTableMultiDimensionalParameter([""],["Covered Segments"], ISegmentMarker)
+//            parmCoveredLines[1]=new ComboBoxTableMultiDimensionalParameter([""],["Covered Segments"], ISegmentMarker)
+//            parmAppliedOnPerils[1]=new ComboBoxTableMultiDimensionalParameter([""],["perils"], IPerilMarker)
+//            parmAppliedOnPerils[2]=new ComboBoxTableMultiDimensionalParameter([""],["perils"], IPerilMarker)
+//            parmAppliedOnPerils[0]=new ComboBoxTableMultiDimensionalParameter([""],["perils"], IPerilMarker)
             parmInuringPriority[0]=0
             parmInuringPriority[2]=0
             parmInuringPriority[1]=0
@@ -82,9 +82,9 @@ components {
 			parmPeriodPaymentPortion[0]=0.8
 			parmPeriodPaymentPortion[2]=0.8
 			parmPeriodPaymentPortion[1]=0.8
-			parmReservesModel[2]=ReservesGeneratorStrategyType.getStrategy(ReservesGeneratorStrategyType.PRIOR_PERIOD, ["basedOnClaimsGenerators":new ComboBoxTableMultiDimensionalParameter(["motor attritional","motor single"],["Claims Generators"], PerilMarker),])
-			parmReservesModel[0]=ReservesGeneratorStrategyType.getStrategy(ReservesGeneratorStrategyType.PRIOR_PERIOD, ["basedOnClaimsGenerators":new ComboBoxTableMultiDimensionalParameter(["motor attritional","motor single"],["Claims Generators"], PerilMarker),])
-			parmReservesModel[1]=ReservesGeneratorStrategyType.getStrategy(ReservesGeneratorStrategyType.PRIOR_PERIOD, ["basedOnClaimsGenerators":new ComboBoxTableMultiDimensionalParameter(["motor attritional","motor single"],["Claims Generators"], PerilMarker),])
+			parmReservesModel[2]=ReservesGeneratorStrategyType.getStrategy(ReservesGeneratorStrategyType.PRIOR_PERIOD, ["basedOnClaimsGenerators":new ComboBoxTableMultiDimensionalParameter(["motor attritional","motor single"],["Claims Generators"], IPerilMarker),])
+			parmReservesModel[0]=ReservesGeneratorStrategyType.getStrategy(ReservesGeneratorStrategyType.PRIOR_PERIOD, ["basedOnClaimsGenerators":new ComboBoxTableMultiDimensionalParameter(["motor attritional","motor single"],["Claims Generators"], IPerilMarker),])
+			parmReservesModel[1]=ReservesGeneratorStrategyType.getStrategy(ReservesGeneratorStrategyType.PRIOR_PERIOD, ["basedOnClaimsGenerators":new ComboBoxTableMultiDimensionalParameter(["motor attritional","motor single"],["Claims Generators"], IPerilMarker),])
 		}
 	}
 }

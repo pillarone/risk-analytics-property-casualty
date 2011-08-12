@@ -5,7 +5,7 @@ import org.apache.commons.logging.Log
 import org.apache.commons.logging.LogFactory
 import org.pillarone.riskanalytics.core.parameterization.validation.AbstractParameterValidationService
 import org.pillarone.riskanalytics.domain.utils.validation.ParameterValidationServiceImpl
-import org.pillarone.riskanalytics.core.parameterization.validation.ParameterValidationError
+import org.pillarone.riskanalytics.core.parameterization.validation.ParameterValidation
 import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterHolder
 import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterObjectParameterHolder
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
@@ -14,6 +14,7 @@ import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.pc.generators.claims.ClaimsGeneratorType
 import umontreal.iro.lecuyer.probdist.Distribution
 import umontreal.iro.lecuyer.probdist.ContinuousDistribution
+import org.pillarone.riskanalytics.core.parameterization.validation.ValidationType
 
 /**
  * This validator focuses on valid combinations of distributions and modifications.
@@ -32,9 +33,9 @@ class ClaimsGeneratorStrategyValidator implements IParameterizationValidator {
         registerConstraints()
     }
 
-    List<ParameterValidationError> validate(List<ParameterHolder> parameters) {
+    List<ParameterValidation> validate(List<ParameterHolder> parameters) {
 
-        List<ParameterValidationError> errors = []
+        List<ParameterValidation> errors = []
 
         for (ParameterHolder parameter in parameters) {
             if (parameter instanceof ParameterObjectParameterHolder) {
@@ -49,7 +50,7 @@ class ClaimsGeneratorStrategyValidator implements IParameterizationValidator {
                         errors.addAll(currentErrors)
                     }
                     catch (IllegalArgumentException ex) {
-                        // distribution parameters are invalid, however this is checked in the DistributionTypeValidator
+                        // distribution parameters are invalid, however this is checked in the DistributionTypeValidatorPC
                     }
                 }
                 // step down recursively
@@ -97,20 +98,25 @@ class ClaimsGeneratorStrategyValidator implements IParameterizationValidator {
         double rightBoundary = (Double) modification.getParameters().get("max");
 
         if (leftBoundary > rightBoundary) {
-            return ["claims.model.error.modification.left.boundary.greater.than.right.boundary"]
+            return [ValidationType.ERROR, "claims.model.error.modification.left.boundary.greater.than.right.boundary"]
         }
         // todo: if cdf is expensive, split truncated cases to use getArea (and censored..?)
         if (DistributionModifier.TRUNCATED || DistributionModifier.TRUNCATEDSHIFT) {
-            if (Math.abs(distribution.cdf(rightBoundary) - distribution.cdf(leftBoundary)) < 1E-8) {
-                return ["claims.model.error.restricted.density.function.not.normalizable.for.claims.generator"]
+            if (distribution instanceof ContinuousDistribution) {
+                if (Math.abs(distribution.cdf(rightBoundary) - distribution.cdf(leftBoundary)) < 1E-8) {
+                    return [ValidationType.ERROR, "claims.model.error.restricted.density.function.not.normalizable.for.claims.generator"]
+                }
             }
         }
 
-        if (DistributionModifier.LEFTTRUNCATEDRIGHTCENSOREDSHIFT){
-            if ((1d - distribution.cdf(leftBoundary)) < 1E-8) {
-                return ["claims.model.error.restricted.density.function.not.normalizable.for.claims.generator"]
+        if (DistributionModifier.LEFTTRUNCATEDRIGHTCENSOREDSHIFT) {
+            if (distribution instanceof ContinuousDistribution) {
+                if ((1d - distribution.cdf(leftBoundary)) < 1E-8) {
+                    return [ValidationType.ERROR, "claims.model.error.restricted.density.function.not.normalizable.for.claims.generator"]
+                }
             }
         }
+
         return
     }
 }

@@ -3,7 +3,7 @@ package org.pillarone.riskanalytics.domain.pc.assetLiabilityMismatch
 import org.pillarone.riskanalytics.core.components.Component
 import org.pillarone.riskanalytics.core.components.PeriodStore
 import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 
@@ -43,7 +43,7 @@ class AssetLiabilityMismatchGeneratorTests extends GroovyTestCase {
   }
 }
 
-class TestAlmGenerator extends Component implements PerilMarker {
+class TestAlmGenerator extends Component implements IPerilMarker {
 
   protected void doCalculation() {
     //To change body of implemented methods use File | Settings | File Templates.

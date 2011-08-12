@@ -4,12 +4,13 @@ import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 @ComponentCategory(categories = {"CLAIM","GENERATOR","ATTRITIONAL","SINGLE","EVENT"})
-public class DevelopedTypableClaimsGenerator extends TypableClaimsGenerator implements PerilMarker {
+public class DevelopedTypableClaimsGenerator extends TypableClaimsGenerator implements IPerilMarker {
 
     // todo(sku): remove the following and related lines as soon as PMO-648 is resolved
     private PacketList<ClaimDevelopmentLeanPacket> outClaimsLeanDevelopment = new PacketList<ClaimDevelopmentLeanPacket>(ClaimDevelopmentLeanPacket.class);

@@ -1,7 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts
 
 
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope
 import org.pillarone.riskanalytics.domain.assets.VoidTestModel
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
@@ -9,7 +9,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.ICoverA
 import org.pillarone.riskanalytics.domain.pc.claims.TestLobComponent
 import org.pillarone.riskanalytics.core.model.Model
 import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
 import org.pillarone.riskanalytics.domain.pc.claims.TestPerilComponent
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
@@ -33,11 +33,11 @@ import org.pillarone.riskanalytics.core.components.PeriodStore
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedString
 import org.pillarone.riskanalytics.domain.pc.lob.CompanyConfigurableLobWithReserves
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ReservesGeneratorLean
-import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker
 import org.pillarone.riskanalytics.core.components.Component
 import org.pillarone.riskanalytics.core.packets.PacketList
 import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope
 import org.pillarone.riskanalytics.core.simulation.engine.IterationScope
+import org.pillarone.riskanalytics.domain.utils.marker.IReserveMarker
 
 /** With the exception of testCoverCompanies() the test cases are copied from MultiCoverAttributeReinsuranceContractTests and simply
  * modified by using MultiCompanyCoverAttributeReinsuranceContract instead of MultiCoverAttributeReinsuranceContract
@@ -57,7 +57,7 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
                 parmInuringPriority: 10,
                 parmCover: CompanyCoverAttributeStrategyType.getStrategy(
                         CompanyCoverAttributeStrategyType.LINESOFBUSINESS,
-                        ['lines': new ComboBoxTableMultiDimensionalParameter(['fire'], ['Covered Segments'], LobMarker)])
+                        ['lines': new ComboBoxTableMultiDimensionalParameter(['fire'], ['Covered Segments'], ISegmentMarker)])
         )
         SimulationScope simulationScope = new SimulationScope(iterationScope: new IterationScope(periodScope: new PeriodScope()))
         simulationScope.model = new VoidTestModel()
@@ -96,9 +96,9 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
         boolean hasPerils = cover.containsKey('perils')
         boolean hasReserves = cover.containsKey('reserves')
 
-        ComboBoxTableMultiDimensionalParameter lines = hasLines ? new ComboBoxTableMultiDimensionalParameter(cover['lines'], ['Covered Segments'], LobMarker) : null
-        ComboBoxTableMultiDimensionalParameter perils = hasPerils ? new ComboBoxTableMultiDimensionalParameter(cover['perils'], ['Covered Perils'], PerilMarker) : null
-        ComboBoxTableMultiDimensionalParameter reserves = hasReserves ? new ComboBoxTableMultiDimensionalParameter(cover['reserves'], ['Covered Reserves'], LobMarker) : null
+        ComboBoxTableMultiDimensionalParameter lines = hasLines ? new ComboBoxTableMultiDimensionalParameter(cover['lines'], ['Covered Segments'], ISegmentMarker) : null
+        ComboBoxTableMultiDimensionalParameter perils = hasPerils ? new ComboBoxTableMultiDimensionalParameter(cover['perils'], ['Covered Perils'], IPerilMarker) : null
+        ComboBoxTableMultiDimensionalParameter reserves = hasReserves ? new ComboBoxTableMultiDimensionalParameter(cover['reserves'], ['Covered Reserves'], IReserveMarker) : null
 
         // each of the strategy-specific ComboBoxTableMultiDimensionalParameter properties needs to set the simulation model (to simulate a choice from the GUI)
         if (model != null) {
@@ -549,34 +549,34 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
         assertEquals "net premium motorB", 8000d, contract.outNetAfterCoverUnderwritingInfo[1].premium
     }
 
-    private ClaimDevelopmentLeanPacket getClaim(PerilMarker peril, LobMarker lob, double ultimate, double paid,
+    private ClaimDevelopmentLeanPacket getClaim(IPerilMarker peril, ISegmentMarker lob, double ultimate, double paid,
                                                 double fractionOfPeriod, Component origin, Event event,
                                                 Claim originalClaim) {
         ClaimDevelopmentLeanPacket claim = new ClaimDevelopmentLeanPacket(ultimate: ultimate, paid: paid,
                 fractionOfPeriod: fractionOfPeriod, origin: origin, event: event, originalClaim: originalClaim)
-        claim.addMarker(PerilMarker, peril)
-        claim.addMarker(LobMarker, lob)
+        claim.addMarker(IPerilMarker, peril)
+        claim.addMarker(ISegmentMarker, lob)
         claim
     }
 
-    private Claim getClaim(PerilMarker peril, LobMarker lob, double ultimate, double fractionOfPeriod, ClaimType claimType) {
+    private Claim getClaim(IPerilMarker peril, ISegmentMarker lob, double ultimate, double fractionOfPeriod, ClaimType claimType) {
         Claim claim = new Claim(ultimate: ultimate, fractionOfPeriod: fractionOfPeriod, claimType: claimType)
-        claim.addMarker(PerilMarker, peril)
-        claim.addMarker(LobMarker, lob)
+        claim.addMarker(IPerilMarker, peril)
+        claim.addMarker(ISegmentMarker, lob)
         claim
     }
 
-    private Claim getClaim(PerilMarker peril, LobMarker lob, double ultimate) {
+    private Claim getClaim(IPerilMarker peril, ISegmentMarker lob, double ultimate) {
         Claim claim = new Claim(ultimate: ultimate)
-        claim.addMarker(PerilMarker, peril)
-        claim.addMarker(LobMarker, lob)
+        claim.addMarker(IPerilMarker, peril)
+        claim.addMarker(ISegmentMarker, lob)
         claim
     }
 
-    private Claim getClaim(IReserveMarker reserve, LobMarker lob, double ultimate) {
+    private Claim getClaim(IReserveMarker reserve, ISegmentMarker lob, double ultimate) {
         Claim claim = new Claim(ultimate: ultimate)
         claim.addMarker(IReserveMarker, reserve)
-        claim.addMarker(LobMarker, lob)
+        claim.addMarker(ISegmentMarker, lob)
         claim
     }
 }

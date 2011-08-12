@@ -10,10 +10,10 @@ import org.pillarone.riskanalytics.domain.pc.constants.Exposure
 import org.pillarone.riskanalytics.domain.pc.constants.FrequencyBase
 import org.pillarone.riskanalytics.domain.pc.constants.FrequencySeverityClaimType
 import org.pillarone.riskanalytics.domain.pc.generators.claims.ClaimsGeneratorType
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.CopulaStrategyFactory
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.PerilCopulaType
-import org.pillarone.riskanalytics.domain.pc.underwriting.IUnderwritingInfoMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IUnderwritingInfoMarker
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 
@@ -71,7 +71,7 @@ components {
     }
     dependencies {
         subAttritional {
-            parmCopulaStrategy[0] = CopulaStrategyFactory.getCopulaStrategy(PerilCopulaType.NORMAL, ["dependencyMatrix": new ComboBoxMatrixMultiDimensionalParameter([[1.0, 0.25, 0.25, 0.25], [0.25, 1.0, 0.5, 0.25], [0.25, 0.5, 1, 0.25], [0.25, 0.25, 0.25, 1]], ["personal accident attritional", "motor third party liability attritional", "motor hull attritional", "property attritional"], PerilMarker),])
+            parmCopulaStrategy[0] = CopulaStrategyFactory.getCopulaStrategy(PerilCopulaType.NORMAL, ["dependencyMatrix": new ComboBoxMatrixMultiDimensionalParameter([[1.0, 0.25, 0.25, 0.25], [0.25, 1.0, 0.5, 0.25], [0.25, 0.5, 1, 0.25], [0.25, 0.25, 0.25, 1]], ["personal accident attritional", "motor third party liability attritional", "motor hull attritional", "property attritional"], IPerilMarker),])
         }
     }
     claimsGenerators {

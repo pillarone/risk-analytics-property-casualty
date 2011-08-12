@@ -12,8 +12,8 @@ import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.simulation.engine.MappingCache;
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType;
 import org.pillarone.riskanalytics.domain.pc.filter.SegmentFilter;
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
@@ -147,14 +147,14 @@ public class AggregateDrillDownCollectingModeStrategy implements ICollectingMode
 
             PathMapping perilPath = getPathMapping(claim, claim.getPeril(), PERILS);
             PathMapping lobPath = null;
-            if (!(claim.sender instanceof LobMarker)) {
+            if (!(claim.sender instanceof ISegmentMarker)) {
                 lobPath = getPathMapping(claim, claim.getLineOfBusiness(), LOB);
             }
             PathMapping contractPath = null;
             if (!(claim.sender instanceof IReinsuranceContractMarker)) {
                 contractPath = getPathMapping(claim, claim.getReinsuranceContract(), CONTRACTS);
             }
-            if (claim.sender instanceof LobMarker) {
+            if (claim.sender instanceof ISegmentMarker) {
                 addToMap(claim, perilPath, resultMap);
                 addToMap(claim, contractPath, resultMap);
             }
@@ -250,14 +250,14 @@ public class AggregateDrillDownCollectingModeStrategy implements ICollectingMode
             addToMap(underwritingInfo, path, resultMap);
 
             PathMapping lobPath = null;
-            if (!(underwritingInfo.sender instanceof LobMarker)) {
+            if (!(underwritingInfo.sender instanceof ISegmentMarker)) {
                 lobPath = getPathMapping(underwritingInfo, underwritingInfo.getLineOfBusiness(), LOB);
             }
             PathMapping contractPath = null;
             if (!(underwritingInfo.sender instanceof IReinsuranceContractMarker)) {
                 contractPath = getPathMapping(underwritingInfo, underwritingInfo.getReinsuranceContract(), CONTRACTS);
             }
-            if (underwritingInfo.sender instanceof LobMarker) {
+            if (underwritingInfo.sender instanceof ISegmentMarker) {
                 addToMap(underwritingInfo, contractPath, resultMap);
             }
             if (underwritingInfo.sender instanceof IReinsuranceContractMarker) {

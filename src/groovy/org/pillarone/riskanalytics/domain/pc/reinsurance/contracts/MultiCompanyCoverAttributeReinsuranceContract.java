@@ -18,14 +18,17 @@ import org.pillarone.riskanalytics.domain.pc.constants.ReinsuranceContractBase;
 import org.pillarone.riskanalytics.domain.pc.constraints.CompanyPortion;
 import org.pillarone.riskanalytics.domain.pc.creditrisk.ReinsurerDefault;
 import org.pillarone.riskanalytics.domain.pc.filter.FilterUtils;
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.ReinsuranceResultWithCommissionPacket;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.*;
-import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
-import org.pillarone.riskanalytics.domain.pc.underwriting.*;
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo;
+import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoUtilities;
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingFilterUtilities;
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.utils.InputFormatConverter;
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IReserveMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 
 import java.util.*;
 
@@ -156,16 +159,16 @@ public class MultiCompanyCoverAttributeReinsuranceContract extends ReinsuranceCo
             super.filterInChannel(inChannel, source);
         }
         else if (parmCover instanceof CompaniesCompanyCoverAttributeStrategy && inChannel == inClaims) {
-            List<ICompanyMarker> coveredCompanies = (List<ICompanyMarker>) (((CompaniesCompanyCoverAttributeStrategy) parmCover).getCompanies().getValuesAsObjects());
+            List<ICompanyMarker> coveredCompanies = (List<ICompanyMarker>) (((CompaniesCompanyCoverAttributeStrategy) parmCover).getCompanies().getValuesAsObjects(0, true));
             inClaims.addAll(ClaimFilterUtilities.filterClaimsByCompanies(source, coveredCompanies, false));
         }
         else if (parmCover instanceof CompaniesCompanyCoverAttributeStrategy && inChannel == inUnderwritingInfo) {
-            List<LobMarker> coveredLines = ClaimFilterUtilities.getLinesOfBusiness(inClaims);
+            List<ISegmentMarker> coveredLines = ClaimFilterUtilities.getLinesOfBusiness(inClaims);
             inUnderwritingInfo.addAll(UnderwritingFilterUtilities.filterUnderwritingInfoByLobWithoutScaling(source, coveredLines));
         }
         else if (inChannel == inClaims) {
-            List<LobMarker> coveredLines = FilterUtils.getCoveredLines(parmCover, periodStore);
-            List<PerilMarker> coveredPerils = FilterUtils.getCoveredPerils(parmCover, periodStore);
+            List<ISegmentMarker> coveredLines = FilterUtils.getCoveredLines(parmCover, periodStore);
+            List<IPerilMarker> coveredPerils = FilterUtils.getCoveredPerils(parmCover, periodStore);
             List<IReserveMarker> coveredReserves = FilterUtils.getCoveredReserves(parmCover, periodStore);
             LogicArguments connection = parmCover instanceof ICombinedCoverAttributeStrategy
                     ? ((ICombinedCoverAttributeStrategy) parmCover).getConnection() : null;
@@ -173,8 +176,8 @@ public class MultiCompanyCoverAttributeReinsuranceContract extends ReinsuranceCo
         }
         else if (inChannel == inUnderwritingInfo) {
             // extend coveredLines such that they additionally consist of the segments which are associated with the selected perils
-            List<LobMarker> coveredLines = ClaimFilterUtilities.getLinesOfBusiness(inClaims);
-            List<PerilMarker> coveredPerils = FilterUtils.getCoveredPerils(parmCover, periodStore);
+            List<ISegmentMarker> coveredLines = ClaimFilterUtilities.getLinesOfBusiness(inClaims);
+            List<IPerilMarker> coveredPerils = FilterUtils.getCoveredPerils(parmCover, periodStore);
             inUnderwritingInfo.addAll(UnderwritingFilterUtilities.filterUnderwritingInfoByLobAndScaleByPerilsInLob(
                     source, coveredLines, allInClaims, coveredPerils));
         }

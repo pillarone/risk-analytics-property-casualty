@@ -1,7 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.programs
 
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiLineReinsuranceContract
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
 
@@ -21,7 +21,7 @@ public class MultiLineDynamicReinsuranceProgram extends DynamicReinsuranceProgra
         MultiLineReinsuranceContract contract = new MultiLineReinsuranceContract(
                 parmInuringPriority: 0,
                 parmContractStrategy: ReinsuranceContractType.getStrategy(ReinsuranceContractType.TRIVIAL, [:]),
-                parmCoveredLines: new ComboBoxTableMultiDimensionalParameter([''], ['Covered Segments'], LobMarker)
+                parmCoveredLines: new ComboBoxTableMultiDimensionalParameter([''], ['Covered Segments'], ISegmentMarker)
         )
         return contract
     }

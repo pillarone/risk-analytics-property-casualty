@@ -1,231 +1,231 @@
-iteration	period	path	field	value
-0	0	ExampleCompany:mtpl:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	119.28781294952817
-0	0	ExampleCompany:mtpl:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	107.0921329024195
-0	0	ExampleCompany:mtpl:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-0	0	ExampleCompany:mtpl:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-0	0	ExampleCompany:mtpl:subRiProgram:subContract1:outCoveredClaims	ultimate	67.91398375558428
-0	0	ExampleCompany:motorHull:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	37.98261027538056
-0	0	ExampleCompany:motorHull:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	81.21108054866767
-0	0	ExampleCompany:motorHull:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-0	0	ExampleCompany:motorHull:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-0	0	ExampleCompany:motorHull:subRiProgram:subContract1:outCoveredClaims	ultimate	35.75810724721447
-0	0	ExampleCompany:personalAccident:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	101.4438732462069
-0	0	ExampleCompany:personalAccident:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	113.44281618216719
-0	0	ExampleCompany:personalAccident:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-0	0	ExampleCompany:personalAccident:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-0	0	ExampleCompany:personalAccident:subRiProgram:subContract1:outCoveredClaims	ultimate	64.46600682851222
-0	0	ExampleCompany:property:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	33.45723816700878
-0	0	ExampleCompany:property:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	113.2710083081181
-0	0	ExampleCompany:claimsAggregator:outClaimsCeded	ultimate	212.15657177384904
-0	0	ExampleCompany:claimsAggregator:outClaimsGross	ultimate	707.188572579497
-0	0	ExampleCompany:claimsAggregator:outClaimsNet	ultimate	495.03200080564784
-0	0	ExampleCompany:property:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-0	0	ExampleCompany:property:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-0	0	ExampleCompany:property:subRiProgram:subContract1:outCoveredClaims	ultimate	44.018473942538066
-1	0	ExampleCompany:mtpl:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	117.6155107520706
-1	0	ExampleCompany:mtpl:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	117.55650423425944
-1	0	ExampleCompany:mtpl:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-1	0	ExampleCompany:mtpl:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-1	0	ExampleCompany:mtpl:subRiProgram:subContract1:outCoveredClaims	ultimate	70.55160449589901
-1	0	ExampleCompany:motorHull:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	25.128150718987232
-1	0	ExampleCompany:motorHull:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	103.05531306244977
-1	0	ExampleCompany:motorHull:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-1	0	ExampleCompany:motorHull:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-1	0	ExampleCompany:motorHull:subRiProgram:subContract1:outCoveredClaims	ultimate	38.45503913443109
-1	0	ExampleCompany:personalAccident:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	117.29722150721152
-1	0	ExampleCompany:personalAccident:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	136.49347868252
-1	0	ExampleCompany:personalAccident:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-1	0	ExampleCompany:personalAccident:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-1	0	ExampleCompany:personalAccident:subRiProgram:subContract1:outCoveredClaims	ultimate	76.13721005691946
-1	0	ExampleCompany:property:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	42.29313785916271
-1	0	ExampleCompany:property:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	91.73486786489583
-1	0	ExampleCompany:claimsAggregator:outClaimsCeded	ultimate	225.35225540446717
-1	0	ExampleCompany:claimsAggregator:outClaimsGross	ultimate	751.1741846815572
-1	0	ExampleCompany:claimsAggregator:outClaimsNet	ultimate	525.82192927709
-1	0	ExampleCompany:property:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-1	0	ExampleCompany:property:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-1	0	ExampleCompany:property:subRiProgram:subContract1:outCoveredClaims	ultimate	40.20840171721756
-2	0	ExampleCompany:mtpl:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	106.80134573643407
-2	0	ExampleCompany:mtpl:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	121.92686753147302
-2	0	ExampleCompany:mtpl:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-2	0	ExampleCompany:mtpl:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-2	0	ExampleCompany:mtpl:subRiProgram:subContract1:outCoveredClaims	ultimate	68.61846398037214
-2	0	ExampleCompany:motorHull:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	122.55742674100223
-2	0	ExampleCompany:motorHull:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	85.21276827177961
-2	0	ExampleCompany:motorHull:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-2	0	ExampleCompany:motorHull:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-2	0	ExampleCompany:motorHull:subRiProgram:subContract1:outCoveredClaims	ultimate	62.33105850383455
-2	0	ExampleCompany:personalAccident:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	22.29511819808545
-2	0	ExampleCompany:personalAccident:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	114.7278855543166
-2	0	ExampleCompany:personalAccident:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-2	0	ExampleCompany:personalAccident:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-2	0	ExampleCompany:personalAccident:subRiProgram:subContract1:outCoveredClaims	ultimate	41.106901125720626
-2	0	ExampleCompany:property:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	29.127196706561907
-2	0	ExampleCompany:property:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	100.56089811572076
-2	0	ExampleCompany:claimsAggregator:outClaimsCeded	ultimate	210.96285205661204
-2	0	ExampleCompany:claimsAggregator:outClaimsGross	ultimate	703.2095068553737
-2	0	ExampleCompany:claimsAggregator:outClaimsNet	ultimate	492.2466547987615
-2	0	ExampleCompany:property:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-2	0	ExampleCompany:property:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-2	0	ExampleCompany:property:subRiProgram:subContract1:outCoveredClaims	ultimate	38.90642844668479
-3	0	ExampleCompany:mtpl:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	154.55741684098632
-3	0	ExampleCompany:mtpl:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	122.0478999717305
-3	0	ExampleCompany:mtpl:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-3	0	ExampleCompany:mtpl:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-3	0	ExampleCompany:mtpl:subRiProgram:subContract1:outCoveredClaims	ultimate	82.98159504381505
-3	0	ExampleCompany:motorHull:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	35.1004872138619
-3	0	ExampleCompany:motorHull:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	101.08813201428562
-3	0	ExampleCompany:motorHull:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-3	0	ExampleCompany:motorHull:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-3	0	ExampleCompany:motorHull:subRiProgram:subContract1:outCoveredClaims	ultimate	40.85658576844425
-3	0	ExampleCompany:personalAccident:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	67.8421316790888
-3	0	ExampleCompany:personalAccident:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	131.2124533114109
-3	0	ExampleCompany:personalAccident:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-3	0	ExampleCompany:personalAccident:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-3	0	ExampleCompany:personalAccident:subRiProgram:subContract1:outCoveredClaims	ultimate	59.71637549714991
-3	0	ExampleCompany:property:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	30.943932509203975
-3	0	ExampleCompany:property:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	81.79645874361222
-3	0	ExampleCompany:claimsAggregator:outClaimsCeded	ultimate	217.3766736852541
-3	0	ExampleCompany:claimsAggregator:outClaimsGross	ultimate	724.5889122841801
-3	0	ExampleCompany:claimsAggregator:outClaimsNet	ultimate	507.2122385989261
-3	0	ExampleCompany:property:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-3	0	ExampleCompany:property:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-3	0	ExampleCompany:property:subRiProgram:subContract1:outCoveredClaims	ultimate	33.82211737584486
-4	0	ExampleCompany:mtpl:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	133.0291913836362
-4	0	ExampleCompany:mtpl:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	84.43701010867973
-4	0	ExampleCompany:mtpl:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-4	0	ExampleCompany:mtpl:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-4	0	ExampleCompany:mtpl:subRiProgram:subContract1:outCoveredClaims	ultimate	65.23986044769478
-4	0	ExampleCompany:motorHull:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	29.347581710753502
-4	0	ExampleCompany:motorHull:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	80.71206414871024
-4	0	ExampleCompany:motorHull:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-4	0	ExampleCompany:motorHull:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-4	0	ExampleCompany:motorHull:subRiProgram:subContract1:outCoveredClaims	ultimate	33.017893757839126
-4	0	ExampleCompany:personalAccident:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	49.902988982319705
-4	0	ExampleCompany:personalAccident:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	127.9090908459067
-4	0	ExampleCompany:personalAccident:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-4	0	ExampleCompany:personalAccident:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-4	0	ExampleCompany:personalAccident:subRiProgram:subContract1:outCoveredClaims	ultimate	53.34362394846792
-4	0	ExampleCompany:property:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	122.11356734551174
-4	0	ExampleCompany:property:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	110.56982293961838
-4	0	ExampleCompany:claimsAggregator:outClaimsCeded	ultimate	221.40639523954087
-4	0	ExampleCompany:claimsAggregator:outClaimsGross	ultimate	738.0213174651361
-4	0	ExampleCompany:claimsAggregator:outClaimsNet	ultimate	516.6149222255954
-4	0	ExampleCompany:property:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-4	0	ExampleCompany:property:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-4	0	ExampleCompany:property:subRiProgram:subContract1:outCoveredClaims	ultimate	69.80501708553903
-5	0	ExampleCompany:mtpl:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	151.81203008827904
-5	0	ExampleCompany:mtpl:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	115.4823793461546
-5	0	ExampleCompany:mtpl:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-5	0	ExampleCompany:mtpl:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-5	0	ExampleCompany:mtpl:subRiProgram:subContract1:outCoveredClaims	ultimate	80.18832283033008
-5	0	ExampleCompany:motorHull:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	57.489937916869785
-5	0	ExampleCompany:motorHull:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	110.51179856925393
-5	0	ExampleCompany:motorHull:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-5	0	ExampleCompany:motorHull:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-5	0	ExampleCompany:motorHull:subRiProgram:subContract1:outCoveredClaims	ultimate	50.40052094583711
-5	0	ExampleCompany:personalAccident:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	28.099236184633977
-5	0	ExampleCompany:personalAccident:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	124.36377728315799
-5	0	ExampleCompany:personalAccident:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-5	0	ExampleCompany:personalAccident:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-5	0	ExampleCompany:personalAccident:subRiProgram:subContract1:outCoveredClaims	ultimate	45.73890404033758
-5	0	ExampleCompany:property:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	16.894989383991508
-5	0	ExampleCompany:property:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	126.50956900193425
-5	0	ExampleCompany:claimsAggregator:outClaimsCeded	ultimate	219.34911533228257
-5	0	ExampleCompany:claimsAggregator:outClaimsGross	ultimate	731.1637177742751
-5	0	ExampleCompany:claimsAggregator:outClaimsNet	ultimate	511.8146024419925
-5	0	ExampleCompany:property:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-5	0	ExampleCompany:property:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-5	0	ExampleCompany:property:subRiProgram:subContract1:outCoveredClaims	ultimate	43.02136751577773
-6	0	ExampleCompany:mtpl:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	142.34891239380627
-6	0	ExampleCompany:mtpl:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	82.99812413700218
-6	0	ExampleCompany:mtpl:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-6	0	ExampleCompany:mtpl:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-6	0	ExampleCompany:mtpl:subRiProgram:subContract1:outCoveredClaims	ultimate	67.60411095924252
-6	0	ExampleCompany:motorHull:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	202.66525455132117
-6	0	ExampleCompany:motorHull:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	112.98469604382768
-6	0	ExampleCompany:motorHull:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-6	0	ExampleCompany:motorHull:subRiProgram:subContract2:outCoveredClaims	ultimate	5.575454227576458
-6	0	ExampleCompany:motorHull:subRiProgram:subContract1:outCoveredClaims	ultimate	94.69498517854464
-6	0	ExampleCompany:personalAccident:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	23.893352986223086
-6	0	ExampleCompany:personalAccident:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	95.84203191086915
-6	0	ExampleCompany:personalAccident:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-6	0	ExampleCompany:personalAccident:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-6	0	ExampleCompany:personalAccident:subRiProgram:subContract1:outCoveredClaims	ultimate	35.92061546912767
-6	0	ExampleCompany:property:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	31.05644179456627
-6	0	ExampleCompany:property:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	114.78639095620699
-6	0	ExampleCompany:claimsAggregator:outClaimsCeded	ultimate	241.9725614321468
-6	0	ExampleCompany:claimsAggregator:outClaimsGross	ultimate	806.5752047738227
-6	0	ExampleCompany:claimsAggregator:outClaimsNet	ultimate	564.6026433416761
-6	0	ExampleCompany:property:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-6	0	ExampleCompany:property:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-6	0	ExampleCompany:property:subRiProgram:subContract1:outCoveredClaims	ultimate	43.75284982523197
-7	0	ExampleCompany:mtpl:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	193.37624015621535
-7	0	ExampleCompany:mtpl:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	87.19818403162913
-7	0	ExampleCompany:mtpl:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-7	0	ExampleCompany:mtpl:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-7	0	ExampleCompany:mtpl:subRiProgram:subContract1:outCoveredClaims	ultimate	84.17232725635334
-7	0	ExampleCompany:motorHull:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	116.71660382673574
-7	0	ExampleCompany:motorHull:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	97.51106003908984
-7	0	ExampleCompany:motorHull:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-7	0	ExampleCompany:motorHull:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-7	0	ExampleCompany:motorHull:subRiProgram:subContract1:outCoveredClaims	ultimate	64.26829915974766
-7	0	ExampleCompany:personalAccident:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	27.632564582985623
-7	0	ExampleCompany:personalAccident:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	74.29462791139426
-7	0	ExampleCompany:personalAccident:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-7	0	ExampleCompany:personalAccident:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-7	0	ExampleCompany:personalAccident:subRiProgram:subContract1:outCoveredClaims	ultimate	30.57815774831396
-7	0	ExampleCompany:property:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	27.94380247916124
-7	0	ExampleCompany:property:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	91.82062835222395
-7	0	ExampleCompany:claimsAggregator:outClaimsCeded	ultimate	214.94811341383058
-7	0	ExampleCompany:claimsAggregator:outClaimsGross	ultimate	716.493711379435
-7	0	ExampleCompany:claimsAggregator:outClaimsNet	ultimate	501.54559796560477
-7	0	ExampleCompany:property:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-7	0	ExampleCompany:property:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-7	0	ExampleCompany:property:subRiProgram:subContract1:outCoveredClaims	ultimate	35.92932924941556
-8	0	ExampleCompany:mtpl:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	121.27447793762957
-8	0	ExampleCompany:mtpl:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	126.03014223084125
-8	0	ExampleCompany:mtpl:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-8	0	ExampleCompany:mtpl:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-8	0	ExampleCompany:mtpl:subRiProgram:subContract1:outCoveredClaims	ultimate	74.19138605054124
-8	0	ExampleCompany:motorHull:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	53.1441870938027
-8	0	ExampleCompany:motorHull:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	105.38752369163969
-8	0	ExampleCompany:motorHull:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-8	0	ExampleCompany:motorHull:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-8	0	ExampleCompany:motorHull:subRiProgram:subContract1:outCoveredClaims	ultimate	47.55951323563271
-8	0	ExampleCompany:personalAccident:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	21.312814363232455
-8	0	ExampleCompany:personalAccident:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	127.28583708236427
-8	0	ExampleCompany:personalAccident:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-8	0	ExampleCompany:personalAccident:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-8	0	ExampleCompany:personalAccident:subRiProgram:subContract1:outCoveredClaims	ultimate	44.57959543367901
-8	0	ExampleCompany:property:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	42.47426376236761
-8	0	ExampleCompany:property:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	106.74888354918363
-8	0	ExampleCompany:claimsAggregator:outClaimsCeded	ultimate	211.09743891331829
-8	0	ExampleCompany:claimsAggregator:outClaimsGross	ultimate	703.6581297110613
-8	0	ExampleCompany:claimsAggregator:outClaimsNet	ultimate	492.56069079774284
-8	0	ExampleCompany:property:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-8	0	ExampleCompany:property:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-8	0	ExampleCompany:property:subRiProgram:subContract1:outCoveredClaims	ultimate	44.766944193465385
-9	0	ExampleCompany:mtpl:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	57.35551546325869
-9	0	ExampleCompany:mtpl:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	85.7391877177724
-9	0	ExampleCompany:mtpl:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-9	0	ExampleCompany:mtpl:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-9	0	ExampleCompany:mtpl:subRiProgram:subContract1:outCoveredClaims	ultimate	42.92841095430933
-9	0	ExampleCompany:motorHull:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	72.79433568633624
-9	0	ExampleCompany:motorHull:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	107.9244374361617
-9	0	ExampleCompany:motorHull:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-9	0	ExampleCompany:motorHull:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-9	0	ExampleCompany:motorHull:subRiProgram:subContract1:outCoveredClaims	ultimate	54.215631936749375
-9	0	ExampleCompany:personalAccident:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	51.63017959430431
-9	0	ExampleCompany:personalAccident:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	104.10721171246495
-9	0	ExampleCompany:personalAccident:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-9	0	ExampleCompany:personalAccident:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-9	0	ExampleCompany:personalAccident:subRiProgram:subContract1:outCoveredClaims	ultimate	46.72121739203077
-9	0	ExampleCompany:property:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	26.216130916100763
-9	0	ExampleCompany:property:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	113.63910326610686
-9	0	ExampleCompany:claimsAggregator:outClaimsCeded	ultimate	185.82183053775177
-9	0	ExampleCompany:claimsAggregator:outClaimsGross	ultimate	619.4061017925059
-9	0	ExampleCompany:claimsAggregator:outClaimsNet	ultimate	433.58427125475396
-9	0	ExampleCompany:property:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
-9	0	ExampleCompany:property:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
-9	0	ExampleCompany:property:subRiProgram:subContract1:outCoveredClaims	ultimate	41.95657025466228
+iteration	period	valueIndex	path	field	value
+1	0	0	ExampleCompany:mtpl:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	108.34067617041346
+1	0	0	ExampleCompany:mtpl:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	122.88991167718513
+1	0	0	ExampleCompany:mtpl:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+1	0	0	ExampleCompany:mtpl:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+1	0	0	ExampleCompany:mtpl:subRiProgram:subContract1:outCoveredClaims	ultimate	69.36917635427957
+1	0	0	ExampleCompany:motorHull:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	3.5874973245062733
+1	0	0	ExampleCompany:motorHull:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	108.6940936679327
+1	0	0	ExampleCompany:motorHull:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+1	0	0	ExampleCompany:motorHull:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+1	0	0	ExampleCompany:motorHull:subRiProgram:subContract1:outCoveredClaims	ultimate	33.684477297731696
+1	0	0	ExampleCompany:personalAccident:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	117.90275208695294
+1	0	0	ExampleCompany:personalAccident:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	74.67137791471413
+1	0	0	ExampleCompany:personalAccident:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+1	0	0	ExampleCompany:personalAccident:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+1	0	0	ExampleCompany:personalAccident:subRiProgram:subContract1:outCoveredClaims	ultimate	57.772239000500115
+1	0	0	ExampleCompany:property:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	118.46741405554488
+1	0	0	ExampleCompany:property:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	97.54712366255855
+1	0	0	ExampleCompany:claimsAggregator:outClaimsCeded	ultimate	225.63025396794245
+1	0	0	ExampleCompany:claimsAggregator:outClaimsGross	ultimate	752.1008465598079
+1	0	0	ExampleCompany:claimsAggregator:outClaimsNet	ultimate	526.4705925918657
+1	0	0	ExampleCompany:property:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+1	0	0	ExampleCompany:property:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+1	0	0	ExampleCompany:property:subRiProgram:subContract1:outCoveredClaims	ultimate	64.80436131543102
+2	0	0	ExampleCompany:mtpl:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	70.18127285886183
+2	0	0	ExampleCompany:mtpl:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	63.23889761224056
+2	0	0	ExampleCompany:mtpl:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+2	0	0	ExampleCompany:mtpl:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+2	0	0	ExampleCompany:mtpl:subRiProgram:subContract1:outCoveredClaims	ultimate	40.02605114133071
+2	0	0	ExampleCompany:motorHull:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	34.19438964923964
+2	0	0	ExampleCompany:motorHull:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	95.05482602381731
+2	0	0	ExampleCompany:motorHull:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+2	0	0	ExampleCompany:motorHull:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+2	0	0	ExampleCompany:motorHull:subRiProgram:subContract1:outCoveredClaims	ultimate	38.774764701917086
+2	0	0	ExampleCompany:personalAccident:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	25.964706820913648
+2	0	0	ExampleCompany:personalAccident:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	119.93419710393206
+2	0	0	ExampleCompany:personalAccident:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+2	0	0	ExampleCompany:personalAccident:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+2	0	0	ExampleCompany:personalAccident:subRiProgram:subContract1:outCoveredClaims	ultimate	43.76967117745371
+2	0	0	ExampleCompany:property:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	34.82724561878925
+2	0	0	ExampleCompany:property:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	105.39688754764141
+2	0	0	ExampleCompany:claimsAggregator:outClaimsCeded	ultimate	164.63772697063072
+2	0	0	ExampleCompany:claimsAggregator:outClaimsGross	ultimate	548.7924232354355
+2	0	0	ExampleCompany:claimsAggregator:outClaimsNet	ultimate	384.154696264805
+2	0	0	ExampleCompany:property:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+2	0	0	ExampleCompany:property:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+2	0	0	ExampleCompany:property:subRiProgram:subContract1:outCoveredClaims	ultimate	42.067239949929196
+3	0	0	ExampleCompany:mtpl:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	91.02399161722057
+3	0	0	ExampleCompany:mtpl:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	100.8470915845046
+3	0	0	ExampleCompany:mtpl:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+3	0	0	ExampleCompany:mtpl:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+3	0	0	ExampleCompany:mtpl:subRiProgram:subContract1:outCoveredClaims	ultimate	57.56132496051755
+3	0	0	ExampleCompany:motorHull:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	21.154938035697196
+3	0	0	ExampleCompany:motorHull:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	95.59187926552048
+3	0	0	ExampleCompany:motorHull:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+3	0	0	ExampleCompany:motorHull:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+3	0	0	ExampleCompany:motorHull:subRiProgram:subContract1:outCoveredClaims	ultimate	35.0240451903653
+3	0	0	ExampleCompany:personalAccident:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	33.52605156613334
+3	0	0	ExampleCompany:personalAccident:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	101.00493857548851
+3	0	0	ExampleCompany:personalAccident:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+3	0	0	ExampleCompany:personalAccident:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+3	0	0	ExampleCompany:personalAccident:subRiProgram:subContract1:outCoveredClaims	ultimate	40.35929704248656
+3	0	0	ExampleCompany:property:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	78.73535415559583
+3	0	0	ExampleCompany:property:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	116.84291474621688
+3	0	0	ExampleCompany:claimsAggregator:outClaimsCeded	ultimate	191.6181478639132
+3	0	0	ExampleCompany:claimsAggregator:outClaimsGross	ultimate	638.7271595463774
+3	0	0	ExampleCompany:claimsAggregator:outClaimsNet	ultimate	447.10901168246414
+3	0	0	ExampleCompany:property:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+3	0	0	ExampleCompany:property:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+3	0	0	ExampleCompany:property:subRiProgram:subContract1:outCoveredClaims	ultimate	58.67348067054381
+4	0	0	ExampleCompany:mtpl:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	120.60936903601153
+4	0	0	ExampleCompany:mtpl:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	95.05390663865924
+4	0	0	ExampleCompany:mtpl:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+4	0	0	ExampleCompany:mtpl:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+4	0	0	ExampleCompany:mtpl:subRiProgram:subContract1:outCoveredClaims	ultimate	64.69898270240122
+4	0	0	ExampleCompany:motorHull:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	48.616459241244584
+4	0	0	ExampleCompany:motorHull:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	138.40295394335155
+4	0	0	ExampleCompany:motorHull:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+4	0	0	ExampleCompany:motorHull:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+4	0	0	ExampleCompany:motorHull:subRiProgram:subContract1:outCoveredClaims	ultimate	56.10582395537883
+4	0	0	ExampleCompany:personalAccident:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	58.157479621664066
+4	0	0	ExampleCompany:personalAccident:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	91.02799656953246
+4	0	0	ExampleCompany:personalAccident:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+4	0	0	ExampleCompany:personalAccident:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+4	0	0	ExampleCompany:personalAccident:subRiProgram:subContract1:outCoveredClaims	ultimate	44.75564285735896
+4	0	0	ExampleCompany:property:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	35.13085905488045
+4	0	0	ExampleCompany:property:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	91.87777741200246
+4	0	0	ExampleCompany:claimsAggregator:outClaimsCeded	ultimate	203.66304045520388
+4	0	0	ExampleCompany:claimsAggregator:outClaimsGross	ultimate	678.8768015173465
+4	0	0	ExampleCompany:claimsAggregator:outClaimsNet	ultimate	475.21376106214234
+4	0	0	ExampleCompany:property:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+4	0	0	ExampleCompany:property:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+4	0	0	ExampleCompany:property:subRiProgram:subContract1:outCoveredClaims	ultimate	38.102590940064864
+5	0	0	ExampleCompany:mtpl:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	105.88959922872712
+5	0	0	ExampleCompany:mtpl:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	93.83522947730148
+5	0	0	ExampleCompany:mtpl:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+5	0	0	ExampleCompany:mtpl:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+5	0	0	ExampleCompany:mtpl:subRiProgram:subContract1:outCoveredClaims	ultimate	59.91744861180859
+5	0	0	ExampleCompany:motorHull:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	47.06928378507931
+5	0	0	ExampleCompany:motorHull:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	109.45652879806872
+5	0	0	ExampleCompany:motorHull:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+5	0	0	ExampleCompany:motorHull:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+5	0	0	ExampleCompany:motorHull:subRiProgram:subContract1:outCoveredClaims	ultimate	46.95774377494441
+5	0	0	ExampleCompany:personalAccident:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	79.31981261901097
+5	0	0	ExampleCompany:personalAccident:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	93.01665129912004
+5	0	0	ExampleCompany:personalAccident:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+5	0	0	ExampleCompany:personalAccident:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+5	0	0	ExampleCompany:personalAccident:subRiProgram:subContract1:outCoveredClaims	ultimate	51.7009391754393
+5	0	0	ExampleCompany:property:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	34.0188646255613
+5	0	0	ExampleCompany:property:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	96.88068963777921
+5	0	0	ExampleCompany:claimsAggregator:outClaimsCeded	ultimate	197.84599784119442
+5	0	0	ExampleCompany:claimsAggregator:outClaimsGross	ultimate	659.4866594706482
+5	0	0	ExampleCompany:claimsAggregator:outClaimsNet	ultimate	461.6406616294537
+5	0	0	ExampleCompany:property:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+5	0	0	ExampleCompany:property:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+5	0	0	ExampleCompany:property:subRiProgram:subContract1:outCoveredClaims	ultimate	39.26986627900215
+6	0	0	ExampleCompany:mtpl:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	89.58459018251502
+6	0	0	ExampleCompany:mtpl:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	102.21377244644901
+6	0	0	ExampleCompany:mtpl:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+6	0	0	ExampleCompany:mtpl:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+6	0	0	ExampleCompany:mtpl:subRiProgram:subContract1:outCoveredClaims	ultimate	57.539508788689204
+6	0	0	ExampleCompany:motorHull:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	51.4351957012112
+6	0	0	ExampleCompany:motorHull:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	90.12235082079516
+6	0	0	ExampleCompany:motorHull:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+6	0	0	ExampleCompany:motorHull:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+6	0	0	ExampleCompany:motorHull:subRiProgram:subContract1:outCoveredClaims	ultimate	42.4672639566019
+6	0	0	ExampleCompany:personalAccident:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	23.544535886399153
+6	0	0	ExampleCompany:personalAccident:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	131.27767033382122
+6	0	0	ExampleCompany:personalAccident:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+6	0	0	ExampleCompany:personalAccident:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+6	0	0	ExampleCompany:personalAccident:subRiProgram:subContract1:outCoveredClaims	ultimate	46.44666186606611
+6	0	0	ExampleCompany:property:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	140.5268988381466
+6	0	0	ExampleCompany:property:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	109.12073342523686
+6	0	0	ExampleCompany:claimsAggregator:outClaimsCeded	ultimate	221.34772429037227
+6	0	0	ExampleCompany:claimsAggregator:outClaimsGross	ultimate	737.8257476345742
+6	0	0	ExampleCompany:claimsAggregator:outClaimsNet	ultimate	516.478023344202
+6	0	0	ExampleCompany:property:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+6	0	0	ExampleCompany:property:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+6	0	0	ExampleCompany:property:subRiProgram:subContract1:outCoveredClaims	ultimate	74.89428967901505
+7	0	0	ExampleCompany:mtpl:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	78.98280453650194
+7	0	0	ExampleCompany:mtpl:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	119.76685168319545
+7	0	0	ExampleCompany:mtpl:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+7	0	0	ExampleCompany:mtpl:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+7	0	0	ExampleCompany:mtpl:subRiProgram:subContract1:outCoveredClaims	ultimate	59.62489686590922
+7	0	0	ExampleCompany:motorHull:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	86.67588093152416
+7	0	0	ExampleCompany:motorHull:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	105.18773914756028
+7	0	0	ExampleCompany:motorHull:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+7	0	0	ExampleCompany:motorHull:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+7	0	0	ExampleCompany:motorHull:subRiProgram:subContract1:outCoveredClaims	ultimate	57.55908602372532
+7	0	0	ExampleCompany:personalAccident:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	20.36060187820396
+7	0	0	ExampleCompany:personalAccident:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	117.40442691709515
+7	0	0	ExampleCompany:personalAccident:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+7	0	0	ExampleCompany:personalAccident:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+7	0	0	ExampleCompany:personalAccident:subRiProgram:subContract1:outCoveredClaims	ultimate	41.32950863858973
+7	0	0	ExampleCompany:property:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	94.80296055608953
+7	0	0	ExampleCompany:property:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	92.22655952663658
+7	0	0	ExampleCompany:claimsAggregator:outClaimsCeded	ultimate	214.62234755304212
+7	0	0	ExampleCompany:claimsAggregator:outClaimsGross	ultimate	715.407825176807
+7	0	0	ExampleCompany:claimsAggregator:outClaimsNet	ultimate	500.785477623765
+7	0	0	ExampleCompany:property:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+7	0	0	ExampleCompany:property:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+7	0	0	ExampleCompany:property:subRiProgram:subContract1:outCoveredClaims	ultimate	56.108856024817825
+8	0	0	ExampleCompany:mtpl:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	83.69922512450435
+8	0	0	ExampleCompany:mtpl:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	66.51469200632359
+8	0	0	ExampleCompany:mtpl:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+8	0	0	ExampleCompany:mtpl:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+8	0	0	ExampleCompany:mtpl:subRiProgram:subContract1:outCoveredClaims	ultimate	45.06417513924838
+8	0	0	ExampleCompany:motorHull:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	24.498586743305637
+8	0	0	ExampleCompany:motorHull:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	82.69400633185938
+8	0	0	ExampleCompany:motorHull:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+8	0	0	ExampleCompany:motorHull:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+8	0	0	ExampleCompany:motorHull:subRiProgram:subContract1:outCoveredClaims	ultimate	32.1577779225495
+8	0	0	ExampleCompany:personalAccident:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	41.568416872394465
+8	0	0	ExampleCompany:personalAccident:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	110.67141524998259
+8	0	0	ExampleCompany:personalAccident:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+8	0	0	ExampleCompany:personalAccident:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+8	0	0	ExampleCompany:personalAccident:subRiProgram:subContract1:outCoveredClaims	ultimate	45.671949636713116
+8	0	0	ExampleCompany:property:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	45.456622380615904
+8	0	0	ExampleCompany:property:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	114.56102188130951
+8	0	0	ExampleCompany:claimsAggregator:outClaimsCeded	ultimate	170.89919597708865
+8	0	0	ExampleCompany:claimsAggregator:outClaimsGross	ultimate	569.6639865902955
+8	0	0	ExampleCompany:claimsAggregator:outClaimsNet	ultimate	398.76479061320686
+8	0	0	ExampleCompany:property:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+8	0	0	ExampleCompany:property:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+8	0	0	ExampleCompany:property:subRiProgram:subContract1:outCoveredClaims	ultimate	48.005293278577625
+9	0	0	ExampleCompany:mtpl:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	98.86719231485183
+9	0	0	ExampleCompany:mtpl:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	99.86447077301153
+9	0	0	ExampleCompany:mtpl:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+9	0	0	ExampleCompany:mtpl:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+9	0	0	ExampleCompany:mtpl:subRiProgram:subContract1:outCoveredClaims	ultimate	59.61949892635902
+9	0	0	ExampleCompany:motorHull:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	88.28121826545691
+9	0	0	ExampleCompany:motorHull:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	92.91076009284318
+9	0	0	ExampleCompany:motorHull:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+9	0	0	ExampleCompany:motorHull:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+9	0	0	ExampleCompany:motorHull:subRiProgram:subContract1:outCoveredClaims	ultimate	54.35759350749003
+9	0	0	ExampleCompany:personalAccident:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	49.31876854229048
+9	0	0	ExampleCompany:personalAccident:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	75.49312503477054
+9	0	0	ExampleCompany:personalAccident:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+9	0	0	ExampleCompany:personalAccident:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+9	0	0	ExampleCompany:personalAccident:subRiProgram:subContract1:outCoveredClaims	ultimate	37.4435680731183
+9	0	0	ExampleCompany:property:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	32.24903550292502
+9	0	0	ExampleCompany:property:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	89.09934188849356
+9	0	0	ExampleCompany:claimsAggregator:outClaimsCeded	ultimate	187.8251737243929
+9	0	0	ExampleCompany:claimsAggregator:outClaimsGross	ultimate	626.083912414643
+9	0	0	ExampleCompany:claimsAggregator:outClaimsNet	ultimate	438.2587386902502
+9	0	0	ExampleCompany:property:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+9	0	0	ExampleCompany:property:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+9	0	0	ExampleCompany:property:subRiProgram:subContract1:outCoveredClaims	ultimate	36.404513217425574
+10	0	0	ExampleCompany:mtpl:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	70.14240758514644
+10	0	0	ExampleCompany:mtpl:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	108.4397505159946
+10	0	0	ExampleCompany:mtpl:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+10	0	0	ExampleCompany:mtpl:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+10	0	0	ExampleCompany:mtpl:subRiProgram:subContract1:outCoveredClaims	ultimate	53.5746474303423
+10	0	0	ExampleCompany:motorHull:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	17.359663300442126
+10	0	0	ExampleCompany:motorHull:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	48.92651894088505
+10	0	0	ExampleCompany:motorHull:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+10	0	0	ExampleCompany:motorHull:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+10	0	0	ExampleCompany:motorHull:subRiProgram:subContract1:outCoveredClaims	ultimate	19.885854672398153
+10	0	0	ExampleCompany:personalAccident:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	84.90802920585878
+10	0	0	ExampleCompany:personalAccident:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	118.72090182840002
+10	0	0	ExampleCompany:personalAccident:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+10	0	0	ExampleCompany:personalAccident:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+10	0	0	ExampleCompany:personalAccident:subRiProgram:subContract1:outCoveredClaims	ultimate	61.088679310277634
+10	0	0	ExampleCompany:property:subClaimsGenerator:subSingleClaimsGenerator:subClaimsGenerator:outClaims	ultimate	67.02599992776616
+10	0	0	ExampleCompany:property:subClaimsGenerator:subAttritionalClaimsGenerator:outClaims	ultimate	67.2936142196431
+10	0	0	ExampleCompany:claimsAggregator:outClaimsCeded	ultimate	174.84506565724084
+10	0	0	ExampleCompany:claimsAggregator:outClaimsGross	ultimate	582.8168855241363
+10	0	0	ExampleCompany:claimsAggregator:outClaimsNet	ultimate	407.9718198668955
+10	0	0	ExampleCompany:property:subRiProgram:subContract3:outCoveredClaims	ultimate	0.0
+10	0	0	ExampleCompany:property:subRiProgram:subContract2:outCoveredClaims	ultimate	0.0
+10	0	0	ExampleCompany:property:subRiProgram:subContract1:outCoveredClaims	ultimate	40.295884244222776

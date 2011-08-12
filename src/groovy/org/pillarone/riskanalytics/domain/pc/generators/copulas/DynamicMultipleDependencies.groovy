@@ -3,7 +3,7 @@ package org.pillarone.riskanalytics.domain.pc.generators.copulas
 import org.pillarone.riskanalytics.core.components.DynamicComposedComponent
 import org.pillarone.riskanalytics.core.packets.PacketList
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.domain.utils.FrequencyDistributionType
@@ -21,7 +21,7 @@ public class DynamicMultipleDependencies extends DynamicComposedComponent {
                 parmFrequencyDistribution: DistributionType.getStrategy(
                         FrequencyDistributionType.CONSTANT, ["constant": 1d]),
                 parmCopulaStrategy: CopulaStrategyFactory.getCopulaStrategy(PerilCopulaType.INDEPENDENT,
-                        ["targets": new ComboBoxTableMultiDimensionalParameter([''], ['perils'], PerilMarker)]))
+                        ["targets": new ComboBoxTableMultiDimensionalParameter([''], ['perils'], IPerilMarker)]))
         return newComponent
     }
 

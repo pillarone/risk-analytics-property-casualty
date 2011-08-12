@@ -3,8 +3,8 @@ package org.pillarone.riskanalytics.domain.pc.underwriting;
 import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimFilterUtilities;
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +59,7 @@ public class UnderwritingFilterUtilities {
      * @return an underwriting info packet is added to the list of filtered underwriting info packets if the lineOfBusiness
      *         references an element of the coveredLinesOfBusiness.
      */
-    public static List<UnderwritingInfo> filterUnderwritingInfoByLob(List<UnderwritingInfo> underwritingInfos, List<LobMarker> coveredLinesOfBusiness) {
+    public static List<UnderwritingInfo> filterUnderwritingInfoByLob(List<UnderwritingInfo> underwritingInfos, List<ISegmentMarker> coveredLinesOfBusiness) {
         List<UnderwritingInfo> filterUnderwritingInfos = new ArrayList<UnderwritingInfo>(underwritingInfos.size());
         if (coveredLinesOfBusiness != null) {
             for (UnderwritingInfo underwritingInfo : underwritingInfos) {
@@ -81,12 +81,12 @@ public class UnderwritingFilterUtilities {
      *         references an element of the coveredLinesOfBusiness. The premium is scaled according to the weight of covered perils in
      *         line of business under consideration.
      */
-    public static List<UnderwritingInfo> filterUnderwritingInfoByLobAndScaleByPerilsInLob(List<UnderwritingInfo> underwritingInfos, List<LobMarker> coveredLines,
-                                                                                          List<Claim> claims, List<PerilMarker> coveredPerils) {
+    public static List<UnderwritingInfo> filterUnderwritingInfoByLobAndScaleByPerilsInLob(List<UnderwritingInfo> underwritingInfos, List<ISegmentMarker> coveredLines,
+                                                                                          List<Claim> claims, List<IPerilMarker> coveredPerils) {
 
         List<UnderwritingInfo> filteredAndScaledUnderwritingInfos = new ArrayList<UnderwritingInfo>(underwritingInfos.size());
 
-        for (LobMarker coveredLine : coveredLines) {
+        for (ISegmentMarker coveredLine : coveredLines) {
             if (coveredLine == null) continue;
             List<Claim> lobClaims = ClaimFilterUtilities.filterClaimsByLine(claims, coveredLine, false);
             double aggregatedLobClaim = 0d;
@@ -120,10 +120,10 @@ public class UnderwritingFilterUtilities {
      * same method as filterUnderwritingInfoByLob(), but the order in the result list is the same as in
      * method filterUnderwritingInfoByLobAndScaleByPerilsInLob()
      */
-    public static List<UnderwritingInfo> filterUnderwritingInfoByLobWithoutScaling(List<UnderwritingInfo> underwritingInfos, List<LobMarker> coveredLines) {
+    public static List<UnderwritingInfo> filterUnderwritingInfoByLobWithoutScaling(List<UnderwritingInfo> underwritingInfos, List<ISegmentMarker> coveredLines) {
 
         List<UnderwritingInfo> filteredUnderwritingInfos = new ArrayList<UnderwritingInfo>(underwritingInfos.size());
-        for (LobMarker coveredLine : coveredLines) {
+        for (ISegmentMarker coveredLine : coveredLines) {
             for (UnderwritingInfo underwritingInfo : underwritingInfos) {
                 if (coveredLine.equals(underwritingInfo.getLineOfBusiness())) {
                     filteredUnderwritingInfos.add(underwritingInfo);

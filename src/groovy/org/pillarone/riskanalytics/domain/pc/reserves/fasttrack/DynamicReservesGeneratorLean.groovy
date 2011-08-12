@@ -6,7 +6,7 @@ import org.pillarone.riskanalytics.core.packets.PacketList
 import org.pillarone.riskanalytics.core.packets.SingleValuePacket
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 
@@ -34,7 +34,7 @@ public class DynamicReservesGeneratorLean extends DynamicComposedComponent {
                 parmInitialReserves : 0d,
                 parmReservesModel : ReservesGeneratorStrategyType.getStrategy(
                                     ReservesGeneratorStrategyType.INITIAL_RESERVES,
-                                    ['basedOnClaimsGenerators' : new ComboBoxTableMultiDimensionalParameter([],["Claims Generators"], PerilMarker)],
+                                    ['basedOnClaimsGenerators' : new ComboBoxTableMultiDimensionalParameter([],["Claims Generators"], IPerilMarker)],
                 ));
     }
 

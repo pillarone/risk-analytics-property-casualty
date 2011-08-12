@@ -1,31 +1,31 @@
-iteration	period	path	field	value
-1	0	CorrelatedAttritionalClaims:fireClaims:outClaims	ultimate	99797.169390039
-1	0	CorrelatedAttritionalClaims:claimsAggregator:outClaims	ultimate	199611.03668823937
-1	0	CorrelatedAttritionalClaims:hullClaims:outClaims	ultimate	99813.86729820036
-2	0	CorrelatedAttritionalClaims:fireClaims:outClaims	ultimate	100129.05085668052
-2	0	CorrelatedAttritionalClaims:claimsAggregator:outClaims	ultimate	200159.09761132576
-2	0	CorrelatedAttritionalClaims:hullClaims:outClaims	ultimate	100030.04675464524
-3	0	CorrelatedAttritionalClaims:fireClaims:outClaims	ultimate	99931.61439627729
-3	0	CorrelatedAttritionalClaims:claimsAggregator:outClaims	ultimate	199910.88233009254
-3	0	CorrelatedAttritionalClaims:hullClaims:outClaims	ultimate	99979.26793381525
-4	0	CorrelatedAttritionalClaims:fireClaims:outClaims	ultimate	99837.72627787001
-4	0	CorrelatedAttritionalClaims:claimsAggregator:outClaims	ultimate	199508.95163657307
-4	0	CorrelatedAttritionalClaims:hullClaims:outClaims	ultimate	99671.22535870306
-5	0	CorrelatedAttritionalClaims:fireClaims:outClaims	ultimate	99939.42695529788
-5	0	CorrelatedAttritionalClaims:claimsAggregator:outClaims	ultimate	199718.01160952196
-5	0	CorrelatedAttritionalClaims:hullClaims:outClaims	ultimate	99778.58465422408
-6	0	CorrelatedAttritionalClaims:fireClaims:outClaims	ultimate	99915.04065238411
-6	0	CorrelatedAttritionalClaims:claimsAggregator:outClaims	ultimate	199618.50966304506
-6	0	CorrelatedAttritionalClaims:hullClaims:outClaims	ultimate	99703.46901066096
-7	0	CorrelatedAttritionalClaims:fireClaims:outClaims	ultimate	100228.96060365303
-7	0	CorrelatedAttritionalClaims:claimsAggregator:outClaims	ultimate	199895.32129505166
-7	0	CorrelatedAttritionalClaims:hullClaims:outClaims	ultimate	99666.36069139862
-8	0	CorrelatedAttritionalClaims:fireClaims:outClaims	ultimate	99925.65096791316
-8	0	CorrelatedAttritionalClaims:claimsAggregator:outClaims	ultimate	199949.2262310626
-8	0	CorrelatedAttritionalClaims:hullClaims:outClaims	ultimate	100023.57526314947
-9	0	CorrelatedAttritionalClaims:fireClaims:outClaims	ultimate	99937.06576049287
-9	0	CorrelatedAttritionalClaims:claimsAggregator:outClaims	ultimate	200053.71357894258
-9	0	CorrelatedAttritionalClaims:hullClaims:outClaims	ultimate	100116.6478184497
-10	0	CorrelatedAttritionalClaims:fireClaims:outClaims	ultimate	99814.35514007101
-10	0	CorrelatedAttritionalClaims:claimsAggregator:outClaims	ultimate	199864.1442710257
-10	0	CorrelatedAttritionalClaims:hullClaims:outClaims	ultimate	100049.78913095468
+iteration	period	valueIndex	path	field	value
+1	0	0	CorrelatedAttritionalClaims:fireClaims:outClaims	ultimate	99797.169390039
+1	0	0	CorrelatedAttritionalClaims:claimsAggregator:outClaims	ultimate	199611.03668823937
+1	0	0	CorrelatedAttritionalClaims:hullClaims:outClaims	ultimate	99813.86729820036
+2	0	0	CorrelatedAttritionalClaims:fireClaims:outClaims	ultimate	100129.05085668052
+2	0	0	CorrelatedAttritionalClaims:claimsAggregator:outClaims	ultimate	200159.09761132576
+2	0	0	CorrelatedAttritionalClaims:hullClaims:outClaims	ultimate	100030.04675464524
+3	0	0	CorrelatedAttritionalClaims:fireClaims:outClaims	ultimate	99931.61439627729
+3	0	0	CorrelatedAttritionalClaims:claimsAggregator:outClaims	ultimate	199910.88233009254
+3	0	0	CorrelatedAttritionalClaims:hullClaims:outClaims	ultimate	99979.26793381525
+4	0	0	CorrelatedAttritionalClaims:fireClaims:outClaims	ultimate	99837.72627787001
+4	0	0	CorrelatedAttritionalClaims:claimsAggregator:outClaims	ultimate	199508.95163657307
+4	0	0	CorrelatedAttritionalClaims:hullClaims:outClaims	ultimate	99671.22535870306
+5	0	0	CorrelatedAttritionalClaims:fireClaims:outClaims	ultimate	99939.42695529788
+5	0	0	CorrelatedAttritionalClaims:claimsAggregator:outClaims	ultimate	199718.01160952196
+5	0	0	CorrelatedAttritionalClaims:hullClaims:outClaims	ultimate	99778.58465422408
+6	0	0	CorrelatedAttritionalClaims:fireClaims:outClaims	ultimate	99915.04065238411
+6	0	0	CorrelatedAttritionalClaims:claimsAggregator:outClaims	ultimate	199618.50966304506
+6	0	0	CorrelatedAttritionalClaims:hullClaims:outClaims	ultimate	99703.46901066096
+7	0	0	CorrelatedAttritionalClaims:fireClaims:outClaims	ultimate	100228.96060365303
+7	0	0	CorrelatedAttritionalClaims:claimsAggregator:outClaims	ultimate	199895.32129505166
+7	0	0	CorrelatedAttritionalClaims:hullClaims:outClaims	ultimate	99666.36069139862
+8	0	0	CorrelatedAttritionalClaims:fireClaims:outClaims	ultimate	99925.65096791316
+8	0	0	CorrelatedAttritionalClaims:claimsAggregator:outClaims	ultimate	199949.2262310626
+8	0	0	CorrelatedAttritionalClaims:hullClaims:outClaims	ultimate	100023.57526314947
+9	0	0	CorrelatedAttritionalClaims:fireClaims:outClaims	ultimate	99937.06576049287
+9	0	0	CorrelatedAttritionalClaims:claimsAggregator:outClaims	ultimate	200053.71357894258
+9	0	0	CorrelatedAttritionalClaims:hullClaims:outClaims	ultimate	100116.6478184497
+10	0	0	CorrelatedAttritionalClaims:fireClaims:outClaims	ultimate	99814.35514007101
+10	0	0	CorrelatedAttritionalClaims:claimsAggregator:outClaims	ultimate	199864.1442710257
+10	0	0	CorrelatedAttritionalClaims:hullClaims:outClaims	ultimate	100049.78913095468

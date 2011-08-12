@@ -6,15 +6,16 @@ import org.apache.commons.logging.LogFactory
 
 import org.pillarone.riskanalytics.core.parameterization.validation.AbstractParameterValidationService
 import org.pillarone.riskanalytics.domain.utils.validation.ParameterValidationServiceImpl
-import org.pillarone.riskanalytics.core.parameterization.validation.ParameterValidationError
+import org.pillarone.riskanalytics.core.parameterization.validation.ParameterValidation
 import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterHolder
 import org.pillarone.riskanalytics.core.simulation.item.parameter.MultiDimensionalParameterHolder
 import org.pillarone.riskanalytics.core.parameterization.AbstractMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.IMultiDimensionalConstraints
 
-import org.pillarone.riskanalytics.domain.utils.constraints.IUnityPortion
+import org.pillarone.riskanalytics.domain.utils.constraint.IUnityPortion
 import org.pillarone.riskanalytics.domain.utils.InputFormatConverter
+import org.pillarone.riskanalytics.core.parameterization.validation.ValidationType
 
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
@@ -29,9 +30,9 @@ class UnityPortionValidator implements IParameterizationValidator {
         registerConstraints()
     }
 
-    List<ParameterValidationError> validate(List<ParameterHolder> parameters) {
+    List<ParameterValidation> validate(List<ParameterHolder> parameters) {
 
-        List<ParameterValidationError> errors = []
+        List<ParameterValidation> errors = []
 
         for (ParameterHolder parameter in parameters) {
             if (parameter instanceof MultiDimensionalParameterHolder) {
@@ -61,17 +62,18 @@ class UnityPortionValidator implements IParameterizationValidator {
             List<Double> portions = new ArrayList<Double>();
             for (int i = 1; i < type.getRowCount(); i++) {
                 if (!type.getValueAt(i, portionColumnIndex).equals("")) {
-                    portions.add(InputFormatConverter.getDouble(type.getValueAt(i, portionColumnIndex)))}
+                    portions.add(InputFormatConverter.getDouble(type.getValueAt(i, portionColumnIndex)))
+                }
             }
             int componentNameColumnIndex = type.constraints.getComponentNameColumnIndex()
             // list of portions empty and list of component references non-empty
             if (!type.getColumn(componentNameColumnIndex).isEmpty() && portions.size() == 0) {
-                return ["portion.unity.error.portions.empty"]
+                return [ValidationType.ERROR, "portion.unity.error.portions.empty"]
             }
 
             for (int i = 0; i < portions.size(); i++) {
                 if (portions[i] < 0 || portions[i] > 1) {
-                    return ["portion.unity.error.portions.not.in.unity.interval", i+1, portions[i]]
+                    return [ValidationType.ERROR, "portion.unity.error.portions.not.in.unity.interval", i + 1, portions[i]]
                 }
             }
             return

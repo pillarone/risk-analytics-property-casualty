@@ -119,7 +119,31 @@ class ConstantsDistribution extends DiscreteDistribution {
     double getStandardDeviation() {return stdDev}
 
     double[] getParams() {
-        return (double[]) [sortedValues.size(), sortedValues, probabilities]
+        int size = sortedValues.size()
+        double[] retour=new double[1+size*2]
+        retour[0]=size
+        for (int i=0; i<size;i++){
+            retour[i+1]=sortedValues[i]
+            retour[1+size+i]=probabilities[i]
+        }
+       return retour
     }
+
+     /**
+    * Returns a <TT>String</TT> containing information about the constants distribution.
+    *
+    */
+   public String toString() {
+      System.out.println(values);
+       StringBuilder sb = new StringBuilder();
+      Formatter formatter = new Formatter(sb, Locale.US);
+      formatter.format("%s%n", getClass().getSimpleName());
+      formatter.format("%s%n", "constants");
+      int i;
+      for(i = 0; i<values.size(); i++) {
+         formatter.format("%f%n", values[i]);
+      }
+      return sb.toString();
+   }
 
 }

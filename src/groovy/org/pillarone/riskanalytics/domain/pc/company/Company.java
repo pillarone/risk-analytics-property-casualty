@@ -10,7 +10,7 @@ import org.pillarone.riskanalytics.domain.pc.constraints.CompanyPortion;
 import org.pillarone.riskanalytics.domain.pc.creditrisk.DefaultProbabilities;
 import org.pillarone.riskanalytics.domain.pc.creditrisk.ReinsurerDefault;
 import org.pillarone.riskanalytics.domain.pc.lob.CompanyConfigurableLobWithReserves;
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiCompanyCoverAttributeReinsuranceContract;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
@@ -81,10 +81,6 @@ public class Company extends MultiPhaseComponent implements ICompanyMarker {
     private PacketList<Claim> outFinancialResults = new PacketList<Claim>(Claim.class);
 
 
-    /**
-     * This parameter is currently not used for any calculation. It may be used for default modeling as in DCEM.
-     * Reason for adding it: Components addable in a DynamicComposedComponent need at least one parameter.
-     */
     private Rating parmRating = Rating.NO_DEFAULT;
 
     /**
@@ -250,7 +246,7 @@ public class Company extends MultiPhaseComponent implements ICompanyMarker {
      * @return if the claim's line of business belongs to this company
      */
     private boolean isCompanyClaim(Claim claim) {
-        LobMarker lob = claim.getLineOfBusiness();
+        ISegmentMarker lob = claim.getLineOfBusiness();
         return (lob instanceof CompanyConfigurableLobWithReserves) &&
                 (((CompanyConfigurableLobWithReserves) lob).getParmCompany().getSelectedComponent() == this);
     }
@@ -260,7 +256,7 @@ public class Company extends MultiPhaseComponent implements ICompanyMarker {
      * @return if the underwriting info's line of business belongs to this company
      */
     private boolean isCompanyUnderwritingInfo(UnderwritingInfo underwritingInfo) {
-        LobMarker lob = underwritingInfo.getLineOfBusiness();
+        ISegmentMarker lob = underwritingInfo.getLineOfBusiness();
         return (lob instanceof CompanyConfigurableLobWithReserves) &&
                 (((CompanyConfigurableLobWithReserves) lob).getParmCompany().getSelectedComponent() == this);
     }

@@ -4,7 +4,8 @@ import org.pillarone.riskanalytics.core.parameterization.validation.AbstractPara
 import org.apache.commons.logging.LogFactory
 import org.apache.commons.logging.Log
 import org.pillarone.riskanalytics.domain.utils.validation.ParameterValidationServiceImpl
-import org.pillarone.riskanalytics.core.parameterization.validation.ParameterValidationError
+import org.pillarone.riskanalytics.core.parameterization.validation.ValidationType
+import org.pillarone.riskanalytics.core.parameterization.validation.ParameterValidation
 import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterHolder
 import org.pillarone.riskanalytics.core.simulation.item.parameter.MultiDimensionalParameterHolder
 import org.pillarone.riskanalytics.core.parameterization.AbstractMultiDimensionalParameter
@@ -14,8 +15,10 @@ import org.pillarone.riskanalytics.core.parameterization.validation.IParameteriz
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractStrategy
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.SurplusContractStrategy
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReverseSurplusContractStrategy
-import org.pillarone.riskanalytics.domain.utils.validation.ParameterValidationErrorImpl
+import org.pillarone.riskanalytics.domain.utils.validation.ParameterValidationImpl
 import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterObjectParameterHolder
+import org.pillarone.riskanalytics.core.parameterization.validation.ValidationType
+import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
@@ -31,13 +34,13 @@ class RiskBandsValidator implements IParameterizationValidator {
         registerConstraints()
     }
 
-    List<ParameterValidationError> validate(List<ParameterHolder> parameters) {
+    List<ParameterValidation> validate(List<ParameterHolder> parameters) {
 
-        List<ParameterValidationError> errors = []
+        List<ParameterValidation> errors = []
 
-        /** key: path */
+        /** key: path  */
         Map<String, IReinsuranceContractStrategy> surplusContracts = [:]
-        /** key: path */
+        /** key: path  */
         Map<String, TableMultiDimensionalParameter> underwritingInfos = [:]
 
         for (ParameterHolder parameter in parameters) {
@@ -57,19 +60,27 @@ class RiskBandsValidator implements IParameterizationValidator {
                     }
                 }
             }
-            else if (parameter instanceof ParameterObjectParameterHolder
-                && (parameter.getBusinessObject() instanceof SurplusContractStrategy
-                    || parameter.getBusinessObject() instanceof ReverseSurplusContractStrategy)) {
-                surplusContracts[parameter.path] = parameter.getBusinessObject()
+            else if (parameter instanceof ParameterObjectParameterHolder) {
+                try {
+                    IParameterObject parameterHolder = parameter.getBusinessObject()
+                    if (parameterHolder instanceof SurplusContractStrategy
+                        || parameterHolder instanceof ReverseSurplusContractStrategy) {
+                        surplusContracts[parameter.path] = parameterHolder
+                    }
+                }
+                catch (IllegalArgumentException ex) {
+                    // https://issuetracking.intuitive-collaboration.com/jira/browse/PMO-1542
+                    LOG.debug("call parameter.getBusinessObject() failed " + ex.toString())
+                }
             }
         }
         if (!surplusContracts.isEmpty()) {
-            for (Map.Entry<String, TableMultiDimensionalParameter> item : underwritingInfos.entrySet()) {
+            for (Map.Entry<String, TableMultiDimensionalParameter> item: underwritingInfos.entrySet()) {
                 String path = item.key
                 List<Double> numberOfPolicies = item.value.getColumnByName(RiskBands.NUMBER_OF_POLICIES)
                 for (int row = 0; row < numberOfPolicies.size(); row++) {
                     if (numberOfPolicies[row] > 0) continue
-                    ParameterValidationErrorImpl error = new ParameterValidationErrorImpl(
+                    ParameterValidationImpl error = new ParameterValidationImpl(ValidationType.ERROR,
                         'surplus.ri.needs.non.trivial.number.of.policies', [numberOfPolicies[row], row+1]
                     )
                     error.path = path
@@ -85,14 +96,14 @@ class RiskBandsValidator implements IParameterizationValidator {
         validationService.register(TableMultiDimensionalParameter) {List type ->
             Set<Double> set = new HashSet(type)
             if (set.size() != type.size()) {
-                return ["underwriting.info.value.of.max.sum.insured.not.unique"]
+                return [ValidationType.ERROR, "underwriting.info.value.of.max.sum.insured.not.unique"]
             }
             return true
         }
 
         validationService.register(TableMultiDimensionalParameter) {List type ->
             if (type.any {it < 0}) {
-                return ["underwriting.info.value.of.max.sum.insured.negative"]
+                return [ValidationType.ERROR, "underwriting.info.value.of.max.sum.insured.negative"]
             }
             return true
         }

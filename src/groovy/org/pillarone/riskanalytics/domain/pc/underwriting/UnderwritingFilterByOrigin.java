@@ -14,7 +14,7 @@ public class UnderwritingFilterByOrigin extends Component {
     private PacketList<UnderwritingInfo> outUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
 
     public void doCalculation() {
-        Component lineOfBusiness = inUnderwritingInfo.get(0).sender; // works only if this component is part of a component implementing LobMarker
+        Component lineOfBusiness = inUnderwritingInfo.get(0).sender; // works only if this component is part of a component implementing ISegmentMarker
         outUnderwritingInfo.addAll(UnderwritingFilterUtilities.filterUnderwritingInfoByOrigin(
                 inUnderwritingInfo, lineOfBusiness));
     }

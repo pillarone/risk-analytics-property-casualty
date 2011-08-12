@@ -43,7 +43,11 @@ class ConstantDistribution extends DiscreteDistribution {
     }
 
     public double[] getParams() {
-        return (double[]) [constant]
+        return (double[]) [1,constant,1.0]
+    }
+
+    public String toString() {
+        return getClass().getSimpleName() + " : constant = " + constant;
     }
 
 }

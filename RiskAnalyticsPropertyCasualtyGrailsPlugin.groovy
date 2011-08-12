@@ -1,24 +1,20 @@
-import org.pillarone.riskanalytics.domain.pc.constraints.ReservePortion
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
-import org.pillarone.riskanalytics.domain.pc.constraints.UnderwritingPortion
-import org.pillarone.riskanalytics.domain.pc.constraints.PerilPortion
 import org.pillarone.riskanalytics.core.parameterization.SimpleConstraint
 import org.pillarone.riskanalytics.domain.pc.output.AggregateDrillDownCollectingModeStrategy
 import org.pillarone.riskanalytics.core.output.CollectingModeFactory
-import org.pillarone.riskanalytics.domain.utils.constraints.DoubleConstraints
+import org.pillarone.riskanalytics.domain.utils.constraint.DoubleConstraints
 import org.pillarone.riskanalytics.domain.pc.constraints.CompanyPortion
 import org.pillarone.riskanalytics.core.parameterization.validation.ValidatorRegistry
-import org.pillarone.riskanalytics.domain.utils.validation.DistributionTypeValidator
+import org.pillarone.riskanalytics.domain.utils.validation.DistributionTypeValidatorPC
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.validation.CommissionStrategyTypeValidator
 import org.pillarone.riskanalytics.domain.pc.generators.claims.validation.ClaimsGeneratorStrategyValidator
 import org.pillarone.riskanalytics.domain.pc.constraints.validation.UnityPortionValidator
 import org.pillarone.riskanalytics.domain.pc.validation.UnityDoubleValidator
-import org.pillarone.riskanalytics.domain.pc.constraints.SegmentPortion
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.validation.XLStrategyValidator
 import org.pillarone.riskanalytics.domain.pc.filter.SegmentFilterValidator
 import org.pillarone.riskanalytics.core.util.ResourceBundleRegistry
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.validation.DependencyMatrixValidator
-import org.pillarone.riskanalytics.domain.utils.constraints.DateTimeConstraints
+import org.pillarone.riskanalytics.domain.utils.constraint.DateTimeConstraints
 import org.pillarone.riskanalytics.domain.pc.underwriting.validation.RiskBandsValidator
 import org.pillarone.riskanalytics.domain.pc.generators.claims.validation.TypableClaimsGeneratorValidator
 
@@ -61,17 +57,11 @@ class RiskAnalyticsPropertyCasualtyGrailsPlugin {
 
     def doWithApplicationContext = {applicationContext ->
         CollectingModeFactory.registerStrategy(new AggregateDrillDownCollectingModeStrategy())
-
-        ConstraintsFactory.registerConstraint(new SimpleConstraint())
-        ConstraintsFactory.registerConstraint(new PerilPortion())
-        ConstraintsFactory.registerConstraint(new SegmentPortion())
-        ConstraintsFactory.registerConstraint(new CompanyPortion())
-        ConstraintsFactory.registerConstraint(new UnderwritingPortion())
-        ConstraintsFactory.registerConstraint(new ReservePortion())
         ConstraintsFactory.registerConstraint(new DoubleConstraints())
-        ConstraintsFactory.registerConstraint(new DateTimeConstraints())
+        ConstraintsFactory.registerConstraint(new SimpleConstraint())
+        ConstraintsFactory.registerConstraint(new CompanyPortion())
 
-        ValidatorRegistry.addValidator(new DistributionTypeValidator())
+        ValidatorRegistry.addValidator(new DistributionTypeValidatorPC())
 //        ValidatorRegistry.addValidator(new SurplusStrategyValidator())
         ValidatorRegistry.addValidator(new CommissionStrategyTypeValidator())
         ValidatorRegistry.addValidator(new ClaimsGeneratorStrategyValidator())

@@ -16,8 +16,8 @@ import org.pillarone.riskanalytics.domain.pc.claims.TestLobComponent
 import org.pillarone.riskanalytics.domain.pc.claims.TestPerilComponent
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
 import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiCoverAttributeReinsuranceContractTests
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cashflow.cover.CoverAttributeStrategyType
@@ -27,8 +27,8 @@ import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopment
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.*
 import org.pillarone.riskanalytics.core.components.Component
-import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker
 import org.pillarone.riskanalytics.domain.pc.generators.severities.Event
+import org.pillarone.riskanalytics.domain.utils.marker.IReserveMarker
 
 /**
  * @author stefan.kunz & ben.ginsberg (at) intuitive-collaboration (dot) com
@@ -130,8 +130,8 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         boolean hasLines = cover.containsKey('lines')
         boolean hasPerils = cover.containsKey('perils')
 
-        ComboBoxTableMultiDimensionalParameter lines = hasLines ? new ComboBoxTableMultiDimensionalParameter(cover['lines'], ['Covered Segments'], LobMarker) : null
-        ComboBoxTableMultiDimensionalParameter perils = hasPerils ? new ComboBoxTableMultiDimensionalParameter(cover['perils'], ['Covered Perils'], PerilMarker) : null
+        ComboBoxTableMultiDimensionalParameter lines = hasLines ? new ComboBoxTableMultiDimensionalParameter(cover['lines'], ['Covered Segments'], ISegmentMarker) : null
+        ComboBoxTableMultiDimensionalParameter perils = hasPerils ? new ComboBoxTableMultiDimensionalParameter(cover['perils'], ['Covered Perils'], IPerilMarker) : null
 
         // each of the strategy-specific ComboBoxTableMultiDimensionalParameter properties needs to set the simulation model (to simulate a choice from the GUI)
         if (model != null) {
@@ -645,34 +645,34 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         assertEquals "net commission", "16.0, 21.0, 16.5, 21.5", (contract.outNetAfterCoverUnderwritingInfo.collect {it.commission}).join(", ")
     }
 
-    private ClaimDevelopmentLeanPacket getClaim(PerilMarker peril, LobMarker lob, double ultimate, double paid,
+    private ClaimDevelopmentLeanPacket getClaim(IPerilMarker peril, ISegmentMarker lob, double ultimate, double paid,
                                                 double fractionOfPeriod, Component origin, Event event,
                                                 Claim originalClaim) {
         ClaimDevelopmentLeanPacket claim = new ClaimDevelopmentLeanPacket(ultimate: ultimate, paid: paid,
                 fractionOfPeriod: fractionOfPeriod, origin: origin, event: event, originalClaim: originalClaim)
-        claim.addMarker(PerilMarker, peril)
-        claim.addMarker(LobMarker, lob)
+        claim.addMarker(IPerilMarker, peril)
+        claim.addMarker(ISegmentMarker, lob)
         claim
     }
 
-    private Claim getClaim(PerilMarker peril, LobMarker lob, double ultimate, double fractionOfPeriod, ClaimType claimType) {
+    private Claim getClaim(IPerilMarker peril, ISegmentMarker lob, double ultimate, double fractionOfPeriod, ClaimType claimType) {
         Claim claim = new Claim(ultimate: ultimate, fractionOfPeriod: fractionOfPeriod, claimType: claimType)
-        claim.addMarker(PerilMarker, peril)
-        claim.addMarker(LobMarker, lob)
+        claim.addMarker(IPerilMarker, peril)
+        claim.addMarker(ISegmentMarker, lob)
         claim
     }
 
-    private Claim getClaim(PerilMarker peril, LobMarker lob, double ultimate) {
+    private Claim getClaim(IPerilMarker peril, ISegmentMarker lob, double ultimate) {
         Claim claim = new Claim(ultimate: ultimate)
-        claim.addMarker(PerilMarker, peril)
-        claim.addMarker(LobMarker, lob)
+        claim.addMarker(IPerilMarker, peril)
+        claim.addMarker(ISegmentMarker, lob)
         claim
     }
 
-    private Claim getClaim(IReserveMarker reserve, LobMarker lob, double ultimate) {
+    private Claim getClaim(IReserveMarker reserve, ISegmentMarker lob, double ultimate) {
         Claim claim = new Claim(ultimate: ultimate)
         claim.addMarker(IReserveMarker, reserve)
-        claim.addMarker(LobMarker, lob)
+        claim.addMarker(ISegmentMarker, lob)
         claim
     }
 }

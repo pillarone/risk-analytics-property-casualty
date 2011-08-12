@@ -5,16 +5,14 @@ import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.components.IComponentMarker;
 import org.pillarone.riskanalytics.core.packets.Packet;
 import org.pillarone.riskanalytics.core.packets.PacketList;
-import org.pillarone.riskanalytics.core.packets.SingleValuePacket;
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter;
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory;
 import org.pillarone.riskanalytics.core.util.GroovyUtils;
-import org.pillarone.riskanalytics.domain.pc.constraints.PerilPortion;
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
-import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
 import org.pillarone.riskanalytics.domain.utils.InputFormatConverter;
+import org.pillarone.riskanalytics.domain.utils.constraint.PerilPortion;
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,7 +41,7 @@ public class MarketToLineOfBusinessClaims extends Component {
             List<Claim> lobClaims = new ArrayList<Claim>();
             int portionColumn = parmPortions.getColumnIndex(PORTION);
             Component lineOfBusiness = inClaims.get(0).sender;
-            if (!(lineOfBusiness instanceof LobMarker)) {
+            if (!(lineOfBusiness instanceof ISegmentMarker)) {
                 throw new IllegalArgumentException("MarketToLineOfBusinessClaims.componentMismatch");
             }
             for (Claim marketClaim : inClaims) {
@@ -53,7 +51,7 @@ public class MarketToLineOfBusinessClaims extends Component {
                 // PMO-750: claim mergers in reinsurance program won't work with reference to market claims
                 lobClaim.setOriginalClaim(lobClaim);
                 lobClaim.origin = lineOfBusiness;
-                lobClaim.addMarker(LobMarker.class, (IComponentMarker) lineOfBusiness);
+                lobClaim.addMarker(ISegmentMarker.class, (IComponentMarker) lineOfBusiness);
                 lobClaim.scale(InputFormatConverter.getDouble(parmPortions.getValueAt(row + 1, portionColumn)));
                 lobClaims.add(lobClaim);
                 if (lobClaim instanceof ClaimDevelopmentLeanPacket) {
@@ -72,7 +70,7 @@ public class MarketToLineOfBusinessClaims extends Component {
                 for (Object claim : source) {
                     String originName = ((Packet) claim).origin.getNormalizedName();
                     int row = parmPortions.getColumnByName(PERIL).indexOf(originName);
-                    if (row > -1 && ((Claim) claim).getPeril() instanceof PerilMarker) {
+                    if (row > -1 && ((Claim) claim).getPeril() instanceof IPerilMarker) {
                         inClaims.add((Claim) claim);
                     }
                 }

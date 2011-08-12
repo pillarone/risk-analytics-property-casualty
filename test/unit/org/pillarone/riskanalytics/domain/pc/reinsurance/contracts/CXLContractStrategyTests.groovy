@@ -280,10 +280,10 @@ class CXLContractStrategyTests extends GroovyTestCase {
 
         double usedReinstatements = 7 / 3
 
-        assertEquals "premium written", cxl.parmContractStrategy.premium * (1 + cxl.parmContractStrategy.reinstatementPremiums.values[0] * usedReinstatements),
+        assertEquals "premium written", cxl.parmContractStrategy.premium * (1 + cxl.parmContractStrategy.reinstatementPremiums.values[0][0] * usedReinstatements),
                 cxl.outCoverUnderwritingInfo[0].premium, 1e-6
         assertEquals "premium fixed", cxl.parmContractStrategy.premium, cxl.outCoverUnderwritingInfo[0].fixedPremium, 1e-6
-        assertEquals "premium variable", cxl.parmContractStrategy.premium * cxl.parmContractStrategy.reinstatementPremiums.values[0] * usedReinstatements,
+        assertEquals "premium variable", cxl.parmContractStrategy.premium * cxl.parmContractStrategy.reinstatementPremiums.values[0][0] * usedReinstatements,
                 cxl.outCoverUnderwritingInfo[0].variablePremium, 1e-6
     }
 
@@ -299,7 +299,7 @@ class CXLContractStrategyTests extends GroovyTestCase {
 
         double usedReinstatements = 0d
 
-        assertEquals "premium written", cxl.parmContractStrategy.premium * (1 + cxl.parmContractStrategy.reinstatementPremiums.values[0] * usedReinstatements),
+        assertEquals "premium written", cxl.parmContractStrategy.premium * (1 + cxl.parmContractStrategy.reinstatementPremiums.values[0][0] * usedReinstatements),
                 cxl.outCoverUnderwritingInfo[0].premium, 1e-6
         assertEquals "premium fixed", cxl.parmContractStrategy.premium, cxl.outCoverUnderwritingInfo[0].fixedPremium, 1e-6
         assertEquals "premium variable", 0d, cxl.outCoverUnderwritingInfo[0].variablePremium, 1e-6
@@ -317,10 +317,10 @@ class CXLContractStrategyTests extends GroovyTestCase {
 
         double usedReinstatements = 1d / 3d
 
-        assertEquals "premium written", cxl.parmContractStrategy.premium * (1 + cxl.parmContractStrategy.reinstatementPremiums.values[0] * usedReinstatements),
+        assertEquals "premium written", cxl.parmContractStrategy.premium * (1 + cxl.parmContractStrategy.reinstatementPremiums.values[0][0] * usedReinstatements),
                 cxl.outCoverUnderwritingInfo[0].premium, 1e-6
         assertEquals "premium fixed", cxl.parmContractStrategy.premium, cxl.outCoverUnderwritingInfo[0].fixedPremium, 1e-6
-        assertEquals "premium variable", cxl.parmContractStrategy.premium * cxl.parmContractStrategy.reinstatementPremiums.values[0] * usedReinstatements,
+        assertEquals "premium variable", cxl.parmContractStrategy.premium * cxl.parmContractStrategy.reinstatementPremiums.values[0][0] * usedReinstatements,
                 cxl.outCoverUnderwritingInfo[0].variablePremium, 1e-6
     }
 
@@ -336,10 +336,10 @@ class CXLContractStrategyTests extends GroovyTestCase {
 
         double usedReinstatements = 1d
 
-        assertEquals "premium written", cxl.parmContractStrategy.premium * (1 + cxl.parmContractStrategy.reinstatementPremiums.values[0] * usedReinstatements),
+        assertEquals "premium written", cxl.parmContractStrategy.premium * (1 + cxl.parmContractStrategy.reinstatementPremiums.values[0][0] * usedReinstatements),
                 cxl.outCoverUnderwritingInfo[0].premium, 1e-6
         assertEquals "premium fixed", cxl.parmContractStrategy.premium, cxl.outCoverUnderwritingInfo[0].fixedPremium, 1e-6
-        assertEquals "premium variable", cxl.parmContractStrategy.premium * cxl.parmContractStrategy.reinstatementPremiums.values[0],
+        assertEquals "premium variable", cxl.parmContractStrategy.premium * cxl.parmContractStrategy.reinstatementPremiums.values[0][0],
                 cxl.outCoverUnderwritingInfo[0].variablePremium, 1e-6
     }
 
@@ -355,10 +355,10 @@ class CXLContractStrategyTests extends GroovyTestCase {
 
         double usedReinstatements = 1.5
 
-        assertEquals "premium written", cxl.parmContractStrategy.premium * (1 + cxl.parmContractStrategy.reinstatementPremiums.values[0] * usedReinstatements),
+        assertEquals "premium written", cxl.parmContractStrategy.premium * (1 + cxl.parmContractStrategy.reinstatementPremiums.values[0][0] * usedReinstatements),
                 cxl.outCoverUnderwritingInfo[0].premium, 1e-6
         assertEquals "premium fixed", cxl.parmContractStrategy.premium, cxl.outCoverUnderwritingInfo[0].fixedPremium, 1e-6
-        assertEquals "premium variable", cxl.parmContractStrategy.premium * cxl.parmContractStrategy.reinstatementPremiums.values[0] * usedReinstatements,
+        assertEquals "premium variable", cxl.parmContractStrategy.premium * cxl.parmContractStrategy.reinstatementPremiums.values[0][0] * usedReinstatements,
                 cxl.outCoverUnderwritingInfo[0].variablePremium, 1e-6
     }
 }

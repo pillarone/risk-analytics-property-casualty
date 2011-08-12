@@ -15,7 +15,7 @@ public class ClaimsFilterByOrigin extends Component {
 
 
     public void doCalculation() {
-        Component lineOfBusiness = inClaims.get(0).sender; // works only if this component is part of a component implementing LobMarker
+        Component lineOfBusiness = inClaims.get(0).sender; // works only if this component is part of a component implementing ISegmentMarker
         outClaims.addAll(ClaimFilterUtilities.filterClaimsByOrigin(inClaims, lineOfBusiness));
     }
 

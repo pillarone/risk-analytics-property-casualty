@@ -4,13 +4,13 @@ import org.pillarone.riskanalytics.core.components.PeriodStore;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimFilterUtilities;
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.ICoverAttributeStrategy;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.ILinesOfBusinessCoverAttributeStrategy;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.IPerilCoverAttributeStrategy;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.IReservesCoverAttributeStrategy;
-import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IReserveMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 
 import java.util.List;
 
@@ -25,30 +25,30 @@ public class FilterUtils {
     private static final String COVERED_RESERVES = "covered reserves";
 
 
-    public static List<LobMarker> getCoveredLines(ComboBoxTableMultiDimensionalParameter parmCovered,
+    public static List<ISegmentMarker> getCoveredLines(ComboBoxTableMultiDimensionalParameter parmCovered,
                                                   PeriodStore periodStore) {
-        List<LobMarker> coveredLines = (List<LobMarker>) periodStore.get(COVERED_LINES);
+        List<ISegmentMarker> coveredLines = (List<ISegmentMarker>) periodStore.get(COVERED_LINES);
         if (coveredLines == null) {
-            coveredLines = parmCovered.getValuesAsObjects();
+            coveredLines = parmCovered.getValuesAsObjects(0, false);
             periodStore.put(COVERED_LINES, coveredLines);
         }
         return coveredLines;
     }
 
-    public static List<LobMarker> getCoveredLines(ICoverAttributeStrategy parmCovered, PeriodStore periodStore) {
-        List<LobMarker> coveredLines = (List<LobMarker>) periodStore.get(COVERED_LINES);
+    public static List<ISegmentMarker> getCoveredLines(ICoverAttributeStrategy parmCovered, PeriodStore periodStore) {
+        List<ISegmentMarker> coveredLines = (List<ISegmentMarker>) periodStore.get(COVERED_LINES);
         if (coveredLines == null && parmCovered instanceof ILinesOfBusinessCoverAttributeStrategy) {
-            coveredLines = ((ILinesOfBusinessCoverAttributeStrategy) parmCovered).getLines().getValuesAsObjects();
+            coveredLines = ((ILinesOfBusinessCoverAttributeStrategy) parmCovered).getLines().getValuesAsObjects(0, false);
             periodStore.put(COVERED_LINES, coveredLines);
         }
         return coveredLines;
     }
 
-    public static List<LobMarker> getCoveredLines(ComboBoxTableMultiDimensionalParameter parmCovered,
+    public static List<ISegmentMarker> getCoveredLines(ComboBoxTableMultiDimensionalParameter parmCovered,
                                                   PacketList channel, PeriodStore periodStore) {
-        List<LobMarker> coveredLines = (List<LobMarker>) periodStore.get(COVERED_LINES);
+        List<ISegmentMarker> coveredLines = (List<ISegmentMarker>) periodStore.get(COVERED_LINES);
         if (coveredLines == null) {
-            coveredLines = parmCovered.getValuesAsObjects();
+            coveredLines = parmCovered.getValuesAsObjects(0, false);
             periodStore.put(COVERED_LINES, coveredLines);
             if (coveredLines.isEmpty()) {
                 coveredLines = ClaimFilterUtilities.getLinesOfBusiness(channel);
@@ -58,20 +58,20 @@ public class FilterUtils {
         return coveredLines;
     }
 
-    public static List<PerilMarker> getCoveredPerils(ComboBoxTableMultiDimensionalParameter parmCovered,
+    public static List<IPerilMarker> getCoveredPerils(ComboBoxTableMultiDimensionalParameter parmCovered,
                                                      PeriodStore periodStore) {
-        List<PerilMarker> coveredPerils = (List<PerilMarker>) periodStore.get(COVERED_PERILS);
+        List<IPerilMarker> coveredPerils = (List<IPerilMarker>) periodStore.get(COVERED_PERILS);
         if (coveredPerils == null) {
-            coveredPerils = parmCovered.getValuesAsObjects();
+            coveredPerils = parmCovered.getValuesAsObjects(0, false);
             periodStore.put(COVERED_PERILS, coveredPerils);
         }
         return coveredPerils;
     }
 
-    public static List<PerilMarker> getCoveredPerils(ICoverAttributeStrategy parmCovered, PeriodStore periodStore) {
-        List<PerilMarker> coveredPerils = (List<PerilMarker>) periodStore.get(COVERED_PERILS);
+    public static List<IPerilMarker> getCoveredPerils(ICoverAttributeStrategy parmCovered, PeriodStore periodStore) {
+        List<IPerilMarker> coveredPerils = (List<IPerilMarker>) periodStore.get(COVERED_PERILS);
         if (coveredPerils == null && parmCovered instanceof IPerilCoverAttributeStrategy) {
-            coveredPerils = ((IPerilCoverAttributeStrategy) parmCovered).getPerils().getValuesAsObjects();
+            coveredPerils = ((IPerilCoverAttributeStrategy) parmCovered).getPerils().getValuesAsObjects(0, false);
             periodStore.put(COVERED_PERILS, coveredPerils);
         }
         return coveredPerils;
@@ -81,7 +81,7 @@ public class FilterUtils {
                                                           PeriodStore periodStore) {
         List<IReserveMarker> coveredReserves = (List<IReserveMarker>) periodStore.get(COVERED_RESERVES);
         if (coveredReserves == null) {
-            coveredReserves = parmCovered.getValuesAsObjects();
+            coveredReserves = parmCovered.getValuesAsObjects(0, false);
             periodStore.put(COVERED_RESERVES, coveredReserves);
         }
         return coveredReserves;
@@ -90,7 +90,7 @@ public class FilterUtils {
     public static List<IReserveMarker> getCoveredReserves(ICoverAttributeStrategy parmCovered, PeriodStore periodStore) {
         List<IReserveMarker> coveredReserves = (List<IReserveMarker>) periodStore.get(COVERED_RESERVES);
         if (coveredReserves == null && parmCovered instanceof IReservesCoverAttributeStrategy) {
-            coveredReserves = ((IReservesCoverAttributeStrategy) parmCovered).getReserves().getValuesAsObjects();
+            coveredReserves = ((IReservesCoverAttributeStrategy) parmCovered).getReserves().getValuesAsObjects(0, false);
             periodStore.put(COVERED_RESERVES, coveredReserves);
         }
         return coveredReserves;

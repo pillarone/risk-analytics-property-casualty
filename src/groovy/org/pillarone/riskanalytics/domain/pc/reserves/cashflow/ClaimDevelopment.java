@@ -10,8 +10,8 @@ import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimFilterUtilities;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimPacketFactory;
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType;
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
-import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IReserveMarker;
 
 import java.util.*;
 
@@ -35,7 +35,7 @@ public class ClaimDevelopment extends Component implements IReserveMarker {
     private PacketList<ClaimDevelopmentWithIBNRPacket> outClaimsDevelopmentWithIBNR = new PacketList<ClaimDevelopmentWithIBNRPacket>(ClaimDevelopmentWithIBNRPacket.class);     // todo(sku): remove as soon as PMO-648 is resolved
 
     private ComboBoxTableMultiDimensionalParameter parmAppliedOnPerils = new ComboBoxTableMultiDimensionalParameter(
-        Arrays.asList(""), Arrays.asList("peril"), PerilMarker.class);
+        Arrays.asList(""), Arrays.asList("peril"), IPerilMarker.class);
     private IPatternStrategy parmPayoutPattern = PatternStrategyType.getStrategy(PatternStrategyType.NONE, Collections.emptyMap());
     private IPatternStrategy parmReportedPattern = PatternStrategyType.getStrategy(PatternStrategyType.NONE, Collections.emptyMap());
     private IHistoricClaimsStrategy parmActualClaims = HistoricClaimsStrategyType.getStrategy(HistoricClaimsStrategyType.NONE, Collections.emptyMap());
@@ -43,8 +43,8 @@ public class ClaimDevelopment extends Component implements IReserveMarker {
 
     protected void doCalculation() {
         int currentPeriod = periodScope.getCurrentPeriod();
-        Pattern payoutPattern = new Pattern(parmPayoutPattern);
-        Pattern reportedPattern = new Pattern(parmReportedPattern);
+        IPattern payoutPattern = new Pattern(parmPayoutPattern);
+        IPattern reportedPattern = new Pattern(parmReportedPattern);
         if (periodScope.isFirstPeriod()) {
             developmentWithIBNR = !reportedPattern.isTrivial();
             processHistoricClaims(payoutPattern, reportedPattern);
@@ -66,7 +66,7 @@ public class ClaimDevelopment extends Component implements IReserveMarker {
         }
     }
 
-    private void processHistoricClaims(Pattern payoutPattern, Pattern reportedPattern) {
+    private void processHistoricClaims(IPattern payoutPattern, IPattern reportedPattern) {
         if (parmActualClaims.getType().equals(HistoricClaimsStrategyType.NONE)) {
             return;
         }
@@ -78,7 +78,7 @@ public class ClaimDevelopment extends Component implements IReserveMarker {
         }
     }
 
-    private void processHistoricLastPaidClaims(Pattern payoutPattern, Pattern reportedPattern) {
+    private void processHistoricLastPaidClaims(IPattern payoutPattern, IPattern reportedPattern) {
         if (!reportedPattern.isTrivial()) {
             for (Map.Entry<Integer, Double> entry : parmActualClaims.getDiagonalValues().entrySet()) {
                 int developmentPeriod = entry.getKey();
@@ -100,7 +100,7 @@ public class ClaimDevelopment extends Component implements IReserveMarker {
         }
     }
 
-    private void processHistoricLastReportedClaims(Pattern payoutPattern, Pattern reportedPattern) {
+    private void processHistoricLastReportedClaims(IPattern payoutPattern, IPattern reportedPattern) {
         if (!developmentWithIBNR) {
             throw new IllegalArgumentException("ClaimDevelopment.mismatchHistoricClaimsAndPatterns");
         }
@@ -112,16 +112,16 @@ public class ClaimDevelopment extends Component implements IReserveMarker {
         }
     }
 
-    private double differencePaidReportedPatternProduct(Pattern payoutPattern, Pattern reportedPattern, int developmentPeriod) {
+    private double differencePaidReportedPatternProduct(IPattern payoutPattern, IPattern reportedPattern, int developmentPeriod) {
         return paidReportedPatternProduct(payoutPattern, reportedPattern, developmentPeriod)
                                       - (paidReportedPatternProduct(payoutPattern, reportedPattern, developmentPeriod-1));
     }
 
-    private double paidReportedPatternProduct(Pattern payoutPattern, Pattern reportedPattern, int developmentPeriod) {
+    private double paidReportedPatternProduct(IPattern payoutPattern, IPattern reportedPattern, int developmentPeriod) {
         return payoutPattern.cumulativeFactor(developmentPeriod) * reportedPattern.cumulativeFactor(developmentPeriod);
     }
 
-    private void applyPatternOnReservesAndFillPeriodStore(double incurredClaim, Pattern payoutPattern, Pattern reportedPattern, int developmentPeriod) {
+    private void applyPatternOnReservesAndFillPeriodStore(double incurredClaim, IPattern payoutPattern, IPattern reportedPattern, int developmentPeriod) {
         Claim claim = ClaimPacketFactory.createPacket();
         claim.setUltimate(incurredClaim);
         claim.setClaimType(ClaimType.AGGREGATED_RESERVES);
@@ -133,7 +133,7 @@ public class ClaimDevelopment extends Component implements IReserveMarker {
         }
     }
 
-    private List<ClaimDevelopmentWithIBNRPacket> applyPatternOnReserves(Claim claim, Pattern payoutPattern, Pattern reportedPattern, int currentPeriod) {
+    private List<ClaimDevelopmentWithIBNRPacket> applyPatternOnReserves(Claim claim, IPattern payoutPattern, IPattern reportedPattern, int currentPeriod) {
         List<ClaimDevelopmentWithIBNRPacket> claims = new ArrayList<ClaimDevelopmentWithIBNRPacket>();
         double ultimate = claim.getUltimate();
         for (int developmentPeriod = -currentPeriod; developmentPeriod < payoutPattern.size(); developmentPeriod++) {
@@ -151,7 +151,7 @@ public class ClaimDevelopment extends Component implements IReserveMarker {
         return claims;
     }
 
-    private List<ClaimDevelopmentPacket> applyPatternOnReserves(Claim claim, Pattern payoutPattern, int currentPeriod) {
+    private List<ClaimDevelopmentPacket> applyPatternOnReserves(Claim claim, IPattern payoutPattern, int currentPeriod) {
         List<ClaimDevelopmentPacket> claims = new ArrayList<ClaimDevelopmentPacket>();
         double ultimate = claim.getUltimate();
         for (int developmentPeriod = -currentPeriod; developmentPeriod < payoutPattern.size(); developmentPeriod++) {
@@ -166,7 +166,7 @@ public class ClaimDevelopment extends Component implements IReserveMarker {
         return claims;
     }
 
-    private void applyPatternOnNewClaimsAndFillPeriodStore(List<Claim> claims, Pattern payoutPattern, Pattern reportedPattern, int currentPeriod) {
+    private void applyPatternOnNewClaimsAndFillPeriodStore(List<Claim> claims, IPattern payoutPattern, IPattern reportedPattern, int currentPeriod) {
         if (developmentWithIBNR) {
             for (Claim claim : claims) {
                 fillPeriodStore(applyPatternOnNewClaims(claim, payoutPattern, reportedPattern, currentPeriod));
@@ -179,7 +179,7 @@ public class ClaimDevelopment extends Component implements IReserveMarker {
         }
     }
 
-    private List<ClaimDevelopmentWithIBNRPacket> applyPatternOnNewClaims(Claim claim, Pattern payoutPattern, Pattern reportedPattern, int currentPeriod) {
+    private List<ClaimDevelopmentWithIBNRPacket> applyPatternOnNewClaims(Claim claim, IPattern payoutPattern, IPattern reportedPattern, int currentPeriod) {
         List<ClaimDevelopmentWithIBNRPacket> claims = new ArrayList<ClaimDevelopmentWithIBNRPacket>(payoutPattern.size());
         if (payoutPattern.size() == 0 || payoutPattern.getCumulativeValues().get(0) == 1) {
             ClaimDevelopmentWithIBNRPacket claimDeveloped = ClaimDevelopmentWithIBNRPacketFactory.createPacket();
@@ -231,7 +231,7 @@ public class ClaimDevelopment extends Component implements IReserveMarker {
         return claims;
     }
 
-    private List<ClaimDevelopmentPacket> applyPatternOnNewClaims(Claim claim, Pattern payoutPattern, int currentPeriod) {
+    private List<ClaimDevelopmentPacket> applyPatternOnNewClaims(Claim claim, IPattern payoutPattern, int currentPeriod) {
         List<ClaimDevelopmentPacket> claims = new ArrayList<ClaimDevelopmentPacket>(payoutPattern.size());
         if (payoutPattern.size() == 0 || payoutPattern.getCumulativeValues().get(0) == 1) {
             ClaimDevelopmentPacket claimDeveloped = ClaimDevelopmentPacketFactory.createPacket();
@@ -276,7 +276,7 @@ public class ClaimDevelopment extends Component implements IReserveMarker {
      * @return claims produced by covered perils
      */
     private List<Claim> filteredClaims() {
-        List<PerilMarker> coveredPerils = parmAppliedOnPerils.getValuesAsObjects();
+        List<IPerilMarker> coveredPerils = (List<IPerilMarker>) parmAppliedOnPerils.getValuesAsObjects(0, true);
         return ClaimFilterUtilities.filterClaimsByPeril(inClaims, coveredPerils);
     }
 

@@ -24,11 +24,11 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingSegment
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.PremiumAllocationType
 import org.pillarone.riskanalytics.domain.pc.generators.claims.DevelopedTypableClaimsGenerator
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
-import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker
 import org.pillarone.riskanalytics.domain.pc.generators.severities.Event
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IReserveMarker
 
 /**
  * @author shartmann (at) munichre (dot) com
@@ -526,34 +526,34 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
         assertEquals "program, commission on net premium", 104.6, programPremiumNet[0].commission
     }
 
-     private static ClaimDevelopmentLeanPacket getClaim(PerilMarker peril, LobMarker lob, double ultimate, double paid,
+     private static ClaimDevelopmentLeanPacket getClaim(IPerilMarker peril, ISegmentMarker lob, double ultimate, double paid,
                                                 double fractionOfPeriod, Component origin, Event event,
                                                 Claim originalClaim) {
         ClaimDevelopmentLeanPacket claim = new ClaimDevelopmentLeanPacket(ultimate: ultimate, paid: paid,
                 fractionOfPeriod: fractionOfPeriod, origin: origin, event: event, originalClaim: originalClaim)
-        claim.addMarker(PerilMarker, peril)
-        claim.addMarker(LobMarker, lob)
+        claim.addMarker(IPerilMarker, peril)
+        claim.addMarker(ISegmentMarker, lob)
         claim
     }
 
-    private static Claim getClaim(PerilMarker peril, LobMarker lob, double ultimate, double fractionOfPeriod, ClaimType claimType, Claim originalClaim) {
+    private static Claim getClaim(IPerilMarker peril, ISegmentMarker lob, double ultimate, double fractionOfPeriod, ClaimType claimType, Claim originalClaim) {
         Claim claim = new Claim(ultimate: ultimate, fractionOfPeriod: fractionOfPeriod, claimType: claimType, originalClaim: originalClaim)
-        claim.addMarker(PerilMarker, peril)
-        claim.addMarker(LobMarker, lob)
+        claim.addMarker(IPerilMarker, peril)
+        claim.addMarker(ISegmentMarker, lob)
         claim
     }
 
-    private static Claim getClaim(PerilMarker peril, LobMarker lob, double ultimate) {
+    private static Claim getClaim(IPerilMarker peril, ISegmentMarker lob, double ultimate) {
         Claim claim = new Claim(ultimate: ultimate)
-        claim.addMarker(PerilMarker, peril)
-        claim.addMarker(LobMarker, lob)
+        claim.addMarker(IPerilMarker, peril)
+        claim.addMarker(ISegmentMarker, lob)
         claim
     }
 
-    private static Claim getClaim(IReserveMarker reserve, LobMarker lob, double ultimate) {
+    private static Claim getClaim(IReserveMarker reserve, ISegmentMarker lob, double ultimate) {
         Claim claim = new Claim(ultimate: ultimate)
         claim.addMarker(IReserveMarker, reserve)
-        claim.addMarker(LobMarker, lob)
+        claim.addMarker(ISegmentMarker, lob)
         claim
     }
 

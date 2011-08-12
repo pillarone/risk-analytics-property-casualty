@@ -8,6 +8,7 @@ import org.pillarone.riskanalytics.domain.pc.constants.Exposure
 import org.pillarone.riskanalytics.domain.pc.generators.frequency.Frequency
 import org.pillarone.riskanalytics.domain.pc.generators.severities.Severity
 import org.pillarone.riskanalytics.domain.utils.*
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
 import org.pillarone.riskanalytics.core.components.ComponentCategory
 import org.pillarone.riskanalytics.core.wiring.WiringValidation
 
@@ -25,7 +26,7 @@ import org.pillarone.riskanalytics.core.wiring.WiringValidation
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 @ComponentCategory(categories = ['CLAIM','GENERATOR','SINGLE'])
-class SingleClaimsGenerator extends ClaimsGenerator implements PerilMarker {
+class SingleClaimsGenerator extends ClaimsGenerator implements IPerilMarker {
 
     IRandomNumberGenerator generator
 

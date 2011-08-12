@@ -8,7 +8,7 @@ import org.pillarone.riskanalytics.core.util.GroovyUtils;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo;
 import org.pillarone.riskanalytics.domain.utils.InputFormatConverter;
-import org.pillarone.riskanalytics.domain.utils.constraints.DoubleConstraints;
+import org.pillarone.riskanalytics.domain.utils.constraint.DoubleConstraints;
 
 import java.util.*;
 

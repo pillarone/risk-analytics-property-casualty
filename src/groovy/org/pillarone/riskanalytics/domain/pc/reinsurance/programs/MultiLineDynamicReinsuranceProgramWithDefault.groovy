@@ -5,7 +5,7 @@ import org.pillarone.riskanalytics.core.wiring.PortReplicatorCategory as PRC
 import org.pillarone.riskanalytics.core.packets.PacketList
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.pc.creditrisk.ReinsurerDefault
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiLineReinsuranceContractWithDefault
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
 import org.pillarone.riskanalytics.core.components.ComponentCategory
@@ -22,7 +22,7 @@ public class MultiLineDynamicReinsuranceProgramWithDefault extends DynamicReinsu
         MultiLineReinsuranceContractWithDefault contract = new MultiLineReinsuranceContractWithDefault(
                 parmInuringPriority: 0,
                 parmContractStrategy: ReinsuranceContractType.getStrategy(ReinsuranceContractType.TRIVIAL, [:]),
-                parmCoveredLines: new ComboBoxTableMultiDimensionalParameter([''], ['Covered Segments'], LobMarker)
+                parmCoveredLines: new ComboBoxTableMultiDimensionalParameter([''], ['Covered Segments'], ISegmentMarker)
         )
         return contract
     }

@@ -6,20 +6,19 @@ import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimen
 import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimFilterUtilities;
+import org.pillarone.riskanalytics.domain.pc.claims.ClaimUtilities;
 import org.pillarone.riskanalytics.domain.pc.claims.SortClaimsByFractionOfPeriod;
 import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments;
 import org.pillarone.riskanalytics.domain.pc.filter.FilterUtils;
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.ReinsuranceResultWithCommissionPacket;
-import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
 import org.pillarone.riskanalytics.domain.pc.underwriting.*;
-import org.pillarone.riskanalytics.domain.pc.claims.ClaimUtilities;
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IReserveMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 /**
  * This component filters from the incoming claims and underwriting information
@@ -38,9 +37,9 @@ public class MultiLineReinsuranceContract extends ReinsuranceContract {
     private PeriodStore periodStore;
 
     private ComboBoxTableMultiDimensionalParameter parmCoveredLines = new ComboBoxTableMultiDimensionalParameter(
-            Collections.emptyList(), Arrays.asList("Covered Segments"), LobMarker.class);
+            Collections.emptyList(), Arrays.asList("Covered Segments"), ISegmentMarker.class);
     private ComboBoxTableMultiDimensionalParameter parmCoveredPerils = new ComboBoxTableMultiDimensionalParameter(
-            Collections.emptyList(), Arrays.asList("perils"), PerilMarker.class);
+            Collections.emptyList(), Arrays.asList("perils"), IPerilMarker.class);
     private ComboBoxTableMultiDimensionalParameter parmCoveredReserves = new ComboBoxTableMultiDimensionalParameter(
             Collections.emptyList(), Arrays.asList("reserves"), IReserveMarker.class);
 

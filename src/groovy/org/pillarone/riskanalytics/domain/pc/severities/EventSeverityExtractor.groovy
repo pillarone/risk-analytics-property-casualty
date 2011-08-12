@@ -5,7 +5,7 @@ import org.pillarone.riskanalytics.core.packets.PacketList
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedString
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.EventDependenceStream
 import org.pillarone.riskanalytics.domain.pc.generators.severities.EventSeverity
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 
 /**
  *  This is a proof of concept component extracting from a PacketList of type
@@ -18,7 +18,7 @@ import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
  */
 class EventSeverityExtractor extends Component {
 
-    ConstrainedString parmFilterCriteria = new ConstrainedString(LobMarker, "fire")
+    ConstrainedString parmFilterCriteria = new ConstrainedString(ISegmentMarker, "fire")
 
     PacketList<EventDependenceStream> inSeverities = new PacketList(EventDependenceStream)
     PacketList<EventSeverity> outSeverities = new PacketList(EventSeverity)

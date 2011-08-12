@@ -26,10 +26,10 @@ abstract public class IndependentCopulaStrategy extends AbstractCopulaStrategy {
     }
 
     public List<String> getTargetNames() {
-        return targets.values;
+        return targets.values[0];
     }
 
     public List<Component> getTargetComponents() {
-        return targets.getValuesAsObjects()
+        return targets.getValuesAsObjects(0, false)
     }
 }

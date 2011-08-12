@@ -2,8 +2,8 @@ package org.pillarone.riskanalytics.domain.pc.reserves.cashflow;
 
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimPacketFactory;
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 
 import java.util.Map;
 import java.util.Arrays;
@@ -85,8 +85,8 @@ public class ClaimDevelopmentWithIBNRPacket extends ClaimDevelopmentPacket {
             claim.setEvent(getEvent());
             claim.setFractionOfPeriod(getFractionOfPeriod());
             claim.setClaimType(getClaimType());
-            claim.addMarker(PerilMarker.class, getPeril());
-            claim.addMarker(LobMarker.class, getLineOfBusiness());
+            claim.addMarker(IPerilMarker.class, getPeril());
+            claim.addMarker(ISegmentMarker.class, getLineOfBusiness());
         }
         claim.setUltimate(getUltimate());
         return claim;

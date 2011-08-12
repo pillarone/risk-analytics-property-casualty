@@ -2,7 +2,7 @@ package org.pillarone.riskanalytics.domain.pc.reserves.fasttrack
 
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
 import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObject
 
 /**
@@ -13,7 +13,7 @@ abstract public class AbstractClaimsGeneratorBasedReservesGeneratorStrategy exte
     implements IReservesGeneratorStrategy{
 
     ComboBoxTableMultiDimensionalParameter basedOnClaimsGenerators = new ComboBoxTableMultiDimensionalParameter(
-            [], ["Claims Generators"], PerilMarker)
+            [], ["Claims Generators"], IPerilMarker)
 
     abstract public IParameterObjectClassifier getType()
 

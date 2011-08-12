@@ -2,19 +2,20 @@ package org.pillarone.riskanalytics.domain.pc.claims;
 
 import org.pillarone.riskanalytics.core.components.IComponentMarker;
 import org.pillarone.riskanalytics.core.packets.MultiValuePacket;
-import org.pillarone.riskanalytics.core.packets.Packet;
 import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope;
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType;
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker;
 import org.pillarone.riskanalytics.domain.pc.generators.severities.Event;
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
-import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker;
-import org.pillarone.riskanalytics.domain.pc.underwriting.ExposureInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.utils.DateTimeUtilities;
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IReserveMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Basic claim object not recommended for development and inflation
@@ -53,8 +54,8 @@ public class Claim extends MultiValuePacket {
         setFractionOfPeriod(claim.getFractionOfPeriod());
         setDate(claim.getDate());
         setClaimType(claim.getClaimType());
-        addMarker(PerilMarker.class, claim.getPeril());
-        addMarker(LobMarker.class, claim.getLineOfBusiness());
+        addMarker(IPerilMarker.class, claim.getPeril());
+        addMarker(ISegmentMarker.class, claim.getLineOfBusiness());
         addMarker(IReinsuranceContractMarker.class, claim.getReinsuranceContract());
         setExposure(claim.getExposure());
     }
@@ -77,6 +78,10 @@ public class Claim extends MultiValuePacket {
         netClaim.ultimate -= cededClaim.ultimate;
         if (cededClaim.notNull()) {
             netClaim.addMarker(IReinsuranceContractMarker.class, cededClaim.getReinsuranceContract());
+        }
+        if (hasExposureInfo()) {
+            double coverRatio = netClaim.getUltimate() / getUltimate();
+            netClaim.setExposure(exposure.copy().scale(coverRatio));
         }
         return netClaim;
     }
@@ -154,15 +159,15 @@ public class Claim extends MultiValuePacket {
     }
 
     public IComponentMarker getPeril() {
-        IComponentMarker marker = getMarkedSender(PerilMarker.class);
+        IComponentMarker marker = getMarkedSender(IPerilMarker.class);
         if (marker == null) {
             marker = getMarkedSender(IReserveMarker.class);
         }
         return marker;
     }
 
-    public LobMarker getLineOfBusiness() {
-        return (LobMarker) getMarkedSender(LobMarker.class);
+    public ISegmentMarker getLineOfBusiness() {
+        return (ISegmentMarker) getMarkedSender(ISegmentMarker.class);
     }
 
     public double getUltimate() {

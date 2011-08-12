@@ -7,12 +7,12 @@ import org.pillarone.riskanalytics.domain.pc.constants.FrequencyBase
 import org.pillarone.riskanalytics.domain.pc.constants.FrequencySeverityClaimType
 import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
 import org.pillarone.riskanalytics.domain.pc.generators.claims.ClaimsGeneratorType
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.CopulaStrategyFactory
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.PerilCopulaType
 import org.pillarone.riskanalytics.domain.pc.reinsurance.IReinsurerMarker
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
-import org.pillarone.riskanalytics.domain.pc.underwriting.IUnderwritingInfoMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IUnderwritingInfoMarker
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.core.parameterization.*
@@ -93,7 +93,7 @@ components {
     }
     dependencies {
         subAttritional {
-            parmCopulaStrategy[0] = CopulaStrategyFactory.getCopulaStrategy(PerilCopulaType.NORMAL, ["dependencyMatrix": new ComboBoxMatrixMultiDimensionalParameter([[1.0, 0.25, 0.25, 0.25], [0.25, 1.0, 0.5, 0.25], [0.25, 0.5, 1, 0.25], [0.25, 0.25, 0.25, 1]], ["personal accident attritional", "motor third party liability attritional", "motor hull attritional", "property attritional"], PerilMarker),])
+            parmCopulaStrategy[0] = CopulaStrategyFactory.getCopulaStrategy(PerilCopulaType.NORMAL, ["dependencyMatrix": new ComboBoxMatrixMultiDimensionalParameter([[1.0, 0.25, 0.25, 0.25], [0.25, 1.0, 0.5, 0.25], [0.25, 0.5, 1, 0.25], [0.25, 0.25, 0.25, 1]], ["personal accident attritional", "motor third party liability attritional", "motor hull attritional", "property attritional"], IPerilMarker),])
         }
     }
     linesOfBusiness {
@@ -133,29 +133,29 @@ components {
     reinsurance {
         subMotorHullWxl {
             parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"premiumBase": PremiumBase.GNPI, "premium": 0.01, "reinstatementPremiums": new TableMultiDimensionalParameter([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], ["Reinstatement Premium"]), "attachmentPoint": 1.0E7, "limit": 1.0E7, "aggregateLimit": 1.0E8, "coveredByReinsurer": 1.0,])
-            parmCoveredLines[0] = new ComboBoxTableMultiDimensionalParameter([""], ["Covered Segments"], org.pillarone.riskanalytics.domain.pc.lob.LobMarker)
-            parmCoveredPerils[0] = new ComboBoxTableMultiDimensionalParameter(["motor hull single"], ["perils"], PerilMarker)
+            parmCoveredLines[0] = new ComboBoxTableMultiDimensionalParameter([""], ["Covered Segments"], org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker)
+            parmCoveredPerils[0] = new ComboBoxTableMultiDimensionalParameter(["motor hull single"], ["perils"], IPerilMarker)
             parmInuringPriority[0] = 0
             parmReinsurer[0] = new ConstrainedString(IReinsurerMarker, '')
         }
         subMotorThirdPartyLiabilityWxl {
             parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"premiumBase": PremiumBase.GNPI, "premium": 0.0050, "reinstatementPremiums": new TableMultiDimensionalParameter([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], ["Reinstatement Premium"]), "attachmentPoint": 5000000.0, "limit": 9.5E7, "aggregateLimit": 9.5E8, "coveredByReinsurer": 1.0,])
-            parmCoveredLines[0] = new ComboBoxTableMultiDimensionalParameter([""], ["Covered Segments"], org.pillarone.riskanalytics.domain.pc.lob.LobMarker)
-            parmCoveredPerils[0] = new ComboBoxTableMultiDimensionalParameter(["motor third party liability single"], ["perils"], PerilMarker)
+            parmCoveredLines[0] = new ComboBoxTableMultiDimensionalParameter([""], ["Covered Segments"], org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker)
+            parmCoveredPerils[0] = new ComboBoxTableMultiDimensionalParameter(["motor third party liability single"], ["perils"], IPerilMarker)
             parmInuringPriority[0] = 0
             parmReinsurer[0] = new ConstrainedString(IReinsurerMarker, '')
         }
         subPersonalAccidentWxl {
             parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"premiumBase": PremiumBase.GNPI, "premium": 0.0020, "reinstatementPremiums": new TableMultiDimensionalParameter([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], ["Reinstatement Premium"]), "attachmentPoint": 2000000.0, "limit": 1000000.0, "aggregateLimit": 3000000.0, "coveredByReinsurer": 1.0,])
-            parmCoveredLines[0] = new ComboBoxTableMultiDimensionalParameter([""], ["Covered Segments"], org.pillarone.riskanalytics.domain.pc.lob.LobMarker)
-            parmCoveredPerils[0] = new ComboBoxTableMultiDimensionalParameter(["personal accident single"], ["perils"], PerilMarker)
+            parmCoveredLines[0] = new ComboBoxTableMultiDimensionalParameter([""], ["Covered Segments"], org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker)
+            parmCoveredPerils[0] = new ComboBoxTableMultiDimensionalParameter(["personal accident single"], ["perils"], IPerilMarker)
             parmInuringPriority[0] = 0
             parmReinsurer[0] = new ConstrainedString(IReinsurerMarker, '')
         }
         subPropertyWxl {
             parmContractStrategy[0] = ReinsuranceContractType.getStrategy(ReinsuranceContractType.WXL, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"premiumBase": PremiumBase.GNPI, "premium": 0.157, "reinstatementPremiums": new TableMultiDimensionalParameter([1.0], ["Reinstatement Premium"]), "attachmentPoint": 5000000.0, "limit": 1.7E8, "aggregateLimit": 3.4E8, "coveredByReinsurer": 1.0,])
-            parmCoveredLines[0] = new ComboBoxTableMultiDimensionalParameter([""], ["Covered Segments"], org.pillarone.riskanalytics.domain.pc.lob.LobMarker)
-            parmCoveredPerils[0] = new ComboBoxTableMultiDimensionalParameter([""], ["perils"], PerilMarker)
+            parmCoveredLines[0] = new ComboBoxTableMultiDimensionalParameter([""], ["Covered Segments"], org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker)
+            parmCoveredPerils[0] = new ComboBoxTableMultiDimensionalParameter([""], ["perils"], IPerilMarker)
             parmInuringPriority[0] = 0
             parmReinsurer[0] = new ConstrainedString(IReinsurerMarker, '')
         }

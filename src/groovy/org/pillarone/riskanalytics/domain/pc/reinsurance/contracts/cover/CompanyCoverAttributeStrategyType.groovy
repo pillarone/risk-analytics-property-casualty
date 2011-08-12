@@ -6,9 +6,9 @@ import org.pillarone.riskanalytics.domain.pc.constants.IncludeType
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObjectClassifier
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
-import org.pillarone.riskanalytics.domain.pc.reserves.IReserveMarker
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IReserveMarker
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 import org.pillarone.riskanalytics.domain.pc.company.ICompanyMarker
 
 /**
@@ -20,22 +20,22 @@ class CompanyCoverAttributeStrategyType extends AbstractParameterObjectClassifie
     public static final CompanyCoverAttributeStrategyType NONE = new CompanyCoverAttributeStrategyType("none", "NONE", [:])
     public static final CompanyCoverAttributeStrategyType LINESOFBUSINESS = new CompanyCoverAttributeStrategyType(
             'lines of business', 'LINESOFBUSINESS',
-            ['lines':new ComboBoxTableMultiDimensionalParameter([], ['Covered Segments'], LobMarker.class)])
+            ['lines':new ComboBoxTableMultiDimensionalParameter([], ['Covered Segments'], ISegmentMarker.class)])
     public static final CompanyCoverAttributeStrategyType PERILS = new CompanyCoverAttributeStrategyType(
             'perils', 'PERILS',
-            ['perils':new ComboBoxTableMultiDimensionalParameter([], ['Covered Perils'], PerilMarker.class)])
+            ['perils':new ComboBoxTableMultiDimensionalParameter([], ['Covered Perils'], IPerilMarker.class)])
     public static final CompanyCoverAttributeStrategyType RESERVES = new CompanyCoverAttributeStrategyType(
             'reserves', 'RESERVES',
             ['reserves':new ComboBoxTableMultiDimensionalParameter([], ['Covered Reserves'], IReserveMarker.class)])
     public static final CompanyCoverAttributeStrategyType LINESOFBUSINESSPERILS = new CompanyCoverAttributeStrategyType(
             'lines of business, perils', 'LINESOFBUSINESSPERILS',
             ['connection': LogicArguments.AND,
-             'lines':new ComboBoxTableMultiDimensionalParameter([], ['Covered Segments'], LobMarker.class),
-             'perils':new ComboBoxTableMultiDimensionalParameter([], ['Covered Perils'], PerilMarker.class)])
+             'lines':new ComboBoxTableMultiDimensionalParameter([], ['Covered Segments'], ISegmentMarker.class),
+             'perils':new ComboBoxTableMultiDimensionalParameter([], ['Covered Perils'], IPerilMarker.class)])
     public static final CompanyCoverAttributeStrategyType LINESOFBUSINESSRESERVES = new CompanyCoverAttributeStrategyType(
             'lines of business, reserves', 'LINESOFBUSINESSRESERVES',
             ['connection': LogicArguments.AND,
-             'lines':new ComboBoxTableMultiDimensionalParameter([], ['Covered Segments'], LobMarker.class),
+             'lines':new ComboBoxTableMultiDimensionalParameter([], ['Covered Segments'], ISegmentMarker.class),
              'reserves':new ComboBoxTableMultiDimensionalParameter([], ['Covered Reserves'], IReserveMarker.class)])
     public static final CompanyCoverAttributeStrategyType COMPANIES = new CompanyCoverAttributeStrategyType(
             'companies', 'COMPANIES',

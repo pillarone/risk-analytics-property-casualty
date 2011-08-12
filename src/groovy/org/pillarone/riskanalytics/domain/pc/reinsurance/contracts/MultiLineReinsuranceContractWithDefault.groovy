@@ -5,9 +5,9 @@ import org.pillarone.riskanalytics.core.components.Component
 import org.pillarone.riskanalytics.core.packets.PacketList
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedString
 import org.pillarone.riskanalytics.domain.pc.creditrisk.ReinsurerDefault
-import org.pillarone.riskanalytics.domain.pc.generators.claims.PerilMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
 import org.pillarone.riskanalytics.domain.pc.reinsurance.IReinsurerMarker
-import org.pillarone.riskanalytics.domain.pc.lob.LobMarker
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimFilterUtilities
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingFilterUtilities
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
@@ -23,7 +23,7 @@ public class MultiLineReinsuranceContractWithDefault extends MultiLineReinsuranc
 
     PacketList<ReinsurerDefault> inReinsurersDefault = new PacketList(ReinsurerDefault)
 
-    ComboBoxTableMultiDimensionalParameter parmCoveredPerils = new ComboBoxTableMultiDimensionalParameter([''], ['perils'], PerilMarker)
+    ComboBoxTableMultiDimensionalParameter parmCoveredPerils = new ComboBoxTableMultiDimensionalParameter([''], ['perils'], IPerilMarker)
     ConstrainedString parmReinsurer = new ConstrainedString(IReinsurerMarker, '')
 
     boolean defaultOccurred = false;

@@ -21,7 +21,7 @@ class DistributionModifier extends AbstractParameterObjectClassifier {
     public static final DistributionModifier LEFTTRUNCATEDRIGHTCENSOREDSHIFT = new DistributionModifier(
             "left truncated, right censored, shift", "LEFTTRUNCATEDRIGHTCENSOREDSHIFT", ["min": 0d, "max": 0d, "shift": 0d])
     public static final DistributionModifier CENSOREDSHIFT = new DistributionModifier(
-            "censored shift", "CENSOREDSHIFT", ["min": 0d, "max": 0, "shift": 0d])
+            "censored shift", "CENSOREDSHIFT", ["min": 0d, "max": 0d, "shift": 0d])
     public static final DistributionModifier SHIFT = new DistributionModifier(
             "shift", "SHIFT", ["shift": 0d])
 
