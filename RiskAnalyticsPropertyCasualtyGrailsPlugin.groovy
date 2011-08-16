@@ -14,13 +14,12 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.validation.XL
 import org.pillarone.riskanalytics.domain.pc.filter.SegmentFilterValidator
 import org.pillarone.riskanalytics.core.util.ResourceBundleRegistry
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.validation.DependencyMatrixValidator
-import org.pillarone.riskanalytics.domain.utils.constraint.DateTimeConstraints
 import org.pillarone.riskanalytics.domain.pc.underwriting.validation.RiskBandsValidator
 import org.pillarone.riskanalytics.domain.pc.generators.claims.validation.TypableClaimsGeneratorValidator
 
 class RiskAnalyticsPropertyCasualtyGrailsPlugin {
     // the plugin version
-    def version = "1.4-ALPHA-5"
+    def version = "1.4-BETA-1"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.3.7 > *"
     // the other plugins this plugin depends on
