@@ -6,6 +6,7 @@ import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedString;
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter;
 import org.pillarone.riskanalytics.core.util.GroovyUtils;
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingFilterUtilities;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.utils.InputFormatConverter;
 import org.pillarone.riskanalytics.domain.utils.marker.IUnderwritingInfoMarker;
@@ -13,9 +14,13 @@ import org.pillarone.riskanalytics.domain.utils.math.distribution.RandomDistribu
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
+ * This component will send out in every iteration and period the same information. Only underwriting information
+ * received in the first period and iteration are considered to build this information.
+ *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 public class FacShareDistributions extends Component {
@@ -41,7 +46,6 @@ public class FacShareDistributions extends Component {
 
     @Override
     protected void doCalculation() {
-        // todo(sku): add uw filter!
         FacShareAndRetention facShareAndRetention = getFacShareAndRetention();
         outDistributionsByUwInfo.add(facShareAndRetention);
     }
@@ -49,8 +53,10 @@ public class FacShareDistributions extends Component {
     private FacShareAndRetention getFacShareAndRetention() {
         FacShareAndRetention facShareAndRetention = (FacShareAndRetention) iterationStore.getFirstPeriod(FAC_SHARE_AND_RETENTION);
         if (facShareAndRetention == null) {
+            List<UnderwritingInfo> filteredUnderwritingInfo = UnderwritingFilterUtilities.filterUnderwritingInfo(
+                        inUnderwritingInfo, parmLinkedUnderwritingInfo.getSelectedComponent());
             Map<Double, UnderwritingInfo> uwInfoLookupBySumInsured = new HashMap<Double, UnderwritingInfo>();
-            for (UnderwritingInfo uwInfo : inUnderwritingInfo) {
+            for (UnderwritingInfo uwInfo : filteredUnderwritingInfo) {
                 uwInfoLookupBySumInsured.put(uwInfo.getMaxSumInsured(), uwInfo);
             }
 
@@ -69,12 +75,15 @@ public class FacShareDistributions extends Component {
                 double suxPercentage = InputFormatConverter.getDouble(parmAllocation.getValueAt(row, columnSurplus));
                 double retentionPercentage = InputFormatConverter.getDouble(parmAllocation.getValueAt(row, columnRetention));
 
-                FacShareRetentionHelper helper = distributionsPerRiskBand.get(uwInfoLookupBySumInsured.get(maxSumInsured));
-                if (helper == null) {
-                    helper = new FacShareRetentionHelper();
-                    distributionsPerRiskBand.put(uwInfoLookupBySumInsured.get(maxSumInsured), helper);
+                UnderwritingInfo lookupUwInfo = uwInfoLookupBySumInsured.get(maxSumInsured);
+                if (lookupUwInfo != null) {
+                    FacShareRetentionHelper helper = distributionsPerRiskBand.get(lookupUwInfo);
+                    if (helper == null) {
+                        helper = new FacShareRetentionHelper();
+                        distributionsPerRiskBand.put(uwInfoLookupBySumInsured.get(maxSumInsured), helper);
+                    }
+                    helper.add(policiesCount, quotaSharePercentage, suxPercentage, retentionPercentage);
                 }
-                helper.add(policiesCount, quotaSharePercentage, suxPercentage, retentionPercentage);
             }
 
             facShareAndRetention = new FacShareAndRetention();
