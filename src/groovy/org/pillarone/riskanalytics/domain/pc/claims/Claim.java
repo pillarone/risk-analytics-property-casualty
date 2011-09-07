@@ -4,10 +4,11 @@ import org.pillarone.riskanalytics.core.components.IComponentMarker;
 import org.pillarone.riskanalytics.core.packets.MultiValuePacket;
 import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope;
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType;
+import org.pillarone.riskanalytics.domain.pc.generators.fac.FacShareAndRetention;
 import org.pillarone.riskanalytics.domain.pc.generators.severities.Event;
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractStrategy;
 import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
-import org.pillarone.riskanalytics.domain.pc.underwriting.ExposureInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.utils.DateTimeUtilities;
 
@@ -79,6 +80,34 @@ public class Claim extends MultiValuePacket {
             netClaim.setExposure(exposure.copy().scale(coverRatio));
         }
         return netClaim;
+    }
+
+    public void updateExposureWithFac(FacShareAndRetention facShareAndRetention) {
+        double facQuotaShare = facShareAndRetention.getQuotaShare(exposure);
+        double facSurplus = facShareAndRetention.getSurplusShare(exposure);
+        double retention = facShareAndRetention.getRetention(exposure);
+        exposure = exposure.copy();
+        exposure.setFacQuotaShare(facQuotaShare);
+        exposure.setFacSurplus(facSurplus);
+        exposure.setFacRetention(retention);
+    }
+
+    public double getFacShare(IReinsuranceContractStrategy contractStrategy) {
+        if (exposure != null) {
+            return exposure.getFacQuotaShare();
+        }
+        else {
+            return 0d;
+        }
+    }
+
+    public double getFacRetention() {
+        if (exposure != null) {
+            return exposure.getFacRetention();
+        }
+        else {
+            return 0d;
+        }
     }
 
     public boolean notNull() {

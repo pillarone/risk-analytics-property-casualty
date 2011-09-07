@@ -123,7 +123,7 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
 
     public void calculateClaims(List<Claim> grossClaims, List<Claim> cededClaims, List<Claim> netClaims, Component origin) {
         for (Claim claim : grossClaims) {
-            Claim cededClaim = getCoveredClaim(claim, origin).scale(coveredByReinsurer);
+            Claim cededClaim = getCoveredClaim(claim, origin).scale(coveredByReinsurer  * (1 - claim.getFacShare(parmContractStrategy)));
             cededClaims.add(cededClaim);
 
             Claim claimNet = claim.getNetClaim(cededClaim);
@@ -135,7 +135,7 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
 
     public void calculateCededClaims(List<Claim> grossClaims, List<Claim> cededClaims, Component origin) {
         for (Claim claim : grossClaims) {
-            cededClaims.add(getCoveredClaim(claim,origin).scale(coveredByReinsurer));
+            cededClaims.add(getCoveredClaim(claim,origin).scale(coveredByReinsurer * (1 - claim.getFacShare(parmContractStrategy))));
         }
     }
 

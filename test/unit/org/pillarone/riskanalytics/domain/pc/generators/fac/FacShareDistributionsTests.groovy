@@ -1,0 +1,142 @@
+package org.pillarone.riskanalytics.domain.pc.generators.fac
+
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
+import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
+import org.pillarone.riskanalytics.core.components.IterationStore
+import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope
+import org.pillarone.riskanalytics.core.simulation.engine.IterationScope
+
+/**
+ * @author stefan.kunz (at) intuitive-collaboration (dot) com
+ */
+class FacShareDistributionsTests extends GroovyTestCase {
+
+    FacShareDistributions facShareDistributions
+
+    void setUp() {
+        IterationScope iterationScope = new IterationScope(periodScope: new PeriodScope())
+        iterationScope.prepareNextIteration()
+        facShareDistributions = new FacShareDistributions()
+        facShareDistributions.iterationStore = new IterationStore(iterationScope)
+    }
+
+    void testUsage() {
+        UnderwritingInfo underwritingInfo1000 = new UnderwritingInfo(maxSumInsured: 1000)
+        UnderwritingInfo underwritingInfo1200 = new UnderwritingInfo(maxSumInsured: 1200)
+        facShareDistributions.inUnderwritingInfo << underwritingInfo1000 << underwritingInfo1200
+//        facShareDistributions.parmLinkedUnderwritingInfo
+        facShareDistributions.parmAllocation = new TableMultiDimensionalParameter(
+                [[1000d, 1000d, 1000d, 1200d, 1200d, 1200d],
+                        [1d, 1d, 2d, 3d, 4d, 5d],
+                        [0.2d, 0.3, 0.35, 0.1, 0.4, 0.9],
+                        [0.21d, 0.31, 0.36, 0.11, 0.41, 0.91],
+                        [0.1d, 0.2, 0.3, 0.2, 0.3, 0.7]],
+                ['Max Sum Insured', 'Count of Policies', 'Quota Share %', 'Surplus %', 'Retention %']
+        )
+        facShareDistributions.doCalculation()
+
+        assertEquals 'one packet', 1, facShareDistributions.outDistributionsByUwInfo.size()
+        FacShareAndRetention facShareAndRetention = facShareDistributions.outDistributionsByUwInfo[0]
+
+        Set shares = new HashSet()
+        10.times { shares.add facShareAndRetention.getQuotaShare(underwritingInfo1000) }
+        assertEquals 'quota shares for uw1', [0.2d, 0.3, 0.35], shares.toList().toList().sort()
+
+        shares.clear()
+        10.times { shares.add facShareAndRetention.getQuotaShare(underwritingInfo1200) }
+        assertEquals 'quota shares for uw2', [0.1d, 0.4, 0.9], shares.toList().sort()
+
+        shares.clear()
+        10.times { shares.add facShareAndRetention.getSurplusShare(underwritingInfo1000) }
+        assertEquals 'surplus shares for uw1', [0.21d, 0.31, 0.36], shares.toList().sort()
+
+        shares.clear()
+        10.times { shares.add facShareAndRetention.getSurplusShare(underwritingInfo1200) }
+        assertEquals 'surplus shares for uw2', [0.11d, 0.41, 0.91], shares.toList().sort()
+
+        shares.clear()
+        10.times { shares.add facShareAndRetention.getRetention(underwritingInfo1000) }
+        assertEquals 'retention for uw1', [0.1d, 0.2d, 0.3d], shares.toList().sort()
+
+        shares.clear()
+        10.times { shares.add facShareAndRetention.getRetention(underwritingInfo1200) }
+        assertEquals 'retention for uw2', [0.2d, 0.3d, 0.7d], shares.toList().sort()
+    }
+
+    void testMissingLinkAtEnd() {
+        UnderwritingInfo underwritingInfo1000 = new UnderwritingInfo(maxSumInsured: 1000)
+        UnderwritingInfo underwritingInfo1200 = new UnderwritingInfo(maxSumInsured: 1200)
+        UnderwritingInfo underwritingInfo1400 = new UnderwritingInfo(maxSumInsured: 1400)
+        facShareDistributions.inUnderwritingInfo << underwritingInfo1000 << underwritingInfo1200 << underwritingInfo1400
+//        facShareDistributions.parmLinkedUnderwritingInfo
+        facShareDistributions.parmAllocation = new TableMultiDimensionalParameter(
+                [[1000d, 1000d, 1000d, 1200d, 1200d, 1200d],
+                        [1d, 1d, 2d, 3d, 4d, 5d],
+                        [0.2d, 0.3, 0.35, 0.1, 0.4, 0.9],
+                        [0.21d, 0.31, 0.36, 0.11, 0.41, 0.91],
+                        [0.1d, 0.2, 0.3, 0.2, 0.3, 0.7]],
+                ['Max Sum Insured', 'Count of Policies', 'Quota Share %', 'Surplus %', 'Retention %']
+        )
+        facShareDistributions.doCalculation()
+
+        assertEquals 'one packet', 1, facShareDistributions.outDistributionsByUwInfo.size()
+        FacShareAndRetention facShareAndRetention = facShareDistributions.outDistributionsByUwInfo[0]
+
+        Set shares = new HashSet()
+        10.times { shares.add facShareAndRetention.getQuotaShare(underwritingInfo1400) }
+        assertEquals 'surplus shares for uw1400', [0d], shares.toList().sort()
+    }
+
+    void testMissingLinkInBetween() {
+        UnderwritingInfo underwritingInfo1000 = new UnderwritingInfo(maxSumInsured: 1000)
+        UnderwritingInfo underwritingInfo1200 = new UnderwritingInfo(maxSumInsured: 1200)
+        UnderwritingInfo underwritingInfo1400 = new UnderwritingInfo(maxSumInsured: 1400)
+        facShareDistributions.inUnderwritingInfo << underwritingInfo1000 << underwritingInfo1200 << underwritingInfo1400
+//        facShareDistributions.parmLinkedUnderwritingInfo
+        facShareDistributions.parmAllocation = new TableMultiDimensionalParameter(
+                [[1000d, 1000d, 1000d, 1400d, 1400d, 1400d],
+                        [1d, 1d, 2d, 3d, 4d, 5d],
+                        [0.2d, 0.3, 0.35, 0.1, 0.4, 0.9],
+                        [0.21d, 0.31, 0.36, 0.11, 0.41, 0.91],
+                        [0.1d, 0.2, 0.3, 0.2, 0.3, 0.7]],
+                ['Max Sum Insured', 'Count of Policies', 'Quota Share %', 'Surplus %', 'Retention %']
+        )
+        facShareDistributions.doCalculation()
+
+        assertEquals 'one packet', 1, facShareDistributions.outDistributionsByUwInfo.size()
+        FacShareAndRetention facShareAndRetention = facShareDistributions.outDistributionsByUwInfo[0]
+
+        Set shares = new HashSet()
+        10.times { shares.add facShareAndRetention.getQuotaShare(underwritingInfo1000) }
+        assertEquals 'quota shares for uw1', [0.2d, 0.3, 0.35], shares.toList().toList().sort()
+
+        shares.clear()
+        10.times { shares.add facShareAndRetention.getSurplusShare(underwritingInfo1000) }
+        assertEquals 'surplus shares for uw1', [0.21d, 0.31, 0.36], shares.toList().sort()
+
+        shares.clear()
+        10.times { shares.add facShareAndRetention.getQuotaShare(underwritingInfo1200) }
+        assertEquals 'surplus shares for uw1400', [0d], shares.toList().sort()
+
+        shares.clear()
+        10.times { shares.add facShareAndRetention.getSurplusShare(underwritingInfo1200) }
+        assertEquals 'surplus shares for uw1400', [0d], shares.toList().sort()
+
+        shares.clear()
+        10.times { shares.add facShareAndRetention.getRetention(underwritingInfo1200) }
+        assertEquals 'surplus shares for uw1400', [0d], shares.toList().sort()
+
+        shares.clear()
+        10.times { shares.add facShareAndRetention.getSurplusShare(underwritingInfo1400) }
+        assertEquals 'surplus shares for uw2', [0.11d, 0.41, 0.91], shares.toList().sort()
+
+        shares.clear()
+        20.times { shares.add facShareAndRetention.getQuotaShare(underwritingInfo1400) }
+        assertEquals 'retention for uw1', [0.1d, 0.4d, 0.9d], shares.toList().sort()
+
+        shares.clear()
+        10.times { shares.add facShareAndRetention.getRetention(underwritingInfo1400) }
+        assertEquals 'retention for uw2', [0.2d, 0.3d, 0.7d], shares.toList().sort()
+    }
+
+}
