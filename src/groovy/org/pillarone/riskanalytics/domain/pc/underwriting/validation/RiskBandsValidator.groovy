@@ -80,7 +80,7 @@ class RiskBandsValidator implements IParameterizationValidator {
                 List<Double> numberOfPolicies = item.value.getColumnByName(RiskBands.NUMBER_OF_POLICIES)
                 for (int row = 0; row < numberOfPolicies.size(); row++) {
                     if (numberOfPolicies[row] > 0) continue
-                    ParameterValidationImpl error = new ParameterValidationImpl(ValidationType.ERROR,
+                    ParameterValidationImpl error = new ParameterValidationImpl(ValidationType.WARNING,
                         'surplus.ri.needs.non.trivial.number.of.policies', [numberOfPolicies[row], row+1]
                     )
                     error.path = path
@@ -96,7 +96,7 @@ class RiskBandsValidator implements IParameterizationValidator {
         validationService.register(TableMultiDimensionalParameter) {List type ->
             Set<Double> set = new HashSet(type)
             if (set.size() != type.size()) {
-                return [ValidationType.ERROR, "underwriting.info.value.of.max.sum.insured.not.unique"]
+                return [ValidationType.WARNING, "underwriting.info.value.of.max.sum.insured.not.unique"]
             }
             return true
         }

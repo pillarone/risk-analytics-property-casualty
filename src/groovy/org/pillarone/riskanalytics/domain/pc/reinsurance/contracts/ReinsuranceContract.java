@@ -123,7 +123,7 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
 
     public void calculateClaims(List<Claim> grossClaims, List<Claim> cededClaims, List<Claim> netClaims, Component origin) {
         for (Claim claim : grossClaims) {
-            Claim cededClaim = getCoveredClaim(claim, origin).scale(coveredByReinsurer  * (1 - claim.getFacShare(parmContractStrategy)));
+            Claim cededClaim = getCoveredClaim(claim, origin).scale(coveredByReinsurer);
             cededClaims.add(cededClaim);
 
             Claim claimNet = claim.getNetClaim(cededClaim);
@@ -135,7 +135,7 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
 
     public void calculateCededClaims(List<Claim> grossClaims, List<Claim> cededClaims, Component origin) {
         for (Claim claim : grossClaims) {
-            cededClaims.add(getCoveredClaim(claim,origin).scale(coveredByReinsurer * (1 - claim.getFacShare(parmContractStrategy))));
+            cededClaims.add(getCoveredClaim(claim,origin).scale(coveredByReinsurer));
         }
     }
 
@@ -190,8 +190,11 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
     }
 
     /** Adjust attached exposure info by the same factor as the ultimate claim value is reduced
-     *  https://issuetracking.intuitive-collaboration.com/jira/browse/PMO-1624 */
-    private void adjustAttachedExposureInfo(Claim originalClaim, Claim resultingClaim) {
+     *  https://issuetracking.intuitive-collaboration.com/jira/browse/PMO-1624
+     * @param originalClaim
+     * @param resultingClaim
+     */
+    protected void adjustAttachedExposureInfo(Claim originalClaim, Claim resultingClaim) {
         if (parmContractStrategy instanceof QuotaShareContractStrategy
                 || parmContractStrategy instanceof SurplusContractStrategy
                 || parmContractStrategy instanceof ReverseSurplusContractStrategy) {
@@ -202,7 +205,7 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
         }
     }
 
-    private void setClaimReferences(Claim claim, Claim grossClaim, Component origin) {
+    protected void setClaimReferences(Claim claim, Claim grossClaim, Component origin) {
         claim.origin = origin;
         claim.setReinsuranceContract(this);
         if (grossClaim.getOriginalClaim() != null) {

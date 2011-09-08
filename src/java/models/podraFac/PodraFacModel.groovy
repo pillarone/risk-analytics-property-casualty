@@ -3,15 +3,15 @@ package models.podraFac
 import org.pillarone.riskanalytics.core.model.StochasticModel
 import org.pillarone.riskanalytics.domain.pc.aggregators.AlmResultAggregator
 import org.pillarone.riskanalytics.domain.pc.assetLiabilityMismatch.DynamicAssetLiabilityMismatchGenerator
+import org.pillarone.riskanalytics.domain.pc.filter.DynamicSegmentFilters
 import org.pillarone.riskanalytics.domain.pc.generators.claims.DynamicDevelopedClaimsGenerators
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.DynamicDependencies
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.DynamicMultipleDependencies
+import org.pillarone.riskanalytics.domain.pc.generators.fac.MultipleFacShareDistributions
 import org.pillarone.riskanalytics.domain.pc.lob.DynamicConfigurableLobsWithReserves
-import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.ReinsuranceWithBouquetCommissionProgram
+import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.ReinsuranceFACWithBouquetCommissionProgram
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.DynamicReservesGeneratorLean
 import org.pillarone.riskanalytics.domain.pc.underwriting.DynamicUnderwritingSegments
-import org.pillarone.riskanalytics.domain.pc.filter.DynamicSegmentFilters
-import org.pillarone.riskanalytics.domain.pc.generators.fac.MultipleFacShareDistributions
 
 /**
  * @author shartmann (at) munichre (dot) com
@@ -25,7 +25,7 @@ class PodraFacModel extends StochasticModel {
     DynamicDependencies dependencies
     DynamicMultipleDependencies eventGenerators
     DynamicConfigurableLobsWithReserves linesOfBusiness
-    ReinsuranceWithBouquetCommissionProgram reinsurance
+    ReinsuranceFACWithBouquetCommissionProgram reinsurance
     DynamicAssetLiabilityMismatchGenerator almGenerators
     AlmResultAggregator aggregateFinancials
     DynamicSegmentFilters structures
@@ -39,7 +39,7 @@ class PodraFacModel extends StochasticModel {
         dependencies = new DynamicDependencies()
         eventGenerators = new DynamicMultipleDependencies()
         linesOfBusiness = new DynamicConfigurableLobsWithReserves()
-        reinsurance = new ReinsuranceWithBouquetCommissionProgram()
+        reinsurance = new ReinsuranceFACWithBouquetCommissionProgram()
         almGenerators = new DynamicAssetLiabilityMismatchGenerator()
         aggregateFinancials = new AlmResultAggregator()
         structures = new DynamicSegmentFilters()

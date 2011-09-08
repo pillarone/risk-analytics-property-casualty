@@ -8,8 +8,15 @@ class PodraFacModelTests extends ModelTest {
     }
 
     String getResultConfigurationDisplayName() {
-        "Aggregated Overview"
+        "CapitalEagle Analysis"
     }
+
+    @Override
+    String getResultConfigurationFileName() {
+        "PodraFacAnalysisResultConfiguration"
+    }
+
+
 
     String getParameterDisplayName() {
 //        "One Line Example"
