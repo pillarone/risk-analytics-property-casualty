@@ -8,6 +8,7 @@ import org.pillarone.riskanalytics.core.simulation.engine.IterationScope
 import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskBands
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedString
 import org.pillarone.riskanalytics.domain.utils.marker.IUnderwritingInfoMarker
+import org.pillarone.riskanalytics.core.util.MathUtils
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -27,6 +28,7 @@ class FacShareDistributionsTests extends GroovyTestCase {
         facShareDistributions.parmLinkedUnderwritingInfo = new ConstrainedString(IUnderwritingInfoMarker, 'motor')
         facShareDistributions.parmLinkedUnderwritingInfo.selectedComponent = motor
         facShareDistributions.iterationStore = new IterationStore(iterationScope)
+        MathUtils.initRandomStreamBase(1234)
     }
 
     void testUsage() {
@@ -59,11 +61,11 @@ class FacShareDistributionsTests extends GroovyTestCase {
         assertEquals 'surplus shares for uw1', [0.21d, 0.31, 0.36], shares.toList().sort()
 
         shares.clear()
-        10.times { shares.add facShareAndRetention.getSurplusShare(underwritingInfo1200) }
+        20.times { shares.add facShareAndRetention.getSurplusShare(underwritingInfo1200) }
         assertEquals 'surplus shares for uw2', [0.11d, 0.41, 0.91], shares.toList().sort()
 
         shares.clear()
-        10.times { shares.add facShareAndRetention.getRetention(underwritingInfo1000) }
+        20.times { shares.add facShareAndRetention.getRetention(underwritingInfo1000) }
         assertEquals 'retention for uw1', [0.1d, 0.2d, 0.3d], shares.toList().sort()
 
         shares.clear()
@@ -141,7 +143,7 @@ class FacShareDistributionsTests extends GroovyTestCase {
         assertEquals 'retention for uw1', [0.1d, 0.4d, 0.9d], shares.toList().sort()
 
         shares.clear()
-        10.times { shares.add facShareAndRetention.getRetention(underwritingInfo1400) }
+        20.times { shares.add facShareAndRetention.getRetention(underwritingInfo1400) }
         assertEquals 'retention for uw2', [0.2d, 0.3d, 0.7d], shares.toList().sort()
     }
 
