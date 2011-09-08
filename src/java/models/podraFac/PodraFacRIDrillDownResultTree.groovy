@@ -8,50 +8,50 @@ displayName = "Reinsurance Contracts (Drill down)"
 language = "en"
 
 mappings = {
-    "Podra" {
+    "PodraFac" {
         "reinsuranceContracts" {
             "Financials" {
-                "[%contract%]" "Podra:reinsurance:subContracts:[%contract%]:outContractFinancials:result", {
-                    "premium" "Podra:reinsurance:subContracts:[%contract%]:outContractFinancials:cededPremium"
-                    "commission" "Podra:reinsurance:subContracts:[%contract%]:outContractFinancials:cededCommission"
-                    "claim" "Podra:reinsurance:subContracts:[%contract%]:outContractFinancials:cededClaim"
+                "[%contract%]" "PodraFac:reinsurance:subContracts:[%contract%]:outContractFinancials:result", {
+                    "premium" "PodraFac:reinsurance:subContracts:[%contract%]:outContractFinancials:cededPremium"
+                    "commission" "PodraFac:reinsurance:subContracts:[%contract%]:outContractFinancials:cededCommission"
+                    "claim" "PodraFac:reinsurance:subContracts:[%contract%]:outContractFinancials:cededClaim"
                 }
             }
             "LossRatio" {
-                "[%contract%]" "Podra:reinsurance:subContracts:[%contract%]:outContractFinancials:cededLossRatio"
+                "[%contract%]" "PodraFac:reinsurance:subContracts:[%contract%]:outContractFinancials:cededLossRatio"
             }
             "DrillDown" {
                 "claim" {
                     "incurred" {
-                        "[%contract%]" "Podra:reinsurance:subContracts:[%contract%]:outClaimsDevelopmentLeanNet:incurred", {
+                        "[%contract%]" "PodraFac:reinsurance:subContracts:[%contract%]:outClaimsDevelopmentLeanNet:incurred", {
                         }
                         "ceded" {
-                            "[%contract%]" "Podra:reinsurance:subContracts:[%contract%]:outClaimsDevelopmentLeanCeded:incurred", {
+                            "[%contract%]" "PodraFac:reinsurance:subContracts:[%contract%]:outClaimsDevelopmentLeanCeded:incurred", {
                                 "bySegments" {
-                                    "[%lineOfBusiness%]" "Podra:reinsurance:subContracts:[%contract%]:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanCeded:incurred"
+                                    "[%lineOfBusiness%]" "PodraFac:reinsurance:subContracts:[%contract%]:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanCeded:incurred"
                                 }
                                 "byPerils" {
-                                    "[%peril%]" "Podra:reinsurance:subContracts:[%contract%]:claimsGenerators:[%peril%]:outClaimsDevelopmentLeanCeded:incurred"
+                                    "[%peril%]" "PodraFac:reinsurance:subContracts:[%contract%]:claimsGenerators:[%peril%]:outClaimsDevelopmentLeanCeded:incurred"
                                 }
                             }
                         }
                         "gross" {
-                            "[%contract%]" "Podra:reinsurance:subContracts:[%contract%]:outClaimsDevelopmentLeanGross:incurred", {
+                            "[%contract%]" "PodraFac:reinsurance:subContracts:[%contract%]:outClaimsDevelopmentLeanGross:incurred", {
                                 "bySegments" {
-                                    "[%lineOfBusiness%]" "Podra:reinsurance:subContracts:[%contract%]:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanGross:incurred"
+                                    "[%lineOfBusiness%]" "PodraFac:reinsurance:subContracts:[%contract%]:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanGross:incurred"
                                 }
                                 "byPerils" {
-                                    "[%peril%]" "Podra:reinsurance:subContracts:[%contract%]:claimsGenerators:[%peril%]:outClaimsDevelopmentLeanGross:incurred"
+                                    "[%peril%]" "PodraFac:reinsurance:subContracts:[%contract%]:claimsGenerators:[%peril%]:outClaimsDevelopmentLeanGross:incurred"
                                 }
                             }
                         }
                         "net" {
-                            "[%contract%]" "Podra:reinsurance:subContracts:[%contract%]:outClaimsDevelopmentLeanNet:incurred", {
+                            "[%contract%]" "PodraFac:reinsurance:subContracts:[%contract%]:outClaimsDevelopmentLeanNet:incurred", {
                                 "bySegments" {
-                                    "[%lineOfBusiness%]" "Podra:reinsurance:subContracts:[%contract%]:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanNet:incurred"
+                                    "[%lineOfBusiness%]" "PodraFac:reinsurance:subContracts:[%contract%]:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanNet:incurred"
                                 }
                                 "byPerils" {
-                                    "[%peril%]" "Podra:reinsurance:subContracts:[%contract%]:claimsGenerators:[%peril%]:outClaimsDevelopmentLeanNet:incurred"
+                                    "[%peril%]" "PodraFac:reinsurance:subContracts:[%contract%]:claimsGenerators:[%peril%]:outClaimsDevelopmentLeanNet:incurred"
                                 }
                             }
                         }
@@ -59,65 +59,65 @@ mappings = {
                 }
                 "underwriting" {
                     "premium" {
-                        "[%contract%]" "Podra:reinsurance:subContracts:[%contract%]:outNetAfterCoverUnderwritingInfo:premium", {
+                        "[%contract%]" "PodraFac:reinsurance:subContracts:[%contract%]:outNetAfterCoverUnderwritingInfo:premium", {
                         }
                         "ceded" {
-                            "[%contract%]" "Podra:reinsurance:subContracts:[%contract%]:outCoverUnderwritingInfo:premium", {
-                                "fixedPremium" "Podra:reinsurance:subContracts:[%contract%]:outCoverUnderwritingInfo:fixedPremium"
-                                "variablePremium" "Podra:reinsurance:subContracts:[%contract%]:outCoverUnderwritingInfo:variablePremium"
+                            "[%contract%]" "PodraFac:reinsurance:subContracts:[%contract%]:outCoverUnderwritingInfo:premium", {
+                                "fixedPremium" "PodraFac:reinsurance:subContracts:[%contract%]:outCoverUnderwritingInfo:fixedPremium"
+                                "variablePremium" "PodraFac:reinsurance:subContracts:[%contract%]:outCoverUnderwritingInfo:variablePremium"
                                 "bySegments" {
-                                    "[%lineOfBusiness%]" "Podra:reinsurance:subContracts:[%contract%]:linesOfBusiness:[%lineOfBusiness%]:outCoverUnderwritingInfo:premium", {
-                                        "fixedPremium" "Podra:reinsurance:subContracts:[%contract%]:linesOfBusiness:[%lineOfBusiness%]:outCoverUnderwritingInfo:fixedPremium"
-                                        "variablePremium" "Podra:reinsurance:subContracts:[%contract%]:linesOfBusiness:[%lineOfBusiness%]:outCoverUnderwritingInfo:variablePremium"
+                                    "[%lineOfBusiness%]" "PodraFac:reinsurance:subContracts:[%contract%]:linesOfBusiness:[%lineOfBusiness%]:outCoverUnderwritingInfo:premium", {
+                                        "fixedPremium" "PodraFac:reinsurance:subContracts:[%contract%]:linesOfBusiness:[%lineOfBusiness%]:outCoverUnderwritingInfo:fixedPremium"
+                                        "variablePremium" "PodraFac:reinsurance:subContracts:[%contract%]:linesOfBusiness:[%lineOfBusiness%]:outCoverUnderwritingInfo:variablePremium"
                                     }
                                 }
                                 "byPerils" {
-                                    "[%peril%]" "Podra:reinsurance:subContracts:[%contract%]:claimsGenerators:[%peril%]:outCoverUnderwritingInfo:premium", {
-                                        "fixedPremium" "Podra:reinsurance:subContracts:[%contract%]:claimsGenerators:[%peril%]:outCoverUnderwritingInfo:fixedPremium"
-                                        "variablePremium" "Podra:reinsurance:subContracts:[%contract%]:claimsGenerators:[%peril%]:outCoverUnderwritingInfo:variablePremium"
+                                    "[%peril%]" "PodraFac:reinsurance:subContracts:[%contract%]:claimsGenerators:[%peril%]:outCoverUnderwritingInfo:premium", {
+                                        "fixedPremium" "PodraFac:reinsurance:subContracts:[%contract%]:claimsGenerators:[%peril%]:outCoverUnderwritingInfo:fixedPremium"
+                                        "variablePremium" "PodraFac:reinsurance:subContracts:[%contract%]:claimsGenerators:[%peril%]:outCoverUnderwritingInfo:variablePremium"
                                     }
                                 }
                             }
                         }
                         "gross" {
-                            "[%contract%]" "Podra:reinsurance:subContracts:[%contract%]:outUnderwritingInfo:premium", {
+                            "[%contract%]" "PodraFac:reinsurance:subContracts:[%contract%]:outUnderwritingInfo:premium", {
                                 "bySegments" {
-                                    "[%lineOfBusiness%]" "Podra:reinsurance:subContracts:[%contract%]:linesOfBusiness:[%lineOfBusiness%]:outUnderwritingInfo:premium"
+                                    "[%lineOfBusiness%]" "PodraFac:reinsurance:subContracts:[%contract%]:linesOfBusiness:[%lineOfBusiness%]:outUnderwritingInfo:premium"
                                 }
                                 "byPerils" {
-                                    "[%peril%]" "Podra:reinsurance:subContracts:[%contract%]:claimsGenerators:[%peril%]:outUnderwritingInfo:premium"
+                                    "[%peril%]" "PodraFac:reinsurance:subContracts:[%contract%]:claimsGenerators:[%peril%]:outUnderwritingInfo:premium"
                                 }
                             }
                         }
                     }
                     "commission" {
-                        "[%contract%]" "Podra:reinsurance:subContracts:[%contract%]:outNetAfterCoverUnderwritingInfo:commission", {
+                        "[%contract%]" "PodraFac:reinsurance:subContracts:[%contract%]:outNetAfterCoverUnderwritingInfo:commission", {
                         }
                         "ceded" {
-                            "[%contract%]" "Podra:reinsurance:subContracts:[%contract%]:outCoverUnderwritingInfo:commission", {
-                                "fixedCommission" "Podra:reinsurance:subContracts:[%contract%]:outCoverUnderwritingInfo:fixedCommission"
-                                "variableCommission" "Podra:reinsurance:subContracts:[%contract%]:outCoverUnderwritingInfo:variableCommission"
+                            "[%contract%]" "PodraFac:reinsurance:subContracts:[%contract%]:outCoverUnderwritingInfo:commission", {
+                                "fixedCommission" "PodraFac:reinsurance:subContracts:[%contract%]:outCoverUnderwritingInfo:fixedCommission"
+                                "variableCommission" "PodraFac:reinsurance:subContracts:[%contract%]:outCoverUnderwritingInfo:variableCommission"
                                 "bySegments" {
-                                    "[%lineOfBusiness%]" "Podra:reinsurance:subContracts:[%contract%]:linesOfBusiness:[%lineOfBusiness%]:outCoverUnderwritingInfo:commission", {
-                                        "fixedCommission" "Podra:reinsurance:subContracts:[%contract%]:linesOfBusiness:[%lineOfBusiness%]:outCoverUnderwritingInfo:fixedCommission"
-                                        "variableCommission" "Podra:reinsurance:subContracts:[%contract%]:linesOfBusiness:[%lineOfBusiness%]:outCoverUnderwritingInfo:variableCommission"
+                                    "[%lineOfBusiness%]" "PodraFac:reinsurance:subContracts:[%contract%]:linesOfBusiness:[%lineOfBusiness%]:outCoverUnderwritingInfo:commission", {
+                                        "fixedCommission" "PodraFac:reinsurance:subContracts:[%contract%]:linesOfBusiness:[%lineOfBusiness%]:outCoverUnderwritingInfo:fixedCommission"
+                                        "variableCommission" "PodraFac:reinsurance:subContracts:[%contract%]:linesOfBusiness:[%lineOfBusiness%]:outCoverUnderwritingInfo:variableCommission"
                                     }
                                 }
                                 "byPerils" {
-                                    "[%peril%]" "Podra:reinsurance:subContracts:[%contract%]:claimsGenerators:[%peril%]:outCoverUnderwritingInfo:commission", {
-                                        "fixedCommission" "Podra:reinsurance:subContracts:[%contract%]:claimsGenerators:[%peril%]:outCoverUnderwritingInfo:fixedCommission"
-                                        "variableCommission" "Podra:reinsurance:subContracts:[%contract%]:claimsGenerators:[%peril%]:outCoverUnderwritingInfo:variableCommission"
+                                    "[%peril%]" "PodraFac:reinsurance:subContracts:[%contract%]:claimsGenerators:[%peril%]:outCoverUnderwritingInfo:commission", {
+                                        "fixedCommission" "PodraFac:reinsurance:subContracts:[%contract%]:claimsGenerators:[%peril%]:outCoverUnderwritingInfo:fixedCommission"
+                                        "variableCommission" "PodraFac:reinsurance:subContracts:[%contract%]:claimsGenerators:[%peril%]:outCoverUnderwritingInfo:variableCommission"
                                     }
                                 }
                             }
                         }
                         "gross" {
-                            "[%contract%]" "Podra:reinsurance:subContracts:[%contract%]:outUnderwritingInfo:commission", {
+                            "[%contract%]" "PodraFac:reinsurance:subContracts:[%contract%]:outUnderwritingInfo:commission", {
                                 "bySegments" {
-                                    "[%lineOfBusiness%]" "Podra:reinsurance:subContracts:[%contract%]:linesOfBusiness:[%lineOfBusiness%]:outUnderwritingInfo:commission"
+                                    "[%lineOfBusiness%]" "PodraFac:reinsurance:subContracts:[%contract%]:linesOfBusiness:[%lineOfBusiness%]:outUnderwritingInfo:commission"
                                 }
                                 "byPerils" {
-                                    "[%peril%]" "Podra:reinsurance:subContracts:[%contract%]:claimsGenerators:[%peril%]:outUnderwritingInfo:commission"
+                                    "[%peril%]" "PodraFac:reinsurance:subContracts:[%contract%]:claimsGenerators:[%peril%]:outUnderwritingInfo:commission"
                                 }
                             }
                         }
