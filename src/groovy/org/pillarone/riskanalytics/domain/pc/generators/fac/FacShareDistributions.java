@@ -33,8 +33,7 @@ public class FacShareDistributions extends Component {
     private ConstrainedString parmLinkedUnderwritingInfo = new ConstrainedString(IUnderwritingInfoMarker.class, "");
 
     private TableMultiDimensionalParameter parmAllocation = new TableMultiDimensionalParameter(
-            GroovyUtils.convertToListOfList(new Object[]{0d, 0d, 0d, 0d, 0d}),
-            Arrays.asList(MAX_SUM_INSURED, COUNT_OF_POLICIES, QUOTA_SHARE_PRC, SUX_SHARE_PRC, RETENTION_PRC));
+            GroovyUtils.convertToListOfList(new Object[]{0d, 0d, 0d, 0d, 0d}), getColumnTitles());
 
     private static final String FAC_SHARE_AND_RETENTION = "fac share and retention";
 
@@ -43,6 +42,8 @@ public class FacShareDistributions extends Component {
     private static final String QUOTA_SHARE_PRC = "Quota Share %";
     private static final String SUX_SHARE_PRC = "Surplus %";
     private static final String RETENTION_PRC = "Retention %";
+
+    private static List<String> columnTitles;
 
     @Override
     protected void doCalculation() {
@@ -96,6 +97,13 @@ public class FacShareDistributions extends Component {
             iterationStore.put(FAC_SHARE_AND_RETENTION, facShareAndRetention);
         }
         return facShareAndRetention;
+    }
+
+    public static List<String> getColumnTitles() {
+        if (columnTitles == null) {
+            columnTitles = Arrays.asList(MAX_SUM_INSURED, COUNT_OF_POLICIES, QUOTA_SHARE_PRC, SUX_SHARE_PRC, RETENTION_PRC);
+        }
+        return columnTitles;
     }
 
     public ConstrainedString getParmLinkedUnderwritingInfo() {

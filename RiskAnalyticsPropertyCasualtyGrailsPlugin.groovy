@@ -70,6 +70,7 @@ class RiskAnalyticsPropertyCasualtyGrailsPlugin {
         ValidatorRegistry.addValidator(new SegmentFilterValidator())
         ValidatorRegistry.addValidator(new DependencyMatrixValidator())
         ValidatorRegistry.addValidator(new RiskBandsValidator())
+//        ValidatorRegistry.addValidator(new FacShareAndDistributionsValidator())
         ValidatorRegistry.addValidator(new TypableClaimsGeneratorValidator())
 
         // add resource bundle for exceptions
