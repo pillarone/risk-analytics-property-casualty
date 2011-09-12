@@ -1,6 +1,5 @@
 package org.pillarone.riskanalytics.domain.pc.generators.fac;
 
-import cern.colt.Arrays;
 import org.pillarone.riskanalytics.core.util.GroovyUtils;
 import org.pillarone.riskanalytics.domain.utils.math.distribution.RandomDistribution;
 import umontreal.iro.lecuyer.probdist.DiscreteDistribution;
@@ -17,16 +16,14 @@ public class FacShareRetentionHelper {
     List<Double> policiesCounts = new ArrayList<Double>();
     List<Double> facSharesQuotaShare = new ArrayList<Double>();
     List<Double> facSharesSurplus = new ArrayList<Double>();
-    List<Double> facRetentions = new ArrayList<Double>();
 
     public FacShareRetentionHelper() {
     }
 
-    public void add(double policiesCount, double facShareQuotaShare, double facShareSurplus, double facRetention) {
+    public void add(double policiesCount, double facShareQuotaShare, double facShareSurplus) {
         policiesCounts.add(policiesCount);
         facSharesQuotaShare.add(facShareQuotaShare);
         facSharesSurplus.add(facShareSurplus);
-        facRetentions.add(facRetention);
     }
 
     private void initProbabilities() {
@@ -56,14 +53,4 @@ public class FacShareRetentionHelper {
         distribution.setDistribution(new DiscreteDistribution(GroovyUtils.asDouble(facSharesSurplus), GroovyUtils.asDouble(probabilities), facSharesQuotaShare.size()));
         return distribution;
     }
-
-    public RandomDistribution getFacRetentionDistribution() {
-        if (probabilities.size() < facSharesQuotaShare.size()) {
-            initProbabilities();
-        }
-        RandomDistribution distribution = new RandomDistribution();
-        distribution.setDistribution(new DiscreteDistribution(GroovyUtils.asDouble(facRetentions), GroovyUtils.asDouble(probabilities), facSharesQuotaShare.size()));
-        return distribution;
-    }
-
 }

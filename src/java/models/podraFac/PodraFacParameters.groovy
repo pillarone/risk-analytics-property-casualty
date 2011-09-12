@@ -69,7 +69,7 @@ components {
 	}
 	treatyAllocationForFAC {
 		subMotorHull {
-			parmAllocation[0]=new org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter(org.pillarone.riskanalytics.core.util.GroovyUtils.toList([[2.0E8, 4.0E8, 4.0E8], [1.0, 2.0, 3.0], [0.2, 0.21, 0.25], [0.4, 0.5, 0.55], [0.02, 0.03, 0.3]]),["Max Sum Insured","Count of Policies","Quota Share %","Surplus %","Retention %"])
+			parmAllocation[0]=new org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter(org.pillarone.riskanalytics.core.util.GroovyUtils.toList([[2.0E8, 4.0E8, 4.0E8], [1.0, 2.0, 3.0], [0.2, 0.21, 0.25], [0.4, 0.5, 0.55]]),["Max Sum Insured","Count of Policies","Quota Share %","Surplus %"])
 			parmLinkedUnderwritingInfo[0]=new org.pillarone.riskanalytics.core.parameterization.ConstrainedString(org.pillarone.riskanalytics.domain.utils.marker.IUnderwritingInfoMarker, 'subMotorHull')
 		}
 	}

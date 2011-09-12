@@ -26,7 +26,6 @@ public class UnderwritingInfo extends MultiValuePacket {
 
     private double facQuotaShare = 0d;
     private double facSurplus = 0d;
-    private double facRetention = 0d;
 
     private Exposure exposureDefinition;
     private ISegmentMarker lineOfBusiness;
@@ -65,7 +64,6 @@ public class UnderwritingInfo extends MultiValuePacket {
         reinsuranceContract = underwritingInfo.getReinsuranceContract();
         facQuotaShare = underwritingInfo.getFacQuotaShare();
         facSurplus = underwritingInfo.getFacSurplus();
-        facRetention = underwritingInfo.getFacRetention();
     }
 
     /**
@@ -243,16 +241,8 @@ public class UnderwritingInfo extends MultiValuePacket {
         return facQuotaShare;
     }
 
-    public double getFacRetention() {
-        return facRetention;
-    }
-
     public void setFacQuotaShare(double facQuotaShare) {
         this.facQuotaShare = facQuotaShare;
-    }
-
-    public void setFacRetention(double facRetention) {
-        this.facRetention = facRetention;
     }
 
     public double getFacSurplus() {

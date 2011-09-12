@@ -50,7 +50,7 @@ public class MultiCoverAttributeFACReinsuranceContract extends MultiCoverAttribu
     Claim getNetClaim(Claim grossClaim, Claim cededClaim) {
         if (grossClaim instanceof ClaimDevelopmentLeanPacket) return getNetClaimDLP((ClaimDevelopmentLeanPacket) grossClaim, (ClaimDevelopmentLeanPacket) cededClaim);
         double cededUltimateRatio = cededClaim.getUltimate() / grossClaim.getUltimate();
-        double ultimateFactor = grossClaim.getFacShare(parmContractStrategy) + grossClaim.getFacRetention() - cededUltimateRatio;
+        double ultimateFactor = grossClaim.getFacShare(parmContractStrategy) - cededUltimateRatio;
         Claim netClaim = grossClaim.copy();
         netClaim.setUltimate(grossClaim.getUltimate() * ultimateFactor);
         if (cededClaim.notNull()) {
@@ -65,11 +65,11 @@ public class MultiCoverAttributeFACReinsuranceContract extends MultiCoverAttribu
 
     ClaimDevelopmentLeanPacket getNetClaimDLP(ClaimDevelopmentLeanPacket grossClaim, ClaimDevelopmentLeanPacket cededClaim) {
         double cededUltimateRatio = grossClaim.getUltimate() > 0 ? cededClaim.getUltimate() / grossClaim.getUltimate() : 0d;
-        double ultimateFactor = grossClaim.getFacShare(parmContractStrategy) + grossClaim.getFacRetention() - cededUltimateRatio;
+        double ultimateFactor = grossClaim.getFacShare(parmContractStrategy) - cededUltimateRatio;
         double cededPaidRatio = grossClaim.getPaid() > 0 ? cededClaim.getPaid() / grossClaim.getPaid() : 0d;
-        double paidFactor = grossClaim.getFacShare(parmContractStrategy) + grossClaim.getFacRetention() - cededPaidRatio;
+        double paidFactor = grossClaim.getFacShare(parmContractStrategy) - cededPaidRatio;
         double cededReservedRatio = grossClaim.getReserved() > 0 ? cededClaim.getReserved() / grossClaim.getReserved() : 0d;
-        double reservedFactor = grossClaim.getFacShare(parmContractStrategy) + grossClaim.getFacRetention() - cededReservedRatio;
+        double reservedFactor = grossClaim.getFacShare(parmContractStrategy) - cededReservedRatio;
 
         ClaimDevelopmentLeanPacket netClaim = (ClaimDevelopmentLeanPacket) grossClaim.copy();
         netClaim.setUltimate(grossClaim.getUltimate() * ultimateFactor);

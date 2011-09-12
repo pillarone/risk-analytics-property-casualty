@@ -85,25 +85,14 @@ public class Claim extends MultiValuePacket {
     public void updateExposureWithFac(FacShareAndRetention facShareAndRetention) {
         double facQuotaShare = facShareAndRetention.getQuotaShare(exposure);
         double facSurplus = facShareAndRetention.getSurplusShare(exposure);
-        double retention = facShareAndRetention.getRetention(exposure);
         exposure = exposure.copy();
         exposure.setFacQuotaShare(facQuotaShare);
         exposure.setFacSurplus(facSurplus);
-        exposure.setFacRetention(retention);
     }
 
     public double getFacShare(IReinsuranceContractStrategy contractStrategy) {
         if (exposure != null) {
             return exposure.getFacQuotaShare();
-        }
-        else {
-            return 0d;
-        }
-    }
-
-    public double getFacRetention() {
-        if (exposure != null) {
-            return exposure.getFacRetention();
         }
         else {
             return 0d;

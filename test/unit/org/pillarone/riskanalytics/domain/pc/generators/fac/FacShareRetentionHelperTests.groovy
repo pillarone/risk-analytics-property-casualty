@@ -12,10 +12,10 @@ class FacShareRetentionHelperTests extends GroovyTestCase {
 
     void testUsage() {
         FacShareRetentionHelper helper = new FacShareRetentionHelper()
-        helper.add(1, 0.2, 0.01, 0.11)
-        helper.add(2, 0.4, 0.02, 0.12)
-        helper.add(3, 0.6, 0.03, 0.13)
-        helper.add(4, 0.8, 0.04, 0.14)
+        helper.add(1, 0.2, 0.01)
+        helper.add(2, 0.4, 0.02)
+        helper.add(3, 0.6, 0.03)
+        helper.add(4, 0.8, 0.04)
 
         RandomDistribution distributionFacQuotaShares = helper.getFacQuotaShareDistribution()
 
@@ -26,11 +26,5 @@ class FacShareRetentionHelperTests extends GroovyTestCase {
 
         assertEquals 'fac share distribution type', DiscreteDistribution.class, distributionFacSurplus.distribution.class
         assertEquals 'fac share mean', 0.03, distributionFacSurplus.distribution.mean, EPSILON
-
-
-        RandomDistribution distributionFacRetentions = helper.getFacRetentionDistribution()
-
-        assertEquals 'fac retention distribution type', DiscreteDistribution.class, distributionFacRetentions.distribution.class
-        assertEquals 'fac retention mean', 0.13, distributionFacRetentions.distribution.mean, EPSILON
     }
 }

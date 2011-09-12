@@ -33,7 +33,7 @@ public class FacShareDistributions extends Component {
     private ConstrainedString parmLinkedUnderwritingInfo = new ConstrainedString(IUnderwritingInfoMarker.class, "");
 
     private TableMultiDimensionalParameter parmAllocation = new TableMultiDimensionalParameter(
-            GroovyUtils.convertToListOfList(new Object[]{0d, 0d, 0d, 0d, 0d}), getColumnTitles());
+            GroovyUtils.convertToListOfList(new Object[]{0d, 0d, 0d, 0d}), getColumnTitles());
 
     private static final String FAC_SHARE_AND_RETENTION = "fac share and retention";
 
@@ -41,7 +41,6 @@ public class FacShareDistributions extends Component {
     private static final String COUNT_OF_POLICIES = "Count of Policies";
     private static final String QUOTA_SHARE_PRC = "Quota Share %";
     private static final String SUX_SHARE_PRC = "Surplus %";
-    private static final String RETENTION_PRC = "Retention %";
 
     private static List<String> columnTitles;
 
@@ -65,7 +64,6 @@ public class FacShareDistributions extends Component {
             int columnCountOfPolicies = parmAllocation.getColumnIndex(COUNT_OF_POLICIES);
             int columnQuotaShare = parmAllocation.getColumnIndex(QUOTA_SHARE_PRC);
             int columnSurplus = parmAllocation.getColumnIndex(SUX_SHARE_PRC);
-            int columnRetention = parmAllocation.getColumnIndex(RETENTION_PRC);
 
             Map<UnderwritingInfo, FacShareRetentionHelper> distributionsPerRiskBand = new HashMap<UnderwritingInfo, FacShareRetentionHelper>();
 
@@ -74,7 +72,6 @@ public class FacShareDistributions extends Component {
                 double policiesCount = InputFormatConverter.getDouble(parmAllocation.getValueAt(row, columnCountOfPolicies));
                 double quotaSharePercentage = InputFormatConverter.getDouble(parmAllocation.getValueAt(row, columnQuotaShare));
                 double suxPercentage = InputFormatConverter.getDouble(parmAllocation.getValueAt(row, columnSurplus));
-                double retentionPercentage = InputFormatConverter.getDouble(parmAllocation.getValueAt(row, columnRetention));
 
                 UnderwritingInfo lookupUwInfo = uwInfoLookupBySumInsured.get(maxSumInsured);
                 if (lookupUwInfo != null) {
@@ -83,7 +80,7 @@ public class FacShareDistributions extends Component {
                         helper = new FacShareRetentionHelper();
                         distributionsPerRiskBand.put(uwInfoLookupBySumInsured.get(maxSumInsured), helper);
                     }
-                    helper.add(policiesCount, quotaSharePercentage, suxPercentage, retentionPercentage);
+                    helper.add(policiesCount, quotaSharePercentage, suxPercentage);
                 }
             }
 
@@ -91,8 +88,7 @@ public class FacShareDistributions extends Component {
             for (Map.Entry<UnderwritingInfo, FacShareRetentionHelper> entry : distributionsPerRiskBand.entrySet()) {
                 RandomDistribution quotaShareDistribution = ((FacShareRetentionHelper) entry.getValue()).getFacQuotaShareDistribution();
                 RandomDistribution surplusDistribution = ((FacShareRetentionHelper) entry.getValue()).getFacSurplusSharesDistribution();
-                RandomDistribution retentionDistribution = ((FacShareRetentionHelper) entry.getValue()).getFacRetentionDistribution();
-                facShareAndRetention.add(entry.getKey(), quotaShareDistribution, surplusDistribution, retentionDistribution);
+                facShareAndRetention.add(entry.getKey(), quotaShareDistribution, surplusDistribution);
             }
             iterationStore.put(FAC_SHARE_AND_RETENTION, facShareAndRetention);
         }
@@ -101,7 +97,7 @@ public class FacShareDistributions extends Component {
 
     public static List<String> getColumnTitles() {
         if (columnTitles == null) {
-            columnTitles = Arrays.asList(MAX_SUM_INSURED, COUNT_OF_POLICIES, QUOTA_SHARE_PRC, SUX_SHARE_PRC, RETENTION_PRC);
+            columnTitles = Arrays.asList(MAX_SUM_INSURED, COUNT_OF_POLICIES, QUOTA_SHARE_PRC, SUX_SHARE_PRC);
         }
         return columnTitles;
     }

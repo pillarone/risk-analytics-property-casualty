@@ -24,9 +24,9 @@ public class FacShareAndRetention extends Packet {
         facDistributionsByUwInfo = new HashMap<UnderwritingInfo, FacRandomDistributions>();
     }
 
-    public void add(UnderwritingInfo underwritingInfo, RandomDistribution quotaShare, RandomDistribution surplus, RandomDistribution retention) {
+    public void add(UnderwritingInfo underwritingInfo, RandomDistribution quotaShare, RandomDistribution surplus) {
         if (facDistributionsByUwInfo.get(underwritingInfo) == null) {
-            facDistributionsByUwInfo.put(underwritingInfo, new FacRandomDistributions(quotaShare, surplus, retention));
+            facDistributionsByUwInfo.put(underwritingInfo, new FacRandomDistributions(quotaShare, surplus));
         }
     }
 
@@ -54,26 +54,14 @@ public class FacShareAndRetention extends Packet {
         }
     }
 
-    public Double getRetention(UnderwritingInfo key) {
-        FacRandomDistributions facShareDistributions = facDistributionsByUwInfo.get(key);
-        if (facShareDistributions == null) {
-            return 0d;
-        }
-        else {
-            return facShareDistributions.getFacRetention();
-        }
-    }
-
     private class FacRandomDistributions {
 
         IRandomNumberGenerator facQuotaShareGenerator;
         IRandomNumberGenerator facSurplusShareGenerator;
-        IRandomNumberGenerator facRetentionGenerator;
 
-        FacRandomDistributions(RandomDistribution facQuotaShare, RandomDistribution facSurplusShare, RandomDistribution facRetention) {
+        FacRandomDistributions(RandomDistribution facQuotaShare, RandomDistribution facSurplusShare) {
             facQuotaShareGenerator = RandomNumberGeneratorFactory.getGenerator(facQuotaShare);
             facSurplusShareGenerator = RandomNumberGeneratorFactory.getGenerator(facSurplusShare);
-            facRetentionGenerator = RandomNumberGeneratorFactory.getGenerator(facRetention);
         }
 
         double getFacShare(IReinsuranceContractStrategy contractStrategy) {
@@ -94,10 +82,6 @@ public class FacShareAndRetention extends Packet {
 
         double getFacSurplusShare() {
             return (Double) facSurplusShareGenerator.nextValue();
-        }
-
-        double getFacRetention() {
-            return (Double) facRetentionGenerator.nextValue();
         }
     }
 }

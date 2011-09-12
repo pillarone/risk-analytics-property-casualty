@@ -23,19 +23,12 @@ class FacShareAndRetentionTests extends GroovyTestCase {
         RandomDistribution constantSurplusShareDistribution017 = new RandomDistribution()
         constantSurplusShareDistribution017.distribution = new ConstantDistribution(0.17)
 
-        RandomDistribution constantRetentionDistribution02 = new RandomDistribution()
-        constantRetentionDistribution02.distribution = new ConstantDistribution(0.2)
-        RandomDistribution constantRetentionDistribution022 = new RandomDistribution()
-        constantRetentionDistribution022.distribution = new ConstantDistribution(0.22)
-
         FacShareAndRetention facShareAndRetention = new FacShareAndRetention()
-        facShareAndRetention.add(underwritingInfo1, constantQuotaShareDistribution05, constantSurplusShareDistribution06, constantRetentionDistribution02)
-        facShareAndRetention.add(underwritingInfo2, constantQuotaShareDistribution015, constantSurplusShareDistribution017, constantRetentionDistribution022)
+        facShareAndRetention.add(underwritingInfo1, constantQuotaShareDistribution05, constantSurplusShareDistribution06)
+        facShareAndRetention.add(underwritingInfo2, constantQuotaShareDistribution015, constantSurplusShareDistribution017)
         assertEquals 'quota share of uw1', 0.5, facShareAndRetention.getQuotaShare(underwritingInfo1)
         assertEquals 'surplus share of uw1', 0.6, facShareAndRetention.getSurplusShare(underwritingInfo1)
-        assertEquals 'retention of uw1', 0.2, facShareAndRetention.getRetention(underwritingInfo1)
         assertEquals 'quota share of uw2', 0.15, facShareAndRetention.getQuotaShare(underwritingInfo2)
         assertEquals 'surplus of uw2', 0.17, facShareAndRetention.getSurplusShare(underwritingInfo2)
-        assertEquals 'retention of uw2', 0.22, facShareAndRetention.getRetention(underwritingInfo2)
     }
 }

@@ -63,14 +63,6 @@ class FacShareDistributionsTests extends GroovyTestCase {
         shares.clear()
         20.times { shares.add facShareAndRetention.getSurplusShare(underwritingInfo1200) }
         assertEquals 'surplus shares for uw2', [0.11d, 0.41, 0.91], shares.toList().sort()
-
-        shares.clear()
-        20.times { shares.add facShareAndRetention.getRetention(underwritingInfo1000) }
-        assertEquals 'retention for uw1', [0.1d, 0.2d, 0.3d], shares.toList().sort()
-
-        shares.clear()
-        10.times { shares.add facShareAndRetention.getRetention(underwritingInfo1200) }
-        assertEquals 'retention for uw2', [0.2d, 0.3d, 0.7d], shares.toList().sort()
     }
 
     void testMissingLinkAtEnd() {
@@ -131,20 +123,12 @@ class FacShareDistributionsTests extends GroovyTestCase {
         assertEquals 'surplus shares for uw1400', [0d], shares.toList().sort()
 
         shares.clear()
-        10.times { shares.add facShareAndRetention.getRetention(underwritingInfo1200) }
-        assertEquals 'surplus shares for uw1400', [0d], shares.toList().sort()
-
-        shares.clear()
         10.times { shares.add facShareAndRetention.getSurplusShare(underwritingInfo1400) }
         assertEquals 'surplus shares for uw2', [0.11d, 0.41, 0.91], shares.toList().sort()
 
         shares.clear()
         20.times { shares.add facShareAndRetention.getQuotaShare(underwritingInfo1400) }
         assertEquals 'retention for uw1', [0.1d, 0.4d, 0.9d], shares.toList().sort()
-
-        shares.clear()
-        20.times { shares.add facShareAndRetention.getRetention(underwritingInfo1400) }
-        assertEquals 'retention for uw2', [0.2d, 0.3d, 0.7d], shares.toList().sort()
     }
 
     void testOnePercentageLineOnly() {
@@ -172,10 +156,6 @@ class FacShareDistributionsTests extends GroovyTestCase {
         shares.clear()
         10.times { shares.add facShareAndRetention.getSurplusShare(underwritingInfo1000) }
         assertEquals 'surplus shares for uw1', [0.21d], shares.toList().sort()
-
-        shares.clear()
-        10.times { shares.add facShareAndRetention.getRetention(underwritingInfo1000) }
-        assertEquals 'surplus shares for uw1400', [0.1d], shares.toList().sort()
     }
 
     void testUwInfoFilter() {
@@ -210,13 +190,5 @@ class FacShareDistributionsTests extends GroovyTestCase {
         shares.clear()
         10.times { shares.add facShareAndRetention.getSurplusShare(underwritingInfo1200) }
         assertEquals 'surplus shares for uw2', [0d], shares.toList().sort()
-
-        shares.clear()
-        20.times { shares.add facShareAndRetention.getRetention(underwritingInfo1000) }
-        assertEquals 'retention for uw1', [0.1d, 0.2d, 0.3d], shares.toList().sort()
-
-        shares.clear()
-        10.times { shares.add facShareAndRetention.getRetention(underwritingInfo1200) }
-        assertEquals 'retention for uw2', [0d], shares.toList().sort()
     }
 }
