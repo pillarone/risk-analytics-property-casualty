@@ -9,6 +9,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoTests
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoUtilities
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionTests
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -27,7 +28,8 @@ class WXLContractStrategyTests extends GroovyTestCase {
                                 "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, new HashMap()),
                                 "premium": 100,
                                 "reinstatementPremiums": new TableMultiDimensionalParameter([0.2], ['Reinstatement Premium']),
-                                "coveredByReinsurer": 1d]))
+                                "coveredByReinsurer": 1d]),
+                simulationScope: CommissionTests.getTestSimulationScope())
     }
 
     static ReinsuranceContract getContract1() {
@@ -42,7 +44,8 @@ class WXLContractStrategyTests extends GroovyTestCase {
                                 "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, new HashMap()),
                                 "premium": 100,
                                 "reinstatementPremiums": new TableMultiDimensionalParameter([0.2], ['Reinstatement Premium']),
-                                "coveredByReinsurer": 1d]))
+                                "coveredByReinsurer": 1d]),
+                simulationScope: CommissionTests.getTestSimulationScope())
     }
 
     static ReinsuranceContract getContract2() {
@@ -57,7 +60,8 @@ class WXLContractStrategyTests extends GroovyTestCase {
                                 "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, new HashMap()),
                                 "premium": 100,
                                 "reinstatementPremiums": new TableMultiDimensionalParameter([0.3], ['Reinstatement Premium']),
-                                "coveredByReinsurer": 1d]))
+                                "coveredByReinsurer": 1d]),
+                simulationScope: CommissionTests.getTestSimulationScope())
     }
 
     static ReinsuranceContract getContract3() {
@@ -72,7 +76,8 @@ class WXLContractStrategyTests extends GroovyTestCase {
                                 "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, new HashMap()),
                                 "premium": 100,
                                 "reinstatementPremiums": new TableMultiDimensionalParameter([0.3], ['Reinstatement Premium']),
-                                "coveredByReinsurer": 1d]))
+                                "coveredByReinsurer": 1d]),
+                simulationScope: CommissionTests.getTestSimulationScope())
     }
 
     void testCalculateCededClaimsOnly() {
@@ -514,7 +519,8 @@ class WXLContractStrategyTests extends GroovyTestCase {
                                 "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, new HashMap()),
                                 "premium": 100,
                                 "reinstatementPremiums": new TableMultiDimensionalParameter([0.3], ['Reinstatement Premium']),
-                                "coveredByReinsurer": 1d]))
+                                "coveredByReinsurer": 1d]),
+                simulationScope: CommissionTests.getTestSimulationScope())
 
         wxl.inUnderwritingInfo << UnderwritingInfoTests.getUnderwritingInfo()
 

@@ -20,6 +20,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.*
 import org.pillarone.riskanalytics.domain.pc.lob.ConfigurableLobWithReserves
 import org.pillarone.riskanalytics.domain.pc.constants.ReinsuranceContractPremiumBase
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionTests
 
 /**
  * These test cases don't totally match the situation as it is when the component is used in a model as the
@@ -42,9 +43,7 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
                         CoverAttributeStrategyType.LINESOFBUSINESS,
                         ['lines': new ComboBoxTableMultiDimensionalParameter(['fire'], ['Covered Segments'], ISegmentMarker)])
         )
-        SimulationScope simulationScope = new SimulationScope()
-        simulationScope.model = new VoidTestModel()
-        contract.simulationScope = simulationScope
+        contract.simulationScope = CommissionTests.getTestSimulationScope()
         return contract
 
     }
@@ -58,9 +57,7 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
                 parmInuringPriority: inuringPriority,
                 parmCover: coverStrategy
         )
-        SimulationScope simulationScope = new SimulationScope()
-        simulationScope.model = new VoidTestModel()
-        contract.simulationScope = simulationScope
+        contract.simulationScope = CommissionTests.getTestSimulationScope()
         return contract
     }
 
@@ -143,7 +140,7 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
     }
 
     void testUsageWithFilteringByLob() {
-        SimulationScope simulationScope = new SimulationScope(model: new VoidTestModel())
+        SimulationScope simulationScope = CommissionTests.getTestSimulationScope()
 
         TestPerilComponent perilA = new TestPerilComponent(name: 'peril a')
         TestPerilComponent perilB = new TestPerilComponent(name: 'peril b')
@@ -214,7 +211,7 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
     // we expect everything to be filtered out
 
     void testUsageWithFilteringByImpossibleLobs() {
-        SimulationScope simulationScope = new SimulationScope(model: new VoidTestModel())
+        SimulationScope simulationScope = CommissionTests.getTestSimulationScope()
 
         TestPerilComponent perilA = new TestPerilComponent(name: 'peril a')
         TestPerilComponent perilB = new TestPerilComponent(name: 'peril b')
@@ -258,7 +255,7 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
     }
 
     void testUsageWithCombinedFiltering() {
-        SimulationScope simulationScope = new SimulationScope(model: new VoidTestModel())
+        SimulationScope simulationScope = CommissionTests.getTestSimulationScope()
 
         // create peril markers (and add them to the simulation model)
         TestPerilComponent perilA = new TestPerilComponent(name: 'peril a')
@@ -320,9 +317,7 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
 
         ConfigurableLobWithReserves fireLine = new ConfigurableLobWithReserves(name: 'fire')
         MultiCoverAttributeReinsuranceContract contract = getQuotaShare20FireLOB()
-        SimulationScope simulationScope = new SimulationScope()
-        simulationScope.model = new VoidTestModel()
-        contract.simulationScope = simulationScope
+        contract.simulationScope = CommissionTests.getTestSimulationScope()
         contract.simulationScope.model.allComponents << fireLine
         contract.parmCover.lines.setSimulationModel contract.simulationScope.model
         TestComponent origin = new TestComponent()
@@ -381,7 +376,7 @@ public class MultiCoverAttributeReinsuranceContractTests extends GroovyTestCase 
 
     void testCoverLines() {
         // create a simulation scope and a model
-        SimulationScope simulationScope = new SimulationScope(model: new VoidTestModel())
+        SimulationScope simulationScope = CommissionTests.getTestSimulationScope()
 
         // create some LOB marker components and add them to the model
         Map<String, TestLobComponent> lob = createLobs(['fire', 'motor'], simulationScope.model)

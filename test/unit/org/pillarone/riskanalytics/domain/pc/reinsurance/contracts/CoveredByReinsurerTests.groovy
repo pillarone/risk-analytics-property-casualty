@@ -16,6 +16,7 @@ import org.pillarone.riskanalytics.domain.pc.company.Company
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.pc.constraints.CompanyPortion
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionTests
 
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
@@ -30,9 +31,7 @@ class CoveredByReinsurerTests extends GroovyTestCase {
                 parmInuringPriority: 10,
                 parmCover: CoverAttributeStrategyType.getStrategy(CoverAttributeStrategyType.ALL,["reserves": IncludeType.NOTINCLUDED]))
 
-        SimulationScope simulationScope = new SimulationScope()
-        simulationScope.model = new VoidTestModel()
-        contract.simulationScope = simulationScope
+        contract.simulationScope = CommissionTests.getTestSimulationScope()
         return contract
     }
 
@@ -44,9 +43,7 @@ class CoveredByReinsurerTests extends GroovyTestCase {
                 parmInuringPriority: 10,
                 parmCover: CompanyCoverAttributeStrategyType.getStrategy(CompanyCoverAttributeStrategyType.ALL,["reserves": IncludeType.NOTINCLUDED]))
 
-        SimulationScope simulationScope = new SimulationScope()
-        simulationScope.model = new VoidTestModel()
-        contract.simulationScope = simulationScope
+        contract.simulationScope = CommissionTests.getTestSimulationScope()
         return contract
 
     }

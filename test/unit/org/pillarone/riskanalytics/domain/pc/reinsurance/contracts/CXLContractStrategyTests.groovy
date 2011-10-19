@@ -8,6 +8,8 @@ import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
 import org.pillarone.riskanalytics.domain.pc.generators.severities.Event
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoTests
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionTests
+import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -47,7 +49,8 @@ class CXLContractStrategyTests extends GroovyTestCase {
                                 "premiumBase": PremiumBase.ABSOLUTE,
                                 "premium": 100,
                                 "reinstatementPremiums": new TableMultiDimensionalParameter([0.2], ['Reinstatement Premium']),
-                                "coveredByReinsurer": 1d]))
+                                "coveredByReinsurer": 1d]),
+                simulationScope: CommissionTests.getTestSimulationScope())
     }
 
     static ReinsuranceContract getContract1() {
@@ -62,7 +65,8 @@ class CXLContractStrategyTests extends GroovyTestCase {
                                 "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, new HashMap()),
                                 "premium": 100,
                                 "reinstatementPremiums": new TableMultiDimensionalParameter([0.2], ['Reinstatement Premium']),
-                                "coveredByReinsurer": 1d]))
+                                "coveredByReinsurer": 1d]),
+                simulationScope: CommissionTests.getTestSimulationScope())
     }
 
     static ReinsuranceContract getContract2() {
@@ -77,7 +81,8 @@ class CXLContractStrategyTests extends GroovyTestCase {
                                 "premiumBase": PremiumBase.ABSOLUTE,
                                 "premium": 100,
                                 "reinstatementPremiums": new TableMultiDimensionalParameter([0.2], ['Reinstatement Premium']),
-                                "coveredByReinsurer": 1d]))
+                                "coveredByReinsurer": 1d]),
+                simulationScope: CommissionTests.getTestSimulationScope())
     }
 
     void testAttritionalClaims() {
@@ -166,7 +171,8 @@ class CXLContractStrategyTests extends GroovyTestCase {
                                 "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, new HashMap()),
                                 "premium": 1,
                                 "reinstatementPremiums": new TableMultiDimensionalParameter([1d, 1d], ['Reinstatement Premium']),
-                                "coveredByReinsurer": 1d]))
+                                "coveredByReinsurer": 1d]),
+                simulationScope: CommissionTests.getTestSimulationScope())
 
 
         Claim claim30Event0 = new Claim(event: event0, claimType: ClaimType.EVENT, value: 30d)

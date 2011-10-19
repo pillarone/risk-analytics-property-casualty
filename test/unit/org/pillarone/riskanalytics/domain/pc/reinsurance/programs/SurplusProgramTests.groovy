@@ -7,6 +7,7 @@ import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
 import org.pillarone.riskanalytics.domain.pc.underwriting.ExposureInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionTests
 
 /**
  * @author martin.melchior (at) fhnw (dot) ch
@@ -71,6 +72,7 @@ class SurplusProgramTests extends GroovyTestCase {
                  "commission": 0.0,
                  "defaultCededLossShare": 0d,
                  "coveredByReinsurer": 1d])
+        surplus.subSurplus.simulationScope = CommissionTests.getTestSimulationScope()
         surplus.inUnderwritingInfo.addAll getMockUnderwritingInfo()
         surplus.inClaims.addAll getMockAttritionalClaims()
         surplus.inClaims.addAll getMockLargeClaims()

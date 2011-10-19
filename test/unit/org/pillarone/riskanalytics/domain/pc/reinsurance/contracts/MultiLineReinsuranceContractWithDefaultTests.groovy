@@ -13,6 +13,7 @@ import org.pillarone.riskanalytics.domain.pc.creditrisk.ReinsurerDefault
 import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 import org.pillarone.riskanalytics.domain.pc.reinsurance.IReinsurerMarker
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionTests
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -26,7 +27,8 @@ public class MultiLineReinsuranceContractWithDefaultTests extends GroovyTestCase
                         ["quotaShare": 0.5,
                                 "coveredByReinsurer": 1d]),
                 parmCoveredLines: new ComboBoxTableMultiDimensionalParameter(['fire'], ['Covered Segments'], ISegmentMarker),
-                parmReinsurer: new ConstrainedString(IReinsurerMarker, 'earth re'))
+                parmReinsurer: new ConstrainedString(IReinsurerMarker, 'earth re'),
+                simulationScope: CommissionTests.getTestSimulationScope())
     }
 
     // todo(sku): try to fix it without a stub
@@ -70,7 +72,7 @@ public class MultiLineReinsuranceContractWithDefaultTests extends GroovyTestCase
 
         def probeContractUWI = new TestProbe(contract, "outCoverUnderwritingInfo")    // needed in order to trigger the calculation of net claims
 
-        SimulationScope scope = new SimulationScope()
+        SimulationScope scope = CommissionTests.getTestSimulationScope()
         scope.model = new StructureTestModel()
         contract.simulationScope = scope
         contract.doCalculation()

@@ -24,6 +24,7 @@ import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.ICommissionStrategy
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
 import org.pillarone.riskanalytics.domain.utils.constraint.SegmentPortion
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionTests
 
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
@@ -56,9 +57,7 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
                 parmCover: coverStrategy,
                 parmCommissionStrategy: commissionStrategy
         )
-        SimulationScope simulationScope = new SimulationScope()
-        simulationScope.model = new VoidTestModel()
-        contract.simulationScope = simulationScope
+        contract.simulationScope = CommissionTests.getTestSimulationScope()
         return contract
     }
 
@@ -226,7 +225,7 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
     }
 
     void testPremiumSharesOneLine() {
-        SimulationScope simulationScope = new SimulationScope(model: new VoidTestModel())
+        SimulationScope simulationScope = CommissionTests.getTestSimulationScope()
 
         TestPerilComponent perilA = new TestPerilComponent(name: 'peril a')
         TestPerilComponent perilB = new TestPerilComponent(name: 'peril b')
@@ -274,7 +273,7 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
     }
 
     void testPremiumSharesTwoLines() {
-        SimulationScope simulationScope = new SimulationScope(model: new VoidTestModel())
+        SimulationScope simulationScope = CommissionTests.getTestSimulationScope()
 
         TestPerilComponent perilA = new TestPerilComponent(name: 'peril a')
         TestPerilComponent perilB = new TestPerilComponent(name: 'peril b')
@@ -325,7 +324,7 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
     }
 
     void testPremiumSharesNoCededClaims() {
-        SimulationScope simulationScope = new SimulationScope(model: new VoidTestModel())
+        SimulationScope simulationScope = CommissionTests.getTestSimulationScope()
 
         TestPerilComponent perilA = new TestPerilComponent(name: 'peril a')
         TestPerilComponent perilB = new TestPerilComponent(name: 'peril b')
@@ -376,7 +375,7 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
     }
 
     void testLinesSharesOneLine() {
-        SimulationScope simulationScope = new SimulationScope(model: new VoidTestModel())
+        SimulationScope simulationScope = CommissionTests.getTestSimulationScope()
 
         TestPerilComponent perilA = new TestPerilComponent(name: 'peril a')
         TestPerilComponent perilB = new TestPerilComponent(name: 'peril b')
@@ -424,7 +423,7 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
     }
 
     void testLinesSharesTwoLines() {
-        SimulationScope simulationScope = new SimulationScope(model: new VoidTestModel())
+        SimulationScope simulationScope = CommissionTests.getTestSimulationScope()
 
         TestPerilComponent perilA = new TestPerilComponent(name: 'peril a')
         TestPerilComponent perilB = new TestPerilComponent(name: 'peril b')
@@ -475,7 +474,7 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
     }
 
     void testLinesSharesNoCededClaims() {
-        SimulationScope simulationScope = new SimulationScope(model: new VoidTestModel())
+        SimulationScope simulationScope = CommissionTests.getTestSimulationScope()
 
         TestPerilComponent perilA = new TestPerilComponent(name: 'peril a')
         TestPerilComponent perilB = new TestPerilComponent(name: 'peril b')
@@ -527,7 +526,7 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
 
     
     void testClaimSharesOneLine() {
-        SimulationScope simulationScope = new SimulationScope(model: new VoidTestModel())
+        SimulationScope simulationScope = CommissionTests.getTestSimulationScope()
 
         TestPerilComponent perilA = new TestPerilComponent(name: 'peril a')
         TestPerilComponent perilB = new TestPerilComponent(name: 'peril b')
@@ -575,7 +574,7 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
     }
 
     void testClaimSharesTwoLines() {
-        SimulationScope simulationScope = new SimulationScope(model: new VoidTestModel())
+        SimulationScope simulationScope = CommissionTests.getTestSimulationScope()
 
         TestPerilComponent perilA = new TestPerilComponent(name: 'peril a')
         TestPerilComponent perilB = new TestPerilComponent(name: 'peril b')
@@ -626,7 +625,7 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
     }
 
     void testClaimSharesNoCededClaims() {
-        SimulationScope simulationScope = new SimulationScope(model: new VoidTestModel())
+        SimulationScope simulationScope = CommissionTests.getTestSimulationScope()
 
         TestPerilComponent perilA = new TestPerilComponent(name: 'peril a')
         TestPerilComponent perilB = new TestPerilComponent(name: 'peril b')

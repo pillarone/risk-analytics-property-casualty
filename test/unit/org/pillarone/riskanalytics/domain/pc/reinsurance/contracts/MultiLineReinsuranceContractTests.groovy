@@ -14,6 +14,7 @@ import org.pillarone.riskanalytics.domain.pc.generators.severities.Event
 import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionTests
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -27,7 +28,8 @@ public class MultiLineReinsuranceContractTests extends GroovyTestCase {
                         ["quotaShare": 0.2,
                          "coveredByReinsurer": 1d]),
                 parmInuringPriority: 10,
-                parmCoveredLines: new ComboBoxTableMultiDimensionalParameter(['fire'], ['Covered Segments'], ISegmentMarker)
+                parmCoveredLines: new ComboBoxTableMultiDimensionalParameter(['fire'], ['Covered Segments'], ISegmentMarker),
+                simulationScope: CommissionTests.getTestSimulationScope()
         )
     }
 
@@ -55,9 +57,7 @@ public class MultiLineReinsuranceContractTests extends GroovyTestCase {
 
     void testUsageWithClaimDevelopmentLeanPackets() {
         MultiLineReinsuranceContract contract = MultiLineReinsuranceContractTests.getQSContract20Percent()
-        SimulationScope simulationScope= new SimulationScope()
-        simulationScope.model = new VoidTestModel()
-        contract.simulationScope = simulationScope
+        contract.simulationScope = CommissionTests.getTestSimulationScope()
         TestComponent origin = new TestComponent()
         TypableClaimsGenerator generator = new TypableClaimsGenerator()
         Event event1 = new Event()
@@ -110,8 +110,7 @@ public class MultiLineReinsuranceContractTests extends GroovyTestCase {
 
     void testCoverLines() {
         MultiLineReinsuranceContract contract = MultiLineReinsuranceContractTests.getQSContract20Percent()
-        SimulationScope simulationScope= new SimulationScope()
-        simulationScope.model = new VoidTestModel()
+        SimulationScope simulationScope = CommissionTests.getTestSimulationScope()
         contract.simulationScope = simulationScope
         TestComponent origin = new TestComponent()
         TypableClaimsGenerator generator = new TypableClaimsGenerator()

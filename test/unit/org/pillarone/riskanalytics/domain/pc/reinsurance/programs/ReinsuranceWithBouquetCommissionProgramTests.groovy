@@ -49,8 +49,8 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
                     "limit": (limit > 0) ?
                         LimitStrategyType.getStrategy(LimitStrategyType.AAL, ["aal": limit]) :
                         LimitStrategyType.getStrategy(LimitStrategyType.NONE, [:])
-                ]
-            )
+                ]),
+            simulationScope: CommissionTests.getTestSimulationScope()
             // parmCover: default is ALL
         )
     }
@@ -67,7 +67,8 @@ class ReinsuranceWithBouquetCommissionProgramTests extends GroovyTestCase {
                                 "premium": 100,
                                 "reinstatementPremiums": new TableMultiDimensionalParameter([0.2], ['Reinstatement Premium']),
                                 "coveredByReinsurer": 1d]),
-                 parmInuringPriority: 5)
+                parmInuringPriority: 5,
+                simulationScope: CommissionTests.getTestSimulationScope())
     }
 
     static double getListPropertySum (List list, String propertyName) {
