@@ -24,10 +24,18 @@ public class FacShareAndRetention extends Packet {
         facDistributionsByUwInfo = new HashMap<UnderwritingInfo, FacRandomDistributions>();
     }
 
+    public UnderwritingInfo firstUnderwritingInfo() {
+        return facDistributionsByUwInfo.keySet().iterator().next();
+    }
+
     public void add(UnderwritingInfo underwritingInfo, RandomDistribution quotaShare, RandomDistribution surplus) {
         if (facDistributionsByUwInfo.get(underwritingInfo) == null) {
             facDistributionsByUwInfo.put(underwritingInfo, new FacRandomDistributions(quotaShare, surplus));
         }
+    }
+
+    public void addAll(FacShareAndRetention other) {
+        facDistributionsByUwInfo.putAll(other.facDistributionsByUwInfo);
     }
 
     public Double getShare(UnderwritingInfo key, IReinsuranceContractStrategy contractStrategy) {

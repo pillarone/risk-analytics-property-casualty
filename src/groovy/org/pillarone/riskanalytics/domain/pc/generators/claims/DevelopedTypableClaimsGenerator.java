@@ -4,9 +4,13 @@ import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.TrivialRiskAllocatorStrategy;
 import org.pillarone.riskanalytics.domain.pc.generators.fac.FacShareAndRetention;
+import org.pillarone.riskanalytics.domain.pc.generators.fac.FacShareUtils;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingFilterUtilities;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
+
+import java.util.List;
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -21,9 +25,12 @@ public class DevelopedTypableClaimsGenerator extends TypableClaimsGenerator impl
     protected void doCalculation() {
         super.doCalculation();
         if (inDistributionsByUwInfo.size() > 0 && !(getParmAssociateExposureInfo() instanceof TrivialRiskAllocatorStrategy)) {
-            FacShareAndRetention facShareAndRetention = inDistributionsByUwInfo.get(0);
-            for (Claim claim : getOutClaims()) {
-                claim.updateExposureWithFac(facShareAndRetention);
+            FacShareAndRetention facShareAndRetention = FacShareUtils.filterFacShares(
+                    inDistributionsByUwInfo, (List) getParmUnderwritingInformation().getValuesAsObjects(0, false));
+            if (facShareAndRetention != null) {
+                for (Claim claim : getOutClaims()) {
+                    claim.updateExposureWithFac(facShareAndRetention);
+                }
             }
         }
         for (Claim claim : getOutClaims()) {
