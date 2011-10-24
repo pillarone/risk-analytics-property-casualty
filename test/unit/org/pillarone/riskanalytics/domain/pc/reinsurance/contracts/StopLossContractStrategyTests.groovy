@@ -6,6 +6,7 @@ import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoTests
 import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionTests
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -22,7 +23,8 @@ class StopLossContractStrategyTests extends GroovyTestCase {
                          "limit": 0.40,
                          "premium": 0.20,
                          "coveredByReinsurer": 1d,
-                         "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),]))
+                         "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),]),
+                simulationScope: CommissionTests.getTestSimulationScope())
     }
 
     static ReinsuranceContract getContractSL1() {
@@ -34,7 +36,8 @@ class StopLossContractStrategyTests extends GroovyTestCase {
                          "limit": 0.15,
                          "premium": 0.1,
                          "coveredByReinsurer": 1d,
-                         "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),]))
+                         "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),]),
+                simulationScope: CommissionTests.getTestSimulationScope())
     }
 
     static ReinsuranceContract getContractSLAbs0() {
@@ -46,7 +49,8 @@ class StopLossContractStrategyTests extends GroovyTestCase {
                          "limit": 800,
                          "premium": 400,
                          "coveredByReinsurer": 1d,
-                         "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),]))
+                         "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),]),
+                simulationScope: CommissionTests.getTestSimulationScope())
     }
 
 

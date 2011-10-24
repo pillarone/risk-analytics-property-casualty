@@ -3,6 +3,7 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts
 import org.pillarone.riskanalytics.core.util.TestProbe
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionTests
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -11,7 +12,8 @@ class TrivialContractStrategyTests extends GroovyTestCase {
 
     static ReinsuranceContract getContract0() {
         return new ReinsuranceContract(
-                parmContractStrategy: ReinsuranceContractType.getStrategy(ReinsuranceContractType.TRIVIAL, [:]))
+                parmContractStrategy: ReinsuranceContractType.getStrategy(ReinsuranceContractType.TRIVIAL, [:]),
+                simulationScope : CommissionTests.getTestSimulationScope())
     }
 
     void testCalculateCededClaimsOnly() {

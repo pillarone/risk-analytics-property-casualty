@@ -71,7 +71,8 @@ public class MultiCoverAttributeReinsuranceContract extends ReinsuranceContract 
         if (isSenderWired(outCoverUnderwritingInfo) || isSenderWired(outContractFinancials) || isSenderWired(outNetAfterCoverUnderwritingInfo)) {
             calculateCededUnderwritingInfos(outFilteredUnderwritingInfo, outCoverUnderwritingInfo, outCoveredClaims);
         }
-        parmCommissionStrategy.calculateCommission(outCoveredClaims, outCoverUnderwritingInfo, false, false);
+        boolean isFirstPeriod = simulationScope.getIterationScope().getPeriodScope().isFirstPeriod();
+        parmCommissionStrategy.calculateCommission(outCoveredClaims, outCoverUnderwritingInfo, isFirstPeriod, false);
         if (isSenderWired(outNetAfterCoverUnderwritingInfo)) {
             if (parmPremiumBase.equals(ReinsuranceContractPremiumBase.COMPLETESEGMENT)) {
                 calculateNetUnderwritingInfos(outFilteredUnderwritingInfo, outCoverUnderwritingInfo,

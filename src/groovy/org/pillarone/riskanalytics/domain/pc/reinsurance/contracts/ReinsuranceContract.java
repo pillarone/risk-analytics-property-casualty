@@ -3,6 +3,7 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts;
 import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.packets.SingleValuePacket;
+import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimUtilities;
 import org.pillarone.riskanalytics.domain.pc.claims.SortClaimsByFractionOfPeriod;
@@ -22,6 +23,8 @@ import java.util.*;
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 public class ReinsuranceContract extends Component implements IReinsuranceContractMarker {
+
+    private SimulationScope simulationScope;
 
     protected PacketList<Claim> inClaims = new PacketList<Claim>(Claim.class);
     protected PacketList<UnderwritingInfo> inUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
@@ -75,8 +78,8 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
         if (isSenderWired(outCoverUnderwritingInfo) || isSenderWired(outNetAfterCoverUnderwritingInfo)) {
             calculateCededUnderwritingInfos(inUnderwritingInfo, outCoverUnderwritingInfo, outCoveredClaims);
         }
-
-        parmCommissionStrategy.calculateCommission(outCoveredClaims, outCoverUnderwritingInfo, false, false);
+        boolean isFirstPeriod = simulationScope.getIterationScope().getPeriodScope().isFirstPeriod();
+        parmCommissionStrategy.calculateCommission(outCoveredClaims, outCoverUnderwritingInfo, isFirstPeriod, false);
         if (isSenderWired(outNetAfterCoverUnderwritingInfo)) {
             calculateNetUnderwritingInfos(inUnderwritingInfo, outCoverUnderwritingInfo, outNetAfterCoverUnderwritingInfo, outCoveredClaims);
         }
@@ -399,5 +402,13 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
 
     public void setCoveredByReinsurer(double coveredByReinsurer) {
         this.coveredByReinsurer = coveredByReinsurer;
+    }
+
+    public SimulationScope getSimulationScope() {
+        return simulationScope;
+    }
+
+    public void setSimulationScope(SimulationScope simulationScope) {
+        this.simulationScope = simulationScope;
     }
 }

@@ -11,6 +11,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit.LimitSt
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoTests
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingSegment
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.PremiumAllocationType
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionTests
 
 class DynamicReinsuranceProgramTests extends GroovyTestCase {
 
@@ -37,13 +38,15 @@ class DynamicReinsuranceProgramTests extends GroovyTestCase {
                         ReinsuranceContractType.QUOTASHARE,
                         ["quotaShare": 0.2,
                                 "coveredByReinsurer": 1d]),
-                parmInuringPriority: 10)
+                parmInuringPriority: 10,
+                simulationScope: CommissionTests.getTestSimulationScope())
         ReinsuranceContract quotaShare2 = new ReinsuranceContract(
                 parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.QUOTASHARE,
                         ["quotaShare": 0.1,
                                 "coveredByReinsurer": 1d]),
-                parmInuringPriority: 1)
+                parmInuringPriority: 1,
+                simulationScope: CommissionTests.getTestSimulationScope())
         ReinsuranceContract quotaShare3 = new ReinsuranceContract(
                 parmInuringPriority: 5,
                 parmContractStrategy: ReinsuranceContractType.getStrategy(
@@ -52,7 +55,8 @@ class DynamicReinsuranceProgramTests extends GroovyTestCase {
                                 "coveredByReinsurer": 1d,
                                 "limit": LimitStrategyType.getStrategy(
                                         LimitStrategyType.AAL, [
-                                                "aal": 20d ])]))
+                                                "aal": 20d ])]),
+                simulationScope: CommissionTests.getTestSimulationScope())
         quotaShare1.name = "subContract0"
         quotaShare2.name = "subContract1"
         quotaShare3.name = "subContract2"
@@ -99,7 +103,8 @@ class DynamicReinsuranceProgramTests extends GroovyTestCase {
                         ReinsuranceContractType.QUOTASHARE,
                         ["quotaShare": 0.2,
                                 "coveredByReinsurer": 1d]),
-                parmInuringPriority: 0)
+                parmInuringPriority: 0,
+                simulationScope: CommissionTests.getTestSimulationScope())
         ReinsuranceContract wxl20xs10 = new ReinsuranceContract(
                 parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.WXL,
@@ -111,7 +116,8 @@ class DynamicReinsuranceProgramTests extends GroovyTestCase {
                                 "premium": 100,
                                 "reinstatementPremiums": new TableMultiDimensionalParameter([0.2], ['Reinstatement Premium']),
                                 "coveredByReinsurer": 1d]),
-                parmInuringPriority: 1)
+                parmInuringPriority: 1,
+                simulationScope: CommissionTests.getTestSimulationScope())
         ReinsuranceContract wxl20xs30 = new ReinsuranceContract(
                 parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.WXL,
@@ -123,7 +129,8 @@ class DynamicReinsuranceProgramTests extends GroovyTestCase {
                                 "premium": 100,
                                 "reinstatementPremiums": new TableMultiDimensionalParameter([0.2], ['Reinstatement Premium']),
                                 "coveredByReinsurer": 1d]),
-                parmInuringPriority: 1)
+                parmInuringPriority: 1,
+                simulationScope: CommissionTests.getTestSimulationScope())
 
         wxl20xs10.name = "subContract0"
         quotaShare.name = "subContract1"
@@ -216,7 +223,8 @@ class DynamicReinsuranceProgramTests extends GroovyTestCase {
                         ReinsuranceContractType.QUOTASHARE,
                         ["quotaShare": 0.2,
                                 "coveredByReinsurer": 1d]),
-                parmInuringPriority: 0)
+                parmInuringPriority: 0,
+                simulationScope: CommissionTests.getTestSimulationScope())
         ReinsuranceContract wxl20xs10 = new ReinsuranceContract(
                 parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.WXL,
@@ -228,7 +236,8 @@ class DynamicReinsuranceProgramTests extends GroovyTestCase {
                                 "premium": 100,
                                 "reinstatementPremiums": new TableMultiDimensionalParameter([0.2], ['Reinstatement Premium']),
                                 "coveredByReinsurer": 1d]),
-                parmInuringPriority: 1)
+                parmInuringPriority: 1,
+                simulationScope: CommissionTests.getTestSimulationScope())
         ReinsuranceContract wxl20xs30 = new ReinsuranceContract(
                 parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.WXL,
@@ -240,7 +249,8 @@ class DynamicReinsuranceProgramTests extends GroovyTestCase {
                                 "premium": 100,
                                 "reinstatementPremiums": new TableMultiDimensionalParameter([0.2], ['Reinstatement Premium']),
                                 "coveredByReinsurer": 1d]),
-                parmInuringPriority: 1)
+                parmInuringPriority: 1,
+                simulationScope: CommissionTests.getTestSimulationScope())
         ReinsuranceContract wxl20xs50 = new ReinsuranceContract(
                 parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.WXL,
@@ -252,7 +262,8 @@ class DynamicReinsuranceProgramTests extends GroovyTestCase {
                                 "premium": 100,
                                 "reinstatementPremiums": new TableMultiDimensionalParameter([0.2], ['Reinstatement Premium']),
                                 "coveredByReinsurer": 1d]),
-                parmInuringPriority: 1)
+                parmInuringPriority: 1,
+                simulationScope: CommissionTests.getTestSimulationScope())
 
         wxl20xs50.name = "subContract0"
         wxl20xs10.name = "subContract1"

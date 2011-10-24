@@ -9,6 +9,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.WXLContractSt
 import org.pillarone.riskanalytics.domain.utils.ClaimSizeDistributionType
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionTests
 
 class ExampleLobTests extends GroovyTestCase {
 
@@ -29,9 +30,14 @@ class ExampleLobTests extends GroovyTestCase {
         lob.subClaimsGenerator.subSingleClaimsGenerator.subFrequencyGenerator.parmDistribution = DistributionType.getStrategy(DistributionType.CONSTANT, ["constant": numberOfLargeClaims])
         lob.subClaimsGenerator.subSingleClaimsGenerator.subClaimsGenerator.parmDistribution = DistributionType.getStrategy(ClaimSizeDistributionType.CONSTANT, ["constant": largeClaim])
         lob.subRiProgram.subContract1.parmContractStrategy = QuotaShareContractStrategyTests.getQuotaShareContract(0.5).parmContractStrategy
+        lob.subRiProgram.subContract1.simulationScope = CommissionTests.getTestSimulationScope()
         lob.subRiProgram.subContract2.parmContractStrategy = WXLContractStrategyTests.getContract0().parmContractStrategy
+        lob.subRiProgram.subContract2.simulationScope = CommissionTests.getTestSimulationScope()
         lob.subRiProgram.subContract3.parmContractStrategy = StopLossContractStrategyTests.getContractSL0().parmContractStrategy
-        lob.subAllocator.parmRiskAllocatorStrategy=RiskAllocatorType.getStrategy(RiskAllocatorType.SUMINSUREDGENERATOR, [
+        lob.subRiProgram.subContract3.simulationScope = CommissionTests.getTestSimulationScope()
+        lob.subRiProgram.subContract4.simulationScope = CommissionTests.getTestSimulationScope()
+        lob.subRiProgram.subContract5.simulationScope = CommissionTests.getTestSimulationScope()
+        lob.subAllocator.parmRiskAllocatorStrategy = RiskAllocatorType.getStrategy(RiskAllocatorType.SUMINSUREDGENERATOR, [
                 distribution: DistributionType.getStrategy(DistributionType.NORMAL, ["mean": 0d, "stDev": 1d]),
                 modification: DistributionModifier.getStrategy(DistributionModifier.NONE, [:]),
                 bandMean: 1d/3d])

@@ -4,6 +4,7 @@ import org.pillarone.riskanalytics.core.util.TestProbe
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionTests
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -20,7 +21,8 @@ class ReverseSurplusContractStrategyTests extends GroovyTestCase {
                         ["retention": 100,
                          "lines": 5,
                          "defaultCededLossShare": 0d,
-                         "coveredByReinsurer": 1d]))
+                         "coveredByReinsurer": 1d]),
+                simulationScope: CommissionTests.getTestSimulationScope())
     }
 
     static ReinsuranceContract getContract1() {
@@ -30,7 +32,8 @@ class ReverseSurplusContractStrategyTests extends GroovyTestCase {
                     ["retention": 100,
                      "lines": 5,
                      "coveredByReinsurer": 1d,
-                     "defaultCededLossShare": 0.5]))
+                     "defaultCededLossShare": 0.5]),
+                simulationScope: CommissionTests.getTestSimulationScope())
     }
 
     private static List<UnderwritingInfo> getMockUnderwritingInfo() {
