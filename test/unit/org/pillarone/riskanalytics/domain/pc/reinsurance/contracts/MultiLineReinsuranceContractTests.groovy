@@ -5,21 +5,19 @@ import org.pillarone.riskanalytics.core.example.component.TestComponent
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope
 import org.pillarone.riskanalytics.core.util.TestProbe
-import org.pillarone.riskanalytics.domain.assets.VoidTestModel
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.claims.TestLobComponent
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
 import org.pillarone.riskanalytics.domain.pc.generators.claims.TypableClaimsGenerator
 import org.pillarone.riskanalytics.domain.pc.generators.severities.Event
-import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionTests
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 import org.pillarone.riskanalytics.core.packets.PacketList
-import org.pillarone.riskanalytics.core.simulation.engine.IterationScope
-import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope
-import org.pillarone.riskanalytics.core.components.PeriodStore
 import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
 import org.pillarone.riskanalytics.domain.utils.marker.IReserveMarker
+import org.pillarone.riskanalytics.core.components.PeriodStore
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -33,14 +31,11 @@ public class MultiLineReinsuranceContractTests extends GroovyTestCase {
                         ["quotaShare": 0.2,
                          "coveredByReinsurer": 1d]),
                 parmInuringPriority: 10,
-                parmCoveredLines: new ComboBoxTableMultiDimensionalParameter(['fire'], ['Covered Segments'], ISegmentMarker)
+                parmCoveredLines: new ComboBoxTableMultiDimensionalParameter(['fire'], ['Covered Segments'], ISegmentMarker),
+                simulationScope: CommissionTests.getTestSimulationScope()
         )
-        SimulationScope simulationScope = new SimulationScope(iterationScope: new IterationScope(periodScope: new PeriodScope()))
-        simulationScope.model = new VoidTestModel()
-        contract.simulationScope = simulationScope
-        contract.periodStore = new PeriodStore(simulationScope.iterationScope.periodScope)
-        return contract
-
+        contract.periodStore = new PeriodStore(contract.simulationScope.iterationScope.periodScope)
+        contract
     }
 
     // todo(sku): to be completed

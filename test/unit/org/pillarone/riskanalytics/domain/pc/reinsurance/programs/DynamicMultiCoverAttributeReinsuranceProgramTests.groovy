@@ -29,7 +29,7 @@ class DynamicMultiCoverAttributeReinsuranceProgramTests extends GroovyTestCase {
     DynamicMultiCoverAttributeReinsuranceProgram program
     DevelopedTypableClaimsGenerator claimsGenerator = new DevelopedTypableClaimsGenerator()
 
-    SimulationScope simulationScope = new SimulationScope()
+    SimulationScope simulationScope = CommissionTests.getTestSimulationScope()
 
     static Map<String, TestLobComponent> createLobs(List<String> lobNames, Model model = null) {
         Map<String, TestLobComponent> lob = new HashMap()

@@ -35,8 +35,7 @@ import java.util.List;
 public class RiskBands extends Component implements IUnderwritingInfoMarker {
 
     private TableMultiDimensionalParameter parmUnderwritingInformation = new TableMultiDimensionalParameter(
-            GroovyUtils.convertToListOfList(new Object[]{0d, 0d, 0d, 0d}),
-            Arrays.asList(MAXIMUM_SUM_INSURED, AVERAGE_SUM_INSURED, PREMIUM, NUMBER_OF_POLICIES));
+            GroovyUtils.convertToListOfList(new Object[]{0d, 0d, 0d, 0d}), getColumnTitles());
 
     private PacketList<UnderwritingInfo> outUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
 
@@ -48,6 +47,8 @@ public class RiskBands extends Component implements IUnderwritingInfoMarker {
     public static final String AVERAGE_SUM_INSURED = "average sum insured";
     public static final String PREMIUM = "premium";
     public static final String NUMBER_OF_POLICIES = "number of policies";
+
+    private static List<String> columnTitles;
 
     private Integer numberOfSegments;
     private int columnIndexMaxSumInsured;
@@ -86,6 +87,13 @@ public class RiskBands extends Component implements IUnderwritingInfoMarker {
             underwritingInfos.add(underwritingInfo);
         }
         iterationStore.put(UNDERWRITING_INFOS, underwritingInfos);
+    }
+
+    public static List<String> getColumnTitles() {
+        if (columnTitles == null) {
+            columnTitles = Arrays.asList(MAXIMUM_SUM_INSURED, AVERAGE_SUM_INSURED, PREMIUM, NUMBER_OF_POLICIES);
+        }
+        return columnTitles;
     }
 
     public TableMultiDimensionalParameter getParmUnderwritingInformation() {

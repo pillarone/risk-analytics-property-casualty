@@ -3,6 +3,7 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit.LimitStrategyType
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionTests
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -16,12 +17,15 @@ class QuotaShareContractStrategyTests extends GroovyTestCase {
         LimitStrategyType type = isEL ? (isAAL ? LimitStrategyType.EVENTLIMITAAL : LimitStrategyType.EVENTLIMIT) :
                                 isAAD ? (isAAL ? LimitStrategyType.AALAAD : LimitStrategyType.AAD) :
                                         (isAAL ? LimitStrategyType.AAL : LimitStrategyType.NONE)
-        return new ReinsuranceContract(
+
+        ReinsuranceContract contract = new ReinsuranceContract(
             parmContractStrategy: ReinsuranceContractType.getStrategy(
                 ReinsuranceContractType.QUOTASHARE, [
                     "quotaShare": quotaShare,
                     "coveredByReinsurer": coveredByReinsurer,
                     "limit": LimitStrategyType.getStrategy(type, params)]))
+        contract.simulationScope = CommissionTests.getTestSimulationScope()
+        contract
     }
 
     void testCalculateCededClaimsOnly() {

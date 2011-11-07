@@ -1,36 +1,34 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts
 
-import org.pillarone.riskanalytics.domain.assets.VoidTestModel
-import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.ICoverAttributeStrategy
-import org.pillarone.riskanalytics.domain.pc.claims.TestLobComponent
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.NoneCoverAttributeStrategy
 import org.pillarone.riskanalytics.core.model.Model
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.CoverAttributeStrategyType
-import org.pillarone.riskanalytics.core.util.TestProbe
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
-import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
-import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments
-import org.pillarone.riskanalytics.domain.pc.claims.TestPerilComponent
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
-import org.pillarone.riskanalytics.domain.pc.claims.Claim
-import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
-import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
-import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
+import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
+import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope
+import org.pillarone.riskanalytics.core.util.TestProbe
+import org.pillarone.riskanalytics.domain.pc.claims.Claim
+import org.pillarone.riskanalytics.domain.pc.claims.TestLobComponent
+import org.pillarone.riskanalytics.domain.pc.claims.TestPerilComponent
 import org.pillarone.riskanalytics.domain.pc.generators.severities.Event
-import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.ICommissionStrategy
+import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
+import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments
+import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
-import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
-import org.pillarone.riskanalytics.core.components.Component
-import org.pillarone.riskanalytics.core.components.PeriodStore
-import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope
-import org.pillarone.riskanalytics.core.simulation.engine.IterationScope
-import org.pillarone.riskanalytics.core.packets.PacketList
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.ICommissionStrategy
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.CoverAttributeStrategyType
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.ICoverAttributeStrategy
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.NoneCoverAttributeStrategy
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.utils.constraint.SegmentPortion
 import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
+import org.pillarone.riskanalytics.core.packets.PacketList
+import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
+import org.pillarone.riskanalytics.core.components.Component
 import org.pillarone.riskanalytics.domain.utils.marker.IReserveMarker
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionTests
+import org.pillarone.riskanalytics.core.components.PeriodStore
 
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
@@ -63,10 +61,8 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
                 parmCover: coverStrategy,
                 parmCommissionStrategy: commissionStrategy
         )
-        SimulationScope simulationScope = new SimulationScope(iterationScope: new IterationScope(periodScope: new PeriodScope()))
-        simulationScope.model = new VoidTestModel()
-        contract.simulationScope = simulationScope
-        contract.periodStore = new PeriodStore(simulationScope.iterationScope.periodScope)
+        contract.simulationScope = CommissionTests.getTestSimulationScope()
+        contract.periodStore = new PeriodStore(contract.simulationScope.iterationScope.periodScope)
         return contract
     }
 
@@ -234,7 +230,7 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
     }
 
     void testPremiumSharesOneLine() {
-        SimulationScope simulationScope = new SimulationScope(model: new VoidTestModel())
+        SimulationScope simulationScope = CommissionTests.getTestSimulationScope()
 
         TestPerilComponent perilA = new TestPerilComponent(name: 'peril a')
         TestPerilComponent perilB = new TestPerilComponent(name: 'peril b')
@@ -280,7 +276,7 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
     }
 
     void testPremiumSharesTwoLines() {
-        SimulationScope simulationScope = new SimulationScope(model: new VoidTestModel())
+        SimulationScope simulationScope = CommissionTests.getTestSimulationScope()
 
         TestPerilComponent perilA = new TestPerilComponent(name: 'peril a')
         TestPerilComponent perilB = new TestPerilComponent(name: 'peril b')
@@ -335,7 +331,7 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
     }
 
     void testPremiumSharesNoCededClaims() {
-        SimulationScope simulationScope = new SimulationScope(model: new VoidTestModel())
+        SimulationScope simulationScope = CommissionTests.getTestSimulationScope()
 
         TestPerilComponent perilA = new TestPerilComponent(name: 'peril a')
         TestPerilComponent perilB = new TestPerilComponent(name: 'peril b')
@@ -390,7 +386,7 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
     }
 
     void testLinesSharesOneLine() {
-        SimulationScope simulationScope = new SimulationScope(model: new VoidTestModel())
+        SimulationScope simulationScope = CommissionTests.getTestSimulationScope()
 
         TestPerilComponent perilA = new TestPerilComponent(name: 'peril a')
         TestPerilComponent perilB = new TestPerilComponent(name: 'peril b')
@@ -436,7 +432,7 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
     }
 
     void testLinesSharesTwoLines() {
-        SimulationScope simulationScope = new SimulationScope(model: new VoidTestModel())
+        SimulationScope simulationScope = CommissionTests.getTestSimulationScope()
 
         TestPerilComponent perilA = new TestPerilComponent(name: 'peril a')
         TestPerilComponent perilB = new TestPerilComponent(name: 'peril b')
@@ -491,7 +487,7 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
     }
 
     void testLinesSharesNoCededClaims() {
-        SimulationScope simulationScope = new SimulationScope(model: new VoidTestModel())
+        SimulationScope simulationScope = CommissionTests.getTestSimulationScope()
 
         TestPerilComponent perilA = new TestPerilComponent(name: 'peril a')
         TestPerilComponent perilB = new TestPerilComponent(name: 'peril b')
@@ -547,7 +543,7 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
 
     
     void testClaimSharesOneLine() {
-        SimulationScope simulationScope = new SimulationScope(model: new VoidTestModel())
+        SimulationScope simulationScope = CommissionTests.getTestSimulationScope()
 
         TestPerilComponent perilA = new TestPerilComponent(name: 'peril a')
         TestPerilComponent perilB = new TestPerilComponent(name: 'peril b')
@@ -592,7 +588,7 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
     }
 
     void testClaimSharesTwoLines() {
-        SimulationScope simulationScope = new SimulationScope(model: new VoidTestModel())
+        SimulationScope simulationScope = CommissionTests.getTestSimulationScope()
 
         TestPerilComponent perilA = new TestPerilComponent(name: 'peril a')
         TestPerilComponent perilB = new TestPerilComponent(name: 'peril b')
@@ -647,7 +643,7 @@ class PremiumAllocationTypeTests extends GroovyTestCase {
     }
 
     void testClaimSharesNoCededClaims() {
-        SimulationScope simulationScope = new SimulationScope(model: new VoidTestModel())
+        SimulationScope simulationScope = CommissionTests.getTestSimulationScope()
 
         TestPerilComponent perilA = new TestPerilComponent(name: 'peril a')
         TestPerilComponent perilB = new TestPerilComponent(name: 'peril b')

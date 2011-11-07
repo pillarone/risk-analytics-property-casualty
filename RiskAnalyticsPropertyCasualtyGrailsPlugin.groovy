@@ -20,7 +20,7 @@ import org.pillarone.riskanalytics.domain.pc.generators.claims.validation.Typabl
 
 class RiskAnalyticsPropertyCasualtyGrailsPlugin {
     // the plugin version
-    def version = "1.4-ALPHA-1.2-kti"
+    def version = "1.4-BETA-5-kti"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.3.7 > *"
     // the other plugins this plugin depends on
@@ -71,6 +71,7 @@ class RiskAnalyticsPropertyCasualtyGrailsPlugin {
         ValidatorRegistry.addValidator(new SegmentFilterValidator())
         ValidatorRegistry.addValidator(new DependencyMatrixValidator())
         ValidatorRegistry.addValidator(new RiskBandsValidator())
+//        ValidatorRegistry.addValidator(new FacShareAndDistributionsValidator())
         ValidatorRegistry.addValidator(new TypableClaimsGeneratorValidator())
 
         // add resource bundle for exceptions
@@ -79,7 +80,8 @@ class RiskAnalyticsPropertyCasualtyGrailsPlugin {
         //add resource bundle for validation
         //new
         ResourceBundleRegistry.addBundle(ResourceBundleRegistry.VALIDATION, "org.pillarone.riskanalytics.domain.pc.validation.commissionStrategyType")
-        ResourceBundleRegistry.addBundle(ResourceBundleRegistry.VALIDATION, "org.pillarone.riskanalytics.domain.pc.validation.distributionType")
+        // note: distributionType.properties is outdated, new validation i18n is distributionTypeValidatorPC
+        ResourceBundleRegistry.addBundle(ResourceBundleRegistry.VALIDATION, "org.pillarone.riskanalytics.domain.utils.validation.distributionTypeValidatorPC")
         ResourceBundleRegistry.addBundle(ResourceBundleRegistry.VALIDATION, "org.pillarone.riskanalytics.domain.pc.validation.unityDouble")
         ResourceBundleRegistry.addBundle(ResourceBundleRegistry.VALIDATION, "org.pillarone.riskanalytics.domain.pc.generators.claims.validation.claimsGeneratorStrategyValidator")
         ResourceBundleRegistry.addBundle(ResourceBundleRegistry.VALIDATION, "org.pillarone.riskanalytics.domain.pc.filter.segmentFilterValidator")

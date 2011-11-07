@@ -1,26 +1,21 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts
 
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.CoverAttributeStrategyType
-import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
-import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
-import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope
-import org.pillarone.riskanalytics.domain.assets.VoidTestModel
-import org.pillarone.riskanalytics.domain.pc.generators.claims.TypableClaimsGenerator
-import org.pillarone.riskanalytics.domain.pc.claims.Claim
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
-import org.pillarone.riskanalytics.domain.pc.lob.ConfigurableLobWithReserves
-import org.pillarone.riskanalytics.core.util.TestProbe
-import org.pillarone.riskanalytics.domain.pc.constants.IncludeType
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.CompanyCoverAttributeStrategyType
-import org.pillarone.riskanalytics.domain.pc.company.Company
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
-import org.pillarone.riskanalytics.domain.pc.constraints.CompanyPortion
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
-import org.pillarone.riskanalytics.core.components.PeriodStore
-import org.pillarone.riskanalytics.core.simulation.engine.IterationScope
-import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope
-import org.pillarone.riskanalytics.core.packets.PacketList
+import org.pillarone.riskanalytics.core.util.TestProbe
+import org.pillarone.riskanalytics.domain.pc.claims.Claim
+import org.pillarone.riskanalytics.domain.pc.company.Company
+import org.pillarone.riskanalytics.domain.pc.constants.IncludeType
+import org.pillarone.riskanalytics.domain.pc.constraints.CompanyPortion
+import org.pillarone.riskanalytics.domain.pc.generators.claims.TypableClaimsGenerator
+import org.pillarone.riskanalytics.domain.pc.lob.ConfigurableLobWithReserves
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.CompanyCoverAttributeStrategyType
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.CoverAttributeStrategyType
+import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionTests
 import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
+import org.pillarone.riskanalytics.core.packets.PacketList
 
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
@@ -35,10 +30,7 @@ class CoveredByReinsurerTests extends GroovyTestCase {
                 parmInuringPriority: 10,
                 parmCover: CoverAttributeStrategyType.getStrategy(CoverAttributeStrategyType.ALL,["reserves": IncludeType.NOTINCLUDED]))
 
-        SimulationScope simulationScope = new SimulationScope(iterationScope: new IterationScope(periodScope: new PeriodScope()))
-        simulationScope.model = new VoidTestModel()
-        contract.simulationScope = simulationScope
-        contract.periodStore = new PeriodStore(simulationScope.getIterationScope().getPeriodScope())
+        contract.simulationScope = CommissionTests.getTestSimulationScope()
         return contract
     }
 
@@ -50,10 +42,7 @@ class CoveredByReinsurerTests extends GroovyTestCase {
                 parmInuringPriority: 10,
                 parmCover: CompanyCoverAttributeStrategyType.getStrategy(CompanyCoverAttributeStrategyType.ALL,["reserves": IncludeType.NOTINCLUDED]))
 
-        SimulationScope simulationScope = new SimulationScope(iterationScope: new IterationScope(periodScope: new PeriodScope()))
-        simulationScope.model = new VoidTestModel()
-        contract.simulationScope = simulationScope
-        contract.periodStore = new PeriodStore(simulationScope.getIterationScope().getPeriodScope())
+        contract.simulationScope = CommissionTests.getTestSimulationScope()
         return contract
 
     }

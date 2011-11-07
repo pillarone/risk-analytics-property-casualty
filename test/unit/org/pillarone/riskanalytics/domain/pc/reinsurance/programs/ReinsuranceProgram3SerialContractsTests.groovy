@@ -8,6 +8,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.QuotaShareCon
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.StopLossContractStrategyTests
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.WXLContractStrategyTests
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionTests
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -21,8 +22,13 @@ class ReinsuranceProgram3SerialContractsTests extends GroovyTestCase {
         program.wire()
 
         program.subContract1.parmContractStrategy = QuotaShareContractStrategyTests.getQuotaShareContract(0.5).parmContractStrategy
+        program.subContract1.simulationScope = CommissionTests.getTestSimulationScope()
         program.subContract2.parmContractStrategy = WXLContractStrategyTests.getContract0().parmContractStrategy
+        program.subContract2.simulationScope = CommissionTests.getTestSimulationScope()
         program.subContract3.parmContractStrategy = StopLossContractStrategyTests.getContractSL0().parmContractStrategy
+        program.subContract3.simulationScope = CommissionTests.getTestSimulationScope()
+        program.subContract4.simulationScope = CommissionTests.getTestSimulationScope()
+        program.subContract5.simulationScope = CommissionTests.getTestSimulationScope()
 
         program.inClaims << attrClaim100 << largeClaim60
         UnderwritingInfo underwritingInfo = new UnderwritingInfo(premium: 0)
@@ -66,8 +72,13 @@ class ReinsuranceProgram3SerialContractsTests extends GroovyTestCase {
         program.wire()
 
         program.subContract1.parmContractStrategy = QuotaShareContractStrategyTests.getQuotaShareContract(0.5).parmContractStrategy
+        program.subContract1.simulationScope = CommissionTests.getTestSimulationScope()
         program.subContract2.parmContractStrategy = WXLContractStrategyTests.getContract0().parmContractStrategy
+        program.subContract2.simulationScope = CommissionTests.getTestSimulationScope()
         program.subContract3.parmContractStrategy = StopLossContractStrategyTests.getContractSL0().parmContractStrategy
+        program.subContract3.simulationScope = CommissionTests.getTestSimulationScope()
+        program.subContract4.simulationScope = CommissionTests.getTestSimulationScope()
+        program.subContract5.simulationScope = CommissionTests.getTestSimulationScope()
 
         program.inClaims << attrClaim100 << largeClaim60
         UnderwritingInfo underwritingInfo = new UnderwritingInfo(premium: 0)
@@ -99,8 +110,13 @@ class ReinsuranceProgram3SerialContractsTests extends GroovyTestCase {
         program.wire()
 
         program.subContract1.parmContractStrategy = QuotaShareContractStrategyTests.getQuotaShareContract(0.5).parmContractStrategy
+        program.subContract1.simulationScope = CommissionTests.getTestSimulationScope()
         program.subContract2.parmContractStrategy = WXLContractStrategyTests.getContract0().parmContractStrategy
+        program.subContract2.simulationScope = CommissionTests.getTestSimulationScope()
         program.subContract3.parmContractStrategy = StopLossContractStrategyTests.getContractSL0().parmContractStrategy
+        program.subContract3.simulationScope = CommissionTests.getTestSimulationScope()
+        program.subContract4.simulationScope = CommissionTests.getTestSimulationScope()
+        program.subContract5.simulationScope = CommissionTests.getTestSimulationScope()
 
         program.inClaims << attrClaim100 << largeClaim60
         program.inUnderwritingInfo << underwritingInfo

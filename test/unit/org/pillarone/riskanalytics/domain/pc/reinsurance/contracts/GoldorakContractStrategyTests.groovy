@@ -7,6 +7,7 @@ import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
 import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
 import org.pillarone.riskanalytics.domain.pc.generators.severities.Event
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoTests
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionTests
 
 /**
  * @author shartmann (at) munichre (dot) com
@@ -29,7 +30,8 @@ class GoldorakContractStrategyTests extends GroovyTestCase {
                                 "goldorakSlThreshold" : 1180d,
                                 "reinstatementPremiums": new TableMultiDimensionalParameter([0.0], ['Reinstatement Premium'])
                         ]
-                )
+                ),
+                simulationScope: CommissionTests.getTestSimulationScope()
         )
     }
 
@@ -48,7 +50,8 @@ class GoldorakContractStrategyTests extends GroovyTestCase {
                                 "goldorakSlThreshold" : 1180d,
                                 "reinstatementPremiums": new TableMultiDimensionalParameter([0.0], ['Reinstatement Premium'])
                         ]
-                )
+                ),
+                simulationScope: CommissionTests.getTestSimulationScope()
         )
     }
 
@@ -68,7 +71,8 @@ class GoldorakContractStrategyTests extends GroovyTestCase {
                                 "goldorakSlThreshold" : 1.18d,
                                 "reinstatementPremiums": new TableMultiDimensionalParameter([0.0], ['Reinstatement Premium'])
                         ]
-                )
+                ),
+                simulationScope: CommissionTests.getTestSimulationScope()
         )
     }
 

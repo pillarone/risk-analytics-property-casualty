@@ -33,18 +33,18 @@ abstract class TCopulaStrategy extends AbstractCopulaStrategy {
             diag.add(values.get(i).get(i))
         }
         if (!(diag.min() == 1d && diag.max() == 1d)) {
-            throw new IllegalArgumentException("TCopulaStratey.dependencyMatrixInvalidDiagonal");
+            throw new IllegalArgumentException("['TCopulaStratey.dependencyMatrixInvalidDiagonal']");
         }
         DenseDoubleMatrix2D SIGMA = new DenseDoubleMatrix2D((double[][]) values);
         DoubleMatrix2D SIGMAtranspose = SIGMA.viewDice();
         if (!SIGMAtranspose.equals(SIGMA)) {
-            throw new IllegalArgumentException("TCopulaStratey.dependencyMatrixNonSymmetric");
+            throw new IllegalArgumentException("['TCopulaStratey.dependencyMatrixNonSymmetric']");
         }
         EigenvalueDecomposition eigenvalueDecomp = new EigenvalueDecomposition(SIGMA);
         DoubleMatrix1D eigenvalues = eigenvalueDecomp.getRealEigenvalues();
         eigenvalues.viewSorted();
         if (eigenvalues.get(0) <= 0) {
-            throw new IllegalArgumentException("TCopulaStratey.dependencyMatrixNonPosDef");
+            throw new IllegalArgumentException("['TCopulaStratey.dependencyMatrixNonPosDef']");
         }
 
         int size = dependencyMatrix.valueRowCount

@@ -6,6 +6,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiCompanyC
 import org.pillarone.riskanalytics.core.wiring.WiringUtils
 import org.pillarone.riskanalytics.core.wiring.WireCategory
 import org.pillarone.riskanalytics.domain.assets.constants.Rating
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionTests
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -17,7 +18,8 @@ class DynamicCompanyTests extends GroovyTestCase {
     Company marsRe = new Company(name: 'mars re', parmRating: Rating.NO_DEFAULT)
     Company earthInsurance = new Company(name: 'earth insurance', parmRating: Rating.DEFAULT)
     ReinsuranceMarketWithBouquetCommissionProgram reinsuranceMarket = new ReinsuranceMarketWithBouquetCommissionProgram(name: 'market')
-    MultiCompanyCoverAttributeReinsuranceContract quotaShare = new MultiCompanyCoverAttributeReinsuranceContract(name: 'quota share')
+    MultiCompanyCoverAttributeReinsuranceContract quotaShare = new MultiCompanyCoverAttributeReinsuranceContract(
+            name: 'quota share', simulationScope: CommissionTests.getTestSimulationScope())
 
     void testUsage() {
         companies.addSubComponent marsRe

@@ -33,8 +33,8 @@ class RandomNumberGeneratorFactoryTests extends GroovyTestCase {
             params["sigma"] = 1
             params["CV"] = 1
             params["constants"] = new TableMultiDimensionalParameter([0,1], ['constants'])
-            params["k"] = 1
-            params["zeta"] = 1
+            params["xi"] = 1
+            params["tau"] = 1
 
 
             IRandomNumberGenerator generator = RandomNumberGeneratorFactory.getGenerator(
@@ -45,14 +45,6 @@ class RandomNumberGeneratorFactoryTests extends GroovyTestCase {
         }
     }
 
-
-    void testException() {
-        shouldFail {
-            RandomNumberGeneratorFactory.getGenerator(
-                    DistributionType.getStrategy(ClaimSizeDistributionType.LOGNORMAL, ["mean": -1, "stDev": 5]))    //negative mean is illegal
-            //the related test void testlogNormalDistribution() is located in ClaimsGenerationTests
-        }
-    }
 
     /* Tests whether generated lognormal series has really the desired mean and stdDev
      * Thus 2 things are tested: 1) the conversion from the (Mean, StdDev) to (mu, sigma)

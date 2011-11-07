@@ -7,6 +7,7 @@ import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
 import org.pillarone.riskanalytics.domain.pc.constants.LPTPremiumBase
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoTests
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionTests
 
 /**
  * @author shartmann (at) munichre (dot) com
@@ -16,19 +17,25 @@ class LossPortfolioTransferContractStrategyTests extends GroovyTestCase {
     static ReinsuranceContract getContractAbsolute0() {
         return new ReinsuranceContract(
                 parmContractStrategy: ReinsuranceContractType.getStrategy(
-                        ReinsuranceContractType.LOSSPORTFOLIOTRANSFER, ["quotaShare": 0.3d, "premiumBase": LPTPremiumBase.ABSOLUTE, "premium": 0d, "coveredByReinsurer": 1d]))
+                        ReinsuranceContractType.LOSSPORTFOLIOTRANSFER,
+                        ["quotaShare": 0.3d, "premiumBase": LPTPremiumBase.ABSOLUTE, "premium": 0d, "coveredByReinsurer": 1d]),
+                simulationScope: CommissionTests.getTestSimulationScope())
     }
 
     static ReinsuranceContract getContractAbsolute100() {
         return new ReinsuranceContract(
                 parmContractStrategy: ReinsuranceContractType.getStrategy(
-                        ReinsuranceContractType.LOSSPORTFOLIOTRANSFER, ["quotaShare": 0.3d, "premiumBase": LPTPremiumBase.ABSOLUTE, "premium": 100d, "coveredByReinsurer": 1d]))
+                        ReinsuranceContractType.LOSSPORTFOLIOTRANSFER,
+                        ["quotaShare": 0.3d, "premiumBase": LPTPremiumBase.ABSOLUTE, "premium": 100d, "coveredByReinsurer": 1d]),
+                simulationScope: CommissionTests.getTestSimulationScope())
     }
 
     static ReinsuranceContract getContractRelative05() {
         return new ReinsuranceContract(
                 parmContractStrategy: ReinsuranceContractType.getStrategy(
-                        ReinsuranceContractType.LOSSPORTFOLIOTRANSFER, ["quotaShare": 0.3d, "premiumBase": LPTPremiumBase.RELATIVE_TO_CEDED_RESERVES_VOLUME, "premium": 200d, "coveredByReinsurer": 0.8]))
+                        ReinsuranceContractType.LOSSPORTFOLIOTRANSFER,
+                        ["quotaShare": 0.3d, "premiumBase": LPTPremiumBase.RELATIVE_TO_CEDED_RESERVES_VOLUME, "premium": 200d, "coveredByReinsurer": 0.8]),
+                simulationScope: CommissionTests.getTestSimulationScope())
     }
 
     void testCalculateCoveredLoss() {

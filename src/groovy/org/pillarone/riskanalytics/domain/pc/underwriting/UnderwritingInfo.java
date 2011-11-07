@@ -25,6 +25,9 @@ public class UnderwritingInfo extends MultiValuePacket {
     private double sumInsured;
     private double maxSumInsured;
 
+    private double facQuotaShare = 0d;
+    private double facSurplus = 0d;
+
     private Exposure exposureDefinition;
     private ISegmentMarker lineOfBusiness;
     private IReinsuranceContractMarker reinsuranceContract;
@@ -60,6 +63,8 @@ public class UnderwritingInfo extends MultiValuePacket {
         commission = underwritingInfo.commission;
         lineOfBusiness = underwritingInfo.getLineOfBusiness();
         reinsuranceContract = underwritingInfo.getReinsuranceContract();
+        facQuotaShare = underwritingInfo.getFacQuotaShare();
+        facSurplus = underwritingInfo.getFacSurplus();
     }
 
     /**
@@ -236,5 +241,21 @@ public class UnderwritingInfo extends MultiValuePacket {
 
     public void setCommission(double commission) {
         this.commission = commission;
+    }
+
+    public double getFacQuotaShare() {
+        return facQuotaShare;
+    }
+
+    public void setFacQuotaShare(double facQuotaShare) {
+        this.facQuotaShare = facQuotaShare;
+    }
+
+    public double getFacSurplus() {
+        return facSurplus;
+    }
+
+    public void setFacSurplus(double facSurplus) {
+        this.facSurplus = facSurplus;
     }
 }

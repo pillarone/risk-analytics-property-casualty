@@ -34,6 +34,18 @@ public class UnderwritingFilterUtilities {
         return filterUnderwritingInfos;
     }
 
+    public static List<UnderwritingInfo> filterUnderwritingInfo(List<UnderwritingInfo> underwritingInfos, Component coverCriteria) {
+        List<UnderwritingInfo> filterUnderwritingInfos = new ArrayList<UnderwritingInfo>(underwritingInfos.size());
+        if (coverCriteria != null) {
+            for (UnderwritingInfo underwritingInfo : underwritingInfos) {
+                if (coverCriteria.equals(underwritingInfo.origin)) {
+                    filterUnderwritingInfos.add(underwritingInfo);
+                }
+            }
+        }
+        return filterUnderwritingInfos;
+    }
+
     /**
      * @param underwritingInfos underwriting info packets to be filtered
      * @param coverCriteria     components such as RiskBands

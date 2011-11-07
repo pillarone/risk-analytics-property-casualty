@@ -33,11 +33,10 @@ import org.pillarone.riskanalytics.core.components.PeriodStore
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedString
 import org.pillarone.riskanalytics.domain.pc.lob.CompanyConfigurableLobWithReserves
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ReservesGeneratorLean
-import org.pillarone.riskanalytics.core.components.Component
 import org.pillarone.riskanalytics.core.packets.PacketList
-import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope
-import org.pillarone.riskanalytics.core.simulation.engine.IterationScope
+import org.pillarone.riskanalytics.core.components.Component
 import org.pillarone.riskanalytics.domain.utils.marker.IReserveMarker
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionTests
 
 /** With the exception of testCoverCompanies() the test cases are copied from MultiCoverAttributeReinsuranceContractTests and simply
  * modified by using MultiCompanyCoverAttributeReinsuranceContract instead of MultiCoverAttributeReinsuranceContract
@@ -59,10 +58,8 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
                         CompanyCoverAttributeStrategyType.LINESOFBUSINESS,
                         ['lines': new ComboBoxTableMultiDimensionalParameter(['fire'], ['Covered Segments'], ISegmentMarker)])
         )
-        SimulationScope simulationScope = new SimulationScope(iterationScope: new IterationScope(periodScope: new PeriodScope()))
-        simulationScope.model = new VoidTestModel()
-        contract.simulationScope = simulationScope
-        contract.periodStore = new PeriodStore(simulationScope.iterationScope.periodScope)
+        contract.simulationScope = CommissionTests.getTestSimulationScope()
+        contract.periodStore = new PeriodStore(contract.simulationScope.iterationScope.periodScope)
         return contract
 
     }
@@ -76,10 +73,8 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
                 parmInuringPriority: inuringPriority,
                 parmCover: coverStrategy
         )
-        SimulationScope simulationScope = new SimulationScope(iterationScope: new IterationScope(periodScope: new PeriodScope()))
-        simulationScope.model = new VoidTestModel()
-        contract.simulationScope = simulationScope
-        contract.periodStore = new PeriodStore(simulationScope.iterationScope.periodScope)
+        contract.simulationScope = CommissionTests.getTestSimulationScope()
+        contract.periodStore = new PeriodStore(contract.simulationScope.iterationScope.periodScope)
         return contract
     }
 
@@ -162,7 +157,7 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
     }
 
     void testUsageWithFilteringByLob() {
-        SimulationScope simulationScope = new SimulationScope(model: new VoidTestModel())
+        SimulationScope simulationScope = CommissionTests.getTestSimulationScope()
 
         TestPerilComponent perilA = new TestPerilComponent(name: 'peril a')
         TestPerilComponent perilB = new TestPerilComponent(name: 'peril b')
@@ -236,7 +231,7 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
     // we expect everything to be filtered out
 
     void testUsageWithFilteringByImpossibleLobs() {
-        SimulationScope simulationScope = new SimulationScope(model: new VoidTestModel())
+        SimulationScope simulationScope = CommissionTests.getTestSimulationScope()
 
         TestPerilComponent perilA = new TestPerilComponent(name: 'peril a')
         TestPerilComponent perilB = new TestPerilComponent(name: 'peril b')
@@ -286,7 +281,7 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
     }
 
     void testUsageWithCombinedFiltering() {
-        SimulationScope simulationScope = new SimulationScope(model: new VoidTestModel())
+        SimulationScope simulationScope = CommissionTests.getTestSimulationScope()
 
         // create peril markers (and add them to the simulation model)
         TestPerilComponent perilA = new TestPerilComponent(name: 'peril a')
@@ -352,7 +347,7 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
     void testDefaultUsageWithClaimDevelopmentLeanPackets() {
         ConfigurableLobWithReserves fireLine = new ConfigurableLobWithReserves(name: 'fire')
         MultiCompanyCoverAttributeReinsuranceContract contract = getQuotaShare20FireLOB()
-        SimulationScope simulationScope = new SimulationScope()
+        SimulationScope simulationScope = CommissionTests.getTestSimulationScope()
         simulationScope.model = new VoidTestModel()
         contract.simulationScope = simulationScope
         contract.simulationScope.model.allComponents << fireLine
@@ -383,7 +378,7 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
 
     void testCoverLines() {
         // create a simulation scope and a model
-        SimulationScope simulationScope = new SimulationScope(model: new VoidTestModel())
+        SimulationScope simulationScope = CommissionTests.getTestSimulationScope()
 
         // create some LOB marker components and add them to the model
         Map<String, TestLobComponent> lob = createLobs(['fire', 'motor'], simulationScope.model)
@@ -497,8 +492,7 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
                         ['companies': companies])
         )
 
-        SimulationScope simulationScope = new SimulationScope()
-        simulationScope.model = new VoidTestModel()
+        SimulationScope simulationScope = CommissionTests.getTestSimulationScope()
         contract.simulationScope = simulationScope
         companies.setSimulationModel(simulationScope.model)
         simulationScope.model.allComponents << motorA << motorB << propertyA << propertyC << companyA << companyB << companyC

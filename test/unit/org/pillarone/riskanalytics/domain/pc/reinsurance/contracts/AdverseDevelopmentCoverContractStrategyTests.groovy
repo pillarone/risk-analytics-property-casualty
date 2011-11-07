@@ -9,6 +9,7 @@ import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopment
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoTests
 import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionTests
 
 /**
  * @author ben.ginsberg (at) intuitive-collaboration (dot) com, shartmann (at) munichre (dot) com
@@ -16,7 +17,7 @@ import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
 class AdverseDevelopmentCoverContractStrategyTests extends GroovyTestCase {
 
     static ReinsuranceContract getContractSL0() {
-        return new ReinsuranceContract(
+        ReinsuranceContract contract = new ReinsuranceContract(
                 parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.ADVERSEDEVELOPMENTCOVER,
                         ["stopLossContractBase": StopLossContractBase.GNPI,
@@ -24,6 +25,8 @@ class AdverseDevelopmentCoverContractStrategyTests extends GroovyTestCase {
                                 "limit": 0.40,
                                 "premium": 0.20,
                                 "coveredByReinsurer": 1d]))
+        contract.simulationScope = CommissionTests.getTestSimulationScope()
+        contract
     }
 
     static ReinsuranceContract getContractSL1() {
@@ -34,7 +37,8 @@ class AdverseDevelopmentCoverContractStrategyTests extends GroovyTestCase {
                                 "attachmentPoint": 1.15,
                                 "limit": 0.15,
                                 "premium": 0.1,
-                                "coveredByReinsurer": 1d]))
+                                "coveredByReinsurer": 1d]),
+                simulationScope: CommissionTests.getTestSimulationScope())
     }
 
     static ReinsuranceContract getContractSLAbs0() {
@@ -45,7 +49,8 @@ class AdverseDevelopmentCoverContractStrategyTests extends GroovyTestCase {
                                 "attachmentPoint": 2400,
                                 "limit": 800,
                                 "premium": 400,
-                                "coveredByReinsurer": 1d]))
+                                "coveredByReinsurer": 1d]),
+                simulationScope: CommissionTests.getTestSimulationScope())
     }
 
     static ReinsuranceContract getContractADCXS(double limit, double attachmentPoint) {
@@ -56,7 +61,8 @@ class AdverseDevelopmentCoverContractStrategyTests extends GroovyTestCase {
                                 "attachmentPoint": attachmentPoint,
                                 "limit": limit,
                                 "premium": 400,
-                                "coveredByReinsurer": 1d]))
+                                "coveredByReinsurer": 1d]),
+                simulationScope: CommissionTests.getTestSimulationScope())
     }
 
 

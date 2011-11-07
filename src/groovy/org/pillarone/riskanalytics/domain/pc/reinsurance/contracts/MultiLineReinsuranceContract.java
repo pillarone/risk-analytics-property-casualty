@@ -63,8 +63,8 @@ public class MultiLineReinsuranceContract extends ReinsuranceContract {
         if (isSenderWired(outCoverUnderwritingInfo) || isSenderWired(outContractFinancials)) {
             calculateCededUnderwritingInfos(inUnderwritingInfo, outCoverUnderwritingInfo, outCoveredClaims);
         }
-
-        parmCommissionStrategy.calculateCommission(outCoveredClaims, outCoverUnderwritingInfo, false, false);
+        boolean isFirstPeriod = simulationScope.getIterationScope().getPeriodScope().isFirstPeriod();
+        parmCommissionStrategy.calculateCommission(outCoveredClaims, outCoverUnderwritingInfo, isFirstPeriod, false);
 
         if (isSenderWired(outNetAfterCoverUnderwritingInfo)) {
             UnderwritingInfoUtilities.calculateNet(inUnderwritingInfo, outCoverUnderwritingInfo, outNetAfterCoverUnderwritingInfo);
