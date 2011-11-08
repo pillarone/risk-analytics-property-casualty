@@ -16,7 +16,7 @@ import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
 import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.ICommissionStrategy;
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IReinsuranceContractMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cashflow.cover.AllCoverAttributeStrategy;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cashflow.cover.CoverAttributeStrategyType;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.*;
@@ -474,5 +474,13 @@ public class MultiLinesPerilsReinsuranceContract extends Component implements IR
 
     public void setParmCover(ICoverAttributeStrategy parmCover) {
         this.parmCover = parmCover;
+    }
+
+    public boolean adjustExposureInfo() {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public boolean isProportionalContract() {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }

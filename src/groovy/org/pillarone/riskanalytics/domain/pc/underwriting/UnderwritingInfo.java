@@ -5,7 +5,7 @@ import org.pillarone.riskanalytics.core.packets.Packet;
 import org.pillarone.riskanalytics.domain.pc.constants.Exposure;
 import org.pillarone.riskanalytics.domain.pc.constants.FrequencyBase;
 import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IReinsuranceContractMarker;
 
 import java.util.Arrays;
 import java.util.HashMap;

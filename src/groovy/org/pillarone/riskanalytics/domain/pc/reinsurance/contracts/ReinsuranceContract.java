@@ -17,6 +17,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoUtilities;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities;
+import org.pillarone.riskanalytics.domain.utils.marker.IReinsuranceContractMarker;
 
 import java.util.*;
 
@@ -411,5 +412,13 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
 
     public void setSimulationScope(SimulationScope simulationScope) {
         this.simulationScope = simulationScope;
+    }
+
+    public boolean adjustExposureInfo() {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public boolean isProportionalContract() {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }

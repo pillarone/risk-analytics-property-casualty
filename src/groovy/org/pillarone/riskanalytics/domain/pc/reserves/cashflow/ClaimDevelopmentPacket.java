@@ -3,7 +3,7 @@ package org.pillarone.riskanalytics.domain.pc.reserves.cashflow;
 import org.joda.time.DateTime;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimPacketFactory;
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IReinsuranceContractMarker;
 import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
 import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 

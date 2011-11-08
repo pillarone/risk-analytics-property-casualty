@@ -13,7 +13,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiCompanyC
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.core.components.PeriodStore
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IReinsuranceContractMarker
 import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 
 /**

@@ -4,7 +4,7 @@ import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentP
 import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
 import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IReinsuranceContractMarker
 
 /**
  * @author shartmann (at) munichre (dot) com

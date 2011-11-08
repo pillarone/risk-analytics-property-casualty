@@ -11,7 +11,7 @@ import org.pillarone.riskanalytics.domain.pc.creditrisk.DefaultProbabilities;
 import org.pillarone.riskanalytics.domain.pc.creditrisk.ReinsurerDefault;
 import org.pillarone.riskanalytics.domain.pc.lob.CompanyConfigurableLobWithReserves;
 import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IReinsuranceContractMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiCompanyCoverAttributeReinsuranceContract;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo;

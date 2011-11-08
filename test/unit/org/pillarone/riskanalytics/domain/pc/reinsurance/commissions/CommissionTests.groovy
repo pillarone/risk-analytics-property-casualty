@@ -11,7 +11,7 @@ import org.pillarone.riskanalytics.domain.assets.VoidTestModel
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.applicable.ApplicableStrategyType
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IReinsuranceContractMarker
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContract
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.core.components.Component

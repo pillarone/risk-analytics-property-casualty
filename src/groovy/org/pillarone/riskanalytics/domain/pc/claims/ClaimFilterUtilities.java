@@ -6,7 +6,7 @@ import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments;
 import org.pillarone.riskanalytics.domain.pc.lob.CompanyConfigurableLobWithReserves;
 import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
 import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IReinsuranceContractMarker;
 import org.pillarone.riskanalytics.domain.utils.marker.IReserveMarker;
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket;
 

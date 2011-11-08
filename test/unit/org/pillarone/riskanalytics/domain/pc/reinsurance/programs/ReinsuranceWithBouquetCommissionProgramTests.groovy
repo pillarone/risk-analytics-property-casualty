@@ -14,7 +14,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.Commission
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionStrategyType
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionTests
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.applicable.ApplicableStrategyType
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IReinsuranceContractMarker
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiCoverAttributeReinsuranceContract
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContract
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType

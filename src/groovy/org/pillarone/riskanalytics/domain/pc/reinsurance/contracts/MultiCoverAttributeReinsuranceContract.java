@@ -22,6 +22,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoU
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingFilterUtilities;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IReinsuranceContractMarker;
 import org.pillarone.riskanalytics.domain.utils.marker.IReserveMarker;
 import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 

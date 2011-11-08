@@ -9,7 +9,7 @@ import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimFilterUtilities;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.applicable.*;
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IReinsuranceContractMarker;
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoUtilities;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
