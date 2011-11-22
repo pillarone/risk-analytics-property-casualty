@@ -31,12 +31,12 @@ public class DevelopedTypableFACClaimsGenerator extends TypableClaimsGenerator i
                     claim.updateExposureWithFac(facShareAndRetention, parmDefaultFacShare);
                 }
             }
-            else if (parmDefaultFacShare > 0) {
-                // no action needed for equal 0 as the default would be applied in this case
-                for (Claim claim : getOutClaims()) {
-                    claim.updateExposureWithFac(parmDefaultFacShare);
-                }
+            else {
+                applyDefaultFacShare();
             }
+        }
+        else if (!(getParmAssociateExposureInfo() instanceof TrivialRiskAllocatorStrategy)) {
+            applyDefaultFacShare();
         }
         for (Claim claim : getOutClaims()) {
             ClaimDevelopmentLeanPacket claimDevelopment = new ClaimDevelopmentLeanPacket(claim);
@@ -48,7 +48,16 @@ public class DevelopedTypableFACClaimsGenerator extends TypableClaimsGenerator i
         getOutClaims().clear();
         getOutClaims().addAll(outClaimsLeanDevelopment);
     }
-    
+
+    private void applyDefaultFacShare() {
+        if (parmDefaultFacShare > 0) {
+            // no action needed for equal 0 as the default would be applied in this case
+            for (Claim claim : getOutClaims()) {
+                claim.updateExposureWithFac(parmDefaultFacShare);
+            }
+        }
+    }
+
     public double getParmPeriodPaymentPortion() {
         return parmPeriodPaymentPortion;
     }
