@@ -26,9 +26,9 @@ class FacShareAndRetentionTests extends GroovyTestCase {
         FacShareAndRetention facShareAndRetention = new FacShareAndRetention()
         facShareAndRetention.add(underwritingInfo1, constantQuotaShareDistribution05, constantSurplusShareDistribution06)
         facShareAndRetention.add(underwritingInfo2, constantQuotaShareDistribution015, constantSurplusShareDistribution017)
-        assertEquals 'quota share of uw1', 0.5, facShareAndRetention.getQuotaShare(underwritingInfo1)
-        assertEquals 'surplus share of uw1', 0.6, facShareAndRetention.getSurplusShare(underwritingInfo1)
-        assertEquals 'quota share of uw2', 0.15, facShareAndRetention.getQuotaShare(underwritingInfo2)
-        assertEquals 'surplus of uw2', 0.17, facShareAndRetention.getSurplusShare(underwritingInfo2)
+        assertEquals 'quota share of uw1', 0.5, facShareAndRetention.getQuotaShare(underwritingInfo1, 0)
+        assertEquals 'surplus share of uw1', 0.6, facShareAndRetention.getSurplusShare(underwritingInfo1, 0)
+        assertEquals 'quota share of uw2', 0.15, facShareAndRetention.getQuotaShare(underwritingInfo2, 0)
+        assertEquals 'surplus of uw2', 0.17, facShareAndRetention.getSurplusShare(underwritingInfo2, 0)
     }
 }
