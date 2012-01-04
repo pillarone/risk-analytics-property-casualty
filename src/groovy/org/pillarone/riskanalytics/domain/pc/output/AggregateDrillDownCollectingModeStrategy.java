@@ -76,7 +76,7 @@ public class AggregateDrillDownCollectingModeStrategy implements ICollectingMode
             }
         } else {
             String notImplemented = ResourceBundle.getBundle(RESOURCE_BUNDLE).getString("AggregateDrillDownCollectingModeStrategy.notImplemented");
-            throw new NotImplementedException(notImplemented);
+            throw new NotImplementedException(notImplemented + "\n(" + packetCollector.getPath() + ")");
         }
         return null;
     }
