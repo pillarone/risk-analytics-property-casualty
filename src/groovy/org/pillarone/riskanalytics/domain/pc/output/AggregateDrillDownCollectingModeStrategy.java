@@ -336,4 +336,8 @@ public class AggregateDrillDownCollectingModeStrategy implements ICollectingMode
     public void setPacketCollector(PacketCollector packetCollector) {
         this.packetCollector = packetCollector;
     }
+
+    public boolean isCompatibleWith(Class packetClass) {
+        return Claim.class.isAssignableFrom(packetClass) || UnderwritingInfo.class.isAssignableFrom(packetClass);
+    }
 }
