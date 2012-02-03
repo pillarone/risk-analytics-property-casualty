@@ -61,10 +61,4 @@ class SurplusProgram extends ComposedComponent {
             this.outUnderwritingInfoNet = subSurplus.outNetAfterCoverUnderwritingInfo
         }
     }
-
-    public void doCalculation() {
-        super.doCalculation()
-        subAttritionalAllocation.start()
-        subLargeAllocation.start()
-    }
 }

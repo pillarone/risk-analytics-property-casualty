@@ -24,30 +24,11 @@ class PropertyLobAttritionalDependencies extends ComposedComponent implements IS
 
     PacketList<DependenceStream> inProbabilities = new PacketList(DependenceStream)
 
-    ProbabilityExtractor subAttritionalSeverityExtractor
-    RiskBands subUnderwriting
-    AttritionalSingleEQFloodStormClaimsGenerator subClaimsGenerator
-    RiskAllocator subAllocator
-    ReinsuranceProgram3SerialContracts subRiProgram
-
-
-    PropertyLobAttritionalDependencies() {
-        subAttritionalSeverityExtractor = new ProbabilityExtractor()
-        subUnderwriting = new RiskBands()
-        subClaimsGenerator = new AttritionalSingleEQFloodStormClaimsGenerator()
-        subAllocator = new RiskAllocator()
-        subRiProgram = new ReinsuranceProgram3SerialContracts()
-    }
-
-    public void doCalculation() {
-        if (isReceiverWired(inProbabilities)) {
-            super.doCalculation()
-            subUnderwriting.start()
-        }
-        else {
-            super.doCalculation()
-        }
-    }
+    ProbabilityExtractor subAttritionalSeverityExtractor = new ProbabilityExtractor()
+    RiskBands subUnderwriting = new RiskBands()
+    AttritionalSingleEQFloodStormClaimsGenerator subClaimsGenerator = new AttritionalSingleEQFloodStormClaimsGenerator()
+    RiskAllocator subAllocator = new RiskAllocator()
+    ReinsuranceProgram3SerialContracts subRiProgram = new ReinsuranceProgram3SerialContracts()
 
     public void wire() {
         if (isReceiverWired(inProbabilities)) {

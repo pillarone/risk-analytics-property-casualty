@@ -16,16 +16,11 @@ import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
  */
 class DependentLob extends ComposedComponent implements ISegmentMarker {
 
-    EventSeverityExtractor subSeverityExtractor
-    EventClaimsGenerator subClaimsGenerator
+    EventSeverityExtractor subSeverityExtractor = new EventSeverityExtractor()
+    EventClaimsGenerator subClaimsGenerator = new EventClaimsGenerator()
 
     PacketList<EventDependenceStream> inEventSeverities = new PacketList(EventDependenceStream)
     PacketList<Claim> outClaims = new PacketList(Claim)
-
-    DependentLob() {
-        subSeverityExtractor = new EventSeverityExtractor()
-        subClaimsGenerator = new EventClaimsGenerator()
-    }
 
     public void wire() {
         WiringUtils.use(PortReplicatorCategory) {

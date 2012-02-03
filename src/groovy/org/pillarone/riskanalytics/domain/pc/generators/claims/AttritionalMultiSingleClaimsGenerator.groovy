@@ -17,44 +17,17 @@ class AttritionalMultiSingleClaimsGenerator extends ComposedComponent {
 
     PacketList<UnderwritingInfo> inUnderwritingInfo = new PacketList(UnderwritingInfo)
 
-    FrequencyClaimsGenerator subSingleClaimsGenerator1
-    FrequencyClaimsGenerator subSingleClaimsGenerator2
-    FrequencyClaimsGenerator subSingleClaimsGenerator3
-    FrequencyClaimsGenerator subSingleClaimsGenerator4
-    FrequencyClaimsGenerator subSingleClaimsGenerator5
-    FrequencyClaimsGenerator subSingleClaimsGenerator6
-    FrequencyClaimsGenerator subSingleClaimsGenerator7
+    FrequencyClaimsGenerator subSingleClaimsGenerator1 = new FrequencyClaimsGenerator()
+    FrequencyClaimsGenerator subSingleClaimsGenerator2 = new FrequencyClaimsGenerator()
+    FrequencyClaimsGenerator subSingleClaimsGenerator3 = new FrequencyClaimsGenerator()
+    FrequencyClaimsGenerator subSingleClaimsGenerator4 = new FrequencyClaimsGenerator()
+    FrequencyClaimsGenerator subSingleClaimsGenerator5 = new FrequencyClaimsGenerator()
+    FrequencyClaimsGenerator subSingleClaimsGenerator6 = new FrequencyClaimsGenerator()
+    FrequencyClaimsGenerator subSingleClaimsGenerator7 = new FrequencyClaimsGenerator()
 
-    AttritionalClaimsGenerator subAttritionalClaimsGenerator
+    AttritionalClaimsGenerator subAttritionalClaimsGenerator = new AttritionalClaimsGenerator()
 
     PacketList<Claim> outClaims = new PacketList(Claim)
-
-    AttritionalMultiSingleClaimsGenerator() {
-        subSingleClaimsGenerator1 = new FrequencyClaimsGenerator()
-        subSingleClaimsGenerator2 = new FrequencyClaimsGenerator()
-        subSingleClaimsGenerator3 = new FrequencyClaimsGenerator()
-        subSingleClaimsGenerator4 = new FrequencyClaimsGenerator()
-        subSingleClaimsGenerator5 = new FrequencyClaimsGenerator()
-        subSingleClaimsGenerator6 = new FrequencyClaimsGenerator()
-        subSingleClaimsGenerator7 = new FrequencyClaimsGenerator()
-        subAttritionalClaimsGenerator = new AttritionalClaimsGenerator()
-    }
-
-    public void doCalculation() {
-        if (isReceiverWired(inUnderwritingInfo)) {
-            super.doCalculation()
-        } else {
-            subSingleClaimsGenerator1.start()
-            subSingleClaimsGenerator2.start()
-            subSingleClaimsGenerator3.start()
-            subSingleClaimsGenerator4.start()
-            subSingleClaimsGenerator5.start()
-            subSingleClaimsGenerator6.start()
-            subSingleClaimsGenerator7.start()
-
-            subAttritionalClaimsGenerator.start()
-        }
-    }
 
     public void wire() {
         if (isReceiverWired(inUnderwritingInfo)) {
