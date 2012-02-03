@@ -9,6 +9,11 @@ import org.pillarone.riskanalytics.domain.utils.ClaimSizeDistributionType
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
+import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope
+import org.pillarone.riskanalytics.core.simulation.engine.IterationScope
+import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope
+import org.pillarone.riskanalytics.core.util.TestProbe
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.PremiumAllocationType
 
 class PropertyLobTests extends GroovyTestCase {
 
@@ -27,7 +32,14 @@ class PropertyLobTests extends GroovyTestCase {
         double slLimit = 50
 
         PropertyLob lob = new PropertyLob()
-        lob.wire()
+
+        lob.internalWiring()
+        SimulationScope simulationScope = new SimulationScope(iterationScope: new IterationScope(periodScope: new PeriodScope()))
+        lob.subRiProgram.subContract1.simulationScope = simulationScope
+        lob.subRiProgram.subContract2.simulationScope = simulationScope
+        lob.subRiProgram.subContract3.simulationScope = simulationScope
+        lob.subRiProgram.subContract4.simulationScope = simulationScope
+        lob.subRiProgram.subContract5.simulationScope = simulationScope
 
         lob.subUnderwriting.parmUnderwritingInformation = new TableMultiDimensionalParameter(
             [[0], [0], [10000d], [0]],
@@ -53,7 +65,8 @@ class PropertyLobTests extends GroovyTestCase {
                 "aggregateLimit": wxlAggregateLimit,
                 "premiumBase": PremiumBase.ABSOLUTE,
                 "premium": wxlPremium,
-                "reinstatementPremium": new TableMultiDimensionalParameter([0.5], ['Reinstatement Premium']),
+                "reinstatementPremiums": new TableMultiDimensionalParameter([0.5], ['Reinstatement Premium']),
+                "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),
                 "coveredByReinsurer": 1d])
         lob.subRiProgram.subContract3.parmContractStrategy = ReinsuranceContractType.getStrategy(
                 ReinsuranceContractType.STOPLOSS,
@@ -61,32 +74,23 @@ class PropertyLobTests extends GroovyTestCase {
                         "attachmentPoint": slAttachmentPoint,
                         "limit": slLimit,
                         "premium": 40,
-                        "coveredByReinsurer": 1d])
+                        "coveredByReinsurer": 1d,
+                        "premiumAllocation": PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:])])
         lob.subAllocator.parmRiskAllocatorStrategy = RiskAllocatorType.getStrategy(RiskAllocatorType.SUMINSUREDGENERATOR, [
             distribution: DistributionType.getStrategy(DistributionType.NORMAL, ["mean": 0d, "stDev": 1d]),
             modification: DistributionModifier.getStrategy(DistributionModifier.NONE, [:]),
             bandMean: 1d / 3d])
-        List claimsGross = []
-        def probeClaimsGross = [transmit: {-> claimsGross.addAll(lob.subClaimsGenerator.outClaims)}] as ITransmitter
-        lob.subClaimsGenerator.allOutputTransmitter << probeClaimsGross
-
-        List claimsNetWXL = []
-        def probeClaimsNetWXL = [transmit: {-> claimsNetWXL.addAll(lob.subRiProgram.subContract1.outUncoveredClaims)}] as ITransmitter
-        lob.subRiProgram.subContract1.allOutputTransmitter << probeClaimsNetWXL
-
-        List claimsNetQS = []
-        def probeClaimsNetQS = [transmit: {-> claimsNetQS.addAll(lob.subRiProgram.subContract2.outUncoveredClaims)}] as ITransmitter
-        lob.subRiProgram.subContract2.allOutputTransmitter << probeClaimsNetQS
-
-        List claimsNet = []
-        def probeClaimsNet = [transmit: {-> claimsNet.addAll(lob.subRiProgram.outClaimsNet)}] as ITransmitter
-        lob.subRiProgram.allOutputTransmitter << probeClaimsNet
+        List claimsGross = new TestProbe(lob.subClaimsGenerator, 'outClaims').result
+        List claimsNetWXL = new TestProbe(lob.subRiProgram.subContract1, 'outUncoveredClaims').result
+        List claimsNetQS = new TestProbe(lob.subRiProgram.subContract2, 'outUncoveredClaims').result
+        List claimsNet = new TestProbe(lob.subRiProgram, 'outClaimsNet').result
 
         lob.validateParameterization()
         lob.start()
+        
+        assertTrue "collected gross claims", claimsGross.size() > 0
 
-        for (int i = 0; i < claimsGross.size(); i++) {
-            assertTrue claimsNetQS[i].ultimate == (claimsGross[i].ultimate * (1.0 - quotaShare))
-        }
+        // comparing individual elements not possible due to different order of gross and ceded claims
+        assertTrue "matching sum", claimsNetQS.ultimate.sum() == (claimsGross.ultimate.sum() * (1.0 - quotaShare))
     }
 }
