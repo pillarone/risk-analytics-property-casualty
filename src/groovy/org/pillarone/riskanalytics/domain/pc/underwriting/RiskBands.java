@@ -4,10 +4,13 @@ import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.components.IterationStore;
 import org.pillarone.riskanalytics.core.packets.PacketList;
+import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter;
+import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory;
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter;
 import org.pillarone.riskanalytics.core.simulation.engine.IterationScope;
 import org.pillarone.riskanalytics.core.util.GroovyUtils;
 import org.pillarone.riskanalytics.domain.utils.InputFormatConverter;
+import org.pillarone.riskanalytics.domain.utils.constraint.DoubleConstraints;
 import org.pillarone.riskanalytics.domain.utils.marker.IUnderwritingInfoMarker;
 
 import java.util.ArrayList;
@@ -34,9 +37,10 @@ import java.util.List;
 @ComponentCategory(categories = {"UNDERWRITING"})
 public class RiskBands extends Component implements IUnderwritingInfoMarker {
 
-    private TableMultiDimensionalParameter parmUnderwritingInformation = new TableMultiDimensionalParameter(
-            GroovyUtils.convertToListOfList(new Object[]{0d, 0d, 0d, 0d}), getColumnTitles());
-
+    private TableMultiDimensionalParameter parmUnderwritingInformation = new ConstrainedMultiDimensionalParameter(
+            GroovyUtils.convertToListOfList(new Object[]{0d, 0d, 0d, 0d}), getColumnTitles(),
+            ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER));
+    
     private PacketList<UnderwritingInfo> outUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo.class);
 
     private IterationScope iterationScope;

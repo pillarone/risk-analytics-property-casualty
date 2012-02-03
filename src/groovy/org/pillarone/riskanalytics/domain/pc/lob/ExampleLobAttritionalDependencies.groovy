@@ -26,26 +26,11 @@ class ExampleLobAttritionalDependencies extends ComposedComponent implements ISe
 
     PacketList<DependenceStream> inProbabilities = new PacketList(DependenceStream)
 
-    ProbabilityExtractor subAttritionalSeverityExtractor
-    RiskBands subUnderwriting
-    AttritionalSingleClaimsGenerator subClaimsGenerator
-    RiskAllocator subAllocator
-    ReinsuranceProgram3SerialContracts subRiProgram
-
-    ExampleLobAttritionalDependencies() {
-        subAttritionalSeverityExtractor = new ProbabilityExtractor()
-        subUnderwriting = new RiskBands()
-        subClaimsGenerator = new AttritionalSingleClaimsGenerator()
-        subAllocator = new RiskAllocator()
-        subRiProgram = new ReinsuranceProgram3SerialContracts()
-    }
-
-    public void doCalculation() {
-        super.doCalculation()
-        if (isReceiverWired(inProbabilities)) {
-            subUnderwriting.start()
-        }
-    }
+    ProbabilityExtractor subAttritionalSeverityExtractor = new ProbabilityExtractor()
+    RiskBands subUnderwriting = new RiskBands()
+    AttritionalSingleClaimsGenerator subClaimsGenerator = new AttritionalSingleClaimsGenerator()
+    RiskAllocator subAllocator = new RiskAllocator()
+    ReinsuranceProgram3SerialContracts subRiProgram = new ReinsuranceProgram3SerialContracts()
 
     public void wire() {
         if (isReceiverWired(inProbabilities)) {

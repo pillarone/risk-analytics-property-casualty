@@ -29,12 +29,6 @@ public class SingleClaimsGeneratorWithFrequencyExtractor extends ComposedCompone
         subClaimsGenerator = new SingleClaimsGenerator()
     }
 
-    protected void doCalculation() {
-        assert "number of frequency packets has to correspond to the number of underwriting info packets", _
-        inFrequency.size() == inUnderwritingInfo.size()
-        super.doCalculation()
-    }
-
     public void wire() {
         WiringUtils.use(WireCategory) {
             subClaimsGenerator.inClaimCount = subFrequencyExtractor.outFrequency

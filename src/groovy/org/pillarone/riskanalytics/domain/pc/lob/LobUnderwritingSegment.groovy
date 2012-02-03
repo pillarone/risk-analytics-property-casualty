@@ -29,10 +29,6 @@ class LobUnderwritingSegment extends ComposedComponent implements ISegmentMarker
         subRiProgram = new ReinsuranceProgram3SerialContracts()
     }
 
-    public void doCalculation() {
-        subUnderwriting.start()
-    }
-
     public void wire() {
         WiringUtils.use(WireCategory) {
             subClaimsGenerator.inUnderwritingInfo = subUnderwriting.outUnderwritingInfo

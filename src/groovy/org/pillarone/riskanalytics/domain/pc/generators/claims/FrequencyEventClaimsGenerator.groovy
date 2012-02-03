@@ -34,14 +34,6 @@ class FrequencyEventClaimsGenerator extends ComposedComponent {
         subClaimsGenerator = new EventClaimsGenerator()
     }
 
-    public void doCalculation() {
-        if (isReceiverWired(inUnderwritingInfo)) {
-            super.doCalculation()
-        } else {
-            subFrequencyGenerator.start()
-        }
-    }
-
     public void wire() {
         WiringUtils.use(WireCategory) {
             subEventGenerator.inSeverityCount = subFrequencyGenerator.outFrequency

@@ -32,7 +32,7 @@ public class AggregateDrillDownCollectingModeStrategy implements ICollectingMode
     private static final String PERILS = "claimsGenerators";
     private static final String CONTRACTS = "reinsuranceContracts";
     private static final String LOB = "linesOfBusiness";
-    private static final String RESOURCE_BUNDLE = "org.pillarone.riskanalytics.domain.pc.application.applicationResources";
+    private static final String RESOURCE_BUNDLE = "org.pillarone.riskanalytics.domain.pc.output.AggregateDrillDownCollectingModeStrategyResources";
     private static final String PATH_SEPARATOR = ":";
     private String displayName;
 
@@ -75,7 +75,8 @@ public class AggregateDrillDownCollectingModeStrategy implements ICollectingMode
 //                  todo(sku): remove
             }
         } else {
-            throw new NotImplementedException("AggregateDrillDownCollectingModeStrategy.notImplemented");
+            String notImplemented = ResourceBundle.getBundle(RESOURCE_BUNDLE).getString("AggregateDrillDownCollectingModeStrategy.notImplemented");
+            throw new NotImplementedException(notImplemented + "\n(" + packetCollector.getPath() + ")");
         }
         return null;
     }
@@ -334,5 +335,9 @@ public class AggregateDrillDownCollectingModeStrategy implements ICollectingMode
 
     public void setPacketCollector(PacketCollector packetCollector) {
         this.packetCollector = packetCollector;
+    }
+
+    public boolean isCompatibleWith(Class packetClass) {
+        return Claim.class.isAssignableFrom(packetClass) || UnderwritingInfo.class.isAssignableFrom(packetClass);
     }
 }

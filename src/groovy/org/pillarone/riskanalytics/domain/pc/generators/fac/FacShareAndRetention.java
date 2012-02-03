@@ -42,20 +42,20 @@ public class FacShareAndRetention extends Packet {
         return facDistributionsByUwInfo.get(key).getFacShare(contractStrategy);
     }
     
-    public Double getQuotaShare(UnderwritingInfo key) {
+    public Double getQuotaShare(UnderwritingInfo key, double defaultFacShare) {
         FacRandomDistributions facShareDistributions = facDistributionsByUwInfo.get(key);
         if (facShareDistributions == null) {
-            return 0d;
+            return 1 - defaultFacShare;
         }
         else {
             return facShareDistributions.getFacQuotaShare();
         }
     }
 
-    public Double getSurplusShare(UnderwritingInfo key) {
+    public Double getSurplusShare(UnderwritingInfo key, double defaultFacShare) {
         FacRandomDistributions facShareDistributions = facDistributionsByUwInfo.get(key);
         if (facShareDistributions == null) {
-            return 0d;
+            return 1 - defaultFacShare;
         }
         else {
             return facShareDistributions.getFacSurplusShare();

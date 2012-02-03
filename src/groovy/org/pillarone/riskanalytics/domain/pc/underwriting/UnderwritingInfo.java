@@ -25,8 +25,8 @@ public class UnderwritingInfo extends MultiValuePacket {
     private double sumInsured;
     private double maxSumInsured;
 
-    private double facQuotaShare = 0d;
-    private double facSurplus = 0d;
+    private double facQuotaShare = 1d;
+    private double facSurplus = 1d;
 
     private Exposure exposureDefinition;
     private ISegmentMarker lineOfBusiness;

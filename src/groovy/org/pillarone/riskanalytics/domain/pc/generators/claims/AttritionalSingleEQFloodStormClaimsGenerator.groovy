@@ -26,35 +26,14 @@ class AttritionalSingleEQFloodStormClaimsGenerator extends ComposedComponent {
     PacketList<Severity> inProbabilities = new PacketList(Severity)
     PacketList<UnderwritingInfo> inUnderwritingInfo = new PacketList(UnderwritingInfo)
 
-    FrequencyClaimsGenerator subSingleClaimsGenerator
-    FrequencyEventClaimsGenerator subEQGenerator
-    FrequencyEventClaimsGenerator subFloodGenerator
-    FrequencyEventClaimsGenerator subStormGenerator
-    FrequencyGenerator subAttritionalFrequencyGenerator
-    AttritionalClaimsGenerator subAttritionalSeverityClaimsGenerator
+    FrequencyClaimsGenerator subSingleClaimsGenerator = new FrequencyClaimsGenerator()
+    FrequencyEventClaimsGenerator subEQGenerator = new FrequencyEventClaimsGenerator()
+    FrequencyEventClaimsGenerator subFloodGenerator = new FrequencyEventClaimsGenerator()
+    FrequencyEventClaimsGenerator subStormGenerator = new FrequencyEventClaimsGenerator()
+    FrequencyGenerator subAttritionalFrequencyGenerator = new FrequencyGenerator()
+    AttritionalClaimsGenerator subAttritionalSeverityClaimsGenerator = new AttritionalClaimsGenerator()
     ClaimType claimType = ClaimType.SINGLE
     PacketList<Claim> outClaims = new PacketList(Claim)
-
-    AttritionalSingleEQFloodStormClaimsGenerator() {
-        subSingleClaimsGenerator = new FrequencyClaimsGenerator()
-        subEQGenerator = new FrequencyEventClaimsGenerator()
-        subFloodGenerator = new FrequencyEventClaimsGenerator()
-        subStormGenerator = new FrequencyEventClaimsGenerator()
-        subAttritionalFrequencyGenerator = new FrequencyGenerator()
-        subAttritionalSeverityClaimsGenerator = new AttritionalClaimsGenerator()
-    }
-
-    public void doCalculation() {
-        if (isReceiverWired(inUnderwritingInfo)) {
-            super.doCalculation()
-        } else {
-            subSingleClaimsGenerator.start()
-            subEQGenerator.start()
-            subFloodGenerator.start()
-            subStormGenerator.start()
-            subAttritionalFrequencyGenerator.start()
-        }
-    }
 
     public void wire() {
         if (isReceiverWired(inUnderwritingInfo)) {

@@ -7,8 +7,6 @@ import org.pillarone.riskanalytics.core.packets.PacketList
  */
 class PremiumCalculationWithIndex extends PremiumCalculation{
 
-  PacketList<IndexPacket> inIndex = new PacketList<IndexPacket>(IndexPacket)
-
   void doCalculation() {
       double level = 1.0
       for (IndexPacket idx in inIndex) {

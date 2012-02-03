@@ -31,15 +31,6 @@ class AttritionalSingleClaimsGenerator extends ComposedComponent {
     AttritionalSingleClaimsGenerator() {
     }
 
-    public void doCalculation() {
-        if (isReceiverWired(inUnderwritingInfo)) {
-            super.doCalculation()
-        } else {
-            subSingleClaimsGenerator.start()
-            subAttritionalClaimsGenerator.start()
-        }
-    }
-
     public void wire() {
         if (isReceiverWired(inUnderwritingInfo)) {
             WiringUtils.use(PortReplicatorCategory) {

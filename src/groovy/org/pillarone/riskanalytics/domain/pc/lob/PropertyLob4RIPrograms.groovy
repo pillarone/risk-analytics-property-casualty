@@ -32,10 +32,6 @@ class PropertyLob4RIPrograms extends ComposedComponent {
         subRiProgramD = new ReinsuranceProgram3SerialContracts()
     }
 
-    public void doCalculation() {
-        subUnderwriting.start()
-    }
-
     public void wire() {
         WiringUtils.use(WireCategory) {
             subClaimsGenerator.inUnderwritingInfo = subUnderwriting.outUnderwritingInfo

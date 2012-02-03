@@ -16,10 +16,6 @@ class IndexedPremium extends ComposedComponent {
 
     PacketList<PremiumPacket> outPremium = new PacketList<PremiumPacket>(PremiumPacket)
 
-    protected void doCalculation() {
-        subIndexProvider.start()
-    }
-
     void wire() {
         WiringUtils.use(WireCategory) {
             subPremiumCalculation.inIndex = subIndexProvider.outIndex

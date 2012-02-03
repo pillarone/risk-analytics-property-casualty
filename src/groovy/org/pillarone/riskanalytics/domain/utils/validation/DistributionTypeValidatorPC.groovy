@@ -170,7 +170,7 @@ class DistributionTypeValidatorPC implements IParameterizationValidator {
             [ValidationType.ERROR, "distribution.type.error.lognormal.mean.nonpositive", type.mean]
         }
         validationService.register(DistributionType.LOGNORMAL_MEAN_CV) {Map type ->
-            if (type.cv > 0) return true
+            if (type.CV > 0) return true
             [ValidationType.ERROR, "distribution.type.error.lognormal.cv.nonpositive", type.CV]
         }
         validationService.register(DistributionType.LOGNORMAL) {Map type ->

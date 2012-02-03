@@ -32,10 +32,6 @@ class MultiSingleLob extends ComposedComponent implements ISegmentMarker {
         subAllocator = new RiskAllocator()
     }
 
-    public void doCalculation() {
-        subUnderwriting.start()
-    }
-
     public void wire() {
         WiringUtils.use(WireCategory) {
             subClaimsGenerator.inUnderwritingInfo = subUnderwriting.outUnderwritingInfo

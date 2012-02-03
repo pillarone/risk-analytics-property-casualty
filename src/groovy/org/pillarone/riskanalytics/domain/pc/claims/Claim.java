@@ -6,6 +6,8 @@ import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope;
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType;
 import org.pillarone.riskanalytics.domain.pc.generators.fac.FacShareAndRetention;
 import org.pillarone.riskanalytics.domain.pc.generators.severities.Event;
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.QuotaShareContractStrategy;
+import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.SurplusContractStrategy;
 import org.pillarone.riskanalytics.domain.utils.marker.IReinsuranceContractMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractStrategy;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
@@ -88,21 +90,30 @@ public class Claim extends MultiValuePacket {
         return netClaim;
     }
 
-    public void updateExposureWithFac(FacShareAndRetention facShareAndRetention) {
-        double facQuotaShare = facShareAndRetention.getQuotaShare(exposure);
-        double facSurplus = facShareAndRetention.getSurplusShare(exposure);
+    public void updateExposureWithFac(FacShareAndRetention facShareAndRetention, double defaultFacShare) {
+        double facQuotaShare = facShareAndRetention.getQuotaShare(exposure, defaultFacShare);
+        double facSurplus = facShareAndRetention.getSurplusShare(exposure, defaultFacShare);
         exposure = exposure.copy();
         exposure.setFacQuotaShare(facQuotaShare);
         exposure.setFacSurplus(facSurplus);
     }
 
+    public void updateExposureWithFac(double defaultFacShare) {
+        exposure = exposure.copy();
+        exposure.setFacQuotaShare(1 - defaultFacShare);
+        exposure.setFacSurplus(1 - defaultFacShare);
+    }
+
     public double getFacShare(IReinsuranceContractStrategy contractStrategy) {
         if (exposure != null) {
-            return exposure.getFacQuotaShare();
+            if (contractStrategy instanceof QuotaShareContractStrategy) {
+                return exposure.getFacQuotaShare();
+            }
+            else if (contractStrategy instanceof SurplusContractStrategy) {
+                return exposure.getFacSurplus();
+            }
         }
-        else {
-            return 0d;
-        }
+        return 1d;
     }
 
     public boolean notNull() {

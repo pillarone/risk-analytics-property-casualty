@@ -33,14 +33,6 @@ class FrequencyClaimsGenerator extends ComposedComponent {
         subClaimsGenerator = new SingleClaimsGenerator()
     }
 
-    public void doCalculation() {
-        if (isReceiverWired(inUnderwritingInfo)) {
-            super.doCalculation()
-        } else {
-            subFrequencyGenerator.start()
-        }
-    }
-
     public void wire() {
         WiringUtils.use(WireCategory) {
             subClaimsGenerator.inClaimCount = subFrequencyGenerator.outFrequency
