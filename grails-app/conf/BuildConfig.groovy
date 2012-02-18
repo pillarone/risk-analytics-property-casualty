@@ -22,6 +22,7 @@ grails.project.dependency.resolution = {
         runtime ":tomcat:1.3.7"
 
         test ":code-coverage:1.2.4"
+        test ":excel-import:0.9.6"
 
         if (appName == "RiskAnalyticsPropertyCasualty") {
             runtime "org.pillarone:risk-analytics-core:1.4"
