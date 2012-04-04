@@ -22,10 +22,11 @@ grails.project.dependency.resolution = {
         runtime ":tomcat:1.3.7"
 
         test ":code-coverage:1.2.4"
+        test ":excel-import:0.9.6"
 
         if (appName == "RiskAnalyticsPropertyCasualty") {
-            runtime "org.pillarone:risk-analytics-core:1.5-ALPHA-2"
-            runtime("org.pillarone:risk-analytics-commons:0.1.28") { transitive = false }
+            runtime "org.pillarone:risk-analytics-core:1.5-ALPHA-4.1"
+            runtime("org.pillarone:risk-analytics-commons:0.2.3") { transitive = false }
         }
     }
 }
