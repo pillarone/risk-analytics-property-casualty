@@ -38,11 +38,6 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
         1
     }
 
-    void setUp() {
-        super.setUp()
-        assertNotNull new CollectorMapping(collectorName: AggregatedCollectingModeStrategy.IDENTIFIER).save()
-    }
-
 //    void postSimulationEvaluation() {
 //        correctPaths()
 //        correctFields(['incurred', 'paid', 'reserved','commission', 'fixedCommission', 'variableCommission', 'premium', 'fixedPremium', 'variablePremium'])
