@@ -56,29 +56,18 @@ public class AggregateDrillDownCollectingModeStrategy implements ICollectingMode
         mappingCache = packetCollector.getSimulationScope().getMappingCache();
     }
 
-    public List<SingleValueResultPOJO> collect(PacketList packets) {
+    public List<SingleValueResultPOJO> collect(PacketList packets) throws IllegalAccessException {
         initSimulation();
         iteration = packetCollector.getSimulationScope().getIterationScope().getCurrentIteration();
         period = packetCollector.getSimulationScope().getIterationScope().getPeriodScope().getCurrentPeriod();
         if (packets.get(0) instanceof Claim) {
-            try {
-                return createSingleValueResults(aggregateClaims(packets));
-            }
-            catch (IllegalAccessException ex) {
-//                todo(sku): remove
-            }
+            return createSingleValueResults(aggregateClaims(packets));
         } else if (packets.get(0) instanceof UnderwritingInfo) {
-            try {
-                return createSingleValueResults(aggregateUnderwritingInfo(packets));
-            }
-            catch (IllegalAccessException ex) {
-//                  todo(sku): remove
-            }
+            return createSingleValueResults(aggregateUnderwritingInfo(packets));
         } else {
             String notImplemented = ResourceBundle.getBundle(RESOURCE_BUNDLE).getString("AggregateDrillDownCollectingModeStrategy.notImplemented");
             throw new NotImplementedException(notImplemented + "\n(" + packetCollector.getPath() + ")");
         }
-        return null;
     }
 
     /**
