@@ -261,7 +261,7 @@ public class ClaimFilterUtilities {
                     filteredClaims.add(claim);
                 }
                 else if (claim.getReinsuranceContract() != null) {
-                    if (coveredContracts.contains(claim.getReinsuranceContract().getNormalizedName())) {
+                    if (coveredContracts.contains(claim.getReinsuranceContract().getName())) {
                         filteredClaims.add(claim);
                     }
                 }
@@ -270,7 +270,7 @@ public class ClaimFilterUtilities {
         else if (hasPerils && hasContracts && connection == LogicArguments.AND) {
             for (ClaimDevelopmentPacket claim : claims) {
                 if (coveredPerils.contains(claim.getPeril()) && claim.getReinsuranceContract() != null) {
-                    if (coveredContracts.contains(claim.getReinsuranceContract().getNormalizedName())) {
+                    if (coveredContracts.contains(claim.getReinsuranceContract().getName())) {
                         filteredClaims.add(claim);
                     }
                 }
@@ -289,7 +289,7 @@ public class ClaimFilterUtilities {
         else if (hasContracts) {
             for (ClaimDevelopmentPacket claim : claims) {
                 if (claim.getReinsuranceContract() != null) {
-                    if (coveredContracts.contains(claim.getReinsuranceContract().getNormalizedName())) {
+                    if (coveredContracts.contains(claim.getReinsuranceContract().getName())) {
                         filteredClaims.add(claim);
                     }
                 }
@@ -405,7 +405,7 @@ public class ClaimFilterUtilities {
         else {
             for (ClaimDevelopmentPacket claim : claims) {
                 if (claim.getReinsuranceContract() != null) {
-                    if (contracts.contains(claim.getReinsuranceContract().getNormalizedName())) {
+                    if (contracts.contains(claim.getReinsuranceContract().getName())) {
                         filteredClaims.add(claim);
                     }
                 }
