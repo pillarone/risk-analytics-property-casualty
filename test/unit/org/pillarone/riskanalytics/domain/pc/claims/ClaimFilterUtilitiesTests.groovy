@@ -127,13 +127,13 @@ class ClaimFilterUtilitiesTests extends GroovyTestCase {
         // contract     1   2   1   2   1   2   1   2   1   2   1   2
 
         // peril 1 => claim 1, 4, 7...; contract 1 => claim 1, 3, 5, 7..; together (ANDed), we expect claim 1 & 7
-        List filteredClaims = ClaimFilterUtilities.filterClaimsByPerilContract(claim, [peril[0]], ["contract 1"], LogicArguments.AND)
+        List filteredClaims = ClaimFilterUtilities.filterClaimsByPerilContract(claim, [peril[0]], ["Contract 1"], LogicArguments.AND)
         assertEquals '#filtered claims (peril 1, contract 1)', 2, filteredClaims.size()
         assertEquals 'filtered claim 1 (peril 1, contract 1) = claim 1', claim[0], filteredClaims[0]
         assertEquals 'filtered claim 2 (peril 1, contract 1) = claim 7', claim[6], filteredClaims[1]
 
         // peril 1 => claim 1, 4, 7...; contract 1 => claim 1, 3, 5, 7..; together (ORed), we expect claim 1, 3, 4, 5, 7, 9, 10, 11 (odd, or congruent to 4 mod 6)
-        filteredClaims = ClaimFilterUtilities.filterClaimsByPerilContract(claim, [peril[0]], ["contract 1"], LogicArguments.OR)
+        filteredClaims = ClaimFilterUtilities.filterClaimsByPerilContract(claim, [peril[0]], ["Contract 1"], LogicArguments.OR)
         assertEquals '#filtered claims (peril 1 OR contract 1)', 8, filteredClaims.size()
         assertEquals 'filtered claims: all but 2, 6, 8 & 12',
                 ([1,3,4,5,7,9,10,11].collect {"Claim ${it}"}).join(", "),
@@ -141,7 +141,7 @@ class ClaimFilterUtilitiesTests extends GroovyTestCase {
 
         // congruent to 1 or 2 mod 3 and to 1 mod 2 is equivalent to being congruent to 1 or 5 mod 6,
         // so here we want claims 1, 5, 7, 11, i.e. all those whose claim number (1..12) is relatively prime to 6.
-        filteredClaims = ClaimFilterUtilities.filterClaimsByPerilContract(claim, [peril[0], peril[1]], ["contract 1"], LogicArguments.AND)
+        filteredClaims = ClaimFilterUtilities.filterClaimsByPerilContract(claim, [peril[0], peril[1]], ["Contract 1"], LogicArguments.AND)
         assertEquals '#filtered claims (peril 1, contract 1)', 4, filteredClaims.size()
         assertEquals 'filtered claims: relatively prime to 6',
                 ([1, 5, 7, 11].collect {"Claim ${it}"}).join(", "),
