@@ -35,7 +35,7 @@ public class UnderwritingLineOfBusinessComposer extends Component {
             int portionColumn = parmPortions.getColumnIndex(portion);
             Component lineOfBusiness = inUnderwritingInfo.get(0).sender; // works only if this component is part of a component implementing ISegmentMarker
             for (UnderwritingInfo underwritingInfo : inUnderwritingInfo) {
-                String originName = underwritingInfo.origin.getNormalizedName();
+                String originName = underwritingInfo.origin.getName();
                 int row = parmPortions.getColumnByName(underwriting).indexOf(originName);
                 if (row > -1) {
                     UnderwritingInfo lobUnderwritingInfo = UnderwritingInfoPacketFactory.copy(underwritingInfo);

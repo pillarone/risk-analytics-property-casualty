@@ -228,7 +228,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
         List<Double> probabilities = new ArrayList<Double>();
         for (DependenceStream stream : inProbabilities) {
             // todo(sku): refactor in order to use component references in marginals
-            int index = stream.marginals.indexOf(getNormalizedName());
+            int index = stream.marginals.indexOf(getName());
             if (index > -1) {
                 probabilities.add((Double) stream.probabilities.get(index));
             }
@@ -247,7 +247,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
     protected List<EventSeverity> filterEvents() {
         List<EventSeverity> eventSeverities = new ArrayList<EventSeverity>();
         for (EventDependenceStream stream : inEventSeverities) {
-            int index = stream.marginals.indexOf(getNormalizedName());
+            int index = stream.marginals.indexOf(getName());
             if (index > -1) {
                 eventSeverities.add(stream.severities.get(index));
             }

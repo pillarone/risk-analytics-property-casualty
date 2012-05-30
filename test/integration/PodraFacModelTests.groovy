@@ -16,10 +16,7 @@ class PodraFacModelTests extends ModelTest {
         "PodraFacAnalysisResultConfiguration"
     }
 
-
-
     String getParameterDisplayName() {
-//        "One Line Example"
         "Test Example"
     }
 
