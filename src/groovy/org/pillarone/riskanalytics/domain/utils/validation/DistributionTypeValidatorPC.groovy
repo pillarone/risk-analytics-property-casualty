@@ -11,6 +11,7 @@ import org.pillarone.riskanalytics.core.parameterization.validation.ParameterVal
 import org.pillarone.riskanalytics.core.parameterization.validation.AbstractParameterValidationService
 import org.pillarone.riskanalytics.domain.utils.InputFormatConverter
 import org.pillarone.riskanalytics.core.parameterization.validation.ValidationType
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
 
 class DistributionTypeValidatorPC implements IParameterizationValidator {
 
@@ -35,9 +36,14 @@ class DistributionTypeValidatorPC implements IParameterizationValidator {
                     if (LOG.isDebugEnabled()) {
                         LOG.debug "validating ${parameter.path}"
                     }
-                    def currentErrors = validationService.validate(classifier, parameter.getParameterMap())
-                    currentErrors*.path = parameter.path
-                    errors.addAll(currentErrors)
+                    try {
+                        def currentErrors = validationService.validate(classifier, parameter.getParameterMap())
+                        currentErrors*.path = parameter.path
+                        errors.addAll(currentErrors)
+                    }
+                    catch (InvalidParameterException ex) {
+                        LOG.debug("call parameter.getBusinessObject() failed " + ex.toString())
+                    }
                 }
                 errors.addAll(validate(parameter.classifierParameters.values().toList()))
             }
