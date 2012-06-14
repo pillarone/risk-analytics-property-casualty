@@ -313,10 +313,11 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
                     distribution.distribution = new LognormalTypeIIParetoDistribution((double) parameters["sigma"],
                             (double) parameters["alpha"], (double) parameters["beta"], (double) parameters["lambda"])
                     break
+                default : throw new IllegalArgumentException("Unknown dist " + type.toString());
             }
         }
         catch (IllegalArgumentException ex) {
-            throw new InvalidParameterException(ex.message)
+            throw new InvalidParameterException(ex.message, ex)
         }
 
         return distribution
