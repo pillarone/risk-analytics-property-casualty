@@ -4,6 +4,7 @@ import org.joda.time.DateTime
 import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObjectClassifier
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -48,6 +49,8 @@ class CoverPeriodType extends AbstractParameterObjectClassifier {
                 return new FullPeriodCoveredStrategy()
             case CoverPeriodType.PERIOD:
                 return new PeriodCoveredStrategy(start : parameters['start'], end: parameters['end'])
+            default:
+                throw new InvalidParameterException("CoverPeriodType $type not implemented")
         }
     }
 }

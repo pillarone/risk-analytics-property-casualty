@@ -14,6 +14,7 @@ import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalPa
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
 import org.pillarone.riskanalytics.domain.utils.constraint.DoubleConstraints
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -149,6 +150,9 @@ public class ClaimsGeneratorType extends AbstractParameterObjectClassifier {
                         pmlData: (ConstrainedMultiDimensionalParameter) parameters.get("pmlData"),
                         claimsSizeModification: (DistributionModified) parameters.get("claimsSizeModification"),
                         produceClaim : (FrequencySeverityClaimType) parameters.get("produceClaim"))
+                break;
+            default:
+                throw new InvalidParameterException("ClaimsGeneratorType $type not implemented")
         }
         return claimsGenerator;
     }

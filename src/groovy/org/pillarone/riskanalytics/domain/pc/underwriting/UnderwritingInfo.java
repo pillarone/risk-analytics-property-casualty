@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.underwriting;
 
 import org.pillarone.riskanalytics.core.packets.MultiValuePacket;
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException;
 import org.pillarone.riskanalytics.domain.pc.constants.Exposure;
 import org.pillarone.riskanalytics.domain.pc.constants.FrequencyBase;
 import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
@@ -94,8 +95,9 @@ public class UnderwritingInfo extends MultiValuePacket {
                 return getPremium();
             case NUMBER_OF_POLICIES:
                 return getNumberOfPolicies();
+            default:
+                throw new InvalidParameterException(base + " not implemented");
         }
-        return 0;
     }
 
     public double scaleValue(FrequencyBase base) {
@@ -104,8 +106,9 @@ public class UnderwritingInfo extends MultiValuePacket {
                 return 1d;
             case NUMBER_OF_POLICIES:
                 return getNumberOfPolicies();
+            default:
+                throw new InvalidParameterException(base + " not implemented");
         }
-        return 1;
     }
 
     /**

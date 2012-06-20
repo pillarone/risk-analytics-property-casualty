@@ -7,6 +7,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit.ILimitS
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit.LimitStrategyType
 import org.pillarone.riskanalytics.core.parameterization.*
 import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
 
 class ReinsuranceContractType extends AbstractParameterObjectClassifier {
 
@@ -258,6 +259,8 @@ class ReinsuranceContractType extends AbstractParameterObjectClassifier {
                         (double) parameters["slLimit"],
                         (double) parameters["goldorakSlThreshold"])
                 break
+            default:
+                throw new InvalidParameterException("ReinsuranceContractType $type not implemented")
         }
         return contract
     }

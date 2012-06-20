@@ -10,6 +10,7 @@ import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalPa
 import org.pillarone.riskanalytics.core.parameterization.AbstractMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoPacketFactory
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
 
 /**
  *  In a first step claims are merged per event. Merged claims are ceded and afterwards the ceded part is
@@ -166,6 +167,8 @@ class GoldorakContractStrategy extends AbstractContractStrategy implements IRein
             case PremiumBase.NUMBER_OF_POLICIES:
                 totalCededPremium = premium * coverUnderwritingInfo.numberOfPolicies.sum()
                 break
+            default:
+                throw new InvalidParameterException("PremiumBase $premiumBase not implemented")
         }
     }
 

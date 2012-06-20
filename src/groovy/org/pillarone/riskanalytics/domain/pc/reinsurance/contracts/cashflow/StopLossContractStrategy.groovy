@@ -8,6 +8,7 @@ import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoPacketFactory
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -152,6 +153,8 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
             case StopLossContractBase.GNPI:
                 cededUnderwritingInfo.premium = premium * grossUnderwritingInfo.premium
                 break
+            default:
+                throw new InvalidParameterException("StopLossContractBase $stopLossContractBase not implemented")
         }
         cededUnderwritingInfo
     }

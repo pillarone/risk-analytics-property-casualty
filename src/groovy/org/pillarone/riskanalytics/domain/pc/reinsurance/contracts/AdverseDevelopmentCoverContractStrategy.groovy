@@ -9,6 +9,7 @@ import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentP
 import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoPacketFactory
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -118,6 +119,8 @@ class AdverseDevelopmentCoverContractStrategy extends AbstractContractStrategy i
             case StopLossContractBase.GNPI:
                 cededUnderwritingInfo.premium = premium * grossUnderwritingInfo.premium
                 break
+            default:
+                throw new InvalidParameterException("StopLossContractBase $stopLossContractBase not implemented")
         }
         cededUnderwritingInfo.setFixedPremium(cededUnderwritingInfo.getPremium())
         cededUnderwritingInfo
