@@ -5,6 +5,7 @@ import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimen
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
 
 /**
  * @author shartmann (at) munichre (dot) com
@@ -62,6 +63,8 @@ public class ReservesGeneratorStrategyType extends AbstractParameterObjectClassi
                 reserveGenerator = new PriorPeriodReservesGeneratorStrategy(
                         basedOnClaimsGenerators : (ComboBoxTableMultiDimensionalParameter) parameters.get("basedOnClaimsGenerators"))
                 break;
+            default:
+                throw new InvalidParameterException("ReservesGeneratorStrategyType $type not implemented")
         }
         return reserveGenerator;
     }

@@ -5,6 +5,7 @@ import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObject
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -57,6 +58,8 @@ public class HistoricClaimsStrategyType extends AbstractParameterObjectClassifie
             case HistoricClaimsStrategyType.LAST_REPORTED:
                 historicClaimsStrategy = new HistoricLastReportedClaimsStrategy(reportedByDevelopmentPeriod : parameters['reportedByDevelopmentPeriod'])
                 break;
+            default:
+                throw new InvalidParameterException("HistoricClaimsStrategyType $type not implemented")
         }
         return historicClaimsStrategy;
     }

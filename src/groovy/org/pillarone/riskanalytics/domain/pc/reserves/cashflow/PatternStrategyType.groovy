@@ -5,6 +5,7 @@ import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.pc.constants.SimulationPeriod
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -65,6 +66,8 @@ public class PatternStrategyType extends AbstractParameterObjectClassifier {
                         cumulativePattern : (TableMultiDimensionalParameter) parameters['cumulativePattern'],
                         calibrationPeriod : (SimulationPeriod) parameters['calibrationPeriod'])
                 break;
+            default:
+                throw new InvalidParameterException("PatternStrategyType $type not implemented")
         }
         return pattern;
     }

@@ -9,6 +9,7 @@ import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
 import org.pillarone.riskanalytics.domain.utils.marker.IReserveMarker
 import org.pillarone.riskanalytics.domain.pc.constants.IncludeType
 import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -95,6 +96,8 @@ class CoverAttributeStrategyType extends AbstractParameterObjectClassifier {
                         connection: (LogicArguments) parameters['connection']
                 )
                 break
+            default:
+                throw new InvalidParameterException("CoverAttributeStrategyType $type not implemented")
         }
         return coverStrategy;
     }

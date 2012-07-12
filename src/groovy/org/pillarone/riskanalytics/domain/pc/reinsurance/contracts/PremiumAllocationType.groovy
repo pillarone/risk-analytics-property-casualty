@@ -6,6 +6,7 @@ import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
 import org.pillarone.riskanalytics.domain.utils.constraint.SegmentPortion
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
 
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
@@ -58,6 +59,8 @@ class PremiumAllocationType extends AbstractParameterObjectClassifier {
             case PremiumAllocationType.LINE_SHARES:
                 premiumAllocator = new LineSharesPremiumAllocationStrategy(lineOfBusinessShares: (ConstrainedMultiDimensionalParameter) parameters["lineOfBusinessShares"])
                 break;
+            default:
+                throw new InvalidParameterException("PremiumAllocationType $type not implemented")
 
         }
         return premiumAllocator;

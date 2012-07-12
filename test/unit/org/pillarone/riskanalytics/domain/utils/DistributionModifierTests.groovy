@@ -1,5 +1,7 @@
 package org.pillarone.riskanalytics.domain.utils
 
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
+
 class DistributionModifierTests extends GroovyTestCase {
 
     void testValueOf() {
@@ -14,7 +16,7 @@ class DistributionModifierTests extends GroovyTestCase {
         // create a modifier type that isn't implemented, then try using it to create a modified distribution
         DistributionModifier modifier = new DistributionModifier("Dilation", "DILATION", params)
         DistributionModified modified
-        shouldFail org.apache.commons.lang.NotImplementedException, {
+        shouldFail InvalidParameterException, {
             modified = DistributionModifier.getStrategy(modifier, [:])
         }
     }

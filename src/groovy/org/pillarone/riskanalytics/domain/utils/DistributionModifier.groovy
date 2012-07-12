@@ -4,6 +4,7 @@ import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObject
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.apache.commons.lang.NotImplementedException
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -76,7 +77,7 @@ class DistributionModifier extends AbstractParameterObjectClassifier {
                 distributionModified = new DistributionModified(type: DistributionModifier.SHIFT, parameters: parameters)
                 break
             default:
-                throw new NotImplementedException("['DistributionModifier.notImplemented','"+modifier.typeName+"']")
+                throw new InvalidParameterException("['DistributionModifier.notImplemented','"+modifier.typeName+"']")
                 break
         }
         return distributionModified

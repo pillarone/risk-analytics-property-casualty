@@ -8,6 +8,7 @@ import org.pillarone.riskanalytics.domain.utils.DistributionModified
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
 import org.pillarone.riskanalytics.domain.utils.RandomDistribution
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -62,6 +63,8 @@ class RiskAllocatorType extends AbstractParameterObjectClassifier {
                     modification: (DistributionModified) parameters["modification"],
                     bandMean: (double) parameters["bandMean"])
                 break
+            default:
+                throw new InvalidParameterException("RiskAllocatorType $type not implemented")
         }
         return riskAllocator
     }

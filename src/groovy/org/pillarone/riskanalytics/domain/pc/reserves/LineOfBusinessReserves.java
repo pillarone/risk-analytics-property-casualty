@@ -48,7 +48,7 @@ public class LineOfBusinessReserves extends Component {
             int portionColumn = parmPortions.getColumnIndex(PORTION);
             Component lineOfBusiness = inClaims.get(0).sender; // works only if this component is part of a component implementing ISegmentMarker
             for (Claim claim : inClaims) {
-                String originName = claim.origin.getNormalizedName();
+                String originName = claim.origin.getName();
                 int row = parmPortions.getColumnByName(RESERVES).indexOf(originName);
                 Claim lobClaim = claim.copy();
                 lobClaim.setOriginalClaim(lobClaim);
@@ -59,7 +59,7 @@ public class LineOfBusinessReserves extends Component {
                 outClaimsDevelopmentLean.add((ClaimDevelopmentLeanPacket) lobClaim);
             }
             for (SingleValuePacket initialReserves : inInitialReserves) {
-                String originName = initialReserves.origin.getNormalizedName();
+                String originName = initialReserves.origin.getName();
                 int row = parmPortions.getColumnByName(RESERVES).indexOf(originName);
                 SingleValuePacket lobInitialReserve = (SingleValuePacket) initialReserves.copy();
                 lobInitialReserve.origin = lineOfBusiness;

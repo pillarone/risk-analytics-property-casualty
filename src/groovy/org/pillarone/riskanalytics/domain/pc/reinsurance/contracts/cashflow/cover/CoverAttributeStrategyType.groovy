@@ -11,6 +11,7 @@ import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
 import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cashflow.cover.AllCoverAttributeStrategy
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.*
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
 
 /**
  * This class (reinsurance&#46;contracts&#46;cashflow&#46;cover&#46;CoverAttributeStrategyType) is similar
@@ -84,6 +85,8 @@ class CoverAttributeStrategyType extends AbstractParameterObjectClassifier {
                         connection: (LogicArguments) parameters['connection']
                 )
                 break
+            default:
+                throw new InvalidParameterException("ICoverAttributeStrategy $type not implemented")
         }
         return commissionStrategy;
     }

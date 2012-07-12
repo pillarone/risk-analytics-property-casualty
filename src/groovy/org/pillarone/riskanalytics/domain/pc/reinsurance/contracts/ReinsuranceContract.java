@@ -167,7 +167,6 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
                 ClaimDevelopmentLeanPacket claim = new ClaimDevelopmentLeanPacket(grossClaim);
                 claim.setPaid(((IReinsuranceContractStrategyWithClaimsDevelopment)
                         parmContractStrategy).allocateCededPaid((ClaimDevelopmentLeanPacket) grossClaim));
-//                claim.setReserved(claim.getUltimate() - claim.getPaid()); // perhaps not necessary since CDLP.getReserved calculates the same difference
                 claim.setReserved(claim.getUltimate() - claim.getPaid()); // perhaps not necessary since CDLP.getReserved calculates the same difference
                 claimCeded = claim;
             }

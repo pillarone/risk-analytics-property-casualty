@@ -2,6 +2,7 @@ package org.pillarone.riskanalytics.domain.pc.constants;
 
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException;
 import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope;
 import org.pillarone.riskanalytics.domain.utils.DateTimeUtilities;
 
@@ -24,7 +25,7 @@ public enum SimulationPeriod {
             case MONTHLY:
                 return new Period(0, 1, 0,0,0,0,0,0, PeriodType.months());
             default:
-                throw new IllegalArgumentException("['SimulationPeriod.notImplemented','"+period+"']");
+                throw new InvalidParameterException("['SimulationPeriod.notImplemented','"+period+"']");
         }
     }
 }

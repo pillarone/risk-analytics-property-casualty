@@ -1,5 +1,6 @@
 package org.pillarone.riskanalytics.domain.utils
 
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException;
 import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObjectClassifier
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject
@@ -8,6 +9,7 @@ import static org.pillarone.riskanalytics.core.util.GroovyUtils.asDouble
 import org.pillarone.riskanalytics.domain.utils.constraint.DoubleConstraints
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
+
 
 class DistributionType extends AbstractParameterObjectClassifier implements Serializable {
 
@@ -18,14 +20,12 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
     public static final DistributionType NEGATIVEBINOMIAL = new DistributionType(
             "negative binomial", "NEGATIVEBINOMIAL", ["gamma": 1d, "p": 1d])
     public static final DistributionType DISCRETEEMPIRICAL = new DistributionType(
-//            "discrete empirical", "DISCRETEEMPIRICAL", ["discreteEmpiricalValues": new TableMultiDimensionalParameter([[0.0], [1.0]], ['observations', 'probabilities'])])
             "discrete empirical", "DISCRETEEMPIRICAL", ["discreteEmpiricalValues": new ConstrainedMultiDimensionalParameter([[0.0], [1.0]],
                     ['observations', 'probabilities'], ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))])
     public static final DistributionType DISCRETEEMPIRICALCUMULATIVE = new DistributionType(
-//            "discrete empirical cumulative", "DISCRETEEMPIRICALCUMULATIVE", ["discreteEmpiricalCumulativeValues": new TableMultiDimensionalParameter([[0.0], [1.0]], ['observations', 'cumulative probabilities'])])
             "discrete empirical cumulative", "DISCRETEEMPIRICALCUMULATIVE", ["discreteEmpiricalCumulativeValues":
-            new ConstrainedMultiDimensionalParameter([[0.0], [1.0]], ['observations', 'cumulative probabilities'],
-                    ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))])
+                    new ConstrainedMultiDimensionalParameter([[0.0], [1.0]], ['observations', 'cumulative probabilities'],
+                            ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))])
     public static final DistributionType NORMAL = new DistributionType(
             "normal", "NORMAL", ["mean": 0d, "stDev": 1d])
     public static final DistributionType LOGNORMAL = new DistributionType(
@@ -43,11 +43,9 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
     public static final DistributionType CONSTANT = new DistributionType(
             "constant", "CONSTANT", ["constant": 0d])
     public static final DistributionType PIECEWISELINEAREMPIRICAL = new DistributionType(
-//            "piecewise linear empirical", "PIECEWISELINEAREMPIRICAL", ["observations": new TableMultiDimensionalParameter([0d, 1d], ['observations'])])
             "piecewise linear empirical", "PIECEWISELINEAREMPIRICAL", ["observations": new ConstrainedMultiDimensionalParameter([0d, 1d],
                     ['observations'], ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))])
     public static final DistributionType PIECEWISELINEAR = new DistributionType(
-//            "piecewise linear", "PIECEWISELINEAR", ["supportPoints": new TableMultiDimensionalParameter([[0d, 1d], [0d, 1d]], ['values', 'cumulative probabilities'])])
             "piecewise linear", "PIECEWISELINEAR", ["supportPoints": new ConstrainedMultiDimensionalParameter([[0d, 1d], [0d, 1d]],
                     ['values', 'cumulative probabilities'], ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))])
     public static final DistributionType TRIANGULARDIST = new DistributionType(
@@ -61,7 +59,6 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
     public static final DistributionType INVERSEGAUSSIANDIST = new DistributionType(
             "inverse gaussian dist", "INVERSEGAUSSIANDIST", ["mu": 1d, "lambda": 1d])
     public static final DistributionType CONSTANTS = new DistributionType(
-//            "constant values", "CONSTANTS", ["constants": new TableMultiDimensionalParameter([0d, 1d], ['constants'])])
             "constant values", "CONSTANTS", ["constants": new ConstrainedMultiDimensionalParameter([0d, 1d],
                     ['constants'], ConstraintsFactory.getConstraints(DoubleConstraints.IDENTIFIER))])
     public static final DistributionType GAMMA = new DistributionType(
@@ -185,7 +182,7 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
 
     private static Distribution getDiscreteEmpiricalDistribution(double[] obs, double[] prob) {
         double probSum = 0
-        for (double value: prob) {probSum += value}
+        for (double value : prob) {probSum += value}
         for (int i = 0; i < prob.size(); i++) {
             prob[i] = prob[i] / probSum
         }
@@ -204,273 +201,123 @@ class DistributionType extends AbstractParameterObjectClassifier implements Seri
 
     /**
      * @return new RandomDistribution with distribution==null if parameters are invalid. Use ValidationService for better error messages.
-     *
-     * */
+     */
     static RandomDistribution getStrategy(DistributionType type, Map parameters) {
         RandomDistribution distribution = new RandomDistribution(type: type, parameters: parameters)
-        //TODO msp move initialization to RD.getDistribution()
-        switch (type) {
-            case DistributionType.NORMAL:
-                try {
+        try {
+            switch (type) {
+                case DistributionType.NORMAL:
                     distribution.distribution = new NormalDist(
                             (double) (parameters.containsKey("mean") ? parameters["mean"] : 0),
-                            (double) (parameters.containsKey("stDev") ? parameters["stDev"] : 1)
-                    )
-                }
-                catch (IllegalArgumentException ex) {
-                    // see PMO-1619
-                }
-                break
-            case DistributionType.LOGNORMAL:
-                try {
+                            (double) (parameters.containsKey("stDev") ? parameters["stDev"] : 1))
+                    break
+                case DistributionType.LOGNORMAL:
                     distribution.distribution = getLognormalDistribution((double) parameters["mean"], (double) parameters["stDev"])
-                }
-                catch (IllegalArgumentException ex) {
-                    // see PMO-1619
-                }
-                break
-            case DistributionType.LOGNORMAL_MEAN_CV:
-                try {
+                    break
+                case DistributionType.LOGNORMAL_MEAN_CV:
                     distribution.distribution = getLognormalCVDistribution((double) parameters["mean"], (double) parameters["CV"])
-                }
-                catch (IllegalArgumentException ex) {
-                    // see PMO-1619
-                }
-                break
-            case DistributionType.LOGNORMAL_MU_SIGMA:
-                try {
+                    break
+                case DistributionType.LOGNORMAL_MU_SIGMA:
                     distribution.distribution = new LognormalDist((double) parameters["mu"], (double) parameters["sigma"])
-                }
-                catch (IllegalArgumentException ex) {
-                    // see PMO-1619
-                }
-                break
-            case DistributionType.POISSON:
-                try {
+                    break
+                case DistributionType.POISSON:
                     distribution.distribution = new PoissonDist((double) (parameters.containsKey("lambda") ? parameters["lambda"] : 0))
-                }
-                catch (IllegalArgumentException ex) {
-                    // see PMO-1619
-                }
-                break
-            case DistributionType.EXPONENTIAL:
-                try {
+                    break
+                case DistributionType.EXPONENTIAL:
                     distribution.distribution = new ExponentialDist((double) (parameters.containsKey("lambda") ? parameters["lambda"] : 1))
-                }
-                catch (IllegalArgumentException ex) {
-                    // see PMO-1619
-                }
-                break
-            case DistributionType.NEGATIVEBINOMIAL:
-                try {
+                    break
+                case DistributionType.NEGATIVEBINOMIAL:
                     distribution.distribution = new NegativeBinomialDist((double) parameters["gamma"], (double) parameters["p"])
-                }
-                catch (IllegalArgumentException ex) {
-                    // see PMO-1619
-                }
-                break
-            case DistributionType.PARETO:
-                try {
+                    break
+                case DistributionType.PARETO:
                     distribution.distribution = new ParetoDist((double) parameters["alpha"], (double) parameters["beta"])
-                }
-                catch (IllegalArgumentException ex) {
-                    // see PMO-1619
-                }
-                break
-            case DistributionType.BETA:
-                try {
+                    break
+                case DistributionType.BETA:
                     distribution.distribution = new BetaDist((double) parameters["alpha"], (double) parameters["beta"])
-                }
-                catch (IllegalArgumentException ex) {
-                    // see PMO-1619
-                }
-                break
-            case DistributionType.UNIFORM:
-                try {
+                    break
+                case DistributionType.UNIFORM:
                     distribution.distribution = new UniformDist((double) parameters["a"], (double) parameters["b"])
-                }
-                catch (IllegalArgumentException ex) {
-                    // see PMO-1619
-                }
-                break
-            case DistributionType.CONSTANT:
-                try {
+                    break
+                case DistributionType.CONSTANT:
                     distribution.distribution = new ConstantDistribution((double) parameters["constant"])
-                }
-                catch (IllegalArgumentException ex) {
-                    // see PMO-1619
-                }
-                break
-            case DistributionType.DISCRETEEMPIRICAL:
-                try {
+                    break
+                case DistributionType.DISCRETEEMPIRICAL:
                     distribution.distribution = getDiscreteEmpiricalDistribution(asDouble(parameters["discreteEmpiricalValues"].getColumnByName("observations")),
                             asDouble(parameters["discreteEmpiricalValues"].getColumnByName("probabilities")))
-                }
-                catch (IllegalArgumentException ex) {
-                    // see PMO-1619
-                }
-                break
-            case DistributionType.DISCRETEEMPIRICALCUMULATIVE:
-                try {
+                    break
+                case DistributionType.DISCRETEEMPIRICALCUMULATIVE:
                     distribution.distribution = getDiscreteEmpiricalCumulativeDistribution(asDouble(parameters["discreteEmpiricalCumulativeValues"].getColumnByName("observations")),
                             asDouble(parameters["discreteEmpiricalCumulativeValues"].getColumnByName("cumulative probabilities")))
-                }
-                catch (IllegalArgumentException ex) {
-                    // see PMO-1619
-                }
-                break
-            case DistributionType.PIECEWISELINEAREMPIRICAL:
-                try {
+                    break
+                case DistributionType.PIECEWISELINEAREMPIRICAL:
                     distribution.distribution = new PiecewiseLinearEmpiricalDist((double[]) asDouble(parameters["observations"].getColumnByName("observations")))
-                }
-                catch (IllegalArgumentException ex) {
-                    // see PMO-1619
-                }
-                break
-            case DistributionType.PIECEWISELINEAR:
-                try {
+                    break
+                case DistributionType.PIECEWISELINEAR:
                     distribution.distribution = new PiecewiseLinearDistribution(asDouble(parameters["supportPoints"].getColumnByName("values")),
                             asDouble(parameters["supportPoints"].getColumnByName("cumulative probabilities")))
-                }
-                catch (IllegalArgumentException ex) {
-                    // see PMO-1619
-                }
-                break
-            case DistributionType.TRIANGULARDIST:
-                try {
+                    break
+                case DistributionType.TRIANGULARDIST:
                     distribution.distribution = new TriangularDist((double) parameters["a"], (double) parameters["b"], (double) parameters["m"])
-                }
-                catch (IllegalArgumentException ex) {
-                    // see PMO-1619
-                }
-                break
-            case DistributionType.CHISQUAREDIST:
-                try {
+                    break
+                case DistributionType.CHISQUAREDIST:
                     distribution.distribution = new ChiSquareDist((int) parameters["n"])
-                }
-                catch (IllegalArgumentException ex) {
-                    // see PMO-1619
-                }
-                break
-            case DistributionType.STUDENTDIST:
-                try {
+                    break
+                case DistributionType.STUDENTDIST:
+
                     distribution.distribution = new StudentDist((int) parameters["n"])
-                }
-                catch (IllegalArgumentException ex) {
-                    // see PMO-1619
-                }
-                break
-            case DistributionType.BINOMIALDIST:
-                try {
+                    break
+                case DistributionType.BINOMIALDIST:
                     distribution.distribution = new BinomialDist((int) parameters["n"], (double) parameters["p"])
-                }
-                catch (IllegalArgumentException ex) {
-                    // see PMO-1619
-                }
-                break
-            case DistributionType.INVERSEGAUSSIANDIST:
-                try {
+                    break
+                case DistributionType.INVERSEGAUSSIANDIST:
                     distribution.distribution = new InverseGaussianDist((double) parameters["mu"], (double) parameters["lambda"])
-                }
-                catch (IllegalArgumentException ex) {
-                    // see PMO-1619
-                }
-                break
-            case DistributionType.CONSTANTS:
-                try {
+                    break
+                case DistributionType.CONSTANTS:
                     distribution.distribution = new ConstantsDistribution(asDouble(parameters["constants"].getColumnByName("constants")))
-                }
-                catch (IllegalArgumentException ex) {
-                    // see PMO-1619
-                }
-                break
-            case DistributionType.GAMMA:
-                try {
+                    break
+                case DistributionType.GAMMA:
                     distribution.distribution = new GammaDist((double) parameters["alpha"], (double) parameters["lambda"])
-                }
-                catch (IllegalArgumentException ex) {
-                    // see PMO-1619
-                }
-                break
-            case DistributionType.GUMBEL:
-                try {
+                    break
+                case DistributionType.GUMBEL:
                     distribution.distribution = new GumbelDist((double) parameters["beta"], (double) parameters["delta"])
-                }
-                catch (IllegalArgumentException ex) {
-                    // see PMO-1619
-                }
-                break
-            case DistributionType.LOGLOGISTIC:
-                try {
+                    break
+                case DistributionType.LOGLOGISTIC:
                     distribution.distribution = new LoglogisticDist((double) parameters["alpha"], (double) parameters["beta"])
-                }
-                catch (IllegalArgumentException ex) {
-                    // see PMO-1619
-                }
-                break
-            case DistributionType.GPD:
-                try {
+                    break
+                case DistributionType.GPD:
                     distribution.distribution = new GeneralizedParetoDistribution((double) parameters["xi"],
                             (double) parameters["beta"], (double) parameters["tau"])
-                }
-                catch (IllegalArgumentException ex) {
-                    // see PMO-1619
-                }
-                break
-            case DistributionType.SHIFTEDPARETOII:
-                try {
+                    break
+                case DistributionType.SHIFTEDPARETOII:
                     distribution.distribution = new TypeIIParetoDistribution((double) parameters["alpha"],
                             (double) parameters["beta"], (double) parameters["lambda"])
-                }
-                catch (IllegalArgumentException ex) {
-                    // see PMO-1619
-                }
-                break
-            case DistributionType.PARETOII:
-                try {
+                    break
+                case DistributionType.PARETOII:
                     distribution.distribution = new TypeIIParetoDistribution((double) parameters["alpha"],
                             (double) parameters["lambda"])
-                }
-                catch (IllegalArgumentException ex) {
-                    // see PMO-1619
-                }
-                break
-            case DistributionType.LOGNORMALPARETO:
-                try {
+                    break
+                case DistributionType.LOGNORMALPARETO:
                     distribution.distribution = new LognormalParetoDistribution((double) parameters["sigma"],
                             (double) parameters["alpha"], (double) parameters["beta"], (double) parameters["mu"])
-                }
-                catch (IllegalArgumentException ex) {
-                    // see PMO-1619
-                }
-                break
-            case DistributionType.LOGNORMALTYPEIIPARETO:
-                try {
+                    break
+                case DistributionType.LOGNORMALTYPEIIPARETO:
                     distribution.distribution = new LognormalTypeIIParetoDistribution((double) parameters["sigma"],
                             (double) parameters["alpha"], (double) parameters["beta"], (double) parameters["lambda"], (double) parameters["mu"])
-                }
-                catch (IllegalArgumentException ex) {
-                    // see PMO-1619
-                }
-                break
-            case DistributionType.LOGNORMALPARETO_SMOOTH:
-                try {
+                    break
+                case DistributionType.LOGNORMALPARETO_SMOOTH:
                     distribution.distribution = new LognormalParetoDistribution((double) parameters["sigma"],
                             (double) parameters["alpha"], (double) parameters["beta"])
-                }
-                catch (IllegalArgumentException ex) {
-                    // see PMO-1619
-                }
-                break
-            case DistributionType.LOGNORMALTYPEIIPARETO_SMOOTH:
-                try {
+                    break
+                case DistributionType.LOGNORMALTYPEIIPARETO_SMOOTH:
                     distribution.distribution = new LognormalTypeIIParetoDistribution((double) parameters["sigma"],
                             (double) parameters["alpha"], (double) parameters["beta"], (double) parameters["lambda"])
-                }
-                catch (IllegalArgumentException ex) {
-                    // see PMO-1619
-                }
-                break
+                    break
+                default:
+                    throw new InvalidParameterException("DistributionType $type not implemented")
+            }
+        }
+        catch (IllegalArgumentException ex) {
+            throw new InvalidParameterException(ex.message, ex)
         }
 
         return distribution

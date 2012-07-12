@@ -10,6 +10,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacket
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoPacketFactory
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -141,6 +142,8 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
                 break
             case PremiumBase.NUMBER_OF_POLICIES:
                 throw new IllegalArgumentException("XLContractStrategy.invalidPremiumBase")
+            default:
+                throw new InvalidParameterException("PremiumBase $premiumBase not implemented")
         }
         // Increases premium written and premium written as if with the reinstatement premium
         double factor = firstCoveredPeriod ? 1 + calculateReinstatementPremiums(coveredByReinsurer) : calculateReinstatementPremiums(coveredByReinsurer)

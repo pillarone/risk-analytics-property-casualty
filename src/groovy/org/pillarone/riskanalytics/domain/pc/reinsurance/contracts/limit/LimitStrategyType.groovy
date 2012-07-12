@@ -3,6 +3,7 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit
 import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObjectClassifier
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -67,6 +68,8 @@ class LimitStrategyType extends AbstractParameterObjectClassifier {
             case LimitStrategyType.EVENTLIMITAAL:
                 limitStrategy = new EventAalLimitStrategy(eventLimit: (Double) parameters['eventLimit'], aal: (Double) parameters['aal'])
                 break
+            default:
+                throw new InvalidParameterException("LimitStrategyType $type not implemented")
         }
         limitStrategy;
     }

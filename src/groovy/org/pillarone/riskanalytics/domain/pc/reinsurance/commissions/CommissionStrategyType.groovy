@@ -2,6 +2,7 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.commissions
 
 import org.pillarone.riskanalytics.core.parameterization.*
 import org.pillarone.riskanalytics.domain.utils.constraint.DoubleConstraints
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
 
 /**
  * Defines the commission on a reinsurance contract or a commission component.
@@ -81,6 +82,8 @@ public class CommissionStrategyType extends AbstractParameterObjectClassifier {
                 commissionStrategy = new InterpolatedSlidingCommissionStrategy(
                         commissionBands: (ConstrainedMultiDimensionalParameter) parameters['commissionBands'])
                 break;
+            default:
+                throw new InvalidParameterException("CommissionStrategyType $type not implemented")
         }
         return commissionStrategy;
     }

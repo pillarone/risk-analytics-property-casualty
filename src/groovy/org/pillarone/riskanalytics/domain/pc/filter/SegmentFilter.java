@@ -79,7 +79,7 @@ public class SegmentFilter extends Component {
     private void filterSegmentClaims(PacketList<Claim> allClaims, PacketList<ClaimDevelopmentLeanPacket> filterClaims) {
         if (isSenderWired(filterClaims)) {
             for (Claim claim : allClaims) {
-                int row = segments.indexOf(claim.getLineOfBusiness().getNormalizedName());
+                int row = segments.indexOf(claim.getLineOfBusiness().getName());
                 if (row > -1) {
                     double portion = InputFormatConverter.getDouble(portions.get(row));
                     ClaimDevelopmentLeanPacket segmentClaim = (ClaimDevelopmentLeanPacket) claim.copy();
@@ -94,7 +94,7 @@ public class SegmentFilter extends Component {
                                                PacketList<UnderwritingInfo> filterUnderwritingInfo) {
         if (isSenderWired(filterUnderwritingInfo)) {
             for (UnderwritingInfo underwritingInfo : allUnderwritingInfo) {
-                int row = segments.indexOf(underwritingInfo.getLineOfBusiness().getNormalizedName());
+                int row = segments.indexOf(underwritingInfo.getLineOfBusiness().getName());
                 if (row > -1) {
                     double portion = InputFormatConverter.getDouble(portions.get(row));
                     UnderwritingInfo segmentUnderwritingInfo = underwritingInfo.copy();

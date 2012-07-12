@@ -11,7 +11,7 @@ import org.pillarone.riskanalytics.core.simulation.item.parameter.ParameterObjec
 import org.pillarone.riskanalytics.domain.pc.generators.fac.FacShareDistributions;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractStrategy;
 import org.pillarone.riskanalytics.domain.pc.underwriting.RiskBands;
-
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -74,7 +74,7 @@ public class ValidatorUtils {
                         }
                     }
                 }
-                catch (IllegalArgumentException ex) {
+                catch (InvalidParameterException ex) {
                     // https://issuetracking.intuitive-collaboration.com/jira/browse/PMO-1542
                     LOG.debug("call parameter.getBusinessObject() failed " + ex.toString());
                 }

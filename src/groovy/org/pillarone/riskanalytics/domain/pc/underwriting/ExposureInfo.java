@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.underwriting;
 
 import org.pillarone.riskanalytics.core.packets.MultiValuePacket;
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException;
 import org.pillarone.riskanalytics.domain.pc.constants.Exposure;
 import org.pillarone.riskanalytics.domain.pc.constants.FrequencyBase;
 
@@ -37,6 +38,10 @@ public class ExposureInfo extends MultiValuePacket {
         origin = expInfo.origin;
     }
 
+    /**
+     * @param base
+     * @return value according to base or 1 for unhandled base arguments
+     */
     public double scaleValue(Exposure base) {
         switch (base) {
             case ABSOLUTE:
@@ -49,6 +54,7 @@ public class ExposureInfo extends MultiValuePacket {
         return 1;
     }
 
+    /** @return getNumberOfPolicies() or 1 */
     public double scaleValue(FrequencyBase base) {
         switch (base) {
             case ABSOLUTE:

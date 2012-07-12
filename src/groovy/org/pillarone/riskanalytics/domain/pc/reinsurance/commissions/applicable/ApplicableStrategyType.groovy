@@ -5,6 +5,7 @@ import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimen
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 import org.pillarone.riskanalytics.domain.utils.marker.IReinsuranceContractMarker
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
 
 /**
  * @author ben.ginsberg (at) intuitive-collaboration (dot) com
@@ -53,6 +54,8 @@ public class ApplicableStrategyType extends AbstractParameterObjectClassifier {
             case ApplicableStrategyType.CONTRACT:
                 commissionStrategy = new ContractApplicableStrategy(applicableContracts: (ComboBoxTableMultiDimensionalParameter) parameters['applicableContracts'])
                 break
+            default:
+                throw new InvalidParameterException("ApplicableStrategyType $type not implemented")
         }
         return commissionStrategy;
     }

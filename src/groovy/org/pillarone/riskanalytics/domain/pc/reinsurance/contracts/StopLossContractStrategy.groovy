@@ -6,6 +6,7 @@ import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoPacketFactory
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -62,14 +63,16 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
         double scaledLimit = limit
         switch (stopLossContractBase) {
             case StopLossContractBase.GNPI:
-                double gnpi = UnderwritingInfoUtilities.aggregate(coverUnderwritingInfo).premium
+                double gnpi = coverUnderwritingInfo.isEmpty() ? 0 : UnderwritingInfoUtilities.aggregate(coverUnderwritingInfo).premium
                 scaledAttachmentPoint *= gnpi
                 scaledLimit *= gnpi
-                totalCededPremium = coverUnderwritingInfo.premium.sum() * premium
+                totalCededPremium = coverUnderwritingInfo.isEmpty() ? 0 : coverUnderwritingInfo.premium.sum() * premium
                 break
             case stopLossContractBase.ABSOLUTE:
                 totalCededPremium = premium
                 break
+            default:
+                throw new InvalidParameterException("StopLossContractBase $stopLossContractBase not implemented")
         }
 
         double aggregateCededClaimAmount = Math.min(Math.max(aggregateGrossClaimAmount - scaledAttachmentPoint, 0), scaledLimit)

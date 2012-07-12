@@ -5,6 +5,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.constants.LPTPremiumBase
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoPacketFactory
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -70,7 +71,7 @@ class LossPortfolioTransferContractStrategy extends AbstractContractStrategy imp
                     initialReserves * quotaShare * grossPremiumSharesPerBand.get(grossUnderwritingInfo)
                 break
             default:
-                throw new IllegalArgumentException("['LossPortfolioTransferContractStrategy.invalidPremiumBaseType','"+premiumBase+"']")
+                throw new InvalidParameterException("['LossPortfolioTransferContractStrategy.invalidPremiumBaseType','"+premiumBase+"']")
         }
         cededUnderwritingInfo.fixedPremium = cededUnderwritingInfo.premium        
         cededUnderwritingInfo

@@ -7,6 +7,7 @@ import org.pillarone.riskanalytics.core.util.MathUtils
 import umontreal.iro.lecuyer.probdist.NormalDist
 import umontreal.iro.lecuyer.randvar.NormalGen
 import umontreal.iro.lecuyer.randvarmulti.MultinormalCholeskyGen
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
 
 /**
  * @author ali.majidi (at) munichre (dot) com, stefan.kunz (at) intuitive-collaboration (dot) com
@@ -51,6 +52,8 @@ class DependencyType extends AbstractParameterObjectClassifier {
                         (double[]) parameters["meanVector"],
                         (double[][]) parameters["sigmaMatrix"]))
                 break
+            default:
+                throw new InvalidParameterException("DependencyType $type not implemented")
         }
         generator
     }

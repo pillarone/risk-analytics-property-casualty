@@ -6,6 +6,7 @@ import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
 import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -78,6 +79,8 @@ public class ReinsuranceContractType extends AbstractParameterObjectClassifier {
             case ReinsuranceContractType.STOPLOSS:
                 return new StopLossContractStrategy(attachmentPoint: parameters["attachmentPoint"], limit: parameters["limit"],
                         termLimit: parameters["termLimit"], stopLossContractBase: parameters["stopLossContractBase"], premium: parameters["premium"])
+            default:
+                throw new InvalidParameterException("ReinsuranceContractType $type not implemented")
         }
     }
 }
