@@ -1,7 +1,7 @@
 import models.asset.AssetModel
 import org.pillarone.riskanalytics.core.simulation.engine.ModelTest
 
-class AssetModelTestsNot extends ModelTest {
+class AssetModelTests extends ModelTest {
 
     Class getModelClass() {
         AssetModel
@@ -14,9 +14,4 @@ class AssetModelTestsNot extends ModelTest {
     String getResultConfigurationDisplayName() {
         return "Asset"
     }
-
-    int getPeriodCount() {
-        return 3
-    }
-
 }
