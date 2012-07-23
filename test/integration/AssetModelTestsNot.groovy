@@ -1,7 +1,7 @@
 import models.asset.AssetModel
 import org.pillarone.riskanalytics.core.simulation.engine.ModelTest
 
-class AssetModelTests extends ModelTest {
+class AssetModelTestsNot extends ModelTest {
 
     Class getModelClass() {
         AssetModel

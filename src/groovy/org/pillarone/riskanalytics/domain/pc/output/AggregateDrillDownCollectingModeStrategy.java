@@ -3,8 +3,6 @@ package org.pillarone.riskanalytics.domain.pc.output;
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.pillarone.riskanalytics.core.components.ComposedComponent;
-import org.pillarone.riskanalytics.core.components.DynamicComposedComponent;
 import org.pillarone.riskanalytics.core.components.IComponentMarker;
 import org.pillarone.riskanalytics.core.output.*;
 import org.pillarone.riskanalytics.core.packets.Packet;
@@ -12,7 +10,6 @@ import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.simulation.engine.MappingCache;
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType;
 import org.pillarone.riskanalytics.domain.pc.filter.SegmentFilter;
-import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
 import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
@@ -56,14 +53,14 @@ public class AggregateDrillDownCollectingModeStrategy implements ICollectingMode
         mappingCache = packetCollector.getSimulationScope().getMappingCache();
     }
 
-    public List<SingleValueResultPOJO> collect(PacketList packets) throws IllegalAccessException {
+    public List<SingleValueResultPOJO> collect(PacketList packets, boolean crashSimOnError) throws IllegalAccessException {
         initSimulation();
         iteration = packetCollector.getSimulationScope().getIterationScope().getCurrentIteration();
         period = packetCollector.getSimulationScope().getIterationScope().getPeriodScope().getCurrentPeriod();
         if (packets.get(0) instanceof Claim) {
-            return createSingleValueResults(aggregateClaims(packets));
+            return createSingleValueResults(aggregateClaims(packets), crashSimOnError);
         } else if (packets.get(0) instanceof UnderwritingInfo) {
-            return createSingleValueResults(aggregateUnderwritingInfo(packets));
+            return createSingleValueResults(aggregateUnderwritingInfo(packets), crashSimOnError);
         } else {
             String notImplemented = ResourceBundle.getBundle(RESOURCE_BUNDLE).getString("AggregateDrillDownCollectingModeStrategy.notImplemented");
             throw new NotImplementedException(notImplemented + "\n(" + packetCollector.getPath() + ")");
@@ -75,11 +72,16 @@ public class AggregateDrillDownCollectingModeStrategy implements ICollectingMode
      * Information about current simulation is gathered from the scopes.
      * The key of the value map is the path.
      *
+     *
      * @param packets
+     * @param crashSimOnError
      * @return
      * @throws IllegalAccessException
      */
-    private List<SingleValueResultPOJO> createSingleValueResults(Map<PathMapping, Packet> packets) throws IllegalAccessException {
+    private List<SingleValueResultPOJO> createSingleValueResults(Map<PathMapping, Packet> packets, boolean crashSimOnError) throws IllegalAccessException {
+//      Compose object with reliable invalid value check instead of code copy.
+        AggregatedCollectingModeStrategy invalidCheck = new AggregatedCollectingModeStrategy();
+
         List<SingleValueResultPOJO> singleValueResults = new ArrayList<SingleValueResultPOJO>(packets.size());
         boolean firstPath = true;
         for (Map.Entry<PathMapping, Packet> packetEntry : packets.entrySet()) {
@@ -88,16 +90,7 @@ public class AggregateDrillDownCollectingModeStrategy implements ICollectingMode
             for (Map.Entry<String, Number> field : packet.getValuesToSave().entrySet()) {
                 String fieldName = field.getKey();
                 Double value = (Double) field.getValue();
-                if (value == Double.NaN || value == Double.NEGATIVE_INFINITY || value == Double.POSITIVE_INFINITY) {
-                    if (LOG.isErrorEnabled()) {
-                        StringBuilder message = new StringBuilder();
-                        message.append(value).append(" collected at ").append(packetCollector.getPath());
-                        message.append(" (period ").append(period).append(") in iteration ");
-                        message.append(iteration).append(" - ignoring.");
-                        LOG.error(message);
-                    }
-                    continue;
-                }
+                invalidCheck.checkInvalidValues(fieldName, value, period, iteration, crashSimOnError);
                 SingleValueResultPOJO result = new SingleValueResultPOJO();
                 result.setSimulationRun(simulationRun);
                 result.setIteration(iteration);
@@ -105,8 +98,7 @@ public class AggregateDrillDownCollectingModeStrategy implements ICollectingMode
                 result.setPath(path);
                 if (firstPath) {    // todo(sku): might be completely removed
                     result.setCollector(mappingCache.lookupCollector("AGGREGATED"));
-                }
-                else {
+                } else {
                     result.setCollector(mappingCache.lookupCollector(IDENTIFIER));
                 }
                 result.setField(mappingCache.lookupField(fieldName));
