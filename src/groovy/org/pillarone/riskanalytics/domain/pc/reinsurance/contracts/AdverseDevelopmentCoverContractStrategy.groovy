@@ -64,7 +64,7 @@ class AdverseDevelopmentCoverContractStrategy extends AbstractContractStrategy i
 
     public void initBookkeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
         // calculate aggregate ultimate/incurred & paid (by primary insurer)
-        double aggregateGrossClaim = inClaims.ultimate.sum()
+        double aggregateGrossClaim = inClaims.empty ? 0 : inClaims*.ultimate.sum()
         // problem: not all incoming claims packets may have a paid property; solution: sum those found
         // assume nothing was paid for Claim packets (which lack the paid property)
         double aggregateGrossClaimPaid = inClaims.collect {
@@ -89,7 +89,7 @@ class AdverseDevelopmentCoverContractStrategy extends AbstractContractStrategy i
         incurredAllocationFactor = (aggregateGrossClaim != 0) ? aggregateCededClaim / aggregateGrossClaim : 1d
         paidAllocationFactor = (aggregateGrossClaimPaid != 0) ? aggregateCededClaimPaid / aggregateGrossClaimPaid : 1d
 
-        double totalPremium = coverUnderwritingInfo.premium.sum()
+        double totalPremium = coverUnderwritingInfo.empty ? 0 : coverUnderwritingInfo*.premium.sum()
         if (totalPremium != 0) {
             for (UnderwritingInfo underwritingInfo: coverUnderwritingInfo) {
                 grossPremiumSharesPerBand.put(underwritingInfo, underwritingInfo.premium / totalPremium)

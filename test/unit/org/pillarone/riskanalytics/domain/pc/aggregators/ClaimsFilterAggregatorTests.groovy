@@ -1,6 +1,5 @@
 package org.pillarone.riskanalytics.domain.pc.aggregators
 
-import groovy.mock.interceptor.StubFor
 import org.pillarone.riskanalytics.core.components.Component
 import org.pillarone.riskanalytics.core.parameterization.StructureInformation
 import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope

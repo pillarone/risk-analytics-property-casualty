@@ -82,7 +82,7 @@ class StopLossContractStrategy extends AbstractContractStrategy implements IRein
             scaledLimit *= gnpi
             scaledTermLimit *= gnpi
         }
-        double totalPremium = grossUnderwritingInfos.premium.sum()
+        double totalPremium = grossUnderwritingInfos.empty ? 0 : grossUnderwritingInfos*.premium.sum()
         if (totalPremium != 0) {
             for (UnderwritingInfo underwritingInfo: grossUnderwritingInfos) {
                 grossPremiumSharesPerBand.put(underwritingInfo, underwritingInfo.premium / totalPremium)

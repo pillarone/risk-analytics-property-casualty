@@ -37,16 +37,15 @@ class CXLContractStrategy extends XLContractStrategy implements IReinsuranceCont
         for (Claim claim: inClaims) {
             // todo (sku): work on clear definitions of ClaimType.EVENT and ClaimType.AGGREGATE_EVENT
             if (claim.claimType == ClaimType.EVENT || claim.claimType == ClaimType.AGGREGATED_EVENT) {
-                double value = claimsValueMergedByEvent.get(claim.event)
+                Double value = claimsValueMergedByEvent.get(claim.event)
                 if (value != null) {
                     claimsValueMergedByEvent.put(claim.event, value + claim.ultimate)
-                }
-                else {
+                } else {
                     claimsValueMergedByEvent.put(claim.event, claim.ultimate)
                 }
             }
         }
-        for (MapEntry claim: claimsValueMergedByEvent.entrySet()) {
+        for (Map.Entry claim: claimsValueMergedByEvent.entrySet()) {
             double ultimate = (Double) claim.value
             double ceded = calculateCededClaim(ultimate)
             cededShareByEvent.put((Event) claim.key, ultimate == 0 ? 0d : ceded / ultimate)

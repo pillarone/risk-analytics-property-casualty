@@ -127,7 +127,7 @@ class GoldorakContractStrategy extends AbstractContractStrategy implements IRein
             for (Claim claim: inClaims) {
                 // todo (sku): work on clear definitions of ClaimType.EVENT and ClaimType.AGGREGATE_EVENT
                 if (claim.claimType == ClaimType.EVENT || claim.claimType == ClaimType.AGGREGATED_EVENT) {
-                    double value = claimsValueMergedByEvent.get(claim.event)
+                    Double value = claimsValueMergedByEvent.get(claim.event)
                     if (value != null) {
                         claimsValueMergedByEvent.put(claim.event, value + claim.ultimate)
                     }
@@ -137,7 +137,7 @@ class GoldorakContractStrategy extends AbstractContractStrategy implements IRein
                 }
             }
 
-            for (MapEntry claim: claimsValueMergedByEvent.entrySet()) {
+            for (Map.Entry claim: claimsValueMergedByEvent.entrySet()) {
                 if ((claim.value > 0) && (gnpi > 0)) {
                     double scaledCeded = Math.min(Math.max(claim.value - scaledAttachmentPoint, 0), scaledLimit)
                     double scaledAvailableAggregateLimit = cxlAvailableAggregateLimit * gnpi

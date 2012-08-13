@@ -41,7 +41,11 @@
         <delete dir="${dist.dir}"/>
 
         <mkdir dir="${dist.dir}"/>
-        <grails command="clean"/>
+        <exec executable="${grails}" failonerror="true" resolveexecutable="true">
+            <arg value="clean"/>
+            <arg value="--non-interactive"/>
+            <env key="GRAILS_HOME" value="${GRAILS_HOME}"/>
+        </exec>
         <delete verbose="true">
             <fileset dir="." includes="*Db.script"/>
             <fileset dir="." includes="**Db.properties"/>
