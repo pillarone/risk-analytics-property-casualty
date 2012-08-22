@@ -6,7 +6,14 @@ class PodraPCModelTests extends ModelTest {
 
     @Override
     protected void setUp() {
-        LogFactory.getLog(getClass()).error("Currently running ${getClass().name}")
+        def log = LogFactory.getLog(getClass())
+        log.error("Currently running ${getClass().name}")
+        Thread.start {
+            while (true) {
+                sleep(60000)
+                log.error(Thread.allStackTraces)
+            }
+        }
         super.setUp()
     }
 
