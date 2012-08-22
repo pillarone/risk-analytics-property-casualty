@@ -7,6 +7,7 @@ import org.pillarone.riskanalytics.core.output.DBOutput
 import org.pillarone.riskanalytics.core.output.ICollectorOutputStrategy
 import org.pillarone.riskanalytics.core.output.CollectorMapping
 import org.pillarone.riskanalytics.core.output.AggregatedCollectingModeStrategy
+import org.apache.commons.logging.LogFactory
 
 class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
 
@@ -39,6 +40,7 @@ class AggregateDrillDownCollectingModeStrategyTests extends ModelTest {
     }
 
     void setUp() {
+        LogFactory.getLog(getClass()).error("Currently running ${getClass().name}")
         super.setUp()
         assertNotNull new CollectorMapping(collectorName: AggregatedCollectingModeStrategy.IDENTIFIER).save()
     }

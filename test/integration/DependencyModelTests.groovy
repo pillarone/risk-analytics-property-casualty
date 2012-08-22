@@ -1,8 +1,15 @@
 import models.dependency.DependencyModel
 import org.pillarone.riskanalytics.core.model.Model
+import org.apache.commons.logging.LogFactory
 
 //todo runs alone but not during cruise
 class DependencyModelTests /*extends AbstractModelTest*/ extends GroovyTestCase {
+
+    @Override
+    protected void setUp() {
+        LogFactory.getLog(getClass()).error("Currently running ${getClass().name}")
+        super.setUp()
+    }
 
     void testNothing() {
         assertTrue true
