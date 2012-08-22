@@ -132,7 +132,7 @@ class DynamicReinsuranceProgram extends DynamicComposedComponent {
      *  Sets contractsSorted and sortedIndizes according the inuring priority of the contracts.
      *  Sets numberOfContracts and numberOfPriorities
      */
-    private void initWiring() {
+    protected void initWiring() {
         ReinsuranceContractComparator comparator = ReinsuranceContractComparator.getInstance()
         contractsSorted = new ArrayList<Component>(componentList)
 

@@ -8,12 +8,12 @@ class PodraPCModelTests extends ModelTest {
     protected void setUp() {
         def log = LogFactory.getLog(getClass())
         log.error("Currently running ${getClass().name}")
-        Thread.start {
-            while (true) {
-                sleep(60000)
-                log.error(Thread.allStackTraces.toString())
-            }
-        }
+//        Thread.start {
+//            while (true) {
+//                sleep(60000)
+//                log.error(Thread.allStackTraces.toString())
+//            }
+//        }
         super.setUp()
     }
 
