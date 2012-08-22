@@ -11,7 +11,7 @@ class PodraPCModelTests extends ModelTest {
         Thread.start {
             while (true) {
                 sleep(60000)
-                log.error(Thread.allStackTraces)
+                log.error(Thread.allStackTraces.toString())
             }
         }
         super.setUp()
