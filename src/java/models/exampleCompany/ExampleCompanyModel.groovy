@@ -3,12 +3,14 @@ package models.exampleCompany
 import org.pillarone.riskanalytics.core.model.StochasticModel
 import org.pillarone.riskanalytics.domain.pc.aggregators.ClaimsMerger
 import org.pillarone.riskanalytics.domain.pc.lob.ExampleLob
+import org.pillarone.riskanalytics.domain.pc.global.GlobalParameters
 
 /**
  * @author: stefan.kunz (at) intuitive-collaboration (dot) com
  */
 class ExampleCompanyModel extends StochasticModel {
 
+    GlobalParameters globalParameters
     ExampleLob mtpl
     ExampleLob motorHull
     ExampleLob personalAccident
@@ -16,6 +18,7 @@ class ExampleCompanyModel extends StochasticModel {
     ClaimsMerger claimsAggregator
 
     void initComponents() {
+        globalParameters = new GlobalParameters()
         mtpl = new ExampleLob()
         motorHull = new ExampleLob()
         personalAccident = new ExampleLob()

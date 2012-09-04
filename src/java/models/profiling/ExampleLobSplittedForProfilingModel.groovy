@@ -8,12 +8,14 @@ import org.pillarone.riskanalytics.domain.pc.generators.frequency.FrequencyGener
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContract
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingSegment
+import org.pillarone.riskanalytics.domain.pc.global.GlobalParameters
 
 /**
  * @author: stefan.kunz (at) intuitive-collaboration (dot) com
  */
 class ExampleLobSplittedForProfilingModel extends StochasticModel {
 
+    GlobalParameters globalParameters
     UnderwritingSegment underwriting
 
     FrequencyGenerator frequencyGenerator
@@ -26,6 +28,7 @@ class ExampleLobSplittedForProfilingModel extends StochasticModel {
     ClaimsMerger reinsuranceClaimsAggregator = new ClaimsMerger()
 
     void initComponents() {
+        globalParameters = new GlobalParameters()
         underwriting = new UnderwritingSegment()
         frequencyGenerator = new FrequencyGenerator()
         singleClaimsGenerator = new SingleClaimsGenerator()

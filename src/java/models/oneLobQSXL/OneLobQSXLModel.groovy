@@ -8,18 +8,21 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.QuotaShareCon
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.WXLContractStrategy
 import org.pillarone.riskanalytics.domain.pc.constants.PremiumBase
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
+import org.pillarone.riskanalytics.domain.pc.global.GlobalParameters
 
 /**
  * @author: stefan.kunz (at) intuitive-collaboration (dot) com
  */
 class OneLobQSXLModel extends StochasticModel {
 
+    GlobalParameters globalParameters
     FrequencyGenerator frequencyGenerator
     SingleClaimsGenerator claimsGenerator
     ReinsuranceContract quotaShare
     ReinsuranceContract wxl
 
     void initComponents() {
+        globalParameters = new GlobalParameters()
         frequencyGenerator = new FrequencyGenerator()
         //parmGenerator: RandomNumberGeneratorFactory.getGenerator(ContinuousRandomDistributionType.CONSTANT, ["constant": 0]),
         //parmBase: FrequencyBase.ABSOLUTE)

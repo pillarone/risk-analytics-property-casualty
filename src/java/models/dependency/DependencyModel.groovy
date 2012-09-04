@@ -7,12 +7,14 @@ import org.pillarone.riskanalytics.domain.pc.generators.frequency.FrequencyGener
 import org.pillarone.riskanalytics.domain.pc.lob.DependentLob
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContract
 import org.pillarone.riskanalytics.domain.pc.severities.AttachEventToSeverity
+import org.pillarone.riskanalytics.domain.pc.global.GlobalParameters
 
 /**
  * @author: stefan.kunz (at) intuitive-collaboration (dot) com
  */
 class DependencyModel extends StochasticModel {
 
+    GlobalParameters globalParameters
     FrequencyGenerator frequencyGenerator
     LobCopula copula
     AttachEventToSeverity eventSeverities
@@ -22,6 +24,7 @@ class DependencyModel extends StochasticModel {
     ClaimsAggregator claimsAggregator
 
     void initComponents() {
+        globalParameters = new GlobalParameters()
         frequencyGenerator = new FrequencyGenerator()
         copula = new LobCopula()
         eventSeverities = new AttachEventToSeverity()

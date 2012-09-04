@@ -17,17 +17,20 @@ import org.pillarone.riskanalytics.domain.utils.IRandomNumberGenerator
 import org.pillarone.riskanalytics.domain.utils.RandomDistribution
 import org.pillarone.riskanalytics.domain.utils.RandomNumberGeneratorFactory
 import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
+import org.pillarone.riskanalytics.domain.pc.global.GlobalParameters
 
 /**
  * @author martin.melchior (at) fhnw (dot) ch
  */
 class TestDensitiesModel extends StochasticModel {
 
+    GlobalParameters globalParameters
     AttritionalClaimsGenerator claims
     ReinsuranceContract sl
     MultiModalDistribution triModalClaims
 
     void initComponents() {
+        globalParameters = new GlobalParameters()
         claims = new AttritionalClaimsGenerator(
             parmDistribution: DistributionType.getStrategy(DistributionType.NORMAL, ["mean": 100d, "stDev": 20d]),
             parmBase: Exposure.ABSOLUTE)

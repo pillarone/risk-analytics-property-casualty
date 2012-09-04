@@ -5,8 +5,11 @@ import org.pillarone.riskanalytics.domain.pc.aggregators.ClaimsAggregator
 import org.pillarone.riskanalytics.domain.pc.generators.copulas.LobCopula
 import org.pillarone.riskanalytics.domain.pc.lob.ExampleLobAttritionalDependencies
 import org.pillarone.riskanalytics.domain.pc.lob.PropertyLobAttritionalDependencies
+import org.pillarone.riskanalytics.domain.pc.global.GlobalParameters
 
 class CapitalEagleAttritionalDependenciesModel extends StochasticModel {
+
+    GlobalParameters globalParameters
     LobCopula copulaAttritional
     ExampleLobAttritionalDependencies mtpl
     ExampleLobAttritionalDependencies motorHull
@@ -16,6 +19,7 @@ class CapitalEagleAttritionalDependenciesModel extends StochasticModel {
 
 
     public void initComponents() {
+        globalParameters = new GlobalParameters()
         copulaAttritional = new LobCopula()
         mtpl = new ExampleLobAttritionalDependencies()
         motorHull = new ExampleLobAttritionalDependencies()
