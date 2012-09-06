@@ -48,7 +48,7 @@ public class LineSharesPremiumAllocationStrategy extends AbstractPremiumAllocati
         Map<String, ISegmentMarker> segmentNameMapping = new HashMap<String, ISegmentMarker>();
         for (UnderwritingInfo underwritingInfo : grossUnderwritingInfos) {
             if (underwritingInfo.getLineOfBusiness() == null) continue;
-            segmentNameMapping.put(underwritingInfo.getLineOfBusiness().getNormalizedName(), underwritingInfo.getLineOfBusiness());
+            segmentNameMapping.put(underwritingInfo.getLineOfBusiness().getName(), underwritingInfo.getLineOfBusiness());
         }
         Map<ISegmentMarker, Double> segmentShares = new HashMap<ISegmentMarker, Double>();
         double totalShare = 0;

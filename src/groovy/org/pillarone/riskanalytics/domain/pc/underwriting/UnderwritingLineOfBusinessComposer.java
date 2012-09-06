@@ -38,18 +38,20 @@ public class UnderwritingLineOfBusinessComposer extends Component {
             int portionColumn = parmPortions.getColumnIndex(portion);
             Component lineOfBusiness = inUnderwritingInfo.get(0).sender; // works only if this component is part of a component implementing ISegmentMarker
             for (UnderwritingInfo underwritingInfo : inUnderwritingInfo) {
-                String originName = underwritingInfo.origin.getNormalizedName();
+                String originName = underwritingInfo.origin.getName();
                 int row = parmPortions.getColumnByName(UNDERWRITING).indexOf(originName);
-                UnderwritingInfo lobUnderwritingInfo = UnderwritingInfoPacketFactory.copy(underwritingInfo);
-                // error message in MarketUnderwritingInfoMerger (reinsurance program) if reference to same underwritingInfo
-                lobUnderwritingInfo.setOriginalUnderwritingInfo(lobUnderwritingInfo);
-                lobUnderwritingInfo.setPremium(lobUnderwritingInfo.getPremium() * InputFormatConverter.getDouble(parmPortions.getValueAt(row + 1, portionColumn)));
-                lobUnderwritingInfo.setSumInsured(lobUnderwritingInfo.getSumInsured() * InputFormatConverter.getDouble(parmPortions.getValueAt(row + 1, portionColumn)));
-                lobUnderwritingInfo.setMaxSumInsured(lobUnderwritingInfo.getMaxSumInsured() * InputFormatConverter.getDouble(parmPortions.getValueAt(row + 1, portionColumn)));
-                lobUnderwritingInfo.setCommission(lobUnderwritingInfo.getCommission() * InputFormatConverter.getDouble(parmPortions.getValueAt(row + 1, portionColumn)));
-                lobUnderwritingInfo.origin = lineOfBusiness;
-                lobUnderwritingInfo.setLineOfBusiness((ISegmentMarker) lineOfBusiness);
-                lobUnderwritingInfos.add(lobUnderwritingInfo);
+                if (row > -1) {
+                    UnderwritingInfo lobUnderwritingInfo = UnderwritingInfoPacketFactory.copy(underwritingInfo);
+                    // error message in MarketUnderwritingInfoMerger (reinsurance program) if reference to same underwritingInfo
+                    lobUnderwritingInfo.setOriginalUnderwritingInfo(lobUnderwritingInfo);
+                    lobUnderwritingInfo.setPremium(lobUnderwritingInfo.getPremium() * InputFormatConverter.getDouble(parmPortions.getValueAt(row + 1, portionColumn)));
+                    lobUnderwritingInfo.setSumInsured(lobUnderwritingInfo.getSumInsured() * InputFormatConverter.getDouble(parmPortions.getValueAt(row + 1, portionColumn)));
+                    lobUnderwritingInfo.setMaxSumInsured(lobUnderwritingInfo.getMaxSumInsured() * InputFormatConverter.getDouble(parmPortions.getValueAt(row + 1, portionColumn)));
+                    lobUnderwritingInfo.setCommission(lobUnderwritingInfo.getCommission() * InputFormatConverter.getDouble(parmPortions.getValueAt(row + 1, portionColumn)));
+                    lobUnderwritingInfo.origin = lineOfBusiness;
+                    lobUnderwritingInfo.setLineOfBusiness((ISegmentMarker) lineOfBusiness);
+                    lobUnderwritingInfos.add(lobUnderwritingInfo);
+                }
             }
             outUnderwritingInfo.addAll(lobUnderwritingInfos);
         }

@@ -1,5 +1,6 @@
 package org.pillarone.riskanalytics.domain.pc.underwriting;
 
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException;
 import org.pillarone.riskanalytics.domain.pc.constants.Exposure;
 
 /**
@@ -21,8 +22,9 @@ public class UnderwritingInfoWithLossProbability extends UnderwritingInfo {
                 return getPremium();
             case NUMBER_OF_POLICIES:
                 return getNumberOfPolicies();
+            default:
+                throw new InvalidParameterException(base + " not implemented");
         }
-        return 0;
     }
 
     public void plus(UnderwritingInfoWithLossProbability other) {

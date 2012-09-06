@@ -7,6 +7,7 @@ import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoPacketFactory
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
 
 /**
  * @author Michael-Noe (at) Web (dot) de
@@ -96,6 +97,8 @@ class AggregateXLContractStrategy extends AbstractContractStrategy implements IR
             case PremiumBase.NUMBER_OF_POLICIES:
                 totalCededPremium = premium * coverUnderwritingInfo.numberOfPolicies.sum()
                 break
+            default:
+                throw new InvalidParameterException("PremiumBase $premiumBase not implemented")
         }
     }
 

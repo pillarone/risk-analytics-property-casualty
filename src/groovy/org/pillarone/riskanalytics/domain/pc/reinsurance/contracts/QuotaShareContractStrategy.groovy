@@ -14,6 +14,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.limit.NoneLim
 import org.apache.commons.lang.NotImplementedException
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoPacketFactory
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -53,6 +54,8 @@ class QuotaShareContractStrategy extends AbstractContractStrategy implements IRe
                 return calculateCoveredLossApplyingEventLimit(inClaim)
             case EventAalLimitStrategy:
                 return calculateCoveredLossApplyingEventLimitAAL(inClaim)
+            default:
+                throw new InvalidParameterException("ILimitStrategy $limit not implemented")
         }
     }
 
@@ -149,7 +152,7 @@ class QuotaShareContractStrategy extends AbstractContractStrategy implements IRe
             case NoneLimitStrategy:
                 break
             default:
-                throw new NotImplementedException("['QuotaShareContractStrategy.nonImplementedLimits','"+limit.getClass().getName()+"']");
+                throw new InvalidParameterException("['QuotaShareContractStrategy.nonImplementedLimits','"+limit.getClass().getName()+"']");
         }
     }
 }

@@ -45,7 +45,7 @@ public class MarketToLineOfBusinessClaims extends Component {
                 throw new IllegalArgumentException("MarketToLineOfBusinessClaims.componentMismatch");
             }
             for (Claim marketClaim : inClaims) {
-                String originName = marketClaim.origin.getNormalizedName();
+                String originName = marketClaim.origin.getName();
                 int row = parmPortions.getColumnByName(PERIL).indexOf(originName);
                 Claim lobClaim = marketClaim.copy();
                 // PMO-750: claim mergers in reinsurance program won't work with reference to market claims

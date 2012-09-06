@@ -65,28 +65,28 @@ components {
             parmContractStrategy[allPeriods] = ReinsuranceContractType.getStrategy(
                     ReinsuranceContractType.STOPLOSS, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"attachmentPoint": 1E7, "limit": 2E7, "stopLossContractBase": StopLossContractBase.ABSOLUTE, "premium": 0, "coveredByReinsurer": 1d])
             parmCoveredLines[allPeriods] = new ComboBoxTableMultiDimensionalParameter([""], ["Covered Segments"], ISegmentMarker)
-            parmCoveredPerils[allPeriods] = new ComboBoxTableMultiDimensionalParameter(["property attritional", "property cat"], ["perils"], IPerilMarker)
+            parmCoveredPerils[allPeriods] = new ComboBoxTableMultiDimensionalParameter(["subPropertyAttritional", "subPropertyCat"], ["perils"], IPerilMarker)
             parmInuringPriority[allPeriods] = 0
         }
         subMotorStopLoss {
             parmContractStrategy[allPeriods] = ReinsuranceContractType.getStrategy(
                     ReinsuranceContractType.STOPLOSS, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"attachmentPoint": 1E7, "limit": 2E7, "stopLossContractBase": StopLossContractBase.ABSOLUTE, "premium": 0, "coveredByReinsurer": 1d])
             parmCoveredLines[allPeriods] = new ComboBoxTableMultiDimensionalParameter([""], ["Covered Segments"], ISegmentMarker)
-            parmCoveredPerils[allPeriods] = new ComboBoxTableMultiDimensionalParameter(["motor"], ["perils"], IPerilMarker)
+            parmCoveredPerils[allPeriods] = new ComboBoxTableMultiDimensionalParameter(["subMotor"], ["perils"], IPerilMarker)
             parmInuringPriority[allPeriods] = 0
         }
         subMarineStopLoss {
             parmContractStrategy[allPeriods] = ReinsuranceContractType.getStrategy(
                     ReinsuranceContractType.STOPLOSS, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"attachmentPoint": 1E7, "limit": 2E7, "stopLossContractBase": StopLossContractBase.ABSOLUTE, "premium": 0, "coveredByReinsurer": 1d])
             parmCoveredLines[allPeriods] = new ComboBoxTableMultiDimensionalParameter([""], ["Covered Segments"], ISegmentMarker)
-            parmCoveredPerils[allPeriods] = new ComboBoxTableMultiDimensionalParameter(["marine"], ["perils"], IPerilMarker)
+            parmCoveredPerils[allPeriods] = new ComboBoxTableMultiDimensionalParameter(["subMarine"], ["perils"], IPerilMarker)
             parmInuringPriority[allPeriods] = 0
         }
         subHullStopLoss {
             parmContractStrategy[allPeriods] = ReinsuranceContractType.getStrategy(
                     ReinsuranceContractType.STOPLOSS, ["premiumAllocation":PremiumAllocationType.getStrategy(PremiumAllocationType.PREMIUM_SHARES, [:]),"attachmentPoint": 1E7, "limit": 2E7, "stopLossContractBase": StopLossContractBase.ABSOLUTE, "premium": 0, "coveredByReinsurer": 1d])
             parmCoveredLines[allPeriods] = new ComboBoxTableMultiDimensionalParameter([""], ["Covered Segments"], ISegmentMarker)
-            parmCoveredPerils[allPeriods] = new ComboBoxTableMultiDimensionalParameter(["hull"], ["perils"], IPerilMarker)
+            parmCoveredPerils[allPeriods] = new ComboBoxTableMultiDimensionalParameter(["subHull"], ["perils"], IPerilMarker)
             parmInuringPriority[allPeriods] = 0
         }
     }

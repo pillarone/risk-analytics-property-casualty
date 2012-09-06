@@ -4,8 +4,11 @@ import org.pillarone.riskanalytics.core.model.StochasticModel
 import org.pillarone.riskanalytics.domain.pc.aggregators.ClaimsAggregator
 import org.pillarone.riskanalytics.domain.pc.lob.ExampleLob
 import org.pillarone.riskanalytics.domain.pc.lob.PropertyLob
+import org.pillarone.riskanalytics.domain.pc.global.GlobalParameters
 
 class CapitalEagleModel extends StochasticModel {
+
+    GlobalParameters globalParameters
     ExampleLob mtpl
     ExampleLob motorHull
     ExampleLob personalAccident
@@ -14,6 +17,7 @@ class CapitalEagleModel extends StochasticModel {
 
 
     public void initComponents() {
+        globalParameters = new GlobalParameters()
         mtpl = new ExampleLob()
         motorHull = new ExampleLob()
         personalAccident = new ExampleLob()

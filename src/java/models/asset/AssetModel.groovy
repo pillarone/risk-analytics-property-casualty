@@ -10,8 +10,11 @@ import org.pillarone.riskanalytics.domain.assets.parameterization.DynamicBonds
 import org.pillarone.riskanalytics.domain.assets.parameterization.Fees
 import org.pillarone.riskanalytics.domain.assets.parameterization.InitialCash
 import org.pillarone.riskanalytics.domain.assets.parameterization.YieldCurveChoice
+import org.pillarone.riskanalytics.domain.pc.global.GlobalParameters
 
 class AssetModel extends StochasticModel {
+
+    GlobalParameters globalParameters
     DynamicBonds bonds
     AssetEngine engine
     YieldCurveChoice yieldCurve
@@ -20,6 +23,7 @@ class AssetModel extends StochasticModel {
 
 
     public void initComponents() {
+        globalParameters = new GlobalParameters()
         bonds = new DynamicBonds()
         engine = new AssetEngine()
         yieldCurve = new YieldCurveChoice()

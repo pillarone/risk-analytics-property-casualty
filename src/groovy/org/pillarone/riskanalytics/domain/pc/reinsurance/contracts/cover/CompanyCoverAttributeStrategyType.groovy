@@ -10,6 +10,7 @@ import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
 import org.pillarone.riskanalytics.domain.utils.marker.IReserveMarker
 import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 import org.pillarone.riskanalytics.domain.pc.company.ICompanyMarker
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
 
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
@@ -102,6 +103,8 @@ class CompanyCoverAttributeStrategyType extends AbstractParameterObjectClassifie
             case CompanyCoverAttributeStrategyType.COMPANIES:
                 coverStrategy = new CompaniesCompanyCoverAttributeStrategy(companies: (ComboBoxTableMultiDimensionalParameter) parameters['companies'])
                 break
+            default:
+                throw new InvalidParameterException("CompanyCoverAttributeStrategyType $type not implemented")
         }
         return coverStrategy;
     }

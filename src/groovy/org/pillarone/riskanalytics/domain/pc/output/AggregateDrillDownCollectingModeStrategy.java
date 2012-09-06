@@ -56,29 +56,18 @@ public class AggregateDrillDownCollectingModeStrategy implements ICollectingMode
         mappingCache = packetCollector.getSimulationScope().getMappingCache();
     }
 
-    public List<SingleValueResultPOJO> collect(PacketList packets) {
+    public List<SingleValueResultPOJO> collect(PacketList packets, boolean crashSimOnError) throws IllegalAccessException {
         initSimulation();
         iteration = packetCollector.getSimulationScope().getIterationScope().getCurrentIteration();
         period = packetCollector.getSimulationScope().getIterationScope().getPeriodScope().getCurrentPeriod();
         if (packets.get(0) instanceof Claim) {
-            try {
-                return createSingleValueResults(aggregateClaims(packets));
-            }
-            catch (IllegalAccessException ex) {
-//                todo(sku): remove
-            }
+            return createSingleValueResults(aggregateClaims(packets), crashSimOnError);
         } else if (packets.get(0) instanceof UnderwritingInfo) {
-            try {
-                return createSingleValueResults(aggregateUnderwritingInfo(packets));
-            }
-            catch (IllegalAccessException ex) {
-//                  todo(sku): remove
-            }
+            return createSingleValueResults(aggregateUnderwritingInfo(packets), crashSimOnError);
         } else {
             String notImplemented = ResourceBundle.getBundle(RESOURCE_BUNDLE).getString("AggregateDrillDownCollectingModeStrategy.notImplemented");
             throw new NotImplementedException(notImplemented + "\n(" + packetCollector.getPath() + ")");
         }
-        return null;
     }
 
     /**
@@ -86,11 +75,16 @@ public class AggregateDrillDownCollectingModeStrategy implements ICollectingMode
      * Information about current simulation is gathered from the scopes.
      * The key of the value map is the path.
      *
+     *
      * @param packets
+     * @param crashSimOnError
      * @return
      * @throws IllegalAccessException
      */
-    private List<SingleValueResultPOJO> createSingleValueResults(Map<PathMapping, Packet> packets) throws IllegalAccessException {
+    private List<SingleValueResultPOJO> createSingleValueResults(Map<PathMapping, Packet> packets, boolean crashSimOnError) throws IllegalAccessException {
+//      Compose object with reliable invalid value check instead of code copy.
+        AggregatedCollectingModeStrategy invalidCheck = new AggregatedCollectingModeStrategy();
+
         List<SingleValueResultPOJO> singleValueResults = new ArrayList<SingleValueResultPOJO>(packets.size());
         boolean firstPath = true;
         for (Map.Entry<PathMapping, Packet> packetEntry : packets.entrySet()) {
@@ -99,16 +93,7 @@ public class AggregateDrillDownCollectingModeStrategy implements ICollectingMode
             for (Map.Entry<String, Number> field : packet.getValuesToSave().entrySet()) {
                 String fieldName = field.getKey();
                 Double value = (Double) field.getValue();
-                if (value == Double.NaN || value == Double.NEGATIVE_INFINITY || value == Double.POSITIVE_INFINITY) {
-                    if (LOG.isErrorEnabled()) {
-                        StringBuilder message = new StringBuilder();
-                        message.append(value).append(" collected at ").append(packetCollector.getPath());
-                        message.append(" (period ").append(period).append(") in iteration ");
-                        message.append(iteration).append(" - ignoring.");
-                        LOG.error(message);
-                    }
-                    continue;
-                }
+                invalidCheck.checkInvalidValues(fieldName, value, period, iteration, crashSimOnError);
                 SingleValueResultPOJO result = new SingleValueResultPOJO();
                 result.setSimulationRun(simulationRun);
                 result.setIteration(iteration);

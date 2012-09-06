@@ -12,12 +12,14 @@ import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalPa
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.WXLContractStrategy
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.StopLossContractStrategy
 import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
+import org.pillarone.riskanalytics.domain.pc.global.GlobalParameters
 
 /**
  * @author: stefan.kunz (at) intuitive-collaboration (dot) com
  */
 class QS_XL_SL_Model extends StochasticModel {
 
+    GlobalParameters globalParameters
     FrequencyGenerator frequencyGenerator
     SingleClaimsGenerator claimsGenerator
     AttritionalClaimsGenerator attritionalClaimsGenerator
@@ -27,6 +29,7 @@ class QS_XL_SL_Model extends StochasticModel {
     ClaimsMerger aggregator = new ClaimsMerger()
 
     void initComponents() {
+        globalParameters = new GlobalParameters()
         frequencyGenerator = new FrequencyGenerator() //parmGenerator: RandomNumberGeneratorFactory.getGenerator(DiscreteRandomDistributionType.POISSON, ["lambda": 10]))
         claimsGenerator = new SingleClaimsGenerator() //parmGenerator: RandomNumberGeneratorFactory.getGenerator(ContinuousRandomDistributionType.LOGNORMAL, ["mean": 5, "stDev": 10]))
         attritionalClaimsGenerator = new AttritionalClaimsGenerator()

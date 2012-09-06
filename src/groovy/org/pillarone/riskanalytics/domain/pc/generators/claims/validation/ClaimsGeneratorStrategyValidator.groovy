@@ -15,6 +15,7 @@ import org.pillarone.riskanalytics.domain.pc.generators.claims.ClaimsGeneratorTy
 import umontreal.iro.lecuyer.probdist.Distribution
 import umontreal.iro.lecuyer.probdist.ContinuousDistribution
 import org.pillarone.riskanalytics.core.parameterization.validation.ValidationType
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
 
 /**
  * This validator focuses on valid combinations of distributions and modifications.
@@ -49,8 +50,9 @@ class ClaimsGeneratorStrategyValidator implements IParameterizationValidator {
                         currentErrors*.path = parameter.path
                         errors.addAll(currentErrors)
                     }
-                    catch (IllegalArgumentException ex) {
+                    catch (InvalidParameterException ex) {
                         // distribution parameters are invalid, however this is checked in the DistributionTypeValidatorPC
+                        LOG.debug("call parameter.getBusinessObject() failed " + ex.toString())
                     }
                 }
                 // step down recursively

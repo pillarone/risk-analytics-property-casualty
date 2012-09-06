@@ -14,12 +14,14 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.ReinsuranceMar
 import org.pillarone.riskanalytics.domain.pc.assetLiabilityMismatch.DynamicCompanyConfigurableAssetLiabilityMismatchGenerator
 import org.pillarone.riskanalytics.domain.pc.filter.DynamicSegmentFilters
 import org.pillarone.riskanalytics.domain.pc.creditrisk.CreditDefault
+import org.pillarone.riskanalytics.domain.pc.global.GlobalParameters
 
 /**
  * @author shartmann (at) munichre (dot) com
  */
 class MultiCompanyModel extends StochasticModel {
 
+    GlobalParameters globalParameters
     DynamicUnderwritingSegments underwritingSegments
     DynamicDevelopedClaimsGenerators claimsGenerators
     DynamicReservesGeneratorLean reserveGenerators
@@ -34,6 +36,7 @@ class MultiCompanyModel extends StochasticModel {
     DynamicSegmentFilters structures
 
     void initComponents() {
+        globalParameters = new GlobalParameters()
         underwritingSegments = new DynamicUnderwritingSegments()
         claimsGenerators = new DynamicDevelopedClaimsGenerators()
         reserveGenerators = new DynamicReservesGeneratorLean()

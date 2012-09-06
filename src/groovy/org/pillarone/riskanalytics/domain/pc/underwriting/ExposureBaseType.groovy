@@ -5,6 +5,7 @@ import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimen
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
 import org.pillarone.riskanalytics.domain.utils.marker.IUnderwritingInfoMarker
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -63,6 +64,8 @@ public class ExposureBaseType extends AbstractParameterObjectClassifier {
             case ExposureBaseType.SUMINSURED:
                 exposureBase = new SumInsuredExposureBaseStrategy(underwritingInformation: (ComboBoxTableMultiDimensionalParameter) parameters['underwritingInformation'])
                 break
+            default:
+                throw new InvalidParameterException("ExposureBaseType $type not implemented")
         }
         return exposureBase
     }

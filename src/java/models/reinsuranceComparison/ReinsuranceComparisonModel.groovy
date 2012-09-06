@@ -4,8 +4,11 @@ import org.pillarone.riskanalytics.core.model.StochasticModel
 import org.pillarone.riskanalytics.domain.pc.aggregators.ClaimsAggregator
 import org.pillarone.riskanalytics.domain.pc.lob.ExampleLob4RIPrograms
 import org.pillarone.riskanalytics.domain.pc.lob.PropertyLob4RIPrograms
+import org.pillarone.riskanalytics.domain.pc.global.GlobalParameters
 
 class ReinsuranceComparisonModel extends StochasticModel {
+
+    GlobalParameters globalParameters
     ExampleLob4RIPrograms mtpl
     ExampleLob4RIPrograms motorHull
     ExampleLob4RIPrograms personalAccident
@@ -17,6 +20,7 @@ class ReinsuranceComparisonModel extends StochasticModel {
     ClaimsAggregator claimsAggregatorReinsuranceProgramD
 
     public void initComponents() {
+        globalParameters = new GlobalParameters()
         mtpl = new ExampleLob4RIPrograms()
         motorHull = new ExampleLob4RIPrograms()
         personalAccident = new ExampleLob4RIPrograms()

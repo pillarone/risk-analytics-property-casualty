@@ -8,6 +8,7 @@ import org.pillarone.riskanalytics.domain.pc.claims.Claim
 
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoPacketFactory
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -104,14 +105,16 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
                 totalCededPremium = premium
                 break
             case PremiumBase.GNPI:
-                totalCededPremium = premium * coverUnderwritingInfo.premium.sum()
+                totalCededPremium = coverUnderwritingInfo.isEmpty() ? 0 : premium * coverUnderwritingInfo.premium.sum()
                 break
             case PremiumBase.RATE_ON_LINE:
                 totalCededPremium = premium * limit
                 break
             case PremiumBase.NUMBER_OF_POLICIES:
-                totalCededPremium = premium * coverUnderwritingInfo.numberOfPolicies.sum()
+                totalCededPremium = coverUnderwritingInfo.isEmpty() ? 0 : premium * coverUnderwritingInfo.numberOfPolicies.sum()
                 break
+            default:
+                throw new InvalidParameterException("PremiumBase $premiumBase not implemented")
         }
     }
 

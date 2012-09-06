@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.generators.copulas
 
 import org.pillarone.riskanalytics.core.parameterization.AbstractMultiDimensionalParameter
+import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -85,6 +86,8 @@ class CopulaStrategyFactory {
             case PerilCopulaType.GUMBEL:
                 copula = getGumbelCopula(type, (double) parameters["lambda"], (int) parameters["dimension"], (AbstractMultiDimensionalParameter) parameters["targets"])
                 break
+            default:
+                throw new InvalidParameterException("PerilCopulaType $type not implemented")
         }
         return copula
     }

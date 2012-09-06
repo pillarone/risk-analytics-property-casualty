@@ -108,7 +108,7 @@ public class Company extends MultiPhaseComponent implements ICompanyMarker {
     private void doCalculationDefault() {
         Map<Rating, Double> defaultProbabilities = inDefaultProbability.get(0).defaultProbability;
         boolean isReinsurerDefault = defaultOfReinsurer(defaultProbabilities.get(parmRating));
-        ReinsurerDefault reinsurerDefault = new ReinsurerDefault(getNormalizedName(), isReinsurerDefault);
+        ReinsurerDefault reinsurerDefault = new ReinsurerDefault(getName(), isReinsurerDefault);
         outReinsurersDefault.add(reinsurerDefault);
     }
     
@@ -292,7 +292,7 @@ public class Company extends MultiPhaseComponent implements ICompanyMarker {
             for (int row = firstRowWithReinsurer; row <= numberOfReinsurers; row++) {
                 String reinsurerName = (String) coverPortions.getValueAt(row, CompanyPortion.COMPANY_COLUMN_INDEX);
                 portion = (Double) coverPortions.getValueAt(row, CompanyPortion.PORTION_COLUMN_INDEX);
-                if (!reinsurerName.equals(this.getNormalizedName())) {
+                if (!reinsurerName.equals(this.getName())) {
                     // this company is not a reinsurer for the contract
                     portion = 0d;
                 }
