@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
  */
-public class CededUnderwritingInfoUtilities extends UnderwritingInfoUtilities {
+public class CededUnderwritingInfoUtilities {
 
     public static boolean sameContent(CededUnderwritingInfo uwInfo1, CededUnderwritingInfo uwInfo2) {
         return (UnderwritingInfoUtilities.sameContent(uwInfo1, uwInfo2)
