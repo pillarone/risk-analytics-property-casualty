@@ -1,5 +1,5 @@
 //Use a custom plugins dir, because different branches use different plugin versions
-grails.project.plugins.dir = "../local-plugins/RiskAnalyticsPropertyCasualty-master"
+grails.project.plugins.dir = "../local-plugins/RiskAnalyticsPropertyCasualty-kti"
 
 grails.project.dependency.resolution = {
     inherits "global" // inherit Grails' default dependencies
@@ -25,8 +25,8 @@ grails.project.dependency.resolution = {
         test ":excel-import:0.9.6"
 
         if (appName == "RiskAnalyticsPropertyCasualty") {
-            runtime "org.pillarone:risk-analytics-core:1.6-ALPHA-5.7-kti"
-            runtime("org.pillarone:risk-analytics-commons:0.4.8") { transitive = false }
+            runtime "org.pillarone:risk-analytics-core:1.6-ALPHA-6.1-kti"
+            runtime("org.pillarone:risk-analytics-commons:0.4.12") { transitive = false }
         }
     }
 }

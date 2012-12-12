@@ -39,7 +39,6 @@ public class AggregateDrillDownCollectingModeStrategy implements ICollectingMode
     private PacketCollector packetCollector;
 
     // the following variables are used for caching purposes
-    private SimulationRun simulationRun;
     private String componentPath;
     private Map<IComponentMarker, PathMapping> markerPaths;
     private Map<MarkerKeyPair, PathMapping> markerComposedPaths;
@@ -48,8 +47,7 @@ public class AggregateDrillDownCollectingModeStrategy implements ICollectingMode
     private int period = 0;
 
     private void initSimulation() {
-        if (simulationRun != null) return;
-        simulationRun = packetCollector.getSimulationScope().getSimulation().getSimulationRun();
+        if (componentPath != null) return;
         componentPath = getComponentPath();
         markerPaths = new HashMap<IComponentMarker, PathMapping>();
         markerComposedPaths = new HashMap<MarkerKeyPair, PathMapping>();
@@ -95,7 +93,6 @@ public class AggregateDrillDownCollectingModeStrategy implements ICollectingMode
                 Double value = (Double) field.getValue();
                 invalidCheck.checkInvalidValues(fieldName, value, period, iteration, crashSimOnError);
                 SingleValueResultPOJO result = new SingleValueResultPOJO();
-                result.setSimulationRun(simulationRun);
                 result.setIteration(iteration);
                 result.setPeriod(period);
                 result.setPath(path);
