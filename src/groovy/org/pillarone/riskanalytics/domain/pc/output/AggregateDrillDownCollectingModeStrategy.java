@@ -322,4 +322,14 @@ public class AggregateDrillDownCollectingModeStrategy implements ICollectingMode
     public boolean isCompatibleWith(Class packetClass) {
         return Claim.class.isAssignableFrom(packetClass) || UnderwritingInfo.class.isAssignableFrom(packetClass);
     }
+
+    @Override
+    public List<DrillDownMode> getDrillDownModes() {
+        return DrillDownMode.getDrillDownModesBySource();
+    }
+
+    @Override
+    public Object[] getArguments() {
+        return new Object[0];
+    }
 }
