@@ -5,6 +5,7 @@ import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassif
 /**
  * @author ali.majidi (at) munichre (dot) com, stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@Deprecated
 class LobNormalCopulaStrategy extends NormalCopulaStrategy {
 
     static final LobCopulaType type = LobCopulaType.NORMAL;

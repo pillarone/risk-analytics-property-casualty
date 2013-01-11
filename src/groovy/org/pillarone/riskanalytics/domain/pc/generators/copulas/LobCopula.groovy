@@ -5,6 +5,7 @@ import org.pillarone.riskanalytics.core.parameterization.SimpleMultiDimensionalP
 /**
  * @author ali.majidi (at) munichre (dot) com, stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@Deprecated
 public class LobCopula extends Copula {
 
     ICopulaStrategy parmCopulaStrategy = CopulaStrategyFactory.getCopulaStrategy(

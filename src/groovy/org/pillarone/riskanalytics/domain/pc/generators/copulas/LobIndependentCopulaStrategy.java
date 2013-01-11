@@ -5,6 +5,7 @@ import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassif
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@Deprecated
 public class LobIndependentCopulaStrategy extends IndependentCopulaStrategy {
 
     static final LobCopulaType type = LobCopulaType.INDEPENDENT;

@@ -11,6 +11,7 @@ import org.pillarone.riskanalytics.domain.utils.FrequencyDistributionType
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@Deprecated
 public class DynamicMultipleDependencies extends DynamicComposedComponent {
 
     private PacketList<EventDependenceStream> outEventSeverities = new PacketList(EventDependenceStream.class);

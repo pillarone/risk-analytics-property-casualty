@@ -11,6 +11,7 @@ import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@Deprecated
 class PerilCopulaType extends CopulaType {
 
 

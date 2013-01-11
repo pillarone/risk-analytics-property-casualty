@@ -8,6 +8,7 @@ import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@Deprecated
 public class DynamicDependencies extends DynamicComposedComponent {
 
     private PacketList<DependenceStream> outProbabilities = new PacketList(DependenceStream.class);

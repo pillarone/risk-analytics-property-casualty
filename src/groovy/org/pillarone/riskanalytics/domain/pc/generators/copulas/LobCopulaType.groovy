@@ -9,6 +9,7 @@ import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@Deprecated
 class LobCopulaType extends CopulaType {
 
     protected static Map types = [:]

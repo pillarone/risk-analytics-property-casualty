@@ -13,6 +13,7 @@ import cern.colt.matrix.impl.DenseDoubleMatrix2D
 /**
  * @author ali.majidi (at) munichre (dot) com, stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@Deprecated
 abstract class NormalCopulaStrategy extends AbstractCopulaStrategy {
 
     //DoubleMatrix2D sigmaMatrix

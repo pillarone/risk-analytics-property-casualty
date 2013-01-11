@@ -6,6 +6,7 @@ import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassif
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@Deprecated
 public class PerilIndependentCopulaStrategy extends IndependentCopulaStrategy {
 
     static final PerilCopulaType type = PerilCopulaType.INDEPENDENT;
