@@ -10,7 +10,7 @@ import org.pillarone.riskanalytics.domain.utils.constraint.DoubleConstraints
 import org.pillarone.riskanalytics.core.parameterization.ConstraintsFactory
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter
 
-
+@Deprecated
 class DistributionType extends AbstractParameterObjectClassifier implements Serializable {
 
     public static final DistributionType POISSON = new DistributionType(

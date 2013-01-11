@@ -14,6 +14,7 @@ import java.util.List;
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
  */
+@Deprecated
 public class TruncatedDist implements Distribution {
 
     Distribution distribution;

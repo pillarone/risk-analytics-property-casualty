@@ -5,6 +5,7 @@ import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassif
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@Deprecated
 class ClaimSizeDistributionType extends DistributionType {
 
     protected ClaimSizeDistributionType(String typeName, Map parameters) {

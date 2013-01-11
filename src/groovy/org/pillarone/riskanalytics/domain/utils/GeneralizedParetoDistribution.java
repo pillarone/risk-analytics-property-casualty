@@ -5,6 +5,7 @@ import umontreal.iro.lecuyer.probdist.ContinuousDistribution;
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
  */
+@Deprecated
 public class GeneralizedParetoDistribution extends ContinuousDistribution {
     /** shape parameter */
     private double xi;

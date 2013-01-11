@@ -12,6 +12,7 @@ import umontreal.iro.lecuyer.probdist.DiscreteDistribution
  *
  * @author ben.ginsberg (at) intuitive-collaboration (dot) com
  */
+@Deprecated
 class ConstantsDistribution extends DiscreteDistribution {
 
     List<Double> values // ordered list of values

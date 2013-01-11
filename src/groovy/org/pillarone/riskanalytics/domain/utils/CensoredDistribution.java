@@ -6,6 +6,7 @@ import umontreal.iro.lecuyer.probdist.Distribution;
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@Deprecated
 public class CensoredDistribution implements Distribution {
 
     Distribution distribution;

@@ -5,6 +5,7 @@ import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassif
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@Deprecated
 class FrequencyDistributionType extends DistributionType {
 
     protected FrequencyDistributionType(String typeName, Map parameters) {

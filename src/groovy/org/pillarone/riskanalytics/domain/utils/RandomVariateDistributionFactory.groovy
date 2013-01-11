@@ -6,6 +6,7 @@ import umontreal.iro.lecuyer.probdist.LognormalDist
  * @author: stefan.kunz (at) intuitive-collaboration (dot) com
  */
 // todo(sku): refactor identically to RNGF
+@Deprecated
 class RandomVariateDistributionFactory {
     
     private static IRandomVariateDistribution getLognormalDistribution(double mean, double stDev) {
