@@ -14,7 +14,7 @@ abstract class FrechetUpperBoundCopulaStrategy extends AbstractCopulaStrategy {
     AbstractMultiDimensionalParameter targets = new SimpleMultiDimensionalParameter([])
 
     public List<Number> getRandomVector() {
-        private IRandomNumberGenerator generator = RandomNumberGeneratorFactory.getUniformGenerator()
+        IRandomNumberGenerator generator = RandomNumberGeneratorFactory.getUniformGenerator()
         double severity = (double) generator.nextValue()
         return ([severity] * getTargetNames().size())
     }

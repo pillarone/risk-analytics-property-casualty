@@ -39,7 +39,7 @@ class ProfitCommissionStrategyTests extends GroovyTestCase {
         assertEquals '# outUnderwritingInfo packets', 1, underwritingInfo.size()
         assertEquals 'underwritingInfo100 commission', -0.3, underwritingInfo[0].commission
         assertEquals 'underwritingInfo100 variable commission', -0.3, underwritingInfo[0].variableCommission
-        assertEquals 'underwritingInfo100 fixed commission', -0d, underwritingInfo[0].fixedCommission
+        assertEquals 'underwritingInfo100 fixed commission', -0d, underwritingInfo[0].fixedCommission, 1E-8
 
     }
 
@@ -85,7 +85,7 @@ class ProfitCommissionStrategyTests extends GroovyTestCase {
         assertEquals '# outUnderwritingInfo packets', 1, underwritingInfo.size()
         assertEquals 'underwritingInfo100plus1 commission', -0.3, underwritingInfo[0].commission
         assertEquals 'underwritingInfo100plus1 variable commission', -0.3, underwritingInfo[0].variableCommission
-        assertEquals 'underwritingInfo100plus1 fixed commission', -0d, underwritingInfo[0].fixedCommission
+        assertEquals 'underwritingInfo100plus1 fixed commission', -0d, underwritingInfo[0].fixedCommission, 1E-8
     }
 
     void testAddition2() {
@@ -167,6 +167,6 @@ class ProfitCommissionStrategyTests extends GroovyTestCase {
         assertEquals '# outUnderwritingInfo packets', 1, underwritingInfo.size()
         assertEquals 'underwritingInfo100', -0.3, underwritingInfo[0].commission
         assertEquals 'underwritingInfo100', -0.3, underwritingInfo[0].variableCommission
-        assertEquals 'underwritingInfo100', -0d, underwritingInfo[0].fixedCommission
+        assertEquals 'underwritingInfo100', -0d, underwritingInfo[0].fixedCommission, 1E-8
     }
 }

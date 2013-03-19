@@ -48,17 +48,17 @@ class RiskToBandAllocatorStrategy extends AbstractParameterObject implements IRi
                 }
             }
 
-            allocatedClaims.addAll(getAllocatedClaims(claims, ClaimType.ATTRITIONAL, riskMap, targetDistributionMaxSI))
-            allocatedClaims.addAll(getAllocatedClaims(claims, ClaimType.EVENT, riskMap, targetDistributionMaxSI))
-            allocatedClaims.addAll(getAllocatedClaims(claims, ClaimType.AGGREGATED, riskMap, targetDistributionMaxSI))
-            allocatedClaims.addAll(getAllocatedClaims(claims, ClaimType.AGGREGATED_ATTRITIONAL, riskMap, targetDistributionMaxSI))
-            allocatedClaims.addAll(getAllocatedClaims(claims, ClaimType.AGGREGATED_EVENT, riskMap, targetDistributionMaxSI))
-            allocatedClaims.addAll(getAllocatedClaims(claims, ClaimType.AGGREGATED_SINGLE, riskMap, targetDistributionMaxSI))
+            allocatedClaims.addAll(internalGetAllocatedClaims(claims, ClaimType.ATTRITIONAL, riskMap, targetDistributionMaxSI))
+            allocatedClaims.addAll(internalGetAllocatedClaims(claims, ClaimType.EVENT, riskMap, targetDistributionMaxSI))
+            allocatedClaims.addAll(internalGetAllocatedClaims(claims, ClaimType.AGGREGATED, riskMap, targetDistributionMaxSI))
+            allocatedClaims.addAll(internalGetAllocatedClaims(claims, ClaimType.AGGREGATED_ATTRITIONAL, riskMap, targetDistributionMaxSI))
+            allocatedClaims.addAll(internalGetAllocatedClaims(claims, ClaimType.AGGREGATED_EVENT, riskMap, targetDistributionMaxSI))
+            allocatedClaims.addAll(internalGetAllocatedClaims(claims, ClaimType.AGGREGATED_SINGLE, riskMap, targetDistributionMaxSI))
         }
         return allocatedClaims
     }
 
-    private List<Claim> getAllocatedClaims(List<Claim> claims, ClaimType claimType, Map<Double, UnderwritingInfo> riskMap, Map<Double, Double> targetDistribution) {
+    private List<Claim> internalGetAllocatedClaims(List<Claim> claims, ClaimType claimType, Map<Double, UnderwritingInfo> riskMap, Map<Double, Double> targetDistribution) {
         Map<Double, List<Claim>> aggrAllocation = allocateClaims(
                 filterClaimsByType(claims, claimType), riskMap, targetDistribution
         )

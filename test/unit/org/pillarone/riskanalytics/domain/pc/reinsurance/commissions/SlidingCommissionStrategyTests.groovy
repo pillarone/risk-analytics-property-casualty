@@ -78,10 +78,10 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
         assertEquals '# outUnderwritingInfo packets', 2, underwritingInfos.size()
         assertEquals 'underwritingInfo200', -200 * 0.2, underwritingInfos[0].commission
         assertEquals 'underwritingInfo200', -200 * 0.2, underwritingInfos[0].variableCommission
-        assertEquals 'underwritingInfo200', -0d, underwritingInfos[0].fixedCommission
+        assertEquals 'underwritingInfo200', -0d, underwritingInfos[0].fixedCommission, 1E-8
         assertEquals 'underwritingInfo100', -100 * 0.2, underwritingInfos[1].commission
         assertEquals 'underwritingInfo200', -100 * 0.2, underwritingInfos[1].variableCommission
-        assertEquals 'underwritingInfo200', -0d, underwritingInfos[1].fixedCommission
+        assertEquals 'underwritingInfo200', -0d, underwritingInfos[1].fixedCommission, 1E-8
 
         commissionStrategy = getSlidingCommissionStrategy([0.1d: 0.07d, 0.4d: 0.05d, 0.5d: 0.03d, 0.6d: 0.02d,])
         UnderwritingInfo underwritingInfo300 = new CededUnderwritingInfo(premium: 300)
@@ -91,7 +91,7 @@ class SlidingCommissionStrategyTests extends GroovyTestCase {
         commissionStrategy.calculateCommission claims, underwritingInfos, false, false
 
         assertEquals "underwritingInfo600", -300 * 0.02, underwritingInfos[0].commission
-        assertEquals 'underwritingInfo200', -0d, underwritingInfos[0].variableCommission
+        assertEquals 'underwritingInfo200', -0d, underwritingInfos[0].variableCommission, 1E-8
         assertEquals 'underwritingInfo200', -300 * 0.02, underwritingInfos[0].fixedCommission
 
     }

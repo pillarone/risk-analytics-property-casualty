@@ -90,7 +90,7 @@ class AdverseDevelopmentCoverContractStrategy extends AbstractContractStrategy i
         incurredAllocationFactor = (aggregateGrossClaim != 0) ? aggregateCededClaim / aggregateGrossClaim : 1d
         paidAllocationFactor = (aggregateGrossClaimPaid != 0) ? aggregateCededClaimPaid / aggregateGrossClaimPaid : 1d
 
-        double totalPremium = coverUnderwritingInfo.premium.sum()
+        double totalPremium = coverUnderwritingInfo.empty ? 0 : coverUnderwritingInfo.premium.sum()
         if (totalPremium != 0) {
             for (UnderwritingInfo underwritingInfo: coverUnderwritingInfo) {
                 grossPremiumSharesPerBand.put(underwritingInfo, underwritingInfo.premium / totalPremium)

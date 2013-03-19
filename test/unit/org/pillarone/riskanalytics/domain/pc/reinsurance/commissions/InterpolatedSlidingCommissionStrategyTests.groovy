@@ -45,38 +45,38 @@ class InterpolatedSlidingCommissionStrategyTests extends GroovyTestCase {
         assertEquals '# outUnderwritingInfo packets', 2, underwritingInfos.size()
         assertEquals 'underwritingInfo200', -200 * 0.2, underwritingInfos[0].commission
         assertEquals 'underwritingInfo200', -200 * 0.2, underwritingInfos[0].fixedCommission
-        assertEquals 'underwritingInfo200', -0d, underwritingInfos[0].variableCommission
+        assertEquals 'underwritingInfo200', -0d, underwritingInfos[0].variableCommission, 1E-8
         assertEquals 'underwritingInfo100', -100 * 0.2, underwritingInfos[1].commission
         assertEquals 'underwritingInfo100', -100 * 0.2, underwritingInfos[1].fixedCommission
-        assertEquals 'underwritingInfo100', -0d, underwritingInfos[1].variableCommission
+        assertEquals 'underwritingInfo100', -0d, underwritingInfos[1].variableCommission, 1E-8
 
         claims.add(claim25)
 
         commissionStrategy.calculateCommission claims, underwritingInfos, false, false
         assertEquals 'underwritingInfo200', -200 * 0.2, underwritingInfos[0].commission
         assertEquals 'underwritingInfo200', -200 * 0.2, underwritingInfos[0].fixedCommission
-        assertEquals 'underwritingInfo200', -0d, underwritingInfos[0].variableCommission
+        assertEquals 'underwritingInfo200', -0d, underwritingInfos[0].variableCommission, 1E-8
         assertEquals 'underwritingInfo100', -100 * 0.2, underwritingInfos[1].commission
         assertEquals 'underwritingInfo100', -100 * 0.2, underwritingInfos[1].fixedCommission
-        assertEquals 'underwritingInfo100', -0d, underwritingInfos[1].variableCommission
+        assertEquals 'underwritingInfo100', -0d, underwritingInfos[1].variableCommission, 1E-8
 
         claims.add(claim100)
 
         commissionStrategy.calculateCommission claims, underwritingInfos, false, false
         assertEquals 'underwritingInfo200', -200 * 0.2, underwritingInfos[0].commission
         assertEquals 'underwritingInfo200', -200 * 0.2, underwritingInfos[0].fixedCommission
-        assertEquals 'underwritingInfo200', -0d, underwritingInfos[0].variableCommission
+        assertEquals 'underwritingInfo200', -0d, underwritingInfos[0].variableCommission, 1E-8
         assertEquals 'underwritingInfo100', -100 * 0.2, underwritingInfos[1].commission
         assertEquals 'underwritingInfo100', -100 * 0.2, underwritingInfos[1].fixedCommission
-        assertEquals 'underwritingInfo100', -0d, underwritingInfos[1].variableCommission
+        assertEquals 'underwritingInfo100', -0d, underwritingInfos[1].variableCommission, 1E-8
 
         commissionStrategy.calculateCommission claims, underwritingInfos, false, true
         assertEquals 'underwritingInfo200', -200 * 0.2 - 200 * 0.2, underwritingInfos[0].commission
         assertEquals 'underwritingInfo200', -200 * 0.2 - 200 * 0.2, underwritingInfos[0].fixedCommission
-        assertEquals 'underwritingInfo200', -0d, underwritingInfos[0].variableCommission
+        assertEquals 'underwritingInfo200', -0d, underwritingInfos[0].variableCommission, 1E-8
         assertEquals 'underwritingInfo100', -100 * 0.2 - 100 * 0.2, underwritingInfos[1].commission
         assertEquals 'underwritingInfo100', -100 * 0.2 - 100 * 0.2, underwritingInfos[1].fixedCommission
-        assertEquals 'underwritingInfo100', -0d, underwritingInfos[1].variableCommission
+        assertEquals 'underwritingInfo100', -0d, underwritingInfos[1].variableCommission, 1E-8
 
         underwritingInfos[0].setCommission(-25)
         underwritingInfos[0].setFixedCommission(-10)
@@ -172,20 +172,20 @@ class InterpolatedSlidingCommissionStrategyTests extends GroovyTestCase {
         assertEquals '# outUnderwritingInfo packets', 2, underwritingInfos.size()
         assertEquals 'underwritingInfo200', -200 * 0.3, underwritingInfos[0].commission
         assertEquals 'underwritingInfo200', -200 * 0.3, underwritingInfos[0].fixedCommission
-        assertEquals 'underwritingInfo200', -0d, underwritingInfos[0].variableCommission
+        assertEquals 'underwritingInfo200', -0d, underwritingInfos[0].variableCommission, 1E-8
         assertEquals 'underwritingInfo100', -100 * 0.3, underwritingInfos[1].commission
         assertEquals 'underwritingInfo100', -100 * 0.3, underwritingInfos[1].fixedCommission
-        assertEquals 'underwritingInfo100', -0d, underwritingInfos[1].variableCommission
+        assertEquals 'underwritingInfo100', -0d, underwritingInfos[1].variableCommission, 1E-8
 
         claims.add(new Claim(value: 0.1))
 
         assertEquals '# outUnderwritingInfo packets', 2, underwritingInfos.size()
         assertEquals 'underwritingInfo200', -200 * 0.3, underwritingInfos[0].commission
         assertEquals 'underwritingInfo200', -200 * 0.3, underwritingInfos[0].fixedCommission
-        assertEquals 'underwritingInfo200', -0d, underwritingInfos[0].variableCommission
+        assertEquals 'underwritingInfo200', -0d, underwritingInfos[0].variableCommission, 1E-8
         assertEquals 'underwritingInfo100', -100 * 0.3, underwritingInfos[1].commission
         assertEquals 'underwritingInfo100', -100 * 0.3, underwritingInfos[1].fixedCommission
-        assertEquals 'underwritingInfo100', -0d, underwritingInfos[1].variableCommission
+        assertEquals 'underwritingInfo100', -0d, underwritingInfos[1].variableCommission, 1E-8
     }
 
     void testManyRatiosIncludingJumps() {

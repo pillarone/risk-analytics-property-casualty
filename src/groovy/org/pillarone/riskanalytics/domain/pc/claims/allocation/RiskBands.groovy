@@ -30,7 +30,7 @@ class RiskBands extends Component implements IUnderwritingInfoMarker {
             (RiskBandAllocationBase.CUSTOM): 'custom allocation attritional claims'
     ]
 
-    AbstractMultiDimensionalParameter parmUnderwritingInformation = new TableMultiDimensionalParameter([[0d], [0d], [0d], [0d], [0d], [0d]],
+    TableMultiDimensionalParameter parmUnderwritingInformation = new TableMultiDimensionalParameter([[0d], [0d], [0d], [0d], [0d], [0d]],
             ['maximum sum insured',
                     'average sum insured',
                     singleAllocationBaseColumnName.get(RiskBandAllocationBase.PREMIUM),

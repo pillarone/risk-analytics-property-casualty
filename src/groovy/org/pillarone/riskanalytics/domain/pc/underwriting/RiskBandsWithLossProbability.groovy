@@ -1,5 +1,6 @@
 package org.pillarone.riskanalytics.domain.pc.underwriting
 
+import groovy.transform.CompileStatic
 import org.pillarone.riskanalytics.core.packets.PacketList
 import org.pillarone.riskanalytics.core.parameterization.AbstractMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalParameter
@@ -12,6 +13,7 @@ import org.pillarone.riskanalytics.core.components.ComponentCategory
  * @author: Michael-Noe (at) Web (dot) de
  */
 @ComponentCategory(categories = ['UNDERWRITING'])
+@CompileStatic
 class RiskBandsWithLossProbability extends RiskBands {
     static Map<RiskBandAllocationBase, String> singleAllocationBaseColumnName = [
             (RiskBandAllocationBase.PREMIUM): 'premium',
@@ -26,7 +28,7 @@ class RiskBandsWithLossProbability extends RiskBands {
             (RiskBandAllocationBase.CUSTOM): 'custom allocation attritional claims'
     ]
 
-    AbstractMultiDimensionalParameter parmUnderwritingInformation = new TableMultiDimensionalParameter([],
+    TableMultiDimensionalParameter parmUnderwritingInformation = new TableMultiDimensionalParameter([],
             ['maximum sum insured',
                     'average sum insured',
                     singleAllocationBaseColumnName.get(RiskBandAllocationBase.PREMIUM),

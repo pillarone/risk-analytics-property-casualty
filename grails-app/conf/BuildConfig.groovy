@@ -16,20 +16,26 @@ grails.project.dependency.resolution = {
 
     plugins {
         runtime ":background-thread:1.3"
-        runtime ":hibernate:1.3.7"
+        runtime ":hibernate:2.2.1"
         runtime ":joda-time:0.5"
-        runtime ":maven-publisher:0.7.5"
+        runtime ":maven-publisher:0.7.5", {
+            excludes "groovy"
+        }
         runtime ":quartz:0.4.2"
-        runtime ":spring-security-core:1.1.2"
-        runtime ":tomcat:1.3.7"
+        runtime ":spring-security-core:1.2.7.3"
+        runtime ":tomcat:2.2.1"
 
         test ":code-coverage:1.2.4"
-        test ":excel-import:0.9.6"
+        compile ":excel-import:0.9.6"
 
         if (appName == "RiskAnalyticsPropertyCasualty") {
-            runtime "org.pillarone:risk-analytics-core:1.7-a1"
-            runtime("org.pillarone:risk-analytics-commons:0.4.28") { transitive = false }
+            runtime "org.pillarone:risk-analytics-core:1.7-a2"
+            runtime("org.pillarone:risk-analytics-commons:0.5") { transitive = false }
         }
+    }
+
+    dependencies {
+        test 'hsqldb:hsqldb:1.8.0.10'
     }
 }
 

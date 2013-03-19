@@ -60,7 +60,7 @@ class CXLContractStrategy extends XLContractStrategy implements IReinsuranceCont
             }
         }
 
-        for (MapEntry<Event, Claim> aggregateGrossClaim : grossClaimsAggregatedByEvent.entrySet()) {
+        for (Map.Entry<Event, Claim> aggregateGrossClaim : grossClaimsAggregatedByEvent.entrySet()) {
             Claim aggregateCededClaim = calculateCededClaimAggregatedByEvent(aggregateGrossClaim.value, coveredByReinsurer)
             Claim ratio
             if (aggregateCededClaim instanceof ClaimDevelopmentPacket) {
