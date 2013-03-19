@@ -1,0 +1,7 @@
+*.iml
+.idea/*
+target/*
+dist/*
+out/*
+*.log
+web-app/plugins/*
