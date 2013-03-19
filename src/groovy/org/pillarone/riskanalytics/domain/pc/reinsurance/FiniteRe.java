@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance;
 
 import org.pillarone.riskanalytics.core.components.Component;
+import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.components.PeriodStore;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
@@ -8,6 +9,7 @@ import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = {"REINSURANCE"})
 public class FiniteRe extends Component {
 
     private PacketList<Claim> inClaims = new PacketList<Claim>(Claim.class);

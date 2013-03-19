@@ -7,6 +7,7 @@ import org.pillarone.riskanalytics.domain.pc.generators.frequency.FrequencyGener
 import org.pillarone.riskanalytics.domain.pc.lob.DependentLobAttrSingleEventClaims
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContract
 import org.pillarone.riskanalytics.domain.pc.severities.AttachEventToSeverity
+import org.pillarone.riskanalytics.domain.pc.global.GlobalParameters
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -14,6 +15,7 @@ import org.pillarone.riskanalytics.domain.pc.severities.AttachEventToSeverity
 
 public class TwoLobDependencyModel extends StochasticModel {
 
+    GlobalParameters globalParameters
     FrequencyGenerator frequencyGeneratorEvent
     FrequencyGenerator frequencyGeneratorLarge
     FrequencyGenerator independentFrequencyGeneratorHull
@@ -30,6 +32,7 @@ public class TwoLobDependencyModel extends StochasticModel {
     ClaimsAggregator claimsAggregator
 
     void initComponents() {
+        globalParameters = new GlobalParameters()
         frequencyGeneratorEvent = new FrequencyGenerator(name: 'event number')
         frequencyGeneratorLarge = new FrequencyGenerator(name: 'number of large claims')
         independentFrequencyGeneratorFire = new FrequencyGenerator(name: 'independent fire')

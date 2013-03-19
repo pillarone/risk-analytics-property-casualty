@@ -13,10 +13,12 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.DynamicComm
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
+import org.pillarone.riskanalytics.core.components.ComponentCategory
 
 /**
  * @author shartmann (at) munichre (dot) com
  */
+@ComponentCategory(categories = ['REINSURANCE','PROGRAM','COMMISSION'])
 class ReinsuranceWithBouquetCommissionProgram extends ComposedComponent {
 
     PacketList<Claim> inClaims = new PacketList(Claim)

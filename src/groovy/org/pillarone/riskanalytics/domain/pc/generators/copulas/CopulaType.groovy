@@ -5,6 +5,7 @@ import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObject
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@Deprecated
 abstract class CopulaType extends AbstractParameterObjectClassifier {
 
     protected CopulaType(String typeName, Map parameters) {

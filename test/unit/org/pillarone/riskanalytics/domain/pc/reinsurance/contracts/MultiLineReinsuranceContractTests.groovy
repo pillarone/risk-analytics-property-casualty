@@ -5,16 +5,19 @@ import org.pillarone.riskanalytics.core.example.component.TestComponent
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope
 import org.pillarone.riskanalytics.core.util.TestProbe
-import org.pillarone.riskanalytics.domain.assets.VoidTestModel
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.claims.TestLobComponent
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
 import org.pillarone.riskanalytics.domain.pc.generators.claims.TypableClaimsGenerator
 import org.pillarone.riskanalytics.domain.pc.generators.severities.Event
-import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
+import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionTests
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
-import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionTests
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
+import org.pillarone.riskanalytics.core.packets.PacketList
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IReserveMarker
+import org.pillarone.riskanalytics.core.components.PeriodStore
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -22,7 +25,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionT
 public class MultiLineReinsuranceContractTests extends GroovyTestCase {
 
     static MultiLineReinsuranceContract getQSContract20Percent() {
-        return new MultiLineReinsuranceContract(
+        MultiLineReinsuranceContract contract = new MultiLineReinsuranceContract(
                 parmContractStrategy: ReinsuranceContractType.getStrategy(
                         ReinsuranceContractType.QUOTASHARE,
                         ["quotaShare": 0.2,
@@ -31,6 +34,8 @@ public class MultiLineReinsuranceContractTests extends GroovyTestCase {
                 parmCoveredLines: new ComboBoxTableMultiDimensionalParameter(['fire'], ['Covered Segments'], ISegmentMarker),
                 simulationScope: CommissionTests.getTestSimulationScope()
         )
+        contract.periodStore = new PeriodStore(contract.simulationScope.iterationScope.periodScope)
+        contract
     }
 
     // todo(sku): to be completed
@@ -57,46 +62,23 @@ public class MultiLineReinsuranceContractTests extends GroovyTestCase {
 
     void testUsageWithClaimDevelopmentLeanPackets() {
         MultiLineReinsuranceContract contract = MultiLineReinsuranceContractTests.getQSContract20Percent()
-        contract.simulationScope = CommissionTests.getTestSimulationScope()
         TestComponent origin = new TestComponent()
+        contract.simulationScope.model.allComponents << origin
+        contract.parmCoveredLines.setSimulationModel contract.simulationScope.model
         TypableClaimsGenerator generator = new TypableClaimsGenerator()
         Event event1 = new Event()
         Event event2 = new Event()
-        Claim originalClaim1 = new Claim(
-                value: 10000,
-                event: event1,
-                fractionOfPeriod: 0.5,
-                peril: generator,
-                claimType: ClaimType.ATTRITIONAL,
-        )
-        Claim originalClaim2 = new Claim(
-                value: 500,
-                event: event2,
-                fractionOfPeriod: 0.5,
-                peril: generator,
-                claimType: ClaimType.ATTRITIONAL,
-        )
-        ClaimDevelopmentLeanPacket claimDevelopment1 = new ClaimDevelopmentLeanPacket(
-                        ultimate:10,
-                        paid: 6,
-                        origin: origin,
-                        originalClaim: originalClaim1,
-                        event: event1,
-                        peril: generator,
-                        fractionOfPeriod: 0.5)
-        ClaimDevelopmentLeanPacket claimDevelopment2 = new ClaimDevelopmentLeanPacket(
-                        ultimate:12,
-                        paid: 8,
-                        origin: origin,
-                        originalClaim: originalClaim2,
-                        event: event2,
-                        peril: generator,
-                        fractionOfPeriod: 0.5)
-        contract.inClaims << claimDevelopment1 << claimDevelopment2
+        Claim originalClaim1 = getClaim(generator, null, 10000, 0.6, ClaimType.ATTRITIONAL)
+        Claim originalClaim2 = getClaim(generator, null, 500, 0.5, ClaimType.ATTRITIONAL)
+        ClaimDevelopmentLeanPacket claimDevelopment1 = getClaim(generator, null, 10, 6, 0.4, origin, event1, originalClaim1)
+        ClaimDevelopmentLeanPacket claimDevelopment2 = getClaim(generator, null, 12, 8, 0.7, origin, event2, originalClaim2)
 
         def probeCoveredClaims = new TestProbe(contract, "outCoveredClaims")
         List coveredClaims = probeCoveredClaims.result
 
+        PacketList<Claim> incomingClaims = new PacketList<Claim>(Claim)
+        incomingClaims << claimDevelopment1 << claimDevelopment2
+        contract.filterInChannel(contract.inClaims, incomingClaims)
         contract.start()
 
         assertEquals '# ceded claims packets', 2, coveredClaims.size()
@@ -110,50 +92,22 @@ public class MultiLineReinsuranceContractTests extends GroovyTestCase {
 
     void testCoverLines() {
         MultiLineReinsuranceContract contract = MultiLineReinsuranceContractTests.getQSContract20Percent()
-        SimulationScope simulationScope = CommissionTests.getTestSimulationScope()
-        contract.simulationScope = simulationScope
         TestComponent origin = new TestComponent()
         TypableClaimsGenerator generator = new TypableClaimsGenerator()
         TestLobComponent lobFire = new TestLobComponent(name: 'fire')
         TestLobComponent lobMotor = new TestLobComponent(name: 'motor')
-        simulationScope.model.allComponents << lobFire << lobMotor
-        contract.parmCoveredLines.setSimulationModel simulationScope.model
+        contract.simulationScope.model.allComponents << lobFire << lobMotor
+        contract.parmCoveredLines.setSimulationModel contract.simulationScope.model
         Event event1 = new Event()
         Event event2 = new Event()
-        Claim originalClaim1 = new Claim(
-                value: 10000,
-                event: event1,
-                fractionOfPeriod: 0.5,
-                peril: generator,
-                claimType: ClaimType.ATTRITIONAL,
-        )
-        Claim originalClaim2 = new Claim(
-                value: 500,
-                event: event2,
-                fractionOfPeriod: 0.5,
-                peril: generator,
-                claimType: ClaimType.ATTRITIONAL,
-        )
-        ClaimDevelopmentLeanPacket claimDevelopment1 = new ClaimDevelopmentLeanPacket(
-                        ultimate:10,
-                        paid: 6,
-                        origin: origin,
-                        originalClaim: originalClaim1,
-                        event: event1,
-                        peril: generator,
-                        lineOfBusiness: lobFire,
-                        fractionOfPeriod: 0.5)
-        ClaimDevelopmentLeanPacket claimDevelopment2 = new ClaimDevelopmentLeanPacket(
-                        ultimate:12,
-                        paid: 8,
-                        origin: origin,
-                        originalClaim: originalClaim2,
-                        event: event2,
-                        peril: generator,
-                        lineOfBusiness: lobMotor,
-                        fractionOfPeriod: 0.5)
-        contract.inClaims << claimDevelopment1 << claimDevelopment2
+        Claim originalClaim1 = getClaim(generator, null, 10000, 0.6, ClaimType.ATTRITIONAL)
+        Claim originalClaim2 = getClaim(generator, null, 500, 0.5, ClaimType.ATTRITIONAL)
+        ClaimDevelopmentLeanPacket claimDevelopment1 = getClaim(generator, lobFire, 10, 6, 0.4, origin, event1, originalClaim1)
+        ClaimDevelopmentLeanPacket claimDevelopment2 = getClaim(generator, lobMotor, 12, 8, 0.7, origin, event2, originalClaim2)
 
+        PacketList<Claim> incomingClaims = new PacketList<Claim>(Claim)
+        incomingClaims << claimDevelopment1 << claimDevelopment2
+        contract.filterInChannel(contract.inClaims, incomingClaims)
         contract.doCalculation()
         assertEquals '# ceded claims packets', 1, contract.outCoveredClaims.size()
         assertEquals 'ceded incurred 0', 2d, contract.outCoveredClaims[0].incurred
@@ -163,9 +117,12 @@ public class MultiLineReinsuranceContractTests extends GroovyTestCase {
         contract.reset()
 
 
-        contract.inClaims << claimDevelopment1 << claimDevelopment2
         contract.parmCoveredLines = new ComboBoxTableMultiDimensionalParameter(['motor'], ['Covered Segments'], ISegmentMarker)
-        contract.parmCoveredLines.setSimulationModel simulationScope.model
+        contract.parmCoveredLines.setSimulationModel contract.simulationScope.model
+        contract.simulationScope.iterationScope.periodScope.prepareNextPeriod()
+        incomingClaims.clear()
+        incomingClaims << claimDevelopment1 << claimDevelopment2
+        contract.filterInChannel(contract.inClaims, incomingClaims)
         contract.doCalculation()
         assertEquals '# ceded claims packets', 1, contract.outCoveredClaims.size()
         assertEquals 'ceded incurred 0', 2.4d, contract.outCoveredClaims[0].incurred, 1E-10
@@ -173,5 +130,36 @@ public class MultiLineReinsuranceContractTests extends GroovyTestCase {
         assertEquals 'ceded reserved 0', 0.8, contract.outCoveredClaims[0].reserved, 1E-10
         assertEquals 'origin of motor claim', originalClaim2, contract.outCoveredClaims[0].originalClaim
         contract.reset()
+    }
+
+    private ClaimDevelopmentLeanPacket getClaim(IPerilMarker peril, ISegmentMarker lob, double ultimate, double paid,
+                                                double fractionOfPeriod, Component origin, Event event,
+                                                Claim originalClaim) {
+        ClaimDevelopmentLeanPacket claim = new ClaimDevelopmentLeanPacket(ultimate: ultimate, paid: paid,
+                fractionOfPeriod: fractionOfPeriod, origin: origin, event: event, originalClaim: originalClaim)
+        claim.addMarker(IPerilMarker, peril)
+        claim.addMarker(ISegmentMarker, lob)
+        claim
+    }
+
+    private Claim getClaim(IPerilMarker peril, ISegmentMarker lob, double ultimate, double fractionOfPeriod, ClaimType claimType) {
+        Claim claim = new Claim(ultimate: ultimate, fractionOfPeriod: fractionOfPeriod, claimType: claimType)
+        claim.addMarker(IPerilMarker, peril)
+        claim.addMarker(ISegmentMarker, lob)
+        claim
+    }
+
+    private Claim getClaim(IPerilMarker peril, ISegmentMarker lob, double ultimate) {
+        Claim claim = new Claim(ultimate: ultimate)
+        claim.addMarker(IPerilMarker, peril)
+        claim.addMarker(ISegmentMarker, lob)
+        claim
+    }
+
+    private Claim getClaim(IReserveMarker reserve, ISegmentMarker lob, double ultimate) {
+        Claim claim = new Claim(ultimate: ultimate)
+        claim.addMarker(IReserveMarker, reserve)
+        claim.addMarker(ISegmentMarker, lob)
+        claim
     }
 }

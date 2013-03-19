@@ -1,10 +1,13 @@
 package org.pillarone.riskanalytics.domain.pc.generators.claims;
 
 import org.apache.commons.lang.NotImplementedException;
+import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.model.Model;
+import org.pillarone.riskanalytics.core.packets.Packet;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter;
 import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope;
+import org.pillarone.riskanalytics.core.wiring.WiringValidation;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimPacketFactory;
 import org.pillarone.riskanalytics.domain.pc.claims.IRiskAllocatorStrategy;
@@ -36,6 +39,7 @@ import java.util.*;
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = {"CLAIM","GENERATOR","ATTRITIONAL","SINGLE","EVENT"})
 public class TypableClaimsGenerator extends GeneratorCachingComponent implements IPerilMarker {
 
     private SimulationScope simulationScope;
@@ -47,6 +51,7 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
     /**
      * needs to be connected only if the claims generator was selected as target in a copula
      */
+    @WiringValidation(connections= {0, 1}, packets= {1, 1})
     private PacketList<DependenceStream> inProbabilities = new PacketList<DependenceStream>(DependenceStream.class);
     /**
      * needs to be connected only ...
@@ -81,15 +86,11 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
     private IRandomNumberGenerator dateGenerator = RandomNumberGeneratorFactory.getUniformGenerator();
 
     protected void doCalculation() {
-        outUnderwritingInfo.addAll(
-                UnderwritingFilterUtilities.filterUnderwritingInfo(
-                        inUnderwritingInfo,
-                        (List) parmUnderwritingInformation.getValuesAsObjects(0, false)));
         List<Double> claimValues = new ArrayList<Double>();
         List<Event> events = new ArrayList<Event>();
         PacketList<Claim> claims = new PacketList<Claim>(Claim.class);
         if (!(parmClaimsModel instanceof NoneClaimsGeneratorStrategy)) {
-            double scalingFactor = UnderwritingUtilities.scaleFactor(outUnderwritingInfo, parmClaimsModel.getClaimsSizeBase());
+            double scalingFactor = UnderwritingUtilities.scaleFactor(inUnderwritingInfo, parmClaimsModel.getClaimsSizeBase());
             ClaimType claimType = ClaimType.ATTRITIONAL;
             if (parmClaimsModel instanceof AttritionalClaimsGeneratorStrategy) {
                 claimType = ClaimType.ATTRITIONAL;
@@ -175,7 +176,6 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
                 for (Double claimValue : claimValues) {
                     Claim claim = ClaimPacketFactory.createPacket();
                     claim.origin = this;
-                    claim.setPeril(this);
                     claim.setClaimType(claimType);
                     claim.setUltimate(claimValue * scalingFactor);
                     setFractionOfPeriod(claimType, claim);
@@ -186,7 +186,6 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
                 for (int i = 0; i < claimValues.size(); i++) {
                     Claim claim = ClaimPacketFactory.createPacket();
                     claim.origin = this;
-                    claim.setPeril(this);
                     claim.setClaimType(claimType);
                     claim.setUltimate(claimValues.get(i) * scalingFactor);
                     claim.setEvent(events.get(i));
@@ -195,10 +194,24 @@ public class TypableClaimsGenerator extends GeneratorCachingComponent implements
                 }
             }
         }
-        outClaims.addAll(parmAssociateExposureInfo.getAllocatedClaims(claims, outUnderwritingInfo));
+        outClaims.addAll(parmAssociateExposureInfo.getAllocatedClaims(claims, inUnderwritingInfo));
         Frequency frequency = new Frequency();
         frequency.setValue(outClaims.size());
         outClaimsNumber.add(frequency);
+    }
+
+    @Override
+    // todo(sku): filter probabilities
+    public void filterInChannel(PacketList inChannel, PacketList source) {
+        if (inChannel == inUnderwritingInfo) {
+            if (parmUnderwritingInformation.getValuesAsObjects(0, true).size() > 0) {
+                inUnderwritingInfo.addAll(UnderwritingFilterUtilities.filterUnderwritingInfo(source, parmUnderwritingInformation.getValuesAsObjects(0, true)));
+                outUnderwritingInfo.addAll(inUnderwritingInfo);
+            }
+        }
+        else {
+            super.filterInChannel(inChannel, source);
+        }
     }
 
     protected void setFractionOfPeriod(ClaimType claimType, Claim claim) {

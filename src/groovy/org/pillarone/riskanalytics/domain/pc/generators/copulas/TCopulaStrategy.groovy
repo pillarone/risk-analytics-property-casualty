@@ -15,6 +15,7 @@ import cern.colt.matrix.impl.DenseDoubleMatrix2D
 /**
  * @author Michael-Noe (at) Web (dot) de
  */
+@Deprecated
 abstract class TCopulaStrategy extends AbstractCopulaStrategy {
 
     DoubleMatrix2D sigmaMatrix

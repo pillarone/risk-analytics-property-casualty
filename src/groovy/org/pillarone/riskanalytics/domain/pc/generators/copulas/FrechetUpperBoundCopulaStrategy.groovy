@@ -8,6 +8,7 @@ import org.pillarone.riskanalytics.domain.utils.RandomNumberGeneratorFactory
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@Deprecated
 abstract class FrechetUpperBoundCopulaStrategy extends AbstractCopulaStrategy {
 
     AbstractMultiDimensionalParameter targets = new SimpleMultiDimensionalParameter([])

@@ -3,12 +3,15 @@ package org.pillarone.riskanalytics.domain.pc.reserves.cashflow;
 import org.joda.time.DateTime;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimPacketFactory;
+import org.pillarone.riskanalytics.domain.utils.marker.IReinsuranceContractMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 
 import java.text.SimpleDateFormat;
-import java.util.Map;
-import java.util.HashMap;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author shartmann (at) munichre (dot) com
@@ -52,7 +55,7 @@ public class ClaimDevelopmentPacket extends Claim {
         ClaimDevelopmentPacket netClaim = (ClaimDevelopmentPacket) copy();
         netClaim.minus(cededClaim);
         if (cededClaim.notNull()) {
-            netClaim.setReinsuranceContract(cededClaim.getReinsuranceContract());
+            netClaim.addMarker(IReinsuranceContractMarker.class, cededClaim.getReinsuranceContract());
         }
         return netClaim;
     }
@@ -130,8 +133,8 @@ public class ClaimDevelopmentPacket extends Claim {
             claim.setEvent(getEvent());
             claim.setFractionOfPeriod(getFractionOfPeriod());
             claim.setClaimType(getClaimType());
-            claim.setPeril(getPeril());
-            claim.setLineOfBusiness(getLineOfBusiness());
+            claim.addMarker(IPerilMarker.class, getPeril());
+            claim.addMarker(ISegmentMarker.class, getLineOfBusiness());
         }
         claim.setUltimate(getUltimate());
         return claim;

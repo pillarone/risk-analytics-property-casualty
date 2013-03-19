@@ -1,8 +1,9 @@
 package org.pillarone.riskanalytics.domain.pc.claims;
 
 import org.pillarone.riskanalytics.core.components.Component;
+import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.packets.PacketList;
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IReinsuranceContractMarker;
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
 
@@ -30,6 +31,7 @@ import java.util.Map;
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = {"CLAIM","MARKET","MERGER"})
 public class MarketGrossNetClaimsMerger extends Component {
 
     private PacketList<Claim> inClaimsCeded = new PacketList<Claim>(Claim.class);
@@ -76,7 +78,8 @@ public class MarketGrossNetClaimsMerger extends Component {
                             Claim aggregateCededClaim = aggregateGrossCededClaim.getClaimCeded();
                             aggregateCededClaim.plus(cededClaim);
                             aggregateCededClaim.origin = this;
-                            aggregateCededClaim.setReinsuranceContract(correctReinsuranceContract(aggregateCededClaim, cededClaim));
+                            aggregateCededClaim.addMarker(IReinsuranceContractMarker.class,
+                                    correctReinsuranceContract(aggregateCededClaim, cededClaim));
                         }
                     }
                 }

@@ -8,6 +8,7 @@ import java.util.Map;
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@Deprecated
 public class MarkerKeyPair {
 
     IComponentMarker marker1;

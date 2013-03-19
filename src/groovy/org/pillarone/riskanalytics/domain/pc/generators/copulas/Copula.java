@@ -2,6 +2,7 @@ package org.pillarone.riskanalytics.domain.pc.generators.copulas;
 
 import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.core.packets.PacketList;
+import org.pillarone.riskanalytics.core.simulation.engine.PeriodScope;
 import org.pillarone.riskanalytics.domain.pc.generators.frequency.Frequency;
 
 import java.util.List;
@@ -9,10 +10,12 @@ import java.util.List;
 /**
  * @author ali.majidi (at) munichre (dot) com, stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@Deprecated
 abstract public class Copula extends Component {
 
     private PacketList<Frequency> inNumber = new PacketList<Frequency>(Frequency.class);
     private PacketList<DependenceStream> outProbabilities = new PacketList<DependenceStream>(DependenceStream.class);
+    private PeriodScope periodScope;
 
     public void doCalculation() {
         if (isReceiverWired(inNumber) || inNumber.size() > 0) {
@@ -49,5 +52,13 @@ abstract public class Copula extends Component {
 
     public void setOutProbabilities(PacketList<DependenceStream> outProbabilities) {
         this.outProbabilities = outProbabilities;
+    }
+
+    public PeriodScope getPeriodScope() {
+        return periodScope;
+    }
+
+    public void setPeriodScope(PeriodScope periodScope) {
+        this.periodScope = periodScope;
     }
 }

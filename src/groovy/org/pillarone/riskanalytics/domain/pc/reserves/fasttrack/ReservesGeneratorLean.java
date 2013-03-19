@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.reserves.fasttrack;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.components.PeriodStore;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.packets.SingleValuePacket;
@@ -27,6 +28,7 @@ import java.util.List;
  *
  * @author shartmann (at) munichre (dot) com
  */
+@ComponentCategory(categories = {"RESERVES","GENERATOR"})
 public class ReservesGeneratorLean extends GeneratorCachingComponent implements IReserveMarker {
 
     private PeriodScope periodScope;
@@ -62,7 +64,6 @@ public class ReservesGeneratorLean extends GeneratorCachingComponent implements 
 
         claim.setPaid(claim.getUltimate() * parmPeriodPaymentPortion);
         claim.setReserved(claim.getUltimate() - claim.getPaid());
-        claim.setPeril(this);
         outClaimsDevelopment.add(claim);
         outClaimsLeanDevelopment.add(claim);
 
@@ -70,34 +71,37 @@ public class ReservesGeneratorLean extends GeneratorCachingComponent implements 
         periodStore.put(RESERVES, aggregatedReserves);
     }
 
-    private double addReservesFromClaims(double aggregatedReserves) {
+    @Override
+    public void filterInChannel(PacketList inChannel, PacketList source) {
+        if (inChannel == inClaims) {
+            ComboBoxTableMultiDimensionalParameter basedOnClaimsGenerator = ((AbstractClaimsGeneratorBasedReservesGeneratorStrategy) parmReservesModel).getBasedOnClaimsGenerators();
+            List<IPerilMarker> coveredPerils = basedOnClaimsGenerator.getValuesAsObjects(0, true);
+            if (coveredPerils.size() == 0) {
+                inClaims.addAll(source);
+            }
+            else {
+                for (Object claim : source) {
+                    if (coveredPerils.contains(((Claim) claim).getPeril())) {
+                        inClaims.add((Claim) claim);
+                    }
+                }
+            }
+        }
+        else {
+            super.filterInChannel(inChannel, source);
+        }
+    }
 
+    private double addReservesFromClaims(double aggregatedReserves) {
         if (!(parmReservesModel instanceof PriorPeriodReservesGeneratorStrategy)) {
             return aggregatedReserves;
         }
-
-        ComboBoxTableMultiDimensionalParameter basedOnClaimsGenerator = ((AbstractClaimsGeneratorBasedReservesGeneratorStrategy) parmReservesModel).getBasedOnClaimsGenerators();
-        List<IPerilMarker> coveredPerils = (List<IPerilMarker>) basedOnClaimsGenerator.getValuesAsObjects(0, true);
-
-        if (coveredPerils.size() == 0) {
-            return addUnfilteredReserves(aggregatedReserves);
-        }
-
-        return addFilteredReserves(aggregatedReserves, coveredPerils);
+        return addReserves(aggregatedReserves);
     }
 
-    private double addUnfilteredReserves(double aggregatedReserves) {
+    private double addReserves(double aggregatedReserves) {
         for (Claim incomingClaim : inClaims) {
             aggregatedReserves += ((ClaimDevelopmentLeanPacket) incomingClaim).getReserved();
-        }
-        return aggregatedReserves;
-    }
-
-    private double addFilteredReserves(double aggregatedReserves, List<IPerilMarker> coveredPerils) {
-        for (Claim incomingClaim : inClaims) {
-            if (coveredPerils.contains(incomingClaim.getPeril())) {
-                aggregatedReserves += ((ClaimDevelopmentLeanPacket) incomingClaim).getReserved();
-            }
         }
         return aggregatedReserves;
     }

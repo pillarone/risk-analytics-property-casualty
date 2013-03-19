@@ -14,6 +14,7 @@ import umontreal.iro.lecuyer.rng.RandomStream
  *
  * @author ali.majidi (at) munichre (dot) com
  */
+@Deprecated
 class CensoredVariateGen extends RandomVariateGen {
     double lowerBound, upperBound, shift
     RandomVariateGen generator

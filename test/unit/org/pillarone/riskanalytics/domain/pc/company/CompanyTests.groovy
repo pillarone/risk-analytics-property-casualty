@@ -13,6 +13,8 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiCompanyC
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.core.components.PeriodStore
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
+import org.pillarone.riskanalytics.domain.utils.marker.IReinsuranceContractMarker
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 
 /**
  * @author jessika.walter (at) intuitive-collaboration (dot) com
@@ -56,18 +58,29 @@ class CompanyTests extends GroovyTestCase {
         parmCompanyPlutoRe.selectedComponent = companyPlutoRe
 
         // ClaimsGross
-        Claim claimG100V = new Claim(ultimate: 100, lineOfBusiness: motorVenusRe)
-        Claim claimG500M = new Claim(ultimate: 500, lineOfBusiness: motorMarsRe)
-        Claim claimG200V = new Claim(ultimate: 200, lineOfBusiness: motorVenusRe)
-        Claim claimG600P = new Claim(ultimate: 600, lineOfBusiness: motorPlutoRe)
-        Claim claimG300M = new Claim(ultimate: 300, lineOfBusiness: accidentMarsRe)
+        Claim claimG100V = new Claim(ultimate: 100)
+        claimG100V.addMarker(ISegmentMarker, motorVenusRe)
+        Claim claimG500M = new Claim(ultimate: 500)
+        claimG500M.addMarker(ISegmentMarker, motorMarsRe)
+        Claim claimG200V = new Claim(ultimate: 200)
+        claimG200V.addMarker(ISegmentMarker, motorVenusRe)
+        Claim claimG600P = new Claim(ultimate: 600)
+        claimG600P.addMarker(ISegmentMarker, motorPlutoRe)
+        Claim claimG300M = new Claim(ultimate: 300)
+        claimG300M.addMarker(ISegmentMarker, accidentMarsRe)
 
         // ClaimsCeded
-        Claim claimC50V = new Claim(ultimate: 50, lineOfBusiness: motorVenusRe,
-                reinsuranceContract: motorVenusReQuotaShare)
-        Claim claimC200M = new Claim(ultimate: 200, lineOfBusiness: motorMarsRe)
-        Claim claimC180V = new Claim(ultimate: 180, lineOfBusiness: motorVenusRe, reinsuranceContract: motorVenusReQuotaShare)
-        Claim claimC150M = new Claim(ultimate: 150, lineOfBusiness: accidentMarsRe, reinsuranceContract: accidentMarsReStopLoss)
+        Claim claimC50V = new Claim(ultimate: 50)
+        claimC50V.addMarker(ISegmentMarker, motorVenusRe)
+        claimC50V.addMarker(IReinsuranceContractMarker, motorVenusReQuotaShare)
+        Claim claimC200M = new Claim(ultimate: 200)
+        claimC200M.addMarker(ISegmentMarker, motorMarsRe)
+        Claim claimC180V = new Claim(ultimate: 180)
+        claimC180V.addMarker(ISegmentMarker, motorVenusRe)
+        claimC180V.addMarker(IReinsuranceContractMarker, motorVenusReQuotaShare)
+        Claim claimC150M = new Claim(ultimate: 150)
+        claimC150M.addMarker(ISegmentMarker, accidentMarsRe)
+        claimC150M.addMarker(IReinsuranceContractMarker, accidentMarsReStopLoss)
 
         companyVenusRe.inClaimsGross << claimG100V << claimG500M << claimG200V << claimG600P << claimG300M
         companyVenusRe.inClaimsCeded << claimC50V << claimC200M << claimC180V << claimC150M

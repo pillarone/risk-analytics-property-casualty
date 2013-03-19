@@ -6,10 +6,12 @@ import org.pillarone.riskanalytics.core.parameterization.TableMultiDimensionalPa
 import org.pillarone.riskanalytics.domain.pc.allocators.AllocationTable
 import org.pillarone.riskanalytics.domain.pc.constants.RiskBandAllocationBase
 import org.pillarone.riskanalytics.domain.utils.InputFormatConverter
+import org.pillarone.riskanalytics.core.components.ComponentCategory
 
 /**
  * @author: Michael-Noe (at) Web (dot) de
  */
+@ComponentCategory(categories = ['UNDERWRITING'])
 class RiskBandsWithLossProbability extends RiskBands {
     static Map<RiskBandAllocationBase, String> singleAllocationBaseColumnName = [
             (RiskBandAllocationBase.PREMIUM): 'premium',

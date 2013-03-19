@@ -33,6 +33,9 @@ import org.pillarone.riskanalytics.core.components.PeriodStore
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedString
 import org.pillarone.riskanalytics.domain.pc.lob.CompanyConfigurableLobWithReserves
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ReservesGeneratorLean
+import org.pillarone.riskanalytics.core.packets.PacketList
+import org.pillarone.riskanalytics.core.components.Component
+import org.pillarone.riskanalytics.domain.utils.marker.IReserveMarker
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.CommissionTests
 
 /** With the exception of testCoverCompanies() the test cases are copied from MultiCoverAttributeReinsuranceContractTests and simply
@@ -56,6 +59,7 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
                         ['lines': new ComboBoxTableMultiDimensionalParameter(['fire'], ['Covered Segments'], ISegmentMarker)])
         )
         contract.simulationScope = CommissionTests.getTestSimulationScope()
+        contract.periodStore = new PeriodStore(contract.simulationScope.iterationScope.periodScope)
         return contract
 
     }
@@ -70,6 +74,7 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
                 parmCover: coverStrategy
         )
         contract.simulationScope = CommissionTests.getTestSimulationScope()
+        contract.periodStore = new PeriodStore(contract.simulationScope.iterationScope.periodScope)
         return contract
     }
 
@@ -88,7 +93,7 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
 
         ComboBoxTableMultiDimensionalParameter lines = hasLines ? new ComboBoxTableMultiDimensionalParameter(cover['lines'], ['Covered Segments'], ISegmentMarker) : null
         ComboBoxTableMultiDimensionalParameter perils = hasPerils ? new ComboBoxTableMultiDimensionalParameter(cover['perils'], ['Covered Perils'], IPerilMarker) : null
-        ComboBoxTableMultiDimensionalParameter reserves = hasReserves ? new ComboBoxTableMultiDimensionalParameter(cover['reserves'], ['Covered Reserves'], ISegmentMarker) : null
+        ComboBoxTableMultiDimensionalParameter reserves = hasReserves ? new ComboBoxTableMultiDimensionalParameter(cover['reserves'], ['Covered Reserves'], IReserveMarker) : null
 
         // each of the strategy-specific ComboBoxTableMultiDimensionalParameter properties needs to set the simulation model (to simulate a choice from the GUI)
         if (model != null) {
@@ -176,12 +181,12 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
                 getCompanyCoverAttributeStrategy(['lines': ['fire', 'flood', 'lightning', 'wind']], simulationScope.model)
         )
 
-        Claim claimFire1000 = new Claim(peril: perilA, lineOfBusiness: lob['fire'], value: 1000d, fractionOfPeriod: 0.2, claimType: ClaimType.ATTRITIONAL)
-        Claim claimHull1100 = new Claim(peril: perilA, lineOfBusiness: lob['hull'], value: 1100d, fractionOfPeriod: 0.3, claimType: ClaimType.SINGLE)
-        Claim claimLegal1200 = new Claim(peril: perilA, lineOfBusiness: lob['legal'], value: 1200d, fractionOfPeriod: 0.1, claimType: ClaimType.SINGLE)
-        Claim claimFire1300 = new Claim(peril: perilB, lineOfBusiness: lob['fire'], value: 1300d, fractionOfPeriod: 0.4, claimType: ClaimType.ATTRITIONAL)
-        Claim claimFire1400 = new Claim(peril: perilB, lineOfBusiness: lob['fire'], value: 1400d, fractionOfPeriod: 0.5, claimType: ClaimType.SINGLE)
-        Claim claimFire1500 = new Claim(peril: perilC, lineOfBusiness: lob['fire'], value: 1500d, fractionOfPeriod: 0.6, claimType: ClaimType.SINGLE)
+        Claim claimFire1000 = getClaim(perilA, lob['fire'], 1000d, 0.2, ClaimType.ATTRITIONAL)
+        Claim claimHull1100 = getClaim(perilA, lob['hull'], 1100d, 0.3, ClaimType.SINGLE)
+        Claim claimLegal1200 = getClaim(perilA, lob['legal'], 1200d, 0.1, ClaimType.SINGLE)
+        Claim claimFire1300 = getClaim(perilB, lob['fire'], 1300d, 0.4, ClaimType.ATTRITIONAL)
+        Claim claimFire1400 = getClaim(perilB, lob['fire'], 1400d, 0.5, ClaimType.SINGLE)
+        Claim claimFire1500 = getClaim(perilC, lob['fire'], 1500d, 0.6, ClaimType.SINGLE)
 
         UnderwritingInfo underwritingInfoFire = new UnderwritingInfo(premium: 300, commission: 10, lineOfBusiness: lob['fire'])
         UnderwritingInfo underwritingInfoHull = new UnderwritingInfo(premium: 200, commission: 30, lineOfBusiness: lob['hull'])
@@ -190,18 +195,22 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
         UnderwritingInfo underwritingInfoBlitz = new UnderwritingInfo(premium: 500, commission: 60, lineOfBusiness: lob['lightning'])
         UnderwritingInfo underwritingInfoWind = new UnderwritingInfo(premium: 400, commission: 50, lineOfBusiness: lob['wind'])
 
-        contract.inClaims << claimFire1000 << claimHull1100 << claimLegal1200 << claimFire1300 << claimFire1400 << claimFire1500
-        contract.inUnderwritingInfo << underwritingInfoFire << underwritingInfoHull << underwritingInfoLegal << underwritingInfoFlood << underwritingInfoBlitz << underwritingInfoWind
+        PacketList<Claim> incomingClaims = new PacketList<Claim>(Claim)
+        incomingClaims << claimFire1000 << claimHull1100 << claimLegal1200 << claimFire1300 << claimFire1400 << claimFire1500
+        PacketList<UnderwritingInfo> incomingUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo)
+        incomingUnderwritingInfo << underwritingInfoFire << underwritingInfoHull << underwritingInfoLegal << underwritingInfoFlood << underwritingInfoBlitz << underwritingInfoWind
 
         def netUWInfoWired = new TestProbe(contract, 'outNetAfterCoverUnderwritingInfo')
         def netClaimsWired = new TestProbe(contract, 'outUncoveredClaims')
 
         // test LineOfBusinessCoverAttributeStrategy
+        contract.filterInChannel(contract.inClaims, incomingClaims)
+        contract.filterInChannel(contract.inUnderwritingInfo, incomingUnderwritingInfo)
         contract.doCalculation()
-        assertEquals "# of (fire) filtered claims", 4, contract.outFilteredClaims.size()
+        assertEquals "# of (fire) filtered claims", 4, contract.inClaims.size()
         assertEquals "# of (fire) covered claims", 4, contract.outCoveredClaims.size()
         assertEquals "# of (fire) uncovered claims", 4, contract.outUncoveredClaims.size()
-        assertEquals "# of (fire) filtered UWInfo", 1, contract.outFilteredUnderwritingInfo.size()
+        assertEquals "# of (fire) filtered UWInfo", 1, contract.inUnderwritingInfo.size()
         assertEquals "# of (fire) cover UWInfo", 1, contract.outCoverUnderwritingInfo.size()
 
         assertEquals "covered, (fire) claim 0", 200, contract.outCoveredClaims[0].ultimate
@@ -237,12 +246,12 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
                 getCompanyCoverAttributeStrategy(['lines': ['doomsday', 'supernova', 'blackhole', 'apocalypse']], simulationScope.model)
         )
 
-        Claim claimFire1000 = new Claim(peril: perilA, lineOfBusiness: lob['fire'], value: 1000d, fractionOfPeriod: 0.2, claimType: ClaimType.ATTRITIONAL)
-        Claim claimHull1100 = new Claim(peril: perilA, lineOfBusiness: lob['hull'], value: 1100d, fractionOfPeriod: 0.3, claimType: ClaimType.SINGLE)
-        Claim claimLegal1200 = new Claim(peril: perilA, lineOfBusiness: lob['legal'], value: 1200d, fractionOfPeriod: 0.1, claimType: ClaimType.SINGLE)
-        Claim claimFire1300 = new Claim(peril: perilB, lineOfBusiness: lob['fire'], value: 1300d, fractionOfPeriod: 0.4, claimType: ClaimType.ATTRITIONAL)
-        Claim claimFire1400 = new Claim(peril: perilB, lineOfBusiness: lob['fire'], value: 1400d, fractionOfPeriod: 0.5, claimType: ClaimType.SINGLE)
-        Claim claimFire1500 = new Claim(peril: perilC, lineOfBusiness: lob['fire'], value: 1500d, fractionOfPeriod: 0.6, claimType: ClaimType.SINGLE)
+        Claim claimFire1000 = getClaim(perilA, lob['fire'], 1000d, 0.2, ClaimType.ATTRITIONAL)
+        Claim claimHull1100 = getClaim(perilA, lob['hull'], 1100d, 0.3, ClaimType.SINGLE)
+        Claim claimLegal1200 = getClaim(perilA, lob['legal'], 1200d, 0.1, ClaimType.SINGLE)
+        Claim claimFire1300 = getClaim(perilB, lob['fire'], 1300d, 0.4, ClaimType.ATTRITIONAL)
+        Claim claimFire1400 = getClaim(perilB, lob['fire'], 1400d, 0.5, ClaimType.SINGLE)
+        Claim claimFire1500 = getClaim(perilC, lob['fire'], 1500d, 0.6, ClaimType.SINGLE)
 
         UnderwritingInfo underwritingInfoFire = new UnderwritingInfo(premium: 300, commission: 10, lineOfBusiness: lob['fire'])
         UnderwritingInfo underwritingInfoHull = new UnderwritingInfo(premium: 200, commission: 30, lineOfBusiness: lob['hull'])
@@ -254,14 +263,20 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
         def netUWInfoWired = new TestProbe(contract, 'outNetAfterCoverUnderwritingInfo')
         def netClaimsWired = new TestProbe(contract, 'outUncoveredClaims')
 
-        contract.inClaims << claimFire1000 << claimHull1100 << claimLegal1200 << claimFire1300 << claimFire1400 << claimFire1500
-        contract.inUnderwritingInfo << underwritingInfoFire << underwritingInfoHull << underwritingInfoLegal << underwritingInfoFlood << underwritingInfoBlitz << underwritingInfoWind
+        PacketList<Claim> incomingClaims = new PacketList<Claim>(Claim)
+        incomingClaims << claimFire1000 << claimHull1100 << claimLegal1200 << claimFire1300 << claimFire1400 << claimFire1500
+        PacketList<UnderwritingInfo> incomingUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo)
+        incomingUnderwritingInfo << underwritingInfoFire << underwritingInfoHull << underwritingInfoLegal << underwritingInfoFlood << underwritingInfoBlitz << underwritingInfoWind
+
+        // test LineOfBusinessCoverAttributeStrategy
+        contract.filterInChannel(contract.inClaims, incomingClaims)
+        contract.filterInChannel(contract.inUnderwritingInfo, incomingUnderwritingInfo)
         contract.doCalculation()
 
-        assertEquals "# of (astronomical) filtered claims", 0, contract.outFilteredClaims.size()
+        assertEquals "# of (astronomical) filtered claims", 0, contract.inClaims.size()
         assertEquals "# of (astronomical) covered claims", 0, contract.outCoveredClaims.size()
         assertEquals "# of (astronomical) uncovered claims", 0, contract.outUncoveredClaims.size()
-        assertEquals "# of (astronomical) filtered UWInfo", 0, contract.outFilteredUnderwritingInfo.size()
+        assertEquals "# of (astronomical) filtered UWInfo", 0, contract.inUnderwritingInfo.size()
         assertEquals "# of (astronomical) cover UWInfo", 0, contract.outCoverUnderwritingInfo.size()
     }
 
@@ -283,12 +298,12 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
                 getCompanyCoverAttributeStrategy(['lines': ['fire'], 'perils': ['peril b']], simulationScope.model)
         )
 
-        Claim claimFire1000 = new Claim(peril: perilA, lineOfBusiness: lob['fire'], value: 1000d, fractionOfPeriod: 0.2, claimType: ClaimType.ATTRITIONAL)
-        Claim claimHull1100 = new Claim(peril: perilA, lineOfBusiness: lob['hull'], value: 1100d, fractionOfPeriod: 0.3, claimType: ClaimType.SINGLE)
-        Claim claimLegal1200 = new Claim(peril: perilA, lineOfBusiness: lob['legal'], value: 1200d, fractionOfPeriod: 0.1, claimType: ClaimType.SINGLE)
-        Claim claimFire1300 = new Claim(peril: perilB, lineOfBusiness: lob['fire'], value: 1300d, fractionOfPeriod: 0.4, claimType: ClaimType.ATTRITIONAL)
-        Claim claimFire1400 = new Claim(peril: perilB, lineOfBusiness: lob['fire'], value: 1400d, fractionOfPeriod: 0.5, claimType: ClaimType.SINGLE)
-        Claim claimFire1500 = new Claim(peril: perilC, lineOfBusiness: lob['fire'], value: 1500d, fractionOfPeriod: 0.6, claimType: ClaimType.SINGLE)
+        Claim claimFire1000 = getClaim(perilA, lob['fire'], 1000d, 0.2, ClaimType.ATTRITIONAL)
+        Claim claimHull1100 = getClaim(perilA, lob['hull'], 1100d, 0.3, ClaimType.SINGLE)
+        Claim claimLegal1200 = getClaim(perilA, lob['legal'], 1200d, 0.1, ClaimType.SINGLE)
+        Claim claimFire1300 = getClaim(perilB, lob['fire'], 1300d, 0.4, ClaimType.ATTRITIONAL)
+        Claim claimFire1400 = getClaim(perilB, lob['fire'], 1400d, 0.5, ClaimType.SINGLE)
+        Claim claimFire1500 = getClaim(perilC, lob['fire'], 1500d, 0.6, ClaimType.SINGLE)
 
         UnderwritingInfo underwritingInfoFire = new UnderwritingInfo(origin: perilB, premium: 300, commission: 10, lineOfBusiness: lob['fire'])
         UnderwritingInfo underwritingInfoHull = new UnderwritingInfo(origin: perilA, premium: 200, commission: 30, lineOfBusiness: lob['fire'])
@@ -297,16 +312,22 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
 
         def netUWInfoWired = new TestProbe(contract, 'outNetAfterCoverUnderwritingInfo')
         def netClaimsWired = new TestProbe(contract, 'outUncoveredClaims')
-        def filteredClaimsWired = new TestProbe(contract, 'outFilteredClaims')
+        def filteredClaimsWired = new TestProbe(contract, 'inClaims')
 
-        contract.inClaims << claimFire1000 << claimHull1100 << claimLegal1200 << claimFire1300 << claimFire1400 << claimFire1500
-        contract.inUnderwritingInfo << underwritingInfoFire << underwritingInfoHull << underwritingInfoLegal << underwritingInfoFlood
+        PacketList<Claim> incomingClaims = new PacketList<Claim>(Claim)
+        incomingClaims << claimFire1000 << claimHull1100 << claimLegal1200 << claimFire1300 << claimFire1400 << claimFire1500
+        PacketList<UnderwritingInfo> incomingUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo)
+        incomingUnderwritingInfo << underwritingInfoFire << underwritingInfoHull << underwritingInfoLegal << underwritingInfoFlood
+
+        // test LineOfBusinessCoverAttributeStrategy
+        contract.filterInChannel(contract.inClaims, incomingClaims)
+        contract.filterInChannel(contract.inUnderwritingInfo, incomingUnderwritingInfo)
         contract.doCalculation()
 
-        assertEquals "# of (fire/B) filtered claims", 2, contract.outFilteredClaims.size()
+        assertEquals "# of (fire/B) filtered claims", 2, contract.inClaims.size()
         assertEquals "# of (fire/B) covered claims", 2, contract.outCoveredClaims.size()
         assertEquals "# of (fire/B) uncovered claims", 2, contract.outUncoveredClaims.size()
-        assertEquals "# of (fire/B) filtered UWInfo", 2, contract.outFilteredUnderwritingInfo.size()
+        assertEquals "# of (fire/B) filtered UWInfo", 2, contract.inUnderwritingInfo.size()
         assertEquals "# of (fire/B) cover UWInfo", 2, contract.outCoverUnderwritingInfo.size()
 
         // claims are filtered by peril and lob
@@ -324,7 +345,6 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
     }
 
     void testDefaultUsageWithClaimDevelopmentLeanPackets() {
-
         ConfigurableLobWithReserves fireLine = new ConfigurableLobWithReserves(name: 'fire')
         MultiCompanyCoverAttributeReinsuranceContract contract = getQuotaShare20FireLOB()
         SimulationScope simulationScope = CommissionTests.getTestSimulationScope()
@@ -336,40 +356,10 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
         TypableClaimsGenerator generator = new TypableClaimsGenerator()
         Event event1 = new Event()
         Event event2 = new Event()
-        Claim originalClaim1 = new Claim(
-                value: 10000,
-                event: event1,
-                fractionOfPeriod: 0.5,
-                lineOfBusiness: fireLine,
-                peril: generator,
-                claimType: ClaimType.ATTRITIONAL,
-        )
-        Claim originalClaim2 = new Claim(
-                value: 500,
-                event: event2,
-                lineOfBusiness: fireLine,
-                fractionOfPeriod: 0.5,
-                peril: generator,
-                claimType: ClaimType.ATTRITIONAL,
-        )
-        ClaimDevelopmentLeanPacket claimDevelopment1 = new ClaimDevelopmentLeanPacket(
-                ultimate: 10,
-                paid: 6,
-                origin: origin,
-                originalClaim: originalClaim1,
-                lineOfBusiness: fireLine,
-                event: event1,
-                peril: generator,
-                fractionOfPeriod: 0.5)
-        ClaimDevelopmentLeanPacket claimDevelopment2 = new ClaimDevelopmentLeanPacket(
-                ultimate: 12,
-                paid: 8,
-                origin: origin,
-                originalClaim: originalClaim2,
-                lineOfBusiness: fireLine,
-                event: event2,
-                peril: generator,
-                fractionOfPeriod: 0.5)
+        Claim originalClaim1 = getClaim(generator, fireLine, 10000, 0.5, ClaimType.ATTRITIONAL)
+        Claim originalClaim2 = getClaim(generator, fireLine, 500, 0.5, ClaimType.ATTRITIONAL)
+        ClaimDevelopmentLeanPacket claimDevelopment1 = getClaim(generator, fireLine, 10, 6, 0.5, origin, event1, originalClaim1)
+        ClaimDevelopmentLeanPacket claimDevelopment2 = getClaim(generator, fireLine, 12, 8, 0.5, origin, event2, originalClaim2)
         contract.inClaims << claimDevelopment1 << claimDevelopment2
 
         def probeCoveredClaims = new TestProbe(contract, "outCoveredClaims")
@@ -402,42 +392,29 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
                 value: 10000,
                 event: event1,
                 fractionOfPeriod: 0.6,
-                peril: generator,
                 claimType: ClaimType.ATTRITIONAL,
         )
         Claim originalClaim2 = new Claim(
                 value: 500,
                 event: event2,
                 fractionOfPeriod: 0.5,
-                peril: generator,
                 claimType: ClaimType.ATTRITIONAL,
         )
-        ClaimDevelopmentLeanPacket claimDevelopment1 = new ClaimDevelopmentLeanPacket(
-                ultimate: 10,
-                paid: 6,
-                origin: origin,
-                originalClaim: originalClaim1,
-                event: event1,
-                peril: generator,
-                lineOfBusiness: lob['fire'],
-                fractionOfPeriod: 0.4)
-        ClaimDevelopmentLeanPacket claimDevelopment2 = new ClaimDevelopmentLeanPacket(
-                ultimate: 12,
-                paid: 8,
-                origin: origin,
-                originalClaim: originalClaim2,
-                event: event2,
-                peril: generator,
-                lineOfBusiness: lob['motor'],
-                fractionOfPeriod: 0.7)
+
+        ClaimDevelopmentLeanPacket claimDevelopment1 = getClaim(generator, lob['fire'], 10d, 6d, 0.4d, origin, event1, originalClaim1)
+        ClaimDevelopmentLeanPacket claimDevelopment2 = getClaim(generator, lob['motor'], 12d, 8d, 0.7d, origin, event2, originalClaim2)
 
         // create the contract (setting the simulation model in each cover attribute strategy to simulate GUI choice)
         MultiCompanyCoverAttributeReinsuranceContract contract = getMultiCompanyCoverAttributeReinsuranceContract(
                 getQuotaShareContractStrategy(),
                 getCompanyCoverAttributeStrategy(['lines': ['fire']], simulationScope.model)
         )
-        contract.inClaims << claimDevelopment1 << claimDevelopment2
 
+        PacketList<Claim> incomingClaims = new PacketList<Claim>(Claim)
+        incomingClaims << claimDevelopment1 << claimDevelopment2
+
+        // test LineOfBusinessCoverAttributeStrategy
+        contract.filterInChannel(contract.inClaims, incomingClaims)
         contract.doCalculation()
         assertEquals '# ceded claims packets', 1, contract.outCoveredClaims.size()
         assertEquals 'ceded incurred 0', 2d, contract.outCoveredClaims[0].incurred
@@ -448,7 +425,13 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
 
         // choose a different cover attribute strategy (simulate effect of new choice in GUI)
         contract.parmCover = getCompanyCoverAttributeStrategy(['lines': ['motor']], simulationScope.model)
-        contract.inClaims << claimDevelopment1 << claimDevelopment2
+        contract.simulationScope.iterationScope.periodScope.prepareNextPeriod()
+
+        incomingClaims.clear()
+        incomingClaims << claimDevelopment1 << claimDevelopment2
+
+        // test LineOfBusinessCoverAttributeStrategy
+        contract.filterInChannel(contract.inClaims, incomingClaims)
         contract.doCalculation()
         assertEquals '# ceded claims packets', 1, contract.outCoveredClaims.size()
         assertEquals 'ceded incurred 0', 2.4d, contract.outCoveredClaims[0].incurred, 1E-10
@@ -458,6 +441,7 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
         contract.reset()
 
         contract.parmCover = getCompanyCoverAttributeStrategy(['lines': ['fire', 'motor']], simulationScope.model)
+        contract.simulationScope.iterationScope.periodScope.prepareNextPeriod()
         contract.inClaims << claimDevelopment1 << claimDevelopment2
         contract.doCalculation()
         assertEquals '# ceded claims packets', 2, contract.outCoveredClaims.size()
@@ -466,6 +450,7 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
         contract.reset()
 
         contract.parmCover = getCompanyCoverAttributeStrategy(['perils': ['peril 1']], simulationScope.model)
+        contract.simulationScope.iterationScope.periodScope.prepareNextPeriod()
         contract.inClaims << claimDevelopment1 << claimDevelopment2
         contract.doCalculation()
         assertEquals '# ceded claims packets', 2, contract.outCoveredClaims.size()
@@ -473,7 +458,7 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
         assertEquals 'origin of motor claim', originalClaim2, contract.outCoveredClaims[1].originalClaim
         contract.reset()
     }
-// todo(sku): fix
+
 //    void testCoverCompanies() {
 //
 //        Company companyA = new Company(name: 'company a', periodStore: new PeriodStore(null))
@@ -516,28 +501,34 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
 //        simulationScope.model.allComponents << generator
 //        ReservesGeneratorLean reservesGenerator = new ReservesGeneratorLean(name: 'reserves 1')
 //
-//        Claim claim1 = new Claim(lineOfBusiness: motorA, value: 100d, peril: generator)
-//        Claim claim2 = new Claim(lineOfBusiness: motorB, value: 400d, peril: generator)
-//        Claim claim3 = new Claim(lineOfBusiness: motorA, value: 200d, peril: generator)
-//        Claim claim4 = new Claim(lineOfBusiness: propertyA, value: 600d, peril: generator)
-//        Claim claim5 = new Claim(lineOfBusiness: propertyC, value: 800d, peril: generator)
-//        Claim claim6 = new Claim(lineOfBusiness: motorA, value: 1000d, peril: reservesGenerator)
+//        Claim claim1 = getClaim(generator, motorA, 100d)
+//        Claim claim2 = getClaim(generator, motorB, 400d)
+//        Claim claim3 = getClaim(generator, motorA, 200d)
+//        Claim claim4 = getClaim(generator, propertyA, 600d)
+//        Claim claim5 = getClaim(generator, propertyC, 800d)
+//        Claim claim6 = getClaim(reservesGenerator, motorA, 1000d)
 //
 //        UnderwritingInfo underwritingInfo1 = new UnderwritingInfo(premium: 15000, commission: 200, lineOfBusiness: motorA)
 //        UnderwritingInfo underwritingInfo2 = new UnderwritingInfo(premium: 10000, commission: 100, lineOfBusiness: motorB)
 //        UnderwritingInfo underwritingInfo3 = new UnderwritingInfo(premium: 10000, commission: 100, lineOfBusiness: propertyC)
 //
-//        contract.inClaims << claim1 << claim2 << claim3 << claim4 << claim5 << claim6
-//        contract.inUnderwritingInfo << underwritingInfo1 << underwritingInfo2 << underwritingInfo3
-//
 //        def outCoverUI = new TestProbe(contract, 'outCoverUnderwritingInfo')
 //        def outNetUI = new TestProbe(contract, 'outNetAfterCoverUnderwritingInfo')
 //
+//
+//        PacketList<Claim> incomingClaims = new PacketList<Claim>(Claim)
+//        incomingClaims << claim1 << claim2 << claim3 << claim4 << claim5 << claim6
+//        PacketList<UnderwritingInfo> incomingUnderwritingInfo = new PacketList<UnderwritingInfo>(UnderwritingInfo)
+//        incomingUnderwritingInfo << underwritingInfo1 << underwritingInfo2 << underwritingInfo3
+//
+//        // test LineOfBusinessCoverAttributeStrategy
+//        contract.filterInChannel(contract.inClaims, incomingClaims)
+//        contract.filterInChannel(contract.inUnderwritingInfo, incomingUnderwritingInfo)
 //        contract.doCalculation()
 //
-//        assertEquals "# of filtered claims", 4, contract.outFilteredClaims.size()
+//        assertEquals "# of filtered claims", 4, contract.inClaims.size()
 //        assertEquals "# of covered claims", 4, contract.outCoveredClaims.size()
-//        assertEquals "# of filtered UWInfo", 2, contract.outFilteredUnderwritingInfo.size()
+//        assertEquals "# of filtered UWInfo", 2, contract.inUnderwritingInfo.size()
 //        assertEquals "# of cover UWInfo", 2, contract.outCoverUnderwritingInfo.size()
 //
 //        assertEquals "ceded claim 1", 20d, contract.outCoveredClaims[0].ultimate
@@ -550,6 +541,36 @@ class MultiCompanyCoverAttributeReinsuranceContractTest extends GroovyTestCase {
 //
 //        assertEquals "net premium motorA", 12000d, contract.outNetAfterCoverUnderwritingInfo[0].premium
 //        assertEquals "net premium motorB", 8000d, contract.outNetAfterCoverUnderwritingInfo[1].premium
-//
 //    }
+
+    private ClaimDevelopmentLeanPacket getClaim(IPerilMarker peril, ISegmentMarker lob, double ultimate, double paid,
+                                                double fractionOfPeriod, Component origin, Event event,
+                                                Claim originalClaim) {
+        ClaimDevelopmentLeanPacket claim = new ClaimDevelopmentLeanPacket(ultimate: ultimate, paid: paid,
+                fractionOfPeriod: fractionOfPeriod, origin: origin, event: event, originalClaim: originalClaim)
+        claim.addMarker(IPerilMarker, peril)
+        claim.addMarker(ISegmentMarker, lob)
+        claim
+    }
+
+    private Claim getClaim(IPerilMarker peril, ISegmentMarker lob, double ultimate, double fractionOfPeriod, ClaimType claimType) {
+        Claim claim = new Claim(ultimate: ultimate, fractionOfPeriod: fractionOfPeriod, claimType: claimType)
+        claim.addMarker(IPerilMarker, peril)
+        claim.addMarker(ISegmentMarker, lob)
+        claim
+    }
+
+    private Claim getClaim(IPerilMarker peril, ISegmentMarker lob, double ultimate) {
+        Claim claim = new Claim(ultimate: ultimate)
+        claim.addMarker(IPerilMarker, peril)
+        claim.addMarker(ISegmentMarker, lob)
+        claim
+    }
+
+    private Claim getClaim(IReserveMarker reserve, ISegmentMarker lob, double ultimate) {
+        Claim claim = new Claim(ultimate: ultimate)
+        claim.addMarker(IReserveMarker, reserve)
+        claim.addMarker(ISegmentMarker, lob)
+        claim
+    }
 }

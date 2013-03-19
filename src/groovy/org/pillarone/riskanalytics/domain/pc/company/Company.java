@@ -1,9 +1,6 @@
 package org.pillarone.riskanalytics.domain.pc.company;
 
-import org.pillarone.riskanalytics.core.components.AbstractStore;
-import org.pillarone.riskanalytics.core.components.Component;
-import org.pillarone.riskanalytics.core.components.MultiPhaseComponent;
-import org.pillarone.riskanalytics.core.components.PeriodStore;
+import org.pillarone.riskanalytics.core.components.*;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.parameterization.ConstrainedMultiDimensionalParameter;
 import org.pillarone.riskanalytics.domain.assets.constants.Rating;
@@ -14,7 +11,7 @@ import org.pillarone.riskanalytics.domain.pc.creditrisk.DefaultProbabilities;
 import org.pillarone.riskanalytics.domain.pc.creditrisk.ReinsurerDefault;
 import org.pillarone.riskanalytics.domain.pc.lob.CompanyConfigurableLobWithReserves;
 import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IReinsuranceContractMarker;
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiCompanyCoverAttributeReinsuranceContract;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo;
@@ -47,6 +44,7 @@ import java.util.Map;
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = {"COMPANY"})
 public class Company extends MultiPhaseComponent implements ICompanyMarker {
 
     private PacketList<DefaultProbabilities> inDefaultProbability = new PacketList<DefaultProbabilities>(DefaultProbabilities.class);

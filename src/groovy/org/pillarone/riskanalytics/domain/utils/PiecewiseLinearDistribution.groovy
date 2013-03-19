@@ -10,6 +10,7 @@ import umontreal.iro.lecuyer.probdist.ContinuousDistribution
  * Date: 31.07.2008,  10:25:17
  * @author stefan.zumsteg@intuitive-collaboration.com
  */
+@Deprecated
 class PiecewiseLinearDistribution extends ContinuousDistribution {
 
     // todo(jwa): validator to check if values strongly monotonically increasing

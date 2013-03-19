@@ -10,6 +10,7 @@ import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoPacketFactory
 import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
+import java.security.InvalidParameterException
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com

@@ -6,6 +6,7 @@ import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@Deprecated
 class CopulaStrategyFactory {
 
     private static ICopulaStrategy getNormalCopula(CopulaType type, AbstractMultiDimensionalParameter dependencyMatrix) {

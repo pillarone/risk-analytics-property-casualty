@@ -7,6 +7,7 @@ import org.pillarone.riskanalytics.domain.pc.generators.claims.AttritionalSingle
 import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.ReinsuranceProgram3SerialContracts
 import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocator
 import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskBands
+import org.pillarone.riskanalytics.core.components.ComponentCategory
 import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 
 /**
@@ -16,6 +17,7 @@ import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = ['SEGMENT'])
 class ExampleLob extends ComposedComponent implements ISegmentMarker {
 
     RiskBands subUnderwriting

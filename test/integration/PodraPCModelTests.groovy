@@ -15,7 +15,8 @@ class PodraPCModelTests extends ModelTest {
         "One Line Example P&C"
     }
 
-    protected boolean shouldCompareResults() {
-        false
-    }
+    // KTI-21
+//    protected boolean shouldCompareResults() {
+//        true
+//    }
 }

@@ -17,6 +17,7 @@ import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
  * Enables different streams for generators, and parametrization of streams.
  */
 // todo: think! reuse generators with same stream and parameter ??
+@Deprecated
 class RandomNumberGeneratorFactory {
 
 

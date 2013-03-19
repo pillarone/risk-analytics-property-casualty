@@ -4,6 +4,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder
 import umontreal.iro.lecuyer.probdist.Distribution
 import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObject
 
+@Deprecated
 class RandomDistribution extends AbstractParameterObject {
 
     Distribution distribution

@@ -4,7 +4,7 @@ import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObject
 import org.pillarone.riskanalytics.core.parameterization.ComboBoxTableMultiDimensionalParameter
 import org.pillarone.riskanalytics.core.parameterization.IParameterObject
 import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassifier
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IReinsuranceContractMarker
 import org.pillarone.riskanalytics.core.simulation.InvalidParameterException
 
 /**

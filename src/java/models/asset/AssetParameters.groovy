@@ -9,6 +9,9 @@ model = models.asset.AssetModel
 periodCount = 1
 displayName = 'Test'
 components {
+    globalParameters {
+        runtimeSanityChecks[0..2] = true
+    }
     bonds {
         subSwiss {
             parmBondType[0] = BondType.CORPORATE_BOND

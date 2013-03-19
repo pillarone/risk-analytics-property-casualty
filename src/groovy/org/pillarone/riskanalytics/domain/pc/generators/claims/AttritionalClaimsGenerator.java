@@ -1,7 +1,9 @@
 package org.pillarone.riskanalytics.domain.pc.generators.claims;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.packets.PacketList;
+import org.pillarone.riskanalytics.core.wiring.WiringValidation;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimPacketFactory;
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType;
@@ -32,6 +34,7 @@ import java.util.HashMap;
  */
 // todo(sku): profile the runtime difference between using of the generator and the inverse function
 // todo(sku): apply a design pattern to clearly separate the two different use cases (generator vs probabiliy)
+@ComponentCategory(categories = {"CLAIM","GENERATOR","ATTRITIONAL"})
 public class AttritionalClaimsGenerator extends ClaimsGenerator {
 
     private IRandomNumberGenerator generator;
@@ -39,8 +42,9 @@ public class AttritionalClaimsGenerator extends ClaimsGenerator {
     /**
      * Input channel for claim severity to be generated
      */
+    @WiringValidation(connections= {0, 1}, packets= {1, 1})
     private PacketList<Severity> inProbability = new PacketList<Severity>(Severity.class);
-
+    @WiringValidation(connections= {0, 1}, packets= {1, 1})
     private PacketList<Frequency> inMultiplier = new PacketList<Frequency>(Frequency.class);
 
     private RandomDistribution parmDistribution = DistributionType.getStrategy(ClaimSizeDistributionType.CONSTANT,

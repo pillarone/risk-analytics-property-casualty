@@ -2,6 +2,8 @@ package org.pillarone.riskanalytics.domain.pc.reserves.fasttrack;
 
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimPacketFactory;
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -90,8 +92,8 @@ public class ClaimDevelopmentLeanPacket extends Claim {
             convertedClaim.setEvent(getEvent());
             convertedClaim.setFractionOfPeriod(getFractionOfPeriod());
             convertedClaim.setClaimType(getClaimType());
-            convertedClaim.setPeril(getPeril());
-            convertedClaim.setLineOfBusiness(getLineOfBusiness());
+            convertedClaim.addMarker(IPerilMarker.class, getPeril());
+            convertedClaim.addMarker(ISegmentMarker.class, getLineOfBusiness());
         }
         convertedClaim.setUltimate(getUltimate());
         return convertedClaim;

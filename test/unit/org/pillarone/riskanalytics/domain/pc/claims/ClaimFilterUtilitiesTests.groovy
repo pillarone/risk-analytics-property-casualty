@@ -4,7 +4,7 @@ import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentP
 import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
 import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IReinsuranceContractMarker
 
 /**
  * @author shartmann (at) munichre (dot) com
@@ -29,18 +29,19 @@ class ClaimFilterUtilitiesTests extends GroovyTestCase {
         // every second (resp. third) claim is mapped to the same contract (resp. peril)
         // only claims 1-5 & claim 7 have a LOB (3 from peril 1, 2 from peril 2, 1 from peril 3; see below)
         claim = (1..12).asList().collect {
-            new ClaimDevelopmentPacket(
+            ClaimDevelopmentPacket claim = new ClaimDevelopmentPacket(
                     incurred: it*100,
                     paid: it*50,
                     senderChannelName: "Claim ${it}",           // claim    1, 2, 3, 4, 5, 6, 7...12
-                    peril: peril[(((int) it) - 1) % 3],         // peril    1, 2, 3, 1, 2, 3...
-                    reinsuranceContract: contract[(it-1) % 2],  // contract 1, 2, 1, 2, 1, 2...
                     // lineOfBusiness is set below              // lob      A, A, A, B, A, none, C (claims>7: none)
             )
+            claim.addMarker(IPerilMarker, peril[(((int) it) - 1) % 3])  // peril    1, 2, 3, 1, 2, 3...
+            claim.addMarker(IReinsuranceContractMarker, contract[(it-1) % 2])  // contract 1, 2, 1, 2, 1, 2...
+            claim
         }
-        [0, 1, 2, 4].each {claim[it].lineOfBusiness = lob['A']}
-        claim[3].lineOfBusiness = lob['B']
-        claim[6].lineOfBusiness = lob['C']
+        [0, 1, 2, 4].each { claim[it].addMarker(ISegmentMarker, lob['A']) }
+        claim[3].addMarker(ISegmentMarker, lob['B'])
+        claim[6].addMarker(ISegmentMarker, lob['C'])
         
         // claim        1   2   3   4   5   6   7   8   9   10  11  12
         // peril        1   2   3   1   2   3   1   2   3   1   2   3
@@ -66,8 +67,8 @@ class ClaimFilterUtilitiesTests extends GroovyTestCase {
         //                  x           x                               peril 2 & lob A
 
         List<IPerilMarker> perils = [peril[0]]
-        List<IPerilMarker> reserves = []
-        List<ISegmentMarker> lobs = []
+        List<IPerilMarker> reserves = null
+        List<ISegmentMarker> lobs = null
         List filteredClaims = ClaimFilterUtilities.filterClaimsByPerilLobReserve(claim, perils, lobs, reserves, null)
         assertEquals 'filtered claims, peril 1: claims 1,4,7',
                 [0,3,6,9].join(", "),
@@ -80,14 +81,14 @@ class ClaimFilterUtilitiesTests extends GroovyTestCase {
 
         perils = [peril[0]]
         lobs = [lob['A']]
-        reserves = []
+        reserves = null
         filteredClaims = ClaimFilterUtilities.filterClaimsByPerilLobReserve(claim, perils, lobs, reserves, LogicArguments.AND)
         assertEquals '#filtered claims, peril 1 & lob A', 1, filteredClaims.size()
         assertEquals 'filtered claims, peril 1 & lob A: claim 1', claim[0], filteredClaims[0]
 
-        perils = []
+        perils = null
         lobs = [lob['A']]
-        reserves = []
+        reserves = null
         filteredClaims = ClaimFilterUtilities.filterClaimsByPerilLobReserve(claim, perils, lobs, reserves, null)
         assertEquals '#filtered claims, lob A', 4, filteredClaims.size()
         assertEquals 'filtered claims, lob A: claim 1', claim[0], filteredClaims[0]
@@ -95,8 +96,8 @@ class ClaimFilterUtilitiesTests extends GroovyTestCase {
         assertEquals 'filtered claims, lob A: claim 3', claim[2], filteredClaims[2]
         assertEquals 'filtered claims, lob A: claim 5', claim[4], filteredClaims[3]
 
-        perils = []
-        lobs = []
+        perils = null
+        lobs = null
         reserves = [peril[0]]
         filteredClaims = ClaimFilterUtilities.filterClaimsByPerilLobReserve(claim, perils, lobs, reserves, null)
         assertEquals '#filtered claims, reserve = peril 1', 4, filteredClaims.size()
@@ -105,7 +106,7 @@ class ClaimFilterUtilitiesTests extends GroovyTestCase {
         assertEquals 'filtered claims, reserve = peril 1: claim 7', claim[6], filteredClaims[2]
         assertEquals 'filtered claims, reserve = peril 1: claim 10', claim[9], filteredClaims[3]
 
-        perils = []
+        perils = null
         lobs = [lob['A']]
         reserves = [peril[1]]
         filteredClaims = ClaimFilterUtilities.filterClaimsByPerilLobReserve(claim, perils, lobs, reserves, LogicArguments.AND)

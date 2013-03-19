@@ -88,7 +88,11 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
     }
 
     static double getReinstatementPremiumFactor(int reinstatement, AbstractMultiDimensionalParameter reinstatementPremiums) {
-        reinstatementPremiums.values[0][Math.min(reinstatement, reinstatementPremiums.valueRowCount - 1)]
+        def val=reinstatementPremiums.values[0][Math.min(reinstatement, reinstatementPremiums.valueRowCount - 1)]
+        if (List.class.isAssignableFrom(val.class)){
+            return val[0]
+        }
+        return val;
     }
 
     void initBookkeepingFigures(List<Claim> inClaims, List<UnderwritingInfo> coverUnderwritingInfo) {
@@ -101,13 +105,13 @@ abstract class XLContractStrategy extends AbstractContractStrategy implements IR
                 totalCededPremium = premium
                 break
             case PremiumBase.GNPI:
-                totalCededPremium = premium * coverUnderwritingInfo.premium.sum()
+                totalCededPremium = coverUnderwritingInfo.isEmpty() ? 0 : premium * coverUnderwritingInfo.premium.sum()
                 break
             case PremiumBase.RATE_ON_LINE:
                 totalCededPremium = premium * limit
                 break
             case PremiumBase.NUMBER_OF_POLICIES:
-                totalCededPremium = premium * coverUnderwritingInfo.numberOfPolicies.sum()
+                totalCededPremium = coverUnderwritingInfo.isEmpty() ? 0 : premium * coverUnderwritingInfo.numberOfPolicies.sum()
                 break
             default:
                 throw new InvalidParameterException("PremiumBase $premiumBase not implemented")

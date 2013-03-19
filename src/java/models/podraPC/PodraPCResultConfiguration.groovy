@@ -38,7 +38,7 @@ components {
                 outClaimsDevelopmentLeanGross = "AGGREGATED"
                 outClaimsDevelopmentLeanNet = "AGGREGATED"
                 outCoverUnderwritingInfo = "AGGREGATED"
-                outFilteredUnderwritingInfo = "AGGREGATED"
+//                outFilteredUnderwritingInfo = "AGGREGATED"
                 outNetAfterCoverUnderwritingInfo = "AGGREGATED"
             }
 		}

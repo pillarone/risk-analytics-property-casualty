@@ -5,7 +5,7 @@ import org.pillarone.riskanalytics.core.simulation.InvalidParameterException;
 import org.pillarone.riskanalytics.domain.pc.constants.Exposure;
 import org.pillarone.riskanalytics.domain.pc.constants.FrequencyBase;
 import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IReinsuranceContractMarker;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -172,6 +172,11 @@ public class UnderwritingInfo extends MultiValuePacket {
 
     public UnderwritingInfo getOriginalUnderwritingInfo() {
         return originalUnderwritingInfo;
+    }
+
+    @Override
+    public void initDefaultPacket() {
+        this.originalUnderwritingInfo = this;
     }
 
     public void setOriginalUnderwritingInfo(UnderwritingInfo originalUnderwritingInfo) {

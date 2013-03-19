@@ -18,4 +18,9 @@ class CapitalEagleAttritionalDependenciesModelTests extends ModelTest {
     String getParameterFileName() {
         return "CapitalEagleAttritionalDependencies4Parameters"
     }
+
+    // KTI-21
+//    protected boolean shouldCompareResults() {
+//        true
+//    }
 }

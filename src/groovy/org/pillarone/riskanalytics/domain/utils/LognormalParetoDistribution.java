@@ -15,6 +15,7 @@ import umontreal.iro.lecuyer.probdist.ParetoDist;
  *
  *  @author jessika.walter (at) intuitive-collaboration (dot) com
  */
+@Deprecated
 public class LognormalParetoDistribution extends ContinuousDistribution {
     /**
      * scaling parameter lognormal > 0

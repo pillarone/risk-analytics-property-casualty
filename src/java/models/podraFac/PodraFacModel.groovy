@@ -13,12 +13,14 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.ReinsuranceFAC
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.DynamicReservesGeneratorLean
 import org.pillarone.riskanalytics.domain.pc.underwriting.DynamicUnderwritingSegments
 import org.pillarone.riskanalytics.domain.pc.generators.claims.DynamicDevelopedFACClaimsGenerators
+import org.pillarone.riskanalytics.domain.pc.global.GlobalParameters
 
 /**
  * @author shartmann (at) munichre (dot) com
  */
 class PodraFacModel extends StochasticModel {
 
+    GlobalParameters globalParameters
     DynamicUnderwritingSegments underwritingSegments
     MultipleFacShareDistributions treatyAllocationForFAC
     DynamicDevelopedFACClaimsGenerators claimsGenerators
@@ -33,6 +35,7 @@ class PodraFacModel extends StochasticModel {
 
 
     void initComponents() {
+        globalParameters = new GlobalParameters()
         underwritingSegments = new DynamicUnderwritingSegments()
         treatyAllocationForFAC = new MultipleFacShareDistributions()
         claimsGenerators = new DynamicDevelopedFACClaimsGenerators()

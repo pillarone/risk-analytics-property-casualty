@@ -6,6 +6,7 @@ import org.pillarone.riskanalytics.core.wiring.PortReplicatorCategory
 import org.pillarone.riskanalytics.core.wiring.WiringUtils
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
+import org.pillarone.riskanalytics.core.components.ComponentCategory
 
 /**
  *  This is a compound component composed of a  {@link FrequencyClaimsGenerator}  and
@@ -13,6 +14,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
  *
  * @author j.dittrich (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = ['CLAIM','GENERATOR','ATTRITIONAL','SINGLE'])
 class AttritionalMultiSingleClaimsGenerator extends ComposedComponent {
 
     PacketList<UnderwritingInfo> inUnderwritingInfo = new PacketList(UnderwritingInfo)

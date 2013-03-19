@@ -19,10 +19,12 @@ import org.pillarone.riskanalytics.domain.pc.constants.StopLossContractBase
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.AggregateXLContractStrategy
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.GoldorakContractStrategy
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.AdverseDevelopmentCoverContractStrategy
+import org.pillarone.riskanalytics.core.components.ComponentCategory
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = ['REINSURANCE','MARKET'])
 public class ReinsuranceMarket extends DynamicReinsuranceProgram {
 
     PacketList<ReinsurerDefault> inReinsurersDefault = new PacketList<ReinsurerDefault>(ReinsurerDefault)

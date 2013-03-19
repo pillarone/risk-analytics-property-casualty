@@ -8,10 +8,12 @@ import org.pillarone.riskanalytics.domain.pc.creditrisk.ReinsurerDefault
 import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiLineReinsuranceContractWithDefault
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContractType
+import org.pillarone.riskanalytics.core.components.ComponentCategory
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = ['REINSURANCE','PROGRAM','COUNTERPARTYRISK'])
 public class MultiLineDynamicReinsuranceProgramWithDefault extends DynamicReinsuranceProgram {
 
     PacketList<ReinsurerDefault> inReinsurersDefault = new PacketList(ReinsurerDefault)

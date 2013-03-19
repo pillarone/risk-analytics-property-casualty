@@ -28,7 +28,8 @@ class DependencyModelTests /*extends AbstractModelTest*/ extends GroovyTestCase 
         1
     }
 
-    protected boolean shouldCompareResults() {
-        true
-    }
+    // KTI-21
+//    protected boolean shouldCompareResults() {
+//        true
+//    }
 }

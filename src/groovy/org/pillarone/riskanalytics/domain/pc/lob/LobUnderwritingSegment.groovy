@@ -6,6 +6,7 @@ import org.pillarone.riskanalytics.core.wiring.WiringUtils
 import org.pillarone.riskanalytics.domain.pc.generators.claims.AttritionalSingleClaimsGenerator
 import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.ReinsuranceProgram3SerialContracts
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingSegment
+import org.pillarone.riskanalytics.core.components.ComponentCategory
 import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 
 /**
@@ -15,6 +16,7 @@ import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = ['SEGMENT'])
 class LobUnderwritingSegment extends ComposedComponent implements ISegmentMarker {
 
     UnderwritingSegment subUnderwriting

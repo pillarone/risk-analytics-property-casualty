@@ -5,6 +5,7 @@ import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObject
 /**
  * @author: stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@Deprecated
 class RandomVariateDistribution extends AbstractParameterObject implements IRandomVariateDistribution {
 
     private RandomDistribution distribution

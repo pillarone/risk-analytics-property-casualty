@@ -1,11 +1,13 @@
 package org.pillarone.riskanalytics.domain.pc.claims;
 
 import org.pillarone.riskanalytics.core.components.Component;
+import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = {"CLAIM","FILTER"})
 public class ClaimsFilterByOrigin extends Component {
 
     private PacketList<Claim> inClaims = new PacketList<Claim>(Claim.class);

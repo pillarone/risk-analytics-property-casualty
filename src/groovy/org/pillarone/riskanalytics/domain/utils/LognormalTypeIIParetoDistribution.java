@@ -14,6 +14,7 @@ import umontreal.iro.lecuyer.probdist.NormalDist;
  *         in the form of the type II pareto density (a.k.a Lomax density) with parameters alpha, beta and lambda.
  *         Appropriate weightings of the truncated lognormal and type II pareto densities are given by a dependent parameter r = r(sigma,alpha,beta,lambda, mu).*
  */
+@Deprecated
 public class LognormalTypeIIParetoDistribution extends ContinuousDistribution {
     /**
      * calling parameter lognormal > 0

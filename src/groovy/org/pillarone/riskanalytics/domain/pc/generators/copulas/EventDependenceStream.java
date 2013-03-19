@@ -11,6 +11,7 @@ import java.util.List;
  *
  * @author ali.majidi (at) munichre (dot) com, stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@Deprecated
 public class EventDependenceStream extends Packet {
     // todo (sku): convert to a map; new name for marginals: target
 

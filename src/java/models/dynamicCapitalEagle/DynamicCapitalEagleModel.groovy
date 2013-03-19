@@ -9,12 +9,14 @@ import org.pillarone.riskanalytics.domain.pc.lob.DynamicConfigurableLobs
 import org.pillarone.riskanalytics.domain.pc.reinsurance.DynamicReinsurersDefaultProbabilities
 import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.MultiLineDynamicReinsuranceProgramWithDefault
 import org.pillarone.riskanalytics.domain.pc.underwriting.DynamicUnderwritingSegments
+import org.pillarone.riskanalytics.domain.pc.global.GlobalParameters
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 class DynamicCapitalEagleModel extends StochasticModel {
 
+    GlobalParameters globalParameters
     DynamicUnderwritingSegments underwritingSegments
     DynamicClaimsGenerators claimsGenerators
     DynamicDependencies dependencies
@@ -25,6 +27,7 @@ class DynamicCapitalEagleModel extends StochasticModel {
     CreditDefault defaultProbabilities
 
     void initComponents() {
+        globalParameters = new GlobalParameters()
         underwritingSegments = new DynamicUnderwritingSegments()
         claimsGenerators = new DynamicClaimsGenerators()
         dependencies = new DynamicDependencies()

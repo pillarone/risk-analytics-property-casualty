@@ -3,6 +3,7 @@ package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts;
 import org.pillarone.riskanalytics.core.components.Component;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket;
+import org.pillarone.riskanalytics.domain.utils.marker.IReinsuranceContractMarker;
 
 import java.util.List;
 
@@ -54,7 +55,7 @@ public class MultiCoverAttributeFACReinsuranceContract extends MultiCoverAttribu
         Claim netClaim = grossClaim.copy();
         netClaim.setUltimate(grossClaim.getUltimate() * ultimateFactor);
         if (cededClaim.notNull()) {
-            netClaim.setReinsuranceContract(cededClaim.getReinsuranceContract());
+            netClaim.addMarker(IReinsuranceContractMarker.class, cededClaim.getReinsuranceContract());
         }
         if (grossClaim.hasExposureInfo()) {
             double coverRatio = netClaim.getUltimate() / grossClaim.getUltimate();

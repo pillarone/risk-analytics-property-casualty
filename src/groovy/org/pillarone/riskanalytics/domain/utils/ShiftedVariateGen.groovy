@@ -7,6 +7,7 @@ import umontreal.iro.lecuyer.rng.RandomStream
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@Deprecated
 class ShiftedVariateGen extends RandomVariateGen {
     double shift
     RandomVariateGen generator

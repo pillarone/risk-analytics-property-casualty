@@ -9,6 +9,8 @@ import org.pillarone.riskanalytics.domain.pc.generators.frequency.Frequency
 import org.pillarone.riskanalytics.domain.pc.generators.severities.Severity
 import org.pillarone.riskanalytics.domain.utils.*
 import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
+import org.pillarone.riskanalytics.core.components.ComponentCategory
+import org.pillarone.riskanalytics.core.wiring.WiringValidation
 
 /**
  *  The large claims generators generate claims according the number received
@@ -23,6 +25,7 @@ import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = ['CLAIM','GENERATOR','SINGLE'])
 class SingleClaimsGenerator extends ClaimsGenerator implements IPerilMarker {
 
     IRandomNumberGenerator generator
@@ -31,6 +34,7 @@ class SingleClaimsGenerator extends ClaimsGenerator implements IPerilMarker {
     DistributionModified parmModification = DistributionModifier.getStrategy(DistributionModifier.NONE, [:])
 
     /** Input channel for claim severity to be generated    */
+    @WiringValidation(connections= [0, 1], packets= [1, 1])
     PacketList<Severity> inProbability = new PacketList(Severity.class);
 
     /** Input channel for how many claims are to be generated                                */

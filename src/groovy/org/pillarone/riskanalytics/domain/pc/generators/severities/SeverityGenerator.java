@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.generators.severities;
 
 import org.pillarone.riskanalytics.core.components.Component;
+import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.domain.pc.generators.frequency.Frequency;
 import org.pillarone.riskanalytics.domain.utils.IRandomNumberGenerator;
@@ -16,6 +17,7 @@ import org.pillarone.riskanalytics.domain.utils.RandomNumberGeneratorFactory;
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = {"SEVERITY","GENERATOR"})
 public class SeverityGenerator extends Component {
 
     private IRandomNumberGenerator parmGenerator = RandomNumberGeneratorFactory.getUniformGenerator();

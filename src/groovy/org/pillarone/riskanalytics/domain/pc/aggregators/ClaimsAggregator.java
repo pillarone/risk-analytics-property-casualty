@@ -1,5 +1,6 @@
 package org.pillarone.riskanalytics.domain.pc.aggregators;
 
+import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType;
 import org.pillarone.riskanalytics.core.components.Component;
@@ -12,6 +13,7 @@ import java.util.List;
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = {"CLAIM","AGGREGATOR"})
 public class ClaimsAggregator extends Component {
 
     private PacketList<Claim> inClaimsCeded = new PacketList<Claim>(Claim.class);

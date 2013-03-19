@@ -8,6 +8,7 @@ import umontreal.iro.lecuyer.randvar.RandomVariateGen
  *
  * @author: ben.ginsberg (at) intuitive-collaboration (dot) com
  */
+@Deprecated
 class ConstantsVariateGenerator extends RandomVariateGen {
 
     List<Double> constants

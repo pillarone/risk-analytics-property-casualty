@@ -17,11 +17,13 @@ import org.pillarone.riskanalytics.domain.pc.aggregators.UnderwritingInfoNetCalc
 import org.pillarone.riskanalytics.domain.pc.claims.MarketGrossNetClaimsMerger
 import org.pillarone.riskanalytics.core.packets.SingleValuePacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
+import org.pillarone.riskanalytics.core.components.ComponentCategory
 import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = ['SEGMENT','RESERVES'])
 public class ConfigurableLobWithReserves extends MultipleCalculationPhaseComposedComponent implements ISegmentMarker {
 
     PacketList<UnderwritingInfo> inUnderwritingInfoGross = new PacketList(UnderwritingInfo)

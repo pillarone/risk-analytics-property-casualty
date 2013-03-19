@@ -15,7 +15,8 @@ class FiniteReModelTests extends ModelTest {
         "EAB, Claims (aggregated)"
     }
 
-    protected boolean shouldCompareResults() {
-        true
-    }
+    // KTI-21
+//    protected boolean shouldCompareResults() {
+//        true
+//    }
 }

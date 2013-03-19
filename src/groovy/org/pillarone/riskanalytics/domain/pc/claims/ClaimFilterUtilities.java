@@ -6,7 +6,7 @@ import org.pillarone.riskanalytics.domain.pc.constants.LogicArguments;
 import org.pillarone.riskanalytics.domain.pc.lob.CompanyConfigurableLobWithReserves;
 import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker;
 import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IReinsuranceContractMarker;
 import org.pillarone.riskanalytics.domain.utils.marker.IReserveMarker;
 import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentPacket;
 
@@ -253,8 +253,8 @@ public class ClaimFilterUtilities {
             List<String> coveredContracts,
             LogicArguments connection) {
         List<ClaimDevelopmentPacket> filteredClaims = new ArrayList<ClaimDevelopmentPacket>();
-        boolean hasPerils = coveredPerils != null && coveredPerils.size() > 0;
-        boolean hasContracts = coveredContracts != null && coveredContracts.size() > 0;
+        boolean hasPerils = coveredPerils != null;
+        boolean hasContracts = coveredContracts != null;
         if (hasPerils && hasContracts && connection == LogicArguments.OR) {
             for (ClaimDevelopmentPacket claim : claims) {
                 if (coveredPerils.contains(claim.getPeril())) {

@@ -7,10 +7,12 @@ import org.pillarone.riskanalytics.core.wiring.WiringUtils
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.generators.frequency.Frequency
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
+import org.pillarone.riskanalytics.core.components.ComponentCategory
 
 /**
  * @author michael-noe (at) web (dot) de, stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = ['CLAIM','GENERATOR','SINGLE'])
 class DynamicSingleClaimsGeneratorInternalModel extends DynamicComposedComponent {
 
     PacketList<Frequency> inFrequency = new PacketList(Frequency)

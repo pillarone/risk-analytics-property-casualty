@@ -2,6 +2,7 @@ package org.pillarone.riskanalytics.domain.utils
 /**
  * @author: stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@Deprecated
 interface IRandomVariateDistribution {
     /** u - value in the interval (0, 1)    */
     double inverseDistributionFunction(double u)

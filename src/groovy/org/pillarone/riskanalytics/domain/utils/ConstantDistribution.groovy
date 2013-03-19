@@ -5,6 +5,7 @@ import umontreal.iro.lecuyer.probdist.DiscreteDistribution
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@Deprecated
 class ConstantDistribution extends DiscreteDistribution {
 
     double constant

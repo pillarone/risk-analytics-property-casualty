@@ -9,10 +9,12 @@ import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.generators.frequency.Frequency
 import org.pillarone.riskanalytics.domain.pc.generators.frequency.FrequencyExtractor
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
+import org.pillarone.riskanalytics.core.components.ComponentCategory
 
 /**
  * @author michael-noe (at) web (dot) de, stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = ['CLAIM','GENERATOR','SINGLE'])
 public class SingleClaimsGeneratorWithFrequencyExtractor extends ComposedComponent {
 
     PacketList<Frequency> inFrequency = new PacketList(Frequency)

@@ -11,12 +11,14 @@ import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.DynamicReservesG
 import org.pillarone.riskanalytics.domain.pc.underwriting.DynamicUnderwritingSegments
 import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.DynamicMultiCoverAttributeReinsuranceProgram
 import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.ReinsuranceWithBouquetCommissionProgram
+import org.pillarone.riskanalytics.domain.pc.global.GlobalParameters
 
 /**
  * @author shartmann (at) munichre (dot) com
  */
 class PodraPreviewModel extends StochasticModel {
 
+    GlobalParameters globalParameters
     DynamicUnderwritingSegments underwritingSegments
     DynamicDevelopedClaimsGenerators claimsGenerators
     DynamicReservesGeneratorLean reserveGenerators
@@ -29,6 +31,7 @@ class PodraPreviewModel extends StochasticModel {
 
 
     void initComponents() {
+        globalParameters = new GlobalParameters()
         underwritingSegments = new DynamicUnderwritingSegments()
         claimsGenerators = new DynamicDevelopedClaimsGenerators()
         reserveGenerators = new DynamicReservesGeneratorLean()

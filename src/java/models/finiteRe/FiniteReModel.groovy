@@ -5,6 +5,7 @@ import org.pillarone.riskanalytics.domain.pc.generators.claims.DynamicClaimsGene
 import org.pillarone.riskanalytics.domain.pc.reinsurance.FiniteRe
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.MultiLineReinsuranceContract
 import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.MultiLineDynamicReinsuranceProgram
+import org.pillarone.riskanalytics.domain.pc.global.GlobalParameters
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -12,6 +13,7 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.MultiLineDynam
 
 public class FiniteReModel extends StochasticModel {
 
+    GlobalParameters globalParameters
     DynamicClaimsGenerators claimsGenerators
     MultiLineDynamicReinsuranceProgram lineOfBusinessReinsurance
     MultiLineReinsuranceContract wholeAccountStopLoss
@@ -19,6 +21,7 @@ public class FiniteReModel extends StochasticModel {
 
 
     public void initComponents() {
+        globalParameters = new GlobalParameters()
         claimsGenerators = new DynamicClaimsGenerators()
         lineOfBusinessReinsurance = new MultiLineDynamicReinsuranceProgram()
         wholeAccountStopLoss = new MultiLineReinsuranceContract()

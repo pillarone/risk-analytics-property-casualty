@@ -9,6 +9,7 @@ import org.pillarone.riskanalytics.domain.utils.RandomNumberGeneratorFactory
 /**
  * @author Michael-Noe (at) Web (dot) de
  */
+@Deprecated
 abstract class GumbelCopulaStrategy extends AbstractCopulaStrategy {
 
     RandomDistribution distribution

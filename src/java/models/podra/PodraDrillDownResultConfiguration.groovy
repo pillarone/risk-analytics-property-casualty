@@ -52,7 +52,6 @@ components {
 				outClaimsDevelopmentLeanNet = "AGGREGATED_DRILL_DOWN"
 				outContractFinancials = "AGGREGATED"
 				outCoverUnderwritingInfo = "AGGREGATED_DRILL_DOWN"
-				outFilteredUnderwritingInfo = "AGGREGATED_DRILL_DOWN"
 				outNetAfterCoverUnderwritingInfo = "AGGREGATED"
 			}
 		}

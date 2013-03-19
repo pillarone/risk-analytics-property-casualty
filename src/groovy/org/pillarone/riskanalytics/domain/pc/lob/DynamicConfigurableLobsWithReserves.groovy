@@ -7,11 +7,12 @@ import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopment
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.core.packets.SingleValuePacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
+import org.pillarone.riskanalytics.core.components.ComponentCategory
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-
+@ComponentCategory(categories = ['SEGMENT','RESERVES'])
 public class DynamicConfigurableLobsWithReserves extends MultiPhaseDynamicComposedComponent {
 
     PacketList<UnderwritingInfo> inUnderwritingInfoGross = new PacketList(UnderwritingInfo)

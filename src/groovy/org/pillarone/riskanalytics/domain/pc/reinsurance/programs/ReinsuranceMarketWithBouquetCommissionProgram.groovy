@@ -16,10 +16,12 @@ import org.pillarone.riskanalytics.core.wiring.ITransmitter
 import org.pillarone.riskanalytics.core.wiring.Transmitter
 import org.pillarone.riskanalytics.domain.pc.creditrisk.ReinsurerDefault
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
+import org.pillarone.riskanalytics.core.components.ComponentCategory
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = ['REINSURANCE','PROGRAM','COMMISSION'])
 class ReinsuranceMarketWithBouquetCommissionProgram extends ComposedComponent {
 
     PacketList<ReinsurerDefault> inReinsurersDefault = new PacketList<ReinsurerDefault>(ReinsurerDefault)

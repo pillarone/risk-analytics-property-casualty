@@ -5,6 +5,7 @@ import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassif
 /**
  * @author Michael-Noe (at) Web (dot) de
  */
+@Deprecated
 class LobGumbelCopulaStrategy extends GumbelCopulaStrategy {
 
     static final LobCopulaType type = LobCopulaType.GUMBEL

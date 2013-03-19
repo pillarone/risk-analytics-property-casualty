@@ -9,6 +9,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.core.packets.PacketList
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
+import org.pillarone.riskanalytics.core.components.ComponentCategory
 
 /**
  *  This component contains an arbitrary number of Commission subcomponents.
@@ -26,6 +27,7 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
  *
  *  @author shartmann (at) munichre (dot) com, ben.ginsberg (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = ['COMMISSION'])
 class DynamicCommission extends DynamicComposedComponent {
 
     PacketList<Claim> inClaims = new PacketList<Claim>(Claim.class);

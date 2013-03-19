@@ -11,7 +11,7 @@ import org.pillarone.riskanalytics.core.simulation.engine.MappingCache;
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType;
 import org.pillarone.riskanalytics.domain.pc.filter.SegmentFilter;
 import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
+import org.pillarone.riskanalytics.domain.utils.marker.IReinsuranceContractMarker;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.utils.MarkerKeyPair;
@@ -36,7 +36,6 @@ public class AggregateDrillDownCollectingModeStrategy implements ICollectingMode
     private PacketCollector packetCollector;
 
     // the following variables are used for caching purposes
-    private SimulationRun simulationRun;
     private String componentPath;
     private Map<IComponentMarker, PathMapping> markerPaths;
     private Map<MarkerKeyPair, PathMapping> markerComposedPaths;
@@ -45,8 +44,7 @@ public class AggregateDrillDownCollectingModeStrategy implements ICollectingMode
     private int period = 0;
 
     private void initSimulation() {
-        if (simulationRun != null) return;
-        simulationRun = packetCollector.getSimulationScope().getSimulation().getSimulationRun();
+        if (componentPath != null) return;
         componentPath = getComponentPath();
         markerPaths = new HashMap<IComponentMarker, PathMapping>();
         markerComposedPaths = new HashMap<MarkerKeyPair, PathMapping>();
@@ -92,7 +90,6 @@ public class AggregateDrillDownCollectingModeStrategy implements ICollectingMode
                 Double value = (Double) field.getValue();
                 invalidCheck.checkInvalidValues(fieldName, value, period, iteration, crashSimOnError);
                 SingleValueResultPOJO result = new SingleValueResultPOJO();
-                result.setSimulationRun(simulationRun);
                 result.setIteration(iteration);
                 result.setPeriod(period);
                 result.setPath(path);
@@ -320,5 +317,15 @@ public class AggregateDrillDownCollectingModeStrategy implements ICollectingMode
 
     public boolean isCompatibleWith(Class packetClass) {
         return Claim.class.isAssignableFrom(packetClass) || UnderwritingInfo.class.isAssignableFrom(packetClass);
+    }
+
+    @Override
+    public List<DrillDownMode> getDrillDownModes() {
+        return DrillDownMode.getDrillDownModesBySource();
+    }
+
+    @Override
+    public Object[] getArguments() {
+        return new Object[0];
     }
 }

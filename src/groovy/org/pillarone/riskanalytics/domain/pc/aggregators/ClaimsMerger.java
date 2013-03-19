@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.aggregators;
 
 import org.pillarone.riskanalytics.core.components.Component;
+import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 
@@ -24,6 +25,7 @@ import java.util.Map;
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = {"CLAIM","MERGER"})
 public class ClaimsMerger extends Component {
 
     private PacketList<Claim> inClaimsCeded = new PacketList<Claim>(Claim.class);

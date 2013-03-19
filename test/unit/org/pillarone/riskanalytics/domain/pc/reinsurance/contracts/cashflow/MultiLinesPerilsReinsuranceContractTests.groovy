@@ -26,6 +26,9 @@ import org.pillarone.riskanalytics.domain.pc.reserves.cashflow.ClaimDevelopmentW
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.cover.*
+import org.pillarone.riskanalytics.core.components.Component
+import org.pillarone.riskanalytics.domain.pc.generators.severities.Event
+import org.pillarone.riskanalytics.domain.utils.marker.IReserveMarker
 
 /**
  * @author stefan.kunz & ben.ginsberg (at) intuitive-collaboration (dot) com
@@ -585,14 +588,14 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         // contract only covers hull LOB from peril B (both conditions are enforced; connection type is AND)
         contract.parmCover = getCoverAttributeStrategy(['lines': ['hull'], 'perils': ['peril b']], simulationScope.model)
 
-        Claim claim001 = new Claim(lineOfBusiness: lob['fire'], peril: perilA, value: 1000, fractionOfPeriod: 0.1, claimType: ClaimType.SINGLE)
-        Claim claim002 = new Claim(lineOfBusiness: lob['fire'], peril: perilA, value: 2000, fractionOfPeriod: 0.2, claimType: ClaimType.ATTRITIONAL)
-        Claim claim011 = new Claim(lineOfBusiness: lob['fire'], peril: perilB, value: 3000, fractionOfPeriod: 0.4, claimType: ClaimType.SINGLE)
-        Claim claim012 = new Claim(lineOfBusiness: lob['fire'], peril: perilB, value: 4000, fractionOfPeriod: 0.8, claimType: ClaimType.ATTRITIONAL)
-        Claim claim101 = new Claim(lineOfBusiness: lob['hull'], peril: perilA, value: 5000, fractionOfPeriod: 0.5, claimType: ClaimType.SINGLE)
-        Claim claim102 = new Claim(lineOfBusiness: lob['hull'], peril: perilA, value: 6000, fractionOfPeriod: 0.0, claimType: ClaimType.ATTRITIONAL)
-        Claim claim111 = new Claim(lineOfBusiness: lob['hull'], peril: perilB, value: 7000, fractionOfPeriod: 0.9, claimType: ClaimType.SINGLE)
-        Claim claim112 = new Claim(lineOfBusiness: lob['hull'], peril: perilB, value: 8000, fractionOfPeriod: 0.7, claimType: ClaimType.ATTRITIONAL)
+        Claim claim001 = getClaim(perilA, lob['fire'], 1000, 0.1, ClaimType.SINGLE)
+        Claim claim002 = getClaim(perilA, lob['fire'], 2000, 0.2, ClaimType.ATTRITIONAL)
+        Claim claim011 = getClaim(perilB, lob['fire'], 3000, 0.4, ClaimType.SINGLE)
+        Claim claim012 = getClaim(perilB, lob['fire'], 4000, 0.8, ClaimType.ATTRITIONAL)
+        Claim claim101 = getClaim(perilA, lob['hull'], 5000, 0.5, ClaimType.SINGLE)
+        Claim claim102 = getClaim(perilA, lob['hull'], 6000, 0.0, ClaimType.ATTRITIONAL)
+        Claim claim111 = getClaim(perilB, lob['hull'], 7000, 0.9, ClaimType.SINGLE)
+        Claim claim112 = getClaim(perilB, lob['hull'], 8000, 0.7, ClaimType.ATTRITIONAL)
 
         UnderwritingInfo uInfo001 = new UnderwritingInfo(lineOfBusiness: lob['fire'], origin: perilA, premium: 120, commission: 11)
         UnderwritingInfo uInfo002 = new UnderwritingInfo(lineOfBusiness: lob['fire'], origin: perilA, premium: 220, commission: 13)
@@ -640,5 +643,36 @@ class MultiLinesPerilsReinsuranceContractTests extends GroovyTestCase {
         assertEquals "ceded commission", "-16.0, -21.0, -16.5, -21.5", (contract.outCoverUnderwritingInfo.collect {it.commission}).join(", ")
         assertEquals "net premium written", "240.0, 315.0, 247.5, 322.5", (contract.outNetAfterCoverUnderwritingInfo.collect {it.premium}).join(", ")
         assertEquals "net commission", "16.0, 21.0, 16.5, 21.5", (contract.outNetAfterCoverUnderwritingInfo.collect {it.commission}).join(", ")
+    }
+
+    private ClaimDevelopmentLeanPacket getClaim(IPerilMarker peril, ISegmentMarker lob, double ultimate, double paid,
+                                                double fractionOfPeriod, Component origin, Event event,
+                                                Claim originalClaim) {
+        ClaimDevelopmentLeanPacket claim = new ClaimDevelopmentLeanPacket(ultimate: ultimate, paid: paid,
+                fractionOfPeriod: fractionOfPeriod, origin: origin, event: event, originalClaim: originalClaim)
+        claim.addMarker(IPerilMarker, peril)
+        claim.addMarker(ISegmentMarker, lob)
+        claim
+    }
+
+    private Claim getClaim(IPerilMarker peril, ISegmentMarker lob, double ultimate, double fractionOfPeriod, ClaimType claimType) {
+        Claim claim = new Claim(ultimate: ultimate, fractionOfPeriod: fractionOfPeriod, claimType: claimType)
+        claim.addMarker(IPerilMarker, peril)
+        claim.addMarker(ISegmentMarker, lob)
+        claim
+    }
+
+    private Claim getClaim(IPerilMarker peril, ISegmentMarker lob, double ultimate) {
+        Claim claim = new Claim(ultimate: ultimate)
+        claim.addMarker(IPerilMarker, peril)
+        claim.addMarker(ISegmentMarker, lob)
+        claim
+    }
+
+    private Claim getClaim(IReserveMarker reserve, ISegmentMarker lob, double ultimate) {
+        Claim claim = new Claim(ultimate: ultimate)
+        claim.addMarker(IReserveMarker, reserve)
+        claim.addMarker(ISegmentMarker, lob)
+        claim
     }
 }

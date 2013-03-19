@@ -1,6 +1,7 @@
 package org.pillarone.riskanalytics.domain.pc.reinsurance.contracts;
 
 import org.pillarone.riskanalytics.core.components.Component;
+import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.core.packets.SingleValuePacket;
 import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope;
@@ -16,12 +17,14 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoUtilities;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo;
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities;
+import org.pillarone.riskanalytics.domain.utils.marker.IReinsuranceContractMarker;
 
 import java.util.*;
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = {"REINSURANCE","CONTRACT"})
 public class ReinsuranceContract extends Component implements IReinsuranceContractMarker {
 
     private SimulationScope simulationScope;
@@ -209,7 +212,6 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
 
     protected void setClaimReferences(Claim claim, Claim grossClaim, Component origin) {
         claim.origin = origin;
-        claim.setReinsuranceContract(this);
         if (grossClaim.getOriginalClaim() != null) {
             claim.setOriginalClaim(grossClaim.getOriginalClaim());
         }
@@ -409,5 +411,13 @@ public class ReinsuranceContract extends Component implements IReinsuranceContra
 
     public void setSimulationScope(SimulationScope simulationScope) {
         this.simulationScope = simulationScope;
+    }
+
+    public boolean adjustExposureInfo() {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public boolean isProportionalContract() {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }

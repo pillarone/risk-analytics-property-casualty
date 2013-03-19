@@ -9,6 +9,8 @@ import org.pillarone.riskanalytics.domain.pc.generators.copulas.EventDependenceS
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.utils.DistributionModifier
 import org.pillarone.riskanalytics.domain.utils.DistributionType
+import org.pillarone.riskanalytics.core.components.ComponentCategory
+import org.pillarone.riskanalytics.core.wiring.WiringValidation
 
 /**
  * <p>A DynamicClaimsGenerators is a container for TypeableClaimsGenerators which can be managed from the UI
@@ -26,12 +28,13 @@ import org.pillarone.riskanalytics.domain.utils.DistributionType
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
-
+@ComponentCategory(categories = ['CLAIM','GENERATOR','ATTRITIONAL','SINGLE','EVENT'])
 public class DynamicClaimsGenerators extends DynamicComposedComponent {
 
     /** needs to be connected only if a none absolute base is selected */
     PacketList<UnderwritingInfo> inUnderwritingInfo = new PacketList(UnderwritingInfo.class);
     /** needs to be connected only if the claims generator was selected as target in a copula */
+    @WiringValidation(connections= [0, 1], packets= [1, 1])
     PacketList<DependenceStream> inProbabilities = new PacketList(DependenceStream.class);
     /** needs to be connected only if the claims generator is using externally specified severities
      * (that is, the claims generator is based on/resamples given experience data) */

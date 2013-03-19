@@ -1,5 +1,6 @@
 package org.pillarone.riskanalytics.domain.pc.generators.claims;
 
+import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 import org.pillarone.riskanalytics.domain.pc.claims.Claim;
 import org.pillarone.riskanalytics.domain.pc.claims.ClaimPacketFactory;
@@ -19,6 +20,7 @@ import org.pillarone.riskanalytics.domain.utils.RandomDistribution;
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = {"CLAIM","GENERATOR","EVENT"})
 public class EventClaimsGenerator extends ClaimsGenerator {
     private RandomDistribution parmDistribution = DistributionType.getUniformDistribution();
 

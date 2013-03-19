@@ -1,8 +1,6 @@
 package org.pillarone.riskanalytics.domain.pc.underwriting;
 
-import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker;
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker;
-import org.pillarone.riskanalytics.domain.utils.PacketUtilities;
+import org.pillarone.riskanalytics.domain.utils.marker.IReinsuranceContractMarker;
 
 import java.util.ArrayList;
 import java.util.List;

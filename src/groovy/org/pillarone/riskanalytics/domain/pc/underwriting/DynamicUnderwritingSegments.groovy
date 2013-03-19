@@ -2,6 +2,7 @@ package org.pillarone.riskanalytics.domain.pc.underwriting
 
 import org.pillarone.riskanalytics.core.components.DynamicComposedComponent
 import org.pillarone.riskanalytics.core.packets.PacketList
+import org.pillarone.riskanalytics.core.components.ComponentCategory
 
 /**
  * <p>DynamicUnderwritingSegments stores any number of RiskBands components
@@ -19,6 +20,7 @@ import org.pillarone.riskanalytics.core.packets.PacketList
  *
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = ['UNDERWRITING'])
 public class DynamicUnderwritingSegments extends DynamicComposedComponent {
 
     PacketList<UnderwritingInfo> outUnderwritingInfo = new PacketList(UnderwritingInfo)

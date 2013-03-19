@@ -11,12 +11,11 @@ import org.pillarone.riskanalytics.domain.assets.VoidTestModel
 import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.constants.ClaimType
 import org.pillarone.riskanalytics.domain.pc.reinsurance.commissions.applicable.ApplicableStrategyType
-import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.IReinsuranceContractMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IReinsuranceContractMarker
 import org.pillarone.riskanalytics.domain.pc.reinsurance.contracts.ReinsuranceContract
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.core.components.Component
 import org.pillarone.riskanalytics.core.example.component.TestComponent
-import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.CededUnderwritingInfoPacketFactory
 
@@ -260,9 +259,9 @@ class CommissionTests extends GroovyTestCase {
         commission.inUnderwritingInfo << underwritingInfo1 << underwritingInfo2 << underwritingInfo3
         // An extra 30% commission applies to UWInfo 100 & 200 but not 300
 
-        commission.inClaims << new Claim(reinsuranceContract: contract0, claimType: ClaimType.ATTRITIONAL, ultimate: 10)
-        commission.inClaims << new Claim(reinsuranceContract: contract1, claimType: ClaimType.ATTRITIONAL, ultimate: 20)
-        commission.inClaims << new Claim(reinsuranceContract: contract2, claimType: ClaimType.ATTRITIONAL, ultimate: 30)
+        commission.inClaims << getAttritionalClaim(contract0, 10)
+        commission.inClaims << getAttritionalClaim(contract1, 20)
+        commission.inClaims << getAttritionalClaim(contract2, 30)
         // the claims of size 20 & 30 belong to "applicable" contracts and therefore affect the profit commission
 
         commission.doCalculation()
@@ -270,6 +269,12 @@ class CommissionTests extends GroovyTestCase {
         assertEquals '# outUnderwritingInfoModified packets', 2, commission.outUnderwritingInfoModified.size()
         assertEquals 'underwritingInfo1', -1.18, commission.outUnderwritingInfoModified[0].commission
         assertEquals 'underwritingInfo2', -2.12, commission.outUnderwritingInfoModified[1].commission
+    }
+
+    private Claim getAttritionalClaim(ReinsuranceContract contract0, double ultimate) {
+        Claim claim10 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: ultimate)
+        claim10.addMarker(IReinsuranceContractMarker, contract0)
+        return claim10
     }
 
     void testProfitCommissionFilteringByContract2() {
@@ -304,11 +309,11 @@ class CommissionTests extends GroovyTestCase {
         commission.inUnderwritingInfo << underwritingInfo4 << underwritingInfo5 << underwritingInfo6
         // An extra 30% commission applies to UWInfo 1-5 but not UWInfo 6
 
-        commission.inClaims << new Claim(reinsuranceContract: contract1, claimType: ClaimType.ATTRITIONAL, ultimate: 10)
-        commission.inClaims << new Claim(reinsuranceContract: contract2, claimType: ClaimType.ATTRITIONAL, ultimate: 10)
-        commission.inClaims << new Claim(reinsuranceContract: contract2, claimType: ClaimType.ATTRITIONAL, ultimate: 10)
-        commission.inClaims << new Claim(reinsuranceContract: contract0, claimType: ClaimType.ATTRITIONAL, ultimate: 40)
-        commission.inClaims << new Claim(reinsuranceContract: contract0, claimType: ClaimType.ATTRITIONAL, ultimate: 50)
+        commission.inClaims << getAttritionalClaim(contract1, 10)
+        commission.inClaims << getAttritionalClaim(contract2, 10)
+        commission.inClaims << getAttritionalClaim(contract2, 10)
+        commission.inClaims << getAttritionalClaim(contract0, 40)
+        commission.inClaims << getAttritionalClaim(contract0, 50)
         // the claims of size 10 (totalling 30) belong to "applicable" contracts and therefore affect the profit commission
 
         commission.doCalculation()

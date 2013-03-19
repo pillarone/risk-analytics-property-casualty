@@ -5,12 +5,14 @@ import org.pillarone.riskanalytics.domain.pc.generators.copulas.LobCopula
 import org.pillarone.riskanalytics.domain.pc.severities.ProbabilityExtractor
 import org.pillarone.riskanalytics.domain.pc.generators.claims.AttritionalClaimsGenerator
 import org.pillarone.riskanalytics.domain.pc.claims.allocation.RiskAllocator
+import org.pillarone.riskanalytics.domain.pc.global.GlobalParameters
 
 /**
  * @author: stefan.kunz (at) intuitive-collaboration (dot) com
  */
 class CorrelatedAttritionalClaimsModel extends StochasticModel {
 
+    GlobalParameters globalParameters
     LobCopula copula
     ProbabilityExtractor extractorFire
     ProbabilityExtractor extractorHull
@@ -22,6 +24,7 @@ class CorrelatedAttritionalClaimsModel extends StochasticModel {
 
 
     void initComponents() {
+        globalParameters = new GlobalParameters()
         copula = new LobCopula()
         extractorFire = new ProbabilityExtractor(name: 'fire')
         extractorHull = new ProbabilityExtractor(name: 'hull')

@@ -5,6 +5,7 @@ import org.pillarone.riskanalytics.core.parameterization.IParameterObjectClassif
 /**
  * @author Michael-Noe (at) Web (dot) de
  */
+@Deprecated
 class PerilGumbelCopulaStrategy extends GumbelCopulaStrategy {
 
     static final PerilCopulaType type = PerilCopulaType.GUMBEL;

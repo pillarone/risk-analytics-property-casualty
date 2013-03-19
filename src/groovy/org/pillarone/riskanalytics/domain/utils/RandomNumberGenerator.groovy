@@ -5,6 +5,7 @@ import umontreal.iro.lecuyer.randvar.RandomVariateGen
 import umontreal.iro.lecuyer.randvar.RandomVariateGenInt
 import org.pillarone.riskanalytics.core.parameterization.AbstractParameterObject
 
+@Deprecated
 class RandomNumberGenerator extends AbstractParameterObject implements IRandomNumberGenerator {
 
     protected RandomVariateGen generator

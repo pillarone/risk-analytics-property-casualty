@@ -14,6 +14,12 @@ import org.pillarone.riskanalytics.domain.pc.claims.TestLobComponent
 import org.pillarone.riskanalytics.core.model.Model
 import org.pillarone.riskanalytics.core.simulation.engine.SimulationScope
 import org.pillarone.riskanalytics.domain.pc.generators.claims.DevelopedTypableClaimsGenerator
+import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.ClaimDevelopmentLeanPacket
+import org.pillarone.riskanalytics.domain.pc.generators.severities.Event
+import org.pillarone.riskanalytics.core.components.Component
+import org.pillarone.riskanalytics.domain.utils.marker.ISegmentMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IPerilMarker
+import org.pillarone.riskanalytics.domain.utils.marker.IReserveMarker
 
 /**
  * @author ben.ginsberg (at) intuitive-collaboration (dot) com
@@ -38,11 +44,11 @@ class DynamicMultiCoverAttributeReinsuranceProgramTests extends GroovyTestCase {
 
     Map<String, TestLobComponent> lob = createLobs(['motor', 'property', 'legal'], simulationScope.model)
 
-    Claim attrMarketClaim1000 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 1000d, fractionOfPeriod: 0d, lineOfBusiness: lob['motor'], peril: claimsGenerator)
-    Claim largeMarketClaim600 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 600d, fractionOfPeriod: 0d, lineOfBusiness: lob['motor'], peril: claimsGenerator)
+    Claim attrMarketClaim1000 = getClaim(claimsGenerator, lob['motor'], 1000d, 0d, ClaimType.ATTRITIONAL, null)
+    Claim largeMarketClaim600 = getClaim(claimsGenerator, lob['motor'], 600d, 0d, ClaimType.ATTRITIONAL, null)
 
-    Claim attrClaim100 = new Claim(claimType: ClaimType.ATTRITIONAL, ultimate: 100d, fractionOfPeriod: 0d, originalClaim: attrMarketClaim1000, lineOfBusiness: lob['motor'], peril: claimsGenerator)
-    Claim largeClaim60 = new Claim(claimType: ClaimType.SINGLE, ultimate: 60d, fractionOfPeriod: 0.1d, originalClaim: largeMarketClaim600, lineOfBusiness: lob['motor'], peril: claimsGenerator)
+    Claim attrClaim100 =  getClaim(claimsGenerator, lob['motor'], 100d, 0d, ClaimType.ATTRITIONAL, attrMarketClaim1000)
+    Claim largeClaim60 = getClaim(claimsGenerator, lob['motor'], 60, 0.1d, ClaimType.SINGLE, largeMarketClaim600)
 
     UnderwritingInfo underwritingInfo1 = CommissionTests.getUnderwritingInfoFromSelf(
             origin: new TestComponent(), premium: 2000,
@@ -267,5 +273,36 @@ class DynamicMultiCoverAttributeReinsuranceProgramTests extends GroovyTestCase {
         assertEquals "program ceded premium from qs3 (ip5)", 30, endUwInfoCeded[1].premium
         assertEquals "program ceded premium from qs1 (ip9)", 354, endUwInfoCeded[2].premium
         assertEquals "program net premium", 1416, endUwInfoNet[0].premium
+    }
+
+     private static ClaimDevelopmentLeanPacket getClaim(IPerilMarker peril, ISegmentMarker lob, double ultimate, double paid,
+                                                double fractionOfPeriod, Component origin, Event event,
+                                                Claim originalClaim) {
+        ClaimDevelopmentLeanPacket claim = new ClaimDevelopmentLeanPacket(ultimate: ultimate, paid: paid,
+                fractionOfPeriod: fractionOfPeriod, origin: origin, event: event, originalClaim: originalClaim)
+        claim.addMarker(IPerilMarker, peril)
+        claim.addMarker(ISegmentMarker, lob)
+        claim
+    }
+
+    private static Claim getClaim(IPerilMarker peril, ISegmentMarker lob, double ultimate, double fractionOfPeriod, ClaimType claimType, Claim originalClaim) {
+        Claim claim = new Claim(ultimate: ultimate, fractionOfPeriod: fractionOfPeriod, claimType: claimType, originalClaim: originalClaim)
+        claim.addMarker(IPerilMarker, peril)
+        claim.addMarker(ISegmentMarker, lob)
+        claim
+    }
+
+    private static Claim getClaim(IPerilMarker peril, ISegmentMarker lob, double ultimate) {
+        Claim claim = new Claim(ultimate: ultimate)
+        claim.addMarker(IPerilMarker, peril)
+        claim.addMarker(ISegmentMarker, lob)
+        claim
+    }
+
+    private static Claim getClaim(IReserveMarker reserve, ISegmentMarker lob, double ultimate) {
+        Claim claim = new Claim(ultimate: ultimate)
+        claim.addMarker(IReserveMarker, reserve)
+        claim.addMarker(ISegmentMarker, lob)
+        claim
     }
 }

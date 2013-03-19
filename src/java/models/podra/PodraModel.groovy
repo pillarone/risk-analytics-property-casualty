@@ -11,12 +11,14 @@ import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.ReinsuranceWit
 import org.pillarone.riskanalytics.domain.pc.reserves.fasttrack.DynamicReservesGeneratorLean
 import org.pillarone.riskanalytics.domain.pc.underwriting.DynamicUnderwritingSegments
 import org.pillarone.riskanalytics.domain.pc.filter.DynamicSegmentFilters
+import org.pillarone.riskanalytics.domain.pc.global.GlobalParameters
 
 /**
  * @author shartmann (at) munichre (dot) com
  */
 class PodraModel extends StochasticModel {
 
+    GlobalParameters globalParameters
     DynamicUnderwritingSegments underwritingSegments
     DynamicDevelopedClaimsGenerators claimsGenerators
     DynamicReservesGeneratorLean reserveGenerators
@@ -30,6 +32,7 @@ class PodraModel extends StochasticModel {
 
 
     void initComponents() {
+        globalParameters = new GlobalParameters()
         underwritingSegments = new DynamicUnderwritingSegments()
         claimsGenerators = new DynamicDevelopedClaimsGenerators()
         reserveGenerators = new DynamicReservesGeneratorLean()
@@ -48,6 +51,7 @@ class PodraModel extends StochasticModel {
     }
 
     void wireComponents() {
+        globalParameters = new GlobalParameters()
         claimsGenerators.inUnderwritingInfo = underwritingSegments.outUnderwritingInfo
         claimsGenerators.inProbabilities = dependencies.outProbabilities
         claimsGenerators.inEventSeverities = eventGenerators.outEventSeverities
@@ -83,4 +87,32 @@ class PodraModel extends StochasticModel {
     public String getDefaultResultConfiguration() {
         return "CapitalEagle Analysis"
     }
+
+    @Override
+    Closure createResultNavigatorMapping() {
+        return {
+            lob {
+                or {
+                    enclosedBy(prefix: ['linesOfBusiness:sub'], suffix: [':'])
+                    conditionedOn(value: 'Aggregate') {
+                        matching(toMatch: ["linesOfBusiness:(?!sub)"])
+                    }
+                }
+            }
+            peril {
+                enclosedBy(prefix: ["claimsGenerators:sub"], suffix: [":"])
+            }
+            reinsuranceContractType {
+                enclosedBy(prefix: ["subContracts:sub", "reinsuranceContracts:sub"], suffix: [":"])
+            }
+            accountBasis {
+                matching(toMatch: ["Gross", "Ceded", "Net"])
+            }
+            keyfigure {
+                synonymousTo(category: "Field")
+            }
+        }
+    }
+
+
 }

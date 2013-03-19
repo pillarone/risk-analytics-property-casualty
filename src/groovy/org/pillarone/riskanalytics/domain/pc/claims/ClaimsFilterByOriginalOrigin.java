@@ -1,11 +1,13 @@
 package org.pillarone.riskanalytics.domain.pc.claims;
 
 import org.pillarone.riskanalytics.core.components.Component;
+import org.pillarone.riskanalytics.core.components.ComponentCategory;
 import org.pillarone.riskanalytics.core.packets.PacketList;
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
+@ComponentCategory(categories = {"CLAIM","FILTER"})
 public class ClaimsFilterByOriginalOrigin extends Component {
 
     private PacketList<Claim> inClaimsGross = new PacketList<Claim>(Claim.class);
@@ -14,7 +16,19 @@ public class ClaimsFilterByOriginalOrigin extends Component {
 
 
     public void doCalculation() {
-        outClaims.addAll(ClaimFilterUtilities.filterClaimsByOriginalOrigin(inClaimsGross, inClaimsCeded));
+        outClaims.addAll(inClaimsCeded);
+    }
+
+    @Override
+    public void filterInChannel(PacketList inChannel, PacketList source) {
+        if (inChannel == inClaimsCeded) {
+            if (source.size() > 0 ) {
+                inClaimsCeded.addAll(ClaimFilterUtilities.filterClaimsByOriginalOrigin(inClaimsGross, source));
+            }
+        }
+        else {
+            super.filterInChannel(inChannel, source);
+        }
     }
 
     public PacketList<Claim> getOutClaims() {

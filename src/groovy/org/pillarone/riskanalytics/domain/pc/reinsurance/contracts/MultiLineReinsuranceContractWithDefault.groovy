@@ -14,6 +14,7 @@ import org.pillarone.riskanalytics.domain.pc.claims.Claim
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfo
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoUtilities
 import org.pillarone.riskanalytics.domain.pc.underwriting.UnderwritingInfoPacketFactory
+import org.pillarone.riskanalytics.domain.pc.filter.FilterUtils
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -32,14 +33,19 @@ public class MultiLineReinsuranceContractWithDefault extends MultiLineReinsuranc
         super.doCalculation();
     }
 
-    protected void filterInChannels() {
-        List<ISegmentMarker> coveredLines = parmCoveredLines.getValuesAsObjects(0, true)
-        List<IPerilMarker> coveredPerils = parmCoveredPerils.getValuesAsObjects(0, true)
-        outFilteredClaims.addAll(ClaimFilterUtilities.filterClaimsByPerilAndLob(inClaims, coveredPerils, coveredLines))
-        if (coveredLines.size() == 0) {
-            coveredLines = ClaimFilterUtilities.getLinesOfBusiness(outFilteredClaims)
+    public void filterInChannel(PacketList inChannel, PacketList source) {
+        if (inChannel.equals(inClaims)) {
+            inChannel.addAll(ClaimFilterUtilities.filterClaimsByPerilAndLob(source,
+                    FilterUtils.getCoveredPerils(parmCoveredPerils, periodStore),
+                    FilterUtils.getCoveredLines(parmCoveredLines, periodStore)))
+            if (inChannel.isEmpty()) {
+                inChannel.addAll(UnderwritingFilterUtilities.filterUnderwritingInfoByLob(source,
+                    FilterUtils.getCoveredLines(parmCoveredPerils, inChannel, periodStore)));
+            }
         }
-        outFilteredUnderwritingInfo.addAll(UnderwritingFilterUtilities.filterUnderwritingInfoByLob(inUnderwritingInfo, coveredLines))
+        else {
+            super.filterInChannel(inChannel, source)
+        }
     }
 
     protected Claim getCoveredClaim(Claim claim, Component origin) {

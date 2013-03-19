@@ -7,6 +7,7 @@ import org.pillarone.riskanalytics.domain.pc.generators.copulas.DynamicMultipleD
 import org.pillarone.riskanalytics.domain.pc.lob.DynamicConfigurableLobs
 import org.pillarone.riskanalytics.domain.pc.reinsurance.programs.ReinsuranceWithBouquetCommissionProgram
 import org.pillarone.riskanalytics.domain.pc.underwriting.DynamicUnderwritingSegments
+import org.pillarone.riskanalytics.domain.pc.global.GlobalParameters
 
 /**
  * A PodraPModel is a model for liabilities, including deterministic underwriting information, stochastic claims
@@ -20,21 +21,23 @@ import org.pillarone.riskanalytics.domain.pc.underwriting.DynamicUnderwritingSeg
  */
 class PodraPModel extends StochasticModel {
 
+    GlobalParameters globalParameters
     /** underwritingSegments is a collection of RiskBands which emit their properties on the outUnderwritingInfo channel */
     DynamicUnderwritingSegments underwritingSegments
     /** a list of independently specified claims generators */
     DynamicClaimsGenerators claimsGenerators
     /** dependency structures: copulas based on attritional loss distributions */
     DynamicDependencies dependencies
-    // Ereignisgeneratoren für Frequency Severity Generatoren
+    // Ereignisgeneratoren fï¿½r Frequency Severity Generatoren
     DynamicMultipleDependencies eventGenerators
     // mappings of claims Zusammenfassung der Schadengeneratoren zu Branchen
     DynamicConfigurableLobs linesOfBusiness
-    // Rückversicherung auf Branchen oder SG-Level
+    // Rï¿½ckversicherung auf Branchen oder SG-Level
     ReinsuranceWithBouquetCommissionProgram reinsurance
 
     void initComponents() {
         // set up components
+        globalParameters = new GlobalParameters()
         underwritingSegments = new DynamicUnderwritingSegments()
         claimsGenerators = new DynamicClaimsGenerators()
         dependencies = new DynamicDependencies()
