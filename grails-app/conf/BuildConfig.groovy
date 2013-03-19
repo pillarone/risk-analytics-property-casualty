@@ -7,10 +7,12 @@ grails.project.dependency.resolution = {
 
     repositories {
         grailsHome()
+        grailsPlugins()
         grailsCentral()
-    }
 
-    mavenRepo "https://repository.intuitive-collaboration.com/nexus/content/repositories/pillarone-public/"
+        mavenCentral()
+        mavenRepo "https://repository.intuitive-collaboration.com/nexus/content/repositories/pillarone-public/"
+    }
 
     plugins {
         runtime ":background-thread:1.3"
@@ -26,7 +28,7 @@ grails.project.dependency.resolution = {
 
         if (appName == "RiskAnalyticsPropertyCasualty") {
             runtime "org.pillarone:risk-analytics-core:1.7-a1"
-            runtime("org.pillarone:risk-analytics-commons:0.4.5") { transitive = false }
+            runtime("org.pillarone:risk-analytics-commons:0.4.28") { transitive = false }
         }
     }
 }
