@@ -2,7 +2,8 @@
 
     <property file="application.properties"/>
 
-    <import>
+    <copy tofile="_build.xml" overwrite="true">
         <fileset dir="../local-plugins/${app.name}-master" includes="risk-analytics-core*/scripts/build.xml" />
-    </import>
+    </copy>
+    <import file="_build.xml"/>
 </project>
