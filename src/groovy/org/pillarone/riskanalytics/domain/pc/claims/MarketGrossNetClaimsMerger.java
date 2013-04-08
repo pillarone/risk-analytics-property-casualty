@@ -40,14 +40,6 @@ public class MarketGrossNetClaimsMerger extends Component {
     private PacketList<Claim> outClaimsGross = new PacketList<Claim>(Claim.class);
     private PacketList<Claim> outClaimsCeded = new PacketList<Claim>(Claim.class);
 
-    // todo(sku): remove the following and related lines as soon as PMO-648 is resolved
-    private PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanNet = new PacketList<ClaimDevelopmentLeanPacket>(ClaimDevelopmentLeanPacket.class);
-    private PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanGross = new PacketList<ClaimDevelopmentLeanPacket>(ClaimDevelopmentLeanPacket.class);
-    private PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanCeded = new PacketList<ClaimDevelopmentLeanPacket>(ClaimDevelopmentLeanPacket.class);
-    private PacketList<ClaimDevelopmentPacket> outClaimsDevelopmentNet = new PacketList<ClaimDevelopmentPacket>(ClaimDevelopmentPacket.class);
-    private PacketList<ClaimDevelopmentPacket> outClaimsDevelopmentGross = new PacketList<ClaimDevelopmentPacket>(ClaimDevelopmentPacket.class);
-    private PacketList<ClaimDevelopmentPacket> outClaimsDevelopmentCeded = new PacketList<ClaimDevelopmentPacket>(ClaimDevelopmentPacket.class);
-
     public void doCalculation() {
         if (inClaimsGross.isEmpty() && !inClaimsCeded.isEmpty()) {
             throw new IllegalStateException("MarketGrossNetClaimsMerger.onlyCededClaims");
@@ -66,8 +58,7 @@ public class MarketGrossNetClaimsMerger extends Component {
                 grossMergedCededPairs.put(grossClaim.getOriginalClaim(), claimsPair);
                 outClaimsGross.add(grossClaim);
             }
-            if (isSenderWired(outClaimsCeded) || isSenderWired(outClaimsNet)
-                    || isSenderWired(outClaimsDevelopmentLeanCeded) || isSenderWired(outClaimsDevelopmentLeanNet)) {
+            if (isSenderWired(outClaimsCeded) || isSenderWired(outClaimsNet)) {
                 for (Claim cededClaim : inClaimsCeded) {
                     if (grossMergedCededPairs.containsKey(cededClaim.getOriginalClaim())) {
                         GrossCededClaimsPair aggregateGrossCededClaim = grossMergedCededPairs.get(cededClaim.getOriginalClaim());
@@ -102,42 +93,8 @@ public class MarketGrossNetClaimsMerger extends Component {
                 }
             }
         }
-        if (isSenderWired(outClaimsCeded) || isSenderWired(outClaimsDevelopmentLeanCeded)) {
+        if (isSenderWired(outClaimsCeded)) {
             outClaimsCeded.addAll(inClaimsCeded);
-        }
-        if (inClaimsGross.size() > 0 && inClaimsGross.get(0) instanceof ClaimDevelopmentLeanPacket) {
-            if (isSenderWired(outClaimsDevelopmentLeanGross)) {
-                for (Claim claim : outClaimsGross) {
-                    outClaimsDevelopmentLeanGross.add((ClaimDevelopmentLeanPacket) claim);
-                }
-            }
-            if (isSenderWired(outClaimsDevelopmentLeanCeded)) {
-                for (Claim claim : outClaimsCeded) {
-                    outClaimsDevelopmentLeanCeded.add((ClaimDevelopmentLeanPacket) claim);
-                }
-            }
-            if (isSenderWired(outClaimsDevelopmentLeanNet)) {
-                for (Claim claim : outClaimsNet) {
-                    outClaimsDevelopmentLeanNet.add((ClaimDevelopmentLeanPacket) claim);
-                }
-            }
-        }
-        if (inClaimsGross.size() > 0 && inClaimsGross.get(0) instanceof ClaimDevelopmentPacket) {
-            if (isSenderWired(outClaimsDevelopmentGross)) {
-                for (Claim claim : outClaimsGross) {
-                    outClaimsDevelopmentGross.add((ClaimDevelopmentPacket) claim);
-                }
-            }
-            if (isSenderWired(outClaimsDevelopmentCeded)) {
-                for (Claim claim : outClaimsCeded) {
-                    outClaimsDevelopmentCeded.add((ClaimDevelopmentPacket) claim);
-                }
-            }
-            if (isSenderWired(outClaimsDevelopmentNet)) {
-                for (Claim claim : outClaimsNet) {
-                    outClaimsDevelopmentNet.add((ClaimDevelopmentPacket) claim);
-                }
-            }
         }
     }
 
@@ -152,9 +109,7 @@ public class MarketGrossNetClaimsMerger extends Component {
     }
 
     private boolean anyOutChannelWired() {
-        return isSenderWired(outClaimsGross) || isSenderWired(outClaimsCeded) || isSenderWired(outClaimsNet)
-                || isSenderWired(outClaimsDevelopmentLeanGross) || isSenderWired(outClaimsDevelopmentLeanNet)
-                || isSenderWired(outClaimsDevelopmentLeanCeded);
+        return isSenderWired(outClaimsGross) || isSenderWired(outClaimsCeded) || isSenderWired(outClaimsNet);
     }
 
     public PacketList<Claim> getInClaimsCeded() {
@@ -195,53 +150,5 @@ public class MarketGrossNetClaimsMerger extends Component {
 
     public void setOutClaimsNet(PacketList<Claim> outClaimsNet) {
         this.outClaimsNet = outClaimsNet;
-    }
-
-    public PacketList<ClaimDevelopmentLeanPacket> getOutClaimsDevelopmentLeanNet() {
-        return outClaimsDevelopmentLeanNet;
-    }
-
-    public void setOutClaimsDevelopmentLeanNet(PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanNet) {
-        this.outClaimsDevelopmentLeanNet = outClaimsDevelopmentLeanNet;
-    }
-
-    public PacketList<ClaimDevelopmentLeanPacket> getOutClaimsDevelopmentLeanGross() {
-        return outClaimsDevelopmentLeanGross;
-    }
-
-    public void setOutClaimsDevelopmentLeanGross(PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanGross) {
-        this.outClaimsDevelopmentLeanGross = outClaimsDevelopmentLeanGross;
-    }
-
-    public PacketList<ClaimDevelopmentLeanPacket> getOutClaimsDevelopmentLeanCeded() {
-        return outClaimsDevelopmentLeanCeded;
-    }
-
-    public void setOutClaimsDevelopmentLeanCeded(PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanCeded) {
-        this.outClaimsDevelopmentLeanCeded = outClaimsDevelopmentLeanCeded;
-    }
-
-    public PacketList<ClaimDevelopmentPacket> getOutClaimsDevelopmentNet() {
-        return outClaimsDevelopmentNet;
-    }
-
-    public void setOutClaimsDevelopmentNet(PacketList<ClaimDevelopmentPacket> outClaimsDevelopmentNet) {
-        this.outClaimsDevelopmentNet = outClaimsDevelopmentNet;
-    }
-
-    public PacketList<ClaimDevelopmentPacket> getOutClaimsDevelopmentGross() {
-        return outClaimsDevelopmentGross;
-    }
-
-    public void setOutClaimsDevelopmentGross(PacketList<ClaimDevelopmentPacket> outClaimsDevelopmentGross) {
-        this.outClaimsDevelopmentGross = outClaimsDevelopmentGross;
-    }
-
-    public PacketList<ClaimDevelopmentPacket> getOutClaimsDevelopmentCeded() {
-        return outClaimsDevelopmentCeded;
-    }
-
-    public void setOutClaimsDevelopmentCeded(PacketList<ClaimDevelopmentPacket> outClaimsDevelopmentCeded) {
-        this.outClaimsDevelopmentCeded = outClaimsDevelopmentCeded;
     }
 }

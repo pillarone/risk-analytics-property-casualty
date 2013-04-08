@@ -11,36 +11,36 @@ mappings = {
     "Podra" {
         "claims" {
             "net" {
-                "incurred" "Podra:linesOfBusiness:outClaimsDevelopmentLeanNet:incurred", {
-                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outClaimsDevelopmentLeanNet:incurred"
+                "incurred" "Podra:linesOfBusiness:outClaimsNet:incurred", {
+                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outClaimsNet:incurred"
                 }
-                "paid" "Podra:linesOfBusiness:outClaimsDevelopmentLeanNet:paid", {
-                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outClaimsDevelopmentLeanNet:paid"
+                "paid" "Podra:linesOfBusiness:outClaimsNet:paid", {
+                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outClaimsNet:paid"
                 }
-                "reserved" "Podra:linesOfBusiness:outClaimsDevelopmentLeanNet:reserved", {
-                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outClaimsDevelopmentLeanNet:reserved"
+                "reserved" "Podra:linesOfBusiness:outClaimsNet:reserved", {
+                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outClaimsNet:reserved"
                 }
             }
             "gross" {
-                "incurred" "Podra:linesOfBusiness:outClaimsDevelopmentLeanGross:incurred", {
-                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outClaimsDevelopmentLeanGross:incurred"
+                "incurred" "Podra:linesOfBusiness:outClaimsGross:incurred", {
+                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outClaimsGross:incurred"
                 }
-                "paid" "Podra:linesOfBusiness:outClaimsDevelopmentLeanGross:paid", {
-                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outClaimsDevelopmentLeanGross:paid"
+                "paid" "Podra:linesOfBusiness:outClaimsGross:paid", {
+                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outClaimsGross:paid"
                 }
-                "reserved" "Podra:linesOfBusiness:outClaimsDevelopmentLeanGross:reserved", {
-                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outClaimsDevelopmentLeanGross:reserved"
+                "reserved" "Podra:linesOfBusiness:outClaimsGross:reserved", {
+                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outClaimsGross:reserved"
                 }
             }
             "ceded" {
-                "incurred" "Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded:incurred", {
-                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outClaimsDevelopmentLeanCeded:incurred"
+                "incurred" "Podra:linesOfBusiness:outClaimsCeded:incurred", {
+                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outClaimsCeded:incurred"
                 }
-                "paid" "Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded:paid", {
-                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outClaimsDevelopmentLeanCeded:paid"
+                "paid" "Podra:linesOfBusiness:outClaimsCeded:paid", {
+                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outClaimsCeded:paid"
                 }
-                "reserved" "Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded:reserved", {
-                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outClaimsDevelopmentLeanCeded:reserved"
+                "reserved" "Podra:linesOfBusiness:outClaimsCeded:reserved", {
+                    "[%subcomponents%]" "Podra:linesOfBusiness:[%subcomponents%]:outClaimsCeded:reserved"
                 }
             }
         }

@@ -37,11 +37,6 @@ public class ConfigurableLobWithReserves extends MultipleCalculationPhaseCompose
     PacketList<Claim> outClaimsCeded = new PacketList<Claim>(Claim)
     PacketList<SingleValuePacket> outInitialReserves = new PacketList<SingleValuePacket>(SingleValuePacket)
 
-    // todo(sku): remove the following and related lines as soon as PMO-648 is resolved
-    PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanNet = new PacketList(ClaimDevelopmentLeanPacket)
-    PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanGross = new PacketList(ClaimDevelopmentLeanPacket)
-    PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanCeded = new PacketList(ClaimDevelopmentLeanPacket)
-
     PacketList<UnderwritingInfo> outUnderwritingInfoNet = new PacketList<UnderwritingInfo>(UnderwritingInfo)
     PacketList<UnderwritingInfo> outUnderwritingInfoGross = new PacketList<UnderwritingInfo>(UnderwritingInfo)
     PacketList<CededUnderwritingInfo> outUnderwritingInfoCeded = new PacketList<CededUnderwritingInfo>(CededUnderwritingInfo)
@@ -84,10 +79,8 @@ public class ConfigurableLobWithReserves extends MultipleCalculationPhaseCompose
 
             this.outUnderwritingInfoGross = subUnderwritingFilter.outUnderwritingInfo
             this.outClaimsGross = subClaimsFilter.outClaims
-            this.outClaimsDevelopmentLeanGross = subClaimsFilter.outClaimsDevelopmentLean
             this.outClaimsGross = subReservesFilter.outClaims
             this.outInitialReserves = subReservesFilter.outInitialReserves
-            this.outClaimsDevelopmentLeanGross = subReservesFilter.outClaimsDevelopmentLean
 
             subUnderwritingInfoFilterCeded.inUnderwritingInfoCeded = this.inUnderwritingInfoCeded
             subClaimsFilterCeded.inClaimsCeded = this.inClaimsCeded
@@ -95,9 +88,7 @@ public class ConfigurableLobWithReserves extends MultipleCalculationPhaseCompose
             this.outUnderwritingInfoCeded = subUnderwritingInfoAggregator.outUnderwritingInfoCeded
             this.outUnderwritingInfoNet = subUnderwritingInfoAggregator.outUnderwritingInfoNet
             this.outClaimsCeded = subClaimsAggregator.outClaimsCeded
-            this.outClaimsDevelopmentLeanCeded = subClaimsAggregator.outClaimsDevelopmentLeanCeded
             this.outClaimsNet = subClaimsAggregator.outClaimsNet
-            this.outClaimsDevelopmentLeanNet = subClaimsAggregator.outClaimsDevelopmentLeanNet
         }
     }
 
@@ -108,14 +99,11 @@ public class ConfigurableLobWithReserves extends MultipleCalculationPhaseCompose
         setTransmitterPhaseInput(inInitialReserves, MultipleCalculationPhaseComposedComponent.PHASE_START);
         setTransmitterPhaseOutput(outInitialReserves, MultipleCalculationPhaseComposedComponent.PHASE_START);
         setTransmitterPhaseOutput(outClaimsGross, MultipleCalculationPhaseComposedComponent.PHASE_START);
-        setTransmitterPhaseOutput(outClaimsDevelopmentLeanGross, MultipleCalculationPhaseComposedComponent.PHASE_START);
         setTransmitterPhaseInput(inUnderwritingInfoCeded, MultipleCalculationPhaseComposedComponent.PHASE_DO_CALCULATION);
         setTransmitterPhaseInput(inClaimsCeded, MultipleCalculationPhaseComposedComponent.PHASE_DO_CALCULATION);
         setTransmitterPhaseOutput(outUnderwritingInfoCeded, MultipleCalculationPhaseComposedComponent.PHASE_DO_CALCULATION);
         setTransmitterPhaseOutput(outUnderwritingInfoNet, MultipleCalculationPhaseComposedComponent.PHASE_DO_CALCULATION);
         setTransmitterPhaseOutput(outClaimsCeded, MultipleCalculationPhaseComposedComponent.PHASE_DO_CALCULATION);
-        setTransmitterPhaseOutput(outClaimsDevelopmentLeanCeded, MultipleCalculationPhaseComposedComponent.PHASE_DO_CALCULATION);
         setTransmitterPhaseOutput(outClaimsNet, MultipleCalculationPhaseComposedComponent.PHASE_DO_CALCULATION);
-        setTransmitterPhaseOutput(outClaimsDevelopmentLeanNet, MultipleCalculationPhaseComposedComponent.PHASE_DO_CALCULATION);
     }
 }
