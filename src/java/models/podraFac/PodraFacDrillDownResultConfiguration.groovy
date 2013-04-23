@@ -23,16 +23,16 @@ components {
 		}
 	}
 	linesOfBusiness {
-		outClaimsDevelopmentLeanCeded = "AGGREGATED"
-		outClaimsDevelopmentLeanGross = "AGGREGATED"
-		outClaimsDevelopmentLeanNet = "AGGREGATED"
+		outClaimsCeded = "AGGREGATED"
+		outClaimsGross = "AGGREGATED"
+		outClaimsNet = "AGGREGATED"
 		outUnderwritingInfoCeded = "AGGREGATED"
 		outUnderwritingInfoGross = "AGGREGATED"
 		outUnderwritingInfoNet = "AGGREGATED"
 		sublineOfBusiness {
-			outClaimsDevelopmentLeanCeded = "AGGREGATED_DRILL_DOWN"
-			outClaimsDevelopmentLeanGross = "AGGREGATED_DRILL_DOWN"
-			outClaimsDevelopmentLeanNet = "AGGREGATED"
+			outClaimsCeded = "AGGREGATED_DRILL_DOWN"
+			outClaimsGross = "AGGREGATED_DRILL_DOWN"
+			outClaimsNet = "AGGREGATED"
 			outUnderwritingInfoCeded = "AGGREGATED_DRILL_DOWN"
 			outUnderwritingInfoGross = "AGGREGATED_DRILL_DOWN"
 			outUnderwritingInfoNet = "AGGREGATED"

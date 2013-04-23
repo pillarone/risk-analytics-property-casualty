@@ -10,33 +10,33 @@ language = "en"
 mappings = {
     Podra {
         "claims" {
-            "paid" "Podra:linesOfBusiness:outClaimsDevelopmentLeanNet:paid", {
-                "[%lineOfBusiness%]" "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanNet:paid", {
-                    "gross" "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanGross:paid", {
-                        "[%claimsGenerator%]" "Podra:linesOfBusiness:[%lineOfBusiness%]:claimsGenerators:[%claimsGenerator%]:outClaimsDevelopmentLeanGross:paid"
+            "paid" "Podra:linesOfBusiness:outClaimsNet:paid", {
+                "[%lineOfBusiness%]" "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsNet:paid", {
+                    "gross" "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsGross:paid", {
+                        "[%claimsGenerator%]" "Podra:linesOfBusiness:[%lineOfBusiness%]:claimsGenerators:[%claimsGenerator%]:outClaimsGross:paid"
                     }
-                    "ceded" "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanCeded:paid", {
-                        "[%contract%]" "Podra:linesOfBusiness:[%lineOfBusiness%]:reinsuranceContracts:[%contract%]:outClaimsDevelopmentLeanCeded:paid"
-                    }
-                }
-            }
-            "incurred" "Podra:linesOfBusiness:outClaimsDevelopmentLeanNet:incurred", {
-                "[%lineOfBusiness%]" "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanNet:incurred", {
-                    "gross" "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanGross:incurred", {
-                        "[%claimsGenerator%]" "Podra:linesOfBusiness:[%lineOfBusiness%]:claimsGenerators:[%claimsGenerator%]:outClaimsDevelopmentLeanGross:incurred"
-                    }
-                    "ceded" "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanCeded:incurred", {
-                        "[%contract%]" "Podra:linesOfBusiness:[%lineOfBusiness%]:reinsuranceContracts:[%contract%]:outClaimsDevelopmentLeanCeded:incurred"
+                    "ceded" "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsCeded:paid", {
+                        "[%contract%]" "Podra:linesOfBusiness:[%lineOfBusiness%]:reinsuranceContracts:[%contract%]:outClaimsCeded:paid"
                     }
                 }
             }
-            "reserved" "Podra:linesOfBusiness:outClaimsDevelopmentLeanNet:reserved", {
-                "[%lineOfBusiness%]" "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanNet:reserved", {
-                    "gross" "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanGross:reserved", {
-                        "[%claimsGenerator%]" "Podra:linesOfBusiness:[%lineOfBusiness%]:claimsGenerators:[%claimsGenerator%]:outClaimsDevelopmentLeanGross:reserved"
+            "incurred" "Podra:linesOfBusiness:outClaimsNet:incurred", {
+                "[%lineOfBusiness%]" "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsNet:incurred", {
+                    "gross" "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsGross:incurred", {
+                        "[%claimsGenerator%]" "Podra:linesOfBusiness:[%lineOfBusiness%]:claimsGenerators:[%claimsGenerator%]:outClaimsGross:incurred"
                     }
-                    "ceded" "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsDevelopmentLeanCeded:reserved", {
-                        "[%contract%]" "Podra:linesOfBusiness:[%lineOfBusiness%]:reinsuranceContracts:[%contract%]:outClaimsDevelopmentLeanCeded:reserved"
+                    "ceded" "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsCeded:incurred", {
+                        "[%contract%]" "Podra:linesOfBusiness:[%lineOfBusiness%]:reinsuranceContracts:[%contract%]:outClaimsCeded:incurred"
+                    }
+                }
+            }
+            "reserved" "Podra:linesOfBusiness:outClaimsNet:reserved", {
+                "[%lineOfBusiness%]" "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsNet:reserved", {
+                    "gross" "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsGross:reserved", {
+                        "[%claimsGenerator%]" "Podra:linesOfBusiness:[%lineOfBusiness%]:claimsGenerators:[%claimsGenerator%]:outClaimsGross:reserved"
+                    }
+                    "ceded" "Podra:linesOfBusiness:[%lineOfBusiness%]:outClaimsCeded:reserved", {
+                        "[%contract%]" "Podra:linesOfBusiness:[%lineOfBusiness%]:reinsuranceContracts:[%contract%]:outClaimsCeded:reserved"
                     }
                 }
             }

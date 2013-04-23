@@ -23,16 +23,16 @@ components {
 		}
 	}
 	linesOfBusiness {
-		outClaimsDevelopmentLeanCeded = "AGGREGATED"
-		outClaimsDevelopmentLeanGross = "AGGREGATED"
-		outClaimsDevelopmentLeanNet = "AGGREGATED"
+		outClaimsCeded = "AGGREGATED"
+		outClaimsGross = "AGGREGATED"
+		outClaimsNet = "AGGREGATED"
 		outUnderwritingInfoCeded = "AGGREGATED"
 		outUnderwritingInfoGross = "AGGREGATED"
 		outUnderwritingInfoNet = "AGGREGATED"
 		sublineOfBusiness {
-			outClaimsDevelopmentLeanCeded = "AGGREGATED"
-			outClaimsDevelopmentLeanGross = "AGGREGATED"
-			outClaimsDevelopmentLeanNet = "AGGREGATED"
+			outClaimsCeded = "AGGREGATED"
+			outClaimsGross = "AGGREGATED"
+			outClaimsNet = "AGGREGATED"
 			outUnderwritingInfoCeded = "AGGREGATED"
 			outUnderwritingInfoGross = "AGGREGATED"
 			outUnderwritingInfoNet = "AGGREGATED"

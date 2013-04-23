@@ -25,7 +25,7 @@ class PodraFacModelTests extends ModelTest {
         "TestPodraFacParameters"
     }
 
-//    protected boolean shouldCompareResults() {
-//        true
-//    }
+    protected boolean shouldCompareResults() {
+        true
+    }
 }

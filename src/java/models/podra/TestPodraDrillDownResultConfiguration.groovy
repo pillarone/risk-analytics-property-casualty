@@ -4,14 +4,14 @@ model = models.podra.PodraModel
 displayName = "Drill Down"
 components {
 	linesOfBusiness {
-		outClaimsDevelopmentLeanCeded = "AGGREGATED"
-		outClaimsDevelopmentLeanGross = "AGGREGATED"
-		outClaimsDevelopmentLeanNet = "AGGREGATED"
+		outClaimsCeded = "AGGREGATED"
+		outClaimsGross = "AGGREGATED"
+		outClaimsNet = "AGGREGATED"
 		outUnderwritingInfoCeded = "AGGREGATED"
 		sublineOfBusiness {
-			outClaimsDevelopmentLeanCeded = "AGGREGATED_DRILL_DOWN"
-			outClaimsDevelopmentLeanGross = "AGGREGATED_DRILL_DOWN"
-			outClaimsDevelopmentLeanNet = "AGGREGATED_DRILL_DOWN"
+			outClaimsCeded = "AGGREGATED_DRILL_DOWN"
+			outClaimsGross = "AGGREGATED_DRILL_DOWN"
+			outClaimsNet = "AGGREGATED_DRILL_DOWN"
 			outUnderwritingInfoCeded = "AGGREGATED_DRILL_DOWN"
 		}
 	}
@@ -29,14 +29,4 @@ components {
 			}
 		}
 	}
-//	structures {
-//		subsegmentFilter {
-//			outClaimsCeded = "AGGREGATED_DRILL_DOWN"
-//			outClaimsGross = "AGGREGATED_DRILL_DOWN"
-//			outClaimsNet = "AGGREGATED_DRILL_DOWN"
-//			outUnderwritingInfoCeded = "AGGREGATED_DRILL_DOWN"
-//			outUnderwritingInfoGross = "AGGREGATED_DRILL_DOWN"
-//			outUnderwritingInfoNet = "AGGREGATED_DRILL_DOWN"
-//		}
-//	}
 }

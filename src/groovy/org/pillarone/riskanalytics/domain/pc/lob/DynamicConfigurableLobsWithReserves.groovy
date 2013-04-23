@@ -25,30 +25,22 @@ public class DynamicConfigurableLobsWithReserves extends MultiPhaseDynamicCompos
     PacketList<Claim> outClaimsGross = new PacketList(Claim)
     PacketList<Claim> outClaimsCeded = new PacketList(Claim)
 
-    // todo(sku): remove the following and related lines as soon as PMO-648 is resolved
-    PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanNet = new PacketList(ClaimDevelopmentLeanPacket)
-    PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanGross = new PacketList(ClaimDevelopmentLeanPacket)
-    PacketList<ClaimDevelopmentLeanPacket> outClaimsDevelopmentLeanCeded = new PacketList(ClaimDevelopmentLeanPacket)
-
     PacketList<UnderwritingInfo> outUnderwritingInfoNet = new PacketList(UnderwritingInfo)
     PacketList<UnderwritingInfo> outUnderwritingInfoGross = new PacketList(UnderwritingInfo)
     PacketList<CededUnderwritingInfo> outUnderwritingInfoCeded = new PacketList(CededUnderwritingInfo)
 
     public void wire() {
-        replicateInChannels this, 'inUnderwritingInfoGross'
-        replicateInChannels this, 'inUnderwritingInfoCeded'
-        replicateInChannels this, 'inClaimsGross'
-        replicateInChannels this, 'inClaimsCeded'
-        replicateInChannels this, 'inInitialReserves'
-        replicateOutChannels this, 'outUnderwritingInfoGross'
-        replicateOutChannels this, 'outUnderwritingInfoCeded'
-        replicateOutChannels this, 'outUnderwritingInfoNet'
-        replicateOutChannels this, 'outClaimsGross'
-        replicateOutChannels this, 'outClaimsCeded'
-        replicateOutChannels this, 'outClaimsNet'
-        replicateOutChannels this, 'outClaimsDevelopmentLeanGross'
-        replicateOutChannels this, 'outClaimsDevelopmentLeanCeded'
-        replicateOutChannels this, 'outClaimsDevelopmentLeanNet'
+        replicateInChannels this, inUnderwritingInfoGross
+        replicateInChannels this, inUnderwritingInfoCeded
+        replicateInChannels this, inClaimsGross
+        replicateInChannels this, inClaimsCeded
+        replicateInChannels this, inInitialReserves
+        replicateOutChannels this, outUnderwritingInfoGross
+        replicateOutChannels this, outUnderwritingInfoCeded
+        replicateOutChannels this, outUnderwritingInfoNet
+        replicateOutChannels this, outClaimsGross
+        replicateOutChannels this, outClaimsCeded
+        replicateOutChannels this, outClaimsNet
     }
 
     public ConfigurableLobWithReserves createDefaultSubComponent() {
@@ -67,12 +59,9 @@ public class DynamicConfigurableLobsWithReserves extends MultiPhaseDynamicCompos
         setTransmitterPhaseInput(inClaimsCeded, MultiPhaseDynamicComposedComponent.PHASE_DO_CALCULATION)
         setTransmitterPhaseOutput(outUnderwritingInfoGross, MultiPhaseDynamicComposedComponent.PHASE_START)
         setTransmitterPhaseOutput(outClaimsGross, MultiPhaseDynamicComposedComponent.PHASE_START)
-        setTransmitterPhaseOutput(outClaimsDevelopmentLeanGross, MultiPhaseDynamicComposedComponent.PHASE_START)
         setTransmitterPhaseOutput(outUnderwritingInfoCeded, MultiPhaseDynamicComposedComponent.PHASE_DO_CALCULATION)
         setTransmitterPhaseOutput(outUnderwritingInfoNet, MultiPhaseDynamicComposedComponent.PHASE_DO_CALCULATION)
         setTransmitterPhaseOutput(outClaimsCeded, MultiPhaseDynamicComposedComponent.PHASE_DO_CALCULATION)
-        setTransmitterPhaseOutput(outClaimsDevelopmentLeanCeded, MultiPhaseDynamicComposedComponent.PHASE_DO_CALCULATION)
         setTransmitterPhaseOutput(outClaimsNet, MultiPhaseDynamicComposedComponent.PHASE_DO_CALCULATION)
-        setTransmitterPhaseOutput(outClaimsDevelopmentLeanNet, MultiPhaseDynamicComposedComponent.PHASE_DO_CALCULATION)
     }
 }

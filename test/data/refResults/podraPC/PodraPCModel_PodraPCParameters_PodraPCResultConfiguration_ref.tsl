@@ -1,931 +1,351 @@
-iteration	period	valueIndex	path	field	value
-1	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	1.5915623495232858E7
-1	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	7.957811747616431E7
-1	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	6.366249398093145E7
-1	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	reserved	1361038.9533241568
-1	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	incurred	3402597.3833103916
-1	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	paid	2041558.4299862348
-1	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	reserved	3847.0224724415366
-1	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	incurred	19235.11236220769
-1	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	paid	15388.089889766152
-1	0	0	PodraPC:reserveGenerators:subMotorHull:outInitialReserves	value	200.0
-1	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	reserved	3847.0224724415366
-1	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	incurred	19235.11236220769
-1	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	paid	15388.089889766152
-1	0	0	PodraPC:reserveGenerators:outInitialReserves	value	200.0
-1	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanCeded	reserved	8638331.224278508
-1	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanCeded	incurred	4.149035742973735E7
-1	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanCeded	paid	3.2852026205458842E7
-1	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanGross	reserved	1.7276662448557016E7
-1	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanGross	incurred	8.29807148594747E7
-1	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanGross	paid	6.5704052410917684E7
-1	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanNet	reserved	8638331.224278508
-1	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanNet	incurred	4.149035742973735E7
-1	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanNet	paid	3.2852026205458842E7
-1	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	fixedCommission	-0.0
-1	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	variablePremium	0.0
-1	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	premium	4.8507E7
-1	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	fixedPremium	4.8507E7
-1	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	commission	-0.0
-1	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	variableCommission	0.0
-1	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outFilteredUnderwritingInfo	premium	9.7014E7
-1	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outFilteredUnderwritingInfo	commission	0.0
-1	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outNetAfterCoverUnderwritingInfo	premium	4.8507E7
-1	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outNetAfterCoverUnderwritingInfo	commission	0.0
-1	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	reserved	8638331.224278508
-1	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	incurred	4.149035742973735E7
-1	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	paid	3.2852026205458842E7
-1	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	reserved	1.7280509471029457E7
-1	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	incurred	8.299994997183691E7
-1	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	paid	6.571944050080745E7
-1	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	reserved	8642178.246750949
-1	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	incurred	4.150959254209956E7
-1	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	paid	3.2867414295348607E7
-1	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	fixedCommission	-0.0
-1	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	variablePremium	0.0
-1	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	premium	4.8507E7
-1	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	fixedPremium	4.8507E7
-1	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	commission	-0.0
-1	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	variableCommission	0.0
-1	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	premium	9.7014E7
-1	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	commission	0.0
-1	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	premium	4.8507E7
-1	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	commission	0.0
-1	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanCeded	reserved	8638331.224278508
-1	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanCeded	incurred	4.149035742973735E7
-1	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanCeded	paid	3.2852026205458842E7
-1	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanGross	reserved	1.7280509471029457E7
-1	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanGross	incurred	8.299994997183691E7
-1	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanGross	paid	6.571944050080745E7
-1	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanNet	reserved	8642178.246750949
-1	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanNet	incurred	4.150959254209956E7
-1	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanNet	paid	3.2867414295348607E7
-1	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	fixedCommission	-0.0
-1	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	variablePremium	0.0
-1	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	premium	4.8507E7
-1	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	fixedPremium	4.8507E7
-1	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	commission	-0.0
-1	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	variableCommission	0.0
-1	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoGross	premium	9.7014E7
-1	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
-1	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoNet	premium	4.8507E7
-1	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoNet	commission	0.0
-1	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanCeded	reserved	8638331.224278508
-1	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanCeded	incurred	4.149035742973735E7
-1	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanCeded	paid	3.2852026205458842E7
-1	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	reserved	1.7280509471029457E7
-1	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	incurred	8.299994997183691E7
-1	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	paid	6.571944050080745E7
-1	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	reserved	8642178.246750949
-1	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	incurred	4.150959254209956E7
-1	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	paid	3.2867414295348607E7
-1	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	fixedCommission	-0.0
-1	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	variablePremium	0.0
-1	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	premium	4.8507E7
-1	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	fixedPremium	4.8507E7
-1	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	commission	-0.0
-1	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	variableCommission	0.0
-1	0	0	PodraPC:reinsurance:outNetAfterCoverUnderwritingInfo	premium	4.8507E7
-1	0	0	PodraPC:reinsurance:outNetAfterCoverUnderwritingInfo	commission	0.0
-1	0	0	PodraPC:reinsurance:outUnderwritingInfo	premium	9.7014E7
-1	0	0	PodraPC:reinsurance:outUnderwritingInfo	commission	0.0
-1	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	reserved	1.7276662448557016E7
-1	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	incurred	8.29807148594747E7
-1	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	paid	6.5704052410917684E7
-2	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	1.3928514298931845E7
-2	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	6.964257149465925E7
-2	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	5.57140571957274E7
-2	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	reserved	0.0
-2	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	incurred	0.0
-2	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	paid	0.0
-2	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	reserved	3437.764679480395
-2	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	incurred	17188.823397401982
-2	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	paid	13751.058717921587
-2	0	0	PodraPC:reserveGenerators:subMotorHull:outInitialReserves	value	200.0
-2	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	reserved	3437.764679480395
-2	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	incurred	17188.823397401982
-2	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	paid	13751.058717921587
-2	0	0	PodraPC:reserveGenerators:outInitialReserves	value	200.0
-2	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanCeded	reserved	6964257.149465922
-2	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanCeded	incurred	3.482128574732962E7
-2	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanCeded	paid	2.78570285978637E7
-2	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanGross	reserved	1.3928514298931845E7
-2	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanGross	incurred	6.964257149465925E7
-2	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanGross	paid	5.57140571957274E7
-2	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanNet	reserved	6964257.149465922
-2	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanNet	incurred	3.482128574732962E7
-2	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanNet	paid	2.78570285978637E7
-2	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	fixedCommission	-0.0
-2	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	variablePremium	0.0
-2	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	premium	4.8507E7
-2	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	fixedPremium	4.8507E7
-2	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	commission	-0.0
-2	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	variableCommission	0.0
-2	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outFilteredUnderwritingInfo	premium	9.7014E7
-2	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outFilteredUnderwritingInfo	commission	0.0
-2	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outNetAfterCoverUnderwritingInfo	premium	4.8507E7
-2	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outNetAfterCoverUnderwritingInfo	commission	0.0
-2	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	reserved	6964257.149465922
-2	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	incurred	3.482128574732962E7
-2	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	paid	2.78570285978637E7
-2	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	reserved	1.3931952063611325E7
-2	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	incurred	6.965976031805664E7
-2	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	paid	5.572780825444532E7
-2	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	reserved	6967694.914145403
-2	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	incurred	3.483847457072703E7
-2	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	paid	2.787077965658162E7
-2	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	fixedCommission	-0.0
-2	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	variablePremium	0.0
-2	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	premium	4.8507E7
-2	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	fixedPremium	4.8507E7
-2	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	commission	-0.0
-2	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	variableCommission	0.0
-2	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	premium	9.7014E7
-2	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	commission	0.0
-2	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	premium	4.8507E7
-2	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	commission	0.0
-2	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanCeded	reserved	6964257.149465922
-2	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanCeded	incurred	3.482128574732962E7
-2	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanCeded	paid	2.78570285978637E7
-2	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanGross	reserved	1.3931952063611325E7
-2	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanGross	incurred	6.965976031805664E7
-2	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanGross	paid	5.572780825444532E7
-2	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanNet	reserved	6967694.914145403
-2	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanNet	incurred	3.483847457072703E7
-2	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanNet	paid	2.787077965658162E7
-2	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	fixedCommission	-0.0
-2	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	variablePremium	0.0
-2	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	premium	4.8507E7
-2	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	fixedPremium	4.8507E7
-2	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	commission	-0.0
-2	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	variableCommission	0.0
-2	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoGross	premium	9.7014E7
-2	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
-2	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoNet	premium	4.8507E7
-2	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoNet	commission	0.0
-2	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanCeded	reserved	6964257.149465922
-2	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanCeded	incurred	3.482128574732962E7
-2	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanCeded	paid	2.78570285978637E7
-2	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	reserved	1.3931952063611325E7
-2	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	incurred	6.965976031805664E7
-2	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	paid	5.572780825444532E7
-2	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	reserved	6967694.914145403
-2	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	incurred	3.483847457072703E7
-2	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	paid	2.787077965658162E7
-2	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	fixedCommission	-0.0
-2	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	variablePremium	0.0
-2	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	premium	4.8507E7
-2	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	fixedPremium	4.8507E7
-2	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	commission	-0.0
-2	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	variableCommission	0.0
-2	0	0	PodraPC:reinsurance:outNetAfterCoverUnderwritingInfo	premium	4.8507E7
-2	0	0	PodraPC:reinsurance:outNetAfterCoverUnderwritingInfo	commission	0.0
-2	0	0	PodraPC:reinsurance:outUnderwritingInfo	premium	9.7014E7
-2	0	0	PodraPC:reinsurance:outUnderwritingInfo	commission	0.0
-2	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	reserved	1.3928514298931845E7
-2	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	incurred	6.964257149465925E7
-2	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	paid	5.57140571957274E7
-3	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	1.4282011317075357E7
-3	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	7.14100565853768E7
-3	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	5.712804526830144E7
-3	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	reserved	1844019.1748922751
-3	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	incurred	4610047.937230688
-3	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	paid	2766028.7623384125
-3	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	reserved	4321.279349747332
-3	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	incurred	21606.39674873667
-3	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	paid	17285.11739898934
-3	0	0	PodraPC:reserveGenerators:subMotorHull:outInitialReserves	value	200.0
-3	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	reserved	4321.279349747332
-3	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	incurred	21606.39674873667
-3	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	paid	17285.11739898934
-3	0	0	PodraPC:reserveGenerators:outInitialReserves	value	200.0
-3	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanCeded	reserved	8063015.245983816
-3	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanCeded	incurred	3.8010052261303745E7
-3	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanCeded	paid	2.994703701531993E7
-3	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanGross	reserved	1.6126030491967632E7
-3	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanGross	incurred	7.602010452260749E7
-3	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanGross	paid	5.989407403063986E7
-3	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanNet	reserved	8063015.245983816
-3	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanNet	incurred	3.8010052261303745E7
-3	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanNet	paid	2.994703701531993E7
-3	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	fixedCommission	-0.0
-3	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	variablePremium	0.0
-3	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	premium	4.8507E7
-3	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	fixedPremium	4.8507E7
-3	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	commission	-0.0
-3	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	variableCommission	0.0
-3	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outFilteredUnderwritingInfo	premium	9.7014E7
-3	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outFilteredUnderwritingInfo	commission	0.0
-3	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outNetAfterCoverUnderwritingInfo	premium	4.8507E7
-3	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outNetAfterCoverUnderwritingInfo	commission	0.0
-3	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	reserved	8063015.245983816
-3	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	incurred	3.8010052261303745E7
-3	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	paid	2.994703701531993E7
-3	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	reserved	1.613035177131738E7
-3	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	incurred	7.604171091935623E7
-3	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	paid	5.991135914803885E7
-3	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	reserved	8067336.525333563
-3	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	incurred	3.803165865805248E7
-3	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	paid	2.9964322132718917E7
-3	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	fixedCommission	-0.0
-3	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	variablePremium	0.0
-3	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	premium	4.8507E7
-3	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	fixedPremium	4.8507E7
-3	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	commission	-0.0
-3	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	variableCommission	0.0
-3	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	premium	9.7014E7
-3	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	commission	0.0
-3	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	premium	4.8507E7
-3	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	commission	0.0
-3	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanCeded	reserved	8063015.245983816
-3	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanCeded	incurred	3.8010052261303745E7
-3	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanCeded	paid	2.994703701531993E7
-3	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanGross	reserved	1.613035177131738E7
-3	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanGross	incurred	7.604171091935623E7
-3	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanGross	paid	5.991135914803885E7
-3	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanNet	reserved	8067336.525333563
-3	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanNet	incurred	3.803165865805248E7
-3	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanNet	paid	2.9964322132718917E7
-3	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	fixedCommission	-0.0
-3	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	variablePremium	0.0
-3	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	premium	4.8507E7
-3	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	fixedPremium	4.8507E7
-3	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	commission	-0.0
-3	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	variableCommission	0.0
-3	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoGross	premium	9.7014E7
-3	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
-3	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoNet	premium	4.8507E7
-3	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoNet	commission	0.0
-3	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanCeded	reserved	8063015.245983816
-3	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanCeded	incurred	3.8010052261303745E7
-3	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanCeded	paid	2.994703701531993E7
-3	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	reserved	1.613035177131738E7
-3	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	incurred	7.604171091935623E7
-3	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	paid	5.991135914803885E7
-3	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	reserved	8067336.525333563
-3	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	incurred	3.803165865805248E7
-3	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	paid	2.9964322132718917E7
-3	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	fixedCommission	-0.0
-3	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	variablePremium	0.0
-3	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	premium	4.8507E7
-3	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	fixedPremium	4.8507E7
-3	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	commission	-0.0
-3	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	variableCommission	0.0
-3	0	0	PodraPC:reinsurance:outNetAfterCoverUnderwritingInfo	premium	4.8507E7
-3	0	0	PodraPC:reinsurance:outNetAfterCoverUnderwritingInfo	commission	0.0
-3	0	0	PodraPC:reinsurance:outUnderwritingInfo	premium	9.7014E7
-3	0	0	PodraPC:reinsurance:outUnderwritingInfo	commission	0.0
-3	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	reserved	1.6126030491967632E7
-3	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	incurred	7.602010452260749E7
-3	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	paid	5.989407403063986E7
-4	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	1.6284059173776679E7
-4	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	8.14202958688834E7
-4	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	6.513623669510672E7
-4	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	reserved	612596.9897963102
-4	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	incurred	1531492.4744907753
-4	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	paid	918895.4846944651
-4	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	reserved	3449.5157627289063
-4	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	incurred	17247.578813644534
-4	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	paid	13798.063050915627
-4	0	0	PodraPC:reserveGenerators:subMotorHull:outInitialReserves	value	200.0
-4	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	reserved	3449.5157627289063
-4	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	incurred	17247.578813644534
-4	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	paid	13798.063050915627
-4	0	0	PodraPC:reserveGenerators:outInitialReserves	value	200.0
-4	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanCeded	reserved	8448328.081786495
-4	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanCeded	incurred	4.147589417168709E7
-4	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanCeded	paid	3.3027566089900594E7
-4	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanGross	reserved	1.689665616357299E7
-4	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanGross	incurred	8.295178834337418E7
-4	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanGross	paid	6.605513217980119E7
-4	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanNet	reserved	8448328.081786495
-4	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanNet	incurred	4.147589417168709E7
-4	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanNet	paid	3.3027566089900594E7
-4	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	fixedCommission	-0.0
-4	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	variablePremium	0.0
-4	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	premium	4.8507E7
-4	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	fixedPremium	4.8507E7
-4	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	commission	-0.0
-4	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	variableCommission	0.0
-4	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outFilteredUnderwritingInfo	premium	9.7014E7
-4	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outFilteredUnderwritingInfo	commission	0.0
-4	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outNetAfterCoverUnderwritingInfo	premium	4.8507E7
-4	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outNetAfterCoverUnderwritingInfo	commission	0.0
-4	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	reserved	8448328.081786495
-4	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	incurred	4.147589417168709E7
-4	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	paid	3.3027566089900594E7
-4	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	reserved	1.6900105679335717E7
-4	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	incurred	8.296903592218782E7
-4	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	paid	6.606893024285211E7
-4	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	reserved	8451777.597549224
-4	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	incurred	4.149314175050073E7
-4	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	paid	3.304136415295151E7
-4	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	fixedCommission	-0.0
-4	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	variablePremium	0.0
-4	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	premium	4.8507E7
-4	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	fixedPremium	4.8507E7
-4	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	commission	-0.0
-4	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	variableCommission	0.0
-4	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	premium	9.7014E7
-4	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	commission	0.0
-4	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	premium	4.8507E7
-4	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	commission	0.0
-4	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanCeded	reserved	8448328.081786495
-4	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanCeded	incurred	4.147589417168709E7
-4	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanCeded	paid	3.3027566089900594E7
-4	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanGross	reserved	1.6900105679335717E7
-4	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanGross	incurred	8.296903592218782E7
-4	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanGross	paid	6.606893024285211E7
-4	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanNet	reserved	8451777.597549224
-4	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanNet	incurred	4.149314175050073E7
-4	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanNet	paid	3.304136415295151E7
-4	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	fixedCommission	-0.0
-4	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	variablePremium	0.0
-4	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	premium	4.8507E7
-4	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	fixedPremium	4.8507E7
-4	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	commission	-0.0
-4	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	variableCommission	0.0
-4	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoGross	premium	9.7014E7
-4	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
-4	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoNet	premium	4.8507E7
-4	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoNet	commission	0.0
-4	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanCeded	reserved	8448328.081786495
-4	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanCeded	incurred	4.147589417168709E7
-4	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanCeded	paid	3.3027566089900594E7
-4	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	reserved	1.6900105679335717E7
-4	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	incurred	8.296903592218782E7
-4	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	paid	6.606893024285211E7
-4	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	reserved	8451777.597549224
-4	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	incurred	4.149314175050073E7
-4	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	paid	3.304136415295151E7
-4	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	fixedCommission	-0.0
-4	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	variablePremium	0.0
-4	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	premium	4.8507E7
-4	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	fixedPremium	4.8507E7
-4	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	commission	-0.0
-4	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	variableCommission	0.0
-4	0	0	PodraPC:reinsurance:outNetAfterCoverUnderwritingInfo	premium	4.8507E7
-4	0	0	PodraPC:reinsurance:outNetAfterCoverUnderwritingInfo	commission	0.0
-4	0	0	PodraPC:reinsurance:outUnderwritingInfo	premium	9.7014E7
-4	0	0	PodraPC:reinsurance:outUnderwritingInfo	commission	0.0
-4	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	reserved	1.689665616357299E7
-4	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	incurred	8.295178834337418E7
-4	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	paid	6.605513217980119E7
-5	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	1.7935230651027247E7
-5	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	8.967615325513625E7
-5	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	7.1740922604109E7
-5	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	reserved	774805.9149094399
-5	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	incurred	1937014.7872735993
-5	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	paid	1162208.8723641594
-5	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	reserved	3779.2019037478967
-5	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	incurred	18896.00951873949
-5	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	paid	15116.807614991594
-5	0	0	PodraPC:reserveGenerators:subMotorHull:outInitialReserves	value	200.0
-5	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	reserved	3779.2019037478967
-5	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	incurred	18896.00951873949
-5	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	paid	15116.807614991594
-5	0	0	PodraPC:reserveGenerators:outInitialReserves	value	200.0
-5	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanCeded	reserved	9355018.282968344
-5	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanCeded	incurred	4.5806584021204926E7
-5	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanCeded	paid	3.6451565738236584E7
-5	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanGross	reserved	1.871003656593669E7
-5	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanGross	incurred	9.161316804240985E7
-5	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanGross	paid	7.290313147647317E7
-5	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanNet	reserved	9355018.282968344
-5	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanNet	incurred	4.5806584021204926E7
-5	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanNet	paid	3.6451565738236584E7
-5	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	fixedCommission	-0.0
-5	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	variablePremium	0.0
-5	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	premium	4.8507E7
-5	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	fixedPremium	4.8507E7
-5	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	commission	-0.0
-5	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	variableCommission	0.0
-5	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outFilteredUnderwritingInfo	premium	9.7014E7
-5	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outFilteredUnderwritingInfo	commission	0.0
-5	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outNetAfterCoverUnderwritingInfo	premium	4.8507E7
-5	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outNetAfterCoverUnderwritingInfo	commission	0.0
-5	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	reserved	9355018.282968344
-5	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	incurred	4.5806584021204926E7
-5	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	paid	3.6451565738236584E7
-5	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	reserved	1.8713815767840438E7
-5	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	incurred	9.16320640519286E7
-5	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	paid	7.291824828408816E7
-5	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	reserved	9358797.484872092
-5	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	incurred	4.582548003072367E7
-5	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	paid	3.646668254585157E7
-5	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	fixedCommission	-0.0
-5	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	variablePremium	0.0
-5	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	premium	4.8507E7
-5	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	fixedPremium	4.8507E7
-5	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	commission	-0.0
-5	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	variableCommission	0.0
-5	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	premium	9.7014E7
-5	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	commission	0.0
-5	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	premium	4.8507E7
-5	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	commission	0.0
-5	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanCeded	reserved	9355018.282968344
-5	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanCeded	incurred	4.5806584021204926E7
-5	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanCeded	paid	3.6451565738236584E7
-5	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanGross	reserved	1.8713815767840438E7
-5	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanGross	incurred	9.16320640519286E7
-5	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanGross	paid	7.291824828408816E7
-5	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanNet	reserved	9358797.484872092
-5	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanNet	incurred	4.582548003072367E7
-5	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanNet	paid	3.646668254585157E7
-5	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	fixedCommission	-0.0
-5	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	variablePremium	0.0
-5	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	premium	4.8507E7
-5	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	fixedPremium	4.8507E7
-5	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	commission	-0.0
-5	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	variableCommission	0.0
-5	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoGross	premium	9.7014E7
-5	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
-5	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoNet	premium	4.8507E7
-5	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoNet	commission	0.0
-5	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanCeded	reserved	9355018.282968344
-5	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanCeded	incurred	4.5806584021204926E7
-5	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanCeded	paid	3.6451565738236584E7
-5	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	reserved	1.8713815767840438E7
-5	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	incurred	9.16320640519286E7
-5	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	paid	7.291824828408816E7
-5	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	reserved	9358797.484872092
-5	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	incurred	4.582548003072367E7
-5	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	paid	3.646668254585157E7
-5	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	fixedCommission	-0.0
-5	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	variablePremium	0.0
-5	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	premium	4.8507E7
-5	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	fixedPremium	4.8507E7
-5	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	commission	-0.0
-5	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	variableCommission	0.0
-5	0	0	PodraPC:reinsurance:outNetAfterCoverUnderwritingInfo	premium	4.8507E7
-5	0	0	PodraPC:reinsurance:outNetAfterCoverUnderwritingInfo	commission	0.0
-5	0	0	PodraPC:reinsurance:outUnderwritingInfo	premium	9.7014E7
-5	0	0	PodraPC:reinsurance:outUnderwritingInfo	commission	0.0
-5	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	reserved	1.871003656593669E7
-5	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	incurred	9.161316804240985E7
-5	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	paid	7.290313147647317E7
-6	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	1.6429689928756915E7
-6	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	8.21484496437846E7
-6	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	6.571875971502768E7
-6	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	reserved	926684.6850570778
-6	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	incurred	2316711.7126426944
-6	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	paid	1390027.0275856166
-6	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	reserved	4309.050136333248
-6	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	incurred	21545.25068166624
-6	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	paid	17236.20054533299
-6	0	0	PodraPC:reserveGenerators:subMotorHull:outInitialReserves	value	200.0
-6	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	reserved	4309.050136333248
-6	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	incurred	21545.25068166624
-6	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	paid	17236.20054533299
-6	0	0	PodraPC:reserveGenerators:outInitialReserves	value	200.0
-6	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanCeded	reserved	8678187.306906996
-6	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanCeded	incurred	4.223258067821365E7
-6	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanCeded	paid	3.355439337130665E7
-6	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanGross	reserved	1.7356374613813993E7
-6	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanGross	incurred	8.44651613564273E7
-6	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanGross	paid	6.71087867426133E7
-6	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanNet	reserved	8678187.306906996
-6	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanNet	incurred	4.223258067821365E7
-6	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanNet	paid	3.355439337130665E7
-6	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	fixedCommission	-0.0
-6	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	variablePremium	0.0
-6	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	premium	4.8507E7
-6	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	fixedPremium	4.8507E7
-6	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	commission	-0.0
-6	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	variableCommission	0.0
-6	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outFilteredUnderwritingInfo	premium	9.7014E7
-6	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outFilteredUnderwritingInfo	commission	0.0
-6	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outNetAfterCoverUnderwritingInfo	premium	4.8507E7
-6	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outNetAfterCoverUnderwritingInfo	commission	0.0
-6	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	reserved	8678187.306906996
-6	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	incurred	4.223258067821365E7
-6	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	paid	3.355439337130665E7
-6	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	reserved	1.7360683663950324E7
-6	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	incurred	8.448670660710897E7
-6	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	paid	6.712602294315863E7
-6	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	reserved	8682496.35704333
-6	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	incurred	4.225412592889532E7
-6	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	paid	3.357162957185198E7
-6	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	fixedCommission	-0.0
-6	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	variablePremium	0.0
-6	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	premium	4.8507E7
-6	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	fixedPremium	4.8507E7
-6	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	commission	-0.0
-6	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	variableCommission	0.0
-6	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	premium	9.7014E7
-6	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	commission	0.0
-6	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	premium	4.8507E7
-6	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	commission	0.0
-6	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanCeded	reserved	8678187.306906996
-6	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanCeded	incurred	4.223258067821365E7
-6	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanCeded	paid	3.355439337130665E7
-6	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanGross	reserved	1.7360683663950324E7
-6	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanGross	incurred	8.448670660710897E7
-6	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanGross	paid	6.712602294315863E7
-6	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanNet	reserved	8682496.35704333
-6	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanNet	incurred	4.225412592889532E7
-6	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanNet	paid	3.357162957185198E7
-6	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	fixedCommission	-0.0
-6	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	variablePremium	0.0
-6	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	premium	4.8507E7
-6	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	fixedPremium	4.8507E7
-6	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	commission	-0.0
-6	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	variableCommission	0.0
-6	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoGross	premium	9.7014E7
-6	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
-6	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoNet	premium	4.8507E7
-6	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoNet	commission	0.0
-6	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanCeded	reserved	8678187.306906996
-6	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanCeded	incurred	4.223258067821365E7
-6	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanCeded	paid	3.355439337130665E7
-6	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	reserved	1.7360683663950324E7
-6	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	incurred	8.448670660710897E7
-6	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	paid	6.712602294315863E7
-6	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	reserved	8682496.35704333
-6	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	incurred	4.225412592889532E7
-6	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	paid	3.357162957185198E7
-6	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	fixedCommission	-0.0
-6	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	variablePremium	0.0
-6	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	premium	4.8507E7
-6	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	fixedPremium	4.8507E7
-6	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	commission	-0.0
-6	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	variableCommission	0.0
-6	0	0	PodraPC:reinsurance:outNetAfterCoverUnderwritingInfo	premium	4.8507E7
-6	0	0	PodraPC:reinsurance:outNetAfterCoverUnderwritingInfo	commission	0.0
-6	0	0	PodraPC:reinsurance:outUnderwritingInfo	premium	9.7014E7
-6	0	0	PodraPC:reinsurance:outUnderwritingInfo	commission	0.0
-6	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	reserved	1.7356374613813993E7
-6	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	incurred	8.44651613564273E7
-6	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	paid	6.71087867426133E7
-7	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	1.5071056066445678E7
-7	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	7.535528033222839E7
-7	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	6.0284224265782714E7
-7	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	reserved	3062426.1186255855
-7	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	incurred	7656065.2965639625
-7	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	paid	4593639.1779383775
-7	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	reserved	4402.196745514113
-7	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	incurred	22010.98372757057
-7	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	paid	17608.786982056456
-7	0	0	PodraPC:reserveGenerators:subMotorHull:outInitialReserves	value	200.0
-7	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	reserved	4402.196745514113
-7	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	incurred	22010.98372757057
-7	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	paid	17608.786982056456
-7	0	0	PodraPC:reserveGenerators:outInitialReserves	value	200.0
-7	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanCeded	reserved	9066741.092535632
-7	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanCeded	incurred	4.150567281439618E7
-7	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanCeded	paid	3.2438931721860547E7
-7	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanGross	reserved	1.8133482185071263E7
-7	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanGross	incurred	8.301134562879236E7
-7	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanGross	paid	6.487786344372109E7
-7	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanNet	reserved	9066741.092535632
-7	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanNet	incurred	4.150567281439618E7
-7	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanNet	paid	3.2438931721860547E7
-7	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	fixedCommission	-0.0
-7	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	variablePremium	0.0
-7	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	premium	4.8507E7
-7	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	fixedPremium	4.8507E7
-7	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	commission	-0.0
-7	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	variableCommission	0.0
-7	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outFilteredUnderwritingInfo	premium	9.7014E7
-7	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outFilteredUnderwritingInfo	commission	0.0
-7	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outNetAfterCoverUnderwritingInfo	premium	4.8507E7
-7	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outNetAfterCoverUnderwritingInfo	commission	0.0
-7	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	reserved	9066741.092535632
-7	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	incurred	4.150567281439618E7
-7	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	paid	3.2438931721860547E7
-7	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	reserved	1.813788438181678E7
-7	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	incurred	8.303335661251993E7
-7	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	paid	6.489547223070315E7
-7	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	reserved	9071143.289281147
-7	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	incurred	4.152768379812375E7
-7	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	paid	3.2456540508842602E7
-7	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	fixedCommission	-0.0
-7	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	variablePremium	0.0
-7	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	premium	4.8507E7
-7	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	fixedPremium	4.8507E7
-7	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	commission	-0.0
-7	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	variableCommission	0.0
-7	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	premium	9.7014E7
-7	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	commission	0.0
-7	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	premium	4.8507E7
-7	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	commission	0.0
-7	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanCeded	reserved	9066741.092535632
-7	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanCeded	incurred	4.150567281439618E7
-7	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanCeded	paid	3.2438931721860547E7
-7	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanGross	reserved	1.813788438181678E7
-7	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanGross	incurred	8.303335661251993E7
-7	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanGross	paid	6.489547223070315E7
-7	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanNet	reserved	9071143.289281147
-7	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanNet	incurred	4.152768379812375E7
-7	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanNet	paid	3.2456540508842602E7
-7	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	fixedCommission	-0.0
-7	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	variablePremium	0.0
-7	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	premium	4.8507E7
-7	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	fixedPremium	4.8507E7
-7	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	commission	-0.0
-7	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	variableCommission	0.0
-7	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoGross	premium	9.7014E7
-7	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
-7	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoNet	premium	4.8507E7
-7	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoNet	commission	0.0
-7	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanCeded	reserved	9066741.092535632
-7	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanCeded	incurred	4.150567281439618E7
-7	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanCeded	paid	3.2438931721860547E7
-7	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	reserved	1.813788438181678E7
-7	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	incurred	8.303335661251993E7
-7	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	paid	6.489547223070315E7
-7	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	reserved	9071143.289281147
-7	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	incurred	4.152768379812375E7
-7	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	paid	3.2456540508842602E7
-7	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	fixedCommission	-0.0
-7	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	variablePremium	0.0
-7	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	premium	4.8507E7
-7	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	fixedPremium	4.8507E7
-7	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	commission	-0.0
-7	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	variableCommission	0.0
-7	0	0	PodraPC:reinsurance:outNetAfterCoverUnderwritingInfo	premium	4.8507E7
-7	0	0	PodraPC:reinsurance:outNetAfterCoverUnderwritingInfo	commission	0.0
-7	0	0	PodraPC:reinsurance:outUnderwritingInfo	premium	9.7014E7
-7	0	0	PodraPC:reinsurance:outUnderwritingInfo	commission	0.0
-7	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	reserved	1.8133482185071263E7
-7	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	incurred	8.301134562879236E7
-7	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	paid	6.487786344372109E7
-8	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	1.6493149030592017E7
-8	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	8.24657451529601E7
-8	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	6.597259612236809E7
-8	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	reserved	207791.42048646923
-8	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	incurred	519478.55121617304
-8	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	paid	311687.1307297038
-8	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	reserved	3541.1705248066864
-8	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	incurred	17705.852624033436
-8	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	paid	14164.68209922675
-8	0	0	PodraPC:reserveGenerators:subMotorHull:outInitialReserves	value	200.0
-8	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	reserved	3541.1705248066864
-8	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	incurred	17705.852624033436
-8	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	paid	14164.68209922675
-8	0	0	PodraPC:reserveGenerators:outInitialReserves	value	200.0
-8	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanCeded	reserved	8350470.225539243
-8	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanCeded	incurred	4.149261185208814E7
-8	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanCeded	paid	3.3142141626548897E7
-8	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanGross	reserved	1.6700940451078486E7
-8	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanGross	incurred	8.298522370417628E7
-8	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanGross	paid	6.6284283253097795E7
-8	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanNet	reserved	8350470.225539243
-8	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanNet	incurred	4.149261185208814E7
-8	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanNet	paid	3.3142141626548897E7
-8	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	fixedCommission	-0.0
-8	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	variablePremium	0.0
-8	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	premium	4.8507E7
-8	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	fixedPremium	4.8507E7
-8	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	commission	-0.0
-8	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	variableCommission	0.0
-8	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outFilteredUnderwritingInfo	premium	9.7014E7
-8	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outFilteredUnderwritingInfo	commission	0.0
-8	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outNetAfterCoverUnderwritingInfo	premium	4.8507E7
-8	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outNetAfterCoverUnderwritingInfo	commission	0.0
-8	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	reserved	8350470.225539243
-8	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	incurred	4.149261185208814E7
-8	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	paid	3.3142141626548897E7
-8	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	reserved	1.6704481621603291E7
-8	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	incurred	8.30029295568003E7
-8	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	paid	6.629844793519702E7
-8	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	reserved	8354011.39606405
-8	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	incurred	4.1510317704712175E7
-8	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	paid	3.3156306308648124E7
-8	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	fixedCommission	-0.0
-8	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	variablePremium	0.0
-8	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	premium	4.8507E7
-8	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	fixedPremium	4.8507E7
-8	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	commission	-0.0
-8	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	variableCommission	0.0
-8	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	premium	9.7014E7
-8	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	commission	0.0
-8	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	premium	4.8507E7
-8	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	commission	0.0
-8	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanCeded	reserved	8350470.225539243
-8	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanCeded	incurred	4.149261185208814E7
-8	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanCeded	paid	3.3142141626548897E7
-8	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanGross	reserved	1.6704481621603291E7
-8	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanGross	incurred	8.30029295568003E7
-8	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanGross	paid	6.629844793519702E7
-8	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanNet	reserved	8354011.39606405
-8	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanNet	incurred	4.1510317704712175E7
-8	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanNet	paid	3.3156306308648124E7
-8	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	fixedCommission	-0.0
-8	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	variablePremium	0.0
-8	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	premium	4.8507E7
-8	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	fixedPremium	4.8507E7
-8	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	commission	-0.0
-8	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	variableCommission	0.0
-8	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoGross	premium	9.7014E7
-8	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
-8	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoNet	premium	4.8507E7
-8	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoNet	commission	0.0
-8	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanCeded	reserved	8350470.225539243
-8	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanCeded	incurred	4.149261185208814E7
-8	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanCeded	paid	3.3142141626548897E7
-8	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	reserved	1.6704481621603291E7
-8	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	incurred	8.30029295568003E7
-8	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	paid	6.629844793519702E7
-8	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	reserved	8354011.39606405
-8	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	incurred	4.1510317704712175E7
-8	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	paid	3.3156306308648124E7
-8	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	fixedCommission	-0.0
-8	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	variablePremium	0.0
-8	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	premium	4.8507E7
-8	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	fixedPremium	4.8507E7
-8	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	commission	-0.0
-8	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	variableCommission	0.0
-8	0	0	PodraPC:reinsurance:outNetAfterCoverUnderwritingInfo	premium	4.8507E7
-8	0	0	PodraPC:reinsurance:outNetAfterCoverUnderwritingInfo	commission	0.0
-8	0	0	PodraPC:reinsurance:outUnderwritingInfo	premium	9.7014E7
-8	0	0	PodraPC:reinsurance:outUnderwritingInfo	commission	0.0
-8	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	reserved	1.6700940451078486E7
-8	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	incurred	8.298522370417628E7
-8	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	paid	6.6284283253097795E7
-9	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	1.7218857286455005E7
-9	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	8.609428643227501E7
-9	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	6.887542914582E7
-9	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	reserved	962370.4838251695
-9	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	incurred	2405926.2095629233
-9	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	paid	1443555.725737754
-9	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	reserved	3765.7141644145413
-9	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	incurred	18828.570822072714
-9	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	paid	15062.856657658172
-9	0	0	PodraPC:reserveGenerators:subMotorHull:outInitialReserves	value	200.0
-9	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	reserved	3765.7141644145413
-9	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	incurred	18828.570822072714
-9	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	paid	15062.856657658172
-9	0	0	PodraPC:reserveGenerators:outInitialReserves	value	200.0
-9	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanCeded	reserved	9090613.885140087
-9	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanCeded	incurred	4.425010632091897E7
-9	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanCeded	paid	3.515949243577888E7
-9	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanGross	reserved	1.8181227770280175E7
-9	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanGross	incurred	8.850021264183794E7
-9	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanGross	paid	7.031898487155776E7
-9	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanNet	reserved	9090613.885140087
-9	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanNet	incurred	4.425010632091897E7
-9	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanNet	paid	3.515949243577888E7
-9	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	fixedCommission	-0.0
-9	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	variablePremium	0.0
-9	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	premium	4.8507E7
-9	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	fixedPremium	4.8507E7
-9	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	commission	-0.0
-9	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	variableCommission	0.0
-9	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outFilteredUnderwritingInfo	premium	9.7014E7
-9	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outFilteredUnderwritingInfo	commission	0.0
-9	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outNetAfterCoverUnderwritingInfo	premium	4.8507E7
-9	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outNetAfterCoverUnderwritingInfo	commission	0.0
-9	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	reserved	9090613.885140087
-9	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	incurred	4.425010632091897E7
-9	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	paid	3.515949243577888E7
-9	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	reserved	1.818499348444459E7
-9	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	incurred	8.851904121266001E7
-9	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	paid	7.033404772821541E7
-9	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	reserved	9094379.599304503
-9	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	incurred	4.4268934891741045E7
-9	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	paid	3.517455529243654E7
-9	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	fixedCommission	-0.0
-9	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	variablePremium	0.0
-9	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	premium	4.8507E7
-9	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	fixedPremium	4.8507E7
-9	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	commission	-0.0
-9	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	variableCommission	0.0
-9	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	premium	9.7014E7
-9	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	commission	0.0
-9	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	premium	4.8507E7
-9	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	commission	0.0
-9	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanCeded	reserved	9090613.885140087
-9	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanCeded	incurred	4.425010632091897E7
-9	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanCeded	paid	3.515949243577888E7
-9	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanGross	reserved	1.818499348444459E7
-9	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanGross	incurred	8.851904121266001E7
-9	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanGross	paid	7.033404772821541E7
-9	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanNet	reserved	9094379.599304503
-9	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanNet	incurred	4.4268934891741045E7
-9	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanNet	paid	3.517455529243654E7
-9	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	fixedCommission	-0.0
-9	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	variablePremium	0.0
-9	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	premium	4.8507E7
-9	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	fixedPremium	4.8507E7
-9	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	commission	-0.0
-9	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	variableCommission	0.0
-9	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoGross	premium	9.7014E7
-9	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
-9	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoNet	premium	4.8507E7
-9	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoNet	commission	0.0
-9	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanCeded	reserved	9090613.885140087
-9	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanCeded	incurred	4.425010632091897E7
-9	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanCeded	paid	3.515949243577888E7
-9	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	reserved	1.818499348444459E7
-9	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	incurred	8.851904121266001E7
-9	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	paid	7.033404772821541E7
-9	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	reserved	9094379.599304503
-9	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	incurred	4.4268934891741045E7
-9	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	paid	3.517455529243654E7
-9	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	fixedCommission	-0.0
-9	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	variablePremium	0.0
-9	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	premium	4.8507E7
-9	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	fixedPremium	4.8507E7
-9	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	commission	-0.0
-9	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	variableCommission	0.0
-9	0	0	PodraPC:reinsurance:outNetAfterCoverUnderwritingInfo	premium	4.8507E7
-9	0	0	PodraPC:reinsurance:outNetAfterCoverUnderwritingInfo	commission	0.0
-9	0	0	PodraPC:reinsurance:outUnderwritingInfo	premium	9.7014E7
-9	0	0	PodraPC:reinsurance:outUnderwritingInfo	commission	0.0
-9	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	reserved	1.8181227770280175E7
-9	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	incurred	8.850021264183794E7
-9	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	paid	7.031898487155776E7
-10	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	1.457895514448417E7
-10	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	7.289477572242086E7
-10	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	5.831582057793669E7
-10	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	reserved	0.0
-10	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	incurred	0.0
-10	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	paid	0.0
-10	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	reserved	4587.482060021288
-10	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	incurred	22937.410300106447
-10	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	paid	18349.92824008516
-10	0	0	PodraPC:reserveGenerators:subMotorHull:outInitialReserves	value	200.0
-10	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	reserved	4587.482060021288
-10	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	incurred	22937.410300106447
-10	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	paid	18349.92824008516
-10	0	0	PodraPC:reserveGenerators:outInitialReserves	value	200.0
-10	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanCeded	reserved	7289477.572242085
-10	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanCeded	incurred	3.644738786121043E7
-10	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanCeded	paid	2.9157910288968343E7
-10	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanGross	reserved	1.457895514448417E7
-10	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanGross	incurred	7.289477572242086E7
-10	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanGross	paid	5.831582057793669E7
-10	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanNet	reserved	7289477.572242085
-10	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanNet	incurred	3.644738786121043E7
-10	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outClaimsDevelopmentLeanNet	paid	2.9157910288968343E7
-10	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	fixedCommission	-0.0
-10	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	variablePremium	0.0
-10	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	premium	4.8507E7
-10	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	fixedPremium	4.8507E7
-10	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	commission	-0.0
-10	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outCoverUnderwritingInfo	variableCommission	0.0
-10	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outFilteredUnderwritingInfo	premium	9.7014E7
-10	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outFilteredUnderwritingInfo	commission	0.0
-10	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outNetAfterCoverUnderwritingInfo	premium	4.8507E7
-10	0	0	PodraPC:reinsurance:subContracts:subQuotaShareMotorHull:outNetAfterCoverUnderwritingInfo	commission	0.0
-10	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	reserved	7289477.572242085
-10	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	incurred	3.644738786121043E7
-10	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	paid	2.9157910288968343E7
-10	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	reserved	1.458354262654419E7
-10	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	incurred	7.291771313272096E7
-10	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	paid	5.833417050617677E7
-10	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	reserved	7294065.054302107
-10	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	incurred	3.6470325271510534E7
-10	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	paid	2.917626021720843E7
-10	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	fixedCommission	-0.0
-10	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	variablePremium	0.0
-10	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	premium	4.8507E7
-10	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	fixedPremium	4.8507E7
-10	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	commission	-0.0
-10	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoCeded	variableCommission	0.0
-10	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	premium	9.7014E7
-10	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoGross	commission	0.0
-10	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	premium	4.8507E7
-10	0	0	PodraPC:linesOfBusiness:subMotorHull:outUnderwritingInfoNet	commission	0.0
-10	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanCeded	reserved	7289477.572242085
-10	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanCeded	incurred	3.644738786121043E7
-10	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanCeded	paid	2.9157910288968343E7
-10	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanGross	reserved	1.458354262654419E7
-10	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanGross	incurred	7.291771313272096E7
-10	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanGross	paid	5.833417050617677E7
-10	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanNet	reserved	7294065.054302107
-10	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanNet	incurred	3.6470325271510534E7
-10	0	0	PodraPC:linesOfBusiness:outClaimsDevelopmentLeanNet	paid	2.917626021720843E7
-10	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	fixedCommission	-0.0
-10	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	variablePremium	0.0
-10	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	premium	4.8507E7
-10	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	fixedPremium	4.8507E7
-10	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	commission	-0.0
-10	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoCeded	variableCommission	0.0
-10	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoGross	premium	9.7014E7
-10	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
-10	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoNet	premium	4.8507E7
-10	0	0	PodraPC:linesOfBusiness:outUnderwritingInfoNet	commission	0.0
-10	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanCeded	reserved	7289477.572242085
-10	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanCeded	incurred	3.644738786121043E7
-10	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanCeded	paid	2.9157910288968343E7
-10	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	reserved	1.458354262654419E7
-10	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	incurred	7.291771313272096E7
-10	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	paid	5.833417050617677E7
-10	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	reserved	7294065.054302107
-10	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	incurred	3.6470325271510534E7
-10	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	paid	2.917626021720843E7
-10	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	fixedCommission	-0.0
-10	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	variablePremium	0.0
-10	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	premium	4.8507E7
-10	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	fixedPremium	4.8507E7
-10	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	commission	-0.0
-10	0	0	PodraPC:reinsurance:outCoverUnderwritingInfo	variableCommission	0.0
-10	0	0	PodraPC:reinsurance:outNetAfterCoverUnderwritingInfo	premium	4.8507E7
-10	0	0	PodraPC:reinsurance:outNetAfterCoverUnderwritingInfo	commission	0.0
-10	0	0	PodraPC:reinsurance:outUnderwritingInfo	premium	9.7014E7
-10	0	0	PodraPC:reinsurance:outUnderwritingInfo	commission	0.0
-10	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	reserved	1.457895514448417E7
-10	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	incurred	7.289477572242086E7
-10	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	paid	5.831582057793669E7
+iteration	period	valueIndex	path	field	value	date
+1	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	0.17456241428417385	null
+1	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	0.8728120714208697	null
+1	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	0.6982496571366958	null
+1	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	reserved	528679.7401879253	null
+1	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	incurred	1321699.3504698132	null
+1	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	paid	793019.6102818879	null
+1	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	reserved	528679.9147503395	null
+1	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	incurred	1321700.2232818846	null
+1	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	paid	793020.3085315451	null
+1	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	reserved	3501.476720765493	null
+1	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	incurred	17507.383603827468	null
+1	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	paid	14005.906883061974	null
+1	0	0	PodraPC:reserveGenerators:subMotorHull:outInitialReserves	value	200.0	null
+1	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	reserved	3501.476720765493	null
+1	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	incurred	17507.383603827468	null
+1	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	paid	14005.906883061974	null
+1	0	0	PodraPC:reserveGenerators:outInitialReserves	value	200.0	null
+1	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsGross	reserved	3501.476720765493	null
+1	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsGross	incurred	17507.383603827468	null
+1	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsGross	paid	14005.906883061974	null
+1	0	0	PodraPC:linesOfBusiness:outClaimsGross	reserved	3501.476720765493	null
+1	0	0	PodraPC:linesOfBusiness:outClaimsGross	incurred	17507.383603827468	null
+1	0	0	PodraPC:linesOfBusiness:outClaimsGross	paid	14005.906883061974	null
+1	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	reserved	3501.476720765493	null
+1	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	incurred	17507.383603827468	null
+1	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	paid	14005.906883061974	null
+1	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	reserved	3501.476720765493	null
+1	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	incurred	17507.383603827468	null
+1	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	paid	14005.906883061974	null
+1	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsNet	reserved	3501.476720765493	null
+1	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsNet	incurred	17507.383603827468	null
+1	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsNet	paid	14005.906883061974	null
+1	0	0	PodraPC:linesOfBusiness:outClaimsNet	reserved	3501.476720765493	null
+1	0	0	PodraPC:linesOfBusiness:outClaimsNet	incurred	17507.383603827468	null
+1	0	0	PodraPC:linesOfBusiness:outClaimsNet	paid	14005.906883061974	null
+2	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	0.1667416248967527	null
+2	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	0.8337081244837639	null
+2	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	0.6669664995870112	null
+2	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	reserved	410329.3294419516	null
+2	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	incurred	1025823.323604879	null
+2	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	paid	615493.9941629274	null
+2	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	reserved	410329.4961835764	null
+2	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	incurred	1025824.1573130034	null
+2	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	paid	615494.661129427	null
+2	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	reserved	3670.8308140649206	null
+2	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	incurred	18354.15407032461	null
+2	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	paid	14683.32325625969	null
+2	0	0	PodraPC:reserveGenerators:subMotorHull:outInitialReserves	value	200.0	null
+2	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	reserved	3670.8308140649206	null
+2	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	incurred	18354.15407032461	null
+2	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	paid	14683.32325625969	null
+2	0	0	PodraPC:reserveGenerators:outInitialReserves	value	200.0	null
+2	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsGross	reserved	3670.8308140649206	null
+2	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsGross	incurred	18354.15407032461	null
+2	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsGross	paid	14683.32325625969	null
+2	0	0	PodraPC:linesOfBusiness:outClaimsGross	reserved	3670.8308140649206	null
+2	0	0	PodraPC:linesOfBusiness:outClaimsGross	incurred	18354.15407032461	null
+2	0	0	PodraPC:linesOfBusiness:outClaimsGross	paid	14683.32325625969	null
+2	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	reserved	3670.8308140649206	null
+2	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	incurred	18354.15407032461	null
+2	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	paid	14683.32325625969	null
+2	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	reserved	3670.8308140649206	null
+2	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	incurred	18354.15407032461	null
+2	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	paid	14683.32325625969	null
+2	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsNet	reserved	3670.8308140649206	null
+2	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsNet	incurred	18354.15407032461	null
+2	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsNet	paid	14683.32325625969	null
+2	0	0	PodraPC:linesOfBusiness:outClaimsNet	reserved	3670.8308140649206	null
+2	0	0	PodraPC:linesOfBusiness:outClaimsNet	incurred	18354.15407032461	null
+2	0	0	PodraPC:linesOfBusiness:outClaimsNet	paid	14683.32325625969	null
+3	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	0.1445869466839942	null
+3	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	0.7229347334199708	null
+3	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	0.5783477867359766	null
+3	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	reserved	601217.6073741387	null
+3	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	incurred	1503044.0184353467	null
+3	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	paid	901826.411061208	null
+3	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	reserved	601217.7519610854	null
+3	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	incurred	1503044.74137008	null
+3	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	paid	901826.9894089947	null
+3	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	reserved	4334.667866098887	null
+3	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	incurred	21673.339330494433	null
+3	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	paid	17338.671464395546	null
+3	0	0	PodraPC:reserveGenerators:subMotorHull:outInitialReserves	value	200.0	null
+3	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	reserved	4334.667866098887	null
+3	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	incurred	21673.339330494433	null
+3	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	paid	17338.671464395546	null
+3	0	0	PodraPC:reserveGenerators:outInitialReserves	value	200.0	null
+3	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsGross	reserved	4334.667866098887	null
+3	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsGross	incurred	21673.339330494433	null
+3	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsGross	paid	17338.671464395546	null
+3	0	0	PodraPC:linesOfBusiness:outClaimsGross	reserved	4334.667866098887	null
+3	0	0	PodraPC:linesOfBusiness:outClaimsGross	incurred	21673.339330494433	null
+3	0	0	PodraPC:linesOfBusiness:outClaimsGross	paid	17338.671464395546	null
+3	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	reserved	4334.667866098887	null
+3	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	incurred	21673.339330494433	null
+3	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	paid	17338.671464395546	null
+3	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	reserved	4334.667866098887	null
+3	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	incurred	21673.339330494433	null
+3	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	paid	17338.671464395546	null
+3	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsNet	reserved	4334.667866098887	null
+3	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsNet	incurred	21673.339330494433	null
+3	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsNet	paid	17338.671464395546	null
+3	0	0	PodraPC:linesOfBusiness:outClaimsNet	reserved	4334.667866098887	null
+3	0	0	PodraPC:linesOfBusiness:outClaimsNet	incurred	21673.339330494433	null
+3	0	0	PodraPC:linesOfBusiness:outClaimsNet	paid	17338.671464395546	null
+4	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	0.15772995571458248	null
+4	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	0.7886497785729124	null
+4	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	0.6309198228583299	null
+4	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	reserved	3275801.3171171127	null
+4	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	incurred	8189503.29279278	null
+4	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	paid	4913701.975675668	null
+4	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	reserved	3275801.474847069	null
+4	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	incurred	8189504.081442559	null
+4	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	paid	4913702.60659549	null
+4	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	reserved	4759.391566825114	null
+4	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	incurred	23796.95783412558	null
+4	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	paid	19037.566267300466	null
+4	0	0	PodraPC:reserveGenerators:subMotorHull:outInitialReserves	value	200.0	null
+4	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	reserved	4759.391566825114	null
+4	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	incurred	23796.95783412558	null
+4	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	paid	19037.566267300466	null
+4	0	0	PodraPC:reserveGenerators:outInitialReserves	value	200.0	null
+4	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsGross	reserved	4759.391566825114	null
+4	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsGross	incurred	23796.95783412558	null
+4	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsGross	paid	19037.566267300466	null
+4	0	0	PodraPC:linesOfBusiness:outClaimsGross	reserved	4759.391566825114	null
+4	0	0	PodraPC:linesOfBusiness:outClaimsGross	incurred	23796.95783412558	null
+4	0	0	PodraPC:linesOfBusiness:outClaimsGross	paid	19037.566267300466	null
+4	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	reserved	4759.391566825114	null
+4	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	incurred	23796.95783412558	null
+4	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	paid	19037.566267300466	null
+4	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	reserved	4759.391566825114	null
+4	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	incurred	23796.95783412558	null
+4	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	paid	19037.566267300466	null
+4	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsNet	reserved	4759.391566825114	null
+4	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsNet	incurred	23796.95783412558	null
+4	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsNet	paid	19037.566267300466	null
+4	0	0	PodraPC:linesOfBusiness:outClaimsNet	reserved	4759.391566825114	null
+4	0	0	PodraPC:linesOfBusiness:outClaimsNet	incurred	23796.95783412558	null
+4	0	0	PodraPC:linesOfBusiness:outClaimsNet	paid	19037.566267300466	null
+5	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	0.16221069061858295	null
+5	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	0.8110534530929148	null
+5	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	0.6488427624743318	null
+5	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	reserved	1844340.8781329477	null
+5	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	incurred	4610852.195332369	null
+5	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	paid	2766511.317199421	null
+5	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	reserved	1844341.0403436385	null
+5	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	incurred	4610853.006385822	null
+5	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	paid	2766511.9660421833	null
+5	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	reserved	4550.544606197058	null
+5	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	incurred	22752.723030985286	null
+5	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	paid	18202.178424788228	null
+5	0	0	PodraPC:reserveGenerators:subMotorHull:outInitialReserves	value	200.0	null
+5	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	reserved	4550.544606197058	null
+5	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	incurred	22752.723030985286	null
+5	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	paid	18202.178424788228	null
+5	0	0	PodraPC:reserveGenerators:outInitialReserves	value	200.0	null
+5	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsGross	reserved	4550.544606197058	null
+5	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsGross	incurred	22752.723030985286	null
+5	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsGross	paid	18202.178424788228	null
+5	0	0	PodraPC:linesOfBusiness:outClaimsGross	reserved	4550.544606197058	null
+5	0	0	PodraPC:linesOfBusiness:outClaimsGross	incurred	22752.723030985286	null
+5	0	0	PodraPC:linesOfBusiness:outClaimsGross	paid	18202.178424788228	null
+5	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	reserved	4550.544606197058	null
+5	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	incurred	22752.723030985286	null
+5	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	paid	18202.178424788228	null
+5	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	reserved	4550.544606197058	null
+5	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	incurred	22752.723030985286	null
+5	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	paid	18202.178424788228	null
+5	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsNet	reserved	4550.544606197058	null
+5	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsNet	incurred	22752.723030985286	null
+5	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsNet	paid	18202.178424788228	null
+5	0	0	PodraPC:linesOfBusiness:outClaimsNet	reserved	4550.544606197058	null
+5	0	0	PodraPC:linesOfBusiness:outClaimsNet	incurred	22752.723030985286	null
+5	0	0	PodraPC:linesOfBusiness:outClaimsNet	paid	18202.178424788228	null
+6	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	0.17951007753912673	null
+6	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	0.8975503876956338	null
+6	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	0.718040310156507	null
+6	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	reserved	0.0	null
+6	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	incurred	0.0	null
+6	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	paid	0.0	null
+6	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	reserved	0.17951007753912673	null
+6	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	incurred	0.8975503876956338	null
+6	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	paid	0.718040310156507	null
+6	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	reserved	3943.6112003261824	null
+6	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	incurred	19718.056001630917	null
+6	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	paid	15774.444801304735	null
+6	0	0	PodraPC:reserveGenerators:subMotorHull:outInitialReserves	value	200.0	null
+6	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	reserved	3943.6112003261824	null
+6	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	incurred	19718.056001630917	null
+6	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	paid	15774.444801304735	null
+6	0	0	PodraPC:reserveGenerators:outInitialReserves	value	200.0	null
+6	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsGross	reserved	3943.6112003261824	null
+6	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsGross	incurred	19718.056001630917	null
+6	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsGross	paid	15774.444801304735	null
+6	0	0	PodraPC:linesOfBusiness:outClaimsGross	reserved	3943.6112003261824	null
+6	0	0	PodraPC:linesOfBusiness:outClaimsGross	incurred	19718.056001630917	null
+6	0	0	PodraPC:linesOfBusiness:outClaimsGross	paid	15774.444801304735	null
+6	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	reserved	3943.6112003261824	null
+6	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	incurred	19718.056001630917	null
+6	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	paid	15774.444801304735	null
+6	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	reserved	3943.6112003261824	null
+6	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	incurred	19718.056001630917	null
+6	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	paid	15774.444801304735	null
+6	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsNet	reserved	3943.6112003261824	null
+6	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsNet	incurred	19718.056001630917	null
+6	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsNet	paid	15774.444801304735	null
+6	0	0	PodraPC:linesOfBusiness:outClaimsNet	reserved	3943.6112003261824	null
+6	0	0	PodraPC:linesOfBusiness:outClaimsNet	incurred	19718.056001630917	null
+6	0	0	PodraPC:linesOfBusiness:outClaimsNet	paid	15774.444801304735	null
+7	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	0.1465715781212349	null
+7	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	0.7328578906061748	null
+7	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	0.5862863124849399	null
+7	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	reserved	1.2455438958136097E7	null
+7	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	incurred	3.113859739534025E7	null
+7	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	paid	1.8683158437204152E7	null
+7	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	reserved	1.2455439104707677E7	null
+7	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	incurred	3.113859812819814E7	null
+7	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	paid	1.8683159023490462E7	null
+7	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	reserved	4017.218343265813	null
+7	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	incurred	20086.091716329072	null
+7	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	paid	16068.87337306326	null
+7	0	0	PodraPC:reserveGenerators:subMotorHull:outInitialReserves	value	200.0	null
+7	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	reserved	4017.218343265813	null
+7	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	incurred	20086.091716329072	null
+7	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	paid	16068.87337306326	null
+7	0	0	PodraPC:reserveGenerators:outInitialReserves	value	200.0	null
+7	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsGross	reserved	4017.218343265813	null
+7	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsGross	incurred	20086.091716329072	null
+7	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsGross	paid	16068.87337306326	null
+7	0	0	PodraPC:linesOfBusiness:outClaimsGross	reserved	4017.218343265813	null
+7	0	0	PodraPC:linesOfBusiness:outClaimsGross	incurred	20086.091716329072	null
+7	0	0	PodraPC:linesOfBusiness:outClaimsGross	paid	16068.87337306326	null
+7	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	reserved	4017.218343265813	null
+7	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	incurred	20086.091716329072	null
+7	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	paid	16068.87337306326	null
+7	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	reserved	4017.218343265813	null
+7	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	incurred	20086.091716329072	null
+7	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	paid	16068.87337306326	null
+7	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsNet	reserved	4017.218343265813	null
+7	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsNet	incurred	20086.091716329072	null
+7	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsNet	paid	16068.87337306326	null
+7	0	0	PodraPC:linesOfBusiness:outClaimsNet	reserved	4017.218343265813	null
+7	0	0	PodraPC:linesOfBusiness:outClaimsNet	incurred	20086.091716329072	null
+7	0	0	PodraPC:linesOfBusiness:outClaimsNet	paid	16068.87337306326	null
+8	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	0.16725703706620276	null
+8	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	0.836285185331014	null
+8	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	0.6690281482648113	null
+8	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	reserved	4240023.227582964	null
+8	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	incurred	1.0600058068957409E7	null
+8	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	paid	6360034.841374445	null
+8	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	reserved	4240023.394840001	null
+8	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	incurred	1.0600058905242594E7	null
+8	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	paid	6360035.510402593	null
+8	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	reserved	3765.7141644145413	null
+8	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	incurred	18828.570822072714	null
+8	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	paid	15062.856657658172	null
+8	0	0	PodraPC:reserveGenerators:subMotorHull:outInitialReserves	value	200.0	null
+8	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	reserved	3765.7141644145413	null
+8	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	incurred	18828.570822072714	null
+8	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	paid	15062.856657658172	null
+8	0	0	PodraPC:reserveGenerators:outInitialReserves	value	200.0	null
+8	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsGross	reserved	3765.7141644145413	null
+8	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsGross	incurred	18828.570822072714	null
+8	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsGross	paid	15062.856657658172	null
+8	0	0	PodraPC:linesOfBusiness:outClaimsGross	reserved	3765.7141644145413	null
+8	0	0	PodraPC:linesOfBusiness:outClaimsGross	incurred	18828.570822072714	null
+8	0	0	PodraPC:linesOfBusiness:outClaimsGross	paid	15062.856657658172	null
+8	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	reserved	3765.7141644145413	null
+8	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	incurred	18828.570822072714	null
+8	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	paid	15062.856657658172	null
+8	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	reserved	3765.7141644145413	null
+8	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	incurred	18828.570822072714	null
+8	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	paid	15062.856657658172	null
+8	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsNet	reserved	3765.7141644145413	null
+8	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsNet	incurred	18828.570822072714	null
+8	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsNet	paid	15062.856657658172	null
+8	0	0	PodraPC:linesOfBusiness:outClaimsNet	reserved	3765.7141644145413	null
+8	0	0	PodraPC:linesOfBusiness:outClaimsNet	incurred	18828.570822072714	null
+8	0	0	PodraPC:linesOfBusiness:outClaimsNet	paid	15062.856657658172	null
+9	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	0.1418840515930616	null
+9	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	0.709420257965308	null
+9	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	0.5675362063722464	null
+9	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	reserved	0.0	null
+9	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	incurred	0.0	null
+9	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	paid	0.0	null
+9	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	reserved	0.1418840515930616	null
+9	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	incurred	0.709420257965308	null
+9	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	paid	0.5675362063722464	null
+9	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	reserved	3856.088724896923	null
+9	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	incurred	19280.443624484615	null
+9	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	paid	15424.354899587692	null
+9	0	0	PodraPC:reserveGenerators:subMotorHull:outInitialReserves	value	200.0	null
+9	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	reserved	3856.088724896923	null
+9	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	incurred	19280.443624484615	null
+9	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	paid	15424.354899587692	null
+9	0	0	PodraPC:reserveGenerators:outInitialReserves	value	200.0	null
+9	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsGross	reserved	3856.088724896923	null
+9	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsGross	incurred	19280.443624484615	null
+9	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsGross	paid	15424.354899587692	null
+9	0	0	PodraPC:linesOfBusiness:outClaimsGross	reserved	3856.088724896923	null
+9	0	0	PodraPC:linesOfBusiness:outClaimsGross	incurred	19280.443624484615	null
+9	0	0	PodraPC:linesOfBusiness:outClaimsGross	paid	15424.354899587692	null
+9	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	reserved	3856.088724896923	null
+9	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	incurred	19280.443624484615	null
+9	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	paid	15424.354899587692	null
+9	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	reserved	3856.088724896923	null
+9	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	incurred	19280.443624484615	null
+9	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	paid	15424.354899587692	null
+9	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsNet	reserved	3856.088724896923	null
+9	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsNet	incurred	19280.443624484615	null
+9	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsNet	paid	15424.354899587692	null
+9	0	0	PodraPC:linesOfBusiness:outClaimsNet	reserved	3856.088724896923	null
+9	0	0	PodraPC:linesOfBusiness:outClaimsNet	incurred	19280.443624484615	null
+9	0	0	PodraPC:linesOfBusiness:outClaimsNet	paid	15424.354899587692	null
+10	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	0.15690015454732897	null
+10	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	0.7845007727366451	null
+10	0	0	PodraPC:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	0.6276006181893161	null
+10	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	reserved	1454744.7705263929	null
+10	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	incurred	3636861.926315982	null
+10	0	0	PodraPC:claimsGenerators:subMotorHullSingle:outClaimsLeanDevelopment	paid	2182117.155789589	null
+10	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	reserved	1454744.9274265473	null
+10	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	incurred	3636862.7108167545	null
+10	0	0	PodraPC:claimsGenerators:outClaimsLeanDevelopment	paid	2182117.783390207	null
+10	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	reserved	3844.329289472229	null
+10	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	incurred	19221.64644736115	null
+10	0	0	PodraPC:reserveGenerators:subMotorHull:outClaimsLeanDevelopment	paid	15377.31715788892	null
+10	0	0	PodraPC:reserveGenerators:subMotorHull:outInitialReserves	value	200.0	null
+10	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	reserved	3844.329289472229	null
+10	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	incurred	19221.64644736115	null
+10	0	0	PodraPC:reserveGenerators:outClaimsLeanDevelopment	paid	15377.31715788892	null
+10	0	0	PodraPC:reserveGenerators:outInitialReserves	value	200.0	null
+10	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsGross	reserved	3844.329289472229	null
+10	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsGross	incurred	19221.64644736115	null
+10	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsGross	paid	15377.31715788892	null
+10	0	0	PodraPC:linesOfBusiness:outClaimsGross	reserved	3844.329289472229	null
+10	0	0	PodraPC:linesOfBusiness:outClaimsGross	incurred	19221.64644736115	null
+10	0	0	PodraPC:linesOfBusiness:outClaimsGross	paid	15377.31715788892	null
+10	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	reserved	3844.329289472229	null
+10	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	incurred	19221.64644736115	null
+10	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanGross	paid	15377.31715788892	null
+10	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	reserved	3844.329289472229	null
+10	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	incurred	19221.64644736115	null
+10	0	0	PodraPC:reinsurance:outClaimsDevelopmentLeanNet	paid	15377.31715788892	null
+10	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsNet	reserved	3844.329289472229	null
+10	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsNet	incurred	19221.64644736115	null
+10	0	0	PodraPC:linesOfBusiness:subMotorHull:outClaimsNet	paid	15377.31715788892	null
+10	0	0	PodraPC:linesOfBusiness:outClaimsNet	reserved	3844.329289472229	null
+10	0	0	PodraPC:linesOfBusiness:outClaimsNet	incurred	19221.64644736115	null
+10	0	0	PodraPC:linesOfBusiness:outClaimsNet	paid	15377.31715788892	null

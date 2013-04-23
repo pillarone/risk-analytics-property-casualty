@@ -1,941 +1,841 @@
-iteration	period	valueIndex	path	field	value
-1	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	0.0
-1	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	7.957811747616431E7
-1	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	7.957811747616431E7
-1	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	reserved	0.0
-1	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	incurred	3402597.3833103916
-1	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	paid	3402597.3833103916
-1	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	reserved	0.0
-1	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	incurred	1.6391084901751485E8
-1	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	paid	1.6391084901751485E8
-1	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	reserved	0.0
-1	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	incurred	5348464.0506976545
-1	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	paid	5348464.0506976545
-1	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	reserved	0.0
-1	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	incurred	2.336641466491116E7
-1	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	paid	2.336641466491116E7
-1	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	reserved	0.0
-1	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	incurred	0.0
-1	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	paid	0.0
-1	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	reserved	0.0
-1	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	incurred	1847262.5105564846
-1	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	paid	1847262.5105564846
-1	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	reserved	0.0
-1	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	incurred	5.24685717275721E7
-1	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	paid	5.24685717275721E7
-1	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	reserved	0.0
-1	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	incurred	12910.0
-1	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	paid	12910.0
-1	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	reserved	0.0
-1	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	incurred	0.0
-1	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	paid	0.0
-1	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	reserved	0.0
-1	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	incurred	1683709.963005291
-1	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	paid	1683709.963005291
-1	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	reserved	0.0
-1	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	incurred	2.6394709E7
-1	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	paid	2.6394709E7
-1	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	reserved	0.0
-1	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	incurred	4.269165612139255E7
-1	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	paid	4.269165612139255E7
-1	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	reserved	0.0
-1	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	incurred	8.29807148594747E7
-1	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	paid	8.29807148594747E7
-1	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	reserved	0.0
-1	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	incurred	4.0289058738082156E7
-1	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	paid	4.0289058738082156E7
-1	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanCeded	reserved	0.0
-1	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanCeded	incurred	8.462965653410625E7
-1	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanCeded	paid	8.462965653410625E7
-1	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanGross	reserved	0.0
-1	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanGross	incurred	1.692593130682125E8
-1	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanGross	paid	1.692593130682125E8
-1	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanNet	reserved	0.0
-1	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanNet	incurred	8.462965653410625E7
-1	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanNet	paid	8.462965653410625E7
-1	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanCeded	reserved	0.0
-1	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanCeded	incurred	1.28697137071005E7
-1	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanCeded	paid	1.28697137071005E7
-1	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanGross	reserved	0.0
-1	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanGross	incurred	2.5213677175467644E7
-1	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanGross	paid	2.5213677175467644E7
-1	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanNet	reserved	0.0
-1	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanNet	incurred	1.2343963468367144E7
-1	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanNet	paid	1.2343963468367144E7
-1	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded	reserved	0.0
-1	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded	incurred	5.16593493452887E7
-1	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded	paid	5.16593493452887E7
-1	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross	reserved	0.0
-1	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross	incurred	8.055990069057739E7
-1	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross	paid	8.055990069057739E7
-1	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet	reserved	0.0
-1	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet	incurred	2.8900551345288694E7
-1	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet	paid	2.8900551345288694E7
-1	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded	reserved	0.0
-1	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded	incurred	1.91850375707888E8
-1	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded	paid	1.91850375707888E8
-1	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanGross	reserved	0.0
-1	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanGross	incurred	3.580136057937322E8
-1	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanGross	paid	3.580136057937322E8
-1	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	reserved	0.0
-1	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	incurred	1.6616323008584422E8
-1	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	paid	1.6616323008584422E8
-1	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixedCommission	-4.4237084948517926E7
-1	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variablePremium	8247817.968727232
-1	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	premium	2.382118281775932E8
-1	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixedPremium	2.2996401020886597E8
-1	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	commission	-4.4237084948517926E7
-1	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variableCommission	0.0
-1	0	0	Podra:linesOfBusiness:outUnderwritingInfoGross	premium	4.13101E8
-1	0	0	Podra:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
-1	0	0	Podra:linesOfBusiness:outUnderwritingInfoNet	premium	1.7488917182240683E8
-1	0	0	Podra:linesOfBusiness:outUnderwritingInfoNet	commission	4.4237084948517926E7
-1	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	reserved	0.0
-1	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	incurred	3.580136057937322E8
-1	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	paid	3.580136057937322E8
-2	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	0.0
-2	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	8.032097639009438E7
-2	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	8.032097639009438E7
-2	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	reserved	0.0
-2	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	incurred	3119455.755269913
-2	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	paid	3119455.755269913
-2	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	reserved	0.0
-2	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	incurred	1.4283910651054373E8
-2	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	paid	1.4283910651054373E8
-2	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	reserved	0.0
-2	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	incurred	1.6443893416432366E7
-2	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	paid	1.6443893416432366E7
-2	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	reserved	0.0
-2	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	incurred	3.599919720837809E7
-2	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	paid	3.599919720837809E7
-2	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	reserved	0.0
-2	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	incurred	0.0
-2	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	paid	0.0
-2	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	reserved	0.0
-2	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	incurred	4329516.677276557
-2	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	paid	4329516.677276557
-2	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	reserved	0.0
-2	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	incurred	4.915057491280877E7
-2	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	paid	4.915057491280877E7
-2	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	reserved	0.0
-2	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	incurred	0.0
-2	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	paid	0.0
-2	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	reserved	0.0
-2	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	incurred	158960.0
-2	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	paid	158960.0
-2	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	reserved	0.0
-2	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	incurred	2249161.9388064984
-2	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	paid	2249161.9388064984
-2	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	reserved	0.0
-2	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	incurred	10447.0
-2	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	paid	10447.0
-2	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	reserved	0.0
-2	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	incurred	4.202951407739661E7
-2	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	paid	4.202951407739661E7
-2	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	reserved	0.0
-2	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	incurred	8.34404321453643E7
-2	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	paid	8.34404321453643E7
-2	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	reserved	0.0
-2	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	incurred	4.141091806796769E7
-2	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	paid	4.141091806796769E7
-2	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanCeded	reserved	0.0
-2	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanCeded	incurred	8.386344667170423E7
-2	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanCeded	paid	8.386344667170423E7
-2	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanGross	reserved	0.0
-2	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanGross	incurred	1.592829999269761E8
-2	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanGross	paid	1.592829999269761E8
-2	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanNet	reserved	0.0
-2	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanNet	incurred	7.541955325527187E7
-2	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanNet	paid	7.541955325527187E7
-2	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanCeded	reserved	0.0
-2	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanCeded	incurred	2.1618998206241433E7
-2	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanCeded	paid	2.1618998206241433E7
-2	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanGross	reserved	0.0
-2	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanGross	incurred	4.032871388565465E7
-2	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanGross	paid	4.032871388565465E7
-2	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanNet	reserved	0.0
-2	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanNet	incurred	1.8709715679413218E7
-2	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanNet	paid	1.8709715679413218E7
-2	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded	reserved	0.0
-2	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded	incurred	2.578457192580763E7
-2	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded	paid	2.578457192580763E7
-2	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross	reserved	0.0
-2	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross	incurred	5.1569143851615265E7
-2	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross	paid	5.1569143851615265E7
-2	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet	reserved	0.0
-2	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet	incurred	2.578457192580763E7
-2	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet	paid	2.578457192580763E7
-2	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded	reserved	0.0
-2	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded	incurred	1.7329653088114992E8
-2	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded	paid	1.7329653088114992E8
-2	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanGross	reserved	0.0
-2	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanGross	incurred	3.3462128980961037E8
-2	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanGross	paid	3.3462128980961037E8
-2	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	reserved	0.0
-2	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	incurred	1.6132475892846042E8
-2	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	paid	1.6132475892846042E8
-2	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixedCommission	-4.53954831456E7
-2	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variablePremium	498488.3130827484
-2	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	premium	2.3454136541308275E8
-2	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixedPremium	2.3404287710000002E8
-2	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	commission	-4.53954831456E7
-2	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variableCommission	0.0
-2	0	0	Podra:linesOfBusiness:outUnderwritingInfoGross	premium	4.13101E8
-2	0	0	Podra:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
-2	0	0	Podra:linesOfBusiness:outUnderwritingInfoNet	premium	1.7855963458691725E8
-2	0	0	Podra:linesOfBusiness:outUnderwritingInfoNet	commission	4.53954831456E7
-2	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	reserved	0.0
-2	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	incurred	3.3462128980961037E8
-2	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	paid	3.3462128980961037E8
-3	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	0.0
-3	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	7.23204354566809E7
-3	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	7.23204354566809E7
-3	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	reserved	0.0
-3	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	incurred	0.0
-3	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	paid	0.0
-3	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	reserved	0.0
-3	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	incurred	1.5724833629281822E8
-3	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	paid	1.5724833629281822E8
-3	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	reserved	0.0
-3	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	incurred	1.0192328777552055E7
-3	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	paid	1.0192328777552055E7
-3	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	reserved	0.0
-3	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	incurred	1.5852202981009131E7
-3	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	paid	1.5852202981009131E7
-3	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	reserved	0.0
-3	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	incurred	0.0
-3	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	paid	0.0
-3	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	reserved	0.0
-3	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	incurred	590622.3302430476
-3	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	paid	590622.3302430476
-3	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	reserved	0.0
-3	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	incurred	5.019340412949353E7
-3	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	paid	5.019340412949353E7
-3	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	reserved	0.0
-3	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	incurred	0.0
-3	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	paid	0.0
-3	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	reserved	0.0
-3	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	incurred	0.0
-3	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	paid	0.0
-3	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	reserved	0.0
-3	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	incurred	2094816.516383825
-3	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	paid	2094816.516383825
-3	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	reserved	0.0
-3	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	incurred	0.0
-3	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	paid	0.0
-3	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	reserved	0.0
-3	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	incurred	3.616021772834045E7
-3	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	paid	3.616021772834045E7
-3	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	reserved	0.0
-3	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	incurred	7.23204354566809E7
-3	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	paid	7.23204354566809E7
-3	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	reserved	0.0
-3	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	incurred	3.616021772834045E7
-3	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	paid	3.616021772834045E7
-3	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanCeded	reserved	0.0
-3	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanCeded	incurred	8.590559327398433E7
-3	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanCeded	paid	8.590559327398433E7
-3	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanGross	reserved	0.0
-3	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanGross	incurred	1.674406650703703E8
-3	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanGross	paid	1.674406650703703E8
-3	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanNet	reserved	0.0
-3	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanNet	incurred	8.153507179638596E7
-3	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanNet	paid	8.153507179638596E7
-3	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanCeded	reserved	0.0
-3	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanCeded	incurred	8221412.655626089
-3	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanCeded	paid	8221412.655626089
-3	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanGross	reserved	0.0
-3	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanGross	incurred	1.6442825311252179E7
-3	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanGross	paid	1.6442825311252179E7
-3	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanNet	reserved	0.0
-3	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanNet	incurred	8221412.655626089
-3	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanNet	paid	8221412.655626089
-3	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded	reserved	0.0
-3	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded	incurred	2.6144110322938677E7
-3	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded	paid	2.6144110322938677E7
-3	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross	reserved	0.0
-3	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross	incurred	5.228822064587735E7
-3	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross	paid	5.228822064587735E7
-3	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet	reserved	0.0
-3	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet	incurred	2.6144110322938677E7
-3	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet	paid	2.6144110322938677E7
-3	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded	reserved	0.0
-3	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded	incurred	1.5643133398088953E8
-3	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded	paid	1.5643133398088953E8
-3	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanGross	reserved	0.0
-3	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanGross	incurred	3.0849214648418075E8
-3	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanGross	paid	3.0849214648418075E8
-3	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	reserved	0.0
-3	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	incurred	1.5206081250329116E8
-3	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	paid	1.5206081250329116E8
-3	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixedCommission	-4.53954831456E7
-3	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variablePremium	0.0
-3	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	premium	2.3404287710000002E8
-3	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixedPremium	2.3404287710000002E8
-3	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	commission	-4.53954831456E7
-3	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variableCommission	0.0
-3	0	0	Podra:linesOfBusiness:outUnderwritingInfoGross	premium	4.13101E8
-3	0	0	Podra:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
-3	0	0	Podra:linesOfBusiness:outUnderwritingInfoNet	premium	1.790581229E8
-3	0	0	Podra:linesOfBusiness:outUnderwritingInfoNet	commission	4.53954831456E7
-3	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	reserved	0.0
-3	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	incurred	3.0849214648418075E8
-3	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	paid	3.0849214648418075E8
-4	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	0.0
-4	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	7.178396130927554E7
-4	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	7.178396130927554E7
-4	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	reserved	0.0
-4	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	incurred	3161688.4403700824
-4	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	paid	3161688.4403700824
-4	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	reserved	0.0
-4	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	incurred	1.5682843620986387E8
-4	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	paid	1.5682843620986387E8
-4	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	reserved	0.0
-4	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	incurred	1.374653990898745E7
-4	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	paid	1.374653990898745E7
-4	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	reserved	0.0
-4	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	incurred	1.5625938955523044E7
-4	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	paid	1.5625938955523044E7
-4	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	reserved	0.0
-4	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	incurred	0.0
-4	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	paid	0.0
-4	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	reserved	0.0
-4	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	incurred	1066593.2704132223
-4	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	paid	1066593.2704132223
-4	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	reserved	0.0
-4	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	incurred	3.8792949029336035E7
-4	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	paid	3.8792949029336035E7
-4	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	reserved	0.0
-4	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	incurred	0.0
-4	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	paid	0.0
-4	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	reserved	0.0
-4	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	incurred	0.0
-4	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	paid	0.0
-4	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	reserved	0.0
-4	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	incurred	2596461.8982737293
-4	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	paid	2596461.8982737293
-4	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	reserved	0.0
-4	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	incurred	0.0
-4	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	paid	0.0
-4	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	reserved	0.0
-4	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	incurred	3.855366909500785E7
-4	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	paid	3.855366909500785E7
-4	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	reserved	0.0
-4	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	incurred	7.494564974964562E7
-4	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	paid	7.494564974964562E7
-4	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	reserved	0.0
-4	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	incurred	3.639198065463777E7
-4	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	paid	3.639198065463777E7
-4	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanCeded	reserved	0.0
-4	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanCeded	incurred	8.667615158522764E7
-4	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanCeded	paid	8.667615158522764E7
-4	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanGross	reserved	0.0
-4	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanGross	incurred	1.7057497611885133E8
-4	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanGross	paid	1.7057497611885133E8
-4	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanNet	reserved	0.0
-4	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanNet	incurred	8.38988245336237E7
-4	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanNet	paid	8.38988245336237E7
-4	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanCeded	reserved	0.0
-4	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanCeded	incurred	8389290.665712219
-4	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanCeded	paid	8389290.665712219
-4	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanGross	reserved	0.0
-4	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanGross	incurred	1.6692532225936266E7
-4	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanGross	paid	1.6692532225936266E7
-4	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanNet	reserved	0.0
-4	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanNet	incurred	8303241.560224046
-4	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanNet	paid	8303241.560224046
-4	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded	reserved	0.0
-4	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded	incurred	2.0694705463804882E7
-4	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded	paid	2.0694705463804882E7
-4	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross	reserved	0.0
-4	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross	incurred	4.1389410927609764E7
-4	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross	paid	4.1389410927609764E7
-4	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet	reserved	0.0
-4	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet	incurred	2.0694705463804882E7
-4	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet	paid	2.0694705463804882E7
-4	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded	reserved	0.0
-4	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded	incurred	1.5431381680975255E8
-4	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded	paid	1.5431381680975255E8
-4	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanGross	reserved	0.0
-4	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanGross	incurred	3.03602569022043E8
-4	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanGross	paid	3.03602569022043E8
-4	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	reserved	0.0
-4	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	incurred	1.4928875221229035E8
-4	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	paid	1.4928875221229035E8
-4	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixedCommission	-4.53954831456E7
-4	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variablePremium	14744.004077130307
-4	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	premium	2.3405762110407713E8
-4	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixedPremium	2.3404287710000002E8
-4	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	commission	-4.53954831456E7
-4	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variableCommission	0.0
-4	0	0	Podra:linesOfBusiness:outUnderwritingInfoGross	premium	4.13101E8
-4	0	0	Podra:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
-4	0	0	Podra:linesOfBusiness:outUnderwritingInfoNet	premium	1.7904337889592287E8
-4	0	0	Podra:linesOfBusiness:outUnderwritingInfoNet	commission	4.53954831456E7
-4	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	reserved	0.0
-4	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	incurred	3.03602569022043E8
-4	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	paid	3.03602569022043E8
-5	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	0.0
-5	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	7.812576378836538E7
-5	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	7.812576378836538E7
-5	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	reserved	0.0
-5	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	incurred	0.0
-5	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	paid	0.0
-5	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	reserved	0.0
-5	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	incurred	1.649145597125105E8
-5	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	paid	1.649145597125105E8
-5	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	reserved	0.0
-5	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	incurred	1.0790723056286095E7
-5	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	paid	1.0790723056286095E7
-5	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	reserved	0.0
-5	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	incurred	2.2856925635786172E7
-5	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	paid	2.2856925635786172E7
-5	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	reserved	0.0
-5	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	incurred	0.0
-5	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	paid	0.0
-5	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	reserved	0.0
-5	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	incurred	1508418.4471463931
-5	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	paid	1508418.4471463931
-5	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	reserved	0.0
-5	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	incurred	4.5749193214315936E7
-5	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	paid	4.5749193214315936E7
-5	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	reserved	0.0
-5	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	incurred	0.0
-5	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	paid	0.0
-5	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	reserved	0.0
-5	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	incurred	0.0
-5	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	paid	0.0
-5	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	reserved	0.0
-5	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	incurred	1502984.7046156737
-5	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	paid	1502984.7046156737
-5	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	reserved	0.0
-5	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	incurred	1357758.0
-5	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	paid	1357758.0
-5	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	reserved	0.0
-5	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	incurred	3.906288189418269E7
-5	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	paid	3.906288189418269E7
-5	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	reserved	0.0
-5	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	incurred	7.812576378836538E7
-5	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	paid	7.812576378836538E7
-5	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	reserved	0.0
-5	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	incurred	3.906288189418269E7
-5	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	paid	3.906288189418269E7
-5	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanCeded	reserved	0.0
-5	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanCeded	incurred	8.974137832239051E7
-5	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanCeded	paid	8.974137832239051E7
-5	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanGross	reserved	0.0
-5	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanGross	incurred	1.757052827687966E8
-5	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanGross	paid	1.757052827687966E8
-5	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanNet	reserved	0.0
-5	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanNet	incurred	8.596390444640608E7
-5	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanNet	paid	8.596390444640608E7
-5	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanCeded	reserved	0.0
-5	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanCeded	incurred	1.2194814114071166E7
-5	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanCeded	paid	1.2194814114071166E7
-5	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanGross	reserved	0.0
-5	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanGross	incurred	2.4365344082932565E7
-5	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanGross	paid	2.4365344082932565E7
-5	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanNet	reserved	0.0
-5	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanNet	incurred	1.21705299688614E7
-5	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanNet	paid	1.21705299688614E7
-5	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded	reserved	0.0
-5	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded	incurred	2.4483846959465805E7
-5	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded	paid	2.4483846959465805E7
-5	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross	reserved	0.0
-5	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross	incurred	4.86099359189316E7
-5	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross	paid	4.86099359189316E7
-5	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet	reserved	0.0
-5	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet	incurred	2.4126088959465805E7
-5	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet	paid	2.4126088959465805E7
-5	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded	reserved	0.0
-5	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded	incurred	1.6548292129011017E8
-5	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded	paid	1.6548292129011017E8
-5	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanGross	reserved	0.0
-5	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanGross	incurred	3.268063265590261E8
-5	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanGross	paid	3.268063265590261E8
-5	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	reserved	0.0
-5	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	incurred	1.6132340526891595E8
-5	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	paid	1.6132340526891595E8
-5	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixedCommission	-4.5377273650432825E7
-5	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variablePremium	132396.82577037555
-5	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	premium	2.341111559850409E8
-5	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixedPremium	2.3397875915927052E8
-5	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	commission	-4.5377273650432825E7
-5	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variableCommission	0.0
-5	0	0	Podra:linesOfBusiness:outUnderwritingInfoGross	premium	4.13101E8
-5	0	0	Podra:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
-5	0	0	Podra:linesOfBusiness:outUnderwritingInfoNet	premium	1.789898440149591E8
-5	0	0	Podra:linesOfBusiness:outUnderwritingInfoNet	commission	4.5377273650432825E7
-5	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	reserved	0.0
-5	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	incurred	3.268063265590261E8
-5	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	paid	3.268063265590261E8
-6	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	0.0
-6	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	8.055822815996641E7
-6	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	8.055822815996641E7
-6	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	reserved	0.0
-6	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	incurred	1797309.1722717988
-6	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	paid	1797309.1722717988
-6	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	reserved	0.0
-6	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	incurred	1.5730826756009132E8
-6	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	paid	1.5730826756009132E8
-6	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	reserved	0.0
-6	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	incurred	3257558.9793467526
-6	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	paid	3257558.9793467526
-6	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	reserved	0.0
-6	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	incurred	2.535099920972859E7
-6	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	paid	2.535099920972859E7
-6	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	reserved	0.0
-6	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	incurred	0.0
-6	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	paid	0.0
-6	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	reserved	0.0
-6	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	incurred	1292522.5541177802
-6	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	paid	1292522.5541177802
-6	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	reserved	0.0
-6	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	incurred	4.533851977347389E7
-6	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	paid	4.533851977347389E7
-6	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	reserved	0.0
-6	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	incurred	0.0
-6	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	paid	0.0
-6	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	reserved	0.0
-6	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	incurred	0.0
-6	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	paid	0.0
-6	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	reserved	0.0
-6	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	incurred	2572773.8610895844
-6	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	paid	2572773.8610895844
-6	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	reserved	0.0
-6	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	incurred	1.9019223E7
-6	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	paid	1.9019223E7
-6	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	reserved	0.0
-6	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	incurred	4.157642325225501E7
-6	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	paid	4.157642325225501E7
-6	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	reserved	0.0
-6	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	incurred	8.235553733223821E7
-6	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	paid	8.235553733223821E7
-6	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	reserved	0.0
-6	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	incurred	4.0779114079983205E7
-6	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	paid	4.0779114079983205E7
-6	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanCeded	reserved	0.0
-6	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanCeded	incurred	8.028291326971903E7
-6	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanCeded	paid	8.028291326971903E7
-6	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanGross	reserved	0.0
-6	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanGross	incurred	1.6056582653943807E8
-6	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanGross	paid	1.6056582653943807E8
-6	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanNet	reserved	0.0
-6	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanNet	incurred	8.028291326971903E7
-6	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanNet	paid	8.028291326971903E7
-6	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanCeded	reserved	-1.4551915228366852E-11
-6	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanCeded	incurred	1.3466145435836945E7
-6	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanCeded	paid	1.3466145435836945E7
-6	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanGross	reserved	0.0
-6	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanGross	incurred	2.664352176384637E7
-6	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanGross	paid	2.664352176384637E7
-6	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanNet	reserved	0.0
-6	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanNet	incurred	1.3177376328009427E7
-6	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanNet	paid	1.3177376328009427E7
-6	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded	reserved	0.0
-6	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded	incurred	4.132474981728175E7
-6	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded	paid	4.132474981728175E7
-6	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross	reserved	0.0
-6	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross	incurred	6.693051663456347E7
-6	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross	paid	6.693051663456347E7
-6	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet	reserved	0.0
-6	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet	incurred	2.5605766817281734E7
-6	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet	paid	2.5605766817281734E7
-6	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded	reserved	-1.4551915228366852E-11
-6	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded	incurred	1.7665023177509266E8
-6	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded	paid	1.7665023177509266E8
-6	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanGross	reserved	0.0
-6	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanGross	incurred	3.36495402270086E8
-6	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanGross	paid	3.36495402270086E8
-6	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	reserved	0.0
-6	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	incurred	1.598451704949934E8
-6	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	paid	1.598451704949934E8
-6	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixedCommission	-4.459540391614492E7
-6	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variablePremium	5683839.645448363
-6	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	premium	2.369095363600432E8
-6	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixedPremium	2.312256967145948E8
-6	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	commission	-4.459540391614492E7
-6	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variableCommission	0.0
-6	0	0	Podra:linesOfBusiness:outUnderwritingInfoGross	premium	4.13101E8
-6	0	0	Podra:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
-6	0	0	Podra:linesOfBusiness:outUnderwritingInfoNet	premium	1.7619146363995683E8
-6	0	0	Podra:linesOfBusiness:outUnderwritingInfoNet	commission	4.459540391614492E7
-6	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	reserved	0.0
-6	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	incurred	3.36495402270086E8
-6	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	paid	3.36495402270086E8
-7	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	0.0
-7	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	7.555556608397765E7
-7	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	7.555556608397765E7
-7	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	reserved	0.0
-7	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	incurred	2871581.279264251
-7	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	paid	2871581.279264251
-7	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	reserved	0.0
-7	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	incurred	1.6138641183878383E8
-7	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	paid	1.6138641183878383E8
-7	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	reserved	0.0
-7	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	incurred	5.0327661379339494E7
-7	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	paid	5.0327661379339494E7
-7	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	reserved	0.0
-7	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	incurred	1.7460932095657516E7
-7	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	paid	1.7460932095657516E7
-7	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	reserved	0.0
-7	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	incurred	0.0
-7	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	paid	0.0
-7	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	reserved	0.0
-7	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	incurred	3279059.1357747097
-7	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	paid	3279059.1357747097
-7	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	reserved	0.0
-7	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	incurred	4.4343960697824605E7
-7	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	paid	4.4343960697824605E7
-7	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	reserved	0.0
-7	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	incurred	0.0
-7	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	paid	0.0
-7	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	reserved	0.0
-7	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	incurred	0.0
-7	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	paid	0.0
-7	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	reserved	0.0
-7	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	incurred	1159728.9600107772
-7	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	paid	1159728.9600107772
-7	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	reserved	0.0
-7	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	incurred	10447.0
-7	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	paid	10447.0
-7	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	reserved	0.0
-7	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	incurred	4.014936432125308E7
-7	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	paid	4.014936432125308E7
-7	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	reserved	0.0
-7	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	incurred	7.842714736324191E7
-7	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	paid	7.842714736324191E7
-7	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	reserved	0.0
-7	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	incurred	3.827778304198883E7
-7	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	paid	3.827778304198883E7
-7	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanCeded	reserved	0.0
-7	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanCeded	incurred	1.2827739967499799E8
-7	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanCeded	paid	1.2827739967499799E8
-7	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanGross	reserved	0.0
-7	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanGross	incurred	2.1171407321812335E8
-7	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanGross	paid	2.1171407321812335E8
-7	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanNet	reserved	0.0
-7	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanNet	incurred	8.343667354312535E7
-7	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanNet	paid	8.343667354312535E7
-7	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanCeded	reserved	0.0
-7	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanCeded	incurred	1.0951330766900338E7
-7	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanCeded	paid	1.0951330766900338E7
-7	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanGross	reserved	0.0
-7	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanGross	incurred	2.0739991231432226E7
-7	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanGross	paid	2.0739991231432226E7
-7	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanNet	reserved	0.0
-7	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanNet	incurred	9788660.464531887
-7	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanNet	paid	9788660.464531887
-7	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded	reserved	0.0
-7	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded	incurred	2.2757068328917693E7
-7	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded	paid	2.2757068328917693E7
-7	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross	reserved	0.0
-7	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross	incurred	4.5514136657835394E7
-7	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross	paid	4.5514136657835394E7
-7	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet	reserved	0.0
-7	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet	incurred	2.2757068328917693E7
-7	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet	paid	2.2757068328917693E7
-7	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded	reserved	0.0
-7	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded	incurred	2.021351630920691E8
-7	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded	paid	2.021351630920691E8
-7	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanGross	reserved	0.0
-7	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanGross	incurred	3.5639534847063285E8
-7	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanGross	paid	3.5639534847063285E8
-7	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	reserved	0.0
-7	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	incurred	1.5426018537856376E8
-7	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	paid	1.5426018537856376E8
-7	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixedCommission	-4.53954831456E7
-7	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variablePremium	199216.6633368989
-7	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	premium	2.342420937633369E8
-7	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixedPremium	2.3404287710000002E8
-7	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	commission	-4.53954831456E7
-7	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variableCommission	0.0
-7	0	0	Podra:linesOfBusiness:outUnderwritingInfoGross	premium	4.13101E8
-7	0	0	Podra:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
-7	0	0	Podra:linesOfBusiness:outUnderwritingInfoNet	premium	1.788589062366631E8
-7	0	0	Podra:linesOfBusiness:outUnderwritingInfoNet	commission	4.53954831456E7
-7	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	reserved	0.0
-7	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	incurred	3.5639534847063285E8
-7	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	paid	3.5639534847063285E8
-8	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	0.0
-8	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	7.856376139708558E7
-8	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	7.856376139708558E7
-8	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	reserved	0.0
-8	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	incurred	0.0
-8	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	paid	0.0
-8	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	reserved	0.0
-8	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	incurred	1.6570661765432492E8
-8	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	paid	1.6570661765432492E8
-8	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	reserved	0.0
-8	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	incurred	1.5164778033952538E7
-8	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	paid	1.5164778033952538E7
-8	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	reserved	0.0
-8	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	incurred	1.7587919657492388E7
-8	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	paid	1.7587919657492388E7
-8	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	reserved	0.0
-8	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	incurred	0.0
-8	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	paid	0.0
-8	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	reserved	0.0
-8	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	incurred	2271306.813144358
-8	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	paid	2271306.813144358
-8	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	reserved	0.0
-8	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	incurred	4.3864895455136895E7
-8	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	paid	4.3864895455136895E7
-8	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	reserved	0.0
-8	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	incurred	0.0
-8	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	paid	0.0
-8	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	reserved	0.0
-8	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	incurred	0.0
-8	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	paid	0.0
-8	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	reserved	0.0
-8	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	incurred	1197791.766551988
-8	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	paid	1197791.766551988
-8	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	reserved	0.0
-8	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	incurred	2785953.0
-8	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	paid	2785953.0
-8	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	reserved	0.0
-8	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	incurred	3.928188069854279E7
-8	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	paid	3.928188069854279E7
-8	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	reserved	0.0
-8	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	incurred	7.856376139708558E7
-8	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	paid	7.856376139708558E7
-8	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	reserved	0.0
-8	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	incurred	3.928188069854279E7
-8	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	paid	3.928188069854279E7
-8	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanCeded	reserved	2.9103830456733704E-10
-8	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanCeded	incurred	9.279018869349983E7
-8	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanCeded	paid	9.279018869349983E7
-8	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanGross	reserved	0.0
-8	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanGross	incurred	1.8087139568827745E8
-8	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanGross	paid	1.8087139568827745E8
-8	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanNet	reserved	0.0
-8	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanNet	incurred	8.808120699477762E7
-8	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanNet	paid	8.808120699477762E7
-8	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanCeded	reserved	0.0
-8	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanCeded	incurred	1.0322170967049247E7
-8	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanCeded	paid	1.0322170967049247E7
-8	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanGross	reserved	0.0
-8	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanGross	incurred	1.9859226470636748E7
-8	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanGross	paid	1.9859226470636748E7
-8	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanNet	reserved	0.0
-8	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanNet	incurred	9537055.503587501
-8	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanNet	paid	9537055.503587501
-8	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded	reserved	0.0
-8	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded	incurred	2.420113561084444E7
-8	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded	paid	2.420113561084444E7
-8	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross	reserved	0.0
-8	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross	incurred	4.7848640221688874E7
-8	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross	paid	4.7848640221688874E7
-8	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet	reserved	0.0
-8	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet	incurred	2.364750461084444E7
-8	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet	paid	2.364750461084444E7
-8	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded	reserved	2.9103830456733704E-10
-8	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded	incurred	1.665953759699363E8
-8	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded	paid	1.665953759699363E8
-8	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanGross	reserved	0.0
-8	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanGross	incurred	3.271430237776887E8
-8	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanGross	paid	3.271430237776887E8
-8	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	reserved	0.0
-8	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	incurred	1.6054764780775237E8
-8	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	paid	1.6054764780775237E8
-8	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixedCommission	-4.5367303926633835E7
-8	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variablePremium	332970.084038151
-8	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	premium	2.342766245820446E8
-8	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixedPremium	2.3394365449800646E8
-8	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	commission	-4.5367303926633835E7
-8	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variableCommission	0.0
-8	0	0	Podra:linesOfBusiness:outUnderwritingInfoGross	premium	4.13101E8
-8	0	0	Podra:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
-8	0	0	Podra:linesOfBusiness:outUnderwritingInfoNet	premium	1.788243754179554E8
-8	0	0	Podra:linesOfBusiness:outUnderwritingInfoNet	commission	4.5367303926633835E7
-8	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	reserved	0.0
-8	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	incurred	3.271430237776887E8
-8	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	paid	3.271430237776887E8
-9	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	0.0
-9	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	7.522647224495241E7
-9	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	7.522647224495241E7
-9	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	reserved	0.0
-9	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	incurred	528061.7848417789
-9	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	paid	528061.7848417789
-9	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	reserved	0.0
-9	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	incurred	1.6692303129616904E8
-9	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	paid	1.6692303129616904E8
-9	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	reserved	0.0
-9	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	incurred	6193280.066034151
-9	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	paid	6193280.066034151
-9	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	reserved	0.0
-9	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	incurred	1.4964019483438097E7
-9	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	paid	1.4964019483438097E7
-9	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	reserved	0.0
-9	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	incurred	0.0
-9	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	paid	0.0
-9	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	reserved	0.0
-9	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	incurred	3468696.9527484635
-9	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	paid	3468696.9527484635
-9	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	reserved	0.0
-9	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	incurred	3.728997699319345E7
-9	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	paid	3.728997699319345E7
-9	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	reserved	0.0
-9	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	incurred	3.2663518E7
-9	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	paid	3.2663518E7
-9	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	reserved	0.0
-9	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	incurred	66539.0
-9	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	paid	66539.0
-9	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	reserved	0.0
-9	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	incurred	1836509.4934891802
-9	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	paid	1836509.4934891802
-9	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	reserved	0.0
-9	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	incurred	1712842.0
-9	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	paid	1712842.0
-9	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	reserved	0.0
-9	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	incurred	3.787726701489709E7
-9	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	paid	3.787726701489709E7
-9	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	reserved	0.0
-9	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	incurred	7.575453402979419E7
-9	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	paid	7.575453402979419E7
-9	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	reserved	0.0
-9	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	incurred	3.787726701489709E7
-9	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	paid	3.787726701489709E7
-9	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanCeded	reserved	0.0
-9	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanCeded	incurred	8.655815568110159E7
-9	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanCeded	paid	8.655815568110159E7
-9	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanGross	reserved	0.0
-9	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanGross	incurred	1.7311631136220318E8
-9	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanGross	paid	1.7311631136220318E8
-9	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanNet	reserved	0.0
-9	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanNet	incurred	8.655815568110159E7
-9	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanNet	paid	8.655815568110159E7
-9	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanCeded	reserved	0.0
-9	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanCeded	incurred	9841743.645298129
-9	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanCeded	paid	9841743.645298129
-9	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanGross	reserved	0.0
-9	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanGross	incurred	1.8432716436186563E7
-9	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanGross	paid	1.8432716436186563E7
-9	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanNet	reserved	0.0
-9	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanNet	incurred	8590972.790888432
-9	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanNet	paid	8590972.790888432
-9	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded	reserved	0.0
-9	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded	incurred	4.412910874334132E7
-9	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded	paid	4.412910874334132E7
-9	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross	reserved	0.0
-9	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross	incurred	7.356938548668264E7
-9	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross	paid	7.356938548668264E7
-9	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet	reserved	0.0
-9	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet	incurred	2.9440276743341316E7
-9	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet	paid	2.9440276743341316E7
-9	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded	reserved	0.0
-9	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded	incurred	1.7840627508463812E8
-9	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded	paid	1.7840627508463812E8
-9	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanGross	reserved	0.0
-9	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanGross	incurred	3.408729473148666E8
-9	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanGross	paid	3.408729473148666E8
-9	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	reserved	0.0
-9	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	incurred	1.6246667223022845E8
-9	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	paid	1.6246667223022845E8
-9	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixedCommission	-4.4647837487598136E7
-9	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variablePremium	5479422.438237494
-9	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	premium	2.3688974440442812E8
-9	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixedPremium	2.3141032196619064E8
-9	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	commission	-4.4647837487598136E7
-9	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variableCommission	0.0
-9	0	0	Podra:linesOfBusiness:outUnderwritingInfoGross	premium	4.13101E8
-9	0	0	Podra:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
-9	0	0	Podra:linesOfBusiness:outUnderwritingInfoNet	premium	1.7621125559557188E8
-9	0	0	Podra:linesOfBusiness:outUnderwritingInfoNet	commission	4.4647837487598136E7
-9	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	reserved	0.0
-9	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	incurred	3.408729473148666E8
-9	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	paid	3.408729473148666E8
-10	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	0.0
-10	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	7.100641423768106E7
-10	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	7.100641423768106E7
-10	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	reserved	0.0
-10	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	incurred	1826787.280861008
-10	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	paid	1826787.280861008
-10	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	reserved	0.0
-10	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	incurred	1.3153807635636899E8
-10	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	paid	1.3153807635636899E8
-10	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	reserved	0.0
-10	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	incurred	1.527625031733746E7
-10	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	paid	1.527625031733746E7
-10	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	reserved	0.0
-10	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	incurred	2.8301682538764507E7
-10	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	paid	2.8301682538764507E7
-10	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	reserved	0.0
-10	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	incurred	210402.9609975869
-10	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	paid	210402.9609975869
-10	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	reserved	0.0
-10	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	incurred	631714.3665871072
-10	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	paid	631714.3665871072
-10	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	reserved	0.0
-10	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	incurred	3.211588995241676E7
-10	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	paid	3.211588995241676E7
-10	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	reserved	0.0
-10	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	incurred	0.0
-10	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	paid	0.0
-10	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	reserved	0.0
-10	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	incurred	0.0
-10	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	paid	0.0
-10	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	reserved	0.0
-10	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	incurred	992669.1950464953
-10	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	paid	992669.1950464953
-10	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	reserved	0.0
-10	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	incurred	2.9940821E7
-10	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	paid	2.9940821E7
-10	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	reserved	0.0
-10	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	incurred	3.6829994399701536E7
-10	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanCeded	paid	3.6829994399701536E7
-10	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	reserved	0.0
-10	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	incurred	7.283320151854207E7
-10	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanGross	paid	7.283320151854207E7
-10	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	reserved	0.0
-10	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	incurred	3.600320711884053E7
-10	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsDevelopmentLeanNet	paid	3.600320711884053E7
-10	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanCeded	reserved	0.0
-10	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanCeded	incurred	7.571117007291818E7
-10	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanCeded	paid	7.571117007291818E7
-10	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanGross	reserved	0.0
-10	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanGross	incurred	1.4681432667370644E8
-10	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanGross	paid	1.4681432667370644E8
-10	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanNet	reserved	0.0
-10	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanNet	incurred	7.110315660078827E7
-10	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsDevelopmentLeanNet	paid	7.110315660078827E7
-10	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanCeded	reserved	0.0
-10	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanCeded	incurred	1.45718999331746E7
-10	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanCeded	paid	1.45718999331746E7
-10	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanGross	reserved	0.0
-10	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanGross	incurred	2.9143799866349198E7
-10	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanGross	paid	2.9143799866349198E7
-10	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanNet	reserved	0.0
-10	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanNet	incurred	1.45718999331746E7
-10	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsDevelopmentLeanNet	paid	1.45718999331746E7
-10	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded	reserved	0.0
-10	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded	incurred	4.4463219573731616E7
-10	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanCeded	paid	4.4463219573731616E7
-10	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross	reserved	0.0
-10	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross	incurred	6.3049380147463255E7
-10	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanGross	paid	6.3049380147463255E7
-10	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet	reserved	0.0
-10	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet	incurred	1.8586160573731627E7
-10	0	0	Podra:linesOfBusiness:subProperty:outClaimsDevelopmentLeanNet	paid	1.8586160573731627E7
-10	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded	reserved	0.0
-10	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded	incurred	1.7157628397952598E8
-10	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanCeded	paid	1.7157628397952598E8
-10	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanGross	reserved	0.0
-10	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanGross	incurred	3.11840708206061E8
-10	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanGross	paid	3.11840708206061E8
-10	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	reserved	0.0
-10	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	incurred	1.4026442422653505E8
-10	0	0	Podra:linesOfBusiness:outClaimsDevelopmentLeanNet	paid	1.4026442422653505E8
-10	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixedCommission	-4.407836883704177E7
-10	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variablePremium	9275452.87717063
-10	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	premium	2.3868060353858536E8
-10	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	fixedPremium	2.294051506614147E8
-10	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	commission	-4.407836883704177E7
-10	0	0	Podra:linesOfBusiness:outUnderwritingInfoCeded	variableCommission	0.0
-10	0	0	Podra:linesOfBusiness:outUnderwritingInfoGross	premium	4.13101E8
-10	0	0	Podra:linesOfBusiness:outUnderwritingInfoGross	commission	0.0
-10	0	0	Podra:linesOfBusiness:outUnderwritingInfoNet	premium	1.744203964614147E8
-10	0	0	Podra:linesOfBusiness:outUnderwritingInfoNet	commission	4.407836883704177E7
-10	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	reserved	0.0
-10	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	incurred	3.11840708206061E8
-10	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	paid	3.11840708206061E8
+iteration	period	valueIndex	path	field	value	date
+1	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+1	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	8.467499029682425E7	null
+1	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	8.467499029682425E7	null
+1	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	reserved	0.0	null
+1	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	incurred	1321699.3504698132	null
+1	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	paid	1321699.3504698132	null
+1	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+1	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	incurred	1.3915163971368566E8	null
+1	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	paid	1.3915163971368566E8	null
+1	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	reserved	0.0	null
+1	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	incurred	4870175.5392069025	null
+1	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	paid	4870175.5392069025	null
+1	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+1	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	incurred	2.085382035389501E7	null
+1	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	paid	2.085382035389501E7	null
+1	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	reserved	0.0	null
+1	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	incurred	0.0	null
+1	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	paid	0.0	null
+1	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	reserved	0.0	null
+1	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	incurred	710721.1277309471	null
+1	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	paid	710721.1277309471	null
+1	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+1	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	incurred	4.318160845882412E7	null
+1	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	paid	4.318160845882412E7	null
+1	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	reserved	0.0	null
+1	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	incurred	0.0	null
+1	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	paid	0.0	null
+1	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	reserved	0.0	null
+1	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	incurred	0.0	null
+1	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	paid	0.0	null
+1	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	reserved	0.0	null
+1	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	incurred	2912537.3710914063	null
+1	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	paid	2912537.3710914063	null
+1	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	reserved	0.0	null
+1	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	incurred	1.4003938E7	null
+1	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	paid	1.4003938E7	null
+1	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	reserved	0.0	null
+1	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	incurred	3.116811302117281E8	null
+1	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	paid	3.116811302117281E8	null
+1	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsGross	reserved	0.0	null
+1	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsGross	incurred	8.599668964729406E7	null
+1	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsGross	paid	8.599668964729406E7	null
+1	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	reserved	0.0	null
+1	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	incurred	1.4402181525289255E8	null
+1	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	paid	1.4402181525289255E8	null
+1	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsGross	reserved	0.0	null
+1	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsGross	incurred	2.1564541481625956E7	null
+1	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsGross	paid	2.1564541481625956E7	null
+1	0	0	Podra:linesOfBusiness:subProperty:outClaimsGross	reserved	0.0	null
+1	0	0	Podra:linesOfBusiness:subProperty:outClaimsGross	incurred	6.009808382991552E7	null
+1	0	0	Podra:linesOfBusiness:subProperty:outClaimsGross	paid	6.009808382991552E7	null
+1	0	0	Podra:linesOfBusiness:outClaimsGross	reserved	0.0	null
+1	0	0	Podra:linesOfBusiness:outClaimsGross	incurred	3.11681130211728E8	null
+1	0	0	Podra:linesOfBusiness:outClaimsGross	paid	3.11681130211728E8	null
+1	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsCeded	reserved	0.0	null
+1	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsCeded	incurred	4.3159194498881936E7	null
+1	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsCeded	paid	4.3159194498881936E7	null
+1	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsNet	reserved	0.0	null
+1	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsNet	incurred	4.283749514841212E7	null
+1	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsNet	paid	4.283749514841212E7	null
+1	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	reserved	0.0	null
+1	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	incurred	7.20636848568548E7	null
+1	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	paid	7.20636848568548E7	null
+1	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	reserved	0.0	null
+1	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	incurred	7.195813039603776E7	null
+1	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	paid	7.195813039603776E7	null
+1	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsCeded	reserved	0.0	null
+1	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsCeded	incurred	1.0782270740812978E7	null
+1	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsCeded	paid	1.0782270740812978E7	null
+1	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsNet	reserved	0.0	null
+1	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsNet	incurred	1.0782270740812978E7	null
+1	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsNet	paid	1.0782270740812978E7	null
+1	0	0	Podra:linesOfBusiness:subProperty:outClaimsCeded	reserved	0.0	null
+1	0	0	Podra:linesOfBusiness:subProperty:outClaimsCeded	incurred	3.655101091495777E7	null
+1	0	0	Podra:linesOfBusiness:subProperty:outClaimsCeded	paid	3.655101091495777E7	null
+1	0	0	Podra:linesOfBusiness:subProperty:outClaimsNet	reserved	0.0	null
+1	0	0	Podra:linesOfBusiness:subProperty:outClaimsNet	incurred	2.354707291495776E7	null
+1	0	0	Podra:linesOfBusiness:subProperty:outClaimsNet	paid	2.354707291495776E7	null
+1	0	0	Podra:linesOfBusiness:outClaimsCeded	reserved	0.0	null
+1	0	0	Podra:linesOfBusiness:outClaimsCeded	incurred	1.6255616101150745E8	null
+1	0	0	Podra:linesOfBusiness:outClaimsCeded	paid	1.6255616101150745E8	null
+1	0	0	Podra:linesOfBusiness:outClaimsNet	reserved	0.0	null
+1	0	0	Podra:linesOfBusiness:outClaimsNet	incurred	1.4912496920022058E8	null
+1	0	0	Podra:linesOfBusiness:outClaimsNet	paid	1.4912496920022058E8	null
+2	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+2	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	7.476926432600603E7	null
+2	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	7.476926432600603E7	null
+2	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	reserved	0.0	null
+2	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	incurred	0.0	null
+2	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	paid	0.0	null
+2	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+2	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	incurred	1.3103285518166532E8	null
+2	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	paid	1.3103285518166532E8	null
+2	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	reserved	0.0	null
+2	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	incurred	2.0254999781731915E7	null
+2	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	paid	2.0254999781731915E7	null
+2	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+2	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	incurred	3.5068170552560665E7	null
+2	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	paid	3.5068170552560665E7	null
+2	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	reserved	0.0	null
+2	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	incurred	0.0	null
+2	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	paid	0.0	null
+2	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	reserved	0.0	null
+2	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	incurred	2251100.5253410367	null
+2	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	paid	2251100.5253410367	null
+2	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+2	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	incurred	5.9856692173060454E7	null
+2	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	paid	5.9856692173060454E7	null
+2	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	reserved	0.0	null
+2	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	incurred	0.0	null
+2	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	paid	0.0	null
+2	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	reserved	0.0	null
+2	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	incurred	0.0	null
+2	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	paid	0.0	null
+2	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	reserved	0.0	null
+2	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	incurred	950723.8165763821	null
+2	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	paid	950723.8165763821	null
+2	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	reserved	0.0	null
+2	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	incurred	58671.0	null
+2	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	paid	58671.0	null
+2	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	reserved	0.0	null
+2	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	incurred	3.242424773569419E8	null
+2	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	paid	3.242424773569419E8	null
+2	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsGross	reserved	0.0	null
+2	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsGross	incurred	7.476926432600603E7	null
+2	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsGross	paid	7.476926432600603E7	null
+2	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	reserved	0.0	null
+2	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	incurred	1.5128785496339726E8	null
+2	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	paid	1.5128785496339726E8	null
+2	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsGross	reserved	0.0	null
+2	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsGross	incurred	3.731927107790169E7	null
+2	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsGross	paid	3.731927107790169E7	null
+2	0	0	Podra:linesOfBusiness:subProperty:outClaimsGross	reserved	0.0	null
+2	0	0	Podra:linesOfBusiness:subProperty:outClaimsGross	incurred	6.086608698963683E7	null
+2	0	0	Podra:linesOfBusiness:subProperty:outClaimsGross	paid	6.086608698963683E7	null
+2	0	0	Podra:linesOfBusiness:outClaimsGross	reserved	0.0	null
+2	0	0	Podra:linesOfBusiness:outClaimsGross	incurred	3.242424773569419E8	null
+2	0	0	Podra:linesOfBusiness:outClaimsGross	paid	3.242424773569419E8	null
+2	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsCeded	reserved	0.0	null
+2	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsCeded	incurred	3.738463216300301E7	null
+2	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsCeded	paid	3.738463216300301E7	null
+2	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsNet	reserved	0.0	null
+2	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsNet	incurred	3.738463216300301E7	null
+2	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsNet	paid	3.738463216300301E7	null
+2	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	reserved	0.0	null
+2	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	incurred	7.986587418991482E7	null
+2	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	paid	7.986587418991482E7	null
+2	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	reserved	0.0	null
+2	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	incurred	7.142198077348244E7	null
+2	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	paid	7.142198077348244E7	null
+2	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsCeded	reserved	0.0	null
+2	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsCeded	incurred	1.8819314198357947E7	null
+2	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsCeded	paid	1.8819314198357947E7	null
+2	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsNet	reserved	0.0	null
+2	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsNet	incurred	1.8499956879543744E7	null
+2	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsNet	paid	1.8499956879543744E7	null
+2	0	0	Podra:linesOfBusiness:subProperty:outClaimsCeded	reserved	0.0	null
+2	0	0	Podra:linesOfBusiness:subProperty:outClaimsCeded	incurred	3.0433043494818415E7	null
+2	0	0	Podra:linesOfBusiness:subProperty:outClaimsCeded	paid	3.0433043494818415E7	null
+2	0	0	Podra:linesOfBusiness:subProperty:outClaimsNet	reserved	0.0	null
+2	0	0	Podra:linesOfBusiness:subProperty:outClaimsNet	incurred	3.0433043494818415E7	null
+2	0	0	Podra:linesOfBusiness:subProperty:outClaimsNet	paid	3.0433043494818415E7	null
+2	0	0	Podra:linesOfBusiness:outClaimsCeded	reserved	0.0	null
+2	0	0	Podra:linesOfBusiness:outClaimsCeded	incurred	1.665028640460942E8	null
+2	0	0	Podra:linesOfBusiness:outClaimsCeded	paid	1.665028640460942E8	null
+2	0	0	Podra:linesOfBusiness:outClaimsNet	reserved	0.0	null
+2	0	0	Podra:linesOfBusiness:outClaimsNet	incurred	1.5773961331084764E8	null
+2	0	0	Podra:linesOfBusiness:outClaimsNet	paid	1.5773961331084764E8	null
+3	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+3	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	7.882855135818022E7	null
+3	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	7.882855135818022E7	null
+3	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	reserved	0.0	null
+3	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	incurred	1123235.3539935504	null
+3	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	paid	1123235.3539935504	null
+3	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+3	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	incurred	1.5025401975374943E8	null
+3	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	paid	1.5025401975374943E8	null
+3	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	reserved	0.0	null
+3	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	incurred	1.6625608255429149E7	null
+3	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	paid	1.6625608255429149E7	null
+3	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+3	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	incurred	2.0991179644520275E7	null
+3	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	paid	2.0991179644520275E7	null
+3	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	reserved	0.0	null
+3	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	incurred	0.0	null
+3	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	paid	0.0	null
+3	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	reserved	0.0	null
+3	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	incurred	1026407.1060264369	null
+3	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	paid	1026407.1060264369	null
+3	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+3	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	incurred	4.546761775152489E7	null
+3	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	paid	4.546761775152489E7	null
+3	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	reserved	0.0	null
+3	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	incurred	0.0	null
+3	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	paid	0.0	null
+3	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	reserved	0.0	null
+3	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	incurred	0.0	null
+3	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	paid	0.0	null
+3	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	reserved	0.0	null
+3	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	incurred	2770790.7579117906	null
+3	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	paid	2770790.7579117906	null
+3	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	reserved	0.0	null
+3	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	incurred	1357758.0	null
+3	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	paid	1357758.0	null
+3	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	reserved	0.0	null
+3	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	incurred	3.1844516798133576E8	null
+3	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	paid	3.1844516798133576E8	null
+3	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsGross	reserved	0.0	null
+3	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsGross	incurred	7.995178671217377E7	null
+3	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsGross	paid	7.995178671217377E7	null
+3	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	reserved	0.0	null
+3	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	incurred	1.6687962800917855E8	null
+3	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	paid	1.6687962800917855E8	null
+3	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsGross	reserved	0.0	null
+3	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsGross	incurred	2.2017586750546712E7	null
+3	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsGross	paid	2.2017586750546712E7	null
+3	0	0	Podra:linesOfBusiness:subProperty:outClaimsGross	reserved	0.0	null
+3	0	0	Podra:linesOfBusiness:subProperty:outClaimsGross	incurred	4.959616650943669E7	null
+3	0	0	Podra:linesOfBusiness:subProperty:outClaimsGross	paid	4.959616650943669E7	null
+3	0	0	Podra:linesOfBusiness:outClaimsGross	reserved	0.0	null
+3	0	0	Podra:linesOfBusiness:outClaimsGross	incurred	3.1844516798133576E8	null
+3	0	0	Podra:linesOfBusiness:outClaimsGross	paid	3.1844516798133576E8	null
+3	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsCeded	reserved	0.0	null
+3	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsCeded	incurred	4.003751103308366E7	null
+3	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsCeded	paid	4.003751103308366E7	null
+3	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsNet	reserved	0.0	null
+3	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsNet	incurred	3.991427567909011E7	null
+3	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsNet	paid	3.991427567909011E7	null
+3	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	reserved	0.0	null
+3	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	incurred	8.53269090849601E7	null
+3	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	paid	8.53269090849601E7	null
+3	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	reserved	0.0	null
+3	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	incurred	8.155271892421846E7	null
+3	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	paid	8.155271892421846E7	null
+3	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsCeded	reserved	0.0	null
+3	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsCeded	incurred	1.1046016251350554E7	null
+3	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsCeded	paid	1.1046016251350554E7	null
+3	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsNet	reserved	0.0	null
+3	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsNet	incurred	1.0971570499196159E7	null
+3	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsNet	paid	1.0971570499196159E7	null
+3	0	0	Podra:linesOfBusiness:subProperty:outClaimsCeded	reserved	0.0	null
+3	0	0	Podra:linesOfBusiness:subProperty:outClaimsCeded	incurred	2.4976962254718345E7	null
+3	0	0	Podra:linesOfBusiness:subProperty:outClaimsCeded	paid	2.4976962254718345E7	null
+3	0	0	Podra:linesOfBusiness:subProperty:outClaimsNet	reserved	0.0	null
+3	0	0	Podra:linesOfBusiness:subProperty:outClaimsNet	incurred	2.4619204254718345E7	null
+3	0	0	Podra:linesOfBusiness:subProperty:outClaimsNet	paid	2.4619204254718345E7	null
+3	0	0	Podra:linesOfBusiness:outClaimsCeded	reserved	0.0	null
+3	0	0	Podra:linesOfBusiness:outClaimsCeded	incurred	1.613873986241127E8	null
+3	0	0	Podra:linesOfBusiness:outClaimsCeded	paid	1.613873986241127E8	null
+3	0	0	Podra:linesOfBusiness:outClaimsNet	reserved	0.0	null
+3	0	0	Podra:linesOfBusiness:outClaimsNet	incurred	1.5705776935722306E8	null
+3	0	0	Podra:linesOfBusiness:outClaimsNet	paid	1.5705776935722306E8	null
+4	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+4	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	8.227295677834712E7	null
+4	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	8.227295677834712E7	null
+4	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	reserved	0.0	null
+4	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	incurred	1110208.5054385995	null
+4	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	paid	1110208.5054385995	null
+4	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+4	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	incurred	1.5469536179222304E8	null
+4	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	paid	1.5469536179222304E8	null
+4	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	reserved	0.0	null
+4	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	incurred	2.082275126298496E7	null
+4	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	paid	2.082275126298496E7	null
+4	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+4	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	incurred	1.4389702212362954E7	null
+4	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	paid	1.4389702212362954E7	null
+4	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	reserved	0.0	null
+4	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	incurred	1457092.748909797	null
+4	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	paid	1457092.748909797	null
+4	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	reserved	0.0	null
+4	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	incurred	3531227.0316084702	null
+4	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	paid	3531227.0316084702	null
+4	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+4	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	incurred	2.9000221544126566E7	null
+4	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	paid	2.9000221544126566E7	null
+4	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	reserved	0.0	null
+4	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	incurred	0.0	null
+4	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	paid	0.0	null
+4	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	reserved	0.0	null
+4	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	incurred	243019.0	null
+4	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	paid	243019.0	null
+4	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	reserved	0.0	null
+4	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	incurred	888005.571849392	null
+4	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	paid	888005.571849392	null
+4	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	reserved	0.0	null
+4	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	incurred	58671.0	null
+4	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	paid	58671.0	null
+4	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	reserved	0.0	null
+4	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	incurred	3.084692174478508E8	null
+4	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	paid	3.084692174478508E8	null
+4	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsGross	reserved	0.0	null
+4	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsGross	incurred	8.338316528378572E7	null
+4	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsGross	paid	8.338316528378572E7	null
+4	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	reserved	0.0	null
+4	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	incurred	1.7551811305520803E8	null
+4	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	paid	1.7551811305520803E8	null
+4	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsGross	reserved	0.0	null
+4	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsGross	incurred	1.937802199288122E7	null
+4	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsGross	paid	1.937802199288122E7	null
+4	0	0	Podra:linesOfBusiness:subProperty:outClaimsGross	reserved	0.0	null
+4	0	0	Podra:linesOfBusiness:subProperty:outClaimsGross	incurred	3.0189917115975957E7	null
+4	0	0	Podra:linesOfBusiness:subProperty:outClaimsGross	paid	3.0189917115975957E7	null
+4	0	0	Podra:linesOfBusiness:outClaimsGross	reserved	0.0	null
+4	0	0	Podra:linesOfBusiness:outClaimsGross	incurred	3.084692174478509E8	null
+4	0	0	Podra:linesOfBusiness:outClaimsGross	paid	3.084692174478509E8	null
+4	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsCeded	reserved	0.0	null
+4	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsCeded	incurred	4.169158264189286E7	null
+4	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsCeded	paid	4.169158264189286E7	null
+4	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsNet	reserved	0.0	null
+4	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsNet	incurred	4.169158264189286E7	null
+4	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsNet	paid	4.169158264189286E7	null
+4	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	reserved	0.0	null
+4	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	incurred	9.490884267554876E7	null
+4	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	paid	9.490884267554876E7	null
+4	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	reserved	0.0	null
+4	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	incurred	8.060927037965927E7	null
+4	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	paid	8.060927037965927E7	null
+4	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsCeded	reserved	0.0	null
+4	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsCeded	incurred	1.0848513265659776E7	null
+4	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsCeded	paid	1.0848513265659776E7	null
+4	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsNet	reserved	0.0	null
+4	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsNet	incurred	8529508.727221444	null
+4	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsNet	paid	8529508.727221444	null
+4	0	0	Podra:linesOfBusiness:subProperty:outClaimsCeded	reserved	0.0	null
+4	0	0	Podra:linesOfBusiness:subProperty:outClaimsCeded	incurred	1.5094958557987979E7	null
+4	0	0	Podra:linesOfBusiness:subProperty:outClaimsCeded	paid	1.5094958557987979E7	null
+4	0	0	Podra:linesOfBusiness:subProperty:outClaimsNet	reserved	0.0	null
+4	0	0	Podra:linesOfBusiness:subProperty:outClaimsNet	incurred	1.5094958557987979E7	null
+4	0	0	Podra:linesOfBusiness:subProperty:outClaimsNet	paid	1.5094958557987979E7	null
+4	0	0	Podra:linesOfBusiness:outClaimsCeded	reserved	0.0	null
+4	0	0	Podra:linesOfBusiness:outClaimsCeded	incurred	1.625438971410893E8	null
+4	0	0	Podra:linesOfBusiness:outClaimsCeded	paid	1.625438971410893E8	null
+4	0	0	Podra:linesOfBusiness:outClaimsNet	reserved	0.0	null
+4	0	0	Podra:linesOfBusiness:outClaimsNet	incurred	1.4592532030676153E8	null
+4	0	0	Podra:linesOfBusiness:outClaimsNet	paid	1.4592532030676153E8	null
+5	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+5	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	8.43877888266671E7	null
+5	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	8.43877888266671E7	null
+5	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	reserved	0.0	null
+5	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	incurred	2623687.049916779	null
+5	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	paid	2623687.049916779	null
+5	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+5	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	incurred	1.4510184836904857E8	null
+5	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	paid	1.4510184836904857E8	null
+5	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	reserved	0.0	null
+5	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	incurred	3359667.367159323	null
+5	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	paid	3359667.367159323	null
+5	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+5	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	incurred	1.6368121926330473E7	null
+5	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	paid	1.6368121926330473E7	null
+5	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	reserved	0.0	null
+5	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	incurred	247438.6833923533	null
+5	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	paid	247438.6833923533	null
+5	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	reserved	0.0	null
+5	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	incurred	260282.38151439105	null
+5	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	paid	260282.38151439105	null
+5	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+5	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	incurred	3.1303124972436927E7	null
+5	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	paid	3.1303124972436927E7	null
+5	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	reserved	0.0	null
+5	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	incurred	0.0	null
+5	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	paid	0.0	null
+5	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	reserved	0.0	null
+5	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	incurred	0.0	null
+5	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	paid	0.0	null
+5	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	reserved	0.0	null
+5	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	incurred	2665379.510428935	null
+5	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	paid	2665379.510428935	null
+5	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	reserved	0.0	null
+5	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	incurred	0.0	null
+5	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	paid	0.0	null
+5	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	reserved	0.0	null
+5	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	incurred	2.8631733908689475E8	null
+5	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	paid	2.8631733908689475E8	null
+5	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsGross	reserved	0.0	null
+5	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsGross	incurred	8.701147587658387E7	null
+5	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsGross	paid	8.701147587658387E7	null
+5	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	reserved	0.0	null
+5	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	incurred	1.484615157362079E8	null
+5	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	paid	1.484615157362079E8	null
+5	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsGross	reserved	0.0	null
+5	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsGross	incurred	1.687584299123722E7	null
+5	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsGross	paid	1.687584299123722E7	null
+5	0	0	Podra:linesOfBusiness:subProperty:outClaimsGross	reserved	0.0	null
+5	0	0	Podra:linesOfBusiness:subProperty:outClaimsGross	incurred	3.3968504482865855E7	null
+5	0	0	Podra:linesOfBusiness:subProperty:outClaimsGross	paid	3.3968504482865855E7	null
+5	0	0	Podra:linesOfBusiness:outClaimsGross	reserved	0.0	null
+5	0	0	Podra:linesOfBusiness:outClaimsGross	incurred	2.8631733908689475E8	null
+5	0	0	Podra:linesOfBusiness:outClaimsGross	paid	2.8631733908689475E8	null
+5	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsCeded	reserved	0.0	null
+5	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsCeded	incurred	4.4317581463250324E7	null
+5	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsCeded	paid	4.4317581463250324E7	null
+5	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsNet	reserved	0.0	null
+5	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsNet	incurred	4.269389441333355E7	null
+5	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsNet	paid	4.269389441333355E7	null
+5	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	reserved	0.0	null
+5	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	incurred	7.423075786810395E7	null
+5	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	paid	7.423075786810395E7	null
+5	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	reserved	0.0	null
+5	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	incurred	7.423075786810395E7	null
+5	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	paid	7.423075786810395E7	null
+5	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsCeded	reserved	0.0	null
+5	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsCeded	incurred	8437921.49561861	null
+5	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsCeded	paid	8437921.49561861	null
+5	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsNet	reserved	0.0	null
+5	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsNet	incurred	8437921.49561861	null
+5	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsNet	paid	8437921.49561861	null
+5	0	0	Podra:linesOfBusiness:subProperty:outClaimsCeded	reserved	0.0	null
+5	0	0	Podra:linesOfBusiness:subProperty:outClaimsCeded	incurred	1.6984252241432928E7	null
+5	0	0	Podra:linesOfBusiness:subProperty:outClaimsCeded	paid	1.6984252241432928E7	null
+5	0	0	Podra:linesOfBusiness:subProperty:outClaimsNet	reserved	0.0	null
+5	0	0	Podra:linesOfBusiness:subProperty:outClaimsNet	incurred	1.6984252241432928E7	null
+5	0	0	Podra:linesOfBusiness:subProperty:outClaimsNet	paid	1.6984252241432928E7	null
+5	0	0	Podra:linesOfBusiness:outClaimsCeded	reserved	0.0	null
+5	0	0	Podra:linesOfBusiness:outClaimsCeded	incurred	1.4397051306840575E8	null
+5	0	0	Podra:linesOfBusiness:outClaimsCeded	paid	1.4397051306840575E8	null
+5	0	0	Podra:linesOfBusiness:outClaimsNet	reserved	0.0	null
+5	0	0	Podra:linesOfBusiness:outClaimsNet	incurred	1.4234682601848897E8	null
+5	0	0	Podra:linesOfBusiness:outClaimsNet	paid	1.4234682601848897E8	null
+6	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+6	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	6.87249378056393E7	null
+6	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	6.87249378056393E7	null
+6	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	reserved	0.0	null
+6	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	incurred	0.0	null
+6	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	paid	0.0	null
+6	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+6	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	incurred	1.740487820133187E8	null
+6	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	paid	1.740487820133187E8	null
+6	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	reserved	0.0	null
+6	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	incurred	1.080403476998072E7	null
+6	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	paid	1.080403476998072E7	null
+6	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+6	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	incurred	2.4136499862784363E7	null
+6	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	paid	2.4136499862784363E7	null
+6	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	reserved	0.0	null
+6	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	incurred	0.0	null
+6	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	paid	0.0	null
+6	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	reserved	0.0	null
+6	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	incurred	1534517.8881271891	null
+6	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	paid	1534517.8881271891	null
+6	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+6	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	incurred	3.996687736069187E7	null
+6	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	paid	3.996687736069187E7	null
+6	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	reserved	0.0	null
+6	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	incurred	0.0	null
+6	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	paid	0.0	null
+6	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	reserved	0.0	null
+6	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	incurred	0.0	null
+6	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	paid	0.0	null
+6	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	reserved	0.0	null
+6	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	incurred	2495332.333589711	null
+6	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	paid	2495332.333589711	null
+6	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	reserved	0.0	null
+6	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	incurred	9171427.0	null
+6	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	paid	9171427.0	null
+6	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	reserved	0.0	null
+6	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	incurred	3.3088240903413177E8	null
+6	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	paid	3.3088240903413177E8	null
+6	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsGross	reserved	0.0	null
+6	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsGross	incurred	6.87249378056393E7	null
+6	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsGross	paid	6.87249378056393E7	null
+6	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	reserved	0.0	null
+6	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	incurred	1.8485281678329942E8	null
+6	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	paid	1.8485281678329942E8	null
+6	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsGross	reserved	0.0	null
+6	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsGross	incurred	2.5671017750911552E7	null
+6	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsGross	paid	2.5671017750911552E7	null
+6	0	0	Podra:linesOfBusiness:subProperty:outClaimsGross	reserved	0.0	null
+6	0	0	Podra:linesOfBusiness:subProperty:outClaimsGross	incurred	5.163363669428158E7	null
+6	0	0	Podra:linesOfBusiness:subProperty:outClaimsGross	paid	5.163363669428158E7	null
+6	0	0	Podra:linesOfBusiness:outClaimsGross	reserved	0.0	null
+6	0	0	Podra:linesOfBusiness:outClaimsGross	incurred	3.3088240903413177E8	null
+6	0	0	Podra:linesOfBusiness:outClaimsGross	paid	3.3088240903413177E8	null
+6	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsCeded	reserved	0.0	null
+6	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsCeded	incurred	3.436246890281965E7	null
+6	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsCeded	paid	3.436246890281965E7	null
+6	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsNet	reserved	0.0	null
+6	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsNet	incurred	3.436246890281965E7	null
+6	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsNet	paid	3.436246890281965E7	null
+6	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	reserved	0.0	null
+6	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	incurred	9.400669485620119E7	null
+6	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	paid	9.400669485620119E7	null
+6	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	reserved	0.0	null
+6	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	incurred	9.084612192709821E7	null
+6	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	paid	9.084612192709821E7	null
+6	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsCeded	reserved	0.0	null
+6	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsCeded	incurred	1.3258034540552026E7	null
+6	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsCeded	paid	1.3258034540552026E7	null
+6	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsNet	reserved	0.0	null
+6	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsNet	incurred	1.2412983210359527E7	null
+6	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsNet	paid	1.2412983210359527E7	null
+6	0	0	Podra:linesOfBusiness:subProperty:outClaimsCeded	reserved	0.0	null
+6	0	0	Podra:linesOfBusiness:subProperty:outClaimsCeded	incurred	2.920536084714079E7	null
+6	0	0	Podra:linesOfBusiness:subProperty:outClaimsCeded	paid	2.920536084714079E7	null
+6	0	0	Podra:linesOfBusiness:subProperty:outClaimsNet	reserved	0.0	null
+6	0	0	Podra:linesOfBusiness:subProperty:outClaimsNet	incurred	2.242827584714079E7	null
+6	0	0	Podra:linesOfBusiness:subProperty:outClaimsNet	paid	2.242827584714079E7	null
+6	0	0	Podra:linesOfBusiness:outClaimsCeded	reserved	0.0	null
+6	0	0	Podra:linesOfBusiness:outClaimsCeded	incurred	1.708325591467136E8	null
+6	0	0	Podra:linesOfBusiness:outClaimsCeded	paid	1.708325591467136E8	null
+6	0	0	Podra:linesOfBusiness:outClaimsNet	reserved	0.0	null
+6	0	0	Podra:linesOfBusiness:outClaimsNet	incurred	1.6004984988741815E8	null
+6	0	0	Podra:linesOfBusiness:outClaimsNet	paid	1.6004984988741815E8	null
+7	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+7	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	8.428121579354732E7	null
+7	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	8.428121579354732E7	null
+7	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	reserved	0.0	null
+7	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	incurred	0.0	null
+7	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	paid	0.0	null
+7	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+7	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	incurred	1.4877614523430112E8	null
+7	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	paid	1.4877614523430112E8	null
+7	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	reserved	0.0	null
+7	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	incurred	1.2830043539122466E7	null
+7	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	paid	1.2830043539122466E7	null
+7	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+7	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	incurred	2.259243582578665E7	null
+7	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	paid	2.259243582578665E7	null
+7	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	reserved	0.0	null
+7	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	incurred	235755.4394755876	null
+7	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	paid	235755.4394755876	null
+7	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	reserved	0.0	null
+7	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	incurred	1289428.5665304377	null
+7	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	paid	1289428.5665304377	null
+7	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+7	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	incurred	3.9697464412332416E7	null
+7	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	paid	3.9697464412332416E7	null
+7	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	reserved	0.0	null
+7	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	incurred	0.0	null
+7	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	paid	0.0	null
+7	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	reserved	0.0	null
+7	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	incurred	720253.0	null
+7	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	paid	720253.0	null
+7	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	reserved	0.0	null
+7	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	incurred	2336191.3816295657	null
+7	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	paid	2336191.3816295657	null
+7	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	reserved	0.0	null
+7	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	incurred	0.0	null
+7	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	paid	0.0	null
+7	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	reserved	0.0	null
+7	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	incurred	3.1275893319272554E8	null
+7	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	paid	3.1275893319272554E8	null
+7	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsGross	reserved	0.0	null
+7	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsGross	incurred	8.428121579354732E7	null
+7	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsGross	paid	8.428121579354732E7	null
+7	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	reserved	0.0	null
+7	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	incurred	1.6160618877342358E8	null
+7	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	paid	1.6160618877342358E8	null
+7	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsGross	reserved	0.0	null
+7	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsGross	incurred	2.4117619831792675E7	null
+7	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsGross	paid	2.4117619831792675E7	null
+7	0	0	Podra:linesOfBusiness:subProperty:outClaimsGross	reserved	0.0	null
+7	0	0	Podra:linesOfBusiness:subProperty:outClaimsGross	incurred	4.275390879396198E7	null
+7	0	0	Podra:linesOfBusiness:subProperty:outClaimsGross	paid	4.275390879396198E7	null
+7	0	0	Podra:linesOfBusiness:outClaimsGross	reserved	0.0	null
+7	0	0	Podra:linesOfBusiness:outClaimsGross	incurred	3.127589331927256E8	null
+7	0	0	Podra:linesOfBusiness:outClaimsGross	paid	3.127589331927256E8	null
+7	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsCeded	reserved	0.0	null
+7	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsCeded	incurred	4.214060789677366E7	null
+7	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsCeded	paid	4.214060789677366E7	null
+7	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsNet	reserved	0.0	null
+7	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsNet	incurred	4.214060789677366E7	null
+7	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsNet	paid	4.214060789677366E7	null
+7	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	reserved	0.0	null
+7	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	incurred	8.236938691913988E7	null
+7	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	paid	8.236938691913988E7	null
+7	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	reserved	0.0	null
+7	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	incurred	7.92368018542837E7	null
+7	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	paid	7.92368018542837E7	null
+7	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsCeded	reserved	0.0	null
+7	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsCeded	incurred	1.2503524199161556E7	null
+7	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsCeded	paid	1.2503524199161556E7	null
+7	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsNet	reserved	0.0	null
+7	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsNet	incurred	1.161409563263112E7	null
+7	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsNet	paid	1.161409563263112E7	null
+7	0	0	Podra:linesOfBusiness:subProperty:outClaimsCeded	reserved	0.0	null
+7	0	0	Podra:linesOfBusiness:subProperty:outClaimsCeded	incurred	2.137695439698099E7	null
+7	0	0	Podra:linesOfBusiness:subProperty:outClaimsCeded	paid	2.137695439698099E7	null
+7	0	0	Podra:linesOfBusiness:subProperty:outClaimsNet	reserved	0.0	null
+7	0	0	Podra:linesOfBusiness:subProperty:outClaimsNet	incurred	2.137695439698099E7	null
+7	0	0	Podra:linesOfBusiness:subProperty:outClaimsNet	paid	2.137695439698099E7	null
+7	0	0	Podra:linesOfBusiness:outClaimsCeded	reserved	0.0	null
+7	0	0	Podra:linesOfBusiness:outClaimsCeded	incurred	1.5839047341205612E8	null
+7	0	0	Podra:linesOfBusiness:outClaimsCeded	paid	1.5839047341205612E8	null
+7	0	0	Podra:linesOfBusiness:outClaimsNet	reserved	0.0	null
+7	0	0	Podra:linesOfBusiness:outClaimsNet	incurred	1.5436845978066945E8	null
+7	0	0	Podra:linesOfBusiness:outClaimsNet	paid	1.5436845978066945E8	null
+8	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+8	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	7.489893035201232E7	null
+8	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	7.489893035201232E7	null
+8	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	reserved	0.0	null
+8	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	incurred	1443200.294934886	null
+8	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	paid	1443200.294934886	null
+8	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+8	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	incurred	1.5467342612480515E8	null
+8	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	paid	1.5467342612480515E8	null
+8	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	reserved	0.0	null
+8	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	incurred	7177977.634669102	null
+8	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	paid	7177977.634669102	null
+8	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+8	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	incurred	1.995073726498308E7	null
+8	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	paid	1.995073726498308E7	null
+8	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	reserved	0.0	null
+8	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	incurred	0.0	null
+8	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	paid	0.0	null
+8	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	reserved	0.0	null
+8	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	incurred	320872.6244405066	null
+8	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	paid	320872.6244405066	null
+8	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+8	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	incurred	4.133693384342393E7	null
+8	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	paid	4.133693384342393E7	null
+8	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	reserved	0.0	null
+8	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	incurred	2304484.0	null
+8	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	paid	2304484.0	null
+8	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	reserved	0.0	null
+8	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	incurred	0.0	null
+8	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	paid	0.0	null
+8	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	reserved	0.0	null
+8	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	incurred	2782754.303744774	null
+8	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	paid	2782754.303744774	null
+8	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	reserved	0.0	null
+8	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	incurred	7.5530844E7	null
+8	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	paid	7.5530844E7	null
+8	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	reserved	0.0	null
+8	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	incurred	3.804201604430137E8	null
+8	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	paid	3.804201604430137E8	null
+8	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsGross	reserved	0.0	null
+8	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsGross	incurred	7.63421306469472E7	null
+8	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsGross	paid	7.63421306469472E7	null
+8	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	reserved	0.0	null
+8	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	incurred	1.6185140375947428E8	null
+8	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	paid	1.6185140375947428E8	null
+8	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsGross	reserved	0.0	null
+8	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsGross	incurred	2.0271609889423586E7	null
+8	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsGross	paid	2.0271609889423586E7	null
+8	0	0	Podra:linesOfBusiness:subProperty:outClaimsGross	reserved	0.0	null
+8	0	0	Podra:linesOfBusiness:subProperty:outClaimsGross	incurred	1.219550161471687E8	null
+8	0	0	Podra:linesOfBusiness:subProperty:outClaimsGross	paid	1.219550161471687E8	null
+8	0	0	Podra:linesOfBusiness:outClaimsGross	reserved	0.0	null
+8	0	0	Podra:linesOfBusiness:outClaimsGross	incurred	3.804201604430137E8	null
+8	0	0	Podra:linesOfBusiness:outClaimsGross	paid	3.804201604430137E8	null
+8	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsCeded	reserved	0.0	null
+8	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsCeded	incurred	3.8392665470941044E7	null
+8	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsCeded	paid	3.8392665470941044E7	null
+8	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsNet	reserved	0.0	null
+8	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsNet	incurred	3.794946517600616E7	null
+8	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsNet	paid	3.794946517600616E7	null
+8	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	reserved	0.0	null
+8	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	incurred	8.173255066203019E7	null
+8	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	paid	8.173255066203019E7	null
+8	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	reserved	0.0	null
+8	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	incurred	8.011885309744407E7	null
+8	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	paid	8.011885309744407E7	null
+8	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsCeded	reserved	0.0	null
+8	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsCeded	incurred	1.0135804944711793E7	null
+8	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsCeded	paid	1.0135804944711793E7	null
+8	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsNet	reserved	0.0	null
+8	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsNet	incurred	1.0135804944711793E7	null
+8	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsNet	paid	1.0135804944711793E7	null
+8	0	0	Podra:linesOfBusiness:subProperty:outClaimsCeded	reserved	0.0	null
+8	0	0	Podra:linesOfBusiness:subProperty:outClaimsCeded	incurred	7.511994957358436E7	null
+8	0	0	Podra:linesOfBusiness:subProperty:outClaimsCeded	paid	7.511994957358436E7	null
+8	0	0	Podra:linesOfBusiness:subProperty:outClaimsNet	reserved	0.0	null
+8	0	0	Podra:linesOfBusiness:subProperty:outClaimsNet	incurred	4.683506657358435E7	null
+8	0	0	Podra:linesOfBusiness:subProperty:outClaimsNet	paid	4.683506657358435E7	null
+8	0	0	Podra:linesOfBusiness:outClaimsCeded	reserved	0.0	null
+8	0	0	Podra:linesOfBusiness:outClaimsCeded	incurred	2.0538097065126738E8	null
+8	0	0	Podra:linesOfBusiness:outClaimsCeded	paid	2.0538097065126738E8	null
+8	0	0	Podra:linesOfBusiness:outClaimsNet	reserved	0.0	null
+8	0	0	Podra:linesOfBusiness:outClaimsNet	incurred	1.7503918979174635E8	null
+8	0	0	Podra:linesOfBusiness:outClaimsNet	paid	1.7503918979174635E8	null
+9	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+9	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	8.177270681258993E7	null
+9	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	8.177270681258993E7	null
+9	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	reserved	0.0	null
+9	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	incurred	5016379.382561317	null
+9	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	paid	5016379.382561317	null
+9	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+9	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	incurred	1.445386806173436E8	null
+9	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	paid	1.445386806173436E8	null
+9	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	reserved	0.0	null
+9	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	incurred	3788844.7498237737	null
+9	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	paid	3788844.7498237737	null
+9	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+9	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	incurred	2.1397065821502283E7	null
+9	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	paid	2.1397065821502283E7	null
+9	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	reserved	0.0	null
+9	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	incurred	0.0	null
+9	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	paid	0.0	null
+9	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	reserved	0.0	null
+9	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	incurred	575398.5101327092	null
+9	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	paid	575398.5101327092	null
+9	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+9	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	incurred	4.050869571062687E7	null
+9	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	paid	4.050869571062687E7	null
+9	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	reserved	0.0	null
+9	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	incurred	6679606.0	null
+9	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	paid	6679606.0	null
+9	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	reserved	0.0	null
+9	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	incurred	0.0	null
+9	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	paid	0.0	null
+9	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	reserved	0.0	null
+9	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	incurred	1251751.9523344182	null
+9	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	paid	1251751.9523344182	null
+9	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	reserved	0.0	null
+9	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	incurred	0.0	null
+9	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	paid	0.0	null
+9	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	reserved	0.0	null
+9	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	incurred	3.0552912955691487E8	null
+9	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	paid	3.0552912955691487E8	null
+9	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsGross	reserved	0.0	null
+9	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsGross	incurred	8.678908619515125E7	null
+9	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsGross	paid	8.678908619515125E7	null
+9	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	reserved	0.0	null
+9	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	incurred	1.4832752536716735E8	null
+9	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	paid	1.4832752536716735E8	null
+9	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsGross	reserved	0.0	null
+9	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsGross	incurred	2.1972464331634995E7	null
+9	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsGross	paid	2.1972464331634995E7	null
+9	0	0	Podra:linesOfBusiness:subProperty:outClaimsGross	reserved	0.0	null
+9	0	0	Podra:linesOfBusiness:subProperty:outClaimsGross	incurred	4.84400536629613E7	null
+9	0	0	Podra:linesOfBusiness:subProperty:outClaimsGross	paid	4.84400536629613E7	null
+9	0	0	Podra:linesOfBusiness:outClaimsGross	reserved	0.0	null
+9	0	0	Podra:linesOfBusiness:outClaimsGross	incurred	3.0552912955691487E8	null
+9	0	0	Podra:linesOfBusiness:outClaimsGross	paid	3.0552912955691487E8	null
+9	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsCeded	reserved	0.0	null
+9	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsCeded	incurred	4.508699231169848E7	null
+9	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsCeded	paid	4.508699231169848E7	null
+9	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsNet	reserved	0.0	null
+9	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsNet	incurred	4.170209388345277E7	null
+9	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsNet	paid	4.170209388345277E7	null
+9	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	reserved	0.0	null
+9	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	incurred	7.416376268358368E7	null
+9	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	paid	7.416376268358368E7	null
+9	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	reserved	0.0	null
+9	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	incurred	7.416376268358368E7	null
+9	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	paid	7.416376268358368E7	null
+9	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsCeded	reserved	0.0	null
+9	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsCeded	incurred	1.0986232165817497E7	null
+9	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsCeded	paid	1.0986232165817497E7	null
+9	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsNet	reserved	0.0	null
+9	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsNet	incurred	1.0986232165817497E7	null
+9	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsNet	paid	1.0986232165817497E7	null
+9	0	0	Podra:linesOfBusiness:subProperty:outClaimsCeded	reserved	0.0	null
+9	0	0	Podra:linesOfBusiness:subProperty:outClaimsCeded	incurred	2.705982983148065E7	null
+9	0	0	Podra:linesOfBusiness:subProperty:outClaimsCeded	paid	2.705982983148065E7	null
+9	0	0	Podra:linesOfBusiness:subProperty:outClaimsNet	reserved	0.0	null
+9	0	0	Podra:linesOfBusiness:subProperty:outClaimsNet	incurred	2.138022383148065E7	null
+9	0	0	Podra:linesOfBusiness:subProperty:outClaimsNet	paid	2.138022383148065E7	null
+9	0	0	Podra:linesOfBusiness:outClaimsCeded	reserved	0.0	null
+9	0	0	Podra:linesOfBusiness:outClaimsCeded	incurred	1.5729681699258032E8	null
+9	0	0	Podra:linesOfBusiness:outClaimsCeded	paid	1.5729681699258032E8	null
+9	0	0	Podra:linesOfBusiness:outClaimsNet	reserved	0.0	null
+9	0	0	Podra:linesOfBusiness:outClaimsNet	incurred	1.4823231256433454E8	null
+9	0	0	Podra:linesOfBusiness:outClaimsNet	paid	1.4823231256433454E8	null
+10	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+10	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	incurred	6.969793673326702E7	null
+10	0	0	Podra:claimsGenerators:subMotorHullAttritional:outClaimsLeanDevelopment	paid	6.969793673326702E7	null
+10	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	reserved	0.0	null
+10	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	incurred	0.0	null
+10	0	0	Podra:claimsGenerators:subMotorHullCat:outClaimsLeanDevelopment	paid	0.0	null
+10	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+10	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	incurred	1.5040182842553362E8	null
+10	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityAttritional:outClaimsLeanDevelopment	paid	1.5040182842553362E8	null
+10	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	reserved	0.0	null
+10	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	incurred	1.1115466230684133E7	null
+10	0	0	Podra:claimsGenerators:subMotorThirdPartyLiabilityLarge:outClaimsLeanDevelopment	paid	1.1115466230684133E7	null
+10	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+10	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	incurred	1.4555231244072098E7	null
+10	0	0	Podra:claimsGenerators:subPersonalAccidentAttritional:outClaimsLeanDevelopment	paid	1.4555231244072098E7	null
+10	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	reserved	0.0	null
+10	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	incurred	366793.45913049666	null
+10	0	0	Podra:claimsGenerators:subPersonalAccidentCat:outClaimsLeanDevelopment	paid	366793.45913049666	null
+10	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	reserved	0.0	null
+10	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	incurred	540355.3882877901	null
+10	0	0	Podra:claimsGenerators:subPersonalAccidentLarge:outClaimsLeanDevelopment	paid	540355.3882877901	null
+10	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	reserved	0.0	null
+10	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	incurred	3.4940824029053584E7	null
+10	0	0	Podra:claimsGenerators:subPropertyAttritional:outClaimsLeanDevelopment	paid	3.4940824029053584E7	null
+10	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	reserved	0.0	null
+10	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	incurred	0.0	null
+10	0	0	Podra:claimsGenerators:subPropertyEarthquake:outClaimsLeanDevelopment	paid	0.0	null
+10	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	reserved	0.0	null
+10	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	incurred	367487.0	null
+10	0	0	Podra:claimsGenerators:subPropertyFlood:outClaimsLeanDevelopment	paid	367487.0	null
+10	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	reserved	0.0	null
+10	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	incurred	2078955.7413255149	null
+10	0	0	Podra:claimsGenerators:subPropertyLarge:outClaimsLeanDevelopment	paid	2078955.7413255149	null
+10	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	reserved	0.0	null
+10	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	incurred	1.9036279E7	null
+10	0	0	Podra:claimsGenerators:subPropertyStorm:outClaimsLeanDevelopment	paid	1.9036279E7	null
+10	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	reserved	0.0	null
+10	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	incurred	3.031011572513543E8	null
+10	0	0	Podra:claimsGenerators:outClaimsLeanDevelopment	paid	3.031011572513543E8	null
+10	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsGross	reserved	0.0	null
+10	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsGross	incurred	6.969793673326702E7	null
+10	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsGross	paid	6.969793673326702E7	null
+10	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	reserved	0.0	null
+10	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	incurred	1.6151729465621775E8	null
+10	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsGross	paid	1.6151729465621775E8	null
+10	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsGross	reserved	0.0	null
+10	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsGross	incurred	1.5462380091490384E7	null
+10	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsGross	paid	1.5462380091490384E7	null
+10	0	0	Podra:linesOfBusiness:subProperty:outClaimsGross	reserved	0.0	null
+10	0	0	Podra:linesOfBusiness:subProperty:outClaimsGross	incurred	5.6423545770379096E7	null
+10	0	0	Podra:linesOfBusiness:subProperty:outClaimsGross	paid	5.6423545770379096E7	null
+10	0	0	Podra:linesOfBusiness:outClaimsGross	reserved	0.0	null
+10	0	0	Podra:linesOfBusiness:outClaimsGross	incurred	3.031011572513542E8	null
+10	0	0	Podra:linesOfBusiness:outClaimsGross	paid	3.031011572513542E8	null
+10	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsCeded	reserved	0.0	null
+10	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsCeded	incurred	3.484896836663351E7	null
+10	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsCeded	paid	3.484896836663351E7	null
+10	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsNet	reserved	0.0	null
+10	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsNet	incurred	3.484896836663351E7	null
+10	0	0	Podra:linesOfBusiness:subMotorHull:outClaimsNet	paid	3.484896836663351E7	null
+10	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	reserved	0.0	null
+10	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	incurred	8.285407073661387E7	null
+10	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsCeded	paid	8.285407073661387E7	null
+10	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	reserved	0.0	null
+10	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	incurred	7.866322391960388E7	null
+10	0	0	Podra:linesOfBusiness:subMotorThirdPartyLiability:outClaimsNet	paid	7.866322391960388E7	null
+10	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsCeded	reserved	0.0	null
+10	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsCeded	incurred	7731190.045745192	null
+10	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsCeded	paid	7731190.045745192	null
+10	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsNet	reserved	0.0	null
+10	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsNet	incurred	7731190.045745192	null
+10	0	0	Podra:linesOfBusiness:subPersonalAccident:outClaimsNet	paid	7731190.045745192	null
+10	0	0	Podra:linesOfBusiness:subProperty:outClaimsCeded	reserved	0.0	null
+10	0	0	Podra:linesOfBusiness:subProperty:outClaimsCeded	incurred	3.5211772885189556E7	null
+10	0	0	Podra:linesOfBusiness:subProperty:outClaimsCeded	paid	3.5211772885189556E7	null
+10	0	0	Podra:linesOfBusiness:subProperty:outClaimsNet	reserved	0.0	null
+10	0	0	Podra:linesOfBusiness:subProperty:outClaimsNet	incurred	2.1211772885189548E7	null
+10	0	0	Podra:linesOfBusiness:subProperty:outClaimsNet	paid	2.1211772885189548E7	null
+10	0	0	Podra:linesOfBusiness:outClaimsCeded	reserved	0.0	null
+10	0	0	Podra:linesOfBusiness:outClaimsCeded	incurred	1.606460020341821E8	null
+10	0	0	Podra:linesOfBusiness:outClaimsCeded	paid	1.606460020341821E8	null
+10	0	0	Podra:linesOfBusiness:outClaimsNet	reserved	0.0	null
+10	0	0	Podra:linesOfBusiness:outClaimsNet	incurred	1.4245515521717212E8	null
+10	0	0	Podra:linesOfBusiness:outClaimsNet	paid	1.4245515521717212E8	null

@@ -20,8 +20,7 @@ class PodraModelTests extends ModelTest {
         'CapitalEagle NP+ALL50'
     }
 
-    // KTI-21
-//    protected boolean shouldCompareResults() {
-//        true
-//    }
+    protected boolean shouldCompareResults() {
+        true
+    }
 }

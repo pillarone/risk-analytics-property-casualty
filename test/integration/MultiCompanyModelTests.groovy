@@ -15,8 +15,7 @@ class MultiCompanyModelTests extends ModelTest {
         "Three Companies"
     }
 
-    // KTI-21
-//    protected boolean shouldCompareResults() {
-//        true
-//    }
+    protected boolean shouldCompareResults() {
+        true
+    }
 }
