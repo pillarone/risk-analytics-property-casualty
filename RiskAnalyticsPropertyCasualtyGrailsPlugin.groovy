@@ -19,7 +19,7 @@ import org.pillarone.riskanalytics.domain.utils.validation.DistributionTypeValid
 
 class RiskAnalyticsPropertyCasualtyGrailsPlugin {
     // the plugin version
-    def version = "1.7-b1"
+    def version = "1.8-a1"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "2.2.1 > *"
     // the other plugins this plugin depends on
