@@ -39,7 +39,7 @@ class CompositeDistributionsTests extends GroovyTestCase {
             assertEquals "f(x = 3)", ParetoDist.density(alpha, beta, 3), GeneralizedParetoDistribution.density(xi, beta, zeta, 3.0)
             assertEquals "F(x = 3)", ParetoDist.cdf(alpha, beta, 3), GeneralizedParetoDistribution.cdf(xi, beta, zeta, 3.0)
             assertEquals "barF(x = 3)", ParetoDist.barF(alpha, beta, 3), GeneralizedParetoDistribution.barF(xi, beta, zeta, 3.0)
-            assertEquals "inverseF(y=0.9)", ParetoDist.inverseF(alpha, beta, 0.9), GeneralizedParetoDistribution.inverseF(xi, beta, zeta, 0.9)
+            assertEquals "inverseF(y=0.9)", ParetoDist.inverseF(alpha, beta, 0.9), GeneralizedParetoDistribution.inverseF(xi, beta, zeta, 0.9), 1E-8
 
             beta = 0
             xi = 2
