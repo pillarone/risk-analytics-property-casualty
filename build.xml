@@ -4,7 +4,7 @@
     <property name="GRAILS_JVM_OPTS" value="-Xmx900m -XX:MaxPermSize=256m -Duser.language='en'"/>
 
     <copy tofile="_build.xml" overwrite="true">
-        <fileset dir="../local-plugins/${app.name}-master" includes="risk-analytics-core*/scripts/build.xml" />
+        <fileset dir="../local-plugins/${app.name}-1.8.x" includes="risk-analytics-core*/scripts/build.xml" />
     </copy>
     <import file="_build.xml"/>
 </project>
