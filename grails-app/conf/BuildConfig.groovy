@@ -14,6 +14,7 @@ grails.project.dependency.resolution = {
 
         mavenCentral()
         mavenRepo "https://repository.intuitive-collaboration.com/nexus/content/repositories/pillarone-public/"
+        mavenRepo "https://repository.intuitive-collaboration.com/nexus/content/repositories/pillarone-public-snapshot/"
         mavenRepo "http://repo.spring.io/milestone/" //needed for spring-security-core 2.0-rc2 plugin
 
     }
@@ -33,8 +34,8 @@ grails.project.dependency.resolution = {
         compile ":excel-import:1.0.0"
 
         if (appName == "RiskAnalyticsPropertyCasualty") {
-            runtime "org.pillarone:risk-analytics-core:1.9-a3"
-            runtime("org.pillarone:risk-analytics-commons:1.9-a2") { transitive = false }
+            runtime "org.pillarone:risk-analytics-core:1.9-SNAPSHOT"
+            runtime("org.pillarone:risk-analytics-commons:1.9-SNAPSHOT") { transitive = false }
         }
     }
 
@@ -53,11 +54,16 @@ grails.project.dependency.distribution = {
     String scpUrl = ""
     try {
         Properties properties = new Properties()
+        String version = new GroovyClassLoader().loadClass('RiskAnalyticsPropertyCasualtyGrailsPlugin').newInstance().version
         properties.load(new File("${userHome}/deployInfo.properties").newInputStream())
-
         user = properties.get("user")
         password = properties.get("password")
-        scpUrl = properties.get("url")
+
+        if (version?.endsWith('-SNAPSHOT')){
+            scpUrl = properties.get("urlSnapshot")
+        }else {
+            scpUrl = properties.get("url")
+        }
     } catch (Throwable t) {
     }
     remoteRepository(id: "pillarone", url: scpUrl) {
