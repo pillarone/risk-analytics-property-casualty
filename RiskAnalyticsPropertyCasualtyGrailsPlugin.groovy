@@ -55,24 +55,6 @@ class RiskAnalyticsPropertyCasualtyGrailsPlugin {
     }
 
     def doWithApplicationContext = {applicationContext ->
-        CollectingModeFactory.registerStrategy(new AggregateDrillDownCollectingModeStrategy())
-        ConstraintsFactory.registerConstraint(new DoubleConstraints())
-        ConstraintsFactory.registerConstraint(new SimpleConstraint())
-        ConstraintsFactory.registerConstraint(new CompanyPortion())
-
-        ValidatorRegistry.addValidator(new DistributionTypeValidatorPC())
-//        ValidatorRegistry.addValidator(new SurplusStrategyValidator())
-        ValidatorRegistry.addValidator(new CommissionStrategyTypeValidator())
-        ValidatorRegistry.addValidator(new ClaimsGeneratorStrategyValidator())
-        ValidatorRegistry.addValidator(new UnityPortionValidator())
-        ValidatorRegistry.addValidator(new UnityDoubleValidator())
-        ValidatorRegistry.addValidator(new XLStrategyValidator())
-        ValidatorRegistry.addValidator(new SegmentFilterValidator())
-        ValidatorRegistry.addValidator(new DependencyMatrixValidator())
-        ValidatorRegistry.addValidator(new RiskBandsValidator())
-//        ValidatorRegistry.addValidator(new FacShareAndDistributionsValidator())
-        ValidatorRegistry.addValidator(new TypableClaimsGeneratorValidator())
-
         // add resource bundle for exceptions
         ResourceBundleRegistry.addBundle(ResourceBundleRegistry.RESOURCE, "org.pillarone.riskanalytics.exceptionResources")
 

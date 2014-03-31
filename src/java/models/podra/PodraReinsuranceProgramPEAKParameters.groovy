@@ -171,7 +171,7 @@ components {
     }
     dependencies {
         subAttritionals {
-            parmCopulaStrategy[0]=CopulaStrategyFactory.getCopulaStrategy(PerilCopulaType.NORMAL, ["dependencyMatrix":new ComboBoxMatrixMultiDimensionalParameter(GroovyUtils.toList([[1.0, 0.25, 0.25, 0.25], [0.25, 1.0, 0.5, 0.25], [0.25, 0.5, 1.0, 0.25], [0.25, 0.25, 0.25, 1.0]]),["property attritional","motor third party liability attritional","motor hull attritional","personal accident attritional"],IPerilMarker),])
+            parmCopulaStrategy[0]=CopulaStrategyFactory.getCopulaStrategy(PerilCopulaType.NORMAL, ["dependencyMatrix":new ComboBoxMatrixMultiDimensionalParameter(GroovyUtils.toList([[1.0, 0.25, 0.25, 0.25], [0.25, 1.0, 0.5, 0.25], [0.25, 0.5, 1.0, 0.25], [0.25, 0.25, 0.25, 1.0]]),["subPropertyAttritional","subMotorThirdPartyLiabilityAttritional","subMotorHullAttritional","subPersonalAccidentAttritional"],IPerilMarker),])
         }
     }
     reinsurance {
