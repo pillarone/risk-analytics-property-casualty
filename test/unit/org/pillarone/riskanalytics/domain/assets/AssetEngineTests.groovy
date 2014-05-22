@@ -62,7 +62,7 @@ public class AssetEngineTests extends GroovyTestCase {
         fees.bondTransactionCostsRate = 0.0005;
 
         AssetEngine assetEngine = new AssetEngine();
-        assetEngine.simulationScope = new SimulationScope(iterationScope: new IterationScope(periodScope: new PeriodScope()), simulation: new Simulation());
+        assetEngine.simulationScope = new SimulationScope(iterationScope: new IterationScope(periodScope: new PeriodScope()), simulation: new Simulation("Simmie"));
         assetEngine.simulationScope.simulation.beginOfFirstPeriod = new DateTime(startDate)
         assetEngine.simulationScope.model = new VoidTestModel()
         assetEngine.periodStore = new PeriodStore(assetEngine.simulationScope.iterationScope.periodScope)
