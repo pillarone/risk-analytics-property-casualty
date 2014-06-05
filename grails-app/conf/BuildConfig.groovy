@@ -43,6 +43,8 @@ grails.project.dependency.resolution = {
 
     dependencies {
         test 'hsqldb:hsqldb:1.8.0.10'
+        compile 'colt:colt:1.2.0'
+        compile 'commons-math:commons-math:1.2'
         compile(group: 'org.apache.poi', name: 'poi', version: '3.9');
         compile(group: 'org.apache.poi', name: 'poi-ooxml', version: '3.9') {
             excludes 'xmlbeans'
