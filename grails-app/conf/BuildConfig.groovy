@@ -36,8 +36,8 @@ grails.project.dependency.resolution = {
         compile ":excel-import:1.0.0"
 
         if (appName == "RiskAnalyticsPropertyCasualty") {
-            runtime "org.pillarone:risk-analytics-core:1.9.x-SNAPSHOT"
-            runtime("org.pillarone:risk-analytics-commons:1.9.0") { transitive = false }
+            runtime "org.pillarone:risk-analytics-core:1.9.0"
+            runtime("org.pillarone:risk-analytics-commons:1.9.1") { transitive = false }
         }
     }
 
